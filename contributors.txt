@@ -1,3 +1,5 @@
 NAME - Public Github repo
 
 Roger Torrent - https://github.com/R-Torrent
+
+David Gomez - https://github.com/davidmuns
