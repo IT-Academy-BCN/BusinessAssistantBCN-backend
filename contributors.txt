@@ -2,3 +2,4 @@ NAME - Public Github repo
 
 Roger Torrent - https://github.com/R-Torrent
 Joel Cabatay  - https://github.com/ascii274
+Suren Davidiants - https://github.com/surdav
