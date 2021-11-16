@@ -1,7 +1,9 @@
-FROM openjdk:15-alpine
+FROM openjdk:15-alpine 
 
-ADD ["build/libs/BusinessAssistant-login-1.0-SNAPSHOT.jar", "/opt/businessassistant-login/"]
+ADD ["BusinessAssistant-login-1.0-SNAPSHOT.jar", "/opt/businessassistant-login/"] 
 
-ENTRYPOINT ["java", "-jar", "/opt/businessassistant-login/BusinessAssistant-login-1.0-SNAPSHOT.jar"]
+WORKDIR /opt/businessassistant-login/ 
+
+ENTRYPOINT ["java", "-jar", "BusinessAssistant-login-1.0-SNAPSHOT.jar"] 
 
 EXPOSE 7777
