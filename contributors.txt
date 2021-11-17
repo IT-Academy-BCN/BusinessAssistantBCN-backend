@@ -4,7 +4,7 @@ Roger Torrent - https://github.com/R-Torrent
 Joel Cabatay  - https://github.com/ascii274
 Suren Davidiants - https://github.com/surdav
 
-Alberto López - https://github.com/alopezviv
+Alberto Lopez - https://github.com/alopezviv
 
 David Gomez - https://github.com/davidmuns
 Bernat Cócera - https://github.com/MestreLee
