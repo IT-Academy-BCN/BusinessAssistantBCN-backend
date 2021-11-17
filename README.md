@@ -7,6 +7,10 @@
 - Gradle 7.1+
 - Java 15
 
+### Módulos 
+
+- BusinessAssistant-login. Microservicio para manejo de login
+- BusinessAssistant-opendata. Microservicio para manejo de solicitudes redireccionadas de [Opendata](https://opendata-ajuntament.barcelona.cat/es/api-cataleg)
 ### Endpoints disponibles
 
 - http://localhost:8761/v1/test
