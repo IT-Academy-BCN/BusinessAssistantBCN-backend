@@ -35,12 +35,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	        else {
 	        	Claims claims = validateToken(request);
 	        	if(claims.get("authorities") != null)
-					setUpSpringAuthentication(claims);
+	        		setUpSpringAuthentication(claims);
 	        	else
 	        		SecurityContextHolder.clearContext();
 	        }
 	        filterChain.doFilter(httpServletRequest, httpServletResponse);
-    	} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
+    	} catch(JwtException e) {
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
 		}
@@ -55,20 +55,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		
 		return Jwts.parser().setSigningKey(SecurityConstants.SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
 	}
-    
-//    private UsernamePasswordAuthenticationToken createToken(String authorizationHeader) {
-//        String token = authorizationHeader.replace("Bearer ", "");
-//        UserPrincipal userPrincipal = tokenService.parseToken(token);
-//        
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//        
-//        if (userPrincipal.isAdmin()) {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//        }
-//        
-//        return new UsernamePasswordAuthenticationToken(userPrincipal, null, authorities);
-//    }
-//    
     
 	private void setUpSpringAuthentication(Claims claims) {
 		@SuppressWarnings("unchecked")
