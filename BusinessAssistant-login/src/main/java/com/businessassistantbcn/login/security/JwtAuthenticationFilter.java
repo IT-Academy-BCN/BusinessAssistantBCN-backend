@@ -1,7 +1,6 @@
-package com.businessassistantbcn.login.security;
+	package com.businessassistantbcn.login.security;
 
 import java.io.IOException;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,46 +18,52 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest,
-    		HttpServletResponse httpServletResponse,
+    protected void doFilterInternal(HttpServletRequest request,
+    		HttpServletResponse response,
     		FilterChain filterChain) throws IOException, ServletException {
     	try {
-	        String authorizationHeader = httpServletRequest.getHeader(SecurityConstants.HEADER_STRING);
+	        String authorizationHeader = request.getHeader(SecurityConstants.HEADER_STRING);
 	        
 	        if(authorizationHeaderIsInvalid(authorizationHeader))
 	        	 SecurityContextHolder.clearContext();
 	        else {
 	        	Claims claims = validateToken(request);
-	        	if(claims.get("authorities") != null)
+	        	// Comprobación que el token contiene claims 'exp' y AUTHORITIES
+	        	if(claims.getExpiration() != null && claims.get(SecurityConstants.AUTHORITIES) != null)
 	        		setUpSpringAuthentication(claims);
 	        	else
 	        		SecurityContextHolder.clearContext();
 	        }
-	        filterChain.doFilter(httpServletRequest, httpServletResponse);
-    	} catch(JwtException e) {
-			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			((HttpServletResponse) response).sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
-		}
+	        filterChain.doFilter(request, response);
+    	} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
+    		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
+    	}
     }
     
     private boolean authorizationHeaderIsInvalid(String authorizationHeader) {
-        return authorizationHeader == null && !authorizationHeader.startsWith(SecurityConstants.TOKEN_PREFIX);
+        return authorizationHeader == null || !authorizationHeader.startsWith(SecurityConstants.TOKEN_PREFIX);
     }
     
     private Claims validateToken(HttpServletRequest request) {
 		String jwtToken = request.getHeader(SecurityConstants.HEADER_STRING).replace(SecurityConstants.TOKEN_PREFIX, "");
 		
-		return Jwts.parser().setSigningKey(SecurityConstants.SECRET.getBytes()).parseClaimsJws(jwtToken).getBody();
+		return Jwts.parserBuilder()
+				.setSigningKey(SecurityConstants.SECRET.getBytes())
+				.build()
+				.parseClaimsJws(jwtToken) // Incluye la comprobación temporal para claim 'exp'
+				.getBody();
 	}
     
 	private void setUpSpringAuthentication(Claims claims) {
 		@SuppressWarnings("unchecked")
-		List<String> authorities = (List<String>)claims.get("authorities");
+		List<String> authorities = (List<String>)claims.get(SecurityConstants.AUTHORITIES);
 		
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 				claims.getSubject(),
@@ -68,4 +73,3 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
     
 }
-
