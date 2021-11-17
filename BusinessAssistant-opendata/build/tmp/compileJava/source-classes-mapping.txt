@@ -1,0 +1,9 @@
+com/businessassistantbcn/opendata/App.java
+ com.businessassistantbcn.opendata.App
+com/businessassistantbcn/opendata/configuration/MyConfig.java
+ com.businessassistantbcn.opendata.configuration.MyConfig
+com/businessassistantbcn/opendata/entity/GranEstabliment.java
+ com.businessassistantbcn.opendata.entity.GranEstabliment
+com/businessassistantbcn/opendata/Communication.java
+ com.businessassistantbcn.opendata.Communication
+ com.businessassistantbcn.opendata.Communication$1

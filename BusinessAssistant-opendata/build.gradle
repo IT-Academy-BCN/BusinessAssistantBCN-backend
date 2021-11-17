@@ -11,6 +11,14 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    // spring-webmvc enables the MVC support for Servlet environments
+    implementation 'org.springframework:spring-webmvc:5.3.12'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    // we use jackson dependency to to automatically convert JSON into Java object and vice versa
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
 }
 
 test {

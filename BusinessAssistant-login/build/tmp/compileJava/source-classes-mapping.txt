@@ -1,0 +1,6 @@
+com/businessassistantbcn/login/controller/LoginController.java
+ com.businessassistantbcn.login.controller.LoginController
+com/businessassistantbcn/login/App.java
+ com.businessassistantbcn.login.App
+com/businessassistantbcn/login/config/WebMVCConfiguration.java
+ com.businessassistantbcn.login.config.WebMVCConfiguration
