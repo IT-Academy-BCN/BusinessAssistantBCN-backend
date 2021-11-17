@@ -1,3 +1,4 @@
 rootProject.name = 'BusinessAssistantBCN-backend'
 include 'BusinessAssistant-login'
+include 'BusinessAssistant-opendata'
 
