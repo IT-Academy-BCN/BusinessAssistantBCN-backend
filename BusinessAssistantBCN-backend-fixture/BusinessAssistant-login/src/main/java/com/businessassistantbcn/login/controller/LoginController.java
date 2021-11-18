@@ -19,7 +19,7 @@ public class LoginController {
     }
 	
 	/**
-	 * -Post que retorna un toke
+	 * -Post que retorna un token
 	 * @param email
 	 * @param password
 	 * @return
@@ -33,8 +33,7 @@ public class LoginController {
     
     
     /*
-     * Dejo comentado  GrantedAuthorithy por si mas adelante 
-     * se implementa algo sobre permisos o roles
+     * Dejo comentado  GrantedAuthorithy por si más adelante se va necesitar.
      */
     private String getJWTToken(String email, String password) {
     	String secretKey = "56589pp05s";
