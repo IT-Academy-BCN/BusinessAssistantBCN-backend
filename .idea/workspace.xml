@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d410ed-9876-427a-8727-ce08b00ee804" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/Communication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/configuration/MyConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/entity/GranEstabliment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,33 +55,6 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
-  <component name="RunManager" selected="Application.App">
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.businessassistantbcn.opendata.App" />
-      <module name="BusinessAssistantBCN-backend.BusinessAssistant-opendata.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.businessassistantbcn.opendata.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="BusinessAssistantBCN-backend.BusinessAssistant-login.main" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.businessassistantbcn.login.App" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.App" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -93,6 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1637166030370</updated>
       <workItem from="1637166035687" duration="15535000" />
+      <workItem from="1637227292579" duration="5254000" />
     </task>
     <servers />
   </component>
@@ -109,5 +81,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
