@@ -19,31 +19,36 @@ public class OpendataController {
     {
         return "Hello from BusinessAssistant Barcelona!!!";
     }
-    
+
+    //GET ?offset=0&limit=10
     @GetMapping("/large-establishments")
     public String largeEstablishments() 
     {
         return "large-establishments";
     }
-    
+
+    //GET ?offset=0&limit=10
     @GetMapping("/commercial-galeries")
     public String commercialGaleries() 
     {
         return "commercial-galeries";
     }
-    
+
+    //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     public String bigMalls() 
     {
         return "big-malls";
     }
-    
+
+    //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets")
     public String municipalMarkets() 
     {
         return "municipal-markets";
     }
-    
+
+    //GET ?offset=0&limit=10
     @GetMapping("/markets-fairs")
     public String marketsFairs() 
     {
