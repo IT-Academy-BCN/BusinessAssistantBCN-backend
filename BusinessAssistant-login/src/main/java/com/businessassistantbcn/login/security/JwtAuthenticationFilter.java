@@ -47,8 +47,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	        		filterChain.doFilter(request, response);
 	        		return;
 	        	}
+	        	else throw new UnsupportedJwtException("Missing expiration claim");
 	        }
-	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+//	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+//	        SecurityContextHolder.clearContext();
+	        filterChain.doFilter(request, response);
     	} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     	}

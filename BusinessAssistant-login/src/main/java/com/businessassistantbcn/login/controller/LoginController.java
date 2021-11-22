@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 public class LoginController {
 
-
     @Autowired
     public LoginController(){
     }
@@ -18,4 +17,10 @@ public class LoginController {
     public String test() {
         return "Hello from BusinessAssistant Barcelona!!!";
     }
+    
+    @PostMapping("/api/login")
+    public String test2() {
+        return "Login functional";
+    }
+    
 }
