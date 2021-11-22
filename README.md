@@ -15,6 +15,11 @@
 
 - http://localhost:8761/v1/test
 
+### Swagger URL
+
+- http://localhost:8762/swagger-ui/index.html
+
+
 ### Nomenclatura
 
 - URL endpoints: [host]:[port]/v1/login
