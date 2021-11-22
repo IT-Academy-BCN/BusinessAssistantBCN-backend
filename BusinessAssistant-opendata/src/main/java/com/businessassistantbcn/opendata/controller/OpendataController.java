@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
-public class EndpointsController {
+public class OpendataController {
 
 
     @Autowired
-    public EndpointsController(){
+    public OpendataController(){
     }
 
     @GetMapping(value="/test")
