@@ -14,6 +14,10 @@ public class LoginController {
     public LoginController(){
     }
 
+    @PostMapping("api/login")
+    public String testLogin() {
+        return "Hello from Login";
+    }
     @GetMapping("/test")
     public String test() {
         return "Hello from BusinessAssistant Barcelona!!!";

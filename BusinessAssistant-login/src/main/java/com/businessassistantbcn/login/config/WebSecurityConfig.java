@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.addFilterAfter(new JwtAuthenticationFilter(), 
 				UsernamePasswordAuthenticationFilter.class);
 		http.authorizeRequests().antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll();
-		http.authorizeRequests().anyRequest().authenticated();
+		//http.authorizeRequests().anyRequest().authenticated();
 		http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
 	}
 }
