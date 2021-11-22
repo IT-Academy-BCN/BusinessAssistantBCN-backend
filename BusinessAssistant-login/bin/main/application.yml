@@ -12,3 +12,12 @@ management:
     web:
       exposure:
         include: "*"
+
+---
+security:
+  datasource:
+    signUpUrl: /v1/api/login
+    secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
+    headerString: Authorization
+    tokenPrefix: Bearer 
+    authorities: authorities
