@@ -2,7 +2,7 @@ package com.businessassistantbcn.login.security;
 
 /*
  * El código comentado debe reincorporarse si los JWT de autorización empiezan a incluir
- * entre sus claims una lista de perfiles con rótulo SecurityConstants.AUTHORITIES
+ * entre sus claims una lista de perfiles con rótulo config.getAuthorities()
  */
 
 import java.io.IOException;
@@ -15,10 +15,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.businessassistantbcn.login.YAMLConfig;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -27,42 +31,47 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+	
+	@Autowired
+	private YAMLConfig config;
     
     @Override
     protected void doFilterInternal(HttpServletRequest request,
     		HttpServletResponse response,
     		FilterChain filterChain) throws IOException, ServletException {
     	try {
-	        String authorizationHeader = request.getHeader(SecurityConstants.HEADER_STRING);
+	        String authorizationHeader = request.getHeader(config.getHeaderString());
 	        
 	        if(authorizationHeaderIsValid(authorizationHeader)){      
 	        	Claims claims = validateToken(request);        	
 /*	        	
-	        	// Comprobación que el token contiene claims 'exp' y AUTHORITIES
-	        	if(claims.getExpiration() != null) && claims.get(SecurityConstants.AUTHORITIES) != null) {
+	        	// Comprobación que el token contiene claims 'exp' y config.getAuthorities()
+	        	if(claims.getExpiration() != null) && claims.get(config.getAuthorities()) != null) {
 */
 	        	if(claims.getExpiration() != null) {
 	        		setUpSpringAuthentication(claims);
 	        		filterChain.doFilter(request, response);
 	        		return;
 	        	}
+	        	else throw new UnsupportedJwtException("Missing expiration claim");
 	        }
-	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+	        filterChain.doFilter(request, response);
     	} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     	}
     }
     
     private boolean authorizationHeaderIsValid(String authorizationHeader) {
-        return authorizationHeader != null && authorizationHeader.startsWith(SecurityConstants.TOKEN_PREFIX);
+        return authorizationHeader != null && authorizationHeader.startsWith(config.getTokenPrefix());
     }
     
     private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(SecurityConstants.HEADER_STRING).replace(SecurityConstants.TOKEN_PREFIX, "");
+		String jwtToken = request.getHeader(config.getHeaderString()).replace(config.getTokenPrefix(), "");
 		
 		return Jwts.parserBuilder()
-				.setSigningKey(SecurityConstants.SECRET.getBytes())
+				.setSigningKey(config.getSecret().getBytes())
 				.build()
 				.parseClaimsJws(jwtToken) // Incluye la comprobación temporal para claim 'exp'
 				.getBody();
@@ -70,11 +79,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     
 	private void setUpSpringAuthentication(Claims claims) {
 /*		@SuppressWarnings("unchecked")
-		List<String> authorities = (List<String>)claims.get(SecurityConstants.AUTHORITIES);
+		List<String> authorities = (List<String>)claims.get(myConfig.getAuthorities());
 		
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-				claims.getSubject(),
-				null,
+				claims.getSubject(), null,
 				authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
 */
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
