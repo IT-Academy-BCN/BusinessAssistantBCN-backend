@@ -2,7 +2,7 @@ package com.businessassistantbcn.login.security;
 
 /*
  * El código comentado debe reincorporarse si los JWT de autorización empiezan a incluir
- * entre sus claims una lista de perfiles con rótulo myConfig.getAuthorities()
+ * entre sus claims una lista de perfiles con rótulo config.getAuthorities()
  */
 
 import java.io.IOException;
@@ -47,8 +47,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	        if(authorizationHeaderIsValid(authorizationHeader)){      
 	        	Claims claims = validateToken(request);        	
 /*	        	
-	        	// Comprobación que el token contiene claims 'exp' y myConfig.getAuthorities()
-	        	if(claims.getExpiration() != null) && claims.get(myConfig.getAuthorities()) != null) {
+	        	// Comprobación que el token contiene claims 'exp' y config.getAuthorities()
+	        	if(claims.getExpiration() != null) && claims.get(config.getAuthorities()) != null) {
 */
 	        	if(claims.getExpiration() != null) {
 	        		setUpSpringAuthentication(claims);
@@ -82,8 +82,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		List<String> authorities = (List<String>)claims.get(myConfig.getAuthorities());
 		
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-				claims.getSubject(),
-				null,
+				claims.getSubject(), null,
 				authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
 */
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
