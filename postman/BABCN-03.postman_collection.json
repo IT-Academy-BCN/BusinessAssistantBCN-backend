@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "2ff58f7e-1399-4f69-bd99-87e925cdd095",
+		"name": "BABCN-03",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8761/v1/api/login?email=jvicente@gmail.com&password=56589pp05ss",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8761/v1/api/login?email=jvicente@gmail.com&password=56589pp05s",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8761",
+					"path": [
+						"v1",
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "jvicente@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "56589pp05s"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "http://localhost:8761/v1/api/login?email=jvicente@gmail.com&password=56589pp05ss",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8761/v1/api/login?email=jvicente@gmail.com&password=56589pp05s",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8761",
+							"path": [
+								"v1",
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "jvicente@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "56589pp05s"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=ISO-8859-1"
+						},
+						{
+							"key": "Content-Length",
+							"value": "157"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 10:29:28 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "token:eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoianZpY2VudGVAZ21haWwuY29tIiwiaWF0IjoxNjM3NTc3MDI4fQ.VU7-8FD15hv4CKBn9mNRz0db1clA4U3GZu3M_YCZAuc"
+				},
+				{
+					"name": "http://localhost:8761/v1/api/login?email=jvicente@gmail.com&password=56589pp05ss",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8761/v1/api/login?email=&password=56589pp05s",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8761",
+							"path": [
+								"v1",
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": ""
+								},
+								{
+									"key": "password",
+									"value": "56589pp05s"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=ISO-8859-1"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 10:29:52 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "token:Error: Auth Error, Token Unavailable."
+				},
+				{
+					"name": "http://localhost:8761/v1/api/login?email=jvicente@gmail.com&password=56589pp05ss",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8761/v1/api/login?email=jvicente@gmail.com&password=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8761",
+							"path": [
+								"v1",
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "jvicente@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": ""
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=ISO-8859-1"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 22 Nov 2021 10:30:11 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "token:Error: Auth Error, Token Unavailable."
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
