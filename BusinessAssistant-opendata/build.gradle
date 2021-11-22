@@ -3,12 +3,11 @@ plugins {
     id 'org.springframework.boot' version '2.5.6'
 }
 
-group 'com.businessassistantbcn.opendata'
+group 'com.businessassistantbcn'
 version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-     jcenter()
 }
 
 dependencies {
@@ -16,13 +15,11 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.5.6'
     implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.12'
     implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.5.6'
-    implementation "io.springfox:springfox-boot-starter:3.0.0"
-    compile "io.springfox:springfox-swagger-ui:3.0.0"
+    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+    implementation group: 'io.springfox', name:'springfox-swagger-ui', version: '3.0.0'
+    implementation 'org.json:json:20210307'
 
 
-
-	// https://mvnrepository.com/artifact/org.json/json
-	implementation 'org.json:json:20210307'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     // JAX-B dependencies for JDK 9+
