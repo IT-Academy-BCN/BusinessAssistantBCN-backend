@@ -14,7 +14,6 @@ public class YAMLConfig {
 	private String headerString;
 	private String tokenPrefix;
 	private String authorities; // lista de permisos (ROLES)
-	private String err;
 	
 	public String getSignUpUrl() {
 		return signUpUrl;
@@ -36,10 +35,6 @@ public class YAMLConfig {
 		return authorities;
 	}
 	
-	public String getErr() {
-		return err;
-	}
-	
 	public void setSignUpUrl(String signUpUrl) {
 		this.signUpUrl = signUpUrl;
 	}
@@ -58,10 +53,6 @@ public class YAMLConfig {
 	
 	public void setAuthorities(String authorities) {
 		this.authorities = authorities;
-	}
-	
-	public void setErr(String err) {
-		this.err = err;
 	}
 	
 }

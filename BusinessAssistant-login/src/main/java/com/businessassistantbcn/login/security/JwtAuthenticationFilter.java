@@ -59,7 +59,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	        }
 	        filterChain.doFilter(request, response);
     	} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED, config.getErr());
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     	}
     }
     
