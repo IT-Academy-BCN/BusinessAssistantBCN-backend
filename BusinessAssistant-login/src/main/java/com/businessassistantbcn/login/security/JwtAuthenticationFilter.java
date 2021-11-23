@@ -1,8 +1,8 @@
 package com.businessassistantbcn.login.security;
 
 /*
- * El código comentado debe reincorporarse si los JWT de autorización empiezan a incluir
- * entre sus claims una lista de perfiles con rótulo config.getAuthorities()
+ * El codigo comentado debe reincorporarse si los JWT de autorizacion empiezan a incluir
+ * entre sus claims una lista de perfiles con rotulo config.getAuthorities()
  */
 
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	        if(authorizationHeaderIsValid(authorizationHeader)){      
 	        	Claims claims = validateToken(request);        	
 /*	        	
-	        	// Comprobación que el token contiene claims 'exp' y config.getAuthorities()
+	        	// Comprobacion que el token contiene claims 'exp' y config.getAuthorities()
 	        	if(claims.getExpiration() != null) && claims.get(config.getAuthorities()) != null) {
 */
 	        	if(claims.getExpiration() != null) {
@@ -73,7 +73,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		return Jwts.parserBuilder()
 				.setSigningKey(config.getSecret().getBytes())
 				.build()
-				.parseClaimsJws(jwtToken) // Incluye la comprobación temporal para claim 'exp'
+				.parseClaimsJws(jwtToken) // Incluye la comprobacion temporal para claim 'exp'
 				.getBody();
 	}
     
