@@ -6,6 +6,8 @@ spring:
 
 server:
   port: 8761
+  error:
+    include-message: always
 
 management:
   endpoints:
