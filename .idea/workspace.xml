@@ -5,10 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d410ed-9876-427a-8727-ce08b00ee804" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/config/SwaggerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/config/WebMVCConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/controller/OpendataController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/bigmalls/BigMallsResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/commercialgaleries/CommercialGaleriesRespondeDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/largestablishments/LargeStablishmentsResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/marketsfairs/MarketsFairsResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/municipalmarkets/MunicipalMarketsResponseDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/helper/HttpClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/service/LargeStablishmentsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/postman/BusinessAssistant-opendata.postman_collection.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,26 +71,6 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
-  <component name="RunManager">
-    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="BusinessAssistantBCN-backend.BusinessAssistant-login.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.businessassistantbcn.login.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.businessassistantbcn.login.App" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.App" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -88,6 +83,7 @@
       <workItem from="1637227292579" duration="11773000" />
       <workItem from="1637438359040" duration="1077000" />
       <workItem from="1637540559775" duration="2914000" />
+      <workItem from="1637658757482" duration="959000" />
     </task>
     <servers />
   </component>

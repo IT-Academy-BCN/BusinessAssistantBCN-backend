@@ -6,7 +6,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 // From within this app thanks to the REST API we can direct ourselves to the REST SERVICE, using HTTP requests, and get the results of these requests, and concretely the HTTP response
+@SpringBootApplication
 public class App {
 
     public static void main(String[] args) {
