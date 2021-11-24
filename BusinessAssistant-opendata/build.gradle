@@ -18,6 +18,8 @@ dependencies {
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
     implementation group: 'io.springfox', name:'springfox-swagger-ui', version: '3.0.0'
     implementation 'org.json:json:20210307'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'
 
 	
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
