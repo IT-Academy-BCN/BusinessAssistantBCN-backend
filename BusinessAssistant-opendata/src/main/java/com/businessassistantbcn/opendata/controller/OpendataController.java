@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,27 +12,26 @@ import io.swagger.annotations.*;
 @RequestMapping(value = "/v1/api/opendata")
 public class OpendataController {
 
-
     @Autowired
-    public OpendataController(){
-    }
+    HttpClientHelper helper;
 
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
-    public String test() 
+    public String test()
     {
         return "Hello from BusinessAssistant Barcelona!!!";
+
     }
 
     //GET ?offset=0&limit=10
     @GetMapping("/large-establishments")
     @ApiOperation("Get large establishments SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String largeEstablishments() 
+    public String largeEstablishments()
     {
         return "large-establishments";
     }
@@ -40,10 +40,10 @@ public class OpendataController {
     @GetMapping("/commercial-galeries")
     @ApiOperation("Get commercial galeries SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String commercialGaleries() 
+    public String commercialGaleries()
     {
         return "commercial-galeries";
     }
@@ -52,10 +52,10 @@ public class OpendataController {
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String bigMalls() 
+    public String bigMalls()
     {
         return "big-malls";
     }
@@ -64,10 +64,10 @@ public class OpendataController {
     @GetMapping("/municipal-markets")
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String municipalMarkets() 
+    public String municipalMarkets()
     {
         return "municipal-markets";
     }
@@ -76,13 +76,13 @@ public class OpendataController {
     @GetMapping("/markets-fairs")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String marketsFairs() 
+    public String marketsFairs()
     {
         return "markets-fairs";
     }
-    
-    
+
+
 }
