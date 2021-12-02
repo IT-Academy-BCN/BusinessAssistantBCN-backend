@@ -3,21 +3,18 @@ package com.businessassistantbcn.opendata.helper;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Test;
 
-import java.net.URL;
+import java.util.List;
 
-public class HttpClientHelperTest {
+public class JsonHelperTest {
 
     @Test
-    public void getStringRootTest(){
-
+    public void deserializeToListTest(){
+    }
+    @Test
+    public void deserializeToJsonNodeTest(){
     }
 
     @Test
-    public void getJsonRootTest() {
-    }
-
-    @Test
-    public void getObjectRootTest (){
-
+    public void serializeTest(){
     }
 }

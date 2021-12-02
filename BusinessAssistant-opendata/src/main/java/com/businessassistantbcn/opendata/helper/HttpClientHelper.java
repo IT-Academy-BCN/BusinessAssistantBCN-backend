@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.Disposable;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
