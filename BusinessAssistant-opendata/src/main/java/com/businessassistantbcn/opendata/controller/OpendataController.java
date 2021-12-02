@@ -18,10 +18,9 @@ public class OpendataController {
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
-    public String test()
-    {
+    public String test(){
+        helper.getTestRequest();
         return "Hello from BusinessAssistant Barcelona!!!";
-
     }
 
     //GET ?offset=0&limit=10
