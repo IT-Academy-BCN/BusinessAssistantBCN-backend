@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
 public class OpendataController {
-
-
     @Autowired
     public OpendataController(){
     }

@@ -1,7 +1,7 @@
 package com.businessassistantbcn.opendata;
 
 import com.businessassistantbcn.opendata.configuration.MyConfig;
-import com.businessassistantbcn.opendata.entity.GranEstabliment;
+import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsResponseDto;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
@@ -23,16 +23,16 @@ public class App {
         Communication communication = context.getBean("communication", Communication.class);
 
         // And here we call the method itself
-        List<GranEstabliment> allGranEstabliments = communication.getAllGranEstabliments();
+        List<LargeStablishmentsResponseDto> allLargeStablishmentsResponseDtos = communication.getAllLargeStablishments();
 
         // here we print out all the GranEstabliments
-        System.out.println(allGranEstabliments);
+        System.out.println(allLargeStablishmentsResponseDtos);
 
-        // here we can get GranEstabliment by id
-        GranEstabliment GranEstablimentById = communication.getGranEstabliment(1);
+        // here we can get LargeStablishmentsResponseDto by id
+        LargeStablishmentsResponseDto largeStablishmentsResponseDtoById = communication.getLargeStablishment(1);
 
-        // here we print out the GranEstabliment by id
-        System.out.println(GranEstablimentById);
+        // here we print out the LargeStablishmentsResponseDto by id
+        System.out.println(largeStablishmentsResponseDtoById);
     }
 
 }
