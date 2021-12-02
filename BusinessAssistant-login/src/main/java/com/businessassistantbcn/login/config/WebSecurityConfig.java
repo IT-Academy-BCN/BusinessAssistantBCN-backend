@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.businessassistantbcn.login.YAMLConfig;
 import com.businessassistantbcn.login.security.JwtAuthenticationFilter;
 
 @Configuration
@@ -22,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 	
 	@Autowired
-	private YAMLConfig config;
+	private PropertiesConfig config;
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception{

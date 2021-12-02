@@ -17,7 +17,7 @@
 
 ### Swagger URL
 
-- http://localhost:8762/swagger-ui/index.html
+- http://[host]:[port]/swagger-ui/index.html
 
 
 ### Nomenclatura
