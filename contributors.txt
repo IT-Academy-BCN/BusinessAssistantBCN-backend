@@ -1,4 +1,4 @@
-NAME - Public Github repo
+﻿NAME - Public Github repo
 
 Roger Torrent - https://github.com/R-Torrent
 Joel Cabatay  - https://github.com/ascii274
@@ -7,3 +7,4 @@ David Gomez - https://github.com/davidmuns
 Bernat Cócera - https://github.com/MestreLee
 Jose Javier Benito - https://github.com/big-phoenix
 José María Verdugo - https://github.com/bullitjose
+Alberto López Vivas - https://github.com/alopezviv
