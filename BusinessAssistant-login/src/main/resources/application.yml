@@ -22,3 +22,4 @@ security:
     tokenPrefix: Bearer 
     authorities: authorities
     err: Auth Error, Token Unavailable
+    mercatMunicipalUrl: /v3/mercats-municipals
