@@ -14,7 +14,20 @@ public class PropertiesConfig {
 	private String headerString;
 	private String tokenPrefix;
 	private String authorities; // lista de permisos (ROLES)
+
+	//mercats-municipals
+	private String mercatMunicipalUrl;
+
+	public String getMercatMunicipalUrl() {
+		return mercatMunicipalUrl;
+	}
+
+	public void setMercatMunicipalUrl(String mercatMunicipalUrl) {
+		this.mercatMunicipalUrl = mercatMunicipalUrl;
+	}
+
 	
+
 	public String getSignUpUrl() {
 		return signUpUrl;
 	}
