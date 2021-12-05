@@ -33,12 +33,13 @@ public class MercatMunicipalController {
     //v1.functional
 
     /**
-     * - Read a url.json
-     * - Get JsonArra
+     * - Read a url to get JSON
+     * - Show Json to POJO
+     * - Show register
      * @return
      */
     @GetMapping("/mercats-municipals")
-    public MercatMunicipalRootDTO[] getMercatsMunicipals() {
+    public JsonNode getMercatsMunicipals() {
         String url = "http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_mercats-municipals-js.json";
         MercatMunicipalRootDTO[] mercatMunicipalRootDTO = new MercatMunicipalRootDTO[0];
         try {
@@ -54,12 +55,24 @@ public class MercatMunicipalController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return mercatMunicipalRootDTO;
+//        return mercatMunicipalRootDTO; // functional
+        return arrayDTOToJsonNode(mercatMunicipalRootDTO); //functional
+//        return  arrayDTOToString(mercatMunicipalRootDTO); //functional
+//        return  jsonNodeIntoJsonNode(mercatMunicipalRootDTO);
     }
 
-
-
-
+    /**
+     * - Receive an arrayDTO and return it to JsonNode
+     * - Functional
+     * @param mercatsMunicipals
+     * @return
+     */
+    public JsonNode arrayDTOToJsonNode(MercatMunicipalRootDTO[] mercatsMunicipals){
+        JsonNode jsonNode;
+        ObjectMapper mapperDTO = new ObjectMapper();
+        jsonNode = mapperDTO.valueToTree(mercatsMunicipals);
+        return jsonNode;
+    }
 
 
 }
