@@ -56,9 +56,9 @@ public class MercatMunicipalController {
             e.printStackTrace();
         }
 //        return mercatMunicipalRootDTO; // functional
-        return arrayDTOToJsonNode(mercatMunicipalRootDTO); //functional
+//        return arrayDTOToJsonNode(mercatMunicipalRootDTO); //functional
 //        return  arrayDTOToString(mercatMunicipalRootDTO); //functional
-//        return  jsonNodeIntoJsonNode(mercatMunicipalRootDTO);
+        return  jsonNodeIntoJsonNode(mercatMunicipalRootDTO);
     }
 
     /**
@@ -72,6 +72,24 @@ public class MercatMunicipalController {
         ObjectMapper mapperDTO = new ObjectMapper();
         jsonNode = mapperDTO.valueToTree(mercatsMunicipals);
         return jsonNode;
+    }
+
+    /**
+     * - Receive an arrayDTO, convert arrayDTO to a JsoNode.
+     * - Create an ObjectNode with two properties ( count, elements:[insertJsonNode])
+     * - Return objectNode
+     * - Functional
+     * @param mercatsMunicipals
+     * @return
+     */
+    public JsonNode jsonNodeIntoJsonNode (MercatMunicipalRootDTO[] mercatsMunicipals){
+        JsonNode jsonNode;
+        ObjectNode outerJsonNode;
+        ObjectMapper mapperDTO = new ObjectMapper();
+        jsonNode = arrayDTOToJsonNode(mercatsMunicipals);
+        outerJsonNode = mapperDTO.createObjectNode();
+        outerJsonNode.put("count",mercatsMunicipals.length).putPOJO("elements",jsonNode);
+        return outerJsonNode;
     }
 
 
