@@ -1,26 +1,14 @@
 package com.businessassistantbcn.login.controller;
 
 import com.businessassistantbcn.login.model.MercatMunicipalRootDTO;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
-//http://localhost:8761/v3/mercats-comercials
 
 @RestController
 @RequestMapping("/v3")
@@ -30,35 +18,26 @@ public class MercatMunicipalController {
 
     }
 
-    //v1.functional
-
     /**
-     * - Read a url to get JSON
-     * - Show Json to POJO
-     * - Show register
+     * - Read an URL to get data.Json, Show Json to POJO
      * @return
      */
     @GetMapping("/mercats-municipals")
     public JsonNode getMercatsMunicipals() {
+
+        //TODO pasar por parametro url.
         String url = "http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_mercats-municipals-js.json";
+
         MercatMunicipalRootDTO[] mercatMunicipalRootDTO = new MercatMunicipalRootDTO[0];
+        JsonNode jsonNode = null;
         try {
             ObjectMapper om = new ObjectMapper();
-            mercatMunicipalRootDTO = om.readValue(new URL(url), MercatMunicipalRootDTO[].class); // funciona
-            if(mercatMunicipalRootDTO.length >0){
-                System.out.println("Quantity registers:" + mercatMunicipalRootDTO.length);
-
-            }else{
-                System.out.println("Quantity registers:" + mercatMunicipalRootDTO.length);
-            }
-
+            mercatMunicipalRootDTO = om.readValue(new URL(url), MercatMunicipalRootDTO[].class);
+            jsonNode= jsonNodeIntoJsonNode(mercatMunicipalRootDTO);
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        return mercatMunicipalRootDTO; // functional
-//        return arrayDTOToJsonNode(mercatMunicipalRootDTO); //functional
-//        return  arrayDTOToString(mercatMunicipalRootDTO); //functional
-        return  jsonNodeIntoJsonNode(mercatMunicipalRootDTO);
+        return jsonNode;
     }
 
     /**
@@ -67,7 +46,8 @@ public class MercatMunicipalController {
      * @param mercatsMunicipals
      * @return
      */
-    public JsonNode arrayDTOToJsonNode(MercatMunicipalRootDTO[] mercatsMunicipals){
+    public JsonNode arrayDTOToJsonNode(MercatMunicipalRootDTO[] mercatsMunicipals) throws Exception {
+        if(mercatsMunicipals==null) throw new Exception();
         JsonNode jsonNode;
         ObjectMapper mapperDTO = new ObjectMapper();
         jsonNode = mapperDTO.valueToTree(mercatsMunicipals);
@@ -82,7 +62,8 @@ public class MercatMunicipalController {
      * @param mercatsMunicipals
      * @return
      */
-    public JsonNode jsonNodeIntoJsonNode (MercatMunicipalRootDTO[] mercatsMunicipals){
+    public JsonNode jsonNodeIntoJsonNode (MercatMunicipalRootDTO[] mercatsMunicipals) throws Exception {
+        if(mercatsMunicipals==null) throw new Exception();
         JsonNode jsonNode;
         ObjectNode outerJsonNode;
         ObjectMapper mapperDTO = new ObjectMapper();
