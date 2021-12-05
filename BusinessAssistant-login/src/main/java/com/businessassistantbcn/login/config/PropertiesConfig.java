@@ -26,7 +26,7 @@ public class PropertiesConfig {
 		this.mercatMunicipalUrl = mercatMunicipalUrl;
 	}
 
-	
+
 
 	public String getSignUpUrl() {
 		return signUpUrl;
