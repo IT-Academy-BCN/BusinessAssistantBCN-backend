@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.addFilterBefore(jwtAuthenticationFilter, 
 				UsernamePasswordAuthenticationFilter.class);
 		http.authorizeRequests().antMatchers(HttpMethod.POST, config.getSignUpUrl()).permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, config.getMercatMunicipalUrl()).permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.POST, config.getMercatMunicipalUrl()).permitAll();
 		http.authorizeRequests().anyRequest().authenticated();
 
 		http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
