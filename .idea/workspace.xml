@@ -5,45 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d410ed-9876-427a-8727-ce08b00ee804" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-login/src/main/java/com/businessassistantbcn/login/config/PropertiesConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-login/src/main/java/com/businessassistantbcn/login/config/WebSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-login/src/main/java/com/businessassistantbcn/login/security/JwtAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/config/PropertiesConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/helper/HttpClientHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/helper/JsonHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/test/java/com/businessassistantbcn/opendata/helper/HttpClientHelperTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/test/java/com/businessassistantbcn/opendata/helper/JsonHelperTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-login/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-login/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-login/src/main/java/com/businessassistantbcn/login/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-login/src/main/java/com/businessassistantbcn/login/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-login/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-login/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/build/classes/java/main/com/businessassistantbcn/opendata/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/build/classes/java/main/com/businessassistantbcn/opendata/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/build/classes/java/main/com/businessassistantbcn/opendata/Communication$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/build/classes/java/main/com/businessassistantbcn/opendata/Communication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/build/classes/java/main/com/businessassistantbcn/opendata/configuration/MyConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/build/classes/java/main/com/businessassistantbcn/opendata/entity/GranEstabliment.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/config/SwaggerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/config/WebMVCConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/config/WebMVCConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/Communication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/configuration/MyConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/controller/OpendataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/controller/OpendataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/bigmalls/BigMallsResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/bigmalls/BigMallsResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/commercialgaleries/CommercialGaleriesRespondeDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/commercialgaleries/CommercialGaleriesRespondeDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/largestablishments/LargeStablishmentsResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/largestablishments/LargeStablishmentsResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/marketsfairs/MarketsFairsResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/marketsfairs/MarketsFairsResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/municipalmarkets/MunicipalMarketsResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/dto/municipalmarkets/MunicipalMarketsResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/helper/HttpClient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/service/LargeStablishmentsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/java/com/businessassistantbcn/opendata/service/LargeStablishmentsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/BusinessAssistant-opendata/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contributors.txt" beforeDir="false" afterPath="$PROJECT_DIR$/contributors.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postman/BusinessAssistant-opendata.postman_collection.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/postman/BusinessAssistantBCN.postman_collection.json" beforeDir="false" afterPath="$PROJECT_DIR$/postman/BusinessAssistantBCN.postman_collection.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,13 +78,24 @@
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RunManager">
-    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="BusinessAssistantBCN-backend.BusinessAssistant-opendata.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.businessassistantbcn.opendata.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.businessassistantbcn.opendata.App" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.App" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -121,6 +113,8 @@
       <workItem from="1637746301892" duration="2500000" />
       <workItem from="1637842028525" duration="1219000" />
       <workItem from="1638487897835" duration="1552000" />
+      <workItem from="1638810983489" duration="5393000" />
+      <workItem from="1638816917403" duration="14000" />
     </task>
     <servers />
   </component>
