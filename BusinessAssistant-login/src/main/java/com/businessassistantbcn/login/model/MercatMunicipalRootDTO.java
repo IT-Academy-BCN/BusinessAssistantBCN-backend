@@ -1,13 +1,25 @@
 package com.businessassistantbcn.login.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 
 import java.util.Date;
 import java.util.List;
 
-//@JsonPropertyOrder({"register_id","prefix","suffix"})
-//TODO organize all properties order
+//TODO @JsonPropertyOrder organize all properties order
+@JsonPropertyOrder({"register_id","prefix","suffix","name","created","modified","status","status_name","core_type"
+        ,"core_type_name","body","tickets_data","addresses","entity_types_data","attribute_categories","values"
+        ,"from_relationships","to_relationships","classifications_data","secondary_filter_data","timetable","image_data"
+        ,"gallery_data","warnings","geo_epgs_25831","geo_epgs_23031","geo_epgs_4326","is_section_of_data","start_date"
+        ,"end_date","estimated_dates","languages_data","type","type_name","period","period_name","event_status_name"
+        ,"event_status","ical"})
+
 
 public class MercatMunicipalRootDTO {
 
@@ -19,10 +31,12 @@ public class MercatMunicipalRootDTO {
     public Object suffix;
     @JsonProperty("name")
     public String name;
-    @JsonProperty("created")
-    public Date created;
-    @JsonProperty("modified")
-    public Date modified;
+    //TODO Date.created and Date.modified is not the same format in file.json
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss")
+    public Date created;// dar formato dato (1984-12-28T00:00:00+01:00)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss")
+    public Date modified;//dar formato dato
     @JsonProperty("status")
     public String status;
     @JsonProperty("status_name")
