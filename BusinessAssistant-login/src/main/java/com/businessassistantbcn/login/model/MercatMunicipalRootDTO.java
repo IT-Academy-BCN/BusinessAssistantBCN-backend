@@ -31,8 +31,9 @@ public class MercatMunicipalRootDTO {
     public Object suffix;
     @JsonProperty("name")
     public String name;
-    //TODO Date.created and Date.modified is not the same format in file.json
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    //TODO Date.created and Date.modified is not the same format inside  file.json
+    //     can't apply the patert ->  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss")
     public Date created;// dar formato dato (1984-12-28T00:00:00+01:00)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss")
