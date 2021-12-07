@@ -33,7 +33,7 @@ public class OpendataController {
     @GetMapping(value="/test-reactive")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
-    public Mono<StarWarsVehiclesResult> testReactive(){
+    public <T> Mono<T> testReactive(){
         return helper.getTestRequest(StarWarsVehiclesResult.class);
     }
 
