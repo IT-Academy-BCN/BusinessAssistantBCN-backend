@@ -1,10 +1,12 @@
 package com.businessassistantbcn.opendata.helper;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
+import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -62,15 +64,18 @@ public class HttpClientHelper {
     }
 
     /**
-     * Test de conexion a URL externa. RestTemplate pronto deprecada, preferible uso de HttpClient (reactive programming)
+     * Test de conexion a URL externa. OJO RestTemplate pronto deprecada (ES BLOCKING), preferible uso de WebClient (reactive programming)
      * {@link} https://www.baeldung.com/spring-5-webclient
+     * {@link} https://www.baeldung.com/spring-webclient-json-list
      */
-    public void getTestRequest(){
+    public Mono<StarWarsVehiclesResult> getTestRequest(){
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
         WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(config.getDs_test()));
-        Mono<String> response = bodySpec.retrieve().bodyToMono(String.class);
 
-        response.subscribe( value -> System.out.println(value));
+        //response.subscribe( value -> System.out.println(value));
+        //response.subscribe(System.out::println);
+        //return bodySpec.retrieve().bodyToMono(String.class);
+        return bodySpec.retrieve().bodyToMono(StarWarsVehiclesResult.class);
     }
 
 }
