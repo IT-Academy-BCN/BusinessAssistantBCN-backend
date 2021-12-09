@@ -1,6 +1,9 @@
 package com.businessassistantbcn.opendata.dto.test;
 
-public class StarWarsVehicle {
+import org.springframework.stereotype.Component;
+
+@Component
+public class StarWarsVehicleDto {
 
     public String name;
     public String model;

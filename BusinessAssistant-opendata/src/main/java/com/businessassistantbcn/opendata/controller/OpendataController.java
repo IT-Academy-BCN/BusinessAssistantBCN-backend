@@ -1,18 +1,14 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResult;
+import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
-import org.json.JSONObject;
+import com.businessassistantbcn.opendata.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import static org.springframework.web.reactive.function.BodyInserters.fromObject;
+
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
-import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 import io.swagger.annotations.*;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -20,7 +16,7 @@ import reactor.core.publisher.Mono;
 public class OpendataController {
 
     @Autowired
-    HttpClientHelper helper;
+    TestService testService;
 
     @GetMapping(value="/test")
     @ApiOperation("Get test")
@@ -34,7 +30,7 @@ public class OpendataController {
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
     public <T> Mono<T> testReactive(){
-        return helper.getTestRequest(StarWarsVehiclesResult.class);
+        return testService.getTestData();
     }
 
 

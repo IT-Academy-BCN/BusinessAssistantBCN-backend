@@ -1,12 +1,15 @@
 package com.businessassistantbcn.opendata.dto.test;
 
-public class StarWarsVehiclesResult {
+import org.springframework.stereotype.Component;
+
+@Component
+public class StarWarsVehiclesResultDto {
 
 
     public int count;
     public String next;
     public String previous;
-    public StarWarsVehicle[] results;
+    public StarWarsVehicleDto[] results;
 
     public int getCount() {
         return count;
@@ -32,11 +35,11 @@ public class StarWarsVehiclesResult {
         this.previous = previous;
     }
 
-    public StarWarsVehicle[] getResults() {
+    public StarWarsVehicleDto[] getResults() {
         return results;
     }
 
-    public void setResults(StarWarsVehicle[] results) {
+    public void setResults(StarWarsVehicleDto[] results) {
         this.results = results;
     }
 }
