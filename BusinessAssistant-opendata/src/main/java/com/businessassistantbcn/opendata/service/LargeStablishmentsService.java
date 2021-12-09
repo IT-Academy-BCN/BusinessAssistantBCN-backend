@@ -29,13 +29,14 @@ public class LargeStablishmentsService {
         return null;
     }
 
-    /**
-     *
-     * {@link} https://tools.ietf.org/id/draft-goessner-dispatch-jsonpath-00.html
-     * {@link} https://www.baeldung.com/guide-to-jayway-jsonpath
-     */
 
-    public String getStablishmentsByActivity(int[] activities, int offset, int limit){
+    public GenericResultDto<LargeStablishmentsResponseDto> getStablishmentsByActivityDto(int[] activities, int offset, int limit){
+        //lambda filter
+        return null;
+    }
+
+    public GenericResultDto<LargeStablishmentsResponseDto> getStablishmentsByDistrictDto(int[] districts, int offset, int limit){
+        //lambda filter
         return null;
     }
 
@@ -43,9 +44,45 @@ public class LargeStablishmentsService {
      *
      * {@link} https://tools.ietf.org/id/draft-goessner-dispatch-jsonpath-00.html
      * {@link} https://www.baeldung.com/guide-to-jayway-jsonpath
+     * https://picodotdev.github.io/blog-bitix/2019/01/usar-expresiones-jsonpath-para-extraer-datos-de-un-json-en-java/
+     */
+
+    public String getStablishmentsByActivity(int[] activities, int offset, int limit){
+        //JsonPath search
+        /* OJO a formato de salida:
+            {
+    "count": 1217,
+    "elements": [
+        {
+            "id": 3716,
+            "name": "Paola",
+            "surnames": "dos Reis Figueira",
+            ...
+        */
+        return null;
+    }
+
+    /**
+     *
+     * {@link} https://tools.ietf.org/id/draft-goessner-dispatch-jsonpath-00.html
+     * {@link} https://www.baeldung.com/guide-to-jayway-jsonpath
+     * https://picodotdev.github.io/blog-bitix/2019/01/usar-expresiones-jsonpath-para-extraer-datos-de-un-json-en-java/
      */
 
     public String getStablishmentsByDistrict(int[] districts, int offset, int limit){
+
+        //JsonPath search
+        /* OJO a formato de salida:
+            {
+    "count": 1217,
+    "elements": [
+        {
+            "id": 3716,
+            "name": "Paola",
+            "surnames": "dos Reis Figueira",
+            ...
+        */
+
         return null;
     }
 }
