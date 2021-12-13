@@ -61,19 +61,18 @@ public class HttpClientHelper {
     }
 
     /**
-     * Test de conexion a URL externa. Tipos de retorno parametrizados
      * OJO RestTemplate pronto deprecada (ES BLOCKING), preferible uso de WebClient (reactive programming)
      * {@link} https://www.baeldung.com/spring-5-webclient
      * {@link} https://www.baeldung.com/spring-webclient-json-list
+     * @param url
+     * @param clazz
+     * @param <T>
+     * @return
      */
     @SuppressWarnings("unchecked")
-    public <T> Mono<T> getTestRequest(Class clazz){
+    public <T> Mono<T> getRequestData(URL url, Class clazz){
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
-        WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(config.getDs_test()));
-
-        //response.subscribe( value -> System.out.println(value));
-        //response.subscribe(System.out::println);
-        //return bodySpec.retrieve().bodyToMono(String.class);
+        WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
         return bodySpec.retrieve().bodyToMono(clazz);
     }
 
