@@ -104,15 +104,15 @@ public class OpendataController {
     }
     
     //GET ?offset=0&limit=10
-    @GetMapping("/large-stablishments/activity")
+    @GetMapping("/large-stablishments/activity?select=fields.activitat")
     @ApiOperation("Get large stablishment activity SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 404, message = "Not Found :("),
     })
     public String largeEstablishmentsActivity()
     {
-        return "large-stablishments-activity";
+        return "large-stabilshments-activity";
     }
 
 }
