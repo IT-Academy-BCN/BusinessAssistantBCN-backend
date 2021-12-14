@@ -36,38 +36,38 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	private PropertiesConfig config;
-    
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-    		HttpServletResponse response,
-    		FilterChain filterChain) throws IOException, ServletException {
-    	try {
-	        String authorizationHeader = request.getHeader(config.getHeaderString());
-	        
-	        if(authorizationHeaderIsValid(authorizationHeader)){      
-	        	Claims claims = validateToken(request);        	
+	
+	@Override
+	protected void doFilterInternal(HttpServletRequest request,
+			HttpServletResponse response,
+			FilterChain filterChain) throws IOException, ServletException {
+		try {
+			String authorizationHeader = request.getHeader(config.getHeaderString());
+			
+			if(authorizationHeaderIsValid(authorizationHeader)){
+				Claims claims = validateToken(request);        	
 /*	        	
-	        	// Comprobacion que el token contiene claims 'exp' y config.getAuthorities()
-	        	if(claims.getExpiration() != null) && claims.get(config.getAuthorities()) != null) {
+				// Comprobacion que el token contiene claims 'exp' y config.getAuthorities()
+				if(claims.getExpiration() != null) && claims.get(config.getAuthorities()) != null) {
 */
-	        	if(claims.getExpiration() != null) {
-	        		setUpSpringAuthentication(claims);
-	        		filterChain.doFilter(request, response);
-	        		return;
-	        	}
-	        	else throw new UnsupportedJwtException("Missing expiration claim");
-	        }
-	        filterChain.doFilter(request, response);
-    	} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
+				if(claims.getExpiration() != null) {
+					setUpSpringAuthentication(claims);
+					filterChain.doFilter(request, response);
+					return;
+				}
+				else throw new UnsupportedJwtException("Missing expiration claim");
+			}
+			filterChain.doFilter(request, response);
+		} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-    	}
-    }
-    
-    private boolean authorizationHeaderIsValid(String authorizationHeader) {
-        return authorizationHeader != null && authorizationHeader.startsWith(config.getTokenPrefix());
-    }
-    
-    private Claims validateToken(HttpServletRequest request) {
+		}
+	}
+	
+	private boolean authorizationHeaderIsValid(String authorizationHeader) {
+		return authorizationHeader != null && authorizationHeader.startsWith(config.getTokenPrefix());
+	}
+	
+	private Claims validateToken(HttpServletRequest request) {
 		String jwtToken = request.getHeader(config.getHeaderString()).replace(config.getTokenPrefix(), "");
 		
 		return Jwts.parserBuilder()
@@ -76,7 +76,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				.parseClaimsJws(jwtToken) // Incluye la comprobacion temporal para claim 'exp'
 				.getBody();
 	}
-    
+	
 	private void setUpSpringAuthentication(Claims claims) {
 /*		@SuppressWarnings("unchecked")
 		List<String> authorities = (List<String>)claims.get(myConfig.getAuthorities());
@@ -90,5 +90,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		
 		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	}
-    
+	
 }

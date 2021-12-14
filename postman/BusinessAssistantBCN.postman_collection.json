@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "dd112bae-63a6-402f-8591-6c4b515b4de1",
+		"_postman_id": "69558532-dec2-4710-95ce-7c885e546fdb",
 		"name": "BusinessAssistantBCN",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "LOGIN - http://localhost:8761/v1/test (sin token)",
+			"name": "LOGIN - http://localhost:8761/v1/api/test (sin token)",
 			"event": [
 				{
 					"listen": "test",
@@ -23,12 +23,8 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "http://localhost:8761/v1/test",
+					"raw": "http://localhost:8761/v1/api/test",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -36,6 +32,7 @@
 					"port": "8761",
 					"path": [
 						"v1",
+						"api",
 						"test"
 					]
 				}
@@ -43,7 +40,7 @@
 			"response": []
 		},
 		{
-			"name": "LOGIN - http://localhost:8761/v1/test (con token válido)",
+			"name": "LOGIN - http://localhost:8761/v1/api/test (con token válido)",
 			"event": [
 				{
 					"listen": "test",
@@ -66,12 +63,8 @@
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "http://localhost:8761/v1/test?",
+					"raw": "http://localhost:8761/v1/api/test",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -79,21 +72,15 @@
 					"port": "8761",
 					"path": [
 						"v1",
+						"api",
 						"test"
-					],
-					"query": [
-						{
-							"key": "Authorization",
-							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-							"disabled": true
-						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "LOGIN - http://localhost:8761/v1/test (con token caducado)",
+			"name": "LOGIN - http://localhost:8761/v1/api/test (con token caducado)",
 			"event": [
 				{
 					"listen": "test",
@@ -113,15 +100,12 @@
 					{
 						"key": "Authorization",
 						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkNoaXF1aXRvIGRlIGxhIENhbHphZGEiLCJpYXQiOjAsImV4cCI6NjkzNzAyMDAwfQ.Q99Jbns7GmNYTVylVDOYRBff7RyUUVhgJoiCfuwyaD0",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "http://localhost:8761/v1/test?",
+					"raw": "http://localhost:8761/v1/api/test",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -129,14 +113,8 @@
 					"port": "8761",
 					"path": [
 						"v1",
+						"api",
 						"test"
-					],
-					"query": [
-						{
-							"key": "Authorization",
-							"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-							"disabled": true
-						}
 					]
 				}
 			},
@@ -172,10 +150,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://localhost:7777/v1/test",
 					"protocol": "http",
@@ -196,10 +170,6 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://localhost:8761/v1/test",
 					"protocol": "http",
