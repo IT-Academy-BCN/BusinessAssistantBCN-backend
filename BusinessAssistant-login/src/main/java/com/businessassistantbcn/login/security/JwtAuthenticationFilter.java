@@ -22,7 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.businessassistantbcn.login.YAMLConfig;
+import com.businessassistantbcn.login.config.PropertiesConfig;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -35,7 +35,7 @@ import io.jsonwebtoken.security.SignatureException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Autowired
-	private YAMLConfig config;
+	private PropertiesConfig config;
     
     @Override
     protected void doFilterInternal(HttpServletRequest request,

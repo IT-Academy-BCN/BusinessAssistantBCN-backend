@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+#  businessassistantbcn-mydata:
+  #    build: ./
+  # image: businessassistantbcn_mydata
+  # container_name: businessassistantbcnmydata
+  # restart: "no"
+  # ports:
+  #   - "7777:8081"
+  # environment:
+  #   - "JAVA_OPTS=-Xms128m -Xmx512m -server"
+  # logging:
+  #   driver: "json-file"
+  #   options:
+  #     max-size: "100k"
+  #     max-file: "10"
+
+  mysql:
+    container_name: mysql-master-businessassistantbcn-mydata
+    image: mysql
+    restart: always
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: kIFQRsP8BRpODROvy5
+      MYSQL_DATABASE: businessassistantbcndb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ
+    volumes:
+      - /home/Jonatan/projects/IntelliJ_projects/IT-Academy/BusinessAssistantBCN-backend/BusinessAssistant-mydata/src/main/resources/scripts-mysql:/home/scripts/
+      - businessassistantbcn_db_data:/var/lib/mysql
+      - businessassistantbcn_db_log:/var/log/mysql
+
+volumes:
+    businessassistantbcn_db_data:
+    businessassistantbcn_db_log:
+

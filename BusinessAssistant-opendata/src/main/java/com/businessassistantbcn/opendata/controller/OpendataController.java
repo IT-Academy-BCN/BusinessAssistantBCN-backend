@@ -1,37 +1,56 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
+import com.businessassistantbcn.opendata.helper.HttpClientHelper;
+import com.businessassistantbcn.opendata.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
+
 import io.swagger.annotations.*;
+import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
+
+import java.net.MalformedURLException;
 
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
 public class OpendataController {
 
-
     @Autowired
-    public OpendataController(){
-    }
+    TestService testService;
 
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
-    public String test() 
-    {
+    public String test(){
         return "Hello from BusinessAssistant Barcelona!!!";
+    }
+
+    //reactive
+    @GetMapping(value="/test-reactive")
+    @ApiOperation("Get test")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = Mono.class),
+            @ApiResponse(code = 503, message = "Resource Not Found", response = String.class)})
+    public <T> Mono<T> testReactive(){
+        try{
+            return testService.getTestData();
+        }catch(MalformedURLException mue) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
     }
 
     //GET ?offset=0&limit=10
     @GetMapping("/large-establishments")
     @ApiOperation("Get large establishments SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String largeEstablishments() 
+    public String largeEstablishments()
     {
         return "large-establishments";
     }
@@ -40,10 +59,10 @@ public class OpendataController {
     @GetMapping("/commercial-galeries")
     @ApiOperation("Get commercial galeries SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String commercialGaleries() 
+    public String commercialGaleries()
     {
         return "commercial-galeries";
     }
@@ -52,10 +71,10 @@ public class OpendataController {
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String bigMalls() 
+    public String bigMalls()
     {
         return "big-malls";
     }
@@ -64,10 +83,10 @@ public class OpendataController {
     @GetMapping("/municipal-markets")
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String municipalMarkets() 
+    public String municipalMarkets()
     {
         return "municipal-markets";
     }
@@ -76,13 +95,13 @@ public class OpendataController {
     @GetMapping("/markets-fairs")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
-    	@ApiResponse(code = 200, message = "OK"),
-    	@ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String marketsFairs() 
+    public String marketsFairs()
     {
         return "markets-fairs";
     }
-    
-    
+
+
 }
