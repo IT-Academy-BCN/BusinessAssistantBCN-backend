@@ -2,6 +2,7 @@ package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
+import com.businessassistantbcn.opendata.service.BigMallsService;
 import com.businessassistantbcn.opendata.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -65,7 +66,10 @@ public class OpendataController {
     {
         return "commercial-galeries";
     }
-
+    
+    @Autowired
+    BigMallsService bigMallsService;
+    
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
@@ -75,9 +79,9 @@ public class OpendataController {
     })
     public String bigMalls()
     {
-        return "big-malls";
+    	return bigMallsService.getAllData().toString();
     }
-
+    
     //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets")
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")
