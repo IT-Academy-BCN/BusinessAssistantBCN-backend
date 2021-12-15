@@ -3,6 +3,14 @@ spring:
     name: businessassistant-opendata
   jmx:
     enabled: true
+  cloud:
+    consul:
+      host: 172.17.0.3
+      port: 8500
+      discovery:
+        port: 8000
+        prefer-ip-address: true
+        healthCheckPath: /health
 
 server:
   port: 8762

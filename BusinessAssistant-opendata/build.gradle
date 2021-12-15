@@ -17,7 +17,11 @@ dependencies {
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'org.json:json:20210307'
-    implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.6.0'
+    implementation 'com.jayway.jsonpath:json-path:2.6.0'
+    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'
+
+
 
     // JAX-B dependencies for JDK 9+
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
