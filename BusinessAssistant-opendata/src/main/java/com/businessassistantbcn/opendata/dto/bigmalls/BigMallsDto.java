@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 @Component
-@JsonIgnoreProperties({"tickets_data","entity_types_data","attribute_categories", "values","from_relationships", "to_relationships",
-        "classifications_data","secondary_filters_data","timetable","image_data","gallery_data","warnings","sections_data"})
+//@JsonIgnoreProperties({"tickets_data","entity_types_data","attribute_categories", "values","from_relationships", "to_relationships",
+ //       "classifications_data","secondary_filters_data","timetable","image_data","gallery_data","warnings","sections_data"})
 public class BigMallsDto {
 
     @JsonProperty("register_id")
@@ -34,33 +34,33 @@ public class BigMallsDto {
     private String core_type_name;
     @JsonProperty("body")
     private String body;
-    @JsonIgnore
-    private List<TicketDto> tickets_data;
+    @JsonProperty("tickets_data")
+    private List<Object> tickets_data;
     //prueba con objetos object directamente
     @JsonProperty("addresses")
     private List<Object> addresses;
-    @JsonIgnore
-    private List<EntityTypeDto> entity_types_data;
-    @JsonIgnore
-    private List<AtributeCategoriesDto> attribute_categories;
-    @JsonIgnore
-    private List<ValuesDto> values;
-    @JsonIgnore
-    private List<FromRelationshipDto> from_relationships;
-    @JsonIgnore
-    private List<ToRelationshipDto> to_relationships;
-    @JsonIgnore
-    private List<ClassificationDataDto> classifications_data;
-    @JsonIgnore
-    private List<SecondaryDataDto> secondary_filters_data;
-    @JsonIgnore
-    private TimetableDto timetable;
-    @JsonIgnore
-    private ImageDataDto image_data;
-    @JsonIgnore
-    private List<GaleryDataDto> gallery_data;
-    @JsonIgnore
-    private List<WarningDto> warnings;
+    @JsonProperty("entity_types_data")
+    private List<Object> entity_types_data;
+    @JsonProperty("attribute_categories")
+    private List<Object> attribute_categories;
+    @JsonProperty("values")
+    private List<Object> values;
+    @JsonProperty("from_relationships")
+    private List<Object> from_relationships;
+    @JsonProperty("to_relationships")
+    private List<Object> to_relationships;
+    @JsonProperty("classifications_data")
+    private List<Object> classifications_data;
+    @JsonProperty("secondary_filters_data")
+    private List<Object> secondary_filters_data;
+    @JsonProperty("timetable")
+    private Object timetable;
+    @JsonProperty("image_data")
+    private Object image_data;
+    @JsonProperty("gallery_data")
+    private List<Object> gallery_data;
+    @JsonProperty("warnings")
+    private List<Object> warnings;
     @JsonProperty("geo_epgs_25831")
     private CoordinateDto geo_epgs_25831;
     @JsonProperty("geo_epgs_23031")
@@ -69,8 +69,8 @@ public class BigMallsDto {
     private CoordinateDto geo_epgs_4326;
     @JsonProperty("is_section_of_data")
     private boolean is_section_of_data;
-    @JsonIgnore
-    private List<SectionDataDto> sections_data;
+    @JsonProperty("sections_data")
+    private List<Object> sections_data;
     @JsonProperty("start_date")
     private String start_date;
     @JsonProperty("end_date")
