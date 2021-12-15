@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 @Component
-@JsonIgnoreProperties({"tickets_data","addresses","entity_types_data","attribute_categories", "values","from_relationships", "to_relationships",
+@JsonIgnoreProperties({"tickets_data","entity_types_data","attribute_categories", "values","from_relationships", "to_relationships",
         "classifications_data","secondary_filters_data","timetable","image_data","gallery_data","warnings","sections_data"})
 public class BigMallsDto {
 
@@ -36,8 +36,9 @@ public class BigMallsDto {
     private String body;
     @JsonIgnore
     private List<TicketDto> tickets_data;
-    @JsonIgnore
-    private List<AddressDto> addresses;
+    //prueba con objetos object directamente
+    @JsonProperty("addresses")
+    private List<Object> addresses;
     @JsonIgnore
     private List<EntityTypeDto> entity_types_data;
     @JsonIgnore

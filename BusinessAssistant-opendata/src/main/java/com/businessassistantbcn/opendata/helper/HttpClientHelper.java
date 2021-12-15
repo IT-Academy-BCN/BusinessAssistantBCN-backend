@@ -89,10 +89,12 @@ public class HttpClientHelper {
         WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
         return bodySpec.retrieve().bodyToMono(clazz);
     }
-
+/*
     public <T> Mono<T> getBigmallsTest(URL url, Class clazz){
         //WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
         //WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
         return client.method(HttpMethod.GET).uri(URI.create(url.toString())).retrieve().bodyToMono(clazz);
     }
+    */
+
 }

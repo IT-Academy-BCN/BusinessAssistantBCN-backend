@@ -22,7 +22,7 @@ public class BigMallsService {
 
     public <T> Mono<T> getBigmallsData()throws MalformedURLException {
 
-        return helper.getBigmallsTest(new URL(config.getDs_bigmalls()), BigMallsDto[].class);
+        return helper.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class);
 
     }
 }
