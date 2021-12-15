@@ -2,14 +2,22 @@ package com.businessassistantbcn.opendata.helper;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsResponseDto;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.codec.ClientCodecConfigurer;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
+import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MimeTypeUtils;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
@@ -42,10 +50,15 @@ public class HttpClientHelper {
 
         client = WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
+                .exchangeStrategies(ExchangeStrategies.builder().codecs(this::acceptedCodecs).build())
                 .build();
 
     }
-
+    private void acceptedCodecs(ClientCodecConfigurer clientCodecConfigurer) {
+        clientCodecConfigurer.defaultCodecs().maxInMemorySize(30000000);
+        clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonEncoder(new ObjectMapper(), MediaType.TEXT_PLAIN));
+        clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonDecoder(new ObjectMapper(), MediaType.TEXT_PLAIN));
+    }
     public String getStringRoot(URL url){
         return "";
     }
@@ -62,20 +75,24 @@ public class HttpClientHelper {
     }
 
     /**
-     * Test de conexion a URL externa. Tipos de retorno parametrizados
      * OJO RestTemplate pronto deprecada (ES BLOCKING), preferible uso de WebClient (reactive programming)
      * {@link} https://www.baeldung.com/spring-5-webclient
      * {@link} https://www.baeldung.com/spring-webclient-json-list
+     * @param url
+     * @param clazz
+     * @param <T>
+     * @return
      */
     @SuppressWarnings("unchecked")
-    public <T> Mono<T> getTestRequest(Class clazz){
+    public <T> Mono<T> getRequestData(URL url, Class clazz){
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
-        WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(config.getDs_test()));
-
-        //response.subscribe( value -> System.out.println(value));
-        //response.subscribe(System.out::println);
-        //return bodySpec.retrieve().bodyToMono(String.class);
+        WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
         return bodySpec.retrieve().bodyToMono(clazz);
     }
 
+    public <T> Mono<T> getBigmallsTest(URL url, Class clazz){
+        //WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
+        //WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
+        return client.method(HttpMethod.GET).uri(URI.create(url.toString())).retrieve().bodyToMono(clazz);
+    }
 }
