@@ -1,8 +1,8 @@
-package com.businessassistantbcn.opendata.dto.commercialgaleries;
+package com.businessassistantbcn.opendata.dto.bigmalls;
 
 import java.util.List;
 
-public class CommercialGaleryDto {
+public class BigMallsDto {
 
     private int register_id;
     private String prefix;
@@ -15,19 +15,19 @@ public class CommercialGaleryDto {
     private String core_type;
     private String core_type_name;
     private String body;
-    private List<TicketDto> ticket_data;
-    private List<AddressDto> addresses;
+    //private List<TicketDto> ticket_data;
+    //private List<AddressDto> addresses;
     private List<EntityTypeDto> entity_type_data;
-    private List<AtributeCategoriesDto> attributes_categories;
+    //private List<AtributeCategoriesDto> attributes_categories;
     private List<ValuesDto> values;
-    private List<FromRelationshipDto> from_relationships;
-    private List<ToRelationshipDto> to_relationships;
+    //private List<FromRelationshipDto> from_relationships;
+    //private List<ToRelationshipDto> to_relationships;
     private List<ClassificationDataDto> classifications_data;
     private List<SecondaryDataDto> secondary_filters_data;
     private TimetableDto timetable;
-    private ImageDataDto image_data;
-    private List<GaleryDataDto> gallery_data;
-    private List<WarningDto> warnings;
+    //private ImageDataDto image_data;
+    //private List<GaleryDataDto> gallery_data;
+    //private List<WarningDto> warnings;
     private CoordinateDto geo_epgs_25831;
     private CoordinateDto geo_epgs_23031;
     private CoordinateDto geo_epgs_4326;
