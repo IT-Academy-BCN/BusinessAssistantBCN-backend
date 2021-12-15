@@ -1,0 +1,53 @@
+version: "3.7"
+
+services:
+  consul-server1:
+    image: consul
+    container_name: consul-server1
+    restart: always
+    networks:
+      - consul
+    ports:
+      - '8500:8500'
+      - '8600:8600/tcp'
+      - '8600:8600/udp'
+
+  #  businessassistantbcn-mydata:
+  #    build: ./
+  # image: businessassistantbcn_mydata
+  # container_name: businessassistantbcnmydata
+  # restart: "no"
+  # ports:
+  #   - "7777:8081"
+  # environment:
+  #   - "JAVA_OPTS=-Xms128m -Xmx512m -server"
+  # logging:
+  #   driver: "json-file"
+  #   options:
+  #     max-size: "100k"
+  #     max-file: "10"
+
+  # mysql:
+    #   container_name: mysql-master-businessassistantbcn-mydata
+    # image: mysql
+    # restart: always
+      # ports:
+      # - "3308:3306"
+      # environment:
+      # MYSQL_ROOT_PASSWORD: kIFQRsP8BRpODROvy5
+      # MYSQL_DATABASE: businessassistantbcndb
+      # MYSQL_USER: admin
+      # MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ
+      # volumes:
+      # - /home/Jonatan/projects/IntelliJ_projects/IT-Academy/BusinessAssistantBCN-backend/BusinessAssistant-mydata/src/main/resources/scripts-mysql:/home/scripts/
+      # - businessassistantbcn_db_data:/var/lib/mysql
+      # - businessassistantbcn_db_log:/var/log/mysql
+
+volumes:
+    businessassistantbcn_db_data:
+    businessassistantbcn_db_log:
+
+networks:
+  consul:
+    driver:
+      bridge
