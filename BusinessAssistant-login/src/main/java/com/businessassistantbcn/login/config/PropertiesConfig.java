@@ -14,6 +14,7 @@ public class PropertiesConfig {
 	private String headerString;
 	private String tokenPrefix;
 	private String authorities; // lista de permisos (ROLES)
+	private String err;
 	
 	public String getSignUpUrl() {
 		return signUpUrl;
@@ -35,6 +36,10 @@ public class PropertiesConfig {
 		return authorities;
 	}
 	
+	public String getErr() {
+		return err;
+	}
+	
 	public void setSignUpUrl(String signUpUrl) {
 		this.signUpUrl = signUpUrl;
 	}
@@ -53,6 +58,10 @@ public class PropertiesConfig {
 	
 	public void setAuthorities(String authorities) {
 		this.authorities = authorities;
+	}
+	
+	public void setErr(String err) {
+		this.err = err;
 	}
 	
 }

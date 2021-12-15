@@ -7,31 +7,13 @@
 - Gradle 7.1+
 - Java 15
 
-### Módulos 
+### Módulos del proyecto
 
-- BusinessAssistant-login. Microservicio para manejo de login
-- BusinessAssistant-opendata. Microservicio para manejo de solicitudes redireccionadas de [Opendata](https://opendata-ajuntament.barcelona.cat/es/api-cataleg)
-
-### Endpoints disponibles
-
-- http://localhost:8761/v1/test
-- http://localhost:8761/v1/test-reactive
-
-### Swagger URL
-
-- http://[host]:[port]/swagger-ui/index.html
-
-### Nomenclatura
-
-- URL endpoints: [host]:[port]/v1/login
-- Branches para pull request:
-    - fixture/login/[idTask]
-
-### Reactive Programming Samples
-
-- Véase HttpClientHelper. Spring WebClient object en lugar de RESTTemplate (pronto deprecada)
-- Véase endpoint /test-reactive.
-
+- [BusinessAssistant-consul](BusinessAssistant-consul/README.md). 
+- [BusinessAssistant-gateway](BusinessAssistant-gateway/README.md). 
+- [BusinessAssistant-login](BusinessAssistant-login/README.md). Microservicio para manejo de login
+- [BusinessAssistant-mydata](BusinessAssistant-mydata/README.md). 
+- [BusinessAssistant-opendata](BusinessAssistant-opendata/README.md). Microservicio para manejo de solicitudes redireccionadas de [Opendata](https://opendata-ajuntament.barcelona.cat/es/api-cataleg)
 
 
 <hr/>
