@@ -68,7 +68,10 @@ public class OpendataController {
     {
         return "commercial-galeries";
     }
-
+    
+    @Autowired
+    BigMallsService bigMallsService;
+    
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
@@ -78,14 +81,18 @@ public class OpendataController {
     })
     public <T> Mono<T> bigMalls()
     {
+<<<<<<< HEAD
         try{
             return bigMallsService.getBigmallsData();
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
 
+=======
+    	return bigMallsService.getAllData().toString();
+>>>>>>> roger/babcn7
     }
-
+    
     //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets")
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")

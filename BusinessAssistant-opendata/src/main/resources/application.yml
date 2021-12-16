@@ -15,7 +15,7 @@ management:
 
 url:
   connection_timeout: 5000
-  ds_test: https://swapi.dev/api/vehicles/
+  ds_test: https://swapi.py4e.com/api/vehicles/
   ds_largestablishments: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-establiments-js.json
   ds_commercialgaleries: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_galeries-comercials-js.json
   ds_bigmalls: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json
