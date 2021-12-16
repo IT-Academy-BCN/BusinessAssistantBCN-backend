@@ -15,4 +15,6 @@
 - Véase HttpClientHelper. Spring WebClient object en lugar de RESTTemplate (pronto deprecada)
 - Véase endpoint /test-reactive.
 
+### Testing
 
+- Comando <b>[./gradlew | gradle.bat] :BusinessAssistant-opendata:test </b>
