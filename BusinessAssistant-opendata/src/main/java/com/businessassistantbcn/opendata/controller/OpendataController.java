@@ -119,7 +119,7 @@ public class OpendataController {
     })
     public String largeEstablishmentsActivity()
     {
-        return "large-stabilshments-activity";
+        return "Large-Stabilshments-Activity";
     }
 
 }
