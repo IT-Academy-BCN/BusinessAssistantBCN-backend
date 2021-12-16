@@ -115,7 +115,7 @@ public class OpendataController {
     @ApiOperation("Get large stablishment activity SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 404, message = "Not Found :("),
     })
     public String largeEstablishmentsActivity()
     {
