@@ -22,3 +22,4 @@
 ### h2 Database
 
 - Consola accesible en http://localhost:8762/h2-console
+- Carga automática al arrancar contexto de files sql de test schema.sql y data.sql

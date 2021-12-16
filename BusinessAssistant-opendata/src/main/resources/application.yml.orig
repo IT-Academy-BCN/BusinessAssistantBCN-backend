@@ -3,6 +3,17 @@ spring:
     name: businessassistant-opendata
   jmx:
     enabled: true
+<<<<<<< HEAD
+  #h2:
+   # console:
+    #  enabled: true
+    #  path: /h2-console
+#  datasource:
+#    url: jdbc:h2:file:~/test
+#    username: sa
+#    password:
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
   cloud:
     consul:
       host: 172.17.0.3
@@ -11,6 +22,8 @@ spring:
         port: 8762
         prefer-ip-address: true
         healthCheckPath: /health
+=======
+>>>>>>> develop
 
 server:
   port: 8762
