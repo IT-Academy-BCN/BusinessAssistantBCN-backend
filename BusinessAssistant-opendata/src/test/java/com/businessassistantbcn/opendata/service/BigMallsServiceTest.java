@@ -8,8 +8,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/*@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { SpringTestConfiguration.class })*/
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = { SpringTestConfiguration.class })
 public class BigMallsServiceTest {
 
     @Test
