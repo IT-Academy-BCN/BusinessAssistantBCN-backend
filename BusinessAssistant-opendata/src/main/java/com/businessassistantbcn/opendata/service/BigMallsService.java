@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
+
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 
