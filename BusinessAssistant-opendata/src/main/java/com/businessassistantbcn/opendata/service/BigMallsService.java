@@ -37,18 +37,23 @@ public class BigMallsService {
 	@Autowired
 	private GenericResultDto<BigMallsDto> genericResultDto;
 	
-	public GenericResultDto<BigMallsDto> getAllData() {
+	public Mono<GenericResultDto<BigMallsDto>> getAllData() {
 		try {
 			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
 					BigMallsDto[].class);
-			BigMallsDto[] bigMallsDtos = response.block();
-			genericResultDto.setResults(bigMallsDtos);
-			genericResultDto.setCount(bigMallsDtos.length);
+			return response.flatMap(dto ->{
+
+
+				genericResultDto.setResults(dto);
+				genericResultDto.setCount(dto.length);
+				return Mono.just(genericResultDto);
+			} );
+
 		} catch (MalformedURLException e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 		}
 		
-		return genericResultDto;
+
 	}
 	
 	public GenericResultDto<BigMallsDto> getPage(int offset, int limit) {
@@ -112,4 +117,4 @@ public class BigMallsService {
 		}
 	}
 */
->>>>>>> roger/babcn7
+
