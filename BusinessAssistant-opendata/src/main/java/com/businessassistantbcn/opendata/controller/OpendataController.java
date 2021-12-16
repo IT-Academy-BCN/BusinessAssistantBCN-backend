@@ -2,6 +2,7 @@ package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
+import com.businessassistantbcn.opendata.service.BigMallsService;
 import com.businessassistantbcn.opendata.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ import java.net.MalformedURLException;
 @RequestMapping(value = "/v1/api/opendata")
 public class OpendataController {
 
+    @Autowired
+    BigMallsService bigMallsService;
     @Autowired
     TestService testService;
 
@@ -73,9 +76,14 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String bigMalls()
+    public <T> Mono<T> bigMalls()
     {
-        return "big-malls";
+        try{
+            return bigMallsService.getBigmallsData();
+        }catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
+
     }
 
     //GET ?offset=0&limit=10
