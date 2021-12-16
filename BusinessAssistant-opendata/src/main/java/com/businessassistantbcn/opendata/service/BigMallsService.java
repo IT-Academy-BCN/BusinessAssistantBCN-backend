@@ -2,7 +2,6 @@ package com.businessassistantbcn.opendata.service;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import org.springframework.beans.factory.annotation.Autowired;

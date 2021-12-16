@@ -1,7 +1,6 @@
 package com.businessassistantbcn.opendata.helper;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsResponseDto;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,10 +42,10 @@ public class HttpClientHelper {
         this.config = config;
         httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
-                .responseTimeout(Duration.ofMillis(Long.parseLong(config.getConnection_timeout())))
+                .responseTimeout(Duration.ofMillis(config.getConnection_timeout()))
                 .doOnConnected(conn ->
-                        conn.addHandlerLast(new ReadTimeoutHandler(Long.parseLong(config.getConnection_timeout()), TimeUnit.MILLISECONDS))
-                                .addHandlerLast(new WriteTimeoutHandler(Long.parseLong(config.getConnection_timeout()), TimeUnit.MILLISECONDS)));
+                        conn.addHandlerLast(new ReadTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS))
+                                .addHandlerLast(new WriteTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS)));
 
         client = WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
@@ -55,10 +54,11 @@ public class HttpClientHelper {
 
     }
     private void acceptedCodecs(ClientCodecConfigurer clientCodecConfigurer) {
-        clientCodecConfigurer.defaultCodecs().maxInMemorySize(30000000);
+        clientCodecConfigurer.defaultCodecs().maxInMemorySize(config.getMaxBytesInMemory());
         clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonEncoder(new ObjectMapper(), MediaType.TEXT_PLAIN));
         clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonDecoder(new ObjectMapper(), MediaType.TEXT_PLAIN));
     }
+
     public String getStringRoot(URL url){
         return "";
     }
@@ -89,12 +89,5 @@ public class HttpClientHelper {
         WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
         return bodySpec.retrieve().bodyToMono(clazz);
     }
-/*
-    public <T> Mono<T> getBigmallsTest(URL url, Class clazz){
-        //WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
-        //WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
-        return client.method(HttpMethod.GET).uri(URI.create(url.toString())).retrieve().bodyToMono(clazz);
-    }
-    */
 
 }

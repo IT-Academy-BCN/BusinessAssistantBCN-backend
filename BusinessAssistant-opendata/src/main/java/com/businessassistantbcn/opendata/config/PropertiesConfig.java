@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties("url")
 public class PropertiesConfig {
 
-    private String connection_timeout;
+    private Long connection_timeout;//millis
     private String ds_test;
     private String ds_largestablishments;
     private String ds_commercialgaleries;
@@ -18,14 +18,22 @@ public class PropertiesConfig {
     private String ds_marketsfairs;
     private String ds_economicactivitiescensus;
     private String ds_economicactivitiesgroundfloor;
+    private Integer maxBytesInMemory;
 
+    public int getMaxBytesInMemory() {
+        return maxBytesInMemory;
+    }
 
-    public String getConnection_timeout() {
+    public void setMaxBytesInMemory(String maxBytesInMemory) {
+        this.maxBytesInMemory = Integer.parseInt(maxBytesInMemory);
+    }
+
+    public Long getConnection_timeout() {
         return connection_timeout;
     }
 
     public void setConnection_timeout(String connection_timeout) {
-        this.connection_timeout = connection_timeout;
+        this.connection_timeout = Long.parseLong(connection_timeout);
     }
 
     public String getDs_test() {
