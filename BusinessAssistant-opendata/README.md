@@ -18,3 +18,7 @@
 ### Testing
 
 - Comando <b>[./gradlew | gradle.bat] :BusinessAssistant-opendata:test </b>
+
+### h2 Database
+
+- Consola accesible en http://localhost:8762/h2-console
