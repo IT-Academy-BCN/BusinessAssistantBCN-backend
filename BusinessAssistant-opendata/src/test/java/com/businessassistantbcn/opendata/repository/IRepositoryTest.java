@@ -15,15 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
-@Transactional(propagation = Propagation.NOT_SUPPORTED)
+/*@DataJpaTest
+@Transactional(propagation = Propagation.NOT_SUPPORTED)*/
 
 //CAUTION: For uses with real database
 //@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class IRepositoryTest {
 
-    @Autowired
-    private TestEntityManager entityManager;
+/*    @Autowired
+    private TestEntityManager entityManager;*/
 
     @Test
     void test(){
