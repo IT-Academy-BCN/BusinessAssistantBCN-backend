@@ -1,6 +1,7 @@
 package com.businessassistantbcn.opendata.helper;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -83,6 +84,7 @@ public class HttpClientHelper {
      * @param <T>
      * @return
      */
+    
     @SuppressWarnings("unchecked")
     public <T> Mono<T> getRequestData(URL url, Class clazz){
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
@@ -90,4 +92,9 @@ public class HttpClientHelper {
         return bodySpec.retrieve().bodyToMono(clazz);
     }
 
+
 }
+
+    
+
+

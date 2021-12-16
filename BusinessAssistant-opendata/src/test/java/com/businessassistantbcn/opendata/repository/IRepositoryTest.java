@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 
 //CAUTION: For uses with real database
-//@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class IRepositoryTest {
 
     @Autowired

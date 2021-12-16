@@ -68,7 +68,9 @@ public class OpendataController {
     {
         return "commercial-galeries";
     }
+    
 
+    
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
@@ -78,14 +80,16 @@ public class OpendataController {
     })
     public <T> Mono<T> bigMalls()
     {
+
         try{
-            return bigMallsService.getBigmallsData();
+            return (Mono<T>) bigMallsService.getAllData();
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
 
-    }
 
+    }
+    
     //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets")
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")
@@ -109,6 +113,17 @@ public class OpendataController {
     {
         return "markets-fairs";
     }
-
+    
+    //GET ?offset=0&limit=10
+    @GetMapping("/large-stablishments/activity")
+    @ApiOperation("Get large stablishment activity SET 0 LIMIT 10")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
+    })
+    public String largeEstablishmentsActivity()
+    {
+        return "Large-Stabilshments-Activity";
+    }
 
 }

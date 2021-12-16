@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
+
 import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
