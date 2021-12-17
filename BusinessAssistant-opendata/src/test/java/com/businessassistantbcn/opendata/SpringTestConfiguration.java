@@ -1,27 +1,24 @@
 package com.businessassistantbcn.opendata;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
-
-@Configuration
+//@Configuration
 @EnableJpaRepositories(basePackages = "com.businessassistantbcn.opendata.repository")
 @PropertySource("persistence-test.properties")
 @EnableTransactionManagement
-
 public class SpringTestConfiguration {
 
     @Autowired
     private Environment env;
+    
 
     @Bean
     public DataSource dataSource() {
