@@ -25,3 +25,11 @@ url:
   ds_economicactivitiescensus: https://opendata-ajuntament.barcelona.cat/data/dataset/671c46e9-5b85-4e63-8c97-088a2b907cd5/resource/7a3d5380-f79a-424e-be62-dd078efcb40a/download/2019_censcomercialbcn_class_act.json
   ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
 
+logging:
+  level:
+    "[org.springframework]": ERROR
+    "[com.businessassistantbcn.opendata]": DEBUG
+  pattern:
+    file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
+#  file:
+#    name: opendata.log

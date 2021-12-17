@@ -1,34 +1,33 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
+import com.businessassistantbcn.opendata.config.SLF4J;
 import com.businessassistantbcn.opendata.service.BigMallsService;
 import com.businessassistantbcn.opendata.service.TestService;
+
+import io.swagger.annotations.*;
+
+import java.net.MalformedURLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-
-import io.swagger.annotations.*;
 import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Mono;
 
-import java.net.MalformedURLException;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
 public class OpendataController {
-
-    @Autowired
-    BigMallsService bigMallsService;
+	
     @Autowired
     TestService testService;
-
+    
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
-    public String test(){
-        return "Hello from BusinessAssistant Barcelona!!!";
+    public String test() {
+    	SLF4J.log.debug("** Saludos desde el logger **");
+    	return "Hello from BusinessAssistant Barcelona!!!";
     }
 
     //reactive
@@ -69,7 +68,8 @@ public class OpendataController {
         return "commercial-galeries";
     }
     
-
+    @Autowired
+    BigMallsService bigMallsService;
     
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
