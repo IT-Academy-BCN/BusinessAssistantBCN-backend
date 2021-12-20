@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.economicactivitiescensus;
+package com.businessassistantbcn.opendata.dto.economicactivitiescensus;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
