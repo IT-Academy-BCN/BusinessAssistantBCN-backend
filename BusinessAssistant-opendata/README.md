@@ -15,4 +15,11 @@
 - Véase HttpClientHelper. Spring WebClient object en lugar de RESTTemplate (pronto deprecada)
 - Véase endpoint /test-reactive.
 
+### Testing
 
+- Comando <b>[./gradlew | gradle.bat] :BusinessAssistant-opendata:test </b>
+
+### h2 Database
+
+- Consola accesible en http://localhost:8762/h2-console
+- Carga automática al arrancar contexto de files sql de test schema.sql y data.sql
