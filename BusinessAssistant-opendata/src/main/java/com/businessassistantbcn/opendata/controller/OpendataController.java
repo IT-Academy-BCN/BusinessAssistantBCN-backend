@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.controller;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.service.BigMallsService;
+import com.businessassistantbcn.opendata.service.EconomicActivitiesCensusService;
 import com.businessassistantbcn.opendata.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ public class OpendataController {
     BigMallsService bigMallsService;
     @Autowired
     TestService testService;
+    @Autowired
+    EconomicActivitiesCensusService economicActivitiesCensusService;
 
     @GetMapping(value="/test")
     @ApiOperation("Get test")
@@ -126,4 +129,19 @@ public class OpendataController {
         return "Large-Stabilshments-Activity";
     }
 
+    //GET ?offset=0&limit=10
+    @GetMapping("/economic-activities-census")
+    @ApiOperation("Get markets fairs SET 0 LIMIT 10")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
+    })
+    public <T>Mono<T> economicActivitiesCensus()
+    {
+        try {
+            return (Mono<T>) economicActivitiesCensusService.getAllData();
+        }catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
+    }
 }
