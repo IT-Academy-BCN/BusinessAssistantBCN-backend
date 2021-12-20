@@ -5,13 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-import ch.qos.logback.classic.Logger;
-import net.minidev.json.writer.ArraysMapper.GenericMapper;
 
 @Component
 public class JsonHelper {
@@ -22,6 +18,7 @@ public class JsonHelper {
 		mapper = new ObjectMapper();
 	}
 
+	//¿static? see https://www.baeldung.com/java-static-class-vs-singleton
 	public static <T> List<T> deserializeToList(String json){
 		List<T> list = null;
 		try {
