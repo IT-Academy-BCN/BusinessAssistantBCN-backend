@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.config.SLF4J;
+import com.businessassistantbcn.opendata.config.LoggerConfig;
 import com.businessassistantbcn.opendata.service.BigMallsService;
 import com.businessassistantbcn.opendata.service.TestService;
 
@@ -26,7 +26,7 @@ public class OpendataController {
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
     public String test() {
-    	SLF4J.log.debug("** Saludos desde el logger **");
+    	LoggerConfig.log.debug("** Saludos desde el logger **");
     	return "Hello from BusinessAssistant Barcelona!!!";
     }
 
