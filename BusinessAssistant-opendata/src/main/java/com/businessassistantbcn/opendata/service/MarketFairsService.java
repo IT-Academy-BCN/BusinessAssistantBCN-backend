@@ -17,7 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 @Service
-public class MarketsFairsService {
+public class MarketFairsService {
     @Autowired
     PropertiesConfig config;
     @Autowired

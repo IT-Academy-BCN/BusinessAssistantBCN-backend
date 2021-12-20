@@ -10,7 +10,7 @@ public class MarketFairsResponseDto {
     public String json_featuretype;
     @JsonProperty("register_id")
     public String register_id;
-    @JsonProperty("namet")
+    @JsonProperty("name")
     public String name;
     @JsonProperty("institution_id")
     public String institution_id;
