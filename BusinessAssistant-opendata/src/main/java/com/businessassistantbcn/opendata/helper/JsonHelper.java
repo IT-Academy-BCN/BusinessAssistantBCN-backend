@@ -1,7 +1,9 @@
 package com.businessassistantbcn.opendata.helper;
 
+import java.util.Arrays;
 import java.util.List;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Component
-public class JsonHelper {
+public class JsonHelper<T> {
 
 	private static ObjectMapper mapper;
 
@@ -52,4 +54,17 @@ public class JsonHelper {
 		return jsonString;
 	}
 
+	public static  <T> T[] filterDto(T[] dto, int offset, int limit) throws Exception{
+		int start = offset + 1;
+		if(start > dto.length-1){
+			throw new Exception("Result not found");
+		}
+		int end = start + limit;
+		if(end > dto.length-1){
+			end = dto.length - 1;
+		}
+		T[] filteredDto = Arrays.copyOfRange(dto,start,end+1);
+
+		return filteredDto;
+	}
 }

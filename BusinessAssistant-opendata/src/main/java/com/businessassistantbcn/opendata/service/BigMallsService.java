@@ -43,8 +43,6 @@ public class BigMallsService {
 			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
 					BigMallsDto[].class);
 			return response.flatMap(dto ->{
-
-
 				genericResultDto.setResults(dto);
 				genericResultDto.setCount(dto.length);
 				return Mono.just(genericResultDto);
@@ -57,8 +55,27 @@ public class BigMallsService {
 
 	}
 	
-	public GenericResultDto<BigMallsDto> getPage(int offset, int limit) {
-		return null;
+	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) {
+		try {
+			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
+					BigMallsDto[].class);
+			return response.flatMap(dto ->{
+				try {
+					BigMallsDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
+					genericResultDto.setLimit(limit);
+					genericResultDto.setOffset(offset);
+					genericResultDto.setResults(filteredDto);
+					genericResultDto.setCount(dto.length);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return Mono.just(genericResultDto);
+			} );
+
+		} catch (MalformedURLException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+		}
 	}
 	
 	public GenericResultDto<BigMallsDto> getBigMallsByActivityDto(int[] activities, int offset, int limit) {
