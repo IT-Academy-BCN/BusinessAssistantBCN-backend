@@ -8,31 +8,48 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ch.qos.logback.classic.Logger;
-import net.minidev.json.writer.ArraysMapper.GenericMapper;
 
 @Component
 public class JsonHelper {
 
-	private static ObjectMapper mapper = new ObjectMapper();
-		
-    public <T> List<T> deserializeToList(String json){
-        return null;
-    }
+	private static ObjectMapper mapper;
 
-    public JsonNode deserializeToJsonNode(String json){
-        return null;
-    }
+	static {
+		mapper = new ObjectMapper();
+	}
 
-    public String serialize(JsonNode node) {
-    	String jsonString = null;
-    		try {
-				jsonString = mapper.writeValueAsString(node);
-			} catch (JsonProcessingException e) {
-				System.out.println("El error es " + e.getMessage());
-				e.printStackTrace();
-			}		
-    	return jsonString;
-    }
- 
+	//¿static? see https://www.baeldung.com/java-static-class-vs-singleton
+	public static <T> List<T> deserializeToList(String json){
+		List<T> list = null;
+		try {
+			list = (List<T>) mapper.readTree(json);
+		} catch (JsonProcessingException e) {
+			System.out.println("No se puede convertir de String a una Lista Generica porque: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public static JsonNode deserializeToJsonNode(String json){
+		JsonNode jsonNode = null;
+		try {
+			jsonNode = mapper.readTree(json);
+		} catch (JsonProcessingException e) {
+			System.out.println("No se puede convertir de String to JsonNode porque: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return jsonNode;
+	}
+
+	public static String serialize(JsonNode node) {
+		String jsonString = null;
+		try {
+			jsonString = mapper.writeValueAsString(node);
+		} catch (JsonProcessingException e) {
+			System.out.println("No se puede convertir de JsonNode to String porque: " + e.getMessage());
+			e.printStackTrace();
+		}
+		return jsonString;
+	}
+
 }
