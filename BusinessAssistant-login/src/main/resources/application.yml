@@ -22,3 +22,14 @@ security:
     tokenPrefix: Bearer 
     authorities: authorities
     err: Auth Error, Token Unavailable
+
+---
+logging:
+  level:
+    "[org.springframework]": ERROR
+    "[com.businessassistantbcn]": INFO
+  pattern:
+  # console: Spring's default
+    file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
+#  file:
+#    name: login.log
