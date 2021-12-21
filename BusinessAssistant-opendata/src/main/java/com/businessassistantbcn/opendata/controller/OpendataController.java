@@ -26,7 +26,7 @@ public class OpendataController {
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
     public String test() {
-    	LoggerConfig.log.debug("** Saludos desde el logger **");
+    	LoggerConfig.log.info("** Saludos desde el logger **");
     	return "Hello from BusinessAssistant Barcelona!!!";
     }
 

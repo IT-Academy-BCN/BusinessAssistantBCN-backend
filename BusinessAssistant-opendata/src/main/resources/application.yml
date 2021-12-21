@@ -28,7 +28,7 @@ url:
 logging:
   level:
     "[org.springframework]": ERROR
-    "[com.businessassistantbcn.opendata]": DEBUG
+    "[com.businessassistantbcn.opendata]": INFO
   pattern:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
