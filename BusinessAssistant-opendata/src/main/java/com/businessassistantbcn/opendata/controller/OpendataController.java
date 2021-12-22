@@ -1,7 +1,6 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
+import com.businessassistantbcn.opendata.config.LoggerConfig;
 import com.businessassistantbcn.opendata.service.BigMallsService;
 import com.businessassistantbcn.opendata.service.EconomicActivitiesCensusService;
 import com.businessassistantbcn.opendata.service.TestService;
@@ -30,8 +29,9 @@ public class OpendataController {
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
-    public String test(){
-        return "Hello from BusinessAssistant Barcelona!!!";
+    public String test() {
+    	LoggerConfig.log.info("** Saludos desde el logger **");
+    	return "Hello from BusinessAssistant Barcelona!!!";
     }
 
     //reactive
