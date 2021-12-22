@@ -35,3 +35,14 @@ logging:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: opendata.log
+districts:
+  district_1: "Ciutat Vella"
+  district_2: "Eixample"
+  district_3: "Sants-Montjuïc"
+  district_4: "Les Corts"
+  district_5: "Sarrià-Sant Gervasi"
+  district_6: "Gràcia"
+  district_7: "Horta-Guinardó"
+  district_8: "Nou Barris"
+  district_9: "Sant Andreu"
+  district_10: "Sant Martí"

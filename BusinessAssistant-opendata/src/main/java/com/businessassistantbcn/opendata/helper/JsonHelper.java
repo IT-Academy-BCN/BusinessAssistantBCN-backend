@@ -62,20 +62,21 @@ public class JsonHelper<T> {
 		if(offset < 0){
 			throw new Exception("Offset Can not be negative");
 		}
+		//the ending index +1
 		int end = offset + limit;
 		//if limit == -1 it means that we should get all Data
 		if(limit == -1){
-			end = dto.length-1;
+			end = dto.length;
 		}
 		if(limit < -1){
 			throw new Exception("Limit value not accepted");
 		}
-		//If the ending point is out of bounce, we set the ending point in the last point of the array
-		if(end > dto.length-1){
-			end = dto.length - 1;
+		//If the ending point is out of bounce, we set the ending point in the last point of the array +1
+		if(end > dto.length){
+			end = dto.length;
 		}
 		//Makes the subarray. The end point is excluded thats why we do +1.
-		T[] filteredDto = Arrays.copyOfRange(dto,offset,end+1);
+		T[] filteredDto = Arrays.copyOfRange(dto,offset,end);
 
 		return filteredDto;
 	}
