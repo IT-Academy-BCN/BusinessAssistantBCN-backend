@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "10922929-6a29-4f3f-83d8-ee93ca50d25c",
+		"name": "BABCN 35",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8762/v1/api/opendata/big-malls?offset=0&limit=",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/v1/api/opendata/big-malls?offset=4&limit=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"v1",
+						"api",
+						"opendata",
+						"big-malls"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "4"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8762/v1/api/opendata/big-malls",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/v1/api/opendata/big-malls",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"v1",
+						"api",
+						"opendata",
+						"big-malls"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "4",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8762/v1/api/opendata/big-malls?offset=4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/v1/api/opendata/big-malls?offset=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"v1",
+						"api",
+						"opendata",
+						"big-malls"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "4"
+						},
+						{
+							"key": "limit",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8762/v1/api/opendata/big-malls?limit=2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/v1/api/opendata/big-malls?limit=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"v1",
+						"api",
+						"opendata",
+						"big-malls"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "7",
+							"disabled": true
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8762/v1/api/opendata/big-malls?offset=&limit=2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/v1/api/opendata/big-malls?offset=&limit=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"v1",
+						"api",
+						"opendata",
+						"big-malls"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": ""
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8762/v1/api/opendata/big-malls",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/v1/api/opendata/big-malls?offset=1&limit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"v1",
+						"api",
+						"opendata",
+						"big-malls"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8762/v1/api/opendata/big-malls?offset=null&limit=10",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8762/v1/api/opendata/big-malls?offset=null&limit=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8762",
+					"path": [
+						"v1",
+						"api",
+						"opendata",
+						"big-malls"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "null"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

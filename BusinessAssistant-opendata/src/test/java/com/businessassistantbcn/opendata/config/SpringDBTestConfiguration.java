@@ -1,8 +1,9 @@
-package com.businessassistantbcn.opendata;
+package com.businessassistantbcn.opendata.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -15,22 +16,23 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.businessassistantbcn.opendata.repository")
-@PropertySource("persistence-test.properties")
+@PropertySource("classpath:persistence-test.properties")
 @EnableTransactionManagement
 
-public class SpringTestConfiguration {
+public class SpringDBTestConfiguration {
 
     @Autowired
     private Environment env;
 
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("spring.datasource.driverClassName"));
-        dataSource.setUrl(env.getProperty("spring.datasource.url"));
-        dataSource.setUsername(env.getProperty("spring.datasource.user"));
-        dataSource.setPassword(env.getProperty("spring.datasource.password"));
-        return dataSource;
+
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName(env.getProperty("spring.datasource.driverClassName"));
+        dataSourceBuilder.url(env.getProperty("spring.datasource.url"));
+        dataSourceBuilder.username(env.getProperty("spring.datasource.user"));
+        dataSourceBuilder.password(env.getProperty("spring.datasource.password"));
+        return dataSourceBuilder.build();
     }
 
 }
