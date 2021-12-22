@@ -2,7 +2,7 @@ package com.businessassistantbcn.opendata.service;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDTO;
+import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +19,11 @@ public class EconomicActivitiesCensusService {
     @Autowired
     HttpClientHelper helper;
     @Autowired
-    GenericResultDto<EconomicActivitiesCensusDTO> genericResultDto;
+    GenericResultDto<EconomicActivitiesCensusDto> genericResultDto;
 
-    public Mono<GenericResultDto<EconomicActivitiesCensusDTO>> getAllData()throws MalformedURLException {
-        Mono<EconomicActivitiesCensusDTO[]> response = helper.getRequestData(
-                new URL(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDTO[].class);
+    public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getAllData()throws MalformedURLException {
+        Mono<EconomicActivitiesCensusDto[]> response = helper.getRequestData(
+                new URL(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class);
         return response.flatMap( dto -> {
             genericResultDto.setResults(dto);
             genericResultDto.setCount(dto.length);

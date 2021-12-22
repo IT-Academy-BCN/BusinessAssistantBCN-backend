@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EconomicActivitiesCensusDTO {
+public class EconomicActivitiesCensusDto {
     @JsonProperty("json_featuretype")
     public String json_featuretype;
     @JsonProperty("Codi_Activitat_2019")
