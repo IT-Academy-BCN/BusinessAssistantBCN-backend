@@ -59,10 +59,16 @@ public class JsonHelper<T> {
 		if(offset > dto.length-1){
 			throw new Exception("Result not found");
 		}
+		if(offset < 0){
+			throw new Exception("Offset Can not be negative");
+		}
 		int end = offset + limit;
 		//if limit == -1 it means that we should get all Data
 		if(limit == -1){
 			end = dto.length-1;
+		}
+		if(limit < -1){
+			throw new Exception("Limit value not accepted");
 		}
 		//If the ending point is out of bounce, we set the ending point in the last point of the array
 		if(end > dto.length-1){
