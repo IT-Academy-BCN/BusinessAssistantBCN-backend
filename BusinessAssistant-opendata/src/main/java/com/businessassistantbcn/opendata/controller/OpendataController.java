@@ -1,9 +1,7 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
-import com.businessassistantbcn.opendata.service.BigMallsService;
-import com.businessassistantbcn.opendata.service.TestService;
+import com.businessassistantbcn.opendata.config.LoggerConfig;
+import com.businessassistantbcn.opendata.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +22,19 @@ public class OpendataController {
     BigMallsService bigMallsService;
     @Autowired
     TestService testService;
+    @Autowired
+    EconomicActivitiesCensusService economicActivitiesCensusService;
+    @Autowired
+    CommercialGalleriesService commercialGaleriesService;
+
+    @Autowired
+    LargeStablishmentsService largeStablishmentsService;
 
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
-    public String test(){
+    public String test() {
+        LoggerConfig.log.info("** Saludos desde el logger **");
         return "Hello from BusinessAssistant Barcelona!!!";
     }
 
@@ -53,10 +59,15 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String largeEstablishments()
+    public <T> Mono<T> largeEstablishments()
     {
-        return "large-establishments";
+        try{
+            return (Mono<T>) largeStablishmentsService.getLargeStablishmentsAll();
+        }catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
     }
+
 
     //GET ?offset=0&limit=10
     @GetMapping("/commercial-galeries")
@@ -65,13 +76,20 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String commercialGaleries()
+    public <T> Mono<T> commercialGaleries()
     {
-        return "commercial-galeries";
-    }
-    
 
-    
+        try{
+            return (Mono<T>) commercialGaleriesService.getCommercialGaleriesAll();
+        }catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
+
+    }
+
+
+
+
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
@@ -99,7 +117,7 @@ public class OpendataController {
 
 
     }
-    
+
     //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets")
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")
@@ -123,7 +141,7 @@ public class OpendataController {
     {
         return "markets-fairs";
     }
-    
+
     //GET ?offset=0&limit=10
     @GetMapping("/large-stablishments/activity")
     @ApiOperation("Get large stablishment activity SET 0 LIMIT 10")
@@ -136,4 +154,19 @@ public class OpendataController {
         return "Large-Stabilshments-Activity";
     }
 
+    //GET ?offset=0&limit=10
+    @GetMapping("/economic-activities-census")
+    @ApiOperation("Get markets fairs SET 0 LIMIT 10")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
+    })
+    public <T>Mono<T> economicActivitiesCensus()
+    {
+        try {
+            return (Mono<T>) economicActivitiesCensusService.getAllData();
+        }catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
+    }
 }
