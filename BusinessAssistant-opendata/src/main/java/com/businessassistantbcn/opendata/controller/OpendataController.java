@@ -70,8 +70,8 @@ public class OpendataController {
 
 
     //GET ?offset=0&limit=10
-    @GetMapping("/commercial-galeries")
-    @ApiOperation("Get commercial galeries SET 0 LIMIT 10")
+    @GetMapping("/commercial-galleries")
+    @ApiOperation("Get commercial galleries SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
