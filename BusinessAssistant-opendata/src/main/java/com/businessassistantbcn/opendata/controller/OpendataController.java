@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
@@ -78,11 +79,20 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public <T> Mono<T> bigMalls()
+    public <T> Mono<T> bigMalls(@RequestParam(required = false) String offset, @RequestParam(required = false)  String limit)
     {
 
+        if(offset == null){
+            offset= "0";
+        }
+        if(limit == null){
+            limit = "-1";
+        }
+        if(offset.equals("") || limit.equals("") || offset.equals("null") || limit.equals("null")  ){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Offset or Limit cannot be null");
+        }
         try{
-            return (Mono<T>) bigMallsService.getAllData();
+            return (Mono<T>) bigMallsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }

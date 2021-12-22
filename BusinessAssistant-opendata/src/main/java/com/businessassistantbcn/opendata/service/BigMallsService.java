@@ -37,7 +37,7 @@ public class BigMallsService {
 	private HttpClientHelper httpClientHelper;
 	@Autowired
 	private GenericResultDto<BigMallsDto> genericResultDto;
-	
+	/*
 	public Mono<GenericResultDto<BigMallsDto>> getAllData() {
 		try {
 			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
@@ -53,9 +53,9 @@ public class BigMallsService {
 		}
 		
 
-	}
+	}*/
 	
-	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) {
+	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) throws Exception {
 		try {
 			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
 					BigMallsDto[].class);
@@ -66,11 +66,11 @@ public class BigMallsService {
 					genericResultDto.setOffset(offset);
 					genericResultDto.setResults(filteredDto);
 					genericResultDto.setCount(dto.length);
-
+					return Mono.just(genericResultDto);
 				} catch (Exception e) {
-					e.printStackTrace();
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 				}
-				return Mono.just(genericResultDto);
+
 			} );
 
 		} catch (MalformedURLException e) {
