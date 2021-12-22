@@ -1,9 +1,7 @@
 package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.config.LoggerConfig;
-import com.businessassistantbcn.opendata.service.BigMallsService;
-import com.businessassistantbcn.opendata.service.EconomicActivitiesCensusService;
-import com.businessassistantbcn.opendata.service.TestService;
+import com.businessassistantbcn.opendata.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +23,9 @@ public class OpendataController {
     TestService testService;
     @Autowired
     EconomicActivitiesCensusService economicActivitiesCensusService;
-@Autowired
-	CommercialGaleriesService commercialGaleriesService;
-    
+    @Autowired
+    CommercialGaleriesService commercialGaleriesService;
+
     @Autowired
     LargeStablishmentsService largeStablishmentsService;
 
@@ -35,8 +33,8 @@ public class OpendataController {
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
     public String test() {
-    	LoggerConfig.log.info("** Saludos desde el logger **");
-    	return "Hello from BusinessAssistant Barcelona!!!";
+        LoggerConfig.log.info("** Saludos desde el logger **");
+        return "Hello from BusinessAssistant Barcelona!!!";
     }
 
     //reactive
@@ -62,7 +60,7 @@ public class OpendataController {
     })
     public <T> Mono<T> largeEstablishments()
     {
-    	try{
+        try{
             return (Mono<T>) largeStablishmentsService.getLargeStablishmentsAll();
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
@@ -79,18 +77,18 @@ public class OpendataController {
     })
     public <T> Mono<T> commercialGaleries()
     {
-    	
-    	try{
+
+        try{
             return (Mono<T>) commercialGaleriesService.getCommercialGaleriesAll();
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
-    	
+
     }
 
-    
 
-    
+
+
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
@@ -109,7 +107,7 @@ public class OpendataController {
 
 
     }
-    
+
     //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets")
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")
@@ -133,7 +131,7 @@ public class OpendataController {
     {
         return "markets-fairs";
     }
-    
+
     //GET ?offset=0&limit=10
     @GetMapping("/large-stablishments/activity")
     @ApiOperation("Get large stablishment activity SET 0 LIMIT 10")
