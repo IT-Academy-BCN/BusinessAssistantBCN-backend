@@ -1,4 +1,4 @@
-package src.main.java.com.businessassistantbcn.opendata.dto.commercialgalleries;
+package com.businessassistantbcn.opendata.dto.commercialgalleries;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Component
-public class CommercialGaleriesDto {
+public class CommercialGalleriesDto {
 	
 	@JsonProperty("register_id")
     private long register_id;

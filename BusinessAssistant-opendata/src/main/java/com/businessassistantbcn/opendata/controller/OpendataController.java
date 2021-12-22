@@ -24,7 +24,7 @@ public class OpendataController {
     @Autowired
     EconomicActivitiesCensusService economicActivitiesCensusService;
     @Autowired
-    CommercialGaleriesService commercialGaleriesService;
+    CommercialGalleriesService commercialGaleriesService;
 
     @Autowired
     LargeStablishmentsService largeStablishmentsService;
