@@ -6,6 +6,7 @@ import java.util.List;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.stereotype.Component;
 
+import com.businessassistantbcn.opendata.config.LoggerConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,8 +27,8 @@ public class JsonHelper<T> {
 		try {
 			list = (List<T>) mapper.readTree(json);
 		} catch (JsonProcessingException e) {
-			System.out.println("No se puede convertir de String a una Lista Generica porque: " + e.getMessage());
-			e.printStackTrace();
+			LoggerConfig.log.error("No se puede convertir de String a una Lista Generica porque: {}", e.getMessage());
+			LoggerConfig.logStackTrace(e);
 		}
 		return list;
 	}
@@ -37,8 +38,8 @@ public class JsonHelper<T> {
 		try {
 			jsonNode = mapper.readTree(json);
 		} catch (JsonProcessingException e) {
-			System.out.println("No se puede convertir de String to JsonNode porque: " + e.getMessage());
-			e.printStackTrace();
+			LoggerConfig.log.error("No se puede convertir de String to JsonNode porque: {}", e.getMessage());
+			LoggerConfig.logStackTrace(e);
 		}
 		return jsonNode;
 	}
@@ -48,8 +49,8 @@ public class JsonHelper<T> {
 		try {
 			jsonString = mapper.writeValueAsString(node);
 		} catch (JsonProcessingException e) {
-			System.out.println("No se puede convertir de JsonNode to String porque: " + e.getMessage());
-			e.printStackTrace();
+			LoggerConfig.log.error("No se puede convertir de JsonNode to String porque: {}", e.getMessage());
+			LoggerConfig.logStackTrace(e);
 		}
 		return jsonString;
 	}
@@ -79,4 +80,5 @@ public class JsonHelper<T> {
 
 		return filteredDto;
 	}
+	
 }
