@@ -2,6 +2,8 @@ package com.businessassistantbcn.opendata.dto;
 
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Stream;
+
 @Component
 public class GenericResultDto<T> {
 
@@ -42,4 +44,14 @@ public class GenericResultDto<T> {
     public void setLimit(int limit) {
         this.limit = limit;
     }
+
+
+    public void setResults(T[] results, int offset, int limit) {
+        this.results= (T[]) Stream.of(results).skip(offset).limit(limit).toArray();
+        this.offset=offset;
+        if (limit> results.length) {
+            this.limit = results.length;
+        }else this.limit=limit;
+    }
+
 }
