@@ -20,8 +20,18 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'org.json:json:20210307'
     implementation 'com.jayway.jsonpath:json-path:2.6.0'
-    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.0'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'
+    /**
+     * NOTA JVR:
+     * OJO con error "Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException"
+     * al ejecutar tests para discover de Microservices en registry, se produce en algunas libs de spring-boot-starter
+     * (bug de plataforma). Testear antes de añadir las siguientes dependencias:
+     */
+/*    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'*/
+
+    /**
+     * Dependencias necesarias en annotation @EnableDiscoveryClient de App
+     */
     implementation group: 'org.springframework', name: 'spring-context', version: '5.3.13'
     implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.13'
 
