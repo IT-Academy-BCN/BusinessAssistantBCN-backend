@@ -26,6 +26,8 @@ public class OpendataController {
     EconomicActivitiesCensusService economicActivitiesCensusService;
     @Autowired
     CommercialGalleriesService commercialGaleriesService;
+    @Autowired
+    MunicipalMarketsService municipalMarketsService;
 
     @Autowired
     LargeStablishmentsService largeStablishmentsService;
@@ -125,11 +127,17 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String municipalMarkets()
-    {
-        return "municipal-markets";
-    }
+    public <T>Mono<T> municipalMarkets()
 
+    {
+        try {
+
+            return (Mono<T>) municipalMarketsService.getAllData(0,10);
+            // TODO GET ?offset=0&limit=10
+        }catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
+    }
     //GET ?offset=0&limit=10
     @GetMapping("/markets-fairs")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
