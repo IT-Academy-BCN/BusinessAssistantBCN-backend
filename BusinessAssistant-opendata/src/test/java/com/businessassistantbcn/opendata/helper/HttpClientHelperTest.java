@@ -1,13 +1,10 @@
 package com.businessassistantbcn.opendata.helper;
 
-import com.businessassistantbcn.opendata.SpringTestConfiguration;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +13,6 @@ import java.net.URL;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ContextConfiguration(classes = { SpringTestConfiguration.class })
 public class HttpClientHelperTest {
 
     @Autowired
@@ -29,7 +25,6 @@ public class HttpClientHelperTest {
 
         try {
             URL url = new URL(env.getProperty("ds_test"));
-
             assertEquals(httpClientHelper.getStringRoot(url) , "");
 
         } catch (MalformedURLException e) {
@@ -38,11 +33,11 @@ public class HttpClientHelperTest {
 
     }
 
-        @Test
+       // @Test
         public void getJsonRootTest() {
         }
 
-        @Test
+        //@Test
         public void getObjectRootTest (){
 
         }

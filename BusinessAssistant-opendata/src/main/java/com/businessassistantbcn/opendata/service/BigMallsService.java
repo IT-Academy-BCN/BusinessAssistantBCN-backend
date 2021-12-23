@@ -37,25 +37,11 @@ public class BigMallsService {
 	private HttpClientHelper httpClientHelper;
 	@Autowired
 	private GenericResultDto<BigMallsDto> genericResultDto;
-	/*
-	public Mono<GenericResultDto<BigMallsDto>> getAllData() {
-		try {
-			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
-					BigMallsDto[].class);
-			return response.flatMap(dto ->{
-				genericResultDto.setResults(dto);
-				genericResultDto.setCount(dto.length);
-				return Mono.just(genericResultDto);
-			} );
 
-		} catch (MalformedURLException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
-		}
-		
 
-	}*/
 	
 	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) {
+
 		try {
 			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
 					BigMallsDto[].class);
@@ -121,19 +107,4 @@ public class BigMallsService {
 	}
 	
 }
-
-/*	
-	List<BigMallsResponseDto> mapperToBigMallsResponseDto() {
-		JSONObject json = helper.xxxxx("URL"); // En espera del grupo 2…
-		ObjectMapper mapper = new ObjectMapper();
-		
-		try {
-			JSONArray jsonArray = new JSONArray(json.getJSONArray("elements"));
-			JavaType dtoType = mapper.getTypeFactory().constructType(BigMallsResponseDto[].class);
-			return mapper.readerFor(dtoType).readValue(jsonArray.toString());
-		} catch (NullPointerException | JSONException | JsonProcessingException e) {
-			return List.of();
-		}
-	}
-*/
 
