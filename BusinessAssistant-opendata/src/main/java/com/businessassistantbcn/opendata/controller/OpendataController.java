@@ -29,7 +29,8 @@ public class OpendataController {
     CommercialGalleriesService commercialGaleriesService;
     @Autowired
     MarketFairsService marketFairsService;
-
+@Autowired
+    BcnZonesService bcnZonesService;
     @Autowired
     LargeStablishmentsService largeStablishmentsService;
 
@@ -175,4 +176,19 @@ public class OpendataController {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
+    @GetMapping("/bcn-zones")
+    @ApiOperation("Get bcn Zones")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
+    })
+    public <T>Mono<T> bcnZones()
+    {
+        try {
+            return (Mono<T>) bcnZonesService.getBcnZones();
+        }catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
+    }
+
 }
