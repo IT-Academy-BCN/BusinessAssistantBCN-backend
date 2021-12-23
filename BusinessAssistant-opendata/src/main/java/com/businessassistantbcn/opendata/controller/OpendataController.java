@@ -1,6 +1,7 @@
 package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.config.LoggerConfig;
+import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,8 @@ public class OpendataController {
     EconomicActivitiesCensusService economicActivitiesCensusService;
     @Autowired
     CommercialGalleriesService commercialGaleriesService;
+    @Autowired
+    MarketFairsService marketFairsService;
 
     @Autowired
     LargeStablishmentsService largeStablishmentsService;
@@ -131,16 +134,19 @@ public class OpendataController {
     }
 
     //GET ?offset=0&limit=10
-    @GetMapping("/markets-fairs")
+    @GetMapping("/market-fairs")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String marketsFairs()
+    public <T> Mono<T> marketsFairs()
     {
-        return "markets-fairs";
-    }
+    	 try{
+             return (Mono<T>) marketFairsService.getAllMarketsFairs();
+         }catch (Exception mue){
+             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+         }    }
 
     //GET ?offset=0&limit=10
     @GetMapping("/large-stablishments/activity")
