@@ -26,7 +26,6 @@ public class OpendataController {
     EconomicActivitiesCensusService economicActivitiesCensusService;
     @Autowired
     CommercialGalleriesService commercialGaleriesService;
-
     @Autowired
     LargeStablishmentsService largeStablishmentsService;
 
@@ -76,7 +75,7 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public <T> Mono<T> commercialGaleries()
+    public <T> Mono<T> commercialGalleries()
     {
 
         try{
