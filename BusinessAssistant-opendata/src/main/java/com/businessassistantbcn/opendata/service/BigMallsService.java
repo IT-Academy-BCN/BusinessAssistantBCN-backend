@@ -55,7 +55,7 @@ public class BigMallsService {
 
 	}*/
 	
-	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) throws Exception {
+	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) {
 		try {
 			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
 					BigMallsDto[].class);
@@ -68,6 +68,7 @@ public class BigMallsService {
 					genericResultDto.setCount(dto.length);
 					return Mono.just(genericResultDto);
 				} catch (Exception e) {
+					//Poner Logger
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 				}
 

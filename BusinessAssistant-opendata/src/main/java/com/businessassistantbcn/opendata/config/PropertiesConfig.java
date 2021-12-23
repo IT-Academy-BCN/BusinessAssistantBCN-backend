@@ -19,6 +19,7 @@ public class PropertiesConfig {
     private String ds_economicactivitiescensus;
     private String ds_economicactivitiesgroundfloor;
     private Integer maxBytesInMemory;
+    private String[] districts;
 
     public int getMaxBytesInMemory() {
         return maxBytesInMemory;
@@ -98,5 +99,13 @@ public class PropertiesConfig {
 
     public void setDs_economicactivitiesgroundfloor(String ds_economicactivitiesgroundfloor) {
         this.ds_economicactivitiesgroundfloor = ds_economicactivitiesgroundfloor;
+    }
+
+    public String[] getDistricts() {
+        return districts;
+    }
+
+    public void setDistricts(String[] districts) {
+        this.districts = districts;
     }
 }

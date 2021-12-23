@@ -57,10 +57,11 @@ public class JsonHelper<T> {
 	public static  <T> T[] filterDto(T[] dto, int offset, int limit) throws Exception{
 
 		if(offset > dto.length-1){
-			throw new Exception("Result not found");
+			return Arrays.copyOfRange(dto,0,0);
+
 		}
 		if(offset < 0){
-			throw new Exception("Offset Can not be negative");
+			throw new NumberFormatException("Offset Can not be negative");
 		}
 		//the ending index +1
 		int end = offset + limit;
@@ -69,7 +70,7 @@ public class JsonHelper<T> {
 			end = dto.length;
 		}
 		if(limit < -1){
-			throw new Exception("Limit value not accepted");
+			throw new NumberFormatException("Limit value not accepted");
 		}
 		//If the ending point is out of bounce, we set the ending point in the last point of the array +1
 		if(end > dto.length){
