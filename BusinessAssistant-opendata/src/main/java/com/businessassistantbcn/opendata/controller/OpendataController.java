@@ -1,7 +1,6 @@
 package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.config.LoggerConfig;
-import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
@@ -29,8 +27,8 @@ public class OpendataController {
     CommercialGalleriesService commercialGaleriesService;
     @Autowired
     MarketFairsService marketFairsService;
-@Autowired
-    BcnZonesService bcnZonesService;
+    @Autowired
+    DataConfigService bcnZonesService;
     @Autowired
     LargeStablishmentsService largeStablishmentsService;
 

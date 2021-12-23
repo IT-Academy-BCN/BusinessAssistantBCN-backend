@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 import java.sql.Array;
 
 @Service
-public class BcnZonesService {
+public class DataConfigService {
 
     @Autowired
     private PropertiesConfig config;

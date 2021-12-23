@@ -32,6 +32,10 @@ public class OpendataControllerTest {
     private CommercialGalleriesService commercialGalleriesService;
     @MockBean
     private LargeStablishmentsService largeStablishmentsService;
+    @MockBean
+    private MarketFairsService marketFairsService;
+    @MockBean
+    private DataConfigService bcnZonesService;
 
     @Test
     public void testHello(){
