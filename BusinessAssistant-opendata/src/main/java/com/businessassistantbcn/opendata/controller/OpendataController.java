@@ -27,6 +27,10 @@ public class OpendataController {
     @Autowired
     CommercialGalleriesService commercialGaleriesService;
     @Autowired
+    MarketFairsService marketFairsService;
+    @Autowired
+    DataConfigService bcnZonesService;
+    @Autowired
     LargeStablishmentsService largeStablishmentsService;
 
     @GetMapping(value="/test")
@@ -130,16 +134,19 @@ public class OpendataController {
     }
 
     //GET ?offset=0&limit=10
-    @GetMapping("/markets-fairs")
+    @GetMapping("/market-fairs")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String marketsFairs()
+    public <T> Mono<T> marketsFairs()
     {
-        return "markets-fairs";
-    }
+    	 try{
+             return (Mono<T>) marketFairsService.getAllMarketsFairs();
+         }catch (Exception mue){
+             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+         }    }
 
     //GET ?offset=0&limit=10
     @GetMapping("/large-stablishments/activity")
@@ -168,4 +175,19 @@ public class OpendataController {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
+    @GetMapping("/bcn-zones")
+    @ApiOperation("Get bcn Zones")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
+    })
+    public <T>Mono<T> bcnZones()
+    {
+        try {
+            return (Mono<T>) bcnZonesService.getBcnZones();
+        }catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
+    }
+
 }
