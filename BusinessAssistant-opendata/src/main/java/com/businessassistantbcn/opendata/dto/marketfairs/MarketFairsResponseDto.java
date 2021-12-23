@@ -1,83 +1,92 @@
 package com.businessassistantbcn.opendata.dto.marketfairs;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
+import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Component
 public class MarketFairsResponseDto {
-    @JsonProperty("json_featuretype")
-    public String json_featuretype;
     @JsonProperty("register_id")
     public String register_id;
+    @JsonProperty("prefix")
+    public String prefix;
+    @JsonProperty("suffix")
+    public String suffix;
     @JsonProperty("name")
     public String name;
-    @JsonProperty("institution_id")
-    public String institution_id;
-    @JsonProperty("institution_name")
-    public String institution_name;
     @JsonProperty("created")
     public String created;
     @JsonProperty("modified")
     public String modified;
-    @JsonProperty("adresses_roadtype_id")
-    public String adresses_roadtype_id;
-    @JsonProperty("adresses_roadtype_name")
-    public String adresses_roadtype_name;
-    @JsonProperty("adresses_road_id")
-    public String adresses_road_id;
-    @JsonProperty("adresses_road_name")
-    public String adresses_road_name;
-    @JsonProperty("adresses_start_street_number")
-    public String adresses_start_street_number;
-    @JsonProperty("adresses_end_street_number")
-    public String adresses_end_street_number;
-    @JsonProperty("adresses_neighborhood_id")
-    public String adresses_neighborhood_id;
-    @JsonProperty("adresses_neighborhood_name")
-    public String adresses_neighborhood_name;
-    @JsonProperty("adresses_district_id")
-    public String adresses_district_id;
-    @JsonProperty("adresses_district_name")
-    public String adresses_district_name;
-    @JsonProperty("adresses_zip_code")
-    public String adresses_zip_code;
-    @JsonProperty("adresses_town")
-    public String adresses_town;
-    @JsonProperty("adresses_main_adress")
-    public String adresses_main_adress;
-    @JsonProperty("adresses_type")
-    public String adresses_type;
-    @JsonProperty("values_id")
-    public String values_id;
-    @JsonProperty("values_attribute_id")
-    public String values_attribute_id;
-    @JsonProperty("values_category")
-    public String values_category;
-    @JsonProperty("values_attribute_name")
-    public String values_attribute_name;
-    @JsonProperty("values_value")
-    public String values_value;
-    @JsonProperty("values_outstanding")
-    public String values_outstanding;
-    @JsonProperty("values_description")
-    public String values_description;
-    @JsonProperty("secondary_filters_id")
-    public String secondary_filters_id;
-    @JsonProperty("secondary_filters_name")
-    public String secondary_filters_name;
-    @JsonProperty("secondary_filters_fullpath")
-    public String secondary_filters_fullpath;
-    @JsonProperty("secondary_filters_tree")
-    public String secondary_filters_tree;
-    @JsonProperty("secondary_filters_asia_id")
-    public String secondary_filters_asia_id;
-    @JsonProperty("geo_epgs_25831_x")
-    public String geo_epgs_25831_x;
-    @JsonProperty("geo_epgs_25831_y")
-    public String geo_epgs_25831_y;
-    @JsonProperty("geo_epgs_4326_x")
-    public String geo_epgs_4326_x;
-    @JsonProperty("geo_epgs_4326_y")
-    public String geo_epgs_4326_y;
+    @JsonProperty("status")
+    public String status;	
+    @JsonProperty("status_name")
+    public String status_name;
+    @JsonProperty("core_type")
+    public String core_type;
+    @JsonProperty("core_type_name")
+    public String core_type_name;
+    @JsonProperty("body")
+    public String body;
+    @JsonProperty("tickets_data")
+    public List<Object> tickets_data;
+    @JsonProperty("addresses")
+    private List<Object> addresses;
+    @JsonProperty("entity_types_data")
+    private List<Object> entity_types_data;
+    @JsonProperty("attribute_categories")
+    private List<Object> attribute_categories;
+    @JsonProperty("values")
+    private List<Object> values;
+    @JsonProperty("from_relationships")
+    private List<Object> from_relationships;
+    @JsonProperty("to_relationships")
+    private List<Object> to_relationships;
+    @JsonProperty("classifications_data")
+    private List<Object> classifications_data;
+    @JsonProperty("secondary_filters_data")
+    private List<Object> secondary_filters_data;
+    @JsonProperty("timetable")
+    private Object timetable;
+    @JsonProperty("image_data")
+    private Object image_data;
+    @JsonProperty("gallery_data")
+    private List<Object> gallery_data;
+    @JsonProperty("warnings")
+    private List<Object> warnings;
+    @JsonProperty("geo_epgs_25831")
+    private CoordinateDto geo_epgs_25831;
+    @JsonProperty("geo_epgs_23031")
+    private CoordinateDto geo_epgs_23031;
+    @JsonProperty("geo_epgs_4326")
+    private CoordinateDto geo_epgs_4326;
+    @JsonProperty("is_section_of_data")
+    private boolean is_section_of_data;
+    @JsonProperty("sections_data")
+    private List<Object> sections_data;
+    @JsonProperty("start_date")
+    private String start_date;
+    @JsonProperty("end_date")
+    private String end_date;
+    @JsonProperty("estimated_dates")
+    private String estimated_dates;
+    @JsonProperty("languages_data")
+    private String languages_data;
+    @JsonProperty("type")
+    private String type;
+    @JsonProperty("type_name")
+    private String type_name;
+    @JsonProperty("period")
+    private String period;
+    @JsonProperty("period_name")
+    private String period_name;
+    @JsonProperty("event_status_name")
+    private String event_status_name;
+    @JsonProperty("event_status")
+    private String event_status;
+    @JsonProperty("ical")
+    private String ical;
 }
