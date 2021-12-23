@@ -31,5 +31,15 @@ public class EconomicActivitiesCensusService {
         });
     }
 
+    public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getAllData(int offset, int  limit) throws MalformedURLException {
+        Mono<EconomicActivitiesCensusDto[]> response = helper.getRequestData(
+                new URL(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class);
+        return response.flatMap(dto -> {
+            genericResultDto.setResults(dto,offset,limit);
+            genericResultDto.setCount(dto.length);
+            return Mono.just(genericResultDto);
+        });
+    }
+
 
 }
