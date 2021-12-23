@@ -134,7 +134,7 @@ public class OpendataController {
     }
 
     //GET ?offset=0&limit=10
-    @GetMapping("/markets-fairs")
+    @GetMapping("/market-fairs")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
