@@ -155,16 +155,17 @@ public class OpendataController {
     }
 
     //GET ?offset=0&limit=10
-    @GetMapping("/economic-activities-census")
+    @GetMapping("/economic-activities-census/{offset}/{limit}")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public <T>Mono<T> economicActivitiesCensus()
+    public <T>Mono<T> economicActivitiesCensus(@PathVariable int offset,
+                                               @PathVariable int limit)
     {
         try {
-            return (Mono<T>) economicActivitiesCensusService.getAllData();
+            return (Mono<T>) economicActivitiesCensusService.getAllData(offset,limit);
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
