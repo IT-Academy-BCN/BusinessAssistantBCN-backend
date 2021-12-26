@@ -43,9 +43,11 @@ url:
     - "Nou Barris"
     - "Sant Andreu"
     - "Sant Martí"
+    
 ---
 logging:
   level:
+    root: INFO  
     "[org.springframework]": ERROR
     "[com.businessassistantbcn]": INFO
   pattern:

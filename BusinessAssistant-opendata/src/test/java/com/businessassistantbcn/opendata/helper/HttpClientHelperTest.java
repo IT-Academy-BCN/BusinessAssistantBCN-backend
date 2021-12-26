@@ -2,6 +2,8 @@ package com.businessassistantbcn.opendata.helper;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
@@ -14,6 +16,8 @@ import java.net.URL;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class HttpClientHelperTest {
+	
+	public static final Logger log = LoggerFactory.getLogger(HttpClientHelperTest.class);
 
     @Autowired
     private Environment env;
@@ -28,7 +32,7 @@ public class HttpClientHelperTest {
             assertEquals(httpClientHelper.getStringRoot(url) , "");
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+        	log.error("exception:", e);
         }
 
     }
