@@ -26,6 +26,7 @@ security:
 ---
 logging:
   level:
+    root: INFO
     "[org.springframework]": ERROR
     "[com.businessassistantbcn]": INFO
   pattern:

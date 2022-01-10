@@ -1,22 +1,27 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.config.LoggerConfig;
 import com.businessassistantbcn.opendata.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
 
 import io.swagger.annotations.*;
-import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import reactor.core.publisher.Mono;
+
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
 public class OpendataController {
+
+    private static final Logger log = LoggerFactory.getLogger(OpendataController.class);
 
     @Autowired
     BigMallsService bigMallsService;
@@ -37,7 +42,7 @@ public class OpendataController {
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
     public String test() {
-        LoggerConfig.log.info("** Saludos desde el logger **");
+        log.info("** Saludos desde el logger **");
         return "Hello from BusinessAssistant Barcelona!!!";
     }
 
