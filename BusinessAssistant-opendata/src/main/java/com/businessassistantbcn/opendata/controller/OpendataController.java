@@ -20,8 +20,8 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
 public class OpendataController {
-	
-	public static final Logger log = LoggerFactory.getLogger(OpendataController.class);
+
+    private static final Logger log = LoggerFactory.getLogger(OpendataController.class);
 
     @Autowired
     BigMallsService bigMallsService;

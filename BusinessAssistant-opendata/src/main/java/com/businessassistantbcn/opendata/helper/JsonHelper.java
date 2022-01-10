@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class JsonHelper<T> {
 
-	public static final Logger log = LoggerFactory.getLogger(JsonHelper.class);
+	private static final Logger log = LoggerFactory.getLogger(JsonHelper.class);
 	private static ObjectMapper mapper;	
 
 	static {

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/api")
 public class LoginController {
 	
-	public static final Logger log = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 	
     @Autowired
     public LoginController(){
