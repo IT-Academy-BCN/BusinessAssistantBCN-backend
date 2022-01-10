@@ -1,9 +1,11 @@
 package com.businessassistantbcn.opendata.service;
 
+import com.businessassistantbcn.opendata.config.LoggerConfig;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
+import com.businessassistantbcn.opendata.helper.JsonHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,23 +21,29 @@ public class EconomicActivitiesCensusService {
     @Autowired
     PropertiesConfig config;
     @Autowired
-    HttpClientHelper helper;
+    HttpClientHelper httpClientHelper;
     @Autowired
     GenericResultDto<EconomicActivitiesCensusDto> genericResultDto;
 
-    public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getAllData() {
-        Mono<EconomicActivitiesCensusDto[]> response = null;
+    public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getPage(int offset, int limit) {
         try {
-            response = helper.getRequestData(
+            Mono<EconomicActivitiesCensusDto[]> response = httpClientHelper.getRequestData(
                     new URL(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class);
-            return response.flatMap( dto -> {
-                genericResultDto.setResults(dto);
-                genericResultDto.setCount(dto.length);
-                return Mono.just(genericResultDto);
+                return response.flatMap( dto -> {
+                    try{
+                    EconomicActivitiesCensusDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
+                    genericResultDto.setLimit(limit);
+                    genericResultDto.setOffset(offset);
+                    genericResultDto.setResults(filteredDto);
+                    genericResultDto.setCount(dto.length);
+                    return Mono.just(genericResultDto);
+                } catch (Exception e){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+                }
             });
 
-        } catch (MalformedURLException e) {
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+        } catch (MalformedURLException mue) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
 }
