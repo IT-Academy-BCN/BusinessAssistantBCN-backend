@@ -3,8 +3,25 @@
 
 ### Endpoints disponibles
 
-- http://localhost:8762/v1/api/opendata/test
-- http://localhost:8762/v1/api/opendata/test-reactive
+- http<nolink>://localhost:8762/v1/api/opendata/test
+- http<nolink>://localhost:8762/v1/api/opendata/test-reactive
+
+##### Spring Boot Actuator
+
+- http<nolink>://localhost:8762/actuator/health (debe responder {"status":"UP"})
+- http<nolink>://localhost:8762/actuator/auditevents
+- http<nolink>://localhost:8762/actuator/beans
+- http<nolink>://localhost:8762/actuator/conditions
+- http<nolink>://localhost:8762/actuator/configprops
+- http<nolink>://localhost:8762/actuator/env
+- http<nolink>://localhost:8762/actuator/heapdump (genera volcado de heap para descarga)
+- http<nolink>://localhost:8762/actuator/httptrace
+- http<nolink>://localhost:8762/actuator/info
+- http<nolink>://localhost:8762/actuator/loggers
+- http<nolink>://localhost:8762/actuator/metrics
+- http<nolink>://localhost:8762/actuator/mappings
+- http<nolink>://localhost:8762/actuator/scheduledtasks
+- http<nolink>://localhost:8762/actuator/threaddump
 
 ### Swagger URL
 
