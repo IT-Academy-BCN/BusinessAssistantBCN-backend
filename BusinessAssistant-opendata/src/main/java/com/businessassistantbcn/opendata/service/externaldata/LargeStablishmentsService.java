@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.service;
+package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;

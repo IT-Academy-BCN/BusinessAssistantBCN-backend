@@ -1,11 +1,11 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.service.*;
-
+import com.businessassistantbcn.opendata.service.config.DataConfigService;
+import com.businessassistantbcn.opendata.service.config.TestService;
+import com.businessassistantbcn.opendata.service.externaldata.*;
 import io.swagger.annotations.*;
 
 import java.net.MalformedURLException;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.service;
+package com.businessassistantbcn.opendata.service.externaldata;
 
 import java.net.MalformedURLException;
 import java.net.URL;

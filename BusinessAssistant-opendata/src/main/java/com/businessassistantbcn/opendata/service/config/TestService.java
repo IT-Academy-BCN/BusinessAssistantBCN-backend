@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.service;
+package com.businessassistantbcn.opendata.service.config;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
