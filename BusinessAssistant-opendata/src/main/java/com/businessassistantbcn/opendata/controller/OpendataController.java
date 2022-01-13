@@ -61,7 +61,7 @@ public class OpendataController {
     }
 
     //GET ?offset=0&limit=10
-    @GetMapping("/large-establishments")
+    @GetMapping("/large-stablishments")
     @ApiOperation("Get large establishments SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
