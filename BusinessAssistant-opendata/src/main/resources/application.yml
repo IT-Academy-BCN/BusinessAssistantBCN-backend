@@ -12,6 +12,10 @@ spring:
         prefer-ip-address: true
         healthCheckPath: /health
 
+springfox:
+  documentation:
+    auto-startup: false
+
 server:
   port: 8762
 
@@ -43,7 +47,7 @@ url:
     - "Nou Barris"
     - "Sant Andreu"
     - "Sant Martí"
-    
+
 ---
 logging:
   level:
