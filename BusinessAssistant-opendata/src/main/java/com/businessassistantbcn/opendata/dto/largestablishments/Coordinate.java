@@ -2,7 +2,7 @@ package com.businessassistantbcn.opendata.dto.largestablishments;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CoordinateDto {
+public class Coordinate {
 
     @JsonProperty("x")
     private float x;

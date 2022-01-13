@@ -25,7 +25,7 @@ public class LargeStablishmentsFactorisizedDto implements Serializable {
     private List<Address> addresses;
     // TODO dependiendo del sistema gps: 253831,23031 o 4326 requerido comentar/descomentar, en @JsonIngnoreProperties tambien.
     @JsonProperty("geo_epgs_25831")
-    private CoordinateDto geo_epgs_25831;
+    private Coordinate geo_epgs_25831;
 //    @JsonProperty("geo_epgs_23031")
 //    private CoordinateDto geo_epgs_23031;
 //    @JsonProperty("geo_epgs_4326")
