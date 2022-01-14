@@ -6,12 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @JsonIgnoreProperties({
-        "id","value","integer_value","float_value","char_value","text_value","datetime_value","option_value","email_value",
-        "phone_value","url_value","url_visible_value","url_visible_value","url_visible_value","contact_person_value",
-        "responsible_value","icon_option_value","outstanding","atribute","category_name","attribute_name","attribute_type",
+        "id","value","integer_value","float_value","char_value","text_value","datetime_value","option_value",/*"email_value",*/
+        /*"phone_value",*//*"url_value",*/"url_visible_value","url_visible_value","url_visible_value","contact_person_value",
+        "responsible_value","icon_option_value","outstanding","description","attribute","category_name","attribute_name","attribute_type",
         "option_value_data","icon_option_value_data","responsible_title","responsible_jobtitle" })
 
-public class Values {
+public class Value {
 
     // Factorisize properties
     @JsonProperty("url_value")
@@ -39,7 +39,8 @@ public class Values {
     private String responsible_value;
     private String icon_option_value;
     private boolean outstanding;
-    private int atribute;
+    private string description;
+    private int attribute;
     private String category_name;
     private String attribute_name;
     private String attribute_type;
