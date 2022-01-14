@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CoordinateDto {
+public class Coordinate {
     @JsonProperty("x")
-    float x;
+    private float x;
     @JsonProperty("y")
-    float y;
+    private float y;
 }
