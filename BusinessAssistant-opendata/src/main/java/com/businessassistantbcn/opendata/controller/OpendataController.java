@@ -116,7 +116,7 @@ public class OpendataController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Offset or Limit cannot be null");
         }
         try{
-            return (Mono<T>) bigMallsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+            return (Mono<T>) bigMallsService.getPageFactorisezed(Integer.parseInt(offset), Integer.parseInt(limit));
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
