@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -60,11 +60,11 @@ public class LargeStablishmentsDto {
     @JsonProperty("warnings")
     private List<Object> warnings;
     @JsonProperty("geo_epgs_25831")
-    private CoordinateDto geo_epgs_25831;
+    private Object geo_epgs_25831;
     @JsonProperty("geo_epgs_23031")
-    private CoordinateDto geo_epgs_23031;
+    private Object geo_epgs_23031;
     @JsonProperty("geo_epgs_4326")
-    private CoordinateDto geo_epgs_4326;
+    private Object geo_epgs_4326;
     @JsonIgnore
     @JsonProperty("is_section_of_data")
     private boolean is_section_of_data;
