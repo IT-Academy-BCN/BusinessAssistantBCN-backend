@@ -1,0 +1,210 @@
+{
+  "count": 28,
+  "offset": 1,
+  "limit": 2,
+  "results": [
+    {
+      "name": "El Corte Inglés *Plaça Catalunya",
+      "classifications_data": [
+        {
+          "id": 43326349,
+          "name": "Grans magatzems i establiments especialitzats"
+        },
+        {
+          "id": 1006045,
+          "name": "Llibreries"
+        },
+        {
+          "id": 112001,
+          "name": "Registres vinculats a TRÀMITS -ITACA"
+        },
+        {
+          "id": 37798723,
+          "name": "Registres revisats ABRIL 2011"
+        },
+        {
+          "id": 37810722,
+          "name": "TISU Recursos estratègics"
+        },
+        {
+          "id": 34296307,
+          "name": "Com.men.grandes almacenes"
+        },
+        {
+          "id": 32301307,
+          "name": "Com.men.tabacos en expendiduria"
+        }
+      ],
+      "values": [
+        {
+          "url_value": "http://www.elcorteingles.es",
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        }
+      ],
+      "addresses": [
+        {
+          "address_name": "Pl Catalunya",
+          "street_number_1": "14",
+          "zip_code": "08002",
+          "district_id": "02",
+          "town": "BARCELONA",
+          "location": {
+            "type": "GeometryCollection",
+            "geometries": [
+              {
+                "type": "Point",
+                "coordinates": [
+                  430708.5304682953,
+                  4582143.131336454
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "geo_epgs_25831": {
+        "x": 430708.53,
+        "y": 4582143
+      }
+    },
+    {
+      "name": "Hipercor *Avinguda Meridiana",
+      "classifications_data": [
+        {
+          "id": 43326348,
+          "name": "Hipermercats"
+        },
+        {
+          "id": 107001,
+          "name": "Alimentació i begudes"
+        },
+        {
+          "id": 32796754,
+          "name": "Llibres"
+        },
+        {
+          "id": 107005,
+          "name": "Electrodomèstics"
+        },
+        {
+          "id": 32804729,
+          "name": "Moda dones"
+        },
+        {
+          "id": 32804728,
+          "name": "Moda homes"
+        },
+        {
+          "id": 37810722,
+          "name": "TISU Recursos estratègics"
+        },
+        {
+          "id": 32301311,
+          "name": "Com.men.tabaco maquinas automaticas"
+        },
+        {
+          "id": 66013073,
+          "name": "Otras maquinas automaticas"
+        }
+      ],
+      "values": [
+        {
+          "url_value": "http://www.hipercor.es",
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        },
+        {
+          "url_value": null,
+          "email_value": null,
+          "phone_value": null
+        }
+      ],
+      "addresses": [
+        {
+          "address_name": "Av Meridiana",
+          "street_number_1": "350*358",
+          "zip_code": "08027",
+          "district_id": "09",
+          "town": "BARCELONA",
+          "location": {
+            "type": "GeometryCollection",
+            "geometries": [
+              {
+                "type": "Point",
+                "coordinates": [
+                  431903.2719562669,
+                  4586585.460260933
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "geo_epgs_25831": {
+        "x": 431903.28,
+        "y": 4586585.5
+      }
+    }
+  ]
+}
