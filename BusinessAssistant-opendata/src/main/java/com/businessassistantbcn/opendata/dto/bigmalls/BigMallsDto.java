@@ -1,9 +1,6 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
 
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +8,8 @@ import java.util.List;
 @Component
 //@JsonIgnoreProperties({"tickets_data","entity_types_data","attribute_categories", "values","from_relationships", "to_relationships",
  //       "classifications_data","secondary_filters_data","timetable","image_data","gallery_data","warnings","sections_data"})
-public class BigMallsDto {
 
+public class BigMallsDto {
     @JsonProperty("register_id")
     private long register_id;
     @JsonProperty("prefix")
@@ -63,11 +60,11 @@ public class BigMallsDto {
     @JsonProperty("warnings")
     private List<Object> warnings;
     @JsonProperty("geo_epgs_25831")
-    private CoordinateDto geo_epgs_25831;
+    private Object geo_epgs_25831;
     @JsonProperty("geo_epgs_23031")
-    private CoordinateDto geo_epgs_23031;
+    private Object geo_epgs_23031;
     @JsonProperty("geo_epgs_4326")
-    private CoordinateDto geo_epgs_4326;
+    private Object geo_epgs_4326;
     @JsonProperty("is_section_of_data")
     private boolean is_section_of_data;
     @JsonProperty("sections_data")
