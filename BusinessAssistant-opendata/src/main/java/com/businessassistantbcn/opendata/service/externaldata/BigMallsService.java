@@ -10,6 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,8 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class BigMallsService {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(JsonHelper.class);
 	@Autowired
 	private PropertiesConfig config;
 	@Autowired
@@ -109,7 +112,6 @@ public class BigMallsService {
 
 
 	public Mono<GenericResultDto<BigMallsFactorisizeDto>>getPageFactorisezed(int offset, int limit) {
-
 		try {
 			Mono<BigMallsFactorisizeDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
 					BigMallsFactorisizeDto[].class);
@@ -122,19 +124,14 @@ public class BigMallsService {
 					genericResultFactorisizeDto.setCount(dto.length);
 					return Mono.just(genericResultFactorisizeDto);
 				} catch (Exception e) {
-					//Poner Logger
+					log.error("Error con el filtrado de BigMalls" +  e.getMessage());
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 				}
-
 			} );
-
 		} catch (MalformedURLException e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 		}
 	}
-
-
-
 
 }
 
