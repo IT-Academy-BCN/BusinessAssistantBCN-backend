@@ -3,7 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsDTO;
+import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +28,16 @@ public class MunicipalMarketsService {
     private HttpClientHelper httpClientHelper;
 
     @Autowired
-    private GenericResultDto<MunicipalMarketsDTO> genericResultDto;
+    private GenericResultDto<MunicipalMarketsDto> genericResultDto;
 
-    public Mono<GenericResultDto<MunicipalMarketsDTO>> getPage(int offset, int limit) {
-       /* EqualsJSONObjectFilter filter =
-                new EqualsJSONObjectFilter("firstName", "John");
-*/
+    public Mono<GenericResultDto<MunicipalMarketsDto>> getPage(int offset, int limit) {
 
         try {
-            Mono<MunicipalMarketsDTO[]> response = httpClientHelper.getRequestData(new URL(config.getDs_municipalmarkets()),
-                    MunicipalMarketsDTO[].class);
+            Mono<MunicipalMarketsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_municipalmarkets()),
+                    MunicipalMarketsDto[].class);
             return response.flatMap(dto ->{
                 try {
-                    MunicipalMarketsDTO[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
+                    MunicipalMarketsDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
                     genericResultDto.setLimit(limit);
                     genericResultDto.setOffset(offset);
                     genericResultDto.setResults(filteredDto);

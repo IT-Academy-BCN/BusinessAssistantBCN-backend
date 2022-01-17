@@ -6,124 +6,127 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class MunicipalMarketsDTO {
+public class MunicipalMarketsDto {
 
     @JsonProperty("register_id")
-    public String register_id;
+    private String register_id;
 
     @JsonProperty("prefix")
-    public String prefix;
+    private String prefix;
 
     @JsonProperty("suffix")
-    public String suffix;
+    private String suffix;
 
     @JsonProperty("name")
-    public String name;
+    private String name;
 
     @JsonProperty("created")
-    public String created;
+    private String created;
 
     @JsonProperty("modified")
-    public String modified;
+    private String modified;
 
     @JsonProperty("status")
-    public String status;
+    private String status;
 
     @JsonProperty("status_name")
-    public String status_name;
+    private String status_name;
 
     @JsonProperty("core_type")
-    public String core_type;
+    private String core_type;
 
     @JsonProperty("core_type_name")
-    public String core_type_name;
+    private String core_type_name;
 
     @JsonProperty("body")
-    public String body;
+    private String body;
 
     @JsonProperty("tickets_data")
-    public List<Object> tickets_data;
+    private List<Object> tickets_data;
 
     @JsonProperty("addresses")
-    public List<Object> addresses;
+    private List<Object> addresses;
 
     @JsonProperty("entity_types_data")
-    public List<Object> entity_types_data;
+    private List<Object> entity_types_data;
 
     @JsonProperty("attribute_categories")
-    public List<Object> attribute_categories;
+    private List<Object> attribute_categories;
 
     @JsonProperty("values")
-    public List<Object> values;
+    private List<Object> values;
 
     @JsonProperty("from_relationships")
-    public List<Object> from_relationships;
+    private List<Object> from_relationships;
 
     @JsonProperty("to_relationships")
-    public List<Object> to_relationships;
+    private List<Object> to_relationships;
 
     @JsonProperty("classifications_data")
-    public List<Object> classifications_data;
+    private List<Object> classifications_data;
 
     @JsonProperty("secondary_filters_data")
-    public List<Object> secondary_filters_data;
+    private List<Object> secondary_filters_data;
 
     @JsonProperty("timetable")
-    public Object timetable;
+    private Object timetable;
 
     @JsonProperty("image_data")
-    public Object image_data;
+    private Object image_data;
 
     @JsonProperty("gallery_data")
-    public List<Object> gallery_data;
+    private List<Object> gallery_data;
 
     @JsonProperty("warnings")
-    public List<Object> warnings;
+    private List<Object> warnings;
 
     @JsonProperty("geo_epgs_25831")
-    public Object geo_epgs_25831;
+    private Object geo_epgs_25831;
 
     @JsonProperty("geo_epgs_23031")
-    public Object geo_epgs_23031;
+    private Object geo_epgs_23031;
+
     @JsonProperty("geo_epgs_4326")
-    public Object geo_epgs_4326;
+    private Object geo_epgs_4326;
 
     @JsonProperty("is_section_of_data")
-    public String is_section_of_data;
-    public List<Object> sections_data;
+    private String is_section_of_data;
+
+    @JsonProperty("sections_data")
+    private List<Object> sections_data;
 
     @JsonProperty("start_date")
-    public String start_date;
+    private String start_date;
 
     @JsonProperty("end_date")
-    public String end_date;
+    private String end_date;
 
     @JsonProperty("estimated_dates")
-    public String estimated_dates;
+    private String estimated_dates;
 
     @JsonProperty("languages_data")
-    public String languages_data;
+    private String languages_data;
 
     @JsonProperty("type")
-    public String type;
+    private String type;
 
     @JsonProperty("type_name")
-    public String type_name;
+    private String type_name;
 
     @JsonProperty("period")
-    public String period;
+    private String period;
 
     @JsonProperty("period_name")
-    public String period_name;
+    private String period_name;
 
     @JsonProperty("event_status_name")
-    public String event_status_name;
+    private String event_status_name;
 
     @JsonProperty("event_status")
-    public String event_status;
+    private String event_status;
 
     @JsonProperty("ical")
-    public String ical;
+    private String ical;
 
 
 }
