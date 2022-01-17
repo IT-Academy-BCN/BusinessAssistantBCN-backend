@@ -2,8 +2,10 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
+import com.businessassistantbcn.opendata.helper.JsonHelper;
 
 import reactor.core.publisher.Mono;
 
@@ -20,21 +22,46 @@ import java.util.List;
 public class LargeStablishmentsService {
 
 	@Autowired
-    HttpClientHelper helper;
+    HttpClientHelper httpClientHelper;
 	
 	@Autowired
 	private PropertiesConfig config;
 	
 	@Autowired
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
-    
+	
+	public Mono<GenericResultDto<LargeStablishmentsDto>>getPage(int offset, int limit) {
+
+		try {
+			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),
+					LargeStablishmentsDto[].class);
+			return response.flatMap(dto ->{
+				try {
+					LargeStablishmentsDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
+					genericResultDto.setLimit(limit);
+					genericResultDto.setOffset(offset);
+					genericResultDto.setResults(filteredDto);
+					genericResultDto.setCount(dto.length);
+					return Mono.just(genericResultDto);
+				} catch (Exception e) {
+					//Poner Logger
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+				}
+
+			} );
+
+		} catch (MalformedURLException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+		}
+	}
 
     public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll()
+
 	{
 		
 		try {
 			
-			Mono<LargeStablishmentsDto[]> response = helper.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
+			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
 			
 			return response.flatMap(dto ->{
 
