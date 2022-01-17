@@ -1,6 +1,5 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -37,33 +36,26 @@ public class BigMallsService {
 	private HttpClientHelper httpClientHelper;
 	@Autowired
 	private GenericResultDto<BigMallsDto> genericResultDto;
-
-
 	
-	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) {
-
-		try {
-			Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
-					BigMallsDto[].class);
-			return response.flatMap(dto ->{
-				try {
-					BigMallsDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
-					genericResultDto.setLimit(limit);
-					genericResultDto.setOffset(offset);
-					genericResultDto.setResults(filteredDto);
-					genericResultDto.setCount(dto.length);
-					return Mono.just(genericResultDto);
-				} catch (Exception e) {
-					//Poner Logger
-					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-				}
-
-			} );
-
-		} catch (MalformedURLException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
-		}
-	}
+	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) { try {
+		
+		Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
+				BigMallsDto[].class);
+		
+		return response.flatMap(dto -> { try {
+			BigMallsDto[] filteredDto = JsonHelper.filterDto(dto, offset, limit);
+			genericResultDto.setLimit(limit);
+			genericResultDto.setOffset(offset);
+			genericResultDto.setResults(filteredDto);
+			genericResultDto.setCount(dto.length);
+			return Mono.just(genericResultDto);
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+		} });
+		
+	} catch (MalformedURLException e) {
+		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+	} }
 	
 	public GenericResultDto<BigMallsDto> getBigMallsByActivityDto(int[] activities, int offset, int limit) {
 		//lambda filter

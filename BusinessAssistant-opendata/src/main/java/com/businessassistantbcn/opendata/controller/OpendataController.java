@@ -94,34 +94,33 @@ public class OpendataController {
 
     }
 
-    //GET ?offset=0&limit=10
-    @GetMapping("/big-malls")
-    @ApiOperation("Get big malls SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
-    public <T> Mono<T> bigMalls(
-            @ApiParam(value = "Offset", name= "Offset")
-            @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
-            @RequestParam(required = false)  String limit){
+	//GET ?offset=0&limit=10
+	@SuppressWarnings("unchecked")
+	@GetMapping("/big-malls")
+	@ApiOperation("Get big malls SET 0 LIMIT 10")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 503, message = "Service Unavailable"),
+	})
+	public <T> Mono<T> bigMalls(
+			@ApiParam(value = "Offset", name= "Offset")
+			@RequestParam(required = false) String offset,
+			@ApiParam(value = "Limit", name= "Limit")
+			@RequestParam(required = false)  String limit) {
 
-        offset = offset == null ? "0": offset;
-        limit = limit == null ? "-1": limit;
-
-        if(offset.compareTo("")==0 || limit.compareTo("")==0 || offset.compareTo("null")==0 || limit.compareTo("null")==0){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Offset or Limit cannot be null");
+		offset = offset == null ? "0": offset;
+		limit = limit == null ? "-1": limit;
+		
+		try {
+			return (Mono<T>) bigMallsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
         }
-        try{
-            return (Mono<T>) bigMallsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
-        }catch (Exception mue){
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
-        }
-    }
-
+		
+	}
+	
     //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets")
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")
@@ -133,21 +132,33 @@ public class OpendataController {
     {
         return "municipal-markets";
     }
-
-    //GET ?offset=0&limit=10
-    @GetMapping("/market-fairs")
-    @ApiOperation("Get markets fairs SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-    })
-    public <T> Mono<T> marketsFairs()
-    {
-    	 try{
-             return (Mono<T>) marketFairsService.getAllMarketsFairs();
-         }catch (Exception mue){
-             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
-         }    }
+    
+	//GET ?offset=0&limit=10
+	@SuppressWarnings("unchecked")
+	@GetMapping("/market-fairs")
+	@ApiOperation("Get market fairs SET 0 LIMIT 10")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 503, message = "Service Unavailable"),
+	})
+	public <T> Mono<T> marketFairs(
+			@ApiParam(value = "Offset", name= "Offset")
+			@RequestParam(required = false) String offset,
+			@ApiParam(value = "Limit", name= "Limit")
+			@RequestParam(required = false)  String limit) {
+		
+		offset = offset == null ? "0": offset;
+		limit = limit == null ? "-1": limit;
+		
+		try {
+			return (Mono<T>) marketFairsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+		}
+		
+	}
 
     //GET ?offset=0&limit=10
     @GetMapping("/large-stablishments/activity")
