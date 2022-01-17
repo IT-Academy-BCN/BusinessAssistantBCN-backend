@@ -8,7 +8,6 @@ package com.businessassistantbcn.login.security;
 import java.io.IOException;
 
 import java.util.List;
-//import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -76,7 +75,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				.parseClaimsJws(jwtToken) // Incluye la comprobacion temporal para claim 'exp'
 				.getBody();
 	}
-	
 	private void setUpSpringAuthentication(Claims claims) {
 /*		@SuppressWarnings("unchecked")
 		List<String> authorities = (List<String>)claims.get(myConfig.getAuthorities());

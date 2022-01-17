@@ -13,7 +13,6 @@ management:
       exposure:
         include: "*"
 
----
 security:
   datasource:
     signUpUrl: /v1/api/login
@@ -23,7 +22,6 @@ security:
     authorities: authorities
     err: Auth Error, Token Unavailable
 
----
 logging:
   level:
     root: INFO
