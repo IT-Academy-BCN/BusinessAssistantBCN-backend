@@ -3,7 +3,6 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsDto;
-import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsFactorisizedDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 
 import com.businessassistantbcn.opendata.helper.JsonHelper;
@@ -32,14 +31,11 @@ public class LargeStablishmentsService {
 	@Autowired
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
 
-	@Autowired
-	private GenericResultDto<LargeStablishmentsFactorisizedDto> genericResultFactosisedDto;
-
 	// Default get all data
     public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll()
 	{
 		try {
-			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
+			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()), LargeStablishmentsDto[].class);
 			return response.flatMap(dto ->{
 				genericResultDto.setResults(dto);
 				genericResultDto.setCount(dto.length);
@@ -50,19 +46,19 @@ public class LargeStablishmentsService {
 		}
 	}
 
-	// Factorisized: getting all data paged
-	public Mono<GenericResultDto<LargeStablishmentsFactorisizedDto>> getPageFactorisized(int offset, int limit) {
+
+	public Mono<GenericResultDto<LargeStablishmentsDto>> getPageLargeStablishments(int offset, int limit) {
 		try {
-			Mono<LargeStablishmentsFactorisizedDto[]> response = httpClientHelper.getRequestData(
-					new URL(config.getDs_largestablishments()), LargeStablishmentsFactorisizedDto[].class);
+			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(
+					new URL(config.getDs_largestablishments()), LargeStablishmentsDto[].class);
 			return response.flatMap( dto -> {
 				try{
-					LargeStablishmentsFactorisizedDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
-					genericResultFactosisedDto.setLimit(limit);
-					genericResultFactosisedDto.setOffset(offset);
-					genericResultFactosisedDto.setResults(filteredDto);
-					genericResultFactosisedDto.setCount(dto.length);
-					return Mono.just(genericResultFactosisedDto);
+					LargeStablishmentsDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
+					genericResultDto.setLimit(limit);
+					genericResultDto.setOffset(offset);
+					genericResultDto.setResults(filteredDto);
+					genericResultDto.setCount(dto.length);
+					return Mono.just(genericResultDto);
 				} catch (Exception e){
 					log.error("Error con el filtrado de EconomicAtivitiesCensus" +  e.getMessage());
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
@@ -76,7 +72,7 @@ public class LargeStablishmentsService {
 	public Mono<GenericResultDto<LargeStablishmentsDto>> getPage(int offset, int limit) {
 		try {
 			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(
-					new URL(config.getDs_economicactivitiescensus()), LargeStablishmentsDto[].class);
+					new URL(config.getDs_largestablishments()), LargeStablishmentsDto[].class);
 			return response.flatMap( dto -> {
 				try{
 					LargeStablishmentsDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
@@ -86,7 +82,7 @@ public class LargeStablishmentsService {
 					genericResultDto.setCount(dto.length);
 					return Mono.just(genericResultDto);
 				} catch (Exception e){
-					log.error("Error con el filtrado de EconomicAtivitiesCensus" +  e.getMessage());
+					log.error("Error con el filtrado de LargeStablishments" +  e.getMessage());
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 				}
 			});
