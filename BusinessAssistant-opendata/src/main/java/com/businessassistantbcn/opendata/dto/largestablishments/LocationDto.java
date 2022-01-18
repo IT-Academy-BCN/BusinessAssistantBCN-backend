@@ -11,16 +11,16 @@ import java.util.List;
 @JsonIgnoreProperties({"type"})
 public class LocationDto {
 //    private String type;
-    public List<Geometry> geometries;
+    public List<GeometryDto> geometries;
 
 
     @JsonGetter("geometries")
-    public List<Geometry> getGeometries() {
+    public List<GeometryDto> getGeometries() {
         return geometries;
     }
 
     @JsonSetter("geometries")
-    public void setGeometries(List<Geometry> geometries) {
+    public void setGeometries(List<GeometryDto> geometries) {
         this.geometries = geometries;
     }
 }
