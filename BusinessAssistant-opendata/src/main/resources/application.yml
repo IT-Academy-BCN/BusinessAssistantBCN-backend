@@ -11,7 +11,7 @@ spring:
         port: 8762
         prefer-ip-address: true
         healthCheckPath: /health
-
+# OJO bug afecta a Swagger
 springfox:
   documentation:
     auto-startup: false
