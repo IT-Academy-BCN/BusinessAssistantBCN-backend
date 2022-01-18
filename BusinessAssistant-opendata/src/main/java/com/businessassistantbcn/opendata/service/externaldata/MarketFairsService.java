@@ -6,7 +6,6 @@ import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsResponseDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsResponseDto;
-import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
