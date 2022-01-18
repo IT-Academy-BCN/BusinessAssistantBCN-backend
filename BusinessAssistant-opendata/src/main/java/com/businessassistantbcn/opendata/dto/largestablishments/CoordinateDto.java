@@ -1,11 +1,30 @@
 package com.businessassistantbcn.opendata.dto.largestablishments;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class Coordinate {
+public class CoordinateDto {
 
-    @JsonProperty("x")
     private float x;
-    @JsonProperty("y")
     private float y;
+
+    @JsonGetter("x")
+    public float getX() {
+        return x;
+    }
+
+    @JsonSetter("x")
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    @JsonGetter("y")
+    public float getY() {
+        return y;
+    }
+
+    @JsonSetter("y")
+    public void setY(float y) {
+        this.y = y;
+    }
 }

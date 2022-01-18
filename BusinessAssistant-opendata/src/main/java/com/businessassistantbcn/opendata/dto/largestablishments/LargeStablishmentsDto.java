@@ -4,32 +4,84 @@ package com.businessassistantbcn.opendata.dto.largestablishments;
 import com.fasterxml.jackson.annotation.*;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
+
 import java.util.List;
 
 @Component
 /* JsonIgnoreProperties for serializacion and deserialization */
 @JsonIgnoreProperties({"register_id","prefix","name","suffix","created","modified","status","status_name","core_type","core_type_name","body","tickets_data"
-        ,"entity_types_data","attribute_categories",/*"values",*/"from_relationships","to_relationships",/*"classifications_data",*/"secondary_filters_data","timetable"
-        ,"image_data","gallery_data","warnings",/*"geo_epgs_25831",*/"geo_epgs_23031","geo_epgs_4326","is_section_of_data","sections_data"
+        ,/*"addresses",*/"entity_types_data","attribute_categories",/*"values",*/"from_relationships","to_relationships",/*"classifications_data",*/"secondary_filters_data","timetable"
+        ,"image_data","gallery_data","warnings",/*"geo_epgs_25831",*/ /*"geo_epgs_23031",*/ /*"geo_epgs_4326",*/ "is_section_of_data","sections_data"
         ,"start_date","end_date","estimated_dates","languages_data","type","type_name","period","period_name","event_status_name","event_status","ical" })
 
-public class LargeStablishmentsFactorisizedDto implements Serializable {
+public class LargeStablishmentsDto {
 
-    // Factorisized properties
-    @JsonProperty("classifications_data")
-    private List<ClassificationsData> classifications_data;
-    @JsonProperty("values")
-    private List<Value> values;
-    @JsonProperty("addresses")
-    private List<Address> addresses;
-    // TODO dependiendo del sistema gps: 253831,23031 o 4326 requerido comentar/descomentar, en @JsonIngnoreProperties tambien.
-    @JsonProperty("geo_epgs_25831")
-    private Coordinate geo_epgs_25831;
-//    @JsonProperty("geo_epgs_23031")
-//    private CoordinateDto geo_epgs_23031;
-//    @JsonProperty("geo_epgs_4326")
-//    private CoordinateDto geo_epgs_4326;
+    private List<ClassificationsDataDto> classifications_data;
+    private List<WebMailPhoneDto> values;
+    private List<AddressDto> addresses;
+    private CoordinateDto geo_epgs_25831;
+    private CoordinateDto geo_epgs_23031;
+    private CoordinateDto geo_epgs_4326;
+
+    @JsonGetter("activity")
+    public List<ClassificationsDataDto> getClassifications_data() {
+        return classifications_data;
+    }
+
+    @JsonSetter("classifications_data")
+    public void setClassifications_data(List<ClassificationsDataDto> classifications_data) {
+        this.classifications_data = classifications_data;
+    }
+
+    @JsonGetter("web_mail_phone")
+    public List<WebMailPhoneDto> getValues() {
+        return values;
+    }
+
+    @JsonSetter("values")
+    public void setValues(List<WebMailPhoneDto> values) {
+        this.values = values;
+    }
+
+    @JsonSetter("address")
+    public List<AddressDto> getAddresses() {
+        return addresses;
+    }
+
+    @JsonSetter("addresses")
+    public void setAddresses(List<AddressDto> addresses) {
+        this.addresses = addresses;
+    }
+
+    @JsonGetter("location_epgs_25831")
+    public CoordinateDto getGeo_epgs_25831() {
+        return geo_epgs_25831;
+    }
+
+    @JsonSetter("geo_epgs_25831")
+    public void setGeo_epgs_25831(CoordinateDto geo_epgs_25831) {
+        this.geo_epgs_25831 = geo_epgs_25831;
+    }
+
+    @JsonGetter("location_epgs_23031")
+    public CoordinateDto getGeo_epgs_23031() {
+        return geo_epgs_23031;
+    }
+
+    @JsonSetter("geo_epgs_23031")
+    public void setGeo_epgs_23031(CoordinateDto geo_epgs_23031) {
+        this.geo_epgs_23031 = geo_epgs_23031;
+    }
+
+    @JsonGetter("location_epgs_4326")
+    public CoordinateDto getGeo_epgs_4326() {
+        return geo_epgs_4326;
+    }
+
+    @JsonSetter("geo_epgs_4326")
+    public void setGeo_epgs_4326(CoordinateDto geo_epgs_4326) {
+        this.geo_epgs_4326 = geo_epgs_4326;
+    }
 
     // Default properties below
     /*
