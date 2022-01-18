@@ -11,7 +11,7 @@ import java.util.List;
 /* JsonIgnoreProperties for serializacion and deserialization */
 @JsonIgnoreProperties({"register_id","prefix","name","suffix","created","modified","status","status_name","core_type","core_type_name","body","tickets_data"
         ,/*"addresses",*/"entity_types_data","attribute_categories",/*"values",*/"from_relationships","to_relationships",/*"classifications_data",*/"secondary_filters_data","timetable"
-        ,"image_data","gallery_data","warnings",/*"geo_epgs_25831",*/ /*"geo_epgs_23031",*/ /*"geo_epgs_4326",*/ "is_section_of_data","sections_data"
+        ,"image_data","gallery_data","warnings","geo_epgs_25831", "geo_epgs_23031", "geo_epgs_4326", "is_section_of_data","sections_data"
         ,"start_date","end_date","estimated_dates","languages_data","type","type_name","period","period_name","event_status_name","event_status","ical" })
 
 public class LargeStablishmentsDto {
@@ -19,10 +19,6 @@ public class LargeStablishmentsDto {
     private List<ClassificationsDataDto> classifications_data;
     private List<WebMailPhoneDto> values;
     private List<AddressDto> addresses;
-    private CoordinateDto geo_epgs_25831;
-    private CoordinateDto geo_epgs_23031;
-    private CoordinateDto geo_epgs_4326;
-
     @JsonGetter("activity")
     public List<ClassificationsDataDto> getClassifications_data() {
         return classifications_data;
@@ -53,35 +49,6 @@ public class LargeStablishmentsDto {
         this.addresses = addresses;
     }
 
-    @JsonGetter("location_epgs_25831")
-    public CoordinateDto getGeo_epgs_25831() {
-        return geo_epgs_25831;
-    }
-
-    @JsonSetter("geo_epgs_25831")
-    public void setGeo_epgs_25831(CoordinateDto geo_epgs_25831) {
-        this.geo_epgs_25831 = geo_epgs_25831;
-    }
-
-    @JsonGetter("location_epgs_23031")
-    public CoordinateDto getGeo_epgs_23031() {
-        return geo_epgs_23031;
-    }
-
-    @JsonSetter("geo_epgs_23031")
-    public void setGeo_epgs_23031(CoordinateDto geo_epgs_23031) {
-        this.geo_epgs_23031 = geo_epgs_23031;
-    }
-
-    @JsonGetter("location_epgs_4326")
-    public CoordinateDto getGeo_epgs_4326() {
-        return geo_epgs_4326;
-    }
-
-    @JsonSetter("geo_epgs_4326")
-    public void setGeo_epgs_4326(CoordinateDto geo_epgs_4326) {
-        this.geo_epgs_4326 = geo_epgs_4326;
-    }
 
     // Default properties below
     /*
