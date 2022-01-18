@@ -1,7 +1,9 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,15 +13,43 @@ import org.springframework.stereotype.Component;
         "responsible_value","icon_option_value","outstanding","description","attribute","category_name","attribute_name","attribute_type",
         "option_value_data","icon_option_value_data","responsible_title","responsible_jobtitle" })
 
-public class Value {
+public class WebMailPhoneDto {
 
-    // Factorisize properties
-    @JsonProperty("url_value")
     private String url_value;
-    @JsonProperty("email_value")
     private String email_value;
-    @JsonProperty("phone_value")
     private String phone_value;
+
+    @JsonGetter("web") //deserialize
+    public String getUrl_value() {
+        return url_value;
+    }
+
+    @JsonSetter("url_value") //serialize
+    public void setUrl_value(String url_value) {
+        this.url_value = url_value;
+    }
+
+    @JsonGetter("email")
+    public String getEmail_value() {
+        return email_value;
+    }
+
+    @JsonSetter("email_value")
+    public void setEmail_value(String email_value) {
+        this.email_value = email_value;
+    }
+
+
+    @JsonGetter("phone")
+    public String getPhone_value() {
+        return phone_value;
+    }
+
+    @JsonSetter("phone_value")
+    public void setPhone_value(String phone_value) {
+        this.phone_value = phone_value;
+    }
+
 
     // Fefault properties
     /*

@@ -1,7 +1,9 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,21 +12,74 @@ import org.springframework.stereotype.Component;
         "street_number_2","stairs","level","door",/*"zip_code",*/ "province",/*"town",*/"country","comments","position",
         "main_address","road_name","road_id","roadtype_name","roadtype_id",/*"location",*/ "related_entity","related_entity_data" })
 
-public class Address {
+public class AddressDto {
 
-    // Factorisize properties
-    @JsonProperty("address_name")
     private String address_name;
-    @JsonProperty("street_number_1")
     private String street_number_1;
-    @JsonProperty("zip_code")
     private String zip_code;
-    @JsonProperty("district_id")
     private String district_id;
-    @JsonProperty("town")
     private String town;
-    @JsonProperty("location")
-    private Object location;
+    private LocationDto location;
+
+    @JsonGetter("address_name")
+    public String getAddress_name() {
+        return address_name;
+    }
+
+    @JsonSetter("address_name")
+    public void setAddress_name(String address_name) {
+        this.address_name = address_name;
+    }
+
+    @JsonGetter("street_number_1")
+    public String getStreet_number_1() {
+        return street_number_1;
+    }
+
+    @JsonSetter("street_number_1")
+    public void setStreet_number_1(String street_number_1) {
+        this.street_number_1 = street_number_1;
+    }
+
+    @JsonGetter("zip_code")
+    public String getZip_code() {
+        return zip_code;
+    }
+
+    @JsonSetter("zip_code")
+    public void setZip_code(String zip_code) {
+        this.zip_code = zip_code;
+    }
+
+    @JsonGetter("district_id")
+    public String getDistrict_id() {
+        return district_id;
+    }
+
+    @JsonSetter("district_id")
+    public void setDistrict_id(String district_id) {
+        this.district_id = district_id;
+    }
+
+    @JsonGetter("town")
+    public String getTown() {
+        return town;
+    }
+
+    @JsonSetter("town")
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    @JsonGetter("location")
+    public LocationDto getLocation() {
+        return location;
+    }
+
+    @JsonSetter("location")
+    public void setLocation(LocationDto location) {
+        this.location = location;
+    }
 
     // Default properties
     /*
