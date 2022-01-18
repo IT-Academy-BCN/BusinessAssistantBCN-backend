@@ -10,15 +10,14 @@ import org.springframework.stereotype.Component;
         "responsible_title","responsible_jobtitle"
 })
 
-public class Value {
+public class WebMailTelefonoDto {
 
-    // Factorisized properties
     @JsonProperty("email_value")
-    private String email_value; // email
+    private String email_value;
     @JsonProperty("phone_value")
-    private Object phone_value; // telefono
+    private Object phone_value;
     @JsonProperty("url_value")
-    private String url_value;  //web
+    private String url_value;
 
     // Default properties below
     /*

@@ -1,39 +1,17 @@
 package com.businessassistantbcn.opendata.dto.largestablishments;
 
-
-import com.fasterxml.jackson.annotation.*;
-import org.springframework.stereotype.Component;
-
-import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Component
-/* JsonIgnoreProperties for serializacion and deserialization */
-@JsonIgnoreProperties({"register_id","prefix","name","suffix","created","modified","status","status_name","core_type","core_type_name","body","tickets_data"
-        ,"entity_types_data","attribute_categories",/*"values",*/"from_relationships","to_relationships",/*"classifications_data",*/"secondary_filters_data","timetable"
-        ,"image_data","gallery_data","warnings",/*"geo_epgs_25831",*/"geo_epgs_23031","geo_epgs_4326","is_section_of_data","sections_data"
-        ,"start_date","end_date","estimated_dates","languages_data","type","type_name","period","period_name","event_status_name","event_status","ical" })
-
-public class LargeStablishmentsFactorisizedDto implements Serializable {
-
-    // Factorisized properties
-    @JsonProperty("classifications_data")
-    private List<ClassificationsData> classifications_data;
-    @JsonProperty("values")
-    private List<Value> values;
-    @JsonProperty("addresses")
-    private List<Address> addresses;
-    // TODO dependiendo del sistema gps: 253831,23031 o 4326 requerido comentar/descomentar, en @JsonIngnoreProperties tambien.
-    @JsonProperty("geo_epgs_25831")
-    private Coordinate geo_epgs_25831;
-//    @JsonProperty("geo_epgs_23031")
-//    private CoordinateDto geo_epgs_23031;
-//    @JsonProperty("geo_epgs_4326")
-//    private CoordinateDto geo_epgs_4326;
-
-    // Default properties below
-    /*
-    @JsonProperty("register_id")
+public class LargeStablishmentsDto {
+	
+	@JsonProperty("register_id")
     private long register_id;
     @JsonProperty("prefix")
     private String prefix;
@@ -64,7 +42,7 @@ public class LargeStablishmentsFactorisizedDto implements Serializable {
     @JsonProperty("attribute_categories")
     private List<Object> attribute_categories;
     @JsonProperty("values")
-    private List<Value> values;
+    private List<Object> values;
     @JsonProperty("from_relationships")
     private List<Object> from_relationships;
     @JsonProperty("to_relationships")
@@ -114,7 +92,6 @@ public class LargeStablishmentsFactorisizedDto implements Serializable {
     private String event_status;
     @JsonProperty("ical")
     private String ical;
-    */
 
 
 }
