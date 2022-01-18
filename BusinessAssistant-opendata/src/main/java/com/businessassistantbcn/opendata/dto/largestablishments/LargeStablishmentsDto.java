@@ -19,6 +19,7 @@ public class LargeStablishmentsDto {
     private List<ClassificationsDataDto> classifications_data;
     private List<WebMailPhoneDto> values;
     private List<AddressDto> addresses;
+
     @JsonGetter("activity")
     public List<ClassificationsDataDto> getClassifications_data() {
         return classifications_data;

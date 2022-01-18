@@ -10,8 +10,7 @@ import java.util.List;
 @Component
 @JsonIgnoreProperties({"type"})
 public class GeometryDto {
-//    public String type;
-    public List<Double> coordinates;
+    private List<Double> coordinates;
 
     @JsonGetter("coordinates")
     public List<Double> getCoordinates() {

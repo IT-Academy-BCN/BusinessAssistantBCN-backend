@@ -10,8 +10,7 @@ import java.util.List;
 @Component
 @JsonIgnoreProperties({"type"})
 public class LocationDto {
-//    private String type;
-    public List<GeometryDto> geometries;
+    private List<GeometryDto> geometries;
 
 
     @JsonGetter("geometries")

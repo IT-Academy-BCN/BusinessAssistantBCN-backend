@@ -13,7 +13,7 @@ public class WebMailPhoneDto {
 
     private String url_value;
     private String email_value;
-    private Object phone_value;
+    private String phone_value;
 
     @JsonGetter("web") //deserialize
     public String getUrl_value() {
@@ -42,7 +42,7 @@ public class WebMailPhoneDto {
     }
 
     @JsonSetter("phone_value")
-    public void setPhone_value(Object phone_value) {
+    public void setPhone_value(String phone_value) {
         this.phone_value = phone_value;
     }
 
