@@ -15,7 +15,7 @@ public class PropertiesConfig {
     private String ds_commercialgaleries;
     private String ds_bigmalls;
     private String ds_municipalmarkets;
-    private String ds_marketsfairs;
+    private String ds_marketfairs;
     private String ds_economicactivitiescensus;
     private String ds_economicactivitiesgroundfloor;
     private Integer maxBytesInMemory;
@@ -77,12 +77,12 @@ public class PropertiesConfig {
         this.ds_municipalmarkets = ds_municipalmarkets;
     }
 
-    public String getDs_marketsfairs() {
-        return ds_marketsfairs;
+    public String getDs_marketfairs() {
+        return ds_marketfairs;
     }
 
-    public void setDs_marketsfairs(String ds_marketsfairs) {
-        this.ds_marketsfairs = ds_marketsfairs;
+    public void setDs_marketfairs(String ds_marketfairs) {
+        this.ds_marketfairs = ds_marketfairs;
     }
 
     public String getDs_economicactivitiescensus() {

@@ -1,18 +1,15 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
-
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 @Component
-//@JsonIgnoreProperties({"tickets_data","entity_types_data","attribute_categories", "values","from_relationships", "to_relationships",
- //       "classifications_data","secondary_filters_data","timetable","image_data","gallery_data","warnings","sections_data"})
+@Getter @Setter
 public class BigMallsDto {
-
+	
     @JsonProperty("register_id")
     private long register_id;
     @JsonProperty("prefix")
@@ -37,7 +34,6 @@ public class BigMallsDto {
     private String body;
     @JsonProperty("tickets_data")
     private List<Object> tickets_data;
-    //prueba con objetos object directamente
     @JsonProperty("addresses")
     private List<Object> addresses;
     @JsonProperty("entity_types_data")
@@ -94,6 +90,5 @@ public class BigMallsDto {
     private String event_status;
     @JsonProperty("ical")
     private String ical;
-
-
+    
 }

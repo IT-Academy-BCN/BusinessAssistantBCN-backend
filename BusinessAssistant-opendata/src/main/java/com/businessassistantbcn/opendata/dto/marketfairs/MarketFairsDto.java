@@ -1,38 +1,40 @@
 package com.businessassistantbcn.opendata.dto.marketfairs;
 
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
 import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 @Component
-public class MarketFairsResponseDto {
+@Getter @Setter
+public class MarketFairsDto {
+	
     @JsonProperty("register_id")
-    public String register_id;
+    private long register_id;
     @JsonProperty("prefix")
-    public String prefix;
+    private String prefix;
     @JsonProperty("suffix")
-    public String suffix;
+    private String suffix;
     @JsonProperty("name")
-    public String name;
+    private String name;
     @JsonProperty("created")
-    public String created;
+    private String created;
     @JsonProperty("modified")
-    public String modified;
+    private String modified;
     @JsonProperty("status")
-    public String status;	
+    private String status;
     @JsonProperty("status_name")
-    public String status_name;
+    private String status_name;
     @JsonProperty("core_type")
-    public String core_type;
+    private String core_type;
     @JsonProperty("core_type_name")
-    public String core_type_name;
+    private String core_type_name;
     @JsonProperty("body")
-    public String body;
+    private String body;
     @JsonProperty("tickets_data")
-    public List<Object> tickets_data;
+    private List<Object> tickets_data;
     @JsonProperty("addresses")
     private List<Object> addresses;
     @JsonProperty("entity_types_data")
@@ -89,4 +91,5 @@ public class MarketFairsResponseDto {
     private String event_status;
     @JsonProperty("ical")
     private String ical;
+    
 }
