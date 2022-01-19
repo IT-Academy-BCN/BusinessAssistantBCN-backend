@@ -2,7 +2,6 @@ package com.businessassistantbcn.opendata.helper;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelOption;
@@ -16,7 +15,6 @@ import org.springframework.http.codec.ClientCodecConfigurer;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -70,7 +68,7 @@ public class HttpClientHelper {
     }
 
 
-    public Object getObjectRoot (URL url, Class clazz){
+    public <T> Object getObjectRoot (URL url, Class<T> clazz){
 
         return null;
     }
@@ -85,8 +83,7 @@ public class HttpClientHelper {
      * @return
      */
     
-    @SuppressWarnings("unchecked")
-    public <T> Mono<T> getRequestData(URL url, Class clazz){
+    public <T> Mono<T> getRequestData(URL url, Class<T> clazz){
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
         WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
         return bodySpec.retrieve().bodyToMono(clazz);

@@ -23,8 +23,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import reactor.core.publisher.Mono;
 
-import java.net.MalformedURLException;
-
 @RestController
 @RequestMapping(value = "/v1/api/opendata")
 public class OpendataController {
@@ -62,7 +60,7 @@ public class OpendataController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = Mono.class),
             @ApiResponse(code = 503, message = "Resource Not Found", response = String.class)})
-    public <T> Mono<T> testReactive(){
+    public Mono<?> testReactive(){
         try{
             return testService.getTestData();
         }catch(MalformedURLException mue) {
@@ -77,10 +75,10 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public <T> Mono<T> largeEstablishments()
+    public Mono<?> largeEstablishments()
     {
         try{
-            return (Mono<T>) largeStablishmentsService.getLargeStablishmentsAll();
+            return largeStablishmentsService.getLargeStablishmentsAll();
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
@@ -93,11 +91,11 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public <T> Mono<T> commercialGalleries()
+    public Mono<?> commercialGalleries()
     {
 
         try{
-            return (Mono<T>) commercialGaleriesService.getCommercialGaleriesAll();
+            return commercialGaleriesService.getCommercialGaleriesAll();
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
@@ -113,7 +111,7 @@ public class OpendataController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 503, message = "Service Unavailable"),
     })
-    public <T> Mono<T> largeEstablishmentsDistrict(
+    public Mono<?> largeEstablishmentsDistrict(
     		@ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
@@ -121,11 +119,9 @@ public class OpendataController {
     	
     	 offset = offset == null ? "0": offset;
          limit = limit == null ? "-1": limit;
-         if(offset.compareTo("")==0 || limit.compareTo("")==0 || offset.compareTo("null")==0 || limit.compareTo("null")==0){
-             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Offset or Limit cannot be null");
-         }
+         
          try{
-        	 return (Mono<T>) largeStablishmentsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+        	 return largeStablishmentsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
          }catch (Exception mue){
              throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
          }
@@ -139,7 +135,7 @@ public class OpendataController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 503, message = "Service Unavailable"),
     })
-    public <T> Mono<T> bigMalls(
+    public Mono<?> bigMalls(
             @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
@@ -148,11 +144,8 @@ public class OpendataController {
         offset = offset == null ? "0": offset;
         limit = limit == null ? "-1": limit;
 
-        if(offset.compareTo("")==0 || limit.compareTo("")==0 || offset.compareTo("null")==0 || limit.compareTo("null")==0){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Offset or Limit cannot be null");
-        }
         try{
-            return (Mono<T>) bigMallsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+            return bigMallsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
@@ -167,7 +160,7 @@ public class OpendataController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 503, message = "Service Unavailable"),
     })
-    public <T>Mono<T> municipalMarkets(
+    public Mono<?> municipalMarkets(
             @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
@@ -176,18 +169,14 @@ public class OpendataController {
         offset = offset == null ? "0": offset;
         limit = limit == null ? "-1": limit;
 
-        if(offset.compareTo("")==0 || limit.compareTo("")==0 || offset.compareTo("null")==0 || limit.compareTo("null")==0){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Offset or Limit cannot be null");
-        }
         try{
-            return (Mono<T>) municipalMarketsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+            return municipalMarketsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
     
 	//GET ?offset=0&limit=10
-	@SuppressWarnings("unchecked")
 	@GetMapping("/market-fairs")
 	@ApiOperation("Get market fairs SET 0 LIMIT 10")
 	@ApiResponses({
@@ -196,7 +185,7 @@ public class OpendataController {
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 503, message = "Service Unavailable"),
 	})
-	public <T> Mono<T> marketFairs(
+	public Mono<?> marketFairs(
 			@ApiParam(value = "Offset", name= "Offset")
 			@RequestParam(required = false) String offset,
 			@ApiParam(value = "Limit", name= "Limit")
@@ -206,7 +195,7 @@ public class OpendataController {
 		limit = limit == null ? "-1": limit;
 		
 		try {
-			return (Mono<T>) marketFairsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+			return marketFairsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 		}
@@ -235,7 +224,7 @@ public class OpendataController {
             @ApiResponse(code = 503, message = "Service Unavailable"),
     })
 
-    public <T>Mono<T> economicActivitiesCensus(
+    public Mono<?> economicActivitiesCensus(
             @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
@@ -243,12 +232,9 @@ public class OpendataController {
     {
         offset = offset == null ? "0": offset;
         limit = limit == null ? "-1": limit;
-
-        if(offset.compareTo("")==0 || limit.compareTo("")==0 || offset.compareTo("null")==0 || limit.compareTo("null")==0){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Offset or Limit cannot be null");
-        }
+        
         try {
-            return (Mono<T>) economicActivitiesCensusService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+            return economicActivitiesCensusService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
@@ -260,10 +246,10 @@ public class OpendataController {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
-    public <T>Mono<T> bcnZones()
+    public Mono<?> bcnZones()
     {
         try {
-            return (Mono<T>) bcnZonesService.getBcnZones();
+            return bcnZonesService.getBcnZones();
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }

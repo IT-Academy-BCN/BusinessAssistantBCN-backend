@@ -19,7 +19,7 @@ public class TestService {
     @Autowired
     HttpClientHelper helper;
 
-    public <T> Mono<T> getTestData()throws MalformedURLException{
+    public Mono<StarWarsVehiclesResultDto> getTestData()throws MalformedURLException{
            return helper.getRequestData(new URL(config.getDs_test()), StarWarsVehiclesResultDto.class);
     }
 

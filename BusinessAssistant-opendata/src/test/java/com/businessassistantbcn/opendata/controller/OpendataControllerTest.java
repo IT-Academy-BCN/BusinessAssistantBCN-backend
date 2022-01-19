@@ -5,6 +5,7 @@ import com.businessassistantbcn.opendata.dto.bcnzones.*;
 import com.businessassistantbcn.opendata.dto.bigmalls.*;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.test.*;
 import com.businessassistantbcn.opendata.service.config.*;
 import com.businessassistantbcn.opendata.service.externaldata.*;
@@ -218,6 +219,7 @@ public class OpendataControllerTest {
 		final Arguments[] args = {
 			Arguments.of("/big-malls", BigMallsDto.class, "bigMallsService"),
 			Arguments.of("/market-fairs", MarketFairsDto.class, "marketFairsService"),
+			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
 //			Arguments.of("/large-establishments", LargeStablishmentsDto.class, "largeStablishmentsService"),
 //			Arguments.of("/commercial-galleries", CommercialGalleries.class, "commercialGalleriesService")
 		};
