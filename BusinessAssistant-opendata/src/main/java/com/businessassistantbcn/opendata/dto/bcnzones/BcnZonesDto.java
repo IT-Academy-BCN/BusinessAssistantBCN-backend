@@ -5,14 +5,14 @@ import org.springframework.stereotype.Component;
 
 
 public class BcnZonesDto {
-    @JsonProperty("id")
+    @JsonProperty("idZone")
     private int id;
-    @JsonProperty("name")
+    @JsonProperty("zoneName")
     private String name;
 
-    public BcnZonesDto(int id, String name) {
+    public BcnZonesDto(int idZone, String zoneName) {
 
-        this.id = id;
-        this.name = name;
+        this.id = idZone;
+        this.name = zoneName;
     }
 }
