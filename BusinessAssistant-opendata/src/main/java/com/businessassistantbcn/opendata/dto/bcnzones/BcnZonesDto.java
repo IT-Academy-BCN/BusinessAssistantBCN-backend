@@ -3,9 +3,7 @@ package com.businessassistantbcn.opendata.dto.bcnzones;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import org.springframework.stereotype.Component;
 
-@Component
 public class BcnZonesDto {
     /*@JsonProperty("id")*/
     private int idZone;

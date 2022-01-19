@@ -51,17 +51,19 @@ public class OpendataControllerTest {
 		RES0 = "$.results[0].";
 	
 	@MockBean
-	private BigMallsService bigMallsService;
-	@MockBean
 	private TestService testService;
 	@MockBean
-	private EconomicActivitiesCensusService economicActivitiesCensusService;
+	private BigMallsService bigMallsService;
 	@MockBean
-	private CommercialGalleriesService commercialGalleriesService;
+	private MarketFairsService marketFairsService;
+	@MockBean
+	private MunicipalMarketsService municipalMarketsService;
 	@MockBean
 	private LargeStablishmentsService largeStablishmentsService;
 	@MockBean
-	private MarketFairsService marketFairsService;
+	private CommercialGalleriesService commercialGalleriesService;
+	@MockBean
+	private EconomicActivitiesCensusService economicActivitiesCensusService;
 	@MockBean
 	private DataConfigService bcnZonesService;
 	
@@ -301,12 +303,12 @@ public class OpendataControllerTest {
 				.expectHeader().contentType(MediaType.APPLICATION_JSON)
 				.expectBody()
 				.jsonPath("$.count").isEqualTo(2)
-				.jsonPath("$.elements[0]." + "id").isEqualTo(1)
-				.jsonPath("$.elements[0]." + "name").isNotEmpty()
-				.jsonPath("$.elements[0]." + "name").isEqualTo("Îles Kerguelen")
-				.jsonPath("$.elements[1]." + "id").isEqualTo(2)
-				.jsonPath("$.elements[1]." + "name").isNotEmpty()
-				.jsonPath("$.elements[1]." + "name").isEqualTo("Klendathu");
+				.jsonPath("$.elements[0]." + "idZone").isEqualTo(1)
+				.jsonPath("$.elements[0]." + "zoneName").isNotEmpty()
+				.jsonPath("$.elements[0]." + "zoneName").isEqualTo("Îles Kerguelen")
+				.jsonPath("$.elements[1]." + "idZone").isEqualTo(2)
+				.jsonPath("$.elements[1]." + "zoneName").isNotEmpty()
+				.jsonPath("$.elements[1]." + "zoneName").isEqualTo("Klendathu");
 		
 		Mockito.verify(bcnZonesService).getBcnZones();
 		
