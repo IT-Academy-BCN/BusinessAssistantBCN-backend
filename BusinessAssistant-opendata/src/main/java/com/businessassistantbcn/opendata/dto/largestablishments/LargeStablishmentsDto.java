@@ -1,14 +1,14 @@
 package com.businessassistantbcn.opendata.dto.largestablishments;
 
+import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Component
+@Getter @Setter
 public class LargeStablishmentsDto {
 	
 	@JsonProperty("register_id")
@@ -65,7 +65,6 @@ public class LargeStablishmentsDto {
     private CoordinateDto geo_epgs_23031;
     @JsonProperty("geo_epgs_4326")
     private CoordinateDto geo_epgs_4326;
-    @JsonIgnore
     @JsonProperty("is_section_of_data")
     private boolean is_section_of_data;
     @JsonProperty("sections_data")
@@ -92,6 +91,5 @@ public class LargeStablishmentsDto {
     private String event_status;
     @JsonProperty("ical")
     private String ical;
-
 
 }

@@ -1,9 +1,12 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRawValue;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter @Setter
 public class AddressDto {
+	
     @JsonProperty("place")
     private String place;
     @JsonProperty("district_name")
@@ -57,11 +60,10 @@ public class AddressDto {
     @JsonProperty("roadtype_id")
     private String roadtype_id;
     @JsonProperty("location")
-    //@JsonRawValue
     private Object location;
     @JsonProperty("related_entity")
     private String related_entity;
     @JsonProperty("related_entity_data")
     private String related_entity_data;
-
+    
 }

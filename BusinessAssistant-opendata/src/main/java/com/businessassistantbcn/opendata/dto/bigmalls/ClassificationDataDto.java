@@ -1,6 +1,11 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class ClassificationDataDto {
+	
     private int id;
     private String name;
     private String full_path;
@@ -10,4 +15,5 @@ public class ClassificationDataDto {
     private String asia_id;
     private String core_type;
     private int level;
+    
 }

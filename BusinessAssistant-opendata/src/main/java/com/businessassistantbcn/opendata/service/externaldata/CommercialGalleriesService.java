@@ -31,12 +31,12 @@ public class CommercialGalleriesService {
 	//String url = "http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_galeries-comercials-js.json";
 	//String url = "https://api.github.com";
 	
-	public Mono<GenericResultDto<CommercialGalleriesDto>> getCommercialGaleriesAll()
+	public Mono<GenericResultDto<CommercialGalleriesDto>> getCommercialGalleriesAll()
 	{
 		
 		try {
 			
-			Mono<CommercialGalleriesDto[]> response = helper.getRequestData(new URL(config.getDs_commercialgaleries()),CommercialGalleriesDto[].class);
+			Mono<CommercialGalleriesDto[]> response = helper.getRequestData(new URL(config.getDs_commercialgalleries()),CommercialGalleriesDto[].class);
 			
 			return response.flatMap(dto ->{
 

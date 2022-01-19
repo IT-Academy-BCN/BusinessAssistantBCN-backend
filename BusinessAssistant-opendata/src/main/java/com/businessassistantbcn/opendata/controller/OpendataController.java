@@ -95,7 +95,7 @@ public class OpendataController {
     {
 
         try{
-            return commercialGaleriesService.getCommercialGaleriesAll();
+            return commercialGaleriesService.getCommercialGalleriesAll();
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }

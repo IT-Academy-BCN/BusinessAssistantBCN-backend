@@ -1,6 +1,11 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter @Setter
 public class ValuesDto {
+	
     private int id;
     private String value;
     private int integer_value;
@@ -25,5 +30,5 @@ public class ValuesDto {
     private String icon_option_value_data;
     private String responsible_title;
     private String responsible_jobtitle;
-
+    
 }

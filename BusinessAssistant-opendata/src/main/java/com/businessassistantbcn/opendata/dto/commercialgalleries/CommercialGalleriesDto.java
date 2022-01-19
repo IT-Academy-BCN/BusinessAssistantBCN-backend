@@ -1,13 +1,14 @@
 package com.businessassistantbcn.opendata.dto.commercialgalleries;
 
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
 import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 @Component
+@Getter @Setter
 public class CommercialGalleriesDto {
 	
 	@JsonProperty("register_id")
@@ -90,6 +91,5 @@ public class CommercialGalleriesDto {
     private String event_status;
     @JsonProperty("ical")
     private String ical;
-
 
 }

@@ -1,45 +1,17 @@
 package com.businessassistantbcn.opendata.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Component
+@Getter @Setter
 public class GenericResultDto<T> {
-
-    public int count;
-    public int offset;
-    public int limit;
-
-    public T[] results;
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public T[] getResults() {
-        return results;
-    }
-
-    public void setResults(T[] results) {
-        this.results = results;
-    }
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
-
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
+	
+    private int count;
+    private int offset;
+    private int limit;
+    
+    private T[] results;
+    
 }

@@ -12,7 +12,7 @@ public class PropertiesConfig {
     private Long connection_timeout;//millis
     private String ds_test;
     private String ds_largestablishments;
-    private String ds_commercialgaleries;
+    private String ds_commercialgalleries;
     private String ds_bigmalls;
     private String ds_municipalmarkets;
     private String ds_marketfairs;
@@ -53,12 +53,12 @@ public class PropertiesConfig {
         this.ds_largestablishments = ds_largestablishments;
     }
 
-    public String getDs_commercialgaleries() {
-        return ds_commercialgaleries;
+    public String getDs_commercialgalleries() {
+        return ds_commercialgalleries;
     }
 
-    public void setDs_commercialgaleries(String ds_commercialgaleries) {
-        this.ds_commercialgaleries = ds_commercialgaleries;
+    public void setDs_commercialgalleries(String ds_commercialgalleries) {
+        this.ds_commercialgalleries = ds_commercialgalleries;
     }
 
     public String getDs_bigmalls() {

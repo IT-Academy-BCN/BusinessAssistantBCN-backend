@@ -88,13 +88,13 @@ public class OpendataControllerTest {
 		final String URI_TEST = "/test-reactive";
 		
 		StarWarsVehicleDto vehicleSW = new StarWarsVehicleDto();
-		vehicleSW.name = "R18 GTD (familiar)";
-		vehicleSW.model = "Renault 18 GTD";
-		vehicleSW.manufacturer = "Renault";
-		vehicleSW.length = 4.487F;
-		vehicleSW.max_atmosphering_speed = 156;
-		vehicleSW.crew = 1;
-		vehicleSW.passengers = 4;
+		vehicleSW.setName("R18 GTD (familiar)");
+		vehicleSW.setModel("Renault 18 GTD");
+		vehicleSW.setManufacturer("Renault");
+		vehicleSW.setLength(4.487F);
+		vehicleSW.setMax_atmosphering_speed(156);
+		vehicleSW.setCrew(1);
+		vehicleSW.setPassengers(4);
 		
 		StarWarsVehiclesResultDto vehiclesResultSW = new StarWarsVehiclesResultDto();
 		vehiclesResultSW.setCount(1);
@@ -235,10 +235,10 @@ public class OpendataControllerTest {
 		final String URI_TEST = "/economic-activities-census";
 		
 		EconomicActivitiesCensusDto activitatEconomica = new EconomicActivitiesCensusDto();
-		activitatEconomica.Codi_Activitat_2016 = "314159265";
-		activitatEconomica.Codi_Activitat_2019 = "057721566";
-		activitatEconomica.Nom_Activitat = "Exercicis d'apnea";
-		activitatEconomica.Nom_Sector_Activitat = "Flamenco dancing";
+		activitatEconomica.setCodi_Activitat_2016("314159265");
+		activitatEconomica.setCodi_Activitat_2019("057721566");
+		activitatEconomica.setNom_Activitat("Exercicis d'apnea");
+		activitatEconomica.setNom_Sector_Activitat("Flamenco dancing");
 		
 		GenericResultDto<EconomicActivitiesCensusDto> genericResultDTO = new GenericResultDto<>();
 		genericResultDTO.setCount(1);
