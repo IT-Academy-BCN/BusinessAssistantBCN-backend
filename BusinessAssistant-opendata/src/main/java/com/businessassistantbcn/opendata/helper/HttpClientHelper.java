@@ -40,7 +40,7 @@ public class HttpClientHelper {
     public HttpClientHelper(PropertiesConfig config){
         this.config = config;
         httpClient = HttpClient.create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, config.getConnection_timeout())
                 .responseTimeout(Duration.ofMillis(config.getConnection_timeout()))
                 .doOnConnected(conn ->
                         conn.addHandlerLast(new ReadTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS))
