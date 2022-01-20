@@ -2,7 +2,6 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsDto;
 import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
@@ -16,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 @Service
 public class LargeStablishmentsService {
@@ -30,8 +28,8 @@ public class LargeStablishmentsService {
 	@Autowired
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
 	
-	public Mono<GenericResultDto<LargeStablishmentsDto>>getPage(int offset, int limit) {
-
+	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
+		
 		try {
 			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),
 					LargeStablishmentsDto[].class);
@@ -58,13 +56,13 @@ public class LargeStablishmentsService {
     public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll()
 
 	{
+    	
 		
 		try {
 			
 			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
 			
 			return response.flatMap(dto ->{
-
 				genericResultDto.setResults(dto);
 				genericResultDto.setCount(dto.length);
 				return Mono.just(genericResultDto);
