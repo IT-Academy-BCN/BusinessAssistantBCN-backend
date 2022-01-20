@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -111,17 +112,19 @@ public class OpendataController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 503, message = "Service Unavailable"),
     })
-    public Mono<?> largeEstablishmentsDistrict(
+
+    public Mono<?> largeEstablishmentsByDistrict(
     		@ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
-            @RequestParam(required = false)  String limit){
+            @RequestParam(required = false)  String limit,
+            @PathVariable("district") String district){
     	
     	 offset = offset == null ? "0": offset;
          limit = limit == null ? "-1": limit;
          
          try{
-        	 return largeStablishmentsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+        	 return largeStablishmentsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district);
          }catch (Exception mue){
              throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
          }
