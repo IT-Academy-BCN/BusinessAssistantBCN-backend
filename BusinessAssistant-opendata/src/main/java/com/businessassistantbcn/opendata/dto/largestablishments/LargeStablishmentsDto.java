@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter @Setter
 public class LargeStablishmentsDto {
-	
-	@JsonProperty("register_id")
+    
+    @JsonProperty("register_id")
     private long register_id;
     @JsonProperty("prefix")
     private String prefix;
@@ -91,5 +91,5 @@ public class LargeStablishmentsDto {
     private String event_status;
     @JsonProperty("ical")
     private String ical;
-
+    
 }

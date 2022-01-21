@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter @Setter
 public class MarketFairsDto {
-	
+    
     @JsonProperty("register_id")
     private long register_id;
     @JsonProperty("prefix")

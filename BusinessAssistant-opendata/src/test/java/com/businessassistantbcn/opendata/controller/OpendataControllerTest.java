@@ -53,6 +53,8 @@ public class OpendataControllerTest {
 		RES0 = "$.results[0].";
 	
 	private final int TIMEOUT = 10_000; // Milliseconds
+	/* NOTA: Para poder usar "connection_timeout" de application.yml en estos ensayos,
+	 * habría que cargar estáticamente el valor por exigencia de la anotación @Timeout. */
 	
 	@Autowired
 	private WebTestClient webTestClientM;
@@ -122,8 +124,8 @@ public class OpendataControllerTest {
 			vehiclesResultSW.setResults(new StarWarsVehicleDto[]{vehicleSW});
 			
 			Mockito
-				.when(testService.getTestData())
-				.thenReturn(Mono.just(vehiclesResultSW));
+					.when(testService.getTestData())
+					.thenReturn(Mono.just(vehiclesResultSW));
 			
 			webTestClientM.get()
 					.uri(CONTROLLER_BASE_URL + URI_TEST)
@@ -210,8 +212,8 @@ public class OpendataControllerTest {
 		// Intercepta la petición de ensayo, devolviendo un 'Mono' con el 'GenericResultDto<genericDto>'
 		// de un solo resultado fabricado anteriormente. 
 		Mockito
-			.when(getPage0m1.invoke(dtoService, 0, -1))
-			.thenReturn(Mono.just(genericResultDTO));
+				.when(getPage0m1.invoke(dtoService, 0, -1))
+				.thenReturn(Mono.just(genericResultDTO));
 		
 		// Petición de prueba a la página web solicitando datos concretos; parámetros 'offset' y 'limit' sin
 		// especificar -> equivalente a solicitar todos los resultados. Batería de ensayos sobre el objeto
@@ -254,10 +256,10 @@ public class OpendataControllerTest {
 	public <T> void testsCommercialCentersL(String URI_TEST, Class<T> dtoClass, String stringDtoService) {
 		
 		webTestClientL.get()
-		.uri(CONTROLLER_BASE_URL + URI_TEST)
-		.accept(MediaType.APPLICATION_JSON)
-		.exchange()
-		.expectBody(Void.class);
+				.uri(CONTROLLER_BASE_URL + URI_TEST)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectBody(Void.class);
 		
 	} // Tests centros comerciales (Live)
 	
@@ -265,11 +267,11 @@ public class OpendataControllerTest {
 	private static Arguments[] argsProvider() {
 		
 		final Arguments[] args = {
-			Arguments.of("/big-malls", BigMallsDto.class, "bigMallsService"),
-			Arguments.of("/market-fairs", MarketFairsDto.class, "marketFairsService"),
-			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
-//			Arguments.of("/large-establishments", LargeStablishmentsDto.class, "largeStablishmentsService"),
-//			Arguments.of("/commercial-galleries", CommercialGalleries.class, "commercialGalleriesService")
+				Arguments.of("/big-malls", BigMallsDto.class, "bigMallsService"),
+				Arguments.of("/market-fairs", MarketFairsDto.class, "marketFairsService"),
+				Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
+//				Arguments.of("/large-establishments", LargeStablishmentsDto.class, "largeStablishmentsService"),
+//				Arguments.of("/commercial-galleries", CommercialGalleries.class, "commercialGalleriesService")
 		};
 		
 		return args;
@@ -299,30 +301,30 @@ public class OpendataControllerTest {
 			genericResultDTO.setResults(new EconomicActivitiesCensusDto[]{activitatEconomica});
 			
 			Mockito
-				.when(economicActivitiesCensusService.getPage(0,-1))
-				.thenReturn(Mono.just(genericResultDTO));
+					.when(economicActivitiesCensusService.getPage(0,-1))
+					.thenReturn(Mono.just(genericResultDTO));
 			
 			webTestClientM.get()
-				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST)
-//						.queryParam("offset", 0)
-//						.queryParam("limit", -1)
-						.build())
-				.accept(MediaType.APPLICATION_JSON)
-				.exchange()
-				.expectStatus().isOk()
-				.expectHeader().contentType(MediaType.APPLICATION_JSON)
-				.expectBody()
-				.jsonPath("$.count").isEqualTo(1)
-				.jsonPath("$.offset").isEqualTo(0)
-				.jsonPath("$.limit").isEqualTo(1)
-				.jsonPath(RES0 + "Codi_Activitat_2016").isNotEmpty()
-				.jsonPath(RES0 + "Codi_Activitat_2016").isEqualTo("314159265")
-				.jsonPath(RES0 + "Codi_Activitat_2019").isNotEmpty()
-				.jsonPath(RES0 + "Codi_Activitat_2019").isEqualTo("057721566")
-				.jsonPath(RES0 + "Nom_Activitat").isNotEmpty()
-				.jsonPath(RES0 + "Nom_Activitat").isEqualTo("Exercicis d'apnea")
-				.jsonPath(RES0 + "Nom_Sector_Activitat").isNotEmpty()
-				.jsonPath(RES0 + "Nom_Sector_Activitat").isEqualTo("Flamenco dancing");
+					.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST)
+//							.queryParam("offset", 0)
+//							.queryParam("limit", -1)
+							.build())
+					.accept(MediaType.APPLICATION_JSON)
+					.exchange()
+					.expectStatus().isOk()
+					.expectHeader().contentType(MediaType.APPLICATION_JSON)
+					.expectBody()
+					.jsonPath("$.count").isEqualTo(1)
+					.jsonPath("$.offset").isEqualTo(0)
+					.jsonPath("$.limit").isEqualTo(1)
+					.jsonPath(RES0 + "Codi_Activitat_2016").isNotEmpty()
+					.jsonPath(RES0 + "Codi_Activitat_2016").isEqualTo("314159265")
+					.jsonPath(RES0 + "Codi_Activitat_2019").isNotEmpty()
+					.jsonPath(RES0 + "Codi_Activitat_2019").isEqualTo("057721566")
+					.jsonPath(RES0 + "Nom_Activitat").isNotEmpty()
+					.jsonPath(RES0 + "Nom_Activitat").isEqualTo("Exercicis d'apnea")
+					.jsonPath(RES0 + "Nom_Sector_Activitat").isNotEmpty()
+					.jsonPath(RES0 + "Nom_Sector_Activitat").isEqualTo("Flamenco dancing");
 			
 			Mockito.verify(economicActivitiesCensusService).getPage(0,-1);
 			
@@ -361,8 +363,8 @@ public class OpendataControllerTest {
 					= new BcnZonesResponseDto(2, new BcnZonesDto[]{bcnZonesDto1, bcnZonesDto2}); 
 			
 			Mockito
-				.when(bcnZonesService.getBcnZones())
-				.thenReturn(Mono.just(bcnZonesRespDto));
+					.when(bcnZonesService.getBcnZones())
+					.thenReturn(Mono.just(bcnZonesRespDto));
 			
 			webTestClientM.get()
 					.uri(CONTROLLER_BASE_URL + URI_TEST)

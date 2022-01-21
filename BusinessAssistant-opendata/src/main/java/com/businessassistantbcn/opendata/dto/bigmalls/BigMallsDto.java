@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Getter @Setter
 public class BigMallsDto {
-	
+    
     @JsonProperty("register_id")
     private long register_id;
     @JsonProperty("prefix")
