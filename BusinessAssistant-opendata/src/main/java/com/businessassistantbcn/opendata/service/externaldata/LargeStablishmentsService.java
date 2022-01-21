@@ -20,58 +20,83 @@ import java.net.URL;
 public class LargeStablishmentsService {
 
 	@Autowired
-    HttpClientHelper httpClientHelper;
-	
+	HttpClientHelper httpClientHelper;
+
 	@Autowired
 	private PropertiesConfig config;
-	
+
 	@Autowired
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
-	
-	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
-		
+
+	public Mono<GenericResultDto<LargeStablishmentsDto>> getPageByDistrict(int offset, int limit, String district) {
+
 		try {
-			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),
-					LargeStablishmentsDto[].class);
-			return response.flatMap(dto ->{
+			Mono<LargeStablishmentsDto[]> response = httpClientHelper
+					.getRequestData(new URL(config.getDs_largestablishments()), LargeStablishmentsDto[].class);
+			return response.flatMap(dto -> {
 				try {
-					LargeStablishmentsDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
+					LargeStablishmentsDto[] filteredDto = JsonHelper.filterDto(dto, offset, limit);
 					genericResultDto.setLimit(limit);
 					genericResultDto.setOffset(offset);
 					genericResultDto.setResults(filteredDto);
 					genericResultDto.setCount(dto.length);
 					return Mono.just(genericResultDto);
 				} catch (Exception e) {
-					//Poner Logger
+					// Poner Logger
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 				}
 
-			} );
+			});
 
 		} catch (MalformedURLException e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 		}
 	}
 
-    public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll()
+	public Mono<GenericResultDto<LargeStablishmentsDto>> getPageByActivity(int offset, int limit, String activity) {
 
-	{
-    	
-		
 		try {
-			
-			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
-			
-			return response.flatMap(dto ->{
-				genericResultDto.setResults(dto);
-				genericResultDto.setCount(dto.length);
-				return Mono.just(genericResultDto);
-				
-			} );
-			
+			Mono<LargeStablishmentsDto[]> response = httpClientHelper
+					.getRequestData(new URL(config.getDs_largestablishments()), LargeStablishmentsDto[].class);
+			return response.flatMap(dto -> {
+				try {
+					LargeStablishmentsDto[] filteredDto = JsonHelper.filterDto(dto, offset, limit);
+					genericResultDto.setLimit(limit);
+					genericResultDto.setOffset(offset);
+					genericResultDto.setResults(filteredDto);
+					genericResultDto.setCount(dto.length);
+					return Mono.just(genericResultDto);
+				} catch (Exception e) {
+					// Poner Logger
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+				}
+
+			});
+
 		} catch (MalformedURLException e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 		}
-				
+	}
+
+	public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll()
+
+	{
+
+		try {
+
+			Mono<LargeStablishmentsDto[]> response = httpClientHelper
+					.getRequestData(new URL(config.getDs_largestablishments()), LargeStablishmentsDto[].class);
+
+			return response.flatMap(dto -> {
+				genericResultDto.setResults(dto);
+				genericResultDto.setCount(dto.length);
+				return Mono.just(genericResultDto);
+
+			});
+
+		} catch (MalformedURLException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+		}
+
 	}
 }
