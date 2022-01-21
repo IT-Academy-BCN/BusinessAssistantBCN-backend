@@ -1,7 +1,6 @@
 package com.businessassistantbcn.opendata.dto.largestablishments;
 
 import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.Getter;
@@ -66,7 +65,6 @@ public class LargeStablishmentsDto {
     private CoordinateDto geo_epgs_23031;
     @JsonProperty("geo_epgs_4326")
     private CoordinateDto geo_epgs_4326;
-    @JsonIgnore
     @JsonProperty("is_section_of_data")
     private Object is_section_of_data;
     @JsonProperty("sections_data")

@@ -16,9 +16,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -43,12 +47,20 @@ import static org.hamcrest.Matchers.equalTo;
 @WebFluxTest(controllers = OpendataController.class)
 public class OpendataControllerTest {
 	
-	@Autowired
-	private WebTestClient webTestClient;
-	
 	private final String
+		BASE_URL = "http://localhost:8762",
 		CONTROLLER_BASE_URL = "/v1/api/opendata",
 		RES0 = "$.results[0].";
+	
+	private final int TIMEOUT = 10_000; // Milliseconds
+	
+	@Autowired
+	private WebTestClient webTestClientM;
+	private WebTestClient webTestClientL = WebTestClient.bindToServer()
+			.baseUrl(BASE_URL).responseTimeout(Duration.ofMillis(TIMEOUT))
+			.build();
+	/* webTestClient1: Peticiones fingidas (mock)
+	 * webTestClient2: Conexiones en vivo al servidor (live) */
 	
 	@MockBean
 	private TestService testService;
@@ -68,12 +80,13 @@ public class OpendataControllerTest {
 	private DataConfigService bcnZonesService;
 	
 	@DisplayName("Simple String response")
+	@Timeout(value = TIMEOUT, unit = TimeUnit.MILLISECONDS)
 	@Test
 	public void testHello(){
 		
 		final String URI_TEST = "/test";
 		
-		webTestClient.get()
+		webTestClientM.get()
 				.uri(CONTROLLER_BASE_URL + URI_TEST)
 				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
@@ -81,63 +94,82 @@ public class OpendataControllerTest {
 				.expectBody(String.class)
 				.value(s -> s.toString(), equalTo("Hello from BusinessAssistant Barcelona!!!"));
 		
-	}
+	} // Test Hello
 	
 	@DisplayName("Reactive response -- Star Wars vehicles")
-	@Test
-	public void testReactive() { try {
+	@Nested
+	public class testReactive {
 		
 		final String URI_TEST = "/test-reactive";
 		
-		StarWarsVehicleDto vehicleSW = new StarWarsVehicleDto();
-		vehicleSW.setName("R18 GTD (familiar)");
-		vehicleSW.setModel("Renault 18 GTD");
-		vehicleSW.setManufacturer("Renault");
-		vehicleSW.setLength(4.487F);
-		vehicleSW.setMax_atmosphering_speed(156);
-		vehicleSW.setCrew(1);
-		vehicleSW.setPassengers(4);
+		@DisplayName("Data integrity validation")
+		@Test
+		public void testReactiveM() { try {
+			
+			StarWarsVehicleDto vehicleSW = new StarWarsVehicleDto();
+			vehicleSW.setName("R18 GTD (familiar)");
+			vehicleSW.setModel("Renault 18 GTD");
+			vehicleSW.setManufacturer("Renault");
+			vehicleSW.setLength(4.487F);
+			vehicleSW.setMax_atmosphering_speed(156);
+			vehicleSW.setCrew(1);
+			vehicleSW.setPassengers(4);
+			
+			StarWarsVehiclesResultDto vehiclesResultSW = new StarWarsVehiclesResultDto();
+			vehiclesResultSW.setCount(1);
+			vehiclesResultSW.setNext(null);
+			vehiclesResultSW.setPrevious(null);
+			vehiclesResultSW.setResults(new StarWarsVehicleDto[]{vehicleSW});
+			
+			Mockito
+				.when(testService.getTestData())
+				.thenReturn(Mono.just(vehiclesResultSW));
+			
+			webTestClientM.get()
+					.uri(CONTROLLER_BASE_URL + URI_TEST)
+					.accept(MediaType.APPLICATION_JSON)
+					.exchange()
+					.expectStatus().isOk()
+					.expectHeader().contentType(MediaType.APPLICATION_JSON)
+					.expectBody()
+					.jsonPath("$.count").isEqualTo(1)
+					.jsonPath(RES0 + "name").isNotEmpty()
+					.jsonPath(RES0 + "name").isEqualTo("R18 GTD (familiar)")
+					.jsonPath(RES0 + "model").isNotEmpty()
+					.jsonPath(RES0 + "model").isEqualTo("Renault 18 GTD")
+					.jsonPath(RES0 + "manufacturer").isNotEmpty()
+					.jsonPath(RES0 + "manufacturer").isEqualTo("Renault")
+					.jsonPath(RES0 + "length").isEqualTo(4.487F)
+					.jsonPath(RES0 + "max_atmosphering_speed").isEqualTo(156)
+					.jsonPath(RES0 + "crew").isEqualTo(1)
+					.jsonPath(RES0 + "passengers").isEqualTo(4);
+			
+			// Verifica la llamada al método 'getTestData()'.
+			Mockito.verify(testService).getTestData();
+			
+		} catch (MalformedURLException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+		} }
 		
-		StarWarsVehiclesResultDto vehiclesResultSW = new StarWarsVehiclesResultDto();
-		vehiclesResultSW.setCount(1);
-		vehiclesResultSW.setNext(null);
-		vehiclesResultSW.setPrevious(null);
-		vehiclesResultSW.setResults(new StarWarsVehicleDto[]{vehicleSW});
+		@DisplayName("Live timeout validation")
+		@Timeout(value = TIMEOUT, unit = TimeUnit.MILLISECONDS)
+		@Test
+		public void testReactiveL() {
+			
+			webTestClientL.get()
+					.uri(CONTROLLER_BASE_URL + URI_TEST)
+					.accept(MediaType.APPLICATION_JSON)
+					.exchange()
+					.expectBody(Void.class);
+			
+		}
 		
-		Mockito
-			.when(testService.getTestData())
-			.thenReturn(Mono.just(vehiclesResultSW));
-		
-		webTestClient.get()
-				.uri(CONTROLLER_BASE_URL + URI_TEST)
-				.accept(MediaType.APPLICATION_JSON)
-				.exchange()
-				.expectStatus().isOk()
-				.expectHeader().contentType(MediaType.APPLICATION_JSON)
-				.expectBody()
-				.jsonPath("$.count").isEqualTo(1)
-				.jsonPath(RES0 + "name").isNotEmpty()
-				.jsonPath(RES0 + "name").isEqualTo("R18 GTD (familiar)")
-				.jsonPath(RES0 + "model").isNotEmpty()
-				.jsonPath(RES0 + "model").isEqualTo("Renault 18 GTD")
-				.jsonPath(RES0 + "manufacturer").isNotEmpty()
-				.jsonPath(RES0 + "manufacturer").isEqualTo("Renault")
-				.jsonPath(RES0 + "length").isEqualTo(4.487F)
-				.jsonPath(RES0 + "max_atmosphering_speed").isEqualTo(156)
-				.jsonPath(RES0 + "crew").isEqualTo(1)
-				.jsonPath(RES0 + "passengers").isEqualTo(4);
-		
-		// Verifica la llamada al método 'getTestData()'.
-		Mockito.verify(testService).getTestData();
-		
-	} catch (MalformedURLException e) {
-		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
-	} }
+	} // Tests Star Wars
 	
-	@DisplayName("Opendata response -- JSON elements of commercial centers")
+	@DisplayName("Opendata response -- Commercial centers -- Data integrity Validation")
 	@ParameterizedTest(name = "{index} -> URL=''{0}''")
 	@MethodSource("argsProvider")
-	public <T> void JsonResponseTests1(String URI_TEST, Class<T> dtoClass, String stringDtoService) { try {
+	public <T> void testsCommercialCentersM(String URI_TEST, Class<T> dtoClass, String stringDtoService) { try {
 		
 		// Crear un DTO genérico…
 		Constructor<T> constructor = dtoClass.getConstructor();		
@@ -184,7 +216,7 @@ public class OpendataControllerTest {
 		// Petición de prueba a la página web solicitando datos concretos; parámetros 'offset' y 'limit' sin
 		// especificar -> equivalente a solicitar todos los resultados. Batería de ensayos sobre el objeto
 		// JSON "retornado".
-		webTestClient.get()
+		webTestClientM.get()
 				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST)
 //						.queryParam("offset", 0)
 //						.queryParam("limit", -1)
@@ -213,9 +245,23 @@ public class OpendataControllerTest {
 		
 		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Failed to return a DTO", e);
 		
-	} }
+	} } // Tests centros comerciales (Mock)
 	
-	// Generador de argumentos para los ensayos del controlador con los centros económicos
+	@DisplayName("Opendata response -- Commercial centers -- Live timeout validation")
+	@Timeout(value = TIMEOUT, unit = TimeUnit.MILLISECONDS)
+	@ParameterizedTest(name = "{index} -> URL=''{0}''")
+	@MethodSource("argsProvider")
+	public <T> void testsCommercialCentersL(String URI_TEST, Class<T> dtoClass, String stringDtoService) {
+		
+		webTestClientL.get()
+		.uri(CONTROLLER_BASE_URL + URI_TEST)
+		.accept(MediaType.APPLICATION_JSON)
+		.exchange()
+		.expectBody(Void.class);
+		
+	} // Tests centros comerciales (Live)
+	
+	// Generador de argumentos para los ensayos del controlador vinculados a los centros económicos
 	private static Arguments[] argsProvider() {
 		
 		final Arguments[] args = {
@@ -230,88 +276,126 @@ public class OpendataControllerTest {
 		
 	}
 	
-	@DisplayName("Opendata response -- JSON elements of economic activity codes")
-	@Test
-	public void JsonResponseTests2() {
+	@Nested
+	@DisplayName("Opendata response -- Economic activity census")
+	public class testActivityCensus {
 		
 		final String URI_TEST = "/economic-activities-census";
 		
-		EconomicActivitiesCensusDto activitatEconomica = new EconomicActivitiesCensusDto();
-		activitatEconomica.setCodi_Activitat_2016("314159265");
-		activitatEconomica.setCodi_Activitat_2019("057721566");
-		activitatEconomica.setNom_Activitat("Exercicis d'apnea");
-		activitatEconomica.setNom_Sector_Activitat("Flamenco dancing");
-		
-		GenericResultDto<EconomicActivitiesCensusDto> genericResultDTO = new GenericResultDto<>();
-		genericResultDTO.setCount(1);
-		genericResultDTO.setOffset(0);
-		genericResultDTO.setLimit(1);
-		genericResultDTO.setResults(new EconomicActivitiesCensusDto[]{activitatEconomica});
-		
-		Mockito
-			.when(economicActivitiesCensusService.getPage(0,-1))
-			.thenReturn(Mono.just(genericResultDTO));
-		
-		webTestClient.get()
-			.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST)
-//					.queryParam("offset", 0)
-//					.queryParam("limit", -1)
-					.build())
-			.accept(MediaType.APPLICATION_JSON)
-			.exchange()
-			.expectStatus().isOk()
-			.expectHeader().contentType(MediaType.APPLICATION_JSON)
-			.expectBody()
-			.jsonPath("$.count").isEqualTo(1)
-			.jsonPath("$.offset").isEqualTo(0)
-			.jsonPath("$.limit").isEqualTo(1)
-			.jsonPath(RES0 + "Codi_Activitat_2016").isNotEmpty()
-			.jsonPath(RES0 + "Codi_Activitat_2016").isEqualTo("314159265")
-			.jsonPath(RES0 + "Codi_Activitat_2019").isNotEmpty()
-			.jsonPath(RES0 + "Codi_Activitat_2019").isEqualTo("057721566")
-			.jsonPath(RES0 + "Nom_Activitat").isNotEmpty()
-			.jsonPath(RES0 + "Nom_Activitat").isEqualTo("Exercicis d'apnea")
-			.jsonPath(RES0 + "Nom_Sector_Activitat").isNotEmpty()
-			.jsonPath(RES0 + "Nom_Sector_Activitat").isEqualTo("Flamenco dancing");
-		
-		Mockito.verify(economicActivitiesCensusService).getPage(0,-1);
-		
-	}
-	
-	@DisplayName("Opendata response -- JSON elements of Barcelona's districts ")
-	@Test
-	public void JsonResponseTests3() {
-		
-		final String URI_TEST = "/bcn-zones";
-		
-		BcnZonesDto
-			bcnZonesDto1 = new BcnZonesDto(1, "Îles Kerguelen"),
-			bcnZonesDto2 = new BcnZonesDto(2, "Klendathu");
-		
-		BcnZonesResponseDto bcnZonesRespDto
-				= new BcnZonesResponseDto(2, new BcnZonesDto[]{bcnZonesDto1, bcnZonesDto2}); 
-		
-		Mockito
-			.when(bcnZonesService.getBcnZones())
-			.thenReturn(Mono.just(bcnZonesRespDto));
-		
-		webTestClient.get()
-				.uri(CONTROLLER_BASE_URL + URI_TEST)
+		@DisplayName("Data integrity Validation")
+		@Test
+		public void testActivityCensusM() {
+			
+			EconomicActivitiesCensusDto activitatEconomica = new EconomicActivitiesCensusDto();
+			activitatEconomica.setCodi_Activitat_2016("314159265");
+			activitatEconomica.setCodi_Activitat_2019("057721566");
+			activitatEconomica.setNom_Activitat("Exercicis d'apnea");
+			activitatEconomica.setNom_Sector_Activitat("Flamenco dancing");
+			
+			GenericResultDto<EconomicActivitiesCensusDto> genericResultDTO = new GenericResultDto<>();
+			genericResultDTO.setCount(1);
+			genericResultDTO.setOffset(0);
+			genericResultDTO.setLimit(1);
+			genericResultDTO.setResults(new EconomicActivitiesCensusDto[]{activitatEconomica});
+			
+			Mockito
+				.when(economicActivitiesCensusService.getPage(0,-1))
+				.thenReturn(Mono.just(genericResultDTO));
+			
+			webTestClientM.get()
+				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST)
+//						.queryParam("offset", 0)
+//						.queryParam("limit", -1)
+						.build())
 				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
 				.expectStatus().isOk()
 				.expectHeader().contentType(MediaType.APPLICATION_JSON)
 				.expectBody()
-				.jsonPath("$.count").isEqualTo(2)
-				.jsonPath("$.elements[0]." + "idZone").isEqualTo(1)
-				.jsonPath("$.elements[0]." + "zoneName").isNotEmpty()
-				.jsonPath("$.elements[0]." + "zoneName").isEqualTo("Îles Kerguelen")
-				.jsonPath("$.elements[1]." + "idZone").isEqualTo(2)
-				.jsonPath("$.elements[1]." + "zoneName").isNotEmpty()
-				.jsonPath("$.elements[1]." + "zoneName").isEqualTo("Klendathu");
+				.jsonPath("$.count").isEqualTo(1)
+				.jsonPath("$.offset").isEqualTo(0)
+				.jsonPath("$.limit").isEqualTo(1)
+				.jsonPath(RES0 + "Codi_Activitat_2016").isNotEmpty()
+				.jsonPath(RES0 + "Codi_Activitat_2016").isEqualTo("314159265")
+				.jsonPath(RES0 + "Codi_Activitat_2019").isNotEmpty()
+				.jsonPath(RES0 + "Codi_Activitat_2019").isEqualTo("057721566")
+				.jsonPath(RES0 + "Nom_Activitat").isNotEmpty()
+				.jsonPath(RES0 + "Nom_Activitat").isEqualTo("Exercicis d'apnea")
+				.jsonPath(RES0 + "Nom_Sector_Activitat").isNotEmpty()
+				.jsonPath(RES0 + "Nom_Sector_Activitat").isEqualTo("Flamenco dancing");
+			
+			Mockito.verify(economicActivitiesCensusService).getPage(0,-1);
+			
+		}
 		
-		Mockito.verify(bcnZonesService).getBcnZones();
+		@DisplayName("Live timeout validation")
+		@Timeout(value = TIMEOUT, unit = TimeUnit.MILLISECONDS)
+		@Test
+		public void testActivityCensusL() {
+			
+			webTestClientL.get()
+					.uri(CONTROLLER_BASE_URL + URI_TEST)
+					.accept(MediaType.APPLICATION_JSON)
+					.exchange()
+					.expectBody(Void.class);
+			
+		}
 		
-	}
+	} // Tests actividades económicas
+	
+	@Nested
+	@DisplayName("Opendata response -- Barcelona districts")
+	public class testBarcelonaDistricts {
+		
+		final String URI_TEST = "/bcn-zones";
+		
+		@DisplayName("Data integrity Validation")
+		@Test
+		public void testBarcelonaDistrictsM() {
+			
+			BcnZonesDto
+				bcnZonesDto1 = new BcnZonesDto(1, "Îles Kerguelen"),
+				bcnZonesDto2 = new BcnZonesDto(2, "Klendathu");
+			
+			BcnZonesResponseDto bcnZonesRespDto
+					= new BcnZonesResponseDto(2, new BcnZonesDto[]{bcnZonesDto1, bcnZonesDto2}); 
+			
+			Mockito
+				.when(bcnZonesService.getBcnZones())
+				.thenReturn(Mono.just(bcnZonesRespDto));
+			
+			webTestClientM.get()
+					.uri(CONTROLLER_BASE_URL + URI_TEST)
+					.accept(MediaType.APPLICATION_JSON)
+					.exchange()
+					.expectStatus().isOk()
+					.expectHeader().contentType(MediaType.APPLICATION_JSON)
+					.expectBody()
+					.jsonPath("$.count").isEqualTo(2)
+					.jsonPath("$.elements[0]." + "idZone").isEqualTo(1)
+					.jsonPath("$.elements[0]." + "zoneName").isNotEmpty()
+					.jsonPath("$.elements[0]." + "zoneName").isEqualTo("Îles Kerguelen")
+					.jsonPath("$.elements[1]." + "idZone").isEqualTo(2)
+					.jsonPath("$.elements[1]." + "zoneName").isNotEmpty()
+					.jsonPath("$.elements[1]." + "zoneName").isEqualTo("Klendathu");
+			
+			Mockito.verify(bcnZonesService).getBcnZones();
+			
+		}
+		
+		@DisplayName("Live timeout validation")
+		@Timeout(value = TIMEOUT, unit = TimeUnit.MILLISECONDS)
+		@Test
+		public void testBarcelonaDistrictsL() {
+			
+			webTestClientL.get()
+					.uri(CONTROLLER_BASE_URL + URI_TEST)
+					.accept(MediaType.APPLICATION_JSON)
+					.exchange()
+					.expectBody(Void.class);
+			
+		}
+		
+	} // Tests distritos BCN
 	
 }
