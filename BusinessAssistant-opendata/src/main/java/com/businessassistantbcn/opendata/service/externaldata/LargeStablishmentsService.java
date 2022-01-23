@@ -13,65 +13,57 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
+import java.util.function.Predicate;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 @Service
 public class LargeStablishmentsService {
-
-	@Autowired
-    HttpClientHelper httpClientHelper;
 	
 	@Autowired
 	private PropertiesConfig config;
-	
+	@Autowired
+	private HttpClientHelper httpClientHelper;
 	@Autowired
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
 	
-	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
-		
-		try {
-			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),
-					LargeStablishmentsDto[].class);
-			return response.flatMap(dto ->{
-				try {
-					LargeStablishmentsDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
-					genericResultDto.setLimit(limit);
-					genericResultDto.setOffset(offset);
-					genericResultDto.setResults(filteredDto);
-					genericResultDto.setCount(dto.length);
-					return Mono.just(genericResultDto);
-				} catch (Exception e) {
-					//Poner Logger
-					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-				}
-
-			} );
-
-		} catch (MalformedURLException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
-		}
+	// Get paged results
+	public Mono<GenericResultDto<LargeStablishmentsDto>>getPage(int offset, int limit) {
+		return getResultDto(offset, limit, dto -> true);
 	}
-
-    public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll()
-
-	{
-    	
-		
-		try {
-			
-			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
-			
-			return response.flatMap(dto ->{
-				genericResultDto.setResults(dto);
-				genericResultDto.setCount(dto.length);
-				return Mono.just(genericResultDto);
-				
-			} );
-			
-		} catch (MalformedURLException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
-		}
-				
+	
+	// Get paged results filtered by district
+	public Mono<GenericResultDto<LargeStablishmentsDto>> getPageByDistrict(int offset, int limit, int district) {
+		return getResultDto(offset, limit, dto ->
+				dto.getAddresses().stream().anyMatch(a ->
+						Integer.parseInt(a.getDistrict_id()) == district
+		));
 	}
+	
+	private Mono<GenericResultDto<LargeStablishmentsDto>> getResultDto(
+			int offset, int limit, Predicate<LargeStablishmentsDto> dtoFilter) { try {
+		
+		Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),
+				LargeStablishmentsDto[].class);
+		
+		return response.flatMap(dto -> {
+			LargeStablishmentsDto[] filteredDto = Arrays.stream(dto)
+					.filter(dtoFilter)
+					.toArray(LargeStablishmentsDto[]::new);
+			
+			LargeStablishmentsDto[] pagedDto = JsonHelper
+					.pageDto(filteredDto, offset, limit);
+			
+			genericResultDto.setLimit(limit);
+			genericResultDto.setOffset(offset);
+			genericResultDto.setResults(pagedDto);
+			genericResultDto.setCount(filteredDto.length);
+			return Mono.just(genericResultDto);
+		});
+		
+	} catch(MalformedURLException e) {
+		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+	} }
+	
 }

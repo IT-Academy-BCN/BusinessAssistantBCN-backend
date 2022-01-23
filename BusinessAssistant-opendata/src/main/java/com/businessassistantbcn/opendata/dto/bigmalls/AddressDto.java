@@ -48,7 +48,7 @@ public class AddressDto {
     @JsonProperty("comments")
     private String comments;
     @JsonProperty("position")
-    private String position;
+    private int position;
     @JsonProperty("main_address")
     private boolean main_address;
     @JsonProperty("road_name")

@@ -70,22 +70,6 @@ public class OpendataController {
     }
 
     //GET ?offset=0&limit=10
-    @GetMapping("/large-stablishments")
-    @ApiOperation("Get large establishments SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-    })
-    public Mono<?> largeEstablishments()
-    {
-        try{
-            return largeStablishmentsService.getLargeStablishmentsAll();
-        }catch (Exception mue){
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
-        }
-    }
-
-    //GET ?offset=0&limit=10
     @GetMapping("/commercial-galleries")
     @ApiOperation("Get commercial galleries SET 0 LIMIT 10")
     @ApiResponses({
@@ -103,32 +87,59 @@ public class OpendataController {
 
     }
     
-  //GET ?offset=0&limit=10
-    @GetMapping("/large-establishments/district/{district}")
-    @ApiOperation("Get large establishments SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
-
-    public Mono<?> largeEstablishmentsByDistrict(
-    		@ApiParam(value = "Offset", name= "Offset")
-            @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
-            @RequestParam(required = false)  String limit,
-            @PathVariable("district") String district){
-    	
-    	 offset = offset == null ? "0": offset;
-         limit = limit == null ? "-1": limit;
-         
-         try{
-        	 return largeStablishmentsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district);
-         }catch (Exception mue){
-             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
-         }
-    }
+	//GET ?offset=0&limit=10
+	@GetMapping("/large-stablishments")
+	@ApiOperation("Get large establishments SET 0 LIMIT 10")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 503, message = "Service Unavailable"),
+	})
+	
+	public Mono<?> largeEstablishments(
+			@ApiParam(value = "Offset", name= "Offset")
+			@RequestParam(required = false) String offset,
+			@ApiParam(value = "Limit", name= "Limit")
+			@RequestParam(required = false)  String limit) { try {
+		
+		int
+			offsetI = offset == null ? 0: Integer.parseInt(offset),
+			limitI = limit == null ? -1: Integer.parseInt(limit);
+		
+		return largeStablishmentsService.getPage(offsetI, limitI);
+	} catch(Exception e) {
+		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+	} }
+	
+	//GET ?offset=0&limit=10
+	@GetMapping("/large-establishments/district/{district}")
+	@ApiOperation("Get large establishments filtered by district SET 0 LIMIT 10")
+	@ApiResponses({
+			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 503, message = "Service Unavailable"),
+	})
+	
+	public Mono<?> largeEstablishmentsByDistrict(
+			@ApiParam(value = "Offset", name= "Offset")
+			@RequestParam(required = false) String offset,
+			@ApiParam(value = "Limit", name= "Limit")
+			@RequestParam(required = false)  String limit,
+			@PathVariable("district") String district) { try {
+		
+		int
+			offsetI = offset == null ? 0: Integer.parseInt(offset),
+			limitI = limit == null ? -1: Integer.parseInt(limit),
+			districtI = district == null ? 0: Integer.parseInt(district);
+			// NOTE: district zero does not exist!
+		
+		return largeStablishmentsService.getPageByDistrict(offsetI, limitI, districtI);
+	} catch(Exception e) {
+		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+	} }
+	
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")

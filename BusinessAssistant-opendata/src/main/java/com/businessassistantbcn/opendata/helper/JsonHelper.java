@@ -2,8 +2,8 @@ package com.businessassistantbcn.opendata.helper;
 
 import java.util.Arrays;
 import java.util.List;
-
-import net.bytebuddy.implementation.bytecode.Throw;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,4 +85,20 @@ public class JsonHelper<T> {
 
 		return filteredDto;
 	}
+	
+	// Returns stream starting from 'offset', with 'limit' elements.
+	// Returns all elements if limit < 0.
+	public static <T> T[] pageDto(T[] dto, int offset, int limit) {
+		if(offset > dto.length)
+			offset = dto.length;
+		else if(offset < 0)
+			offset = 0;
+		
+		int end = limit < 0 ? dto.length : offset + limit;
+		if(end > dto.length)
+			end = dto.length;
+		
+		return Arrays.copyOfRange(dto, offset, end);
+	}
+	
 }
