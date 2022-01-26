@@ -8,7 +8,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,44 +33,61 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class BigMallsService {
-	
+
+	private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
+
 	@Autowired
 	private PropertiesConfig config;
 	@Autowired
 	private HttpClientHelper httpClientHelper;
 	@Autowired
 	private GenericResultDto<BigMallsDto> genericResultDto;
-	
-	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) { try {
-		
-		Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_bigmalls()),
-				BigMallsDto[].class);
-		
-		return response.flatMap(dto -> { try {
+	@Autowired
+	private CircuitBreakerFactory circuitBreakerFactory;
+
+	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) {
+
+		URL url;
+
+		try {
+			url = new URL(config.getDs_bigmalls());
+		} catch (MalformedURLException e) {
+			log.error("URL bad configured: "+e.getMessage());
+			return getPageDefault();
+		}
+
+		Mono<BigMallsDto[]> response = httpClientHelper.getRequestData(url, BigMallsDto[].class);
+		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
+
+		return circuitBreaker.run(() -> response.flatMap(dto -> {
 			BigMallsDto[] filteredDto = JsonHelper.filterDto(dto, offset, limit);
 			genericResultDto.setLimit(limit);
 			genericResultDto.setOffset(offset);
 			genericResultDto.setResults(filteredDto);
 			genericResultDto.setCount(dto.length);
 			return Mono.just(genericResultDto);
-		} catch (Exception e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-		} });
-		
-	} catch (MalformedURLException e) {
-		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
-	} }
-	
+		}), throwable -> getPageDefault());
+	}
+
+
+	private Mono<GenericResultDto<BigMallsDto>> getPageDefault(){
+		genericResultDto.setLimit(0);
+		genericResultDto.setOffset(0);
+		genericResultDto.setResults(new BigMallsDto[0]);
+		genericResultDto.setCount(0);
+		return Mono.just(genericResultDto);
+	}
+
 	public GenericResultDto<BigMallsDto> getBigMallsByActivityDto(int[] activities, int offset, int limit) {
 		//lambda filter
 		return null;
 	}
-	
+
 	public GenericResultDto<BigMallsDto> getBigMallsByDistrictDto(int[] districts, int offset, int limit) {
 		//lambda filter
 		return null;
 	}
-	
+
 	public String getBigMallsByActivity(int[] activities, int offset, int limit) {
 		//JsonPath search
 		/* OJO a formato de salida:
@@ -81,7 +102,7 @@ public class BigMallsService {
 		*/
 		return null;
 	}
-	
+
 	public String getBigMallsByDistrict(int[] districts, int offset, int limit) {
 		//JsonPath search
 		/* OJO a formato de salida:
@@ -94,9 +115,9 @@ public class BigMallsService {
 		"surnames": "dos Reis Figueira",
 		...
 		*/
-		
+
 		return null;
 	}
-	
+
 }
 

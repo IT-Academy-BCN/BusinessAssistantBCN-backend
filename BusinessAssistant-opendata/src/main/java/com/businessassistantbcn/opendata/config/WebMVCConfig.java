@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 @ComponentScan(basePackages = {"com.businessassistantbcn.opendata"})
 @Configuration
 @EnableWebMvc
-public class WebMVCConfiguration {
+public class WebMVCConfig {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/META-INF/resources/");
     }
