@@ -94,7 +94,7 @@ public class OpendataController {
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
 			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 503, message = "Service Unavailable"),
+			@ApiResponse(code = 503, message = "Service Unavailable")
 	})
 	
 	public Mono<?> largeEstablishments(
@@ -104,8 +104,8 @@ public class OpendataController {
 			@RequestParam(required = false)  String limit) { try {
 		
 		int
-			offsetI = offset == null ? 0: Integer.parseInt(offset),
-			limitI = limit == null ? -1: Integer.parseInt(limit);
+			offsetI = offset == null ? 0 : Integer.parseInt(offset),
+			limitI = limit == null ? -1 : Integer.parseInt(limit);
 		
 		return largeStablishmentsService.getPage(offsetI, limitI);
 	} catch(Exception e) {
@@ -119,7 +119,7 @@ public class OpendataController {
 			@ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
 			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 503, message = "Service Unavailable"),
+			@ApiResponse(code = 503, message = "Service Unavailable")
 	})
 	
 	public Mono<?> largeEstablishmentsByDistrict(
@@ -127,13 +127,12 @@ public class OpendataController {
 			@RequestParam(required = false) String offset,
 			@ApiParam(value = "Limit", name= "Limit")
 			@RequestParam(required = false)  String limit,
-			@PathVariable("district") String district) { try {
+			@PathVariable(value = "district") String district) { try {
 		
 		int
-			offsetI = offset == null ? 0: Integer.parseInt(offset),
-			limitI = limit == null ? -1: Integer.parseInt(limit),
-			districtI = district == null ? 0: Integer.parseInt(district);
-			// NOTE: district zero does not exist!
+			offsetI = offset == null ? 0 : Integer.parseInt(offset),
+			limitI = limit == null ? -1 : Integer.parseInt(limit),
+			districtI = Integer.parseInt(district);
 		
 		return largeStablishmentsService.getPageByDistrict(offsetI, limitI, districtI);
 	} catch(Exception e) {

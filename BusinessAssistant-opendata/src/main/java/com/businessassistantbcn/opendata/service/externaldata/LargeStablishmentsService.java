@@ -29,7 +29,7 @@ public class LargeStablishmentsService {
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
 	
 	// Get paged results
-	public Mono<GenericResultDto<LargeStablishmentsDto>>getPage(int offset, int limit) {
+	public Mono<GenericResultDto<LargeStablishmentsDto>> getPage(int offset, int limit) {
 		return getResultDto(offset, limit, dto -> true);
 	}
 	
@@ -39,6 +39,11 @@ public class LargeStablishmentsService {
 				dto.getAddresses().stream().anyMatch(a ->
 						Integer.parseInt(a.getDistrict_id()) == district
 		));
+	}
+	
+	// Get paged results filtered by activity
+	public Mono<GenericResultDto<LargeStablishmentsDto>> getPageByActivity(int offset, int limit, int activity) {
+		return null; // *** FILTRO PENDIENTE ***
 	}
 	
 	private Mono<GenericResultDto<LargeStablishmentsDto>> getResultDto(

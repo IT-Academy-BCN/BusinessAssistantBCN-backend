@@ -222,7 +222,7 @@ public class OpendataControllerTest {
 			Arguments.of("/big-malls", BigMallsDto.class, "bigMallsService"),
 			Arguments.of("/market-fairs", MarketFairsDto.class, "marketFairsService"),
 			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
-//			Arguments.of("/large-establishments", LargeStablishmentsDto.class, "largeStablishmentsService"),
+//			Arguments.of("/large-stablishments", LargeStablishmentsDto.class, "largeStablishmentsService"),
 //			Arguments.of("/commercial-galleries", CommercialGalleries.class, "commercialGalleriesService")
 		};
 		

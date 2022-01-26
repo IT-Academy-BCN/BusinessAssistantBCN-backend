@@ -1,7 +1,7 @@
 package com.businessassistantbcn.opendata.dto.largestablishments;
 
-import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.AddressDto;
+import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.Getter;
