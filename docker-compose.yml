@@ -43,9 +43,24 @@ services:
       # - businessassistantbcn_db_data:/var/lib/mysql
       # - businessassistantbcn_db_log:/var/log/mysql
 
+
+  mongodb:
+    container_name: mongodb-businessassistantbcn-usermanagement
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: UhWQQYFVBx95W7
+    ports:
+      - 27017:27017
+    volumes:
+      - businessassistantbcn_mongodb_data:/var/lib/mongodb
+
+
 volumes:
     businessassistantbcn_db_data:
     businessassistantbcn_db_log:
+    businessassistantbcn_mongodb_data:
 
 networks:
   consul:
