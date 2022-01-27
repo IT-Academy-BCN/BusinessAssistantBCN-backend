@@ -6,7 +6,7 @@
 
 #### Mongodb database para gestión de usuarios
 
-Proceso de arranque de MongoDB:
+Proceso de arranque de MongoDB (requiere instalación previa de Docker y docker-compose):
 
 - Descarga de imagen MongoDB
 
