@@ -3,9 +3,9 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsDto;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 
+import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import reactor.core.publisher.Mono;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.net.URL;
 public class LargeStablishmentsService {
 
 	@Autowired
-    HttpClientHelper httpClientHelper;
+	HttpProxy httpProxy;
 	
 	@Autowired
 	private PropertiesConfig config;
@@ -31,7 +31,7 @@ public class LargeStablishmentsService {
 	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
 		
 		try {
-			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),
+			Mono<LargeStablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largestablishments()),
 					LargeStablishmentsDto[].class);
 			return response.flatMap(dto ->{
 				try {
@@ -60,7 +60,7 @@ public class LargeStablishmentsService {
 		
 		try {
 			
-			Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
+			Mono<LargeStablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
 			
 			return response.flatMap(dto ->{
 				genericResultDto.setResults(dto);

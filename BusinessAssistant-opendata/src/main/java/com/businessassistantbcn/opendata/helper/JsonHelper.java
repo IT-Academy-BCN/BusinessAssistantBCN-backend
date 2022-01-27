@@ -3,8 +3,6 @@ package com.businessassistantbcn.opendata.helper;
 import java.util.Arrays;
 import java.util.List;
 
-import net.bytebuddy.implementation.bytecode.Throw;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

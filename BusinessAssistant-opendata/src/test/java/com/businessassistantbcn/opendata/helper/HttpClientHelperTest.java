@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.helper;
 
+import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -22,18 +23,11 @@ public class HttpClientHelperTest {
     @Autowired
     private Environment env;
     @Autowired
-    private HttpClientHelper httpClientHelper;
+    private HttpProxy httpClientHelper;
 
     @Test
     public void getStringRootTest() {
 
-        try {
-            URL url = new URL(env.getProperty("ds_test"));
-            assertEquals(httpClientHelper.getStringRoot(url) , "");
-
-        } catch (MalformedURLException e) {
-        	log.error("exception:", e);
-        }
 
     }
 

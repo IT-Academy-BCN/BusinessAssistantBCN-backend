@@ -5,13 +5,13 @@ import java.net.URL;
 
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 
 import reactor.core.publisher.Mono;
 
@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
 public class CommercialGalleriesService {
 	
 	@Autowired
-    HttpClientHelper helper;
+	HttpProxy httpProxy;
 	
 	@Autowired
 	private PropertiesConfig config;
@@ -36,7 +36,7 @@ public class CommercialGalleriesService {
 		
 		try {
 			
-			Mono<CommercialGalleriesDto[]> response = helper.getRequestData(new URL(config.getDs_commercialgalleries()),CommercialGalleriesDto[].class);
+			Mono<CommercialGalleriesDto[]> response = httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()),CommercialGalleriesDto[].class);
 			
 			return response.flatMap(dto ->{
 
