@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.dto.largestablishments;
 
+import com.businessassistantbcn.opendata.dto.bigmalls.AddressDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -37,7 +38,7 @@ public class LargeStablishmentsDto {
     @JsonProperty("tickets_data")
     private List<Object> tickets_data;
     @JsonProperty("addresses")
-    private List<Object> addresses;
+    private List<AddressDto> addresses;
     @JsonProperty("entity_types_data")
     private List<Object> entity_types_data;
     @JsonProperty("attribute_categories")
