@@ -3,7 +3,9 @@ package com.businessassistantbcn.opendata.controller;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bcnzones.*;
 import com.businessassistantbcn.opendata.dto.bigmalls.*;
+import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
+import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.test.*;
@@ -222,8 +224,8 @@ public class OpendataControllerTest {
 			Arguments.of("/big-malls", BigMallsDto.class, "bigMallsService"),
 			Arguments.of("/market-fairs", MarketFairsDto.class, "marketFairsService"),
 			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
-//			Arguments.of("/large-stablishments", LargeStablishmentsDto.class, "largeStablishmentsService"),
-//			Arguments.of("/commercial-galleries", CommercialGalleries.class, "commercialGalleriesService")
+			Arguments.of("/large-establishments", LargeStablishmentsDto.class, "largeStablishmentsService"),
+			Arguments.of("/commercial-galleries", CommercialGalleriesDto.class, "commercialGalleriesService")
 		};
 		
 		return args;

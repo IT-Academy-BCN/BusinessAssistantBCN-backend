@@ -4,8 +4,8 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
+import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +24,13 @@ public class EconomicActivitiesCensusService {
     @Autowired
     PropertiesConfig config;
     @Autowired
-    HttpClientHelper httpClientHelper;
+    HttpProxy httpProxy;
     @Autowired
     GenericResultDto<EconomicActivitiesCensusDto> genericResultDto;
 
     public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getPage(int offset, int limit) {
         try {
-            Mono<EconomicActivitiesCensusDto[]> response = httpClientHelper.getRequestData(
+            Mono<EconomicActivitiesCensusDto[]> response = httpProxy.getRequestData(
                     new URL(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class);
                 return response.flatMap( dto -> {
                     try{

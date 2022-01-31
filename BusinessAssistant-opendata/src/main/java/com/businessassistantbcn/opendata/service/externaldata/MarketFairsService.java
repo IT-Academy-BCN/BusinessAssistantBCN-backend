@@ -3,9 +3,9 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 
+import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,13 +22,13 @@ public class MarketFairsService {
 	@Autowired
 	private PropertiesConfig config;
 	@Autowired
-	private HttpClientHelper httpClientHelper;
+	private HttpProxy httpProxy;
 	@Autowired
 	private GenericResultDto<MarketFairsDto> genericResultDto;
 	
 	public Mono<GenericResultDto<MarketFairsDto>>getPage(int offset, int limit) { try {
 		
-		Mono<MarketFairsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_marketfairs()),
+		Mono<MarketFairsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_marketfairs()),
 				MarketFairsDto[].class);
 		
 		return response.flatMap(dto -> { try {

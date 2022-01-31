@@ -4,4 +4,5 @@ include 'BusinessAssistant-opendata'
 include 'BusinessAssistant-consul'
 include 'BusinessAssistant-gateway'
 include 'BusinessAssistant-mydata'
+include 'BusinessAssistant-usermanagement'
 

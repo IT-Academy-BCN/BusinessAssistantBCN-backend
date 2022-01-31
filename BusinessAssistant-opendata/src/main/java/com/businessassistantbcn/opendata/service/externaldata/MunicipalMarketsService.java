@@ -3,8 +3,8 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsDto;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
+import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,10 +21,7 @@ public class MunicipalMarketsService {
     private PropertiesConfig config;
 
     @Autowired
-    HttpClientHelper helper;
-
-    @Autowired
-    private HttpClientHelper httpClientHelper;
+    private HttpProxy httpProxy;
 
     @Autowired
     private GenericResultDto<MunicipalMarketsDto> genericResultDto;
@@ -32,7 +29,7 @@ public class MunicipalMarketsService {
     public Mono<GenericResultDto<MunicipalMarketsDto>> getPage(int offset, int limit) {
 
         try {
-            Mono<MunicipalMarketsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_municipalmarkets()),
+            Mono<MunicipalMarketsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_municipalmarkets()),
                     MunicipalMarketsDto[].class);
             return response.flatMap(dto ->{
                 try {

@@ -2,8 +2,6 @@ package com.businessassistantbcn.opendata.helper;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +56,7 @@ public class JsonHelper<T> {
 		return jsonString;
 	}
 	//Returns sub array starting from offset. if limit it's -1 it means there's no limit
-	public static  <T> T[] filterDto(T[] dto, int offset, int limit) throws Exception{
+	public static  <T> T[] filterDto(T[] dto, int offset, int limit){
 
 		if(offset > dto.length-1){
 			return Arrays.copyOfRange(dto,0,0);

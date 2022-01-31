@@ -14,6 +14,7 @@
 - [BusinessAssistant-login](BusinessAssistant-login/README.md). Microservicio para manejo de login
 - [BusinessAssistant-mydata](BusinessAssistant-mydata/README.md). 
 - [BusinessAssistant-opendata](BusinessAssistant-opendata/README.md). Microservicio para manejo de solicitudes redireccionadas de [Opendata](https://opendata-ajuntament.barcelona.cat/es/api-cataleg)
+- [BusinessAssistant-usermanagement](BusinessAssistant-usermanagement/README.md). Microservicio para gestión de usuarios.
 
 
 <hr/>

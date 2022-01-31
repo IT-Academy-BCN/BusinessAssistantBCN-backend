@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.helper;
+package com.businessassistantbcn.opendata.proxy;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 
@@ -27,17 +27,14 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class HttpClientHelper {
+public class HttpProxy {
 
     private final PropertiesConfig config;
     HttpClient httpClient;
     WebClient client;
 
-    /**
-     * Inicialización de objetos de conexión en constructor
-     */
     @Autowired
-    public HttpClientHelper(PropertiesConfig config){
+    public HttpProxy(PropertiesConfig config){
         this.config = config;
         httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, config.getConnection_timeout())
@@ -58,31 +55,6 @@ public class HttpClientHelper {
         clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonDecoder(new ObjectMapper(), MediaType.TEXT_PLAIN));
     }
 
-    public String getStringRoot(URL url){
-        return "";
-    }
-
-
-    public JsonNode getJsonRoot(URL url) {
-        return null;
-    }
-
-
-    public <T> Object getObjectRoot (URL url, Class<T> clazz){
-
-        return null;
-    }
-
-    /**
-     * OJO RestTemplate pronto deprecada (ES BLOCKING), preferible uso de WebClient (reactive programming)
-     * {@link} https://www.baeldung.com/spring-5-webclient
-     * {@link} https://www.baeldung.com/spring-webclient-json-list
-     * @param url
-     * @param clazz
-     * @param <T>
-     * @return
-     */
-    
     public <T> Mono<T> getRequestData(URL url, Class<T> clazz){
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
         WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
@@ -92,6 +64,6 @@ public class HttpClientHelper {
 
 }
 
-    
+
 
 

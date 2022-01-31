@@ -3,28 +3,25 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsDto;
-import com.businessassistantbcn.opendata.helper.HttpClientHelper;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
-
-import reactor.core.publisher.Mono;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-
+import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import java.util.Arrays;
 import java.util.function.Predicate;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import reactor.core.publisher.Mono;
 
 @Service
 public class LargeStablishmentsService {
 	
 	@Autowired
-	private PropertiesConfig config;
+	HttpProxy httpProxy;
 	@Autowired
-	private HttpClientHelper httpClientHelper;
+	private PropertiesConfig config;
 	@Autowired
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
 	
@@ -49,7 +46,7 @@ public class LargeStablishmentsService {
 	private Mono<GenericResultDto<LargeStablishmentsDto>> getResultDto(
 			int offset, int limit, Predicate<LargeStablishmentsDto> dtoFilter) { try {
 		
-		Mono<LargeStablishmentsDto[]> response = httpClientHelper.getRequestData(new URL(config.getDs_largestablishments()),
+		Mono<LargeStablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largestablishments()),
 				LargeStablishmentsDto[].class);
 		
 		return response.flatMap(dto -> {
