@@ -16,8 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.function.Predicate;
 
 
 @Service
@@ -31,36 +29,6 @@ public class LargeStablishmentsService {
 	
 	@Autowired
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
-	
-	
-	private LargeStablishmentsDto[] getArrayDtoByKeyAddress(LargeStablishmentsDto[] dto, String key, String value) {
-		
-		
-		/*
-		LinkedHashMap<?, ?> hashMap = null; 
-		
-		int elements = 0;
-		
-		for(LargeStablishmentsDto eDto: dto) {
-			hashMap = (LinkedHashMap<?, ?>) eDto.getAddresses().get(0);
-			if(hashMap.get(key).equals(value)) elements++;
-		}
-		
-		LargeStablishmentsDto[] dtoByKey = new LargeStablishmentsDto[elements];
-		
-		int element = 0;
-		
-		for(int i = 0; i < dto.length; i++) {
-			 hashMap = (LinkedHashMap<?, ?>) dto[i].getAddresses().get(0);
-			 
-			 if(hashMap.get(key).equals(value)) {		 
-				dtoByKey[element] = dto[i];
-				element++;
-			 }
-		}
-		*/
-		return null;
-	}
 	
 	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
 		
