@@ -130,6 +130,32 @@ public class OpendataController {
          }
     }
     //GET ?offset=0&limit=10
+    @GetMapping("/large-establishments/activity/{activity}")
+    @ApiOperation("Get large establishments by activity SET 0 LIMIT 10")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 503, message = "Service Unavailable"),
+    })
+
+    public Mono<?> largeEstablishmentsByActivity(
+    		@ApiParam(value = "Offset", name= "Offset")
+            @RequestParam(required = false) String offset,
+            @ApiParam(value = "Limit", name= "Limit")
+            @RequestParam(required = false)  String limit,
+            @PathVariable("activity") String activity){
+    	
+    	 offset = offset == null ? "0": offset;
+         limit = limit == null ? "-1": limit;
+         
+         try{
+        	 return largeStablishmentsService.getPageByActivity(Integer.parseInt(offset), Integer.parseInt(limit), activity);
+         }catch (Exception mue){
+             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+         }
+    }
+    //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
     @ApiResponses({
