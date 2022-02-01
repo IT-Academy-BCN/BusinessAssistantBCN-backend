@@ -69,24 +69,29 @@ public class LargeStablishmentsService {
 		}
 	}
 	
-    public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll()
+    public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll(int offset, int limit) {
 
-	{
-    	
 		try {
-			
-			Mono<LargeStablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
-			
-			return response.flatMap(dto ->{
-				genericResultDto.setResults(dto);
-				genericResultDto.setCount(dto.length);
-				return Mono.just(genericResultDto);
-				
+			Mono<LargeStablishmentsDto[]> response =
+				httpProxy.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
+			return response.flatMap(largeStablismentsDto ->{
+				try {
+					LargeStablishmentsDto[] pagedDto = JsonHelper.filterDto(largeStablismentsDto,offset,limit);
+
+					genericResultDto.setLimit(limit);
+					genericResultDto.setOffset(offset);
+					genericResultDto.setResults(pagedDto);
+					genericResultDto.setCount(largeStablismentsDto.length);
+
+					return Mono.just(genericResultDto);
+
+				} catch (Exception e) {
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+				}
 			} );
-			
 		} catch (MalformedURLException e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 		}
-				
 	}
+
 }
