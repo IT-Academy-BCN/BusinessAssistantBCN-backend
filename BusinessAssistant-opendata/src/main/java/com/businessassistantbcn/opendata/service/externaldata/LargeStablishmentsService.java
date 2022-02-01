@@ -6,8 +6,12 @@ import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmen
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
+import com.fasterxml.jackson.databind.ser.std.ArraySerializerBase;
+
 import reactor.core.publisher.Mono;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,6 +33,8 @@ public class LargeStablishmentsService {
 	
 	@Autowired
 	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
+	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
 		
@@ -59,6 +65,39 @@ public class LargeStablishmentsService {
 					
 				} catch (Exception e) {
 					//Poner Logger
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+				}
+
+			} );
+
+		} catch (MalformedURLException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+		}
+	}
+	
+	
+	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByActivity(int offset, int limit, String activity) {
+		
+		log.info("Activity id: " + activity);
+		
+		try {
+			Mono<LargeStablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largestablishments()),
+					LargeStablishmentsDto[].class);
+			
+			return response.flatMap(largeStablismentsDto ->{
+				try {
+					
+					LargeStablishmentsDto[] pagedDto = JsonHelper.filterDto(largeStablismentsDto,offset,limit);
+					
+					genericResultDto.setLimit(limit);
+					genericResultDto.setOffset(offset);
+					genericResultDto.setResults(pagedDto);
+					genericResultDto.setCount(largeStablismentsDto.length);
+					
+					return Mono.just(genericResultDto);
+					
+				} catch (Exception e) {
+			
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
 				}
 
