@@ -58,24 +58,20 @@ public class JsonHelper<T> {
 	//Returns sub array starting from offset. if limit it's -1 it means there's no limit
 	public static  <T> T[] filterDto(T[] dto, int offset, int limit){
 
-		if(offset > dto.length-1){
-			return Arrays.copyOfRange(dto,0,0);
-
-		}
 		if(offset < 0){
 			throw new NumberFormatException("Offset Can not be negative");
-		}
-		//the ending index +1
-		int end = offset + limit;
-		//if limit == -1 it means that we should get all Data
-		if(limit == -1){
-			end = dto.length;
 		}
 		if(limit < -1){
 			throw new NumberFormatException("Limit value not accepted");
 		}
+		if(offset > dto.length-1){
+			return Arrays.copyOfRange(dto,0,0);
+		}
+		//the ending index +1
+		int end = offset + limit;
+		//if limit == -1 it means that we should get all Data
 		//If the ending point is out of bounce, we set the ending point in the last point of the array +1
-		if(end > dto.length){
+		if(limit == -1 || end > dto.length){
 			end = dto.length;
 		}
 		//Makes the subarray. The end point is excluded thats why we do +1.
@@ -83,4 +79,5 @@ public class JsonHelper<T> {
 
 		return filteredDto;
 	}
+
 }

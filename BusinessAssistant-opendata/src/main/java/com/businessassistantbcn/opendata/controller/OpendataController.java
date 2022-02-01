@@ -85,8 +85,12 @@ public class OpendataController {
             @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit) {
 
-        offset = offset == null ? "0": offset;
-        limit = limit == null ? "-1": limit;
+        if (offset == null || offset.isEmpty()) {
+            offset = "0";
+        }
+        if (limit == null || limit.isEmpty()) {
+            limit = "-1";
+        }
 
         try{
             return largeStablishmentsService.getLargeStablishmentsAll(Integer.parseInt(offset), Integer.parseInt(limit));
