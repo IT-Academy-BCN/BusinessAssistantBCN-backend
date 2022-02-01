@@ -29,7 +29,7 @@ url:
   connection_timeout: 10000
   maxBytesInMemory: 30000000
   ds_test: https://swapi.py4e.com/api/vehicles/
-  ds_largestablishments: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-establiments-js.json
+  ds_largeestablishments: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-establiments-js.json
   ds_commercialgalleries: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_galeries-comercials-js.json
   ds_bigmalls: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json
   ds_municipalmarkets: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_mercats-municipals-js.json

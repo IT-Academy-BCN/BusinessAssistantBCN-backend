@@ -59,7 +59,7 @@ public class OpendataControllerTest {
 	@MockBean
 	private MunicipalMarketsService municipalMarketsService;
 	@MockBean
-	private LargeStablishmentsService largeStablishmentsService;
+	private LargeEstablishmentsService largeEstablishmentsService;
 	@MockBean
 	private CommercialGalleriesService commercialGalleriesService;
 	@MockBean
@@ -222,7 +222,7 @@ public class OpendataControllerTest {
 			Arguments.of("/big-malls", BigMallsDto.class, "bigMallsService"),
 			Arguments.of("/market-fairs", MarketFairsDto.class, "marketFairsService"),
 			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
-//			Arguments.of("/large-establishments", LargeStablishmentsDto.class, "largeStablishmentsService"),
+//			Arguments.of("/large-establishments", LargeEstablishmentsDto.class, "largeEstablishmentsService"),
 //			Arguments.of("/commercial-galleries", CommercialGalleries.class, "commercialGalleriesService")
 		};
 		

@@ -43,7 +43,7 @@ public class OpendataController {
     @Autowired
     DataConfigService bcnZonesService;
     @Autowired
-    LargeStablishmentsService largeStablishmentsService;
+    LargeEstablishmentsService largeEstablishmentsService;
     @Autowired
     MunicipalMarketsService municipalMarketsService;
 
@@ -71,7 +71,7 @@ public class OpendataController {
 
 
     //GET ?offset=0&limit=10
-    @GetMapping("/large-stablishments")
+    @GetMapping("/large-establishments")
     @ApiOperation("Get large establishments SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
@@ -93,7 +93,7 @@ public class OpendataController {
         }
 
         try{
-            return largeStablishmentsService.getLargeStablishmentsAll(Integer.parseInt(offset), Integer.parseInt(limit));
+            return largeEstablishmentsService.getLargeEstablishmentsAll(Integer.parseInt(offset), Integer.parseInt(limit));
         }catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
@@ -146,7 +146,7 @@ public class OpendataController {
          limit = limit == null ? "-1": limit;
          
          try{
-        	 return largeStablishmentsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district);
+        	 return largeEstablishmentsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district);
          }catch (Exception mue){
              throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
          }
@@ -228,15 +228,15 @@ public class OpendataController {
 	}
 
     //GET ?offset=0&limit=10
-    @GetMapping("/large-stablishments/activity")
-    @ApiOperation("Get large stablishment activity SET 0 LIMIT 10")
+    @GetMapping("/large-establishments/activity")
+    @ApiOperation("Get large establishment activity SET 0 LIMIT 10")
     @ApiResponses({
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 404, message = "Not Found"),
     })
     public String largeEstablishmentsActivity()
     {
-        return "Large-Stabilshments-Activity";
+        return "Large-Estabilshments-Activity";
     }
 
     //GET ?offset=0&limit=10

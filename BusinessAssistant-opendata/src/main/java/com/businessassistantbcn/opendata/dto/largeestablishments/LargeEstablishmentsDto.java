@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.dto.largestablishments;
+package com.businessassistantbcn.opendata.dto.largeestablishments;
 
 import com.businessassistantbcn.opendata.dto.bigmalls.AddressDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Getter @Setter
-public class LargeStablishmentsDto {
+public class LargeEstablishmentsDto {
 	
 	@JsonProperty("register_id")
     private long register_id;
