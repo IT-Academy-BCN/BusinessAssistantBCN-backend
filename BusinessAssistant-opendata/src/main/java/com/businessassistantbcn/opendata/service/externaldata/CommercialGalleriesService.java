@@ -5,6 +5,7 @@ import java.net.URL;
 
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,32 @@ public class CommercialGalleriesService {
 				
 			} );
 			
+		} catch (MalformedURLException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+		}
+	}
+
+
+	public Mono<GenericResultDto<CommercialGalleriesDto>> getPage(int offset, int limit) {
+
+		try {
+
+			Mono<CommercialGalleriesDto[]> response = httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()),
+					CommercialGalleriesDto[].class);
+
+			return response.flatMap(dto -> {
+				try {
+					CommercialGalleriesDto[] filteredDto = JsonHelper.filterDto(dto, offset, limit);
+					genericResultDto.setLimit(limit);
+					genericResultDto.setOffset(offset);
+					genericResultDto.setResults(filteredDto);
+					genericResultDto.setCount(dto.length);
+					return Mono.just(genericResultDto);
+				} catch (Exception e) {
+					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+				}
+			});
+
 		} catch (MalformedURLException e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 		}
