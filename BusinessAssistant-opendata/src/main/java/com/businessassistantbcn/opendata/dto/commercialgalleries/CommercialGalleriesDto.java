@@ -36,7 +36,7 @@ public class CommercialGalleriesDto {
     @JsonProperty("tickets_data")
     private List<Object> tickets_data;
     @JsonProperty("addresses")
-    private List<Object> addresses;
+    private List<AddressDto> addresses;
     @JsonProperty("entity_types_data")
     private List<Object> entity_types_data;
     @JsonProperty("attribute_categories")
