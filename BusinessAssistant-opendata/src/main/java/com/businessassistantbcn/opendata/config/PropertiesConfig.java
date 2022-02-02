@@ -11,7 +11,7 @@ public class PropertiesConfig {
 
     private Integer connection_timeout;//millis
     private String ds_test;
-    private String ds_largestablishments;
+    private String ds_largeestablishments;
     private String ds_commercialgalleries;
     private String ds_bigmalls;
     private String ds_municipalmarkets;
@@ -45,12 +45,12 @@ public class PropertiesConfig {
         this.ds_test = ds_test;
     }
 
-    public String getDs_largestablishments() {
-        return ds_largestablishments;
+    public String getDs_largeestablishments() {
+        return ds_largeestablishments;
     }
 
-    public void setDs_largestablishments(String ds_largestablishments) {
-        this.ds_largestablishments = ds_largestablishments;
+    public void setDs_largeestablishments(String ds_largeestablishments) {
+        this.ds_largeestablishments = ds_largeestablishments;
     }
 
     public String getDs_commercialgalleries() {

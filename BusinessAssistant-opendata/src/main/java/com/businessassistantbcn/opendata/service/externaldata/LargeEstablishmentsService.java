@@ -2,11 +2,10 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.largestablishments.LargeStablishmentsDto;
+import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
-import com.fasterxml.jackson.databind.ser.std.ArraySerializerBase;
 
 import reactor.core.publisher.Mono;
 
@@ -23,7 +22,7 @@ import java.util.Arrays;
 
 
 @Service
-public class LargeStablishmentsService {
+public class LargeEstablishmentsService {
 
 	@Autowired
 	HttpProxy httpProxy;
@@ -32,34 +31,34 @@ public class LargeStablishmentsService {
 	private PropertiesConfig config;
 	
 	@Autowired
-	private GenericResultDto<LargeStablishmentsDto> genericResultDto;
+	private GenericResultDto<LargeEstablishmentsDto> genericResultDto;
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
+	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
 		
 		try {
-			Mono<LargeStablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largestablishments()),
-					LargeStablishmentsDto[].class);
+			Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largeestablishments()),
+					LargeEstablishmentsDto[].class);
 			
 		
-			return response.flatMap(largeStablismentsDto ->{
+			return response.flatMap(largeEstablismentsDto ->{
 				try {
 					
-					LargeStablishmentsDto[] largeStablismentsDtoByDistrict = Arrays.stream(largeStablismentsDto)
+					LargeEstablishmentsDto[] largeEstablismentsDtoByDistrict = Arrays.stream(largeEstablismentsDto)
 							.filter(dto -> dto.getAddresses().stream().anyMatch(address -> true))
-							.toArray(LargeStablishmentsDto[]::new);
+							.toArray(LargeEstablishmentsDto[]::new);
 					
 					//String key = "district_id";
-					//LargeStablishmentsDto[] dtoByDsitrictId = getArrayDtoByKeyAddress(dto, key, district);
+					//LargeEstablishmentsDto[] dtoByDsitrictId = getArrayDtoByKeyAddress(dto, key, district);
 						
 					
-					LargeStablishmentsDto[] pagedDto = JsonHelper.filterDto(largeStablismentsDtoByDistrict,offset,limit);
+					LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeEstablismentsDtoByDistrict,offset,limit);
 					
 					genericResultDto.setLimit(limit);
 					genericResultDto.setOffset(offset);
 					genericResultDto.setResults(pagedDto);
-					genericResultDto.setCount(largeStablismentsDtoByDistrict.length);
+					genericResultDto.setCount(largeEstablismentsDtoByDistrict.length);
 					
 					return Mono.just(genericResultDto);
 					
@@ -76,23 +75,23 @@ public class LargeStablishmentsService {
 	}
 	
 	
-	public Mono<GenericResultDto<LargeStablishmentsDto>>getPageByActivity(int offset, int limit, String activity) {
+	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByActivity(int offset, int limit, String activity) {
 		
 		log.info("Activity id: " + activity);
 		
 		try {
-			Mono<LargeStablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largestablishments()),
-					LargeStablishmentsDto[].class);
+			Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largeestablishments()),
+					LargeEstablishmentsDto[].class);
 			
-			return response.flatMap(largeStablismentsDto ->{
+			return response.flatMap(largeEstablismentsDto ->{
 				try {
 					
-					LargeStablishmentsDto[] pagedDto = JsonHelper.filterDto(largeStablismentsDto,offset,limit);
+					LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeEstablismentsDto,offset,limit);
 					
 					genericResultDto.setLimit(limit);
 					genericResultDto.setOffset(offset);
 					genericResultDto.setResults(pagedDto);
-					genericResultDto.setCount(largeStablismentsDto.length);
+					genericResultDto.setCount(largeEstablismentsDto.length);
 					
 					return Mono.just(genericResultDto);
 					
@@ -108,13 +107,13 @@ public class LargeStablishmentsService {
 		}
 	}
 	
-    public Mono<GenericResultDto<LargeStablishmentsDto>> getLargeStablishmentsAll()
+    public Mono<GenericResultDto<LargeEstablishmentsDto>> getLargeEstablishmentsAll()
 
 	{
     	
 		try {
 			
-			Mono<LargeStablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largestablishments()),LargeStablishmentsDto[].class);
+			Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largeestablishments()), LargeEstablishmentsDto[].class);
 			
 			return response.flatMap(dto ->{
 				genericResultDto.setResults(dto);
