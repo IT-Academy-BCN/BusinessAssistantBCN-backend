@@ -47,7 +47,7 @@ public class LargeStablishmentsService {
 				try {
 					
 					LargeStablishmentsDto[] largeStablismentsDtoByDistrict = Arrays.stream(largeStablismentsDto)
-							.filter(dto -> dto.getAddresses().stream().anyMatch(address -> address.getDistrict_id().equals(district)))
+							.filter(dto -> dto.getAddresses().stream().anyMatch(address -> true))
 							.toArray(LargeStablishmentsDto[]::new);
 					
 					//String key = "district_id";
