@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.dto.commercialgalleries;
 
-import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.Getter;
@@ -48,7 +48,7 @@ public class CommercialGalleriesDto {
     @JsonProperty("to_relationships")
     private List<Object> to_relationships;
     @JsonProperty("classifications_data")
-    private List<Object> classifications_data;
+    private List<ClassificationDataDto> classifications_data;
     @JsonProperty("secondary_filters_data")
     private List<Object> secondary_filters_data;
     @JsonProperty("timetable")
