@@ -201,14 +201,16 @@ public class OpendataController {
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
-            @PathVariable("district") int district_id){     //es integer por que en BusinessAssistantBCN-frontend/src/app/models/common/zone.model.ts es numérico
+            @PathVariable("district") int district_id){     //It's integer why in  BusinessAssistantBCN-frontend/src/app/models/common/zone.model.ts it's a number
     	  offset = offset == null ? "0": offset;
           limit = limit == null ? "-1": limit;
 
           try{
-        	  return municipalMarketsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district_id);
-            //falta generar el servicio en MunicipalMarketsServiceget:   PageByDistrict
-          }catch (Exception mue){
+        	  
+        	//provisional return until service created MunicipalMarketsServiceget  getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district_id);
+        	  return municipalMarketsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
+        	  
+         }catch (Exception mue){
               throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
           }
     	
