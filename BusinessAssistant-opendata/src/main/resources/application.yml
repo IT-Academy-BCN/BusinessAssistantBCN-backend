@@ -26,7 +26,7 @@ management:
         include: "*"
 
 url:
-  connection_timeout: 10000
+  connection_timeout: 30000
   maxBytesInMemory: 30000000
   ds_test: https://swapi.py4e.com/api/vehicles/
   ds_largeestablishments: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-establiments-js.json

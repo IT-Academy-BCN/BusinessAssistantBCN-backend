@@ -21,6 +21,7 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'org.json:json:20210307'
     implementation 'com.jayway.jsonpath:json-path:2.6.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-resilience4j', version: '2.1.0'
     /**
      * NOTA JVR:
@@ -36,6 +37,7 @@ dependencies {
      */
     implementation group: 'org.springframework', name: 'spring-context', version: '5.3.13'
     implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.13'
+
 
 
 
