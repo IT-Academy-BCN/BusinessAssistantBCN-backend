@@ -1,19 +1,21 @@
-package com.businessassistantbcn.opendata.dto.largestablishments;
+package com.businessassistantbcn.opendata.dto.largeestablishments;
 
-import com.businessassistantbcn.opendata.dto.bigmalls.CoordinateDto;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Getter @Setter
-public class LargeStablishmentsDto {
+//@JsonIgnoreProperties({"register_id"})
+public class LargeEstablishmentsDto {
 	
-	@JsonProperty("register_id")
-    private long register_id;
+	private Long register_id;
     @JsonProperty("prefix")
     private String prefix;
     @JsonProperty("suffix")
@@ -35,31 +37,31 @@ public class LargeStablishmentsDto {
     @JsonProperty("body")
     private String body;
     @JsonProperty("tickets_data")
-    private List<Object> tickets_data;
+    private List<TicketsDataDto> tickets_data;
     @JsonProperty("addresses")
-    private List<Object> addresses;
+    private List<AddressDto> addresses;
     @JsonProperty("entity_types_data")
-    private List<Object> entity_types_data;
+    private List<EntityTypeDataDto> entity_types_data;
     @JsonProperty("attribute_categories")
-    private List<Object> attribute_categories;
+    private List<AttributeCategoryDto> attribute_categories;
     @JsonProperty("values")
-    private List<Object> values;
+    private List<ValueDto> values;
     @JsonProperty("from_relationships")
-    private List<Object> from_relationships;
+    private List<FromRelationshipDto> from_relationships;
     @JsonProperty("to_relationships")
-    private List<Object> to_relationships;
+    private List<ToRelationshipDto> to_relationships;
     @JsonProperty("classifications_data")
-    private List<Object> classifications_data;
+    private List<ClassificationDataDto> classifications_data;
     @JsonProperty("secondary_filters_data")
-    private List<Object> secondary_filters_data;
+    private List<SecondaryFilterDataDto> secondary_filters_data;
     @JsonProperty("timetable")
-    private Object timetable;
+    private TimeTableDto timetable;
     @JsonProperty("image_data")
-    private Object image_data;
+    private ImageDataDto image_data;
     @JsonProperty("gallery_data")
-    private List<Object> gallery_data;
+    private List<GalleryDataDto> gallery_data;
     @JsonProperty("warnings")
-    private List<Object> warnings;
+    private List<WarningDto> warnings;
     @JsonProperty("geo_epgs_25831")
     private CoordinateDto geo_epgs_25831;
     @JsonProperty("geo_epgs_23031")
@@ -68,9 +70,9 @@ public class LargeStablishmentsDto {
     private CoordinateDto geo_epgs_4326;
     @JsonIgnore
     @JsonProperty("is_section_of_data")
-    private boolean is_section_of_data;
+    private SectionDataDto is_section_of_data;
     @JsonProperty("sections_data")
-    private List<Object> sections_data;
+    private List<SectionDataDto> sections_data;
     @JsonProperty("start_date")
     private String start_date;
     @JsonProperty("end_date")
