@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("MarketFairs")
 @Getter @Setter
 public class MarketFairsDto {
 	
