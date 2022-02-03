@@ -65,9 +65,9 @@ public class OpendataController {
     })
     public Mono<?> testReactive()
     {
-        try{
+        try {
             return testService.getTestData();
-        }catch(MalformedURLException mue) {
+        } catch (MalformedURLException mue) {
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
@@ -81,9 +81,9 @@ public class OpendataController {
     })
     public Mono<?> largeEstablishments()
     {
-        try{
+        try {
             return largeEstablishmentsService.getLargeEstablishmentsAll();
-        }catch (Exception mue){
+        } catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
@@ -97,9 +97,9 @@ public class OpendataController {
     })
     public Mono<?> commercialGalleries()
     {
-        try{
+        try {
             return commercialGaleriesService.getCommercialGalleriesAll();
-        }catch (Exception mue){
+        } catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
@@ -124,7 +124,9 @@ public class OpendataController {
                 this.getValidOffset(offset),
                 this.getValidLimit(limit),
                 district);
-         }catch (Exception mue){
+         } catch (ResponseStatusException ex){
+             throw ex;
+         } catch (Exception mue){
              throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
          }
     }
@@ -144,12 +146,14 @@ public class OpendataController {
         @RequestParam(required = false)  String limit,
         @PathVariable("activity") String activity
     ){
-         try{
+         try {
         	 return largeEstablishmentsService.getPageByActivity(
                 this.getValidOffset(offset),
                 this.getValidLimit(limit),
                 activity);
-         }catch (Exception mue){
+         } catch (ResponseStatusException ex){
+             throw ex;
+         } catch (Exception mue){
              throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
          }
     }
@@ -168,7 +172,7 @@ public class OpendataController {
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit
     ){
-        try{
+        try {
             return bigMallsService.getPage(
                 this.getValidOffset(offset),
                 this.getValidLimit(limit)
@@ -194,12 +198,14 @@ public class OpendataController {
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit
     ){
-        try{
+        try {
             return municipalMarketsService.getPage(
                 this.getValidOffset(offset),
                 this.getValidLimit(limit)
             );
-        }catch (Exception mue){
+        } catch (ResponseStatusException ex){
+            throw ex;
+        } catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
@@ -223,6 +229,8 @@ public class OpendataController {
                 this.getValidOffset(offset),
                 this.getValidLimit(limit)
             );
+        } catch (ResponseStatusException ex){
+            throw ex;
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 		}
@@ -259,7 +267,9 @@ public class OpendataController {
                 this.getValidOffset(offset),
                 this.getValidLimit(limit)
             );
-        }catch (Exception mue){
+        } catch (ResponseStatusException ex){
+            throw ex;
+        } catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
@@ -274,7 +284,7 @@ public class OpendataController {
     {
         try {
             return bcnZonesService.getBcnZones();
-        }catch (Exception mue){
+        } catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
@@ -283,7 +293,8 @@ public class OpendataController {
         if (offset == null || offset.isEmpty()) {
             return 0;
         }
-        if (!NumberUtils.isDigits(offset)) { //|| Integer.parseInt(offset) < 0
+        // NumberUtils.isDigits returns false for negative numbers
+        if (!NumberUtils.isDigits(offset)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(offset);
@@ -294,7 +305,7 @@ public class OpendataController {
             return -1;
         }
         // NumberUtils.isDigits returns false for negative numbers
-        if (!NumberUtils.isDigits(limit)) { //|| Integer.parseInt(limit) < -1
+        if (!NumberUtils.isDigits(limit)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(limit);
