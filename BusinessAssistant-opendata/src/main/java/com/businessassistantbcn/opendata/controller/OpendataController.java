@@ -206,7 +206,7 @@ public class OpendataController {
           limit = limit == null ? "-1": limit;
 
           try{
-        	 //WATCH OUT!!
+        	
         	//provisional return until service created MunicipalMarketsServiceget  getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district_id);
         	  return municipalMarketsService.getPage(Integer.parseInt(offset), Integer.parseInt(limit));
         	  
