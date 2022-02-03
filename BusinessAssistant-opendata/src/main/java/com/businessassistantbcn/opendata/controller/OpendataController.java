@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiResponses;
 
 import java.net.MalformedURLException;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -108,7 +109,6 @@ public class OpendataController {
     @ApiOperation("Get large establishments SET 0 LIMIT 10")
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 503, message = "Service Unavailable"),
     })
@@ -134,7 +134,6 @@ public class OpendataController {
     @ApiOperation("Get large establishments by activity SET 0 LIMIT 10")
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 503, message = "Service Unavailable"),
     })
@@ -160,7 +159,6 @@ public class OpendataController {
     @ApiOperation("Get big malls SET 0 LIMIT 10")
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 503, message = "Service Unavailable")
     })
@@ -175,7 +173,9 @@ public class OpendataController {
                 this.getValidOffset(offset),
                 this.getValidLimit(limit)
             );
-        }catch (Exception mue){
+        } catch (ResponseStatusException ex){
+            throw ex;
+        } catch (Exception mue){
             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
         }
     }
@@ -185,7 +185,6 @@ public class OpendataController {
     @ApiOperation("Get municipal markets SET 0 LIMIT 10")
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 503, message = "Service Unavailable"),
     })
@@ -210,7 +209,6 @@ public class OpendataController {
 	@ApiOperation("Get market fairs SET 0 LIMIT 10")
 	@ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 503, message = "Service Unavailable"),
 	})
@@ -247,7 +245,6 @@ public class OpendataController {
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
         @ApiResponse(code = 404, message = "Not Found"),
         @ApiResponse(code = 503, message = "Service Unavailable"),
     })
@@ -286,28 +283,21 @@ public class OpendataController {
         if (offset == null || offset.isEmpty()) {
             return 0;
         }
-        if (offset.isBlank() || !this.stringIsNumber(offset) || Integer.parseInt(offset) < 0) {
+        if (!NumberUtils.isDigits(offset)) { //|| Integer.parseInt(offset) < 0
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(offset);
     }
 
     private int getValidLimit(String limit) {
-        if (limit == null || limit.isEmpty()) {
+        if (limit == null || limit.isEmpty() || limit.equals("-1")) {
             return -1;
         }
-        if (limit.isBlank() || !this.stringIsNumber(limit) || Integer.parseInt(limit) < -1) { // || is not digit
+        // NumberUtils.isDigits returns false for negative numbers
+        if (!NumberUtils.isDigits(limit)) { //|| Integer.parseInt(limit) < -1
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(limit);
-    }
-
-    private boolean stringIsNumber(String s) {
-        for(char c : s.toCharArray()) {
-            if (!Character.isDigit(c))
-                return false;
-        }
-        return true;
     }
 
 }
