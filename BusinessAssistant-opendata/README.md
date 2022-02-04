@@ -63,4 +63,4 @@ docker-compose up -d businessassistantbcn-opendata
 ```
 
 * Acceso a API en **http://[host]:7777/v1/api/[common | opendata]**
-
+* Acceso a Portainer en **http://[host]:9500**. User admin password administrator

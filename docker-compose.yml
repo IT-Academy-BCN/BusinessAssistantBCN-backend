@@ -43,7 +43,6 @@ services:
       # - businessassistantbcn_db_data:/var/lib/mysql
       # - businessassistantbcn_db_log:/var/log/mysql
 
-
   businessassistantbcn-opendata:
     image: babcn:opendata-v1.0-SNAPSHOT
     container_name: opendata-v1.0-SNAPSHOT
@@ -58,7 +57,21 @@ services:
        #     max-size: "100k"
       #     max-file: "10"
 
-  mongodb:
+  businessassistantbcn-usermanagement:
+    image: babcn:usermanagement-v1.0-SNAPSHOT
+    container_name: usermanagement-v1.0-SNAPSHOT
+    restart: "no"
+    ports:
+      - "7778:8763"
+        #environment:
+        #   - "JAVA_OPTS=-Xms128m -Xmx512m -server"
+        # logging:
+        #   driver: "json-file"
+        #   options:
+      #     max-size: "100k"
+      #     max-file: "10"
+
+  businessassistantbcn-usermanagement-mongodb:
     container_name: mongodb-businessassistantbcn-usermanagement
     image: mongo
     restart: always
@@ -70,11 +83,20 @@ services:
     volumes:
       - businessassistantbcn_mongodb_data:/var/lib/mongodb
 
+  portainer:
+    container_name: portainer-babcn
+    image: portainer/portainer
+    ports:
+      - "9500:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
 
 volumes:
     businessassistantbcn_db_data:
     businessassistantbcn_db_log:
     businessassistantbcn_mongodb_data:
+    portainer_data:
 
 networks:
   consul:
