@@ -37,7 +37,6 @@ public class MunicipalMarketsService {
                     genericResultDto.setLimit(limit);
                     genericResultDto.setOffset(offset);
                     genericResultDto.setResults(filteredDto);
-                    //genericResultDto.setResults(Arrays.stream(filteredDto).filter(x->"01".equals(x.getDistrict_id())));
                     genericResultDto.setCount(dto.length);
                     return Mono.just(genericResultDto);
                 } catch (Exception e) {
