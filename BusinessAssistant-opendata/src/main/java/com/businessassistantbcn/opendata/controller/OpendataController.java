@@ -42,8 +42,6 @@ public class OpendataController {
     @Autowired
     MarketFairsService marketFairsService;
     @Autowired
-    DataConfigService bcnZonesService;
-    @Autowired
     LargeEstablishmentsService largeEstablishmentsService;
     @Autowired
     MunicipalMarketsService municipalMarketsService;
@@ -228,15 +226,6 @@ public class OpendataController {
             return economicActivitiesCensusService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
-    @GetMapping("/bcn-zones")
-    @ApiOperation("Get bcn Zones")
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 404, message = "Not Found")
-    })
-    public Mono<?> bcnZones(){
-            return bcnZonesService.getBcnZones();
-    }
 
     private int getValidOffset(String offset) {
         if (offset == null || offset.isEmpty()) {

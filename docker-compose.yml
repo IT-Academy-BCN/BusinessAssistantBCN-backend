@@ -44,6 +44,20 @@ services:
       # - businessassistantbcn_db_log:/var/log/mysql
 
 
+  businessassistantbcn-opendata:
+    image: babcn:opendata-v1.0-SNAPSHOT
+    container_name: opendata-v1.0-SNAPSHOT
+    restart: "no"
+    ports:
+      - "7777:8762"
+    #environment:
+       #   - "JAVA_OPTS=-Xms128m -Xmx512m -server"
+       # logging:
+       #   driver: "json-file"
+       #   options:
+       #     max-size: "100k"
+      #     max-file: "10"
+
   mongodb:
     container_name: mongodb-businessassistantbcn-usermanagement
     image: mongo
