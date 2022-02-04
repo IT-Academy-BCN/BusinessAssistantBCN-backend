@@ -9,6 +9,8 @@ import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,7 +22,7 @@ import java.net.URL;
 @Service
 public class EconomicActivitiesCensusService {
 
-    private static final Logger log = LoggerFactory.getLogger(JsonHelper.class);
+    private static final Logger log = LoggerFactory.getLogger(EconomicActivitiesCensusService.class);
     @Autowired
     PropertiesConfig config;
     @Autowired
@@ -28,25 +30,38 @@ public class EconomicActivitiesCensusService {
     @Autowired
     GenericResultDto<EconomicActivitiesCensusDto> genericResultDto;
 
+    @Autowired
+	private CircuitBreakerFactory circuitBreakerFactory;    
+    
     public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getPage(int offset, int limit) {
-        try {
-            Mono<EconomicActivitiesCensusDto[]> response = httpProxy.getRequestData(
-                    new URL(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class);
-                return response.flatMap( dto -> {
-                    try{
-                        EconomicActivitiesCensusDto[] filteredDto = JsonHelper.filterDto(dto,offset,limit);
-                        genericResultDto.setLimit(limit);
-                        genericResultDto.setOffset(offset);
-                        genericResultDto.setResults(filteredDto);
-                        genericResultDto.setCount(dto.length);
-                        return Mono.just(genericResultDto);
-                     } catch (Exception e){
-                        log.error("Error con el filtrado de EconomicAtivitiesCensus" +  e.getMessage());
-                        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-                }
-            });
-        } catch (MalformedURLException mue) {
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
-        }
+    	
+        URL url;
+   		try {
+   			url = new URL(config.getDs_economicactivitiescensus());
+   		} catch (MalformedURLException e) {
+   			log.error("URL bad configured: "+e.getMessage());
+   			return getPageDefault();
+   		}
+    		
+   		Mono<EconomicActivitiesCensusDto[]> response = httpProxy.getRequestData(url, EconomicActivitiesCensusDto[].class);
+
+   		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");	
+   		
+   		return circuitBreaker.run(() -> response.flatMap(dto -> {
+			EconomicActivitiesCensusDto[] filteredDto = JsonHelper.filterDto(dto, offset, limit);
+			genericResultDto.setLimit(limit);
+			genericResultDto.setOffset(offset);
+			genericResultDto.setResults(filteredDto);
+			genericResultDto.setCount(dto.length);
+			return Mono.just(genericResultDto);
+		}), throwable -> getPageDefault());	   		
     }
+    
+	private Mono<GenericResultDto<EconomicActivitiesCensusDto>> getPageDefault(){
+		genericResultDto.setLimit(0);
+		genericResultDto.setOffset(0);
+		genericResultDto.setResults(new EconomicActivitiesCensusDto[0]);
+		genericResultDto.setCount(0);
+		return Mono.just(genericResultDto);
+	}	
 }
