@@ -156,6 +156,33 @@ public class OpendataController {
         @RequestParam(required = false)  String limit){
             return municipalMarketsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
+  //GET ?offset=0&limit=10
+    @GetMapping("/municipal-markets/district/{district}")
+    @ApiOperation("Get large establishments SET 0 LIMIT 10")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 503, message = "Service Unavailable"),
+    })
+    public String municipalMarketsByDistrict( //provisional return. (Mono<?>)
+    		@ApiParam(value = "Offset", name= "Offset")
+            @RequestParam(required = false) String offset,
+            @ApiParam(value = "Limit", name= "Limit")
+            @RequestParam(required = false)  String limit,
+            @PathVariable("district") int district){ // It's int why BusinessAssistantBCN-frontend/blob/develop/src/app/models/common/zone.model.ts   it's  number
+    	
+    	 offset = offset == null ? "0": offset;
+         limit = limit == null ? "-1": limit;
+         
+         try{
+        	 //CARE! waiting service
+        	 //return municipalMarketsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district);
+        	 return "CARE! waiting service municipalMarketsService.getPageByDistrict";
+         }catch (Exception mue){
+             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+         }
+    }
     
 	@GetMapping("/market-fairs")
 	@ApiOperation("Get market fairs SET 0 LIMIT 10")
