@@ -111,7 +111,7 @@ public class OpendataController {
     }
 
     //GET ?offset=0&limit=10
-    @GetMapping("/large-establishments/activity/{activity}")
+    @GetMapping("/large-establishments/activity/{activityId}")
     @ApiOperation("Get large establishments by activity SET 0 LIMIT 10")
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
@@ -123,9 +123,9 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
-        @PathVariable("activity") String activity){
+        @PathVariable("activityId") String activityId){
 
-        	 return largeEstablishmentsService.getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
+        	 return largeEstablishmentsService.getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activityId);
     }
 
     //GET ?offset=0&limit=10
