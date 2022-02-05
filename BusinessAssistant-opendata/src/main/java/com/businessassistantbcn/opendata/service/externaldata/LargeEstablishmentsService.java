@@ -13,14 +13,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.Arrays;
+
 
 
 @Service
@@ -62,10 +63,6 @@ public class LargeEstablishmentsService {
 					.filter(dto -> dto.getAddresses().stream().anyMatch(address -> true))
 					.toArray(LargeEstablishmentsDto[]::new);
 
-			// String key = "district_id";
-			// LargeStablishmentsDto[] dtoByDsitrictId = getArrayDtoByKeyAddress(dto, key,
-			// district);
-
 			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeStablismentsDtoByDistrict, offset, limit);
 			
 			genericResultDto.setLimit(limit);
@@ -76,9 +73,9 @@ public class LargeEstablishmentsService {
 		}), throwable -> getPageDefault());
 	}
 	
-	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByActivity(int offset, int limit, String activity) {
+	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByActivity(int offset, int limit, String activityId) {
 		
-		log.info("Activity id: " + activity);
+		log.info("Activity id: " + activityId);
 		
 		URL url;
 
@@ -93,12 +90,20 @@ public class LargeEstablishmentsService {
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 		
 		return circuitBreaker.run(() -> response.flatMap(largeEstablismentsDto -> {
-			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeEstablismentsDto,offset,limit);
+				
+			LargeEstablishmentsDto[] dtoByActivity = Arrays.stream(largeEstablismentsDto)
+					.filter(dto -> dto.getClassifications_data().stream().anyMatch(id -> id.getId() == Integer.parseInt(activityId)))
+					.toArray(LargeEstablishmentsDto[]::new);
+			
+			Arrays.stream(dtoByActivity).forEach(dto -> log.info("Name: " + dto.getName() + " id: " + dto.getRegister_id()));
+			
+			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(dtoByActivity,offset,limit);
 			
 			genericResultDto.setLimit(limit);
 			genericResultDto.setOffset(offset);
 			genericResultDto.setResults(pagedDto);
-			genericResultDto.setCount(largeEstablismentsDto.length);
+			genericResultDto.setCount(dtoByActivity.length);
+			
 			return Mono.just(genericResultDto);
 		}), throwable -> getPageDefault());
 			
