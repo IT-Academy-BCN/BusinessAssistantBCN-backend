@@ -11,21 +11,24 @@ import java.util.List;
 
 @Getter
 @Setter
-@Component("LargeEstablishmentsLocationDto")
+@Component("LargeEstablishmentsGeometryDto")
 @JsonIgnoreProperties({"type"})
 
-public class LocationDto {
-
+public class GeometryDto {
     @JsonUnwrapped
-    private List<GeometryDto> geometries;
+    private List<Double> coordinates;
 
-    @JsonGetter("geometries")
-    public CoordinateDto getGeometries() {
+    private CoordinateDto coordinateDto;
 
-        if(geometries != null){
-            return geometries.get(0).getCoordinates();
+    @JsonGetter("coordinates")
+    public CoordinateDto getCoordinates() {
+
+        coordinateDto = new CoordinateDto();
+        if(coordinates.size()>1){
+            coordinateDto.setX(coordinates.get(0));
+            coordinateDto.setY(coordinates.get(1));
         }
-        return new CoordinateDto(0.0,0.0); // TODO needed default coordinate?
+        return coordinateDto;
     }
 
 }
