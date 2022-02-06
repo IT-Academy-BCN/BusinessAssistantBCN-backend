@@ -2,6 +2,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.largeestablishments.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 
@@ -34,6 +35,9 @@ public class LargeEstablishmentsService {
 	
 	@Autowired
 	private GenericResultDto<LargeEstablishmentsDto> genericResultDto;
+	
+	@Autowired
+	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 	
 	@Autowired
 	private CircuitBreakerFactory circuitBreakerFactory;
@@ -129,6 +133,41 @@ public class LargeEstablishmentsService {
 		}), throwable -> getPageDefault());
 	}
 	
+
+    
+	public Mono<GenericResultDto<ActivityInfoDto>>getActivities(int offset, int limit) {
+		URL url;
+		try {
+			url = new URL(config.getDs_largeestablishments());
+		} catch (MalformedURLException e) {
+			log.error("URL bad configured: " + e.getMessage());
+			return getActivityInfoDefaultPage();
+		}
+		
+		Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(url, LargeEstablishmentsDto[].class);
+		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
+
+		return circuitBreaker.run( () -> response.flatMap(largeStablismentsDto -> {
+            ActivityInfoDto[] arrActivityInfoDto = 
+                  Arrays.stream(largeStablismentsDto)
+                        .flatMap( o -> o.getClassifications_data().stream() )
+                        .filter( o -> (o.getFull_path()==null)||((o.getFull_path()!=null)&&(!o.getFull_path().toUpperCase().contains("MARQUES"))) )
+                        .map( o -> { return new ActivityInfoDto(o.getId(), ((o.getName()!=null)?o.getName():"") ); } )
+                        .sorted( (o1, o2) -> o1.getActivityName().compareTo(o2.getActivityName()) )
+                        .distinct()
+                        .toArray(ActivityInfoDto[]::new);
+            ActivityInfoDto[] pagedDto = JsonHelper.filterDto(arrActivityInfoDto, offset, limit);
+            
+			genericActivityResultDto.setLimit(limit);
+			genericActivityResultDto.setOffset(offset);
+			genericActivityResultDto.setResults(pagedDto);
+			genericActivityResultDto.setCount(pagedDto.length);
+			return Mono.just(genericActivityResultDto);
+		}), throwable -> getActivityInfoDefaultPage());
+				
+	}    
+    
+    
     
     private Mono<GenericResultDto<LargeEstablishmentsDto>> getPageDefault() {
 		genericResultDto.setLimit(0);
@@ -136,5 +175,13 @@ public class LargeEstablishmentsService {
 		genericResultDto.setResults(new LargeEstablishmentsDto[0]);
 		genericResultDto.setCount(0);
 		return Mono.just(genericResultDto);
+	}
+    
+    private Mono<GenericResultDto<ActivityInfoDto>> getActivityInfoDefaultPage() {
+    	genericActivityResultDto.setLimit(0);
+    	genericActivityResultDto.setOffset(0);
+    	genericActivityResultDto.setResults(new ActivityInfoDto[0]);
+    	genericActivityResultDto.setCount(0);
+		return Mono.just(genericActivityResultDto);
 	}
 }
