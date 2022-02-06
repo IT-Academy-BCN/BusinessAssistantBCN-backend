@@ -40,12 +40,9 @@ public class LargeEstablishmentsService {
 	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByDistrict(int offset, int limit, String district) {
-		
-
+	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByDistrict(int offset, int limit, String district)
+	{
 		URL url;
-
-
 		try {
 			url = new URL(config.getDs_largeestablishments());
 		} catch (MalformedURLException e) {
@@ -56,9 +53,9 @@ public class LargeEstablishmentsService {
 		Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(url, LargeEstablishmentsDto[].class);
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 
-		return circuitBreaker.run(() -> response.flatMap(largeStablismentsDto -> {
+		return circuitBreaker.run(() -> response.flatMap(largeEstablishmentsDto -> {
 
-			LargeEstablishmentsDto[] largeStablismentsDtoByDistrict = Arrays.stream(largeStablismentsDto)
+			LargeEstablishmentsDto[] largeEstablishmentsDtoByDistrict = Arrays.stream(largeEstablishmentsDto)
 					.filter(dto -> dto.getAddresses().stream().anyMatch(address -> true))
 					.toArray(LargeEstablishmentsDto[]::new);
 
@@ -66,18 +63,18 @@ public class LargeEstablishmentsService {
 			// LargeStablishmentsDto[] dtoByDsitrictId = getArrayDtoByKeyAddress(dto, key,
 			// district);
 
-			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeStablismentsDtoByDistrict, offset, limit);
+			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeEstablishmentsDtoByDistrict, offset, limit);
 			
 			genericResultDto.setLimit(limit);
 			genericResultDto.setOffset(offset);
 			genericResultDto.setResults(pagedDto);
-			genericResultDto.setCount(largeStablismentsDtoByDistrict.length);
+			genericResultDto.setCount(largeEstablishmentsDtoByDistrict.length);
 			return Mono.just(genericResultDto);
 		}), throwable -> getPageDefault());
 	}
 	
-	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByActivity(int offset, int limit, String activity) {
-		
+	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByActivity(int offset, int limit, String activity)
+	{
 		log.info("Activity id: " + activity);
 		
 		URL url;
@@ -92,43 +89,40 @@ public class LargeEstablishmentsService {
 		Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(url, LargeEstablishmentsDto[].class);
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 		
-		return circuitBreaker.run(() -> response.flatMap(largeEstablismentsDto -> {
-			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeEstablismentsDto,offset,limit);
+		return circuitBreaker.run(() -> response.flatMap(largeEstablishmentsDto -> {
+			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeEstablishmentsDto,offset,limit);
 			
 			genericResultDto.setLimit(limit);
 			genericResultDto.setOffset(offset);
 			genericResultDto.setResults(pagedDto);
-			genericResultDto.setCount(largeEstablismentsDto.length);
+			genericResultDto.setCount(largeEstablishmentsDto.length);
 			return Mono.just(genericResultDto);
 		}), throwable -> getPageDefault());
 			
-		}
-		
-
-	
-    public Mono<GenericResultDto<LargeEstablishmentsDto>> getLargeEstablishmentsAll()
-
-	{
-    	
-    	URL url;
-		try {
-			url = new URL(config.getDs_largeestablishments());
-		} catch (MalformedURLException e) {
-			log.error("URL bad configured: " + e.getMessage());
-			return getPageDefault();
-		}
-		
-		Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(url, LargeEstablishmentsDto[].class);
-		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
-		
-		return circuitBreaker.run(() -> response.flatMap(dto -> {
-
-			genericResultDto.setResults(dto);
-			genericResultDto.setCount(dto.length);
-			return Mono.just(genericResultDto);
-		}), throwable -> getPageDefault());
 	}
-	
+
+    public Mono<GenericResultDto<LargeEstablishmentsDto>> getLargeEstablishmentsAll(int offset, int limit)
+	{
+	URL url;
+		try {
+		url = new URL(config.getDs_largeestablishments());
+	} catch (MalformedURLException e) {
+		log.error("URL bad configured: " + e.getMessage());
+		return getPageDefault();
+	}
+
+	Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(url, LargeEstablishmentsDto[].class);
+	CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
+
+		return circuitBreaker.run(() -> response.flatMap(largeEstablishmentsDto -> {
+		LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeEstablishmentsDto, offset, limit);
+		genericResultDto.setLimit(limit);
+		genericResultDto.setOffset(offset);
+		genericResultDto.setResults(pagedDto);
+		genericResultDto.setCount(largeEstablishmentsDto.length);
+		return Mono.just(genericResultDto);
+	}), throwable -> getPageDefault());
+	}
     
     private Mono<GenericResultDto<LargeEstablishmentsDto>> getPageDefault() {
 		genericResultDto.setLimit(0);
@@ -137,4 +131,5 @@ public class LargeEstablishmentsService {
 		genericResultDto.setCount(0);
 		return Mono.just(genericResultDto);
 	}
+
 }
