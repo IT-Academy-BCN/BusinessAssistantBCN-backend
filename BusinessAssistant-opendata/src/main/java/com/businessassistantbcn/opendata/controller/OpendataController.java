@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import java.net.MalformedURLException;
+import java.util.Map;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -46,6 +47,8 @@ public class OpendataController {
     @Autowired
     MunicipalMarketsService municipalMarketsService;
 
+    private final boolean PAGINATION_ENABLED = true;
+
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
@@ -80,8 +83,10 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit
-    ){
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService.getLargeEstablishmentsAll(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
@@ -91,8 +96,10 @@ public class OpendataController {
         @ApiResponse(code = 200, message = "OK"),
         @ApiResponse(code = 404, message = "Not Found")
     })
-    public Mono<?> commercialGalleries()
-    {
+    public Mono<?> commercialGalleries(
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, !this.PAGINATION_ENABLED);
         return commercialGaleriesService.getCommercialGalleriesAll();
     }
 
@@ -109,9 +116,11 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
-        @PathVariable("district") String district){
-
-         return largeEstablishmentsService.getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
+        @PathVariable("district") String district,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return largeEstablishmentsService.getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
     }
 
     //GET ?offset=0&limit=10
@@ -127,9 +136,11 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
-        @PathVariable("activity") String activity
-    ){
-         return largeEstablishmentsService.getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
+        @PathVariable("activity") String activity,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return largeEstablishmentsService.getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
     }
 
     //GET ?offset=0&limit=10
@@ -143,8 +154,10 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit
-    ){
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return bigMallsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
@@ -158,37 +171,42 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit
-    ){
-            return municipalMarketsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return municipalMarketsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
     //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets/district/{district}")
     @ApiOperation("Get large establishments SET 0 LIMIT 10")
     @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable"),
+        @ApiResponse(code = 200, message = "OK"),
+        @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 503, message = "Service Unavailable"),
     })
     public String municipalMarketsByDistrict( //provisional return. (Mono<?>)
-    		@ApiParam(value = "Offset", name= "Offset")
-            @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
-            @RequestParam(required = false)  String limit,
-            @PathVariable("district") int district){ // It's int why BusinessAssistantBCN-frontend/blob/develop/src/app/models/common/zone.model.ts   it's  number
-    	
-    	 offset = offset == null ? "0": offset;
-         limit = limit == null ? "-1": limit;
-         
-         try{
-        	 //CARE! waiting service
-        	 //return municipalMarketsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district);
-        	 return "CARE! waiting service municipalMarketsService.getPageByDistrict";
-         }catch (Exception mue){
-             throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
-         }
+        @ApiParam(value = "Offset", name= "Offset")
+        @RequestParam(required = false) String offset,
+        @ApiParam(value = "Limit", name= "Limit")
+        @RequestParam(required = false)  String limit,
+        @PathVariable("district") int district, // It's int why BusinessAssistantBCN-frontend/blob/develop/src/app/models/common/zone.model.ts   it's  number
+        @RequestParam Map<String, String> map
+    ){
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+
+        this.getValidOffset(offset);
+        this.getValidLimit(limit);
+
+        try{
+        //CARE! waiting service
+        //return municipalMarketsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district);
+        return "CARE! waiting service municipalMarketsService.getPageByDistrict";
+        } catch (Exception mue){
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+        }
     }
     
 	@GetMapping("/market-fairs")
@@ -202,8 +220,10 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit
-    ){
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return marketFairsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
 	}
 
@@ -214,8 +234,10 @@ public class OpendataController {
         @ApiResponse(code = 200, message = "OK"),
         @ApiResponse(code = 404, message = "Not Found"),
     })
-    public String largeEstablishmentsActivity()
-    {
+    public String largeEstablishmentsActivity(
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, !this.PAGINATION_ENABLED);
         return "Large-Establishments-Activity";
     }
 
@@ -231,12 +253,27 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit
-    ){
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return economicActivitiesCensusService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
-    private int getValidOffset(String offset) {
+    private void validateRequestParameters(Map<String, String> map, boolean paginationEnabled)
+    {
+        if (!paginationEnabled && !map.keySet().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        for (String key : map.keySet()) {
+            if (!key.equals("offset") && !key.equals("limit")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        }
+    }
+
+    private int getValidOffset(String offset)
+    {
         if (offset == null || offset.isEmpty()) {
             return 0;
         }
@@ -247,7 +284,8 @@ public class OpendataController {
         return Integer.parseInt(offset);
     }
 
-    private int getValidLimit(String limit) {
+    private int getValidLimit(String limit)
+    {
         if (limit == null || limit.isEmpty() || limit.equals("-1")) {
             return -1;
         }
