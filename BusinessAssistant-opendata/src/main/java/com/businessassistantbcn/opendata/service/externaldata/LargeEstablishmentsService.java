@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
+import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsResponseDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -70,8 +71,8 @@ public class LargeEstablishmentsService {
 		}), throwable -> getPageDefault());
 	}
 	
-	public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByActivity(int offset, int limit, String activity)
-	{
+	public Mono<?>getPageByActivity(int offset, int limit, String activity) {
+	//public Mono<GenericResultDto<LargeEstablishmentsDto>>getPageByActivity(int offset, int limit, String activity) {
 		log.info("Activity id: " + activity);
 		
 		URL url;
@@ -87,13 +88,22 @@ public class LargeEstablishmentsService {
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 		
 		return circuitBreaker.run(() -> response.flatMap(largeEstablishmentsDto -> {
-			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(largeEstablishmentsDto,offset,limit);
 			
-			genericResultDto.setLimit(limit);
-			genericResultDto.setOffset(offset);
-			genericResultDto.setResults(pagedDto);
-			genericResultDto.setCount(largeEstablishmentsDto.length);
-			return Mono.just(genericResultDto);
+			LargeEstablishmentsDto[] dtoByActivityId = Arrays.stream(largeEstablishmentsDto)
+					.filter(dto -> dto.getClassifications_data().stream().anyMatch(id -> id.getId() == Integer.parseInt(activity)))
+					.toArray(LargeEstablishmentsDto[]::new);
+			
+			
+			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(dtoByActivityId,offset,limit);
+			
+			LargeEstablishmentsResponseDto responseDto = new LargeEstablishmentsResponseDto(pagedDto.length, pagedDto);
+			
+			//genericResultDto.setLimit(limit);
+			//genericResultDto.setOffset(offset);
+			//genericResultDto.setResults(pagedDto);
+			//genericResultDto.setCount(dtoByActivityId.length);
+			//return Mono.just(genericResultDto);
+			return Mono.just(responseDto);
 		}), throwable -> getPageDefault());
 			
 	}
