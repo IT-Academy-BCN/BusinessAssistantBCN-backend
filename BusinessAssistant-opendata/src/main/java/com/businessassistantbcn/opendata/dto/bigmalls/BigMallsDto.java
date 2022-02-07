@@ -47,7 +47,7 @@ public class BigMallsDto {
     @JsonProperty("to_relationships")
     private List<Object> to_relationships;
     @JsonProperty("classifications_data")
-    private List<Object> classifications_data;
+    private List<ClassificationDataDto> classifications_data;
     @JsonProperty("secondary_filters_data")
     private List<Object> secondary_filters_data;
     @JsonProperty("timetable")

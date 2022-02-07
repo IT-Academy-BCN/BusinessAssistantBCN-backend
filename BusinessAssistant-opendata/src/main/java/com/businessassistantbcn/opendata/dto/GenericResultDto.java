@@ -13,5 +13,13 @@ public class GenericResultDto<T> {
     private int limit;
     
     private T[] results;
-    
+
+    public GenericResultDto() {}
+
+    public GenericResultDto(int count, int offset, int limit, T[] results) {
+        this.count = count;
+        this.offset = offset;
+        this.limit = limit;
+        this.results = results;
+    }
 }
