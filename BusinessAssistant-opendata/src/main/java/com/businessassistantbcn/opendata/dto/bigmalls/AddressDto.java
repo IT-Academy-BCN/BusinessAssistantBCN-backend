@@ -2,6 +2,8 @@ package com.businessassistantbcn.opendata.dto.bigmalls;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -23,14 +25,24 @@ import org.springframework.stereotype.Component;
     private String town;
     private LocationDto location;
 
-    @JsonGetter("address_name")
+    @JsonGetter("street_name")
     public String getAddress_name() {
         return address_name;
     }
 
-    @JsonGetter("street_number_1")
+    @JsonSetter("address_name")
+    public void setAddress_name(String address_name) {
+        this.address_name = address_name;
+    }
+
+    @JsonGetter("number")
     public String getStreet_number_1() {
         return street_number_1;
+    }
+
+    @JsonSetter("street_number_1")
+    public void setStreet_number_1(String street_number_1) {
+        this.street_number_1 = street_number_1;
     }
 
     @JsonGetter("zip_code")
