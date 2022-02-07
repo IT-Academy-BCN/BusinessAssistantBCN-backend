@@ -1,19 +1,20 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Component("BigMallsCoordinateDto")
+
 public class CoordinateDto {
-	
-	@JsonProperty("x")
-	private double x;
-	@JsonProperty("y")
-	private double y;
-	
+
+    private Double x;
+    private Double y;
+
 }
