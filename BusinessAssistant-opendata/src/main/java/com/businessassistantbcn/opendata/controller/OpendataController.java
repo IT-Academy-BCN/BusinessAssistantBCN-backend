@@ -1,6 +1,5 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.service.config.DataConfigService;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
 import io.swagger.annotations.ApiOperation;
@@ -74,15 +73,13 @@ public class OpendataController {
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
         @ApiResponse(code = 404, message = "Not Found"),
-        @ApiResponse(code = 503, message = "Service Unavailable")
-    })
+        @ApiResponse(code = 503, message = "Service Unavailable")})
     public Mono<?> largeEstablishments(
-        @ApiParam(value = "Offset", name= "Offset")
-        @RequestParam(required = false) String offset,
-        @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit
-    ){
-        return largeEstablishmentsService.getLargeEstablishmentsAll(this.getValidOffset(offset), this.getValidLimit(limit));
+            @ApiParam(value = "Offset", name= "Offset")
+            @RequestParam(required = false) String offset,
+            @ApiParam(value = "Limit", name= "Limit")
+            @RequestParam(required = false)  String limit){
+            return largeEstablishmentsService.getPage(getValidOffset(offset), getValidLimit(limit));
     }
 
     @GetMapping("/commercial-galleries")
@@ -110,8 +107,7 @@ public class OpendataController {
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
         @PathVariable("district") String district){
-
-         return largeEstablishmentsService.getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
+        return largeEstablishmentsService.getPageByDistrict(getValidOffset(offset), getValidLimit(limit), getValidDistrict(district));
     }
 
     //GET ?offset=0&limit=10
@@ -127,9 +123,8 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
-        @PathVariable("activity") String activity
-    ){
-         return largeEstablishmentsService.getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
+        @PathVariable("activity") String activity){
+        return largeEstablishmentsService.getPageByActivity(getValidOffset(offset), getValidLimit(limit), activity);
     }
 
     //GET ?offset=0&limit=10
@@ -208,18 +203,6 @@ public class OpendataController {
 	}
 
     //GET ?offset=0&limit=10
-    @GetMapping("/large-establishments/activity")
-    @ApiOperation("Get large establishment activity SET 0 LIMIT 10")
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 404, message = "Not Found"),
-    })
-    public String largeEstablishmentsActivity()
-    {
-        return "Large-Establishments-Activity";
-    }
-
-    //GET ?offset=0&limit=10
     @GetMapping("/economic-activities-census")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
@@ -257,5 +240,13 @@ public class OpendataController {
         }
         return Integer.parseInt(limit);
     }
-
+    
+    private int getValidDistrict(String district) {
+        // NumberUtils.isDigits returns false for negative numbers
+        if (district == null || district.isEmpty() || !NumberUtils.isDigits(district)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return Integer.parseInt(district);    	
+    }
+    
 }
