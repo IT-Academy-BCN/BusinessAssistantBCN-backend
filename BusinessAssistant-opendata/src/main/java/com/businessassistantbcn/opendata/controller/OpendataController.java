@@ -249,4 +249,28 @@ public class OpendataController {
         return Integer.parseInt(limit);
     }
 
+    //GET ?offset=0&limit=10
+    @GetMapping("/comercial-galleries/activity")
+    @ApiOperation("Get comercial galleries activity SET 0 LIMIT 10")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "OK"),
+        @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 503, message = "Service Unavailable"),
+    })
+    public Mono<?> comercialGalleriesActivity(
+            @ApiParam(value = "Offset", name= "Offset")
+            @RequestParam(required = false) String offset,
+            @ApiParam(value = "Limit", name= "Limit")
+            @RequestParam(required = false)  String limit)
+    {
+    	 offset = offset == null ? "0": offset;
+         limit = limit == null ? "-1": limit;
+         
+        try {
+			return commercialGaleriesService.getCommercialGalleriesByActivity(Integer.parseInt(offset), Integer.parseInt(limit));
+		} catch (Exception mue) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
+		}
+    }
 }

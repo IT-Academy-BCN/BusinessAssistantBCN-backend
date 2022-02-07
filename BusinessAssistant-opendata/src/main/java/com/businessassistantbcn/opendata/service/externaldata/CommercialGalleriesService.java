@@ -2,10 +2,12 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.dto.commercialgalleries.SecondaryFilterDataDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 
 import org.slf4j.Logger;
@@ -77,5 +79,28 @@ public class CommercialGalleriesService {
 		genericResultDto.setCount(0);
 		return Mono.just(genericResultDto);
 	}		
+	public Mono<GenericResultDto<SecondaryFilterDataDto>> getCommercialGalleriesByActivity(int offset, int limit)
+	{
+		
+		try {
+			
+			Mono<SecondaryFilterDataDto[]> response = httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()),SecondaryFilterDataDto[].class);
+			
+			return response.flatMap(activityDto ->{ 
+				SecondaryFilterDataDto [] commercialGalleriesDtoActivity= Arrays.stream(activityDto).filter(dto ->!"Marques".equals(dto.getFull_path())).toArray(SecondaryFilterDataDto[]::new);
+				
+				SecondaryFilterDataDto[] pagedDto = JsonHelper.filterDto(commercialGalleriesDtoActivity, offset, limit);
 
+				genericResultDto.setCount(activityDto.length);
+				genericResultDto.setOffset(offset);
+				genericResultDto.setLimit(limit);
+				genericResultDto.setResults(pagedDto);
+				return Mono.just(genericResultDto);
+				
+			} );
+			
+		} catch (MalformedURLException e) {
+			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
+		}
+	}
 }
