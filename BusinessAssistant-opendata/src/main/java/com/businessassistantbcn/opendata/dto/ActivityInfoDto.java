@@ -11,12 +11,12 @@ import java.util.Objects;
 @Setter
 public class ActivityInfoDto
 {
-    private int idActivity;
+    private Long idActivity;
     private String activityName;
 
     public ActivityInfoDto() { }
 
-    public ActivityInfoDto(int idActivity, String activityName)
+    public ActivityInfoDto(Long idActivity, String activityName)
     {
         this.idActivity = idActivity;
         this.activityName = activityName;

@@ -89,11 +89,11 @@ public class BigMallsService {
 				Arrays.stream(bigMallsDto)
 					.flatMap(bigMallDto -> bigMallDto.getClassifications_data().stream())
 					.filter(classificationsDataDto ->
-						(classificationsDataDto.getFull_path() == null) ||
+						(classificationsDataDto.getFullPath() == null) ||
 						(
-							(!classificationsDataDto.getFull_path().toUpperCase().contains("MARQUES")) &&
-							(!classificationsDataDto.getFull_path().toUpperCase().contains("GESTIÓ BI")) &&
-							(!classificationsDataDto.getFull_path().toUpperCase().contains("ÚS INTERN"))
+							(!classificationsDataDto.getFullPath().toUpperCase().contains("MARQUES")) &&
+							(!classificationsDataDto.getFullPath().toUpperCase().contains("GESTIÓ BI")) &&
+							(!classificationsDataDto.getFullPath().toUpperCase().contains("ÚS INTERN"))
 						)
 					)
 					.map(classificationsDataDto -> {
