@@ -73,4 +73,20 @@ public class JsonHelper<T> {
 		//Makes the subarray. The end point is excluded thats why we do +1.
 		return Arrays.copyOfRange(dto,offset,end);
 	}
+	
+	// Returns stream starting from 'offset', with 'limit' elements.
+	// Returns all elements if limit < 0.
+	public static <T> T[] pageDto(T[] dto, int offset, int limit) {
+		if(offset > dto.length)
+			offset = dto.length;
+		else if(offset < 0)
+			offset = 0;
+		
+		int end = limit < 0 ? dto.length : offset + limit;
+		if(end > dto.length)
+			end = dto.length;
+		
+		return Arrays.copyOfRange(dto, offset, end);
+	}
+	
 }
