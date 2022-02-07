@@ -1,11 +1,11 @@
-package com.businessassistantbcn.opendata.dto.largeestablishments;
+package com.businessassistantbcn.opendata.dto.commercialgalleries;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("CommercialGalleriesSectionDataDto")
 @Getter
 @Setter
 @JsonIgnoreProperties({"id"})

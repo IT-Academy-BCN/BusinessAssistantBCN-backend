@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.dto.largeestablishments;
+package com.businessassistantbcn.opendata.dto.commercialgalleries;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+@Component("CommercialGalleriesAttributeCategoryDto")
 @Getter
 @Setter
 public class AttributeCategoryDto {

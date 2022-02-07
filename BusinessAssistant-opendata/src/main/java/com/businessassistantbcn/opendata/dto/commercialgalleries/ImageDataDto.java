@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.dto.largeestablishments;
+package com.businessassistantbcn.opendata.dto.commercialgalleries;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("CommercialGalleriesImageDataDto")
 @Getter @Setter
 @JsonIgnoreProperties({"cuts","alt"})
 public class ImageDataDto {

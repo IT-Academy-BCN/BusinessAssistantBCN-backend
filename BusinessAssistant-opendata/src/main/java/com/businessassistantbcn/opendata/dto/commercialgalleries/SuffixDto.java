@@ -1,10 +1,10 @@
-package com.businessassistantbcn.opendata.dto.largeestablishments;
+package com.businessassistantbcn.opendata.dto.commercialgalleries;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("CommercialGalleriesSuffixDto")
 @Getter
 @Setter
 public class SuffixDto {

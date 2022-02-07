@@ -1,11 +1,11 @@
-package com.businessassistantbcn.opendata.dto.largeestablishments;
+package com.businessassistantbcn.opendata.dto.commercialgalleries;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("CommercialGalleriesValueDto")
 @Getter
 @Setter
 @JsonIgnoreProperties({"option_value_data","responsible_value","contact_person_value", "icon_option_value","icon_option_value_data",
