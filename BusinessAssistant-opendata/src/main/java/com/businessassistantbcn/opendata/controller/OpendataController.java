@@ -73,13 +73,48 @@ public class OpendataController {
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
         @ApiResponse(code = 404, message = "Not Found"),
-        @ApiResponse(code = 503, message = "Service Unavailable")})
+        @ApiResponse(code = 503, message = "Service Unavailable")
+    })
     public Mono<?> largeEstablishments(
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit){
         return largeEstablishmentsService.getPage(getValidOffset(offset), getValidLimit(limit));
+    }
+
+    //GET ?offset=0&limit=10
+    @GetMapping("/large-establishments/district/{district}")
+    @ApiOperation("Get large establishments SET 0 LIMIT 10")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "OK"),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 503, message = "Service Unavailable")
+    })
+    public Mono<?> largeEstablishmentsByDistrict(
+        @ApiParam(value = "Offset", name= "Offset")
+        @RequestParam(required = false) String offset,
+        @ApiParam(value = "Limit", name= "Limit")
+        @RequestParam(required = false)  String limit,
+        @PathVariable("district") int district){
+        return largeEstablishmentsService.getPageByDistrict(getValidOffset(offset), getValidLimit(limit), district);
+    }
+
+    //GET ?offset=0&limit=10
+    @GetMapping("/large-establishments/activity/{activity}")
+    @ApiOperation("Get large establishments by activity SET 0 LIMIT 10")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "OK"),
+        @ApiResponse(code = 404, message = "Not Found"),
+        @ApiResponse(code = 503, message = "Service Unavailable")
+    })
+    public Mono<?> largeEstablishmentsByActivity(
+        @ApiParam(value = "Offset", name= "Offset")
+        @RequestParam(required = false) String offset,
+        @ApiParam(value = "Limit", name= "Limit")
+        @RequestParam(required = false)  String limit,
+        @PathVariable("activity") String activity){
+        return largeEstablishmentsService.getPageByActivity(getValidOffset(offset), getValidLimit(limit), activity);
     }
 
     @GetMapping("/commercial-galleries")
@@ -98,41 +133,7 @@ public class OpendataController {
 
         return commercialGaleriesService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
-
-    //GET ?offset=0&limit=10
-    @GetMapping("/large-establishments/district/{district}")
-    @ApiOperation("Get large establishments SET 0 LIMIT 10")
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 404, message = "Not Found"),
-        @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
-    public Mono<?> largeEstablishmentsByDistrict(
-        @ApiParam(value = "Offset", name= "Offset")
-        @RequestParam(required = false) String offset,
-        @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit,
-        @PathVariable("district") String district){
-        return largeEstablishmentsService.getPageByDistrict(getValidOffset(offset), getValidLimit(limit), getValidDistrict(district));
-    }
-
-    //GET ?offset=0&limit=10
-    @GetMapping("/large-establishments/activity/{activity}")
-    @ApiOperation("Get large establishments by activity SET 0 LIMIT 10")
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 404, message = "Not Found"),
-        @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
-    public Mono<?> largeEstablishmentsByActivity(
-        @ApiParam(value = "Offset", name= "Offset")
-        @RequestParam(required = false) String offset,
-        @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit,
-        @PathVariable("activity") String activity){
-        return largeEstablishmentsService.getPageByActivity(getValidOffset(offset), getValidLimit(limit), activity);
-    }
-
+    
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     @ApiOperation("Get big malls SET 0 LIMIT 10")
@@ -245,14 +246,6 @@ public class OpendataController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(limit);
-    }
-    
-    private int getValidDistrict(String district) {
-        // NumberUtils.isDigits returns false for negative numbers
-        if (district == null || district.isEmpty() || !NumberUtils.isDigits(district)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        return Integer.parseInt(district);    	
     }
     
 }
