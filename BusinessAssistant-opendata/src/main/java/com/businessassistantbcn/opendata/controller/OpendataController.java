@@ -25,7 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/v1/api/opendata")
+@RequestMapping(value = "/businessassistantbcn/api/v1/opendata")
 public class OpendataController {
 
     private static final Logger log = LoggerFactory.getLogger(OpendataController.class);
