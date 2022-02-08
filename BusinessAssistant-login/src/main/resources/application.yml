@@ -19,6 +19,7 @@ security:
     secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
     headerString: Authorization
     tokenPrefix: Bearer 
+    expiresIn: 36_000_000 # 10 hours, expressed in milliseconds
     authorities: authorities
     err: Auth Error, Token Unavailable
 
