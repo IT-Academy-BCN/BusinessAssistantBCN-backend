@@ -9,12 +9,13 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component("BigMallsClassificationDataDto")
-@JsonIgnoreProperties({ "full_path","dependency_group","parent_id","tree_id","asia_id","core_type","level" })
+@JsonIgnoreProperties({"dependency_group","parent_id","tree_id","asia_id","core_type","level" })
 
 public class ClassificationDataDto {
 
     private Long id;
     private String name;
+    private String fullPath;
 
     @JsonGetter("id")
     public Long getId() {
@@ -24,5 +25,10 @@ public class ClassificationDataDto {
     @JsonGetter("name")
     public String getName() {
         return name;
+    }
+
+    @JsonGetter("full_path")
+    public String getFullPath() {
+        return fullPath;
     }
 }
