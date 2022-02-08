@@ -47,10 +47,16 @@ public class LargeEstablishmentsService {
 	}
 	
 	// Get paged results filtered by activity
-	public Mono<GenericResultDto<LargeEstablishmentsDto>> getPageByActivity(int offset, int limit, String activity) {
-		return null; // *** FILTRO PENDIENTE ***
-	}
+	public Mono<GenericResultDto<LargeEstablishmentsDto>> getPageByActivity(int offset, int limit, String activityId) {
 	
+		Predicate<LargeEstablishmentsDto> doFilter = largeEstablishmentsDto -> 
+				largeEstablishmentsDto.getClassifications_data()
+				.stream()
+				.anyMatch(classificationsDataDto -> classificationsDataDto.getId() == Integer.parseInt(activityId));
+		
+		return getResultDto(offset, limit, doFilter);
+	}
+		
 	private Mono<GenericResultDto<LargeEstablishmentsDto>> getResultDto(
 			int offset, int limit, Predicate<LargeEstablishmentsDto> dtoFilter) { try {
 		
