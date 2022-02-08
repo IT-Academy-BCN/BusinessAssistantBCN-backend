@@ -39,12 +39,8 @@ public class CommercialGalleriesService {
 	
 	@Autowired
 	private CircuitBreakerFactory circuitBreakerFactory;	
-	
-	//String url = "http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_galeries-comercials-js.json";
-	//String url = "https://api.github.com";
-	
-	public Mono<GenericResultDto<CommercialGalleriesDto>> getCommercialGalleriesAll()
-	{
+
+	public Mono<GenericResultDto<CommercialGalleriesDto>> getPage(int offset, int limit) {
 	    URL url;
 		try {
 			url = new URL(config.getDs_commercialgalleries());
@@ -54,12 +50,9 @@ public class CommercialGalleriesService {
 		}		
 		
 		Mono<CommercialGalleriesDto[]> response = httpProxy.getRequestData(url, CommercialGalleriesDto[].class);
-
-		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");			
+		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 			
-		int offset = 0;
-        int limit  = 0;
-		return circuitBreaker.run(() -> response.flatMap(dto -> {			
+		return circuitBreaker.run(() -> response.flatMap(dto -> {
 			CommercialGalleriesDto[] filteredDto = JsonHelper.filterDto(dto, offset, limit);
 			genericResultDto.setLimit(limit);
 			genericResultDto.setOffset(offset);
