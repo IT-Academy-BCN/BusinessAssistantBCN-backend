@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/v1/api/common")
+@RequestMapping(value = "/businessassistantbcn/api/v1/common")
 public class CommonController {
 
     @Autowired

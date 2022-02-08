@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.dto.marketfairs;
+package com.businessassistantbcn.opendata.dto.bigmalls;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Getter
 @Setter
-@Component("MarketFairsLocationDto")
+@Component("BigMallsLocationDto")
 @JsonIgnoreProperties({"type"})
+
 public class LocationDto {
 
     @JsonUnwrapped
@@ -26,6 +26,5 @@ public class LocationDto {
         }
         return new CoordinateDto(0.0,0.0); // TODO needed default coordinate?
     }
-
 
 }

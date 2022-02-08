@@ -17,4 +17,9 @@ public class JsonHelperTest {
     @Test
     public void serializeTest(){
     }
+
+    @Test
+    public void filterDtoTest(){
+
+    }
 }
