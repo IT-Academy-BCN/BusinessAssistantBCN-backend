@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.service;
+package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.SpringDBTestConfiguration;
 import org.junit.jupiter.api.Test;
