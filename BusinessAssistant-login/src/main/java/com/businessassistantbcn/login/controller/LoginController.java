@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/api")
+@RequestMapping("/businessassistantbcn/api/v1")
 public class LoginController {
 
     final Logger log = LoggerFactory.getLogger(LoginController.class);
