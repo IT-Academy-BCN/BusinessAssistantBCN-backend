@@ -46,6 +46,7 @@ public class OpendataController {
     @Autowired
     MunicipalMarketsService municipalMarketsService;
 
+    //TODO remove once all endpoints are paginated
     private final boolean PAGINATION_ENABLED = true;
 
     @GetMapping(value="/test")
@@ -120,11 +121,12 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
-        @PathVariable("district") int district,
+        @PathVariable("district") String district,
         @RequestParam Map<String, String> map
     ) {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
-        return largeEstablishmentsService.getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
+        return largeEstablishmentsService
+            .getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), this.getValidDistrict(district));
     }
 
     //GET ?offset=0&limit=10
@@ -144,7 +146,8 @@ public class OpendataController {
         @RequestParam Map<String, String> map
     ) {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
-        return largeEstablishmentsService.getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
+        return largeEstablishmentsService
+            .getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
     }
 
     //GET ?offset=0&limit=10
