@@ -2,10 +2,17 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.Comon.ActivityDto;
+import com.businessassistantbcn.opendata.dto.Comon.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.bigmalls.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.commercialgalleries.SecondaryFilterDataDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -38,6 +45,10 @@ public class CommercialGalleriesService {
 	
 	@Autowired
 	private GenericResultDto<CommercialGalleriesDto> genericResultDto;
+	
+	
+	@Autowired
+	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 	
 	@Autowired
 	private CircuitBreakerFactory circuitBreakerFactory;	
@@ -79,28 +90,56 @@ public class CommercialGalleriesService {
 		genericResultDto.setCount(0);
 		return Mono.just(genericResultDto);
 	}		
-	public Mono<GenericResultDto<SecondaryFilterDataDto>> getCommercialGalleriesByActivity(int offset, int limit)
-	{
-		
-		try {
-			
-			Mono<SecondaryFilterDataDto[]> response = httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()),SecondaryFilterDataDto[].class);
-			
-			return response.flatMap(activityDto ->{ 
-				SecondaryFilterDataDto [] commercialGalleriesDtoActivity= Arrays.stream(activityDto).filter(dto ->!"Marques".equals(dto.getFull_path())).toArray(SecondaryFilterDataDto[]::new);
-				
-				SecondaryFilterDataDto[] pagedDto = JsonHelper.filterDto(commercialGalleriesDtoActivity, offset, limit);
+	
 
-				genericResultDto.setCount(activityDto.length);
-				genericResultDto.setOffset(offset);
-				genericResultDto.setLimit(limit);
-				genericResultDto.setResults(pagedDto);
-				return Mono.just(genericResultDto);
-				
-			} );
-			
-		} catch (MalformedURLException e) {
-			throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
-		}
+	public Mono<GenericResultDto<ActivityInfoDto>> getCommercialGalleriesByActivity(int offset, int limit)
+	{
+	URL url;
+	try {
+		url = new URL(config.getDs_commercialgalleries());
+	} catch (MalformedURLException e) {
+		log.error("URL bad configured: " + e.getMessage());
+		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
+		return Mono.just(genericActivityResultDto);
 	}
+
+	Mono<CommercialGalleriesDto[]> response = httpProxy.getRequestData(url, CommercialGalleriesDto[].class);
+	CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
+
+	return circuitBreaker.run( () -> response.flatMap(comercialgalleriesDto -> {
+		List<ActivityInfoDto> listactivityInfoDto = new ArrayList<>();
+		listactivityInfoDto = io.vavr.collection.List.ofAll(
+			Arrays.stream(comercialgalleriesDto)
+				.flatMap(comercialGalleryDto -> comercialGalleryDto.getClassifications_data().stream())
+				.filter(classificationsDataDto ->
+					(classificationsDataDto.getFull_path() == null) ||
+						(
+							(!classificationsDataDto.getFull_path().toUpperCase().contains("MARQUES")) &&
+							(!classificationsDataDto.getFull_path().toUpperCase().contains("GESTIÓ BI")) &&
+							(!classificationsDataDto.getFull_path().toUpperCase().contains("ÚS INTERN"))
+						)
+				)
+				.map(classificationsDataDto -> {
+					return new ActivityInfoDto(
+							classificationsDataDto.getId(),
+							((classificationsDataDto.getName() == null) ? "" : classificationsDataDto.getName())
+					);
+				})
+				.sorted(Comparator.comparing(ActivityInfoDto::getActivityName))
+				.collect(Collectors.toList()))
+		.distinctBy((s1, s2) -> s1.getActivityName().compareToIgnoreCase(s2.getActivityName()))
+		.toJavaList();
+
+		ActivityInfoDto[] activityInfoDto =
+			listactivityInfoDto.toArray(new ActivityInfoDto[listactivityInfoDto.size()]);
+
+		ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
+		genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
+		return Mono.just(genericActivityResultDto);
+
+	}), throwable -> {
+		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
+		return Mono.just(genericActivityResultDto);
+	});
+}
 }
