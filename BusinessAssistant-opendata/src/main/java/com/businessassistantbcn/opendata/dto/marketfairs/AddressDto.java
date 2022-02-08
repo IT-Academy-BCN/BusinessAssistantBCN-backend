@@ -1,6 +1,8 @@
 package com.businessassistantbcn.opendata.dto.marketfairs;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -8,67 +10,59 @@ import org.springframework.stereotype.Component;
 @Component("MarketFairsAddressDto")
 @Getter
 @Setter
+
+@JsonIgnoreProperties({ "place","district_name",/*"district_id",*/ "neighborhood_name","neighborhood_id",
+        /*"address_name",*/ "address_id","block_id","start_street_number","end_street_number",/*"street_number_1",*/
+        "street_number_2","stairs","level","door",/*"zip_code",*/ "province",/*"town",*/"country","comments","position",
+        "main_address","road_name","road_id","roadtype_name","roadtype_id",/*"location",*/ "related_entity","related_entity_data","street_number"})
 public class AddressDto {
-	
-    @JsonProperty("place")
-    private String place;
-    @JsonProperty("district_name")
-    private String district_name;
-    @JsonProperty("district_id")
-    private String district_id;
-    @JsonProperty("neighborhood_name")
-    private String neighborhood_name;
-    @JsonProperty("neighborhood_id")
-    private String neighborhood_id;
-    @JsonProperty("address_name")
+
     private String address_name;
-    @JsonProperty("address_id")
-    private String address_id;
-    @JsonProperty("block_id")
-    private String block_id;
-    @JsonProperty("start_street_number")
-    private int start_street_number;
-    @JsonProperty("end_street_number")
-    private int end_street_number;
-    @JsonProperty("street_number_1")
     private String street_number_1;
-    @JsonProperty("street_number_2")
-    private String street_number_2;
-    @JsonProperty("stairs")
-    private String stairs;
-    @JsonProperty("level")
-    private String level;
-    @JsonProperty("door")
-    private String door;
-    @JsonProperty("zip_code")
     private String zip_code;
-    @JsonProperty("province")
-    private String province;
-    @JsonProperty("town")
+    private String district_id;
     private String town;
-    @JsonProperty("country")
-    private String country;
-    @JsonProperty("comments")
-    private String comments;
-    @JsonProperty("position")
-    private String position;
-    @JsonProperty("main_address")
-    private boolean main_address;
-    @JsonProperty("road_name")
-    private String road_name;
-    @JsonProperty("road_id")
-    private String road_id;
-    @JsonProperty("roadtype_name")
-    private String roadtype_name;
-    @JsonProperty("roadtype_id")
-    private String roadtype_id;
-    @JsonProperty("location")
     private LocationDto location;
-    @JsonProperty("related_entity")
-    private String related_entity;
-    @JsonProperty("related_entity_data")
-    private String related_entity_data;
-    @JsonProperty("street_number")
-    private String street_number;
-    
+
+    @JsonGetter("street_name")
+    public String getAddress_name() {
+        return address_name;
+    }
+
+    @JsonSetter("address_name")
+    public void setAddress_name(String address_name) {
+        this.address_name = address_name;
+    }
+
+    @JsonGetter("number")
+    public String getStreet_number_1() {
+        return street_number_1;
+    }
+
+    @JsonSetter("street_number_1")
+    public void setStreet_number_1(String street_number_1) {
+        this.street_number_1 = street_number_1;
+    }
+
+    @JsonGetter("zip_code")
+    public String getZip_code() {
+        return zip_code;
+    }
+
+    @JsonGetter("district_id")
+    public String getDistrict_id() {
+        return district_id;
+    }
+
+    @JsonGetter("town")
+    public String getTown() {
+        return town;
+    }
+
+    @JsonGetter("location")
+    public LocationDto getLocation() {
+        return location;
+    }
+
+
 }
