@@ -28,6 +28,7 @@ public class LocationDto {
     }
     private ArrayList<GeometryDto> geometries;
 
+    @JsonIgnore
     @JsonProperty("location")
     public List<ArrayList<Double>> getLocation() {
         return getGeometries()

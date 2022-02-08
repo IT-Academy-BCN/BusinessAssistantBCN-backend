@@ -89,15 +89,13 @@ public class MunicipalMarketsDto {
     @JsonProperty("name")
     private String name;
 
-    @JsonAlias({"addresses", "address"})
-    @JsonProperty("address")
-    private List<AddressDto> address;
-    public List<AddressDto> getAddress() {
-        return address;
+    @JsonProperty("addresses")
+    private List<AddressDto> addresses;
+    public List<AddressDto> getAddresses() {
+        return addresses;
     }
-    public void setAddress(List<AddressDto> address) {
-        this.address=address;
-
+    public void setAddress(List<AddressDto> addresses) {
+        this.addresses=addresses;
     }
 
     @JsonIgnore
