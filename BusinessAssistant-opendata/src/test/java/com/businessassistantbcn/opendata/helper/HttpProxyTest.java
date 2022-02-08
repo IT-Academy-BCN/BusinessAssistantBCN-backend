@@ -9,16 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class HttpClientHelperTest {
+public class HttpProxyTest {
 	
-	public static final Logger log = LoggerFactory.getLogger(HttpClientHelperTest.class);
+	public static final Logger log = LoggerFactory.getLogger(HttpProxyTest.class);
 
     @Autowired
     private Environment env;
@@ -26,17 +22,7 @@ public class HttpClientHelperTest {
     private HttpProxy httpClientHelper;
 
     @Test
-    public void getStringRootTest() {
-
+    public void getRequestDataTest(){
 
     }
-
-       // @Test
-        public void getJsonRootTest() {
-        }
-
-        //@Test
-        public void getObjectRootTest (){
-
-        }
     }
