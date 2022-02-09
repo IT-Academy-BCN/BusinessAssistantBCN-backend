@@ -1,19 +1,9 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
-
-@Component("MunicipalMarketsSectionDataDto")
-@Getter
-@Setter
-@JsonIgnoreProperties({"id"})
 public class SectionDataDto {
-
-//    private Long id;
-    private PrefixDto prefix;
-    private SuffixDto suffix;
+    private int id;
+    private String suffix;
+    private String prefix;
     private String name;
     private String status;
     private String core_type;

@@ -1,18 +1,43 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@Component("MunicipalMarketsLocationDto")
 public class LocationDto {
+    @JsonIgnore
+    @JsonProperty("type")
+    public String getType() {
+        return this.type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    private String type;
 
-    private String type ;
-    private List<Geometry> geometries;
+    @JsonIgnore
+    @JsonProperty("geometries")
+    public ArrayList<GeometryDto> getGeometries() {
+        return this.geometries;
+    }
+    public void setGeometries(ArrayList<GeometryDto> geometries) {
+        this.geometries = geometries;
+    }
+    private ArrayList<GeometryDto> geometries;
+
+    @JsonIgnore
+    @JsonProperty("location")
+    public List<ArrayList<Double>> getLocation() {
+        return getGeometries()
+                .stream()
+                .map(GeometryDto::getCoordinates)
+                .collect(Collectors.toList());
+                  }
+    private ArrayList<Double> location;
 
 }
+
+

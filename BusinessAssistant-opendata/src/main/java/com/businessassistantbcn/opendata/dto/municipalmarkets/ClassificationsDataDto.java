@@ -1,14 +1,6 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
-
-@Component("MunicipalMarketsClassificationDataDto")
-@Getter
-@Setter
-public class ClassificationDataDto {
-	
+public class ClassificationsDataDto {
     private int id;
     private String name;
     private String full_path;
@@ -18,5 +10,4 @@ public class ClassificationDataDto {
     private String asia_id;
     private String core_type;
     private int level;
-    
 }

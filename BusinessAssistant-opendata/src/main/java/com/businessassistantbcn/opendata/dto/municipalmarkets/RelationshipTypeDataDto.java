@@ -1,14 +1,6 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
-
-@Component("MunicipalMarketsRelationshipTypeDataDto")
-@Getter
-@Setter
 public class RelationshipTypeDataDto {
-
     private int id;
     private String direct;
     private String reverse;

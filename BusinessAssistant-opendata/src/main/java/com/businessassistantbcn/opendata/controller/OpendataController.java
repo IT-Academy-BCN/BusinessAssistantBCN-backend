@@ -1,13 +1,16 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import java.net.MalformedURLException;
+import java.util.Map;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -45,6 +48,9 @@ public class OpendataController {
     @Autowired
     MunicipalMarketsService municipalMarketsService;
 
+    //TODO remove once all endpoints are paginated
+    private final boolean PAGINATION_ENABLED = true;
+
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
@@ -78,8 +84,11 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit){
-        return largeEstablishmentsService.getPage(getValidOffset(offset), getValidLimit(limit));
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return largeEstablishmentsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
     @GetMapping("/commercial-galleries")
@@ -90,12 +99,13 @@ public class OpendataController {
         @ApiResponse(code = 503, message = "Service Unavailable")
     })
     public Mono<?> commercialGalleries(
-            @ApiParam(value = "Offset", name= "Offset")
-            @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
-            @RequestParam(required = false)  String limit
-    ){
-
+        @ApiParam(value = "Offset", name= "Offset")
+        @RequestParam(required = false) String offset,
+        @ApiParam(value = "Limit", name= "Limit")
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return commercialGaleriesService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
@@ -112,8 +122,12 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
-        @PathVariable("district") String district){
-        return largeEstablishmentsService.getPageByDistrict(getValidOffset(offset), getValidLimit(limit), getValidDistrict(district));
+        @PathVariable("district") int district,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return largeEstablishmentsService
+            .getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
     }
 
     //GET ?offset=0&limit=10
@@ -129,8 +143,12 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
-        @PathVariable("activity") String activity){
-        return largeEstablishmentsService.getPageByActivity(getValidOffset(offset), getValidLimit(limit), activity);
+        @PathVariable("activity") String activity,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return largeEstablishmentsService
+            .getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
     }
 
     //GET ?offset=0&limit=10
@@ -219,8 +237,10 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit
-    ){
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return marketFairsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
 	}
 
@@ -236,12 +256,27 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit
-    ){
+        @RequestParam(required = false)  String limit,
+        @RequestParam Map<String, String> map
+    ) {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return economicActivitiesCensusService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
-    private int getValidOffset(String offset) {
+    private void validateRequestParameters(Map<String, String> map, boolean paginationEnabled)
+    {
+        if (!paginationEnabled && !map.keySet().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        for (String key : map.keySet()) {
+            if (!key.equals("offset") && !key.equals("limit")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        }
+    }
+
+    private int getValidOffset(String offset)
+    {
         if (offset == null || offset.isEmpty()) {
             return 0;
         }
@@ -261,14 +296,6 @@ public class OpendataController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(limit);
-    }
-    
-    private int getValidDistrict(String district) {
-        // NumberUtils.isDigits returns false for negative numbers
-        if (district == null || district.isEmpty() || !NumberUtils.isDigits(district)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        return Integer.parseInt(district);    	
     }
     
 }
