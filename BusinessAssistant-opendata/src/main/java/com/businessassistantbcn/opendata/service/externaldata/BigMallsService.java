@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
+import com.businessassistantbcn.opendata.dto.bigmalls.ClassificationDataDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 
 import org.slf4j.Logger;
@@ -90,31 +91,21 @@ public class BigMallsService {
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 
 		return circuitBreaker.run( () -> response.flatMap(bigMallsDto -> {
-			List<ActivityInfoDto> listactivityInfoDto = new ArrayList<>();
-			listactivityInfoDto = io.vavr.collection.List.ofAll(
+			List<ActivityInfoDto> listActivityInfoDto = new ArrayList<>();
+			listActivityInfoDto = io.vavr.collection.List.ofAll(
 				Arrays.stream(bigMallsDto)
 					.flatMap(bigMallDto -> bigMallDto.getClassifications_data().stream())
-					.filter(classificationsDataDto ->
-						(classificationsDataDto.getFullPath() == null) ||
-							(
-								(!classificationsDataDto.getFullPath().toUpperCase().contains("MARQUES")) &&
-								(!classificationsDataDto.getFullPath().toUpperCase().contains("GESTIÓ BI")) &&
-								(!classificationsDataDto.getFullPath().toUpperCase().contains("ÚS INTERN"))
-							)
-					)
-					.map(classificationsDataDto -> {
-						return new ActivityInfoDto(
-								classificationsDataDto.getId(),
-								((classificationsDataDto.getName() == null) ? "" : classificationsDataDto.getName())
-						);
-					})
-					.sorted(Comparator.comparing(ActivityInfoDto::getActivityName))
+					.filter(classificationsDataDto -> this.isFullPathValid(classificationsDataDto))
+					.map(classificationsDataDto -> new ActivityInfoDto(
+						classificationsDataDto.getId(),
+						this.getValidActivityName(classificationsDataDto))
+					).sorted(Comparator.comparing(ActivityInfoDto::getActivityName))
 					.collect(Collectors.toList()))
 			.distinctBy((s1, s2) -> s1.getActivityName().compareToIgnoreCase(s2.getActivityName()))
 			.toJavaList();
 
 			ActivityInfoDto[] activityInfoDto =
-				listactivityInfoDto.toArray(new ActivityInfoDto[listactivityInfoDto.size()]);
+				listActivityInfoDto.toArray(new ActivityInfoDto[listActivityInfoDto.size()]);
 
 			ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
 			genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
@@ -124,6 +115,21 @@ public class BigMallsService {
 			genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 			return Mono.just(genericActivityResultDto);
 		});
+	}
+
+	private boolean isFullPathValid(ClassificationDataDto dto)
+	{
+		if (dto.getFullPath() == null ||
+			dto.getFullPath().toUpperCase().contains("MARQUES") ||
+			dto.getFullPath().toUpperCase().contains("GESTIÓ BI") ||
+			dto.getFullPath().toUpperCase().contains("ÚS INTERN")){
+			return false;
+		}
+		return true;
+	}
+
+	private String getValidActivityName(ClassificationDataDto dto) {
+		return dto.getName() == null ? "" : dto.getName();
 	}
 
 	public GenericResultDto<BigMallsDto> getBigMallsByActivityDto(int[] activities, int offset, int limit) {
