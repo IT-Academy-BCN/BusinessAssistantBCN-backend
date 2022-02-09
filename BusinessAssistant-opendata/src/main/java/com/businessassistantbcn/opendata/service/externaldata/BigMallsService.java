@@ -91,18 +91,12 @@ public class BigMallsService {
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 
 		return circuitBreaker.run( () -> response.flatMap(bigMallsDto -> {
+			List<ActivityInfoDto> listFullPathFiltered = new ArrayList<>();
 			List<ActivityInfoDto> listActivityInfoDto = new ArrayList<>();
-			listActivityInfoDto = io.vavr.collection.List.ofAll(
-				Arrays.stream(bigMallsDto)
-					.flatMap(bigMallDto -> bigMallDto.getClassifications_data().stream())
-					.filter(classificationsDataDto -> this.isFullPathValid(classificationsDataDto))
-					.map(classificationsDataDto -> new ActivityInfoDto(
-						classificationsDataDto.getId(),
-						this.getValidActivityName(classificationsDataDto))
-					).sorted(Comparator.comparing(ActivityInfoDto::getActivityName))
-					.collect(Collectors.toList()))
-			.distinctBy((s1, s2) -> s1.getActivityName().compareToIgnoreCase(s2.getActivityName()))
-			.toJavaList();
+
+			listFullPathFiltered = this.getListWithoutInvalidFullPaths(bigMallsDto);
+
+			listActivityInfoDto = this.getListWithoutRepeatedNames(listFullPathFiltered);
 
 			ActivityInfoDto[] activityInfoDto =
 				listActivityInfoDto.toArray(new ActivityInfoDto[listActivityInfoDto.size()]);
@@ -117,12 +111,32 @@ public class BigMallsService {
 		});
 	}
 
+	private List<ActivityInfoDto> getListWithoutInvalidFullPaths(BigMallsDto[] bigMallsDto)
+	{
+		return Arrays.stream(bigMallsDto)
+			.flatMap(bigMallDto -> bigMallDto.getClassifications_data().stream())
+			.filter(classificationsDataDto -> this.isFullPathValid(classificationsDataDto))
+			.map(classificationsDataDto -> new ActivityInfoDto(
+				classificationsDataDto.getId(),
+				this.getValidActivityName(classificationsDataDto))
+			).sorted(Comparator.comparing(ActivityInfoDto::getActivityName))
+			.collect(Collectors.toList());
+	}
+
+	private List<ActivityInfoDto> getListWithoutRepeatedNames(List<ActivityInfoDto> listNamesUnfilterd)
+	{
+		return io.vavr.collection.List.ofAll(listNamesUnfilterd)
+			.distinctBy((s1, s2) -> s1.getActivityName().compareToIgnoreCase(s2.getActivityName()))
+			.toJavaList();
+	}
+
 	private boolean isFullPathValid(ClassificationDataDto dto)
 	{
 		if (dto.getFullPath() == null ||
 			dto.getFullPath().toUpperCase().contains("MARQUES") ||
 			dto.getFullPath().toUpperCase().contains("GESTIÓ BI") ||
-			dto.getFullPath().toUpperCase().contains("ÚS INTERN")){
+			dto.getFullPath().toUpperCase().contains("ÚS INTERN")
+		) {
 			return false;
 		}
 		return true;
