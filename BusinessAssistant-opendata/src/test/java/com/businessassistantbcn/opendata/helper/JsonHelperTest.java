@@ -52,7 +52,7 @@ public class JsonHelperTest {
 
     private static Stream<Arguments> getFilterDtoProvider() {
         return Stream.of(
-            Arguments.of(0, -1, new Integer[]{0, 1, 2, 3, 4}), // size
+            Arguments.of(0, -1, new Integer[]{0, 1, 2, 3, 4}),
             Arguments.of(10, -1, new Integer[]{}),
             Arguments.of(1, 2, new Integer[]{1, 2}),
             Arguments.of(1, 10, new Integer[]{1, 2, 3, 4})
