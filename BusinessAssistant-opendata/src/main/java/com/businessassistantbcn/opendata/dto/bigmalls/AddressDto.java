@@ -1,15 +1,20 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
+import com.businessassistantbcn.opendata.dto.largeestablishments.LocationDto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Component("BigMallsAddressDto")
 @JsonIgnoreProperties({ "place","district_name",/*"district_id",*/ "neighborhood_name","neighborhood_id",
         /*"address_name",*/ "address_id","block_id","start_street_number","end_street_number",/*"street_number_1",*/

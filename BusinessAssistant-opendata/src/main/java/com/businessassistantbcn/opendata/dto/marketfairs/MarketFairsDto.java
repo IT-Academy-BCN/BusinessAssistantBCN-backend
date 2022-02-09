@@ -5,13 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Component("MarketFairs")
 @Getter @Setter
-
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties({ "register_id","prefix","suffix",/*"name",*/"created","modified","status","status_name","core_type","core_type_name",
         "body","tickets_data",/*"addresses",*/"entity_types_data","attribute_categories"/*,"values"*/,"from_relationships","to_relationships",
         /*"classifications_data",*/"secondary_filters_data","timetable","image_data","gallery_data","warnings","geo_epgs_25831",
@@ -30,10 +34,6 @@ public class MarketFairsDto {
     private List<ContactDto> values; // contact
     private List<ClassificationDataDto> classifications_data; // activities
     private List<AddressDto> addresses;
-
-    public String getName() {
-        return name;
-    }
 
     @JsonGetter("activities") // deserialize clasification_data activities
     public List<ClassificationDataDto> getClassifications_data() {

@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +15,8 @@ import java.util.List;
 
 @Component
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties({ "register_id","prefix","suffix",/*"name",*/"created","modified","status","status_name","core_type","core_type_name",
         "body","tickets_data",/*"addresses",*/"entity_types_data","attribute_categories"/*,"values"*/,"from_relationships","to_relationships",
         /*"classifications_data",*/"secondary_filters_data","timetable","image_data","gallery_data","warnings","geo_epgs_25831",
@@ -31,10 +36,6 @@ public class LargeEstablishmentsDto {
     private List<ContactDto> values; // contact
     private List<ClassificationDataDto> classifications_data; // activities
     private List<AddressDto> addresses;
-
-    public String getName() {
-        return name;
-    }
 
     /**
      * classifications_data need getter/setter for deserialization as activities
