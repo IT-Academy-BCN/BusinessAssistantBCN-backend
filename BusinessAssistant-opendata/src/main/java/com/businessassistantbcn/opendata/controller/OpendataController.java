@@ -77,8 +77,7 @@ public class OpendataController {
     @ApiResponses({
         @ApiResponse(code = 200, message = "OK"),
         @ApiResponse(code = 404, message = "Not Found"),
-        @ApiResponse(code = 503, message = "Service Unavailable")
-    })
+        @ApiResponse(code = 503, message = "Service Unavailable")})
     public Mono<?> largeEstablishments(
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
@@ -232,20 +231,6 @@ public class OpendataController {
 	}
 
     //GET ?offset=0&limit=10
-    @GetMapping("/large-establishments/activity")
-    @ApiOperation("Get large establishment activity SET 0 LIMIT 10")
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "OK"),
-        @ApiResponse(code = 404, message = "Not Found"),
-    })
-    public String largeEstablishmentsActivity(
-        @RequestParam Map<String, String> map
-    ) {
-        this.validateRequestParameters(map, !this.PAGINATION_ENABLED);
-        return "Large-Establishments-Activity";
-    }
-
-    //GET ?offset=0&limit=10
     @GetMapping("/economic-activities-census")
     @ApiOperation("Get markets fairs SET 0 LIMIT 10")
     @ApiResponses({
@@ -288,8 +273,7 @@ public class OpendataController {
         return Integer.parseInt(offset);
     }
 
-    private int getValidLimit(String limit)
-    {
+    private int getValidLimit(String limit) {
         if (limit == null || limit.isEmpty() || limit.equals("-1")) {
             return -1;
         }
@@ -299,13 +283,13 @@ public class OpendataController {
         }
         return Integer.parseInt(limit);
     }
-
+    
     private int getValidDistrict(String district) {
         // NumberUtils.isDigits returns false for negative numbers
         if (district == null || district.isEmpty() || !NumberUtils.isDigits(district)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        return Integer.parseInt(district);
+        return Integer.parseInt(district);    	
     }
-
+    
 }
