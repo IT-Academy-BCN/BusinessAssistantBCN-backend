@@ -1,7 +1,9 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
+import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
