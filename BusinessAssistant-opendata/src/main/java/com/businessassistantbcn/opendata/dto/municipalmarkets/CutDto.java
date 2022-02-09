@@ -1,6 +1,7 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-public class TargetEntityTypeDataDto {
+public class CutDto {
     private int id;
-    private String name;
+    private String image;
+    private String type;
 }

@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-public class TargetEntityTypeDataDto {
+public class TimetableDto {
     private int id;
-    private String name;
+    private String html;
 }

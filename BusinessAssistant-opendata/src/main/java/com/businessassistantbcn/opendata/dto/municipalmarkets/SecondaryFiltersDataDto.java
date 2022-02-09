@@ -1,14 +1,6 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
-
-@Component("MunicipalMarketsSecondaryFilterDataDto")
-@Getter
-@Setter
-public class SecondaryFilterDataDto {
-	
+public class SecondaryFiltersDataDto {
     private int id;
     private String name;
     private String full_path;
@@ -16,5 +8,4 @@ public class SecondaryFilterDataDto {
     private int parent_id;
     private int tree_id;
     private String asia_id;
-    
 }
