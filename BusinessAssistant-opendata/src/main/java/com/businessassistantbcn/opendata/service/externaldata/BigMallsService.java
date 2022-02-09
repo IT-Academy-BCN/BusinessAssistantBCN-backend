@@ -128,7 +128,9 @@ public class BigMallsService {
 		return true;
 	}
 
-	private String getValidActivityName(ClassificationDataDto dto) {
+	private String getValidActivityName(ClassificationDataDto dto)
+	{
+		//If name == null, sort method fails
 		return dto.getName() == null ? "" : dto.getName();
 	}
 
