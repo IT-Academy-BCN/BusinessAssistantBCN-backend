@@ -99,8 +99,8 @@ public class CommercialGalleriesService {
 		url = new URL(config.getDs_commercialgalleries());
 	} catch (MalformedURLException e) {
 		log.error("URL bad configured: " + e.getMessage());
-		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
-		return Mono.just(genericActivityResultDto);
+	
+		return getPageDefaultActivity();
 	}
 
 	Mono<CommercialGalleriesDto[]> response = httpProxy.getRequestData(url, CommercialGalleriesDto[].class);
@@ -142,4 +142,12 @@ public class CommercialGalleriesService {
 		return Mono.just(genericActivityResultDto);
 	});
 }
+	private Mono<GenericResultDto<ActivityInfoDto>> getPageDefaultActivity(){
+		genericActivityResultDto.setLimit(0);
+		genericActivityResultDto.setOffset(0);
+		genericActivityResultDto.setResults(new ActivityInfoDto[0]);
+		genericActivityResultDto.setCount(0);
+		return Mono.just(genericActivityResultDto);
+	}		
+	
 }
