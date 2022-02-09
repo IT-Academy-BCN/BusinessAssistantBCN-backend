@@ -2,7 +2,6 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -45,22 +44,20 @@ public class BigMallsService {
 	private CircuitBreakerFactory circuitBreakerFactory;
 
 	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) {
-		URL url;
-		try {
-			url = new URL(config.getDs_bigmalls());
-		} catch (MalformedURLException e) {
-			log.error("URL bad configured: "+e.getMessage());
+		URL url = this.getUrl();
+		if (url == null) {
 			return getBigMallsDefaultPage();
 		}
-
 		Mono<BigMallsDto[]> response = httpProxy.getRequestData(url, BigMallsDto[].class);
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 
-		return circuitBreaker.run(() -> response.flatMap(dto -> {
-			BigMallsDto[] pagedDto = JsonHelper.filterDto(dto, offset, limit);
-			genericResultDto.setInfo(offset, limit, dto.length, pagedDto);
+		return circuitBreaker.run(() -> response.flatMap(bigMallsDto -> {
+			BigMallsDto[] pagedDto = JsonHelper.filterDto(bigMallsDto, offset, limit);
+			genericResultDto.setInfo(offset, limit, bigMallsDto.length, pagedDto);
 			return Mono.just(genericResultDto);
-		}), throwable -> getBigMallsDefaultPage());
+
+		}), throwable -> getBigMallsDefaultPage()
+		);
 	}
 
 	private Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage() {
@@ -69,15 +66,10 @@ public class BigMallsService {
 	}
 
 	public Mono<GenericResultDto<ActivityInfoDto>> bigMallsAllActivities(int offset, int limit) {
-		URL url;
-		try {
-			url = new URL(config.getDs_bigmalls());
-		} catch (MalformedURLException e) {
-			log.error("URL bad configured: " + e.getMessage());
-			genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
-			return Mono.just(genericActivityResultDto);
+		URL url = this.getUrl();
+		if (url == null) {
+			return getActivitiesDefaultPage();
 		}
-
 		Mono<BigMallsDto[]> response = httpProxy.getRequestData(url, BigMallsDto[].class);
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 
@@ -85,18 +77,31 @@ public class BigMallsService {
 
 			List<ActivityInfoDto> listFullPathFiltered = this.getListWithoutInvalidFullPaths(bigMallsDto);
 			List<ActivityInfoDto> listActivityInfoDto = this.getListWithoutRepeatedNames(listFullPathFiltered);
-
 			ActivityInfoDto[] activityInfoDto =
 				listActivityInfoDto.toArray(new ActivityInfoDto[listActivityInfoDto.size()]);
-			ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
 
+			ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
 			genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
 			return Mono.just(genericActivityResultDto);
 
-		}), throwable -> {
-			genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
-			return Mono.just(genericActivityResultDto);
-		});
+		}), throwable -> getActivitiesDefaultPage()
+		);
+	}
+
+	private Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage() {
+		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
+		return Mono.just(genericActivityResultDto);
+	}
+
+	private URL getUrl() {
+		URL url;
+		try {
+			url = new URL(config.getDs_bigmalls());
+		} catch (MalformedURLException e) {
+			log.error("URL bad configured: "+e.getMessage());
+			url = null;
+		}
+		return url;
 	}
 
 	private List<ActivityInfoDto> getListWithoutInvalidFullPaths(BigMallsDto[] bigMallsDto) {
