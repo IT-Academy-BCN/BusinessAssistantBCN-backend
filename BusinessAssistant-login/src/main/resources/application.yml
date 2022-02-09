@@ -20,7 +20,7 @@ security:
     headerString: Authorization
     tokenPrefix: Bearer 
     expiresIn: 36_000_000 # 10 hours, expressed in milliseconds
-    authorities: authorities
+    authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
 
 logging:

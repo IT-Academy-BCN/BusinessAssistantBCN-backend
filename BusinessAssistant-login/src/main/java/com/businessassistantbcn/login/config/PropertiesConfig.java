@@ -18,7 +18,7 @@ public class PropertiesConfig {
 	private String headerString;
 	private String tokenPrefix;
 	private long expiresIn;
-	private String authorities; // lista de permisos (ROLES)
+	private String authoritiesClaim;
 	private String err;
 	
 }

@@ -18,15 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/api")
 public class LoginController {
-		
+	
 	@Autowired
-	private TestAuthenticationProvider authenticationProvider;
+	private TestAuthenticationProvider provider;
 	
 	@Autowired
 	private LoginService loginService;
-	
-	@Autowired
-	public LoginController() {}
 	
 	@GetMapping("/test")
 	public String test() {
@@ -52,9 +49,10 @@ public class LoginController {
 	 */
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(
+			@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 		try {
-			authenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(
+			provider.authenticate(new UsernamePasswordAuthenticationToken(
 					authenticationRequest.getUsername(),
 					authenticationRequest.getPassword()));
 		} catch (BadCredentialsException e) {

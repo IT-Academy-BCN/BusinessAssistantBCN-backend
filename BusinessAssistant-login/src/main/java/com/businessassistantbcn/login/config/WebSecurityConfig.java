@@ -1,7 +1,6 @@
 package com.businessassistantbcn.login.config;
 
 import com.businessassistantbcn.login.security.JwtAuthenticationFilter;
-import com.businessassistantbcn.login.service.LoginService;
 import com.businessassistantbcn.login.service.TestAuthenticationProvider;
 
 import java.io.IOException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,18 +25,16 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	private JwtAuthenticationFilter jwtFilter;
 	
 	@Autowired
-	private LoginService loginService;
+	private TestAuthenticationProvider provider;
 	
 	@Autowired
 	private PropertiesConfig config;
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder builder) throws Exception {
-		DaoAuthenticationProvider provider = new TestAuthenticationProvider();
-		provider.setUserDetailsService(loginService);
 		builder.authenticationProvider(provider);
 	}
 	
@@ -46,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		http.authorizeRequests().antMatchers(HttpMethod.POST, config.getSignUpUrl()).permitAll();
 		http.authorizeRequests().anyRequest().authenticated();
 		http.exceptionHandling().authenticationEntryPoint(new BasicAuthenticationEntryPoint() {
