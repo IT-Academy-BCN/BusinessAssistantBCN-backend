@@ -23,38 +23,7 @@ public class JsonHelper<T> {
 	}
 
 	//¿static? see https://www.baeldung.com/java-static-class-vs-singleton
-	public static <T> List<T> deserializeToList(String json){
-		List<T> list = null;
-		try {
-			list = (List<T>) mapper.readTree(json);
-		} catch (JsonProcessingException e) {
-			log.error("No se puede convertir de String a una Lista Generica porque: {}", e.getMessage());
-			log.error("exception:", e);
-		}
-		return list;
-	}
 
-	public static JsonNode deserializeToJsonNode(String json){
-		JsonNode jsonNode = null;
-		try {
-			jsonNode = mapper.readTree(json);
-		} catch (JsonProcessingException e) {
-			log.error("No se puede convertir de String to JsonNode porque: {}", e.getMessage());
-			log.error("exception:", e);
-		}
-		return jsonNode;
-	}
-
-	public static String serialize(JsonNode node) {
-		String jsonString = null;
-		try {
-			jsonString = mapper.writeValueAsString(node);
-		} catch (JsonProcessingException e) {
-			log.error("No se puede convertir de JsonNode to String porque: {}", e.getMessage());
-			log.error("exception:", e);
-		}
-		return jsonString;
-	}
 	//Returns sub array starting from offset. if limit it's -1 it means there's no limit
 	public static  <T> T[] filterDto(T[] dto, int offset, int limit){
 		if(offset > dto.length-1){
@@ -72,5 +41,29 @@ public class JsonHelper<T> {
 		}
 		//Makes the subarray. The end point is excluded thats why we do +1.
 		return Arrays.copyOfRange(dto,offset,end);
+	}
+
+	//Functional but unused method
+	public static JsonNode deserializeToJsonNode(String json){
+		JsonNode jsonNode = null;
+		try {
+			jsonNode = mapper.readTree(json);
+		} catch (JsonProcessingException e) {
+			log.error("No se puede convertir de String to JsonNode porque: {}", e.getMessage());
+			log.error("exception:", e);
+		}
+		return jsonNode;
+	}
+
+	//Functional but unused method
+	public static String serialize(JsonNode node) {
+		String jsonString = null;
+		try {
+			jsonString = mapper.writeValueAsString(node);
+		} catch (JsonProcessingException e) {
+			log.error("No se puede convertir de JsonNode to String porque: {}", e.getMessage());
+			log.error("exception:", e);
+		}
+		return jsonString;
 	}
 }

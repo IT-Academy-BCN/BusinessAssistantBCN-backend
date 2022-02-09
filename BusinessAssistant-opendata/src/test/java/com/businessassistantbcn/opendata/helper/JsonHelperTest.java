@@ -26,11 +26,6 @@ public class JsonHelperTest {
     private final Integer[] intArray = new Integer[]{0, 1, 2, 3, 4};
 
     @Test
-    public void deserializeToListTest() {
-        //deserializeToList is not functional yet, it throws ClassCastException
-    }
-
-    @Test
     public void deserializeToJsonNodeTest() throws IOException {
         String jsonString = new String(Files.readAllBytes(
             Paths.get("src/test/java/com/businessassistantbcn/opendata/helper/twoBigMallsForTesting.json")
