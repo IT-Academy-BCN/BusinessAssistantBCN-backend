@@ -120,12 +120,12 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
-        @PathVariable("district") String district,
+        @PathVariable("district") int district,
         @RequestParam Map<String, String> map
     ) {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService
-            .getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), this.getValidDistrict(district));
+            .getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
     }
 
     //GET ?offset=0&limit=10
@@ -160,10 +160,8 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false) String limit,
-        @RequestParam Map<String, String> map
-    ) {
-        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        @RequestParam(required = false)  String limit
+    ){
         return bigMallsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
@@ -177,11 +175,9 @@ public class OpendataController {
         @ApiParam(value = "Offset", name= "Offset")
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
-        @RequestParam(required = false)  String limit,
-        @RequestParam Map<String, String> map
-    ) {
-        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
-        return municipalMarketsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
+        @RequestParam(required = false)  String limit
+    ){
+            return municipalMarketsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
     //GET ?offset=0&limit=10
@@ -282,14 +278,6 @@ public class OpendataController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(limit);
-    }
-    
-    private int getValidDistrict(String district) {
-        // NumberUtils.isDigits returns false for negative numbers
-        if (district == null || district.isEmpty() || !NumberUtils.isDigits(district)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        return Integer.parseInt(district);    	
     }
     
 }
