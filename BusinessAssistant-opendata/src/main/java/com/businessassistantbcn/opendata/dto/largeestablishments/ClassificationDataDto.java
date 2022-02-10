@@ -2,12 +2,18 @@ package com.businessassistantbcn.opendata.dto.largeestablishments;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Component("LargeEstablishmentsClassificationDataDto")
 @JsonIgnoreProperties({ "full_path","dependency_group","parent_id","tree_id","asia_id","core_type","level" })
 

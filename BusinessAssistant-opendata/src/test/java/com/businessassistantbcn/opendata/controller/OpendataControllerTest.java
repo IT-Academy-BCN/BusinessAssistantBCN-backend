@@ -2,8 +2,10 @@ package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bcnzones.*;
-import com.businessassistantbcn.opendata.dto.bigmalls.*;
+import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
+import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.test.*;
@@ -16,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,7 +50,7 @@ public class OpendataControllerTest {
 	private WebTestClient webTestClient;
 	
 	private final String
-		CONTROLLER_BASE_URL = "/v1/api/opendata",
+		CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/opendata",
 		RES0 = "$.results[0].";
 	
 	@MockBean
@@ -130,7 +133,7 @@ public class OpendataControllerTest {
 		// Verifica la llamada al método 'getTestData()'.
 		Mockito.verify(testService).getTestData();
 		
-	} catch (MalformedURLException e) {
+	} catch(MalformedURLException e) {
 		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 	} }
 	
@@ -140,22 +143,23 @@ public class OpendataControllerTest {
 	public <T> void JsonResponseTests1(String URI_TEST, Class<T> dtoClass, String stringDtoService) { try {
 		
 		// Crear un DTO genérico…
-		Constructor<T> constructor = dtoClass.getConstructor();		
-		T genericDTO = constructor.newInstance();
-		
-		// … apuntar a sus Setters …
-		Method
-			mtd_1 = dtoClass.getDeclaredMethod("setRegister_id", Long.TYPE),
-			mtd_2 = dtoClass.getDeclaredMethod("setName", String.class),
-			mtd_3 = dtoClass.getDeclaredMethod("setCreated", String.class),
-			mtd_4 = dtoClass.getDeclaredMethod("setGeo_epgs_4326", CoordinateDto.class);
-		
-		// … y rellenar sus campos con valores.
-		mtd_1.invoke(genericDTO, 007L);	// Afortunadamente, el número también es válido en octal.
-		mtd_2.invoke(genericDTO, "Secret Intelligent Service MI6");
-		mtd_3.invoke(genericDTO, "1909-07-04T00:00:00+00:00");
-		mtd_4.invoke(genericDTO, new CoordinateDto(51.487222, -0.124167));
-		
+		String packageName = dtoClass.getPackageName();
+		Class<?> clazzA = Class.forName(packageName + ".ContactDto");
+		Class<?> clazzB = Class.forName(packageName + ".ClassificationDataDto");
+		Constructor<T> constructor = dtoClass.getConstructor(String.class, List.class, List.class, List.class);
+		Constructor<?> constructorA = clazzA.getConstructor(String.class, String.class, String.class);
+		Constructor<?> constructorB = clazzB.getConstructor(Long.class, String.class);
+		T genericDTO = constructor.newInstance(
+				"Secret Intelligent Service MI6",
+				List.of(constructorA.newInstance(
+						"https://www.sis.gov.uk/contact-us.html",
+						"jamesbond@verysecretplace.co.uk",
+						"020 7008 1500")),
+				List.of(constructorB.newInstance(
+						007L, // Afortunadamente, el número también es válido en octal.
+						"LicenceToKill")),
+				List.of());
+				
 		// Crear el empaquetamiento para el DTO anterior …
 		GenericResultDto<T> genericResultDTO = new GenericResultDto<>();
 		genericResultDTO.setCount(1);
@@ -197,19 +201,23 @@ public class OpendataControllerTest {
 				.jsonPath("$.count").isEqualTo(1)
 				.jsonPath("$.offset").isEqualTo(0)
 				.jsonPath("$.limit").isEqualTo(1)
-				.jsonPath(RES0 + "register_id").isEqualTo(007L)
 				.jsonPath(RES0 + "name").isNotEmpty()
 				.jsonPath(RES0 + "name").isEqualTo("Secret Intelligent Service MI6")
-				.jsonPath(RES0 + "created").isNotEmpty()
-				.jsonPath(RES0 + "created").isEqualTo("1909-07-04T00:00:00+00:00")
-				.jsonPath(RES0 + "geo_epgs_4326.x").isEqualTo(51.487222)
-				.jsonPath(RES0 + "geo_epgs_4326.y").isEqualTo(-0.124167);
+				.jsonPath(RES0 + "web").isNotEmpty()
+				.jsonPath(RES0 + "web").isEqualTo("https://www.sis.gov.uk/contact-us.html")
+				.jsonPath(RES0 + "email").isNotEmpty()
+				.jsonPath(RES0 + "email").isEqualTo("jamesbond@verysecretplace.co.uk")
+				.jsonPath(RES0 + "phone").isNotEmpty()
+				.jsonPath(RES0 + "phone").isEqualTo("020 7008 1500")
+				.jsonPath(RES0 + "activities[0]." + "id").isEqualTo(7)
+				.jsonPath(RES0 + "activities[0]." + "name").isNotEmpty()
+				.jsonPath(RES0 + "activities[0]." + "name").isEqualTo("LicenceToKill");
 		
 		// Verificación de la llamada única al método 'getPage(0,-1)' del servicio
 		getPage0m1.invoke(Mockito.verify(dtoService), 0, -1);
 		
-	} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException |
-			IllegalArgumentException | InvocationTargetException | NoSuchFieldException e) {
+	} catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+			InvocationTargetException | NoSuchFieldException e) {
 		
 		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Failed to return a DTO", e);
 		
@@ -220,10 +228,10 @@ public class OpendataControllerTest {
 		
 		final Arguments[] args = {
 			Arguments.of("/big-malls", BigMallsDto.class, "bigMallsService"),
+			Arguments.of("/large-establishments", LargeEstablishmentsDto.class, "largeEstablishmentsService"),
 			Arguments.of("/market-fairs", MarketFairsDto.class, "marketFairsService"),
-			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
-//			Arguments.of("/large-establishments", LargeEstablishmentsDto.class, "largeEstablishmentsService"),
-//			Arguments.of("/commercial-galleries", CommercialGalleries.class, "commercialGalleriesService")
+//			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
+//			Arguments.of("/commercial-galleries", CommercialGalleriesDto.class, "commercialGalleriesService")
 		};
 		
 		return args;
@@ -278,6 +286,8 @@ public class OpendataControllerTest {
 		
 	}
 	
+/* ***  MOVER ESTO A 'CommonControllerTest.java' ***
+ * 
 	@DisplayName("Opendata response -- JSON elements of Barcelona's districts ")
 	@Test
 	public void JsonResponseTests3() {
@@ -313,5 +323,6 @@ public class OpendataControllerTest {
 		Mockito.verify(bcnZonesService).getBcnZones();
 		
 	}
+*/
 	
 }
