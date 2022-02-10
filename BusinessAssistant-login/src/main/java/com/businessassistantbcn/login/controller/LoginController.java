@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/api")
+@RequestMapping("/businessassistantbcn/api/v1")
 public class LoginController {
 	
 	@Autowired
@@ -32,22 +32,7 @@ public class LoginController {
 		return "Hello from BusinessAssistant Barcelona!!!";
 	}
 	
-	/**
-	 * entrada:
-	 * {
-	 * 	"email": "jvicente@gmail.com",
-	 * 	"password": "56589pp05s"
-	 * }
-	 *
-	 * salida:
-	 * {
-	 *  "token": xxxxxx
-	 * }
-	 * @param authenticationRequest
-	 * @return
-	 * @throws Exception
-	 */
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(
 			@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
