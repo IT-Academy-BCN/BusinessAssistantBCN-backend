@@ -1,16 +1,21 @@
 package com.businessassistantbcn.opendata.dto.marketfairs;
 
+import com.businessassistantbcn.opendata.dto.largeestablishments.LocationDto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Component("MarketFairsAddressDto")
 @Getter
 @Setter
-
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties({ "place","district_name",/*"district_id",*/ "neighborhood_name","neighborhood_id",
         /*"address_name",*/ "address_id","block_id","start_street_number","end_street_number",/*"street_number_1",*/
         "street_number_2","stairs","level","door",/*"zip_code",*/ "province",/*"town",*/"country","comments","position",

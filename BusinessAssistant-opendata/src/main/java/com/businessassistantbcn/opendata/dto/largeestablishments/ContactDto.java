@@ -3,12 +3,18 @@ package com.businessassistantbcn.opendata.dto.largeestablishments;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Component("LargeEstablishmentsContactDto")
 @JsonIgnoreProperties({
         "id","value","integer_value","float_value","char_value","text_value","datetime_value","option_value",/*"email_value",*/
