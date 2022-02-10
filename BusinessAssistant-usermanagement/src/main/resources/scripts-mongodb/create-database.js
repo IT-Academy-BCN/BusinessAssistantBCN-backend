@@ -1,11 +1,8 @@
 //show databases
-show dbs;
-
+//show dbs;
 // create database
-use babcn-users
-
+use babcn-users;
 // create collection
-db.createCollection("users")
-
+db.createCollection("users");
 // to read
 db.users.find({}).pretty();
