@@ -42,6 +42,8 @@ public class LoginService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) {
+		//TODO
+		///QQQ - Warning! For development purposes only
 		return TestAuthenticationProvider
 				.findByUserName(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Username \'" + username + "\' not found"));

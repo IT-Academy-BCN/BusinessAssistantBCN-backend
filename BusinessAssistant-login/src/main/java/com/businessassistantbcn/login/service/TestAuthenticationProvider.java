@@ -29,8 +29,8 @@ public class TestAuthenticationProvider extends DaoAuthenticationProvider {
 	
 	static {
 		AUTHORITIES = AuthorityUtils.commaSeparatedStringToAuthorityList(""
-				+ "ROLE_ADMIN,"
-				+ "ROLE_USER"
+				+ "ADMIN,"
+				+ "USER"
 				// Aquí se pueden añadir más credenciales separadas por comas
 				);
 		encoder = NoOpPasswordEncoder.getInstance();
@@ -54,7 +54,7 @@ public class TestAuthenticationProvider extends DaoAuthenticationProvider {
 	
 	@Autowired
 	public TestAuthenticationProvider(LoginService loginService) {
-		testUsers.add(new TestUser("jvicente@gmail.com", "56589pp05s", List.of("ROLE_ADMIN")));
+		testUsers.add(new TestUser("jvicente@gmail.com", "56589pp05s", List.of("ADMIN")));
 		// Aquí se pueden añadir más usuarios a 'testUsers'
 		
 		super.setUserDetailsService(loginService);
