@@ -45,11 +45,16 @@ dependencies {
     implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.6.1'
 
-
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+    implementation group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.10'
+    // https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb
+    implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.3.1'
+
+
+
 
 }
 
