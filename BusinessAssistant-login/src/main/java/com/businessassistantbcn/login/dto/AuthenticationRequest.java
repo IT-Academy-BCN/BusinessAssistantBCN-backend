@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter @Setter
 public class AuthenticationRequest implements Serializable {
 
-	private String username;
+	private String email;
 	private String password;
 
 }

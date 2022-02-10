@@ -10,6 +10,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -67,7 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	private void setUpSpringAuthentication(Claims claims) {
 		@SuppressWarnings("unchecked")
-		Set<String> authorities = (Set<String>)claims.get(config.getAuthoritiesClaim());
+		List<String> authorities = (List<String>)claims.get(config.getAuthoritiesClaim());
 		
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 				claims.getSubject(), null,

@@ -41,7 +41,7 @@ public class LoginController {
 	 *
 	 * salida:
 	 * {
-	 *     token: xxxxxx
+	 *  "token": xxxxxx
 	 * }
 	 * @param authenticationRequest
 	 * @return
@@ -53,13 +53,13 @@ public class LoginController {
 			@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 		try {
 			provider.authenticate(new UsernamePasswordAuthenticationToken(
-					authenticationRequest.getUsername(),
+					authenticationRequest.getEmail(),
 					authenticationRequest.getPassword()));
 		} catch (BadCredentialsException e) {
 			throw new Exception("Incorrect username or password", e);
 		}
 		
-		final UserDetails userDetails = loginService.loadUserByUsername(authenticationRequest.getUsername());
+		final UserDetails userDetails = loginService.loadUserByUsername(authenticationRequest.getEmail());
 		final String jwt = loginService.generateToken(userDetails);
 		
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));

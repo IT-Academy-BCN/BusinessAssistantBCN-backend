@@ -9,6 +9,6 @@ import lombok.Getter;
 @Getter
 public class AuthenticationResponse implements Serializable {
 
-	private final String jwt;
+	private final String token;
 
 }

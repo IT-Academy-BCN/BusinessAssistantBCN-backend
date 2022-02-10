@@ -18,8 +18,10 @@ security:
     signUpUrl: /v1/api/login
     secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
     headerString: Authorization
+    # Mind the trailing white space below!
     tokenPrefix: Bearer 
-    expiresIn: 36_000_000 # 10 hours, expressed in milliseconds
+    # 10 hours, expressed in milliseconds
+    expiresIn: 36_000_000
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
 

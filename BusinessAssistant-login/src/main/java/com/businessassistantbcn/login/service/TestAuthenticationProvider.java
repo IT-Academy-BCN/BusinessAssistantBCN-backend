@@ -15,18 +15,25 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+@SuppressWarnings("deprecation") // ¡Contraseñas sin encriptar!
 @Component
 public class TestAuthenticationProvider extends DaoAuthenticationProvider {
 	
-	public static final List<GrantedAuthority> AUTHORITIES;
+	@SuppressWarnings("unused") 
+	private static final List<GrantedAuthority> AUTHORITIES; // Potencialmente útil próximamente
+	private static final PasswordEncoder encoder;
 	
 	static {
 		AUTHORITIES = AuthorityUtils.commaSeparatedStringToAuthorityList(""
 				+ "ROLE_ADMIN,"
-				+ "ROLE_USER");
-				// Aquí se pueden añadir más credenciales
+				+ "ROLE_USER"
+				// Aquí se pueden añadir más credenciales separadas por comas
+				);
+		encoder = NoOpPasswordEncoder.getInstance();
 	}
 	
 	private static List<TestUser> testUsers = new ArrayList<>();
@@ -49,7 +56,9 @@ public class TestAuthenticationProvider extends DaoAuthenticationProvider {
 	public TestAuthenticationProvider(LoginService loginService) {
 		testUsers.add(new TestUser("jvicente@gmail.com", "56589pp05s", List.of("ROLE_ADMIN")));
 		// Aquí se pueden añadir más usuarios a 'testUsers'
+		
 		super.setUserDetailsService(loginService);
+		super.setPasswordEncoder(encoder);
 	}
 	
 	public static Optional<User> findByUserName(String username) {

@@ -2,7 +2,6 @@ package com.businessassistantbcn.login.service;
 
 import com.businessassistantbcn.login.config.PropertiesConfig;
 
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -28,7 +27,7 @@ public class LoginService implements UserDetailsService {
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		long epochTime = System.currentTimeMillis();
-		byte[] bytes = Decoders.BASE64.decode(config.getSecret());
+		byte[] bytes = config.getSecret().getBytes();
 		SignatureAlgorithm alg = SignatureAlgorithm.HS256;
 		return Jwts.builder()
 			.setClaims(claims)
