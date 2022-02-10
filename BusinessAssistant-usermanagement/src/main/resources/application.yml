@@ -11,6 +11,11 @@ spring:
         port: 8762
         prefer-ip-address: true
         healthCheckPath: /health
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: babcn-users
 
 springfox:
   documentation:
