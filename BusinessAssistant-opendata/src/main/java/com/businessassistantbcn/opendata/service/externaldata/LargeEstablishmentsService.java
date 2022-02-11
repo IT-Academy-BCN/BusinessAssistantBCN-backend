@@ -1,13 +1,18 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
+import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.largeestablishments.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -32,6 +37,8 @@ public class LargeEstablishmentsService {
 	private GenericResultDto<LargeEstablishmentsDto> genericResultDto;
 	@Autowired
 	private CircuitBreakerFactory circuitBreakerFactory;
+	@Autowired
+	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;		
 	
 	// Get paged results
 	public Mono<GenericResultDto<LargeEstablishmentsDto>> getPage(int offset, int limit) {
@@ -85,6 +92,68 @@ public class LargeEstablishmentsService {
 		return getPageDefault();
 	} }
 	
+	
+	
+	public Mono<GenericResultDto<ActivityInfoDto>>getActivities(int offset, int limit) {
+		URL url = getUrl();
+		if(url==null) {
+          return getActivitiesDefaultPage();
+		}
+		
+		Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(url, LargeEstablishmentsDto[].class);
+		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
+				
+		return circuitBreaker.run( () -> response.flatMap(largeStablismentsDto -> {
+
+			List<ActivityInfoDto> listActivityInfoDto = buildActivityInfoDtoList(largeStablismentsDto);
+					
+			listActivityInfoDto = getDistinctByNameList(listActivityInfoDto); 
+
+			ActivityInfoDto[] arrActivityInfoDto = listActivityInfoDto.toArray(new ActivityInfoDto[listActivityInfoDto.size()]);			            
+
+			ActivityInfoDto[] pagedDto = JsonHelper.filterDto(arrActivityInfoDto, offset, limit);        
+            
+            genericActivityResultDto.setInfo(offset, limit, pagedDto.length, pagedDto);
+			
+			return Mono.just(genericActivityResultDto);
+		}), throwable -> { return getActivitiesDefaultPage(); } );
+				
+	}    
+
+	private List<ActivityInfoDto> buildActivityInfoDtoList(LargeEstablishmentsDto[] largeStablismentsDto) {
+	  List<ActivityInfoDto> listActivityInfoDto = 
+	          Arrays.stream (largeStablismentsDto)
+                    .flatMap(largeStablismentDto -> largeStablismentDto.getClassifications_data().stream())
+                    .filter (classificationDataDto -> filterClassificationDataDto(classificationDataDto))
+                    .map    (classificationDataDto -> mapToActivityInfoDto(classificationDataDto))
+                    .sorted (Comparator.comparing(ActivityInfoDto::getActivityName) )
+                    .collect(Collectors.toList());
+	  return listActivityInfoDto;
+	}
+		
+	private boolean filterClassificationDataDto(ClassificationDataDto classificationDataDto) {
+       if( (classificationDataDto.getFull_path()==null) ||
+            ( (!classificationDataDto.getFull_path().toUpperCase().contains("MARQUES")) && 
+              (!classificationDataDto.getFull_path().toUpperCase().contains("GESTIÓ BI")) &&
+              (!classificationDataDto.getFull_path().toUpperCase().contains("ÚS INTERN")) ) )  {
+    	   return true;
+       }
+       return false;
+	}	
+	
+	private ActivityInfoDto mapToActivityInfoDto(ClassificationDataDto classificationDataDto) {
+      return new ActivityInfoDto(classificationDataDto.getId(), 
+                               ((classificationDataDto.getName()!=null)?classificationDataDto.getName():"") ); 
+    }	
+	
+	private List<ActivityInfoDto> getDistinctByNameList(List<ActivityInfoDto> listActivityInfoDto)
+	{ List<ActivityInfoDto> listDistinctActivityInfoDto = 
+	     io.vavr.collection.List.ofAll(listActivityInfoDto)
+                                .distinctBy((s1,s2) -> s1.getActivityName().compareToIgnoreCase(s2.getActivityName()))
+                                .toJavaList();
+      return listDistinctActivityInfoDto;
+	}		
+	
 	private Mono<GenericResultDto<LargeEstablishmentsDto>> getPageDefault() {
 		genericResultDto.setLimit(0);
 		genericResultDto.setOffset(0);
@@ -92,5 +161,24 @@ public class LargeEstablishmentsService {
 		genericResultDto.setCount(0);
 		return Mono.just(genericResultDto);
 	}
+	
+	private URL getUrl() {
+		URL url;
+		try { 
+			url = new URL(config.getDs_largeestablishments());
+		} catch (MalformedURLException e) {
+			log.error("URL bad configured: "+e.getMessage());
+			url = null;
+		}
+		return url;
+	}	
+	
+	private Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage() {
+		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
+		return Mono.just(genericActivityResultDto);
+	}	
+	
+	
+	
 	
 }
