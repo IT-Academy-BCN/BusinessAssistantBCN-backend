@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"name","web","email","phone","location","addresses",})
+@JsonPropertyOrder({"name","web","email","phone","location","addresses","category_name","description"})
 public class MunicipalMarketsDto {
 
     @JsonIgnore
@@ -53,6 +53,38 @@ public class MunicipalMarketsDto {
                 .map(ValueDto::getValue)
                 .collect(Collectors.toList());
     }
+    
+    @JsonProperty("contact_person")
+    private List<String> contact_person;
+    public List<String> getContact_person(){
+    	 return getValues()
+                 .stream()
+                 .filter(t -> t.getContact_person_value()!=null)
+                 .map(ValueDto::getValue)
+                 .collect(Collectors.toList());
+    }
+    
+    @JsonProperty("category_name")
+    private List<String> category_name;
+    public List<String> getCategory_name(){
+    	 return getValues()
+                 .stream()
+                 .filter(t -> t.getCategory_name()!=null)
+                 .map(ValueDto::getCategory_name)
+                 .collect(Collectors.toList());
+    }
+    
+    @JsonProperty("description")
+    private List<String> description;
+    public List<String> getdescription(){
+    	 return getValues()
+                 .stream()
+                 .filter(t -> t.getDescription()!=null)
+                 .map(ValueDto::getDescription)
+                 .collect(Collectors.toList());
+    } 
+    
+    
 
     @JsonIgnore
     @JsonProperty("created")
