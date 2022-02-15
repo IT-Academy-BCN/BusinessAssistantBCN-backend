@@ -21,3 +21,26 @@
 ### Swagger URL
 
 - http://localhost:8763/swagger-ui/index.html
+
+### Creación y arranque de container Docker
+
+Es necesario tener instalado Docker y docker-compose en la máquina. Efectuar los siguientes pasos:
+
+1. **Empaquetado** del proyecto (desde /BusinessAssistantBCN-backend)
+
+```
+./gradlew :BusinessAssistant-mydata:build [-x test]
+```
+
+2. **Construcción de la imagen** (desde /BusinessAssistant-mydata)
+```
+docker build -t=babcn:mydata-v1.0-SNAPSHOT .
+```
+
+3. **Arranque** de imagen (desde /BusinessAssistantBCN-backend)
+
+```
+docker-compose up -d businessassistantbcn-mydata
+```
+
+* Acceso a API en **http://[host]:7777/businessassistantbnc/v1/api/mydata**
