@@ -1,9 +1,7 @@
 package com.businessassistantbcn.opendata.controller;
 
-import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
-import com.fasterxml.jackson.databind.JsonNode;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
@@ -180,7 +178,7 @@ public class OpendataController {
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit
     ){
-        return bigMallsService.bigMallsAllActivities(this.getValidOffset(offset), this.getValidLimit(limit));
+        return bigMallsService.getBigMallsAllActivities(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
     @GetMapping("/municipal-markets")

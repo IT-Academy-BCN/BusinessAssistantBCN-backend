@@ -1,76 +1,87 @@
 package com.businessassistantbcn.opendata.service.externaldata;
-
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
-import com.businessassistantbcn.opendata.config.SpringDBTestConfiguration;
+import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
-import org.hamcrest.Matchers;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class BigMallsServiceTest {
 
-    @Mock
+    @MockBean
     private PropertiesConfig config;
 
-    @Mock
+    @MockBean
     private HttpProxy httpProxy;
 
-    @Mock
-    private GenericResultDto<BigMallsDto> genericResultDto;
-
+    @Autowired
     @InjectMocks
     private BigMallsService bigMallsService;
 
-    @Autowired
-    private CircuitBreakerFactory circuitBreakerFactory;
+    private static String urlBigMalls;
+    private static final String JSON_FILENAME_BIG_MALLS = "json/allBigMallsForTesting.json";
+    private static String JSON_TEST_FILE_BIG_MALLS;
+    private static ObjectMapper mapper;
+    private static BigMallsDto[] allBigMallsDto;
 
-    @Test
-    void getPagetest(){
-        assertTrue(true);
+    @BeforeAll
+    static void beforeAll() throws URISyntaxException, IOException {
+        urlBigMalls = "http://www.bcn.cat/tercerlloc/files/" +
+            "mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json";
+
+        JSON_TEST_FILE_BIG_MALLS = new String(Files.readAllBytes(
+            Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI())));
+
+        ObjectMapper mapper = new ObjectMapper();
+        allBigMallsDto = mapper.readValue(JSON_TEST_FILE_BIG_MALLS, BigMallsDto[].class);
     }
 
     @Test
-    void getPageMalformedURLExceptionThrowsDefaultPagetest(){
+    void getPagetest() {
+        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(httpProxy.getRequestData(any(URL.class), any(Class.class))).thenReturn(Mono.just(allBigMallsDto));
+
+        GenericResultDto<BigMallsDto> actualResult = bigMallsService.getPage(0, -1).block();
+
+//        assertEquals(allBigMallsDto.length, actualResult.getCount());
+//        assertArrayEquals(allBigMallsDto, actualResult.getResults());
+
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), any(Class.class));
+    }
+
+    @Test
+    void getPageThrowsMalformedURLExceptionTest() {
         when(config.getDs_bigmalls()).thenReturn("gibberish");
         bigMallsService.getPage(0, -1);
         verify(httpProxy, times(0)).getRequestData(any(URL.class), any(Class.class));
     }
 
     @Test
-    void getPageCircuitBreakerThrowsDefaultPagetest(){
-        assertTrue(true);
+    void getBigMallsAllActivitiesThrowsMalformedURLExceptionTest() {
+        when(config.getDs_bigmalls()).thenReturn("gibberish");
+        bigMallsService.getBigMallsAllActivities(0, -1);
+        verify(httpProxy, times(0)).getRequestData(any(URL.class), any(Class.class));
     }
+
 }
-
-		/*playerDto.setName(name);
-                PlayerDto expectedDto = new PlayerDto();
-                expectedDto.setName(expectedName);
-                when(playerRepository.existsByName(any(String.class))).thenReturn(false);
-        when(playerRepository.save(any(Player.class)))
-        .thenAnswer(i -> i.getArgument(0));
-        when(mapper.onePlayerToDto(any(Player.class))).thenReturn(expectedDto);
-
-        assertEquals(expectedName, playerService.addPlayer(playerDto).getName());
-
-        ArgumentCaptor<Player> argument = ArgumentCaptor.forClass(Player.class);
-        verify(playerRepository, times(1)).save(any(Player.class));
-        verify(mapper, times(1)).onePlayerToDto(argument.capture());
-        assertEquals(expectedName, argument.getValue().getName());*/

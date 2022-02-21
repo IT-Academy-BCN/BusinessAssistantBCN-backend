@@ -65,7 +65,7 @@ public class BigMallsService {
 		return Mono.just(genericResultDto);
 	}
 
-	public Mono<GenericResultDto<ActivityInfoDto>> bigMallsAllActivities(int offset, int limit) {
+	public Mono<GenericResultDto<ActivityInfoDto>> getBigMallsAllActivities(int offset, int limit) {
 		URL url = this.getUrl();
 		if (url == null) {
 			return getActivitiesDefaultPage();
