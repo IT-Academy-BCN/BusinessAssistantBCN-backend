@@ -2,8 +2,8 @@ package com.businessassistantbcn.login.controller;
 
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.dto.AuthenticationResponse;
+import com.businessassistantbcn.login.security.DevelopAuthenticationProvider;
 import com.businessassistantbcn.login.service.LoginService;
-import com.businessassistantbcn.login.service.TestAuthenticationProvider;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 	
 	@Autowired
-	private TestAuthenticationProvider provider;
+	private DevelopAuthenticationProvider provider;
 	
 	@Autowired
 	private LoginService loginService;

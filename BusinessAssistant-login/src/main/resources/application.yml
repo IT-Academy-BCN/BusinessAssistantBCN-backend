@@ -24,6 +24,9 @@ security:
     expiresIn: 36_000_000
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
+  testuser:
+    userName: jvicente@gmail.com
+    password: 56589pp05s
 
 logging:
   level:

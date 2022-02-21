@@ -1,6 +1,7 @@
 package com.businessassistantbcn.login.service;
 
 import com.businessassistantbcn.login.config.PropertiesConfig;
+import com.businessassistantbcn.login.security.DevelopAuthenticationProvider;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -44,7 +45,7 @@ public class LoginService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) {
 		//TODO
 		///QQQ - Warning! For development purposes only
-		return TestAuthenticationProvider
+		return DevelopAuthenticationProvider
 				.findByUserName(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Username \'" + username + "\' not found"));
 	}

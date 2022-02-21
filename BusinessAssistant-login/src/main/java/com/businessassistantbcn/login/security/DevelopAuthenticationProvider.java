@@ -1,4 +1,4 @@
-package com.businessassistantbcn.login.service;
+package com.businessassistantbcn.login.security;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,12 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.businessassistantbcn.login.config.DevelopAdminUser;
+import com.businessassistantbcn.login.service.LoginService;
+
 @SuppressWarnings("deprecation") // ¡Contraseñas sin encriptar!
 @Component
-public class TestAuthenticationProvider extends DaoAuthenticationProvider {
+public class DevelopAuthenticationProvider extends DaoAuthenticationProvider {
 	
 	@SuppressWarnings("unused") 
 	private static final List<GrantedAuthority> AUTHORITIES; // Potencialmente útil próximamente
@@ -53,8 +56,8 @@ public class TestAuthenticationProvider extends DaoAuthenticationProvider {
 	}
 	
 	@Autowired
-	public TestAuthenticationProvider(LoginService loginService) {
-		testUsers.add(new TestUser("jvicente@gmail.com", "56589pp05s", List.of("ADMIN")));
+	public DevelopAuthenticationProvider(LoginService loginService, DevelopAdminUser adminUser) {
+		testUsers.add(new TestUser(adminUser.getUserName(), adminUser.getPassword(), List.of("ADMIN")));
 		// Aquí se pueden añadir más usuarios a 'testUsers'
 		
 		super.setUserDetailsService(loginService);

@@ -24,15 +24,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8761/v1/api/test",
+					"raw": "http://localhost:8761/businessassistantbcn/api/v1/test",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8761",
 					"path": [
-						"v1",
+						"businessassistantbcn",
 						"api",
+						"v1",
 						"test"
 					]
 				}
@@ -67,15 +68,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8761/v1/api/login",
+					"raw": "http://localhost:8761/businessassistantbcn/api/v1/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8761",
 					"path": [
-						"v1",
+						"businessassistantbcn",
 						"api",
+						"v1",
 						"login"
 					]
 				}
@@ -116,15 +118,16 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8761/v1/api/login",
+					"raw": "http://localhost:8761/businessassistantbcn/api/v1/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8761",
 					"path": [
-						"v1",
+						"businessassistantbcn",
 						"api",
+						"v1",
 						"login"
 					]
 				}
@@ -160,15 +163,16 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8761/v1/api/test",
+					"raw": "http://localhost:8761/businessassistantbcn/api/v1/test",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8761",
 					"path": [
-						"v1",
+						"businessassistantbcn",
 						"api",
+						"v1",
 						"test"
 					]
 				}
