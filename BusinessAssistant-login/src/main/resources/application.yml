@@ -15,11 +15,14 @@ management:
 
 security:
   datasource:
-    signUpUrl: /v1/api/login
+    signUpUrl: /businessassistantbcn/api/v1/login
     secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
     headerString: Authorization
+    # Mind the trailing white space below!
     tokenPrefix: Bearer 
-    authorities: authorities
+    # 10 hours, expressed in milliseconds
+    expiresIn: 36_000_000
+    authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
 
 logging:

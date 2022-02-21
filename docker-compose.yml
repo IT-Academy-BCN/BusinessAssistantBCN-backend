@@ -12,13 +12,12 @@ services:
       - '8600:8600/tcp'
       - '8600:8600/udp'
 
-  #  businessassistantbcn-mydata:
-  #    build: ./
-  # image: businessassistantbcn_mydata
-  # container_name: businessassistantbcnmydata
-  # restart: "no"
-  # ports:
-  #   - "7777:8081"
+  businessassistantbcn-mydata:
+    image: babcn:mydata-v1.0-SNAPSHOT
+    container_name: mydata-v1.0-SNAPSHOT
+    restart: "no"
+    ports:
+     - "7779:8763"
   # environment:
   #   - "JAVA_OPTS=-Xms128m -Xmx512m -server"
   # logging:
@@ -27,21 +26,23 @@ services:
   #     max-size: "100k"
   #     max-file: "10"
 
-  # mysql:
-    #   container_name: mysql-master-businessassistantbcn-mydata
-    # image: mysql
-    # restart: always
-      # ports:
-      # - "3308:3306"
-      # environment:
-      # MYSQL_ROOT_PASSWORD: kIFQRsP8BRpODROvy5
-      # MYSQL_DATABASE: businessassistantbcndb
-      # MYSQL_USER: admin
-      # MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ
-      # volumes:
-      # - /home/Jonatan/projects/IntelliJ_projects/IT-Academy/BusinessAssistantBCN-backend/BusinessAssistant-mydata/src/main/resources/scripts-mysql:/home/scripts/
-      # - businessassistantbcn_db_data:/var/lib/mysql
-      # - businessassistantbcn_db_log:/var/log/mysql
+  businessassistantbcn-mysql:
+    container_name: mysql-businessassistantbcn
+    image: mysql
+    #command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: kIFQRsP8BRpODROvy5
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_DATABASE: businessassistantbcndb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ
+    volumes:
+        - /home/Jonatan/projects/IntelliJ_projects/IT-Academy/BusinessAssistantBCN-backend/BusinessAssistant-mydata/src/main/resources/scripts-mysql:/home/scripts/
+        - businessassistantbcn_db_data:/var/lib/mysql
+        - businessassistantbcn_db_log:/var/log/mysql
 
   businessassistantbcn-opendata:
     image: babcn:opendata-v1.0-SNAPSHOT
@@ -71,8 +72,8 @@ services:
       #     max-size: "100k"
       #     max-file: "10"
 
-  businessassistantbcn-usermanagement-mongodb:
-    container_name: mongodb-businessassistantbcn-usermanagement
+  businessassistantbcn-mongodb:
+    container_name: mongodb-businessassistantbcn
     image: mongo
     restart: always
     environment:
