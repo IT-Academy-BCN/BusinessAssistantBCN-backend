@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @JsonIgnoreProperties({
         "id","value","integer_value","float_value","char_value","text_value","datetime_value","option_value",/*"email_value",*/
         /*"phone_value",*//*"url_value",*/"url_visible_value","url_visible_value","url_visible_value","contact_person_value",
-        "responsible_value","icon_option_value","outstanding","description","attribute","category_name","attribute_name","attribute_type",
+        "responsible_value","icon_option_value","outstanding","description","attribute","category_id","category_name","attribute_name","attribute_type",
         "option_value_data","icon_option_value_data","responsible_title","responsible_jobtitle" })
 
 public class ContactDto {
