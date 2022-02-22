@@ -82,9 +82,7 @@ public class CommercialGalleriesService {
 
 	public Mono<GenericResultDto<ActivityInfoDto>> commercialGalleriesActivities(int offset, int limit) {
 		URL url = this.getUrl();
-		if (url == null) {
-			return getActivitiesDefaultPage();
-		}
+	
 		Mono<CommercialGalleriesDto[]> response = httpProxy.getRequestData(url, CommercialGalleriesDto[].class);
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");
 
