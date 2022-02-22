@@ -1,7 +1,7 @@
 ﻿NAME - Public Github repo
 
 Roger Torrent - https://github.com/R-Torrent
-Joel Cabatay  - https://github.com/ascii274
+Joel Cabatay  - https://github.com/jcabatay
 Suren Davidiants - https://github.com/surdav
 David Gomez - https://github.com/davidmuns
 Bernat Cócera - https://github.com/MestreLee
