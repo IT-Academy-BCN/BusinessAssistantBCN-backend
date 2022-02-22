@@ -55,12 +55,15 @@ public class UserManagementService {
 	}
 	
 	//4 Delete:/user delete user
-	public void deleteUser(long uuid) {
+	public String deleteUser(long uuid) {
 Optional<User> optionalUserManagement = userManagementRepository.findById(uuid);
 		
 		if (optionalUserManagement.isPresent()) {
 			User userManagement=optionalUserManagement.get();
 			userManagementRepository.delete(userManagement);
+			return "Usuario Borrado";
+		}else {
+			return "Usuario no encontrado";
 		}
 	}
 }
