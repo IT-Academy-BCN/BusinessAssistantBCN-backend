@@ -19,7 +19,7 @@ public class User {
     //@Id
     //private Long id;
     @Field(name="uuid")
-    private String uuid;
+    private Long uuid;
     @Field(name="email")
     private String email;
     @Field(name="password")
