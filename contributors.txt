@@ -1,7 +1,7 @@
 ﻿NAME - Public Github repo
 
 Roger Torrent - https://github.com/R-Torrent
-Joel Cabatay  - https://github.com/ascii274
+Joel Cabatay  - https://github.com/jcabatay
 Suren Davidiants - https://github.com/surdav
 David Gomez - https://github.com/davidmuns
 Bernat Cócera - https://github.com/MestreLee
@@ -16,3 +16,8 @@ José Luis Cañivano - https://github.com/daysuke1g
 Mustafa Aharrat - https://github.com/Mustafaharrat
 Laura Benito - https://github.com/Laura-bf
 Gustavo Ezequiel Martínez Pintos - https://github.com/bygeze
+Gabriel Mino - https://github.com/GabrielMino
+Valeria Lavín - https://github.com/valeriavlgc
+Asaf Laszewicki - https://github.com/Cromag82
+Ali Ojeda - https://github.com/yalipct
+Vanesa Rafols - https://github.com/Van-2010
