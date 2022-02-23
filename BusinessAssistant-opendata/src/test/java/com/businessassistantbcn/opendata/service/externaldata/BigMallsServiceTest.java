@@ -43,9 +43,7 @@ public class BigMallsServiceTest {
 
     private static String urlBigMalls;
     private static final String JSON_FILENAME_BIG_MALLS = "json/twoBigMallsForTesting.json";
-    private static String JSON_TEST_FILE_BIG_MALLS;
     private static final String JSON_FILENAME_BIG_MALLS_ACTIVITIES = "json/activitiesFromTwoBigMallsForTesting.json";
-    private static String JSON_TEST_FILE_BIG_MALLS_ACTIVITIES;
     private static ObjectMapper mapper;
     private static BigMallsDto[] twoBigMallsDto;
     private static ActivityInfoDto[] activities;
@@ -55,13 +53,13 @@ public class BigMallsServiceTest {
         urlBigMalls = "http://www.bcn.cat/tercerlloc/files/" +
             "mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json";
 
-        JSON_TEST_FILE_BIG_MALLS = Files.readAllLines(
-            Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
-            StandardCharsets.UTF_8
+        String JSON_TEST_FILE_BIG_MALLS = Files.readAllLines(
+                Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
+                StandardCharsets.UTF_8
         ).get(0);
-        JSON_TEST_FILE_BIG_MALLS_ACTIVITIES = Files.readAllLines(
-            Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS_ACTIVITIES).toURI()),
-            StandardCharsets.UTF_8
+        String JSON_TEST_FILE_BIG_MALLS_ACTIVITIES = Files.readAllLines(
+                Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS_ACTIVITIES).toURI()),
+                StandardCharsets.UTF_8
         ).get(0);
 
         mapper = new ObjectMapper();
