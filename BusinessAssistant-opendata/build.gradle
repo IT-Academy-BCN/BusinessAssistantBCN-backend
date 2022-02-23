@@ -31,6 +31,8 @@ dependencies {
     implementation 'com.jayway.jsonpath:json-path:2.6.0'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-resilience4j', version: '2.1.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.6.3'
+
     /**
      * NOTA JVR:
      * OJO con error "Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException"
@@ -43,7 +45,8 @@ dependencies {
     /**
      * Dependencias necesarias en annotation @EnableDiscoveryClient de App
      */
-    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.13'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.15'
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.15'
     implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.13'
 
 
