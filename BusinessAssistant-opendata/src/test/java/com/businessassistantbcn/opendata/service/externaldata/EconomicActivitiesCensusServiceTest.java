@@ -29,12 +29,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class EconomicActivitiesCensusServiceTest {
-/*
+
     @MockBean
     private PropertiesConfig config;
 
@@ -69,7 +68,7 @@ public class EconomicActivitiesCensusServiceTest {
 
     @Test
     void getPageTest() throws MalformedURLException, JsonProcessingException {
-        when(config.getDs_marketfairs()).thenReturn(urlEconomicActivitiesCensus);
+        when(config.getDs_economicactivitiescensus()).thenReturn(urlEconomicActivitiesCensus);
         when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class)))
             .thenReturn(Mono.just(twoEconomicActivitiesCensus));
 
@@ -83,14 +82,14 @@ public class EconomicActivitiesCensusServiceTest {
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
                 mapper.writeValueAsString(actualResult.getResults()));
 
-        verify(config, times(1)).getDs_marketfairs();
+        verify(config, times(1)).getDs_economicactivitiescensus();
         verify(httpProxy, times(1))
             .getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
     }
 
     @Test
     void getPageReturnsEconomicActivitiesCensusDefaultPageWhenMalformedURLTest() throws MalformedURLException {
-        when(config.getDs_marketfairs()).thenReturn("gibberish");
+        when(config.getDs_economicactivitiescensus()).thenReturn("gibberish");
         GenericResultDto<EconomicActivitiesCensusDto> expectedResult =
             new GenericResultDto<EconomicActivitiesCensusDto>();
         expectedResult.setInfo(0, 0, 0, new EconomicActivitiesCensusDto[0]);
@@ -100,14 +99,14 @@ public class EconomicActivitiesCensusServiceTest {
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
-        verify(config, times(1)).getDs_marketfairs();
+        verify(config, times(1)).getDs_economicactivitiescensus();
         verify(httpProxy, times(0))
             .getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
     }
 
     @Test
     void getPageReturnsEconomicActivitiesCensusDefaultPageTest() throws MalformedURLException {
-        when(config.getDs_marketfairs()).thenReturn(urlEconomicActivitiesCensus);
+        when(config.getDs_economicactivitiescensus()).thenReturn(urlEconomicActivitiesCensus);
         when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class)))
             .thenThrow(RuntimeException.class);
 
@@ -120,7 +119,7 @@ public class EconomicActivitiesCensusServiceTest {
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
-        verify(config, times(1)).getDs_marketfairs();
+        verify(config, times(1)).getDs_economicactivitiescensus();
         verify(httpProxy, times(1))
             .getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
     }
@@ -131,5 +130,4 @@ public class EconomicActivitiesCensusServiceTest {
         assertEquals(expected.getCount(), actual.getCount());
     }
 
- */
 }
