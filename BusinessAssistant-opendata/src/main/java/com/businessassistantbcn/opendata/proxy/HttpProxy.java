@@ -2,6 +2,7 @@ package com.businessassistantbcn.opendata.proxy;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelOption;
@@ -50,9 +51,10 @@ public class HttpProxy {
 
     }
     private void acceptedCodecs(ClientCodecConfigurer clientCodecConfigurer) {
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         clientCodecConfigurer.defaultCodecs().maxInMemorySize(config.getMaxBytesInMemory());
-        clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonEncoder(new ObjectMapper(), MediaType.TEXT_PLAIN));
-        clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonDecoder(new ObjectMapper(), MediaType.TEXT_PLAIN));
+        clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonEncoder(mapper, MediaType.TEXT_PLAIN));
+        clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonDecoder(mapper, MediaType.TEXT_PLAIN));
     }
 
     public <T> Mono<T> getRequestData(URL url, Class<T> clazz){
