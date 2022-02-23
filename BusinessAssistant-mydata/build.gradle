@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.6.1'
+    
 }
 
 jar {
@@ -27,6 +28,10 @@ dependencies {
 	
 	// Spring Data JPA
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.1'
+	
+	// MongoDB
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.1'
+	
 	
 	//Swagger
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
