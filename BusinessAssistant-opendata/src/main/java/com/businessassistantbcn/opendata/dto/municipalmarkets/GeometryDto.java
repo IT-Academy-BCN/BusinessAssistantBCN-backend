@@ -1,23 +1,39 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-public class GeometryDto{
-    @JsonIgnore
-    @JsonProperty("type")
-    public String getType() {
-        return this.type; }
-    public void setType(String type) {
-        this.type = type; }
-    private String type;
+import java.util.List;
 
-    @JsonProperty("coordinates")
-    public ArrayList<Double> getCoordinates() {
-        return this.coordinates; }
-    public void setCoordinates(ArrayList<Double> coordinates) {
-        this.coordinates = coordinates; }
-    private ArrayList<Double> coordinates;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Component("MunicipalMarketsGeometryDto")
+@JsonIgnoreProperties({"type"})
+
+public class GeometryDto {
+    @JsonUnwrapped
+    private List<Double> coordinates;
+
+    private CoordinateDto coordinateDto;
+
+    @JsonGetter("coordinates")
+    public CoordinateDto getCoordinates() {
+
+        coordinateDto = new CoordinateDto();
+        if(coordinates.size()>1){
+            coordinateDto.setX(coordinates.get(0));
+            coordinateDto.setY(coordinates.get(1));
+        }
+        return coordinateDto;
+    }
+
 }
