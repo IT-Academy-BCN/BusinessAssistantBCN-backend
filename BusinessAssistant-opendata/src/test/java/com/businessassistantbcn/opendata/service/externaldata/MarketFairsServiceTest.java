@@ -46,7 +46,7 @@ public class MarketFairsServiceTest {
     private MarketFairsService marketFairsService;
 
     private static String urlMarketFairs;
-    private static final String JSON_FILENAME_BIG_MALLS = "json/twoMarketFairsForTesting.json";
+    private static final String JSON_FILENAME_MARKET_FAIRS = "json/twoMarketFairsForTesting.json";
     private static ObjectMapper mapper;
     private static MarketFairsDto[] twoMarketFairsDto;
 
@@ -55,19 +55,20 @@ public class MarketFairsServiceTest {
         urlMarketFairs = "http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/" +
             "opendatabcn_mercats-centrescomercials_mercats-municipals-js.json";
 
-        String JSON_TEST_FILE_BIG_MALLS = Files.readAllLines(
-            Paths.get(MarketFairsService.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
+        String marketFairsAsString = Files.readAllLines(
+            Paths.get(MarketFairsService.class.getClassLoader().getResource(JSON_FILENAME_MARKET_FAIRS).toURI()),
             StandardCharsets.UTF_8
         ).get(0);
 
         mapper = new ObjectMapper();
-        twoMarketFairsDto = mapper.readValue(JSON_TEST_FILE_BIG_MALLS, MarketFairsDto[].class);
+        twoMarketFairsDto = mapper.readValue(marketFairsAsString, MarketFairsDto[].class);
     }
 
     @Test
     void getPageTest() throws MalformedURLException, JsonProcessingException {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class))).thenReturn(Mono.just(twoMarketFairsDto));
+        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+            .thenReturn(Mono.just(twoMarketFairsDto));
 
         GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
         expectedResult.setInfo(0, -1, twoMarketFairsDto.length, twoMarketFairsDto);

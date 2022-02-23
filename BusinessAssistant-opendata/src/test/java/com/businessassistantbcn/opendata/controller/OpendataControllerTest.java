@@ -240,7 +240,7 @@ public class OpendataControllerTest {
 	
 	@DisplayName("Opendata response -- JSON elements of economic activity codes")
 	@Test
-	public void JsonResponseTests2() {
+	public void JsonResponseTests2() throws MalformedURLException {
 		
 		final String URI_TEST = "/economic-activities-census";
 		

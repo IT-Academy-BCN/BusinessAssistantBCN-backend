@@ -256,7 +256,7 @@ public class OpendataController {
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit,
         @RequestParam Map<String, String> map
-    ) {
+    ) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return economicActivitiesCensusService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }

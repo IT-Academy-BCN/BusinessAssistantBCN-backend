@@ -53,18 +53,19 @@ public class BigMallsServiceTest {
         urlBigMalls = "http://www.bcn.cat/tercerlloc/files/" +
             "mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json";
 
-        String JSON_TEST_FILE_BIG_MALLS = Files.readAllLines(
+        String bigMallsAsString = Files.readAllLines(
                 Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
                 StandardCharsets.UTF_8
         ).get(0);
-        String JSON_TEST_FILE_BIG_MALLS_ACTIVITIES = Files.readAllLines(
-                Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS_ACTIVITIES).toURI()),
+        String bigMallsActivitiesAsString = Files.readAllLines(
+                Paths.get(BigMallsServiceTest.class.getClassLoader()
+                    .getResource(JSON_FILENAME_BIG_MALLS_ACTIVITIES).toURI()),
                 StandardCharsets.UTF_8
         ).get(0);
 
         mapper = new ObjectMapper();
-        twoBigMallsDto = mapper.readValue(JSON_TEST_FILE_BIG_MALLS, BigMallsDto[].class);
-        activities = mapper.readValue(JSON_TEST_FILE_BIG_MALLS_ACTIVITIES, ActivityInfoDto[].class);
+        twoBigMallsDto = mapper.readValue(bigMallsAsString, BigMallsDto[].class);
+        activities = mapper.readValue(bigMallsActivitiesAsString, ActivityInfoDto[].class);
     }
 
     @Test
