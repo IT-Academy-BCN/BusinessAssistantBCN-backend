@@ -8,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class AuthenticationResponse implements Serializable {
-
+	
 	private final String token;
-
+	
 }

@@ -11,7 +11,6 @@ import io.jsonwebtoken.security.SignatureException;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
@@ -40,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String authorizationHeader = request.getHeader(config.getHeaderString());
 		
 		if(authorizationHeaderIsValid(authorizationHeader)) {
-			Claims claims = validateToken(request);        	
+			Claims claims = validateToken(request);
 			
 			if(claims.getExpiration() != null && claims.get(config.getAuthoritiesClaim()) != null)
 				setUpSpringAuthentication(claims);

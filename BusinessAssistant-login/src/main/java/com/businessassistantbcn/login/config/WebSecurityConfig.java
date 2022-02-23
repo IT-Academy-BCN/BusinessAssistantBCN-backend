@@ -1,7 +1,7 @@
 package com.businessassistantbcn.login.config;
 
-import com.businessassistantbcn.login.security.DevelopAuthenticationProvider;
 import com.businessassistantbcn.login.security.JwtAuthenticationFilter;
+import com.businessassistantbcn.login.service.LoginService;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtAuthenticationFilter jwtFilter;
 	
 	@Autowired
-	private DevelopAuthenticationProvider provider;
+	private LoginService provider;
 	
 	@Autowired
 	private PropertiesConfig config;

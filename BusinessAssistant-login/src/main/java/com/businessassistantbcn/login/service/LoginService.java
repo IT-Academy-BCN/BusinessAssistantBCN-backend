@@ -1,26 +1,42 @@
 package com.businessassistantbcn.login.service;
 
+import com.businessassistantbcn.login.config.DevelopAdminUser;
 import com.businessassistantbcn.login.config.PropertiesConfig;
-import com.businessassistantbcn.login.security.DevelopAuthenticationProvider;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.crypto.spec.SecretKeySpec;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LoginService implements UserDetailsService {
+public class LoginService implements UserDetailsService, AuthenticationProvider {
 	
 	@Autowired
 	private PropertiesConfig config;
@@ -30,6 +46,7 @@ public class LoginService implements UserDetailsService {
 		long epochTime = System.currentTimeMillis();
 		byte[] bytes = config.getSecret().getBytes();
 		SignatureAlgorithm alg = SignatureAlgorithm.HS256;
+		
 		return Jwts.builder()
 			.setClaims(claims)
 			.setSubject(userDetails.getUsername())
@@ -41,13 +58,85 @@ public class LoginService implements UserDetailsService {
 			.compact();
 	}
 	
+	public String generateToken(Authentication authentication) {
+		return generateToken(loadUserByUsername(authentication.getName()));
+	}
+	
+// ***  WARNING -- For development purposes only  **
+	@SuppressWarnings("unused")
+	private static final List<GrantedAuthority> AUTHORITIES; // Potencialmente útil próximamente
+	
+	@Autowired
+	public LoginService(DevelopAdminUser adminUser) {
+		testUsers.add(new TestUser(adminUser.getUserName(), adminUser.getPassword(), List.of("ADMIN")));
+		// Aquí se pueden añadir más usuarios a 'testUsers'
+	}
+	
+	static {
+		AUTHORITIES = AuthorityUtils.commaSeparatedStringToAuthorityList(""
+				+ "ADMIN,"
+				+ "USER"
+				// Aquí se pueden añadir más credenciales separadas por comas
+				);
+	}
+	
+	// BBDD provisional
+	private static List<TestUser> testUsers = new ArrayList<>();
+	
+	// Elemento de la BBDD provisional
+	@Getter
+	@AllArgsConstructor
+	private static class TestUser {
+		
+		private String email;
+		private String password;
+		private List<String> roles;
+		
+		public boolean match(String name) {
+			return email.equals(name);
+		}
+		
+	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) {
-		//TODO
-		///QQQ - Warning! For development purposes only
-		return DevelopAuthenticationProvider
-				.findByUserName(username)
+		Function<TestUser, User> conversion = user -> {
+			List<String> auth = user.getRoles();
+			
+			return new User(user.getEmail(), user.getPassword(),
+					auth.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+		};
+		
+		return testUsers.stream()
+				.filter(u -> u.match(username)).map(conversion).findFirst()
 				.orElseThrow(() -> new UsernameNotFoundException("Username \'" + username + "\' not found"));
+	}
+	
+	private UserDetails userFound;
+	
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		Optional<String> username = Optional.ofNullable((String)authentication.getPrincipal());
+		Optional<String> password = Optional.ofNullable((String)authentication.getCredentials());
+		
+		if(credentialsMissing(username, password) || !credentialsValid(username, password))
+			throw new BadCredentialsException("Invalid credentials");
+		
+		return new UsernamePasswordAuthenticationToken(username.get(), null, userFound.getAuthorities());
+	}
+	
+	private boolean credentialsMissing(Optional<String> username, Optional<String> password) {
+		return !username.isPresent() || !password.isPresent();
+	}
+	
+	private boolean credentialsValid(Optional<String> username, Optional<String> password) { try {
+		userFound = loadUserByUsername(username.get());			// finds username...
+		return password.get().equals(userFound.getPassword());	// ...and checks the password
+	} catch(UsernameNotFoundException e) { return false; } }
+	
+	@Override
+	public boolean supports(Class<?> authentication) {
+		return authentication.equals(UsernamePasswordAuthenticationToken.class);
 	}
 	
 }

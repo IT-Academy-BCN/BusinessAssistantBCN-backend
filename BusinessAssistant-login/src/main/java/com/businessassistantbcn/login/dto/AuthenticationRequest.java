@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter @Setter
 public class AuthenticationRequest implements Serializable {
-
+	
 	private String email;
 	private String password;
-
+	
 }
