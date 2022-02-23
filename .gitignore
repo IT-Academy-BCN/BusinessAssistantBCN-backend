@@ -1,0 +1,26 @@
+        .gradle/
+        .project
+        .settings/
+        BusinessAssistant-consul/.classpath
+        BusinessAssistant-consul/.project
+        BusinessAssistant-consul/.settings/
+        BusinessAssistant-gateway/.classpath
+        BusinessAssistant-gateway/.project
+        BusinessAssistant-gateway/.settings/
+        BusinessAssistant-login/.classpath
+        BusinessAssistant-login/.project
+        BusinessAssistant-login/.settings/
+        BusinessAssistant-login/bin/
+        BusinessAssistant-mydata/.classpath
+        BusinessAssistant-mydata/.project
+        BusinessAssistant-mydata/.settings/
+        BusinessAssistant-mydata/bin/
+        BusinessAssistant-opendata/.classpath
+        BusinessAssistant-opendata/.project
+        BusinessAssistant-opendata/.settings/
+        BusinessAssistant-opendata/bin/
+        BusinessAssistant-usermanagement/.classpath
+        BusinessAssistant-usermanagement/.project
+        BusinessAssistant-usermanagement/.settings/
+        BusinessAssistant-usermanagement/bin/
+
