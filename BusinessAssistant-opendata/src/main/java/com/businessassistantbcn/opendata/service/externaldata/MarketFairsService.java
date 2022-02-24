@@ -22,9 +22,9 @@ import java.net.URL;
 
 @Service
 public class MarketFairsService {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(MarketFairsService.class);
-	
+
 	@Autowired
 	private PropertiesConfig config;
 	@Autowired
@@ -32,18 +32,15 @@ public class MarketFairsService {
 	@Autowired
 	private GenericResultDto<MarketFairsDto> genericResultDto;
 
-	private Mono<MarketFairsDto[]> getMarketFairs() throws MalformedURLException {
-		URL url = new URL(config.getDs_marketfairs());
-		return httpProxy.getRequestData(url, MarketFairsDto[].class);
-	}
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getMarketFairsDefaultPage")
 	public Mono<GenericResultDto<MarketFairsDto>>getPage(int offset, int limit) throws MalformedURLException {
-		return this.getMarketFairs().flatMap(marketFairsDtos -> {
-			MarketFairsDto[] pagedDto = JsonHelper.filterDto(marketFairsDtos, offset, limit);
-			genericResultDto.setInfo(offset, limit, marketFairsDtos.length, pagedDto);
-			return Mono.just(genericResultDto);
-		});
+		return httpProxy.getRequestData(new URL(config.getDs_marketfairs()), MarketFairsDto[].class)
+				.flatMap(marketFairsDtos -> {
+					MarketFairsDto[] pagedDto = JsonHelper.filterDto(marketFairsDtos, offset, limit);
+					genericResultDto.setInfo(offset, limit, marketFairsDtos.length, pagedDto);
+					return Mono.just(genericResultDto);
+				});
 	}
 
 	public Mono<GenericResultDto<MarketFairsDto>> getMarketFairsDefaultPage(int offset, int limit, Throwable exception) {

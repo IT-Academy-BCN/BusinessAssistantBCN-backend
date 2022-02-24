@@ -22,30 +22,27 @@ import java.net.URL;
 public class MunicipalMarketsService {
 
 	private static final Logger log = LoggerFactory.getLogger(MunicipalMarketsService.class);
-	
-    @Autowired
-    private PropertiesConfig config;
-    @Autowired
-    private HttpProxy httpProxy;
-    @Autowired
-    private GenericResultDto<MunicipalMarketsDto> genericResultDto;
 
-	private Mono<MunicipalMarketsDto[]> getMunicipalMarketsDto() throws MalformedURLException {
-		URL url = new URL(config.getDs_municipalmarkets());
-		return httpProxy.getRequestData(url, MunicipalMarketsDto[].class);
-	}
+	@Autowired
+	private PropertiesConfig config;
+	@Autowired
+	private HttpProxy httpProxy;
+	@Autowired
+	private GenericResultDto<MunicipalMarketsDto> genericResultDto;
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getMunicipalMarketsDefaultPage")
-    public Mono<GenericResultDto<MunicipalMarketsDto>> getPage(int offset, int limit) throws MalformedURLException {
-		return this.getMunicipalMarketsDto().flatMap(municipalMarketsDtos -> {
-			MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(municipalMarketsDtos, offset, limit);
-			genericResultDto.setInfo(offset, limit, municipalMarketsDtos.length, pagedDto);
-			return Mono.just(genericResultDto);
-		});
+	public Mono<GenericResultDto<MunicipalMarketsDto>> getPage(int offset, int limit) throws MalformedURLException {
+		return httpProxy
+				.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
+				.flatMap(municipalMarketsDtos -> {
+					MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(municipalMarketsDtos, offset, limit);
+					genericResultDto.setInfo(offset, limit, municipalMarketsDtos.length, pagedDto);
+					return Mono.just(genericResultDto);
+				});
 	}
 
 	public Mono<GenericResultDto<MunicipalMarketsDto>> getMunicipalMarketsDefaultPage(
-		int offset, int limit, Throwable exception
+			int offset, int limit, Throwable exception
 	) {
 		genericResultDto.setInfo(0, 0, 0, new MunicipalMarketsDto[0]);
 		return Mono.just(genericResultDto);

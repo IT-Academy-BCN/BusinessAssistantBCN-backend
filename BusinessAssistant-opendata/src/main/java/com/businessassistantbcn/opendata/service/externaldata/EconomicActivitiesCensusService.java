@@ -18,7 +18,7 @@ import java.net.URL;
 @Service
 public class EconomicActivitiesCensusService {
 
-    private static final Logger log = LoggerFactory.getLogger(EconomicActivitiesCensusService.class);
+	private static final Logger log = LoggerFactory.getLogger(EconomicActivitiesCensusService.class);
 
 	@Autowired
 	private PropertiesConfig config;
@@ -27,22 +27,20 @@ public class EconomicActivitiesCensusService {
 	@Autowired
 	private GenericResultDto<EconomicActivitiesCensusDto> genericResultDto;
 
-	private Mono<EconomicActivitiesCensusDto[]> getEconomicActivitiesCensus() throws MalformedURLException {
-		URL url = new URL(config.getDs_economicactivitiescensus());
-		return httpProxy.getRequestData(url, EconomicActivitiesCensusDto[].class);
-	}
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getEconomicActivitiesCensusDefaultPage")
 	public Mono<GenericResultDto<EconomicActivitiesCensusDto>>getPage(int offset, int limit) throws MalformedURLException {
-		return this.getEconomicActivitiesCensus().flatMap(economicActivitiesCensusDtos -> {
-			EconomicActivitiesCensusDto[] pagedDto = JsonHelper.filterDto(economicActivitiesCensusDtos, offset, limit);
-			genericResultDto.setInfo(offset, limit, economicActivitiesCensusDtos.length, pagedDto);
-			return Mono.just(genericResultDto);
-		});
+		return httpProxy
+				.getRequestData(new URL(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class)
+				.flatMap(economicActivitiesCensusDtos -> {
+					EconomicActivitiesCensusDto[] pagedDto = JsonHelper.filterDto(economicActivitiesCensusDtos, offset, limit);
+					genericResultDto.setInfo(offset, limit, economicActivitiesCensusDtos.length, pagedDto);
+					return Mono.just(genericResultDto);
+				});
 	}
 
 	public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getEconomicActivitiesCensusDefaultPage(
-		int offset, int limit, Throwable exception
+			int offset, int limit, Throwable exception
 	) {
 		genericResultDto.setInfo(0, 0, 0, new EconomicActivitiesCensusDto[0]);
 		return Mono.just(genericResultDto);
