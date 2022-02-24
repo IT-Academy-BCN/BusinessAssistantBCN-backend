@@ -192,7 +192,7 @@ public class OpendataController {
         @RequestParam(required = false) String offset,
         @ApiParam(value = "Limit", name= "Limit")
         @RequestParam(required = false)  String limit
-    ){
+    ) throws MalformedURLException {
             return municipalMarketsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
