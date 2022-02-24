@@ -1,43 +1,37 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
-import java.util.stream.Collectors;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Component("MunicipalMarketsDto")
+@JsonIgnoreProperties({"type"})
 
 public class LocationDto {
-    @JsonIgnore
-    @JsonProperty("type")
-    public String getType() {
-        return this.type;
-    }
-    public void setType(String type) {
-        this.type = type;
-    }
-    private String type;
 
-    @JsonIgnore
-    @JsonProperty("geometries")
-    public ArrayList<GeometryDto> getGeometries() {
-        return this.geometries;
-    }
-    public void setGeometries(ArrayList<GeometryDto> geometries) {
-        this.geometries = geometries;
-    }
-    private ArrayList<GeometryDto> geometries;
+    @JsonUnwrapped
+    private List<GeometryDto> geometries;
 
-    @JsonIgnore
-    @JsonProperty("location")
-    public List<ArrayList<Double>> getLocation() {
-        return getGeometries()
-                .stream()
-                .map(GeometryDto::getCoordinates)
-                .collect(Collectors.toList());
-                  }
-    private ArrayList<Double> location;
+    @JsonGetter("geometries")
+    public CoordinateDto getGeometries() {
+
+        if(geometries != null){
+            return geometries.get(0).getCoordinates();
+        }
+        return new CoordinateDto(0.0,0.0); // TODO needed default coordinate?
+    }
 
 }
-
 
