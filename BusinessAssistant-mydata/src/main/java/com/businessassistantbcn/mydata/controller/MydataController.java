@@ -1,20 +1,88 @@
 package com.businessassistantbcn.mydata.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import reactor.core.publisher.Mono;
+
+import java.util.Map;
+import org.apache.commons.lang3.math.NumberUtils;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
 
 @RestController
 @RequestMapping("/businessassistantbcn/api/v1/mydata")
 public class MydataController {
 
-    @GetMapping(value="/test")
-    @ApiOperation("Get test")
-    @ApiResponse(code = 200, message = "OK")
-    public String test() {
-        return "Hello from BusinessAssistant MyData!!!";
-    }
+//	 @Autowired
+//	 MyDataService service;
 
+	private final boolean PAGINATION_ENABLED = true;
+
+	@GetMapping(value = "/test")
+	@ApiOperation("Get test")
+	@ApiResponse(code = 200, message = "OK")
+	public String test() {
+		return "Hello from BusinessAssistant MyData!!!";
+	}
+
+	// Get Search_Result
+	@GetMapping("/mysearches/{user_uuid}/search/{search_uuid}")
+	@ApiOperation("Get a search SET 0 LIMIT -1")
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 503, message = "Service Unavailable"), })
+	public Mono<?> getAllSearches(
+			@ApiParam(value = "Offset", name = "Offset") @RequestParam(required = false) String offset,
+			@ApiParam(value = "Limit", name = "Limit") @RequestParam(required = false) String limit,
+			@PathVariable("user_uuid") String user_uuid, @PathVariable("search_uuid") String search_uuid,
+			@RequestParam Map<String, String> map) {
+
+		this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+		return null;
+
+	}
+
+
+	private void validateRequestParameters(Map<String, String> map, boolean paginationEnabled) {
+		if (!paginationEnabled && !map.keySet().isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		for (String key : map.keySet()) {
+			if (!key.equals("offset") && !key.equals("limit")) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+			}
+		}
+	}
+
+	private int getValidOffset(String offset) {
+		if (offset == null || offset.isEmpty()) {
+			return 0;
+		}
+		// NumberUtils.isDigits returns false for negative numbers
+		if (!NumberUtils.isDigits(offset)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		return Integer.parseInt(offset);
+	}
+
+	private int getValidLimit(String limit) {
+		if (limit == null || limit.isEmpty() || limit.equals("-1")) {
+			return -1;
+		}
+		// NumberUtils.isDigits returns false for negative numbers
+		if (!NumberUtils.isDigits(limit)) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		return Integer.parseInt(limit);
+	}
 }
