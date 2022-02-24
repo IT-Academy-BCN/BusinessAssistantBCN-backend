@@ -25,9 +25,9 @@ public class MydataController {
 
 //	 @Autowired
 //	 MyDataService service;
-	
+
 	private final boolean PAGINATION_ENABLED = true;
-	
+
 	@GetMapping(value = "/test")
 	@ApiOperation("Get test")
 	@ApiResponse(code = 200, message = "OK")
@@ -38,21 +38,21 @@ public class MydataController {
 	// Get Search_Result
 	@GetMapping("/mysearches/{user_uuid}/search/{search_uuid}")
 	@ApiOperation("Get a search SET 0 LIMIT -1")
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 404, message = "Not Found"),
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 503, message = "Service Unavailable"), })
 	public Mono<?> getAllSearches(
-		@ApiParam(value = "Offset", name = "Offset") @RequestParam(required = false) String offset,
-		@ApiParam(value = "Limit", name = "Limit") @RequestParam(required = false) String limit,
-		@PathVariable("user_uuid") String user_uuid, @PathVariable("search_uuid") String search_uuid,
-		@RequestParam Map<String, String> map
-		) {
-		
+			@ApiParam(value = "Offset", name = "Offset") @RequestParam(required = false) String offset,
+			@ApiParam(value = "Limit", name = "Limit") @RequestParam(required = false) String limit,
+			@PathVariable("user_uuid") String user_uuid, @PathVariable("search_uuid") String search_uuid,
+			@RequestParam Map<String, String> map) {
+
 		this.validateRequestParameters(map, this.PAGINATION_ENABLED);
 		return null;
 
-		}
+	}
 
-	
+
 	private void validateRequestParameters(Map<String, String> map, boolean paginationEnabled) {
 		if (!paginationEnabled && !map.keySet().isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
