@@ -2,11 +2,17 @@
 // insert a user
 
 db.users.insertOne({	
-	uuid: "26977eee-89f8-11ec-a8a3-0242ac120002",
-	email: "user@mail.com",
-	pwd: "abc123",
-	role: ["user","admin"]
-})
+	"uuid": "1",
+	"email": "user@mail.com",
+	"pwd": "abc123",
+	"role": "user"
+},{
+  	"uuid": "2",
+  	"email": "admii@mail.com",
+  	"pwd": "admin123",
+  	"role": "admin"
+  }
+)
 
 
 

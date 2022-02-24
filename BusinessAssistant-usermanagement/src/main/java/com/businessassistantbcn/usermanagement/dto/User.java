@@ -16,10 +16,10 @@ import javax.persistence.Transient;
 public class User {
     @Transient
     public static final String USER_SEQUENCE = "users_sequence";
-    //@Id
+    @Id
     //private Long id;
     @Field(name="uuid")
-    private String uuid;
+    private long uuid;
     @Field(name="email")
     private String email;
     @Field(name="password")
