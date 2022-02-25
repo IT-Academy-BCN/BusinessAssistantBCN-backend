@@ -15,7 +15,7 @@ public interface MySearchesRepository extends JpaRepository<Search, String>{
 	public boolean existsBySearchUuid(String searchUuid);
 	public boolean existsByUserUuid(String userUuid);
 	
-	public List<Object> findBySearchUuid(String searchUuid);
-	public List<Object> findByUserUuid(String userUuid);
+	public List<Search> findBySearchUuid(String searchUuid);
+	public List<Search> findByUserUuid(String userUuid);
 	
 }
