@@ -8,11 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface MySearchesRepository extends JpaRepository<Search, String>{
+public interface MySearchesRepository {//extends JpaRepository<Search, String>{
 	
-	public boolean existsBySearch_uuid(String search_uuid);
-	public boolean existsByUser_uuid(String user_uuid);
-	
-	public List<Search> findBySearch_uuid(String search_uuid);
-	public List<Search> findByUser_uuid(String user_uuid);
+//	public boolean existsBySearch_uuid(String search_uuid);
+//	public boolean existsByUser_uuid(String user_uuid);
+//	
+//	public List<Search> findBySearch_uuid(String search_uuid);
+//	public List<Search> findByUser_uuid(String user_uuid);
 }
