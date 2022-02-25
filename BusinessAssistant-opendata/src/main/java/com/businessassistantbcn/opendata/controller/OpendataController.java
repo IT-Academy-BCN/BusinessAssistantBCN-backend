@@ -83,7 +83,7 @@ public class OpendataController {
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
-            @RequestParam Map<String, String> map) {
+            @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
@@ -120,7 +120,7 @@ public class OpendataController {
             @RequestParam(required = false)  String limit,
             @PathVariable("district") int district,
             @RequestParam Map<String, String> map
-    ) {
+    ) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService
                 .getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
@@ -140,7 +140,7 @@ public class OpendataController {
             @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @PathVariable("activity") String activity,
-            @RequestParam Map<String, String> map) {
+            @RequestParam Map<String, String> map) throws MalformedURLException {
 
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService
