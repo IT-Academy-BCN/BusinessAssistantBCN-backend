@@ -30,11 +30,11 @@ public class Search {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(columnDefinition = "VARCHAR(36)")
-	private String search_uuid;
+	private String searchUuid;
 	private Date search_date;
 	private String search_name;
 	private String search_detail;
 	@Convert(converter = JsonNodeConverter.class)
 	private JsonNode search_result;
-	private String user_uuid;
+	private String userUuid;
 }
