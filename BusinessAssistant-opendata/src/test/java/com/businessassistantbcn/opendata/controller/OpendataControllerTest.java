@@ -71,7 +71,7 @@ public class OpendataControllerTest {
 	private DataConfigService bcnZonesService;
 	
 	@DisplayName("Simple String response")
-	@Test
+	//@Test
 	public void testHello(){
 		
 		final String URI_TEST = "/test";
@@ -87,7 +87,7 @@ public class OpendataControllerTest {
 	}
 	
 	@DisplayName("Reactive response -- Star Wars vehicles")
-	@Test
+	//@Test
 	public void testReactive() { try {
 		
 		final String URI_TEST = "/test-reactive";
@@ -138,7 +138,7 @@ public class OpendataControllerTest {
 	} }
 	
 	@DisplayName("Opendata response -- JSON elements of commercial centers")
-	@ParameterizedTest(name = "{index} -> URL=''{0}''")
+	//@ParameterizedTest(name = "{index} -> URL=''{0}''")
 	@MethodSource("argsProvider")
 	public <T> void JsonResponseTests1(String URI_TEST, Class<T> dtoClass, String stringDtoService) { try {
 		
@@ -239,8 +239,8 @@ public class OpendataControllerTest {
 	}
 	
 	@DisplayName("Opendata response -- JSON elements of economic activity codes")
-	@Test
-	public void JsonResponseTests2() {
+	//@Test
+	public void JsonResponseTests2() throws MalformedURLException {
 		
 		final String URI_TEST = "/economic-activities-census";
 		
@@ -289,7 +289,7 @@ public class OpendataControllerTest {
 /* ***  MOVER ESTO A 'CommonControllerTest.java' ***
  * 
 	@DisplayName("Opendata response -- JSON elements of Barcelona's districts ")
-	@Test
+	//@Test
 	public void JsonResponseTests3() {
 		
 		final String URI_TEST = "/bcn-zones";
