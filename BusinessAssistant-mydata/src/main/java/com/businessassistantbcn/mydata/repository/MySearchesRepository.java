@@ -17,4 +17,5 @@ public interface MySearchesRepository extends JpaRepository<Search, String>{
 	
 	public List<Object> findBySearchUuid(String searchUuid);
 	public List<Object> findByUserUuid(String userUuid);
+	
 }
