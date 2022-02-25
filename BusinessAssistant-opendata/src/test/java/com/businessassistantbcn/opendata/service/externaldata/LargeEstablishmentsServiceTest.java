@@ -111,7 +111,7 @@ public class LargeEstablishmentsServiceTest {
 	}
 	
 	@Test
-    void shoulReturnPageDefaultWhenMalformedURLTest() {
+    void shouldReturnPageDefaultWhenMalformedURL() {
 		Mockito
 			.when(propertiesConfigMock.getDs_largeestablishments())
 			.thenReturn("malformedUrl");
