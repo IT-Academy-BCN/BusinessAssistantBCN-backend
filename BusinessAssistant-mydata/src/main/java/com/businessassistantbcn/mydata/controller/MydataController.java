@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +45,14 @@ public class MydataController {
 	public String test() {
 		return "Hello from BusinessAssistant MyData!!!";
 	}
+	
+    // String payload => Payload is the data normally sent by POST or PUT request.
+    @PostMapping(value="/my-searches/{user_uuid}")
+    public Search saveSearch(@PathVariable(value="user_uuid") String user_uuid, 
+    						 @RequestBody String payload) {
+
+    	return mydataService.saveSearch(payload, user_uuid);
+    }
 	
 	/* Código Vanesa */
 	 @GetMapping("/mysearches/{useruu_id}")
