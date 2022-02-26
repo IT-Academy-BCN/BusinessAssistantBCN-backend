@@ -13,20 +13,30 @@ import org.springframework.stereotype.Service;
 import com.businessassistantbcn.mydata.dto.GenericResultDto;
 import com.businessassistantbcn.mydata.entities.Search;
 import com.businessassistantbcn.mydata.repository.MyPersonalRepository;
+import com.businessassistantbcn.mydata.repository.MySearchesRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import reactor.core.publisher.Mono;
+
 @Service
 public class MydataService {
 	/* MyPersonalRepository should be changed with MydataRepository later */
 	
-	private MyPersonalRepository searchRepo;
+	//private MyPersonalRepository searchRepo;
+	
+	//@Autowired
+	//public MydataService(MyPersonalRepository searchRepo) {
+		//this.searchRepo = searchRepo;
+	//}
+	
+	MySearchesRepository mySearchesRepo;
 	
 	@Autowired
-	public MydataService(MyPersonalRepository searchRepo) {
-		this.searchRepo = searchRepo;
+	public MydataService(MySearchesRepository mySearchesRepo) {
+		this.mySearchesRepo = mySearchesRepo;
 	}
 	
 	/*
@@ -37,7 +47,6 @@ public class MydataService {
 	 *     user_uuid of the User who's saving the search
 	 */
 	public Search saveSearch(String payload, String user_uuid) {
-		
 		// Uses ObjectMapper to read the JSON payload.
 		ObjectMapper objectMapper = new ObjectMapper();
 		
@@ -56,13 +65,13 @@ public class MydataService {
 		}
 		
 		// set user_uuid in Search.
-		search.setUser_uuid(user_uuid);
+		search.setUserUuid(user_uuid);
 		
 		// set today's date in Search
 		search.setSearch_date(new Date());
 		
 		// save the entity
-		Search saved = searchRepo.save(search);
+		Search saved = mySearchesRepo.save(search);
 		
 		return saved;
 	}
@@ -71,9 +80,9 @@ public class MydataService {
 	 * Get all searches
 	 * No support for pagination (not required?)
 	 */
-	public GenericResultDto<Search> getAllSearches() {
+	public Mono<GenericResultDto<Search>> getAllSearches(String user_uuid) {
 		// find all searches
-		List<Search> resultsList = searchRepo.findAll();
+		List<Search> resultsList = mySearchesRepo.findByUserUuid(user_uuid);
 		
 		// array to save in GenericResultDto
 		Search[] resultsArray = {};
@@ -91,16 +100,16 @@ public class MydataService {
 		result.setResults(resultsArray);
 		
 		// return the response
-		return result;
+		return Mono.just(result);
 	}
 	
 	/*
 	 * Get results of a search
 	 * Support for pagination
 	 */
-	public GenericResultDto<JsonNode> getSearchResults(String search_uuid, String user_uuid, int offset, int limit) {
+	public Mono<GenericResultDto<JsonNode>> getSearchResults(String search_uuid, String user_uuid, int offset, int limit) {
 		// Find a Search by id;
-		Optional<Search> search = searchRepo.findById(search_uuid);
+		Optional<Search> search = mySearchesRepo.findById(search_uuid);
 		
 		// If the result is empty returns null
 		if(search.isEmpty()) {
@@ -146,7 +155,7 @@ public class MydataService {
 		finalResult.setLimit(limit);
 		finalResult.setResults(lastArray);
 		
-		return finalResult;
+		return Mono.just(finalResult);
 	}
 	
 	// code modified from OpenData Json Helper

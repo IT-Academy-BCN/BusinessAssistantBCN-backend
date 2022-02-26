@@ -18,13 +18,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.businessassistantbcn.mydata.dto.GenericResultDto;
+import com.businessassistantbcn.mydata.entities.Search;
+import com.businessassistantbcn.mydata.service.MydataService;
+import com.fasterxml.jackson.databind.JsonNode;
+
 
 @RestController
 @RequestMapping("/businessassistantbcn/api/v1/mydata")
 public class MydataController {
 
-//	 @Autowired
-//	 MyDataService service;
+	 @Autowired
+	 MydataService mydataService;
+	 
+	 public MydataController() {
+		 this.mydataService = mydataService;
+	 }
 
 	private final boolean PAGINATION_ENABLED = true;
 
@@ -34,6 +43,33 @@ public class MydataController {
 	public String test() {
 		return "Hello from BusinessAssistant MyData!!!";
 	}
+	
+	/* Código Vanesa */
+	 @GetMapping("/mysearches/{useruu_id}")
+	 @ApiOperation("Get searches  SET 0 LIMIT 0")
+	 @ApiResponses({
+	    	@ApiResponse(code = 200, message = "OK"),
+	    	@ApiResponse(code = 404, message = "Not Found"),
+	    	@ApiResponse(code = 503, message = "Service Unavailable")})
+	    public Mono<GenericResultDto<Search>> getAllSearchesByUser(
+	        @ApiParam(value = "Offset", name= "Offset")
+	        @RequestParam(required = false) String offset,
+	        @ApiParam(value = "Limit", name= "Limit")
+	        @RequestParam(required = false)  String limit,
+	        @PathVariable("useruu_id") Long useruu_id,
+	        @RequestParam Map<String,String> map
+	   ){
+	        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+	        
+	        /* if mydataService.getAllSearches(useruu_id.toString());
+	         * has no data, means the user has no data or doesnt exists.
+	         * 
+	         */
+	        
+	        return mydataService.getAllSearches(useruu_id.toString());
+	         //mySearchesService
+	            //.getPageBySearches(this.getValidOffset(offset), this.getValidLimit(limit), searches);
+	    }
 
 	// Get Search_Result
 	@GetMapping("/mysearches/{user_uuid}/search/{search_uuid}")
@@ -41,15 +77,15 @@ public class MydataController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 503, message = "Service Unavailable"), })
-	public Mono<?> getAllSearches(
+	public Mono<GenericResultDto<JsonNode>> getAllSearchesResults(
 			@ApiParam(value = "Offset", name = "Offset") @RequestParam(required = false) String offset,
 			@ApiParam(value = "Limit", name = "Limit") @RequestParam(required = false) String limit,
 			@PathVariable("user_uuid") String user_uuid, @PathVariable("search_uuid") String search_uuid,
 			@RequestParam Map<String, String> map) {
+		
+		this.validateRequestParameters(map, PAGINATION_ENABLED);
 
-		this.validateRequestParameters(map, this.PAGINATION_ENABLED);
-		return null;
-
+		return mydataService.getSearchResults(search_uuid, user_uuid, getValidOffset(offset), getValidLimit(limit));
 	}
 
 
