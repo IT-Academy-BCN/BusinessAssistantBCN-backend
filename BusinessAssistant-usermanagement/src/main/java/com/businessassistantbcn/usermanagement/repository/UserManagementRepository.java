@@ -8,7 +8,7 @@ import com.businessassistantbcn.usermanagement.dto.User;
 
 @Component
 @Repository
-public interface UserManagementRepository extends MongoRepository<User,Long>{
+public interface UserManagementRepository extends MongoRepository<User,String>{
 
 }
  
