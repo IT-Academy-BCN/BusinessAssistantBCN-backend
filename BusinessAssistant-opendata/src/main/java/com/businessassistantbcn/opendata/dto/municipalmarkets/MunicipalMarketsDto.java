@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"name","web","email","phone","location","addresses",})
+@JsonPropertyOrder({"name","web","email","phone","location","addresses","activities"})
 public class MunicipalMarketsDto {
 
     @JsonIgnore
@@ -89,6 +89,8 @@ public class MunicipalMarketsDto {
     @JsonProperty("name")
     private String name;
 
+
+
     @JsonProperty("addresses")
     private List<AddressDto> addresses;
     public List<AddressDto> getAddresses() {
@@ -98,6 +100,15 @@ public class MunicipalMarketsDto {
         this.addresses=addresses;
     }
 
+    @JsonGetter("activities") // deserialize clasification_data activities
+    public List<ClassificationsDataDto> getClassifications_data() {
+        return classifications_data;
+    }
+
+    @JsonSetter("classifications_data")
+    public void setClassifications_data(List<ClassificationsDataDto> classifications_data) {
+        this.classifications_data = classifications_data;
+    }
     @JsonIgnore
     @JsonProperty("entity_types_data")
     private List<EntityTypesDataDto> entity_types_data;
