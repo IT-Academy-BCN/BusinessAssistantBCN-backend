@@ -22,4 +22,6 @@ public class ActivityInfoDto
         this.activityName = activityName;
     }
 
+	
+
 }
