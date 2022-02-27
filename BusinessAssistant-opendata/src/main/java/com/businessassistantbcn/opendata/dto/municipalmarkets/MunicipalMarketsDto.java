@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
+import com.businessassistantbcn.opendata.dto.largeestablishments.ClassificationDataDto;
 import com.fasterxml.jackson.annotation.*;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"name","web","email","phone","location","addresses",})
+@JsonPropertyOrder({"name","web","email","phone","location","addresses","activities"})
 public class MunicipalMarketsDto {
 
     @JsonIgnore
@@ -89,6 +90,16 @@ public class MunicipalMarketsDto {
     @JsonProperty("name")
     private String name;
 
+    @JsonGetter("activities") // deserialize clasification_data activities
+    public List<ClassificationDataDto> getClassifications_data() {
+        return classifications_data;
+    }
+
+    @JsonSetter("classifications_data")
+    public void setClassifications_data(List<ClassificationDataDto> classifications_data) {
+        this.classifications_data = classifications_data;
+    }
+
     @JsonProperty("addresses")
     private List<AddressDto> addresses;
     public List<AddressDto> getAddresses() {
@@ -124,7 +135,9 @@ public class MunicipalMarketsDto {
 
     @JsonIgnore
     @JsonProperty("classifications_data")
-    private List<ClassificationsDataDto> classifications_data;
+    private List<ClassificationDataDto> classifications_data;
+
+
 
     @JsonIgnore
     @JsonProperty("secondary_filters_data")
