@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bcnzones.*;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
@@ -35,12 +36,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.reactive.server.EntityExchangeResult;
+import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
 
 import reactor.core.publisher.Mono;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = OpendataController.class)
@@ -107,8 +112,7 @@ public class OpendataControllerTest {
 		vehiclesResultSW.setPrevious(null);
 		vehiclesResultSW.setResults(new StarWarsVehicleDto[]{vehicleSW});
 		
-		Mockito
-			.when(testService.getTestData())
+		when(testService.getTestData())
 			.thenReturn(Mono.just(vehiclesResultSW));
 		
 		webTestClient.get()
@@ -131,7 +135,7 @@ public class OpendataControllerTest {
 				.jsonPath(RES0 + "passengers").isEqualTo(4);
 		
 		// Verifica la llamada al método 'getTestData()'.
-		Mockito.verify(testService).getTestData();
+		verify(testService).getTestData();
 		
 	} catch(MalformedURLException e) {
 		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
@@ -181,8 +185,7 @@ public class OpendataControllerTest {
 		
 		// Intercepta la petición de ensayo, devolviendo un 'Mono' con el 'GenericResultDto<genericDto>'
 		// de un solo resultado fabricado anteriormente. 
-		Mockito
-			.when(getPage0m1.invoke(dtoService, 0, -1))
+		when(getPage0m1.invoke(dtoService, 0, -1))
 			.thenReturn(Mono.just(genericResultDTO));
 		
 		// Petición de prueba a la página web solicitando datos concretos; parámetros 'offset' y 'limit' sin
@@ -214,7 +217,7 @@ public class OpendataControllerTest {
 				.jsonPath(RES0 + "activities[0]." + "name").isEqualTo("LicenceToKill");
 		
 		// Verificación de la llamada única al método 'getPage(0,-1)' del servicio
-		getPage0m1.invoke(Mockito.verify(dtoService), 0, -1);
+		getPage0m1.invoke(verify(dtoService), 0, -1);
 		
 	} catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
 			InvocationTargetException | NoSuchFieldException e) {
@@ -256,8 +259,7 @@ public class OpendataControllerTest {
 		genericResultDTO.setLimit(1);
 		genericResultDTO.setResults(new EconomicActivitiesCensusDto[]{activitatEconomica});
 		
-		Mockito
-			.when(economicActivitiesCensusService.getPage(0,-1))
+		when(economicActivitiesCensusService.getPage(0,-1))
 			.thenReturn(Mono.just(genericResultDTO));
 		
 		webTestClient.get()
@@ -282,8 +284,36 @@ public class OpendataControllerTest {
 			.jsonPath(RES0 + "Nom_Sector_Activitat").isNotEmpty()
 			.jsonPath(RES0 + "Nom_Sector_Activitat").isEqualTo("Flamenco dancing");
 		
-		Mockito.verify(economicActivitiesCensusService).getPage(0,-1);
+		verify(economicActivitiesCensusService).getPage(0,-1);
 		
+	}
+
+	@Test
+	public void getBigMallsActivitiesTest() throws MalformedURLException {
+
+		final String URI_TEST = "/big-malls/activities";
+
+		ActivityInfoDto[] results = {new ActivityInfoDto(1L, "Activitat 1")};
+
+		GenericResultDto<ActivityInfoDto> genericResultDto = new GenericResultDto<>();
+		genericResultDto.setInfo(0, -1, 1, results);
+
+		when(bigMallsService.bigMallsAllActivities(0,-1)).thenReturn(Mono.just(genericResultDto));
+
+		webTestClient.get()
+				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST).build())
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.jsonPath("$.count").isEqualTo(1)
+				.jsonPath("$.offset").isEqualTo(0)
+				.jsonPath("$.limit").isEqualTo(-1)
+				.jsonPath(RES0 + "activityId").isEqualTo(1)
+				.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
+
+		verify(bigMallsService).bigMallsAllActivities(0,-1);
+
 	}
 	
 /* ***  MOVER ESTO A 'CommonControllerTest.java' ***
