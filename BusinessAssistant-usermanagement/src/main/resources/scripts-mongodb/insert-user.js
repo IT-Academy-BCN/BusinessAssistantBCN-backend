@@ -1,12 +1,29 @@
+// To execute a JavaScript file in mongo shell write:
+// load("myfile.js")
 
-// insert a user
+// switch to database
+use babcn-users;
 
-db.users.insertOne({	
-	uuid: "26977eee-89f8-11ec-a8a3-0242ac120002",
-	email: "user@mail.com",
-	pwd: "abc123",
-	role: ["user","admin"]
+
+// Insert a User ONLY
+db.users.insertOne({
+	"uuid": "e3549460-6f03-4688-846c-0561d9739e9d",
+	"email": "user@mail.com",
+	"password": "abc123",
+	"role": "User"
 })
 
 
-
+// OR insert User and Admin
+db.users.insert([{
+	"uuid": "e3549460-6f03-4688-846c-0561d9739e9d",
+	"email": "user@mail.com",
+	"password": "abc123",
+	"role": "User"
+},{
+  	"uuid": "88aaaeed-4790-4a2a-9f31-e86e1b949f01",
+  	"email": "admin@mail.com",
+  	"password": "admin123",
+  	"role": "Admin"
+  }]
+)

@@ -1,3 +1,7 @@
+// To execute a JavaScript file in mongo shell write:
+// load("myfile.js")
+
+
 //show databases
 //show dbs;
 // create database
