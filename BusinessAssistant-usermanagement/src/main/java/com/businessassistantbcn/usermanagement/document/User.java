@@ -14,10 +14,8 @@ import javax.persistence.Transient;
 @AllArgsConstructor
 @Document(collection="users")
 public class User {
-    @Transient
-    public static final String USER_SEQUENCE = "users_sequence";
-    //@Id
-    //private Long id;
+   
+    @Id
     @Field(name="uuid")
     private String uuid;
     @Field(name="email")
