@@ -40,6 +40,11 @@ dependencies {
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.3'
 
+    //TODO is this ok?
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.5.6'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
