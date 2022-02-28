@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.businessassistantbcn.mydata.dto.GenericResultDto;
 import com.businessassistantbcn.mydata.entities.Search;
-import com.businessassistantbcn.mydata.repository.MyPersonalRepository;
 import com.businessassistantbcn.mydata.repository.MySearchesRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
