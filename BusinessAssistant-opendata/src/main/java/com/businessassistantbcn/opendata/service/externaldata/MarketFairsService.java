@@ -36,14 +36,14 @@ public class MarketFairsService {
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getMarketFairsDefaultPage")
 	public Mono<GenericResultDto<MarketFairsDto>>getPage(int offset, int limit) throws MalformedURLException {
 		return httpProxy.getRequestData(new URL(config.getDs_marketfairs()), MarketFairsDto[].class)
-				.flatMap(marketFairsDtos -> {
-					MarketFairsDto[] pagedDto = JsonHelper.filterDto(marketFairsDtos, offset, limit);
-					genericResultDto.setInfo(offset, limit, marketFairsDtos.length, pagedDto);
-					return Mono.just(genericResultDto);
-				});
+			.flatMap(dtos -> {
+				MarketFairsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
+				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
+				return Mono.just(genericResultDto);
+			});
 	}
 
-	public Mono<GenericResultDto<MarketFairsDto>> getMarketFairsDefaultPage(int offset, int limit, Throwable exception) {
+	public Mono<GenericResultDto<MarketFairsDto>> getMarketFairsDefaultPage(Throwable exception) {
 		genericResultDto.setInfo(0, 0, 0, new MarketFairsDto[0]);
 		return Mono.just(genericResultDto);
 	}
