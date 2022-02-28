@@ -35,7 +35,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: kIFQRsP8BRpODROvy5
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      #MYSQL_ALLOW_EMPTY_PASSWORD: true
       MYSQL_DATABASE: businessassistantbcndb
       MYSQL_USER: admin
       MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ

@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.helper;
 
+import com.businessassistantbcn.opendata.service.externaldata.BigMallsServiceTest;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
@@ -28,16 +30,18 @@ public class JsonHelperTest {
 
     @BeforeAll
     public static void initialize() throws URISyntaxException, IOException{
-        JSON_TEST_FILE = new String(Files.readAllBytes(
-                Paths.get(JsonHelperTest.class.getClassLoader().getResource(JSON_FILENAME).toURI())));
+        JSON_TEST_FILE = Files.readAllLines(
+                Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME).toURI()),
+                StandardCharsets.UTF_8
+        ).get(0);
     }
 
 
     @Test
     public void deserializeToJsonNodeTest() {
         JsonNode jsonNode = JsonHelper.deserializeToJsonNode(JSON_TEST_FILE);
-        assertEquals("Centre Comercial El Corte Ingles", jsonNode.get(0).get("name").textValue());
-        assertEquals("Eixample", jsonNode.get(1).get("addresses").get(0).get("district_name").textValue());
+        assertEquals("Botiga FNAC *El Triangle", jsonNode.get(0).get("name").textValue());
+        assertEquals("Sant Andreu", jsonNode.get(1).get("addresses").get(0).get("district_name").textValue());
     }
 
     @Test

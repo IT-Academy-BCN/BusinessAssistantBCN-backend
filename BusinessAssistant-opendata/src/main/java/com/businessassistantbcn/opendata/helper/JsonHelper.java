@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.helper;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import springfox.documentation.spring.web.json.Json;
 
 
 @Component
@@ -19,7 +21,7 @@ public class JsonHelper<T> {
 	private static ObjectMapper mapper;	
 
 	static {
-		mapper = new ObjectMapper();
+		mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
 	//¿static? see https://www.baeldung.com/java-static-class-vs-singleton
