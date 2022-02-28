@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS my_searches(
   search_name VARCHAR(45) NOT NULL,
   search_detail TEXT DEFAULT NULL,
   search_result JSON,
-  PRIMARY KEY (search_uuid)
+  PRIMARY KEY (search_uuid) 
  );
+ 
  
  
