@@ -1,6 +1,9 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.6.1'
+    
+    // Allows to find mysql:mysql-connector-java
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 jar {
@@ -13,14 +16,37 @@ jar {
 
 group 'com.businessassistantbcn'
 version '1.0-SNAPSHOT'
+//sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+	runtimeOnly 'mysql:mysql-connector-java'
 
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
+	// Spring Boot Starter
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
+	
+	// H2
+	implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
+	
+	// Spring Data JPA
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.1'
+	
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.1'
+	
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '2.6.1'
+	
+	
+	//Swagger
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+		
+    //implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
+    //implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.1'
+    //implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.13'
+
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.1'
     implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.13'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
@@ -32,19 +58,20 @@ dependencies {
     // JAX-B dependencies for JDK 9+
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
-
+    
+	// Testing Dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
     testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 
-    implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     
+    // Lombok Dependency
     compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 	testCompileOnly 'org.projectlombok:lombok:1.18.22'
-	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'	
 
 }
 
