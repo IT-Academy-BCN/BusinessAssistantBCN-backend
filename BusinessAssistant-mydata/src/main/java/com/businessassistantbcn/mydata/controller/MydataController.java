@@ -47,7 +47,7 @@ public class MydataController {
 	}
 	
     // String payload => Payload is the data normally sent by POST or PUT request.
-    @PostMapping(value="/my-searches/{user_uuid}")
+    @PostMapping(value="/mysearches/{user_uuid}")
     public Search saveSearch(@PathVariable(value="user_uuid") String user_uuid, 
     						 @RequestBody String payload) {
 
@@ -55,7 +55,7 @@ public class MydataController {
     }
 	
 	/* Código Vanesa */
-	 @GetMapping("/mysearches/{useruu_id}")
+	 @GetMapping("/mysearches/{user_uuid}")
 	 @ApiOperation("Get searches  SET 0 LIMIT 0")
 	 @ApiResponses({
 	    	@ApiResponse(code = 200, message = "OK"),
@@ -66,7 +66,7 @@ public class MydataController {
 	        @RequestParam(required = false) String offset,
 	        @ApiParam(value = "Limit", name= "Limit")
 	        @RequestParam(required = false)  String limit,
-	        @PathVariable("useruu_id") Long useruu_id,
+	        @PathVariable("user_uuid") Long useruu_id,
 	        @RequestParam Map<String,String> map
 	   ){
 	        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
