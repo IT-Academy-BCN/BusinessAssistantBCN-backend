@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private LoginService provider;
 	
 	@Autowired
-	private PropertiesConfig config;
+	private SecurityConfig config;
 	
 	@Override
 	public void configure(AuthenticationManagerBuilder builder) throws Exception {

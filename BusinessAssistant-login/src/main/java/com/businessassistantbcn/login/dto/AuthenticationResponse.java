@@ -9,6 +9,8 @@ import lombok.Getter;
 @Getter
 public class AuthenticationResponse implements Serializable {
 	
+	private static final long serialVersionUID = 7765417573086420681L;
+	
 	private final String token;
 	
 }

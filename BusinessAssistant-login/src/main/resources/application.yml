@@ -28,6 +28,10 @@ security:
     userName: jvicente@gmail.com
     password: 56589pp05s
 
+url:
+  # 30 seconds, expressed in milliseconds
+  connection_timeout: 30000
+
 logging:
   level:
     root: INFO

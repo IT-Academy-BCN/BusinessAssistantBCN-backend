@@ -12,6 +12,8 @@ import lombok.Setter;
 @Getter @Setter
 public class AuthenticationRequest implements Serializable {
 	
+	private static final long serialVersionUID = 4465572141191414501L;
+	
 	private String email;
 	private String password;
 	

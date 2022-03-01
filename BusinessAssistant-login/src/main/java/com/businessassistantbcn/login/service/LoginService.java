@@ -1,7 +1,7 @@
 package com.businessassistantbcn.login.service;
 
-import com.businessassistantbcn.login.config.DevelopAdminUser;
-import com.businessassistantbcn.login.config.PropertiesConfig;
+import com.businessassistantbcn.login.config.TestUser;
+import com.businessassistantbcn.login.config.SecurityConfig;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -39,7 +39,7 @@ import org.springframework.stereotype.Service;
 public class LoginService implements UserDetailsService, AuthenticationProvider {
 	
 	@Autowired
-	private PropertiesConfig config;
+	private SecurityConfig config;
 	
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
@@ -67,8 +67,8 @@ public class LoginService implements UserDetailsService, AuthenticationProvider 
 	private static final List<GrantedAuthority> AUTHORITIES; // Potencialmente útil próximamente
 	
 	@Autowired
-	public LoginService(DevelopAdminUser adminUser) {
-		testUsers.add(new TestUser(adminUser.getUserName(), adminUser.getPassword(), List.of("ADMIN")));
+	public LoginService(TestUser adminUser) {
+		tempUsers.add(new TempUser(adminUser.getUserName(), adminUser.getPassword(), List.of("ADMIN")));
 		// Aquí se pueden añadir más usuarios a 'testUsers'
 	}
 	
@@ -81,12 +81,12 @@ public class LoginService implements UserDetailsService, AuthenticationProvider 
 	}
 	
 	// BBDD provisional
-	private static List<TestUser> testUsers = new ArrayList<>();
+	private static List<TempUser> tempUsers = new ArrayList<>();
 	
 	// Elemento de la BBDD provisional
 	@Getter
 	@AllArgsConstructor
-	private static class TestUser {
+	private static class TempUser {
 		
 		private String email;
 		private String password;
@@ -100,14 +100,14 @@ public class LoginService implements UserDetailsService, AuthenticationProvider 
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) {
-		Function<TestUser, User> conversion = user -> {
+		Function<TempUser, User> conversion = user -> {
 			List<String> auth = user.getRoles();
 			
 			return new User(user.getEmail(), user.getPassword(),
 					auth.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
 		};
 		
-		return testUsers.stream()
+		return tempUsers.stream()
 				.filter(u -> u.match(username)).map(conversion).findFirst()
 				.orElseThrow(() -> new UsernameNotFoundException("Username \'" + username + "\' not found"));
 	}
