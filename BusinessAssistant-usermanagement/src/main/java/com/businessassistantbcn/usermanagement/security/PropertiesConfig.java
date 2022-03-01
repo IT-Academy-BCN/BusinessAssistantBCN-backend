@@ -15,7 +15,6 @@ public class PropertiesConfig {
 	private String verifyUserUrl;
 	private String secret;
 	private String headerString;
-	private String tokenPrefix;
 	private String authoritiesClaim;
 	private String err;
 	

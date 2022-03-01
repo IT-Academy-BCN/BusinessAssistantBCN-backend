@@ -35,9 +35,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			String authorizationHeader = request.getHeader(config.getHeaderString());
 			if(authorizationHeaderIsValid(authorizationHeader)) {
 				Claims claims = validateToken(request);
-				if(claims.getExpiration() == null || claims.get(config.getAuthoritiesClaim()) == null) {
-					throw new UnsupportedJwtException("Missing expiration or authorities claim");
-				}
 				setUpSpringAuthentication(claims);
 			}
 			filterChain.doFilter(request, response);
