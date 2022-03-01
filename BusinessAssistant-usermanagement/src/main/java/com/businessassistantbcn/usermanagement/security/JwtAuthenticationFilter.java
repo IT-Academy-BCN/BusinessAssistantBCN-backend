@@ -22,6 +22,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Autowired
 	private PropertiesConfig config;
+
+	private final String TOKEN_PREFIX = "Bearer ";
 	
 	@Override
 	protected void doFilterInternal(
@@ -45,11 +47,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 	
 	private boolean authorizationHeaderIsValid(String authorizationHeader) {
-		return authorizationHeader != null && authorizationHeader.startsWith(config.getTokenPrefix());
+		return authorizationHeader != null && authorizationHeader.startsWith(TOKEN_PREFIX);
 	}
 	
 	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(config.getHeaderString()).replace(config.getTokenPrefix(), "");
+		String jwtToken = request.getHeader(config.getHeaderString()).replace(TOKEN_PREFIX, "").trim();
 		return Jwts.parserBuilder()
 			.setSigningKey(config.getSecret().getBytes())
 			.build()
