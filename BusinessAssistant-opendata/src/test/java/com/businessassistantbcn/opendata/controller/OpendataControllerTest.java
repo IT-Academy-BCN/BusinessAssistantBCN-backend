@@ -19,6 +19,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -71,7 +72,7 @@ public class OpendataControllerTest {
 	private DataConfigService bcnZonesService;
 	
 	@DisplayName("Simple String response")
-	//@Test
+	@Test
 	public void testHello(){
 		
 		final String URI_TEST = "/test";
@@ -87,7 +88,7 @@ public class OpendataControllerTest {
 	}
 	
 	@DisplayName("Reactive response -- Star Wars vehicles")
-	//@Test
+	@Test
 	public void testReactive() { try {
 		
 		final String URI_TEST = "/test-reactive";
@@ -237,7 +238,7 @@ public class OpendataControllerTest {
 	}
 	
 	@DisplayName("Opendata response -- JSON elements of economic activity codes")
-	//@Test
+	@Test
 	public void JsonResponseTests2() throws MalformedURLException {
 		
 		final String URI_TEST = "/economic-activities-census";
