@@ -2,13 +2,10 @@ package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.bcnzones.*;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
-import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.test.*;
 import com.businessassistantbcn.opendata.service.config.*;
 import com.businessassistantbcn.opendata.service.externaldata.*;
@@ -22,9 +19,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
