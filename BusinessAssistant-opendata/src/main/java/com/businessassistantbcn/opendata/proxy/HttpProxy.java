@@ -32,7 +32,7 @@ public class HttpProxy {
 
     private final PropertiesConfig config;
     HttpClient httpClient;
-    WebClient client;
+    public WebClient client;
 
     @Autowired
     public HttpProxy(PropertiesConfig config){
