@@ -15,12 +15,12 @@ import java.time.Duration;
 public class Resilience4JConfig {
 
     @Autowired
-    private PropertiesConfig config;
+    private ClientProperties urlConfig;
 
     @Bean
     public Customizer<Resilience4JCircuitBreakerFactory> globalCustomConfiguration() {
         TimeLimiterConfig timeLimiterConfig = TimeLimiterConfig.custom()
-                .timeoutDuration(Duration.ofMillis(config.getConnection_timeout()))
+                .timeoutDuration(Duration.ofMillis(urlConfig.getConnection_timeout()))
                 .build();
         CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()
                 .failureRateThreshold(50)
@@ -38,7 +38,7 @@ public class Resilience4JConfig {
     public Customizer<Resilience4JCircuitBreakerFactory> specificCustomConfiguration1() {
 
         TimeLimiterConfig timeLimiterConfig = TimeLimiterConfig.custom()
-                .timeoutDuration(Duration.ofMillis(config.getConnection_timeout()))
+                .timeoutDuration(Duration.ofMillis(urlConfig.getConnection_timeout()))
                 .build();
         CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()
                 .failureRateThreshold(50)
@@ -54,7 +54,7 @@ public class Resilience4JConfig {
     public Customizer<Resilience4JCircuitBreakerFactory> specificCustomConfiguration2() {
 
         TimeLimiterConfig timeLimiterConfig = TimeLimiterConfig.custom()
-                .timeoutDuration(Duration.ofMillis(config.getConnection_timeout()))
+                .timeoutDuration(Duration.ofMillis(urlConfig.getConnection_timeout()))
                 .build();
         CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()
                 .failureRateThreshold(50)

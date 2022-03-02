@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
-import com.businessassistantbcn.opendata.config.PropertiesConfig;
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
@@ -27,7 +27,7 @@ public class BigMallsService {
 	private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
 
 	@Autowired
-	private PropertiesConfig config;
+	private ClientProperties urlConfig;
 	@Autowired
 	private HttpProxy httpProxy;
 	@Autowired
@@ -36,7 +36,7 @@ public class BigMallsService {
 	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 
 	private Mono<BigMallsDto[]> getBigMalls() throws MalformedURLException {
-		URL url = new URL(config.getDs_bigmalls());
+		URL url = new URL(urlConfig.getDs_bigmalls());
 		return httpProxy.getRequestData(url, BigMallsDto[].class);
 	}
 

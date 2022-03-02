@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.service.config;
 
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import java.net.MalformedURLException;
@@ -14,13 +15,13 @@ import reactor.core.publisher.Mono;
 public class TestService {
 
     @Autowired
-    PropertiesConfig config;
+    ClientProperties urlConfig;
 
     @Autowired
     HttpProxy httpProxy;
 
     public Mono<StarWarsVehiclesResultDto> getTestData() throws MalformedURLException{
-           return httpProxy.getRequestData(new URL(config.getDs_test()), StarWarsVehiclesResultDto.class);
+           return httpProxy.getRequestData(new URL(urlConfig.getDs_test()), StarWarsVehiclesResultDto.class);
     }
 
 }

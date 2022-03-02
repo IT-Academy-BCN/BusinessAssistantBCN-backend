@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.security;
 
-import com.businessassistantbcn.opendata.config.SecurityPropertiesConfig;
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Autowired
-	private SecurityPropertiesConfig config;
+	private ClientProperties securityConfig;
 
 	private final String TOKEN_PREFIX = "Bearer ";
 	
@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		FilterChain filterChain)
 	throws IOException, ServletException {
 		try {
-			String authorizationHeader = request.getHeader(config.getHeaderString());
+			String authorizationHeader = request.getHeader(securityConfig.getHeaderString());
 			if(authorizationHeaderIsValid(authorizationHeader)) {
 				Claims claims = validateToken(request);
 				setUpSpringAuthentication(claims);
@@ -49,9 +49,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 	
 	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(config.getHeaderString()).replace(TOKEN_PREFIX, "").trim();
+		String jwtToken = request.getHeader(securityConfig.getHeaderString()).replace(TOKEN_PREFIX, "").trim();
 		return Jwts.parserBuilder()
-			.setSigningKey(config.getSecret().getBytes())
+			.setSigningKey(securityConfig.getSecret().getBytes())
 			.build()
 			.parseClaimsJws(jwtToken)
 			.getBody();
@@ -59,7 +59,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	private void setUpSpringAuthentication(Claims claims) {
 		@SuppressWarnings("unchecked")
-		List<String> authorities = (List<String>)claims.get(config.getAuthoritiesClaim());
+		List<String> authorities = (List<String>)claims.get(securityConfig.getAuthoritiesClaim());
 		
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 				claims.getSubject(), null,

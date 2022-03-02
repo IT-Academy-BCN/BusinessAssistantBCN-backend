@@ -1,24 +1,21 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
-import com.businessassistantbcn.opendata.config.PropertiesConfig;
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
-
-import java.util.Arrays;
-import java.util.function.Predicate;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.stereotype.Service;
-
 import reactor.core.publisher.Mono;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.function.Predicate;
 
 @Slf4j
 @Service
@@ -27,7 +24,7 @@ public class LargeEstablishmentsService {
 	@Autowired
 	HttpProxy httpProxy;
 	@Autowired
-	private PropertiesConfig config;
+	private ClientProperties urlConfig;
 	@Autowired
 	private GenericResultDto<LargeEstablishmentsDto> genericResultDto;
 	@Autowired
@@ -60,7 +57,7 @@ public class LargeEstablishmentsService {
 	private Mono<GenericResultDto<LargeEstablishmentsDto>> getResultDto(
 			int offset, int limit, Predicate<LargeEstablishmentsDto> dtoFilter) { try {
 		
-		Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(new URL(config.getDs_largeestablishments()),
+		Mono<LargeEstablishmentsDto[]> response = httpProxy.getRequestData(new URL(urlConfig.getDs_largeestablishments()),
 				LargeEstablishmentsDto[].class);
 		
 		CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitBreaker");

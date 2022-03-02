@@ -1,25 +1,19 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
-import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.businessassistantbcn.opendata.config.PropertiesConfig;
-
-import com.businessassistantbcn.opendata.helper.JsonHelper;
-
 import reactor.core.publisher.Mono;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 @Service
 public class CommercialGalleriesService {
@@ -30,7 +24,7 @@ public class CommercialGalleriesService {
 	HttpProxy httpProxy;
 
 	@Autowired
-	private PropertiesConfig config;
+	private ClientProperties urlConfig;
 
 	@Autowired
 	private GenericResultDto<CommercialGalleriesDto> genericResultDto;
@@ -38,7 +32,7 @@ public class CommercialGalleriesService {
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getPageDefault")
 	public Mono<GenericResultDto<CommercialGalleriesDto>> getPage(int offset, int limit) throws MalformedURLException {
 
-		return httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()), CommercialGalleriesDto[].class)
+		return httpProxy.getRequestData(new URL(urlConfig.getDs_commercialgalleries()), CommercialGalleriesDto[].class)
 				.flatMap(dto -> {
 					CommercialGalleriesDto[] filteredDto = JsonHelper.filterDto(dto, offset, limit);
 					genericResultDto.setLimit(limit);

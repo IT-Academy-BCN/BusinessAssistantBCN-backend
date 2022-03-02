@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.security;
 
-import com.businessassistantbcn.opendata.config.SecurityPropertiesConfig;
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private SecurityPropertiesConfig config;
+	private ClientProperties securityConfig;
 
 	@Autowired
 	private JwtAuthenticationFilter jwtFilter;
@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
 					throws IOException {
 					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-					response.getWriter().print(config.getErr());
+					response.getWriter().print(securityConfig.getErr());
 				}
 			}
 		);

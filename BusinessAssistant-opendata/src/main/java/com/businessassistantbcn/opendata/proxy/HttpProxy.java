@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.proxy;
 
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -30,19 +31,19 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class HttpProxy {
 
-    private final PropertiesConfig config;
+    private final ClientProperties urlConfig;
     HttpClient httpClient;
     WebClient client;
 
     @Autowired
-    public HttpProxy(PropertiesConfig config){
-        this.config = config;
+    public HttpProxy(ClientProperties urlConfig){
+        this.urlConfig = urlConfig;
         httpClient = HttpClient.create()
-                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, config.getConnection_timeout())
-                .responseTimeout(Duration.ofMillis(config.getConnection_timeout()))
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, urlConfig.getConnection_timeout())
+                .responseTimeout(Duration.ofMillis(urlConfig.getConnection_timeout()))
                 .doOnConnected(conn ->
-                        conn.addHandlerLast(new ReadTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS))
-                                .addHandlerLast(new WriteTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS)));
+                        conn.addHandlerLast(new ReadTimeoutHandler(urlConfig.getConnection_timeout(), TimeUnit.MILLISECONDS))
+                                .addHandlerLast(new WriteTimeoutHandler(urlConfig.getConnection_timeout(), TimeUnit.MILLISECONDS)));
 
         client = WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
@@ -52,7 +53,7 @@ public class HttpProxy {
     }
     private void acceptedCodecs(ClientCodecConfigurer clientCodecConfigurer) {
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        clientCodecConfigurer.defaultCodecs().maxInMemorySize(config.getMaxBytesInMemory());
+        clientCodecConfigurer.defaultCodecs().maxInMemorySize(urlConfig.getMaxBytesInMemory());
         clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonEncoder(mapper, MediaType.TEXT_PLAIN));
         clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonDecoder(mapper, MediaType.TEXT_PLAIN));
     }

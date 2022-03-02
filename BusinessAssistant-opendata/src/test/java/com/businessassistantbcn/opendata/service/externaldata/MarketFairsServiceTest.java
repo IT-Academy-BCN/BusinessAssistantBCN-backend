@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
@@ -35,8 +36,8 @@ import static org.mockito.Mockito.times;
 @SpringBootTest
 public class MarketFairsServiceTest {
 
-    @MockBean
-    private PropertiesConfig config;
+    @MockBean(name = "urlConfig")
+    private ClientProperties urlConfig;
 
     @MockBean
     private HttpProxy httpProxy;
@@ -66,7 +67,7 @@ public class MarketFairsServiceTest {
 
     @Test
     void getPageTest() throws MalformedURLException, JsonProcessingException {
-        when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
+        when(urlConfig.getDs_marketfairs()).thenReturn(urlMarketFairs);
         when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
             .thenReturn(Mono.just(twoMarketFairsDto));
 
@@ -78,13 +79,13 @@ public class MarketFairsServiceTest {
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
             mapper.writeValueAsString(actualResult.getResults()));
 
-        verify(config, times(1)).getDs_marketfairs();
+        verify(urlConfig, times(1)).getDs_marketfairs();
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
     }
 
     @Test
     void getPageReturnsMarketFairsDefaultPageWhenMalformedURLTest() throws MalformedURLException {
-        when(config.getDs_marketfairs()).thenReturn("gibberish");
+        when(urlConfig.getDs_marketfairs()).thenReturn("gibberish");
         GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
         expectedResult.setInfo(0, 0, 0, new MarketFairsDto[0]);
 
@@ -92,13 +93,13 @@ public class MarketFairsServiceTest {
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
-        verify(config, times(1)).getDs_marketfairs();
+        verify(urlConfig, times(1)).getDs_marketfairs();
         verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
     }
 
     @Test
     void getPageReturnsMarketFairsDefaultPageTest() throws MalformedURLException {
-        when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
+        when(urlConfig.getDs_marketfairs()).thenReturn(urlMarketFairs);
         when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class))).thenThrow(RuntimeException.class);
 
         GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
@@ -108,7 +109,7 @@ public class MarketFairsServiceTest {
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
-        verify(config, times(1)).getDs_marketfairs();
+        verify(urlConfig, times(1)).getDs_marketfairs();
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
     }
 

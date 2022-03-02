@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.service.config;
 
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.bcnzones.BcnZonesDto;
 import com.businessassistantbcn.opendata.dto.bcnzones.BcnZonesResponseDto;
@@ -13,10 +14,10 @@ import java.sql.Array;
 public class DataConfigService {
 
     @Autowired
-    private PropertiesConfig config;
+    private ClientProperties urlConfig;
 
     public Mono<BcnZonesResponseDto> getBcnZones(){
-        String[] districts = config.getDistricts();
+        String[] districts = urlConfig.getDistricts();
 
         BcnZonesDto[] zones = new BcnZonesDto[districts.length];
         for(int i = 1; i <= districts.length; i++ ){
