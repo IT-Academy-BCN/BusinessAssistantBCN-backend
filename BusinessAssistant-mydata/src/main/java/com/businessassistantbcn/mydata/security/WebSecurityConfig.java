@@ -1,6 +1,6 @@
 package com.businessassistantbcn.mydata.security;
 
-import com.businessassistantbcn.mydata.config.SecurityPropertiesConfig;
+import com.businessassistantbcn.mydata.config.PropertiesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private SecurityPropertiesConfig config;
+	private PropertiesConfig config;
 
 	@Autowired
 	private JwtAuthenticationFilter jwtFilter;

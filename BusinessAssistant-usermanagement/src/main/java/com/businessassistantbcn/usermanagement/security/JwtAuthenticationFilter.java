@@ -1,6 +1,6 @@
 package com.businessassistantbcn.usermanagement.security;
 
-import com.businessassistantbcn.usermanagement.config.SecurityPropertiesConfig;
+import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Autowired
-	private SecurityPropertiesConfig config;
+	private PropertiesConfig config;
 
 	private final String TOKEN_PREFIX = "Bearer ";
 	

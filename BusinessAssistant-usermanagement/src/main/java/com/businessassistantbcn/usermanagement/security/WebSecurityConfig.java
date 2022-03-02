@@ -1,6 +1,6 @@
 package com.businessassistantbcn.usermanagement.security;
 
-import com.businessassistantbcn.usermanagement.config.SecurityPropertiesConfig;
+import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
 import com.businessassistantbcn.usermanagement.document.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private SecurityPropertiesConfig config;
+	private PropertiesConfig config;
 
 	@Autowired
 	private JwtAuthenticationFilter jwtFilter;
