@@ -22,7 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.businessassistantbcn.mydata.dto.GenericResultDto;
 import com.businessassistantbcn.mydata.entities.Search;
-import com.businessassistantbcn.mydata.service.MydataService;
+import com.businessassistantbcn.mydata.service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 
 
@@ -30,11 +30,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 @RequestMapping("/businessassistantbcn/api/v1/mydata")
 public class MydataController {
 
-	 @Autowired
-	 MydataService mydataService;
+	 UserService userService;
 	 
-	 public MydataController() {
-		 this.mydataService = mydataService;
+	 @Autowired
+	 public MydataController(UserService userService) {
+		 this.userService = userService;
 	 }
 
 	private final boolean PAGINATION_ENABLED = true;
@@ -51,10 +51,10 @@ public class MydataController {
     public Search saveSearch(@PathVariable(value="user_uuid") String user_uuid, 
     						 @RequestBody String payload) {
 
-    	return mydataService.saveSearch(payload, user_uuid);
+    	return userService.saveSearch(payload, user_uuid);
     }
 	
-	/* Código Vanesa */
+	/* Cï¿½digo Vanesa */
 	 @GetMapping("/mysearches/{user_uuid}")
 	 @ApiOperation("Get searches  SET 0 LIMIT 0")
 	 @ApiResponses({
@@ -66,7 +66,7 @@ public class MydataController {
 	        @RequestParam(required = false) String offset,
 	        @ApiParam(value = "Limit", name= "Limit")
 	        @RequestParam(required = false)  String limit,
-	        @PathVariable("user_uuid") Long useruu_id,
+	        @PathVariable("user_uuid") String user_uuid,
 	        @RequestParam Map<String,String> map
 	   ){
 	        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -76,7 +76,7 @@ public class MydataController {
 	         * 
 	         */
 	        
-	        return mydataService.getAllSearches(useruu_id.toString());
+	        return userService.getAllSearches(user_uuid);
 	         //mySearchesService
 	            //.getPageBySearches(this.getValidOffset(offset), this.getValidLimit(limit), searches);
 	    }
@@ -95,7 +95,7 @@ public class MydataController {
 		
 		this.validateRequestParameters(map, PAGINATION_ENABLED);
 
-		return mydataService.getSearchResults(search_uuid, user_uuid, getValidOffset(offset), getValidLimit(limit));
+		return userService.getSearchResults(search_uuid, user_uuid, getValidOffset(offset), getValidLimit(limit));
 	}
 
 
