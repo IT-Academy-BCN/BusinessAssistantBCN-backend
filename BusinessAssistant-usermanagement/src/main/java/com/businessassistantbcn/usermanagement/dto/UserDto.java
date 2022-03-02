@@ -1,4 +1,6 @@
 package com.businessassistantbcn.usermanagement.dto;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
@@ -9,15 +11,15 @@ public class UserDto {
     
     private String email;
     
-    private String role;
+    private List<String> roles;
     
     public UserDto() {}
 
-	public UserDto(String uuid, String email, String role) {
+	public UserDto(String uuid, String email, List<String> role) {
 		super();
 		this.uuid = uuid;
 		this.email = email;
-		this.role = role;
+		this.roles = roles;
 	}
     
 
@@ -42,14 +44,14 @@ public class UserDto {
 	}
 
     
-    @JsonGetter("role")
-	public String getRole() {
-		return role;
+    @JsonGetter("roles")
+	public List<String> getRoles() {
+		return roles;
 	}
 
-    @JsonSetter("role")
-	public void setRole(String role) {
-		this.role = role;
+    @JsonSetter("roles")
+	public void setRoles(List<String> role) {
+		this.roles = roles;
 	}
 
 }
