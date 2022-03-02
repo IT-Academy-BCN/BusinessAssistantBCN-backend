@@ -33,7 +33,7 @@ public class HttpProxy {
 
     private final ClientProperties urlConfig;
     HttpClient httpClient;
-    WebClient client;
+    public WebClient client;
 
     @Autowired
     public HttpProxy(ClientProperties urlConfig){

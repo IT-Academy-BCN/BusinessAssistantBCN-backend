@@ -36,4 +36,10 @@ public class ClassificationDataDto {
     public String getFullPath() {
         return fullPath;
     }
+
+
+    public ClassificationDataDto(Long id,String name){//Is used Only for OpendataControllerTest
+        this.id=id;
+        this.name=name;
+    }
 }

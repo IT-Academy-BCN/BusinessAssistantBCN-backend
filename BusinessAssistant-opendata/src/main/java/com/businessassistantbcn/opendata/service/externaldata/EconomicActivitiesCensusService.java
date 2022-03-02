@@ -1,6 +1,7 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.ClientProperties;
+import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
@@ -27,21 +28,18 @@ public class EconomicActivitiesCensusService {
 	@Autowired
 	private GenericResultDto<EconomicActivitiesCensusDto> genericResultDto;
 
-
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getEconomicActivitiesCensusDefaultPage")
 	public Mono<GenericResultDto<EconomicActivitiesCensusDto>>getPage(int offset, int limit) throws MalformedURLException {
 		return httpProxy
-				.getRequestData(new URL(urlConfig.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class)
-				.flatMap(economicActivitiesCensusDtos -> {
-					EconomicActivitiesCensusDto[] pagedDto = JsonHelper.filterDto(economicActivitiesCensusDtos, offset, limit);
-					genericResultDto.setInfo(offset, limit, economicActivitiesCensusDtos.length, pagedDto);
-					return Mono.just(genericResultDto);
-				});
+			.getRequestData(new URL(urlConfig.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class)
+			.flatMap(dtos -> {
+				EconomicActivitiesCensusDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
+				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
+				return Mono.just(genericResultDto);
+			});
 	}
 
-	public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getEconomicActivitiesCensusDefaultPage(
-			int offset, int limit, Throwable exception
-	) {
+	public Mono<GenericResultDto<EconomicActivitiesCensusDto>> getEconomicActivitiesCensusDefaultPage(Throwable exception) {
 		genericResultDto.setInfo(0, 0, 0, new EconomicActivitiesCensusDto[0]);
 		return Mono.just(genericResultDto);
 	}
