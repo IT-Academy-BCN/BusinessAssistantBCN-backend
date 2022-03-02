@@ -46,7 +46,7 @@ public class EconomicActivitiesCensusServiceTest {
     private EconomicActivitiesCensusService economicActivitiesCensusService;
 
     private static String urlEconomicActivitiesCensus;
-    private static final String JSON_FILENAME_ECONOMIC_CENSUS_ACTIVITIES = "json/twoEconomicActivitiesCensusForTesting.json";
+    private static final String JSON_FILENAME_ECONOMIC_CENSUS = "json/twoEconomicActivitiesCensusForTesting.json";
     private static ObjectMapper mapper;
     private static EconomicActivitiesCensusDto[] twoEconomicActivitiesCensus;
 
@@ -57,9 +57,9 @@ public class EconomicActivitiesCensusServiceTest {
             "download/2019_censcomercialbcn_class_act.json";
 
         String economicActivitiesCensusAsString = Files.readAllLines(
-                Paths.get(EconomicActivitiesCensusService.class.getClassLoader()
-                    .getResource(JSON_FILENAME_ECONOMIC_CENSUS_ACTIVITIES).toURI()),
-                StandardCharsets.UTF_8
+            Paths.get(EconomicActivitiesCensusService.class.getClassLoader()
+                .getResource(JSON_FILENAME_ECONOMIC_CENSUS).toURI()),
+            StandardCharsets.UTF_8
         ).get(0);
 
         mapper = new ObjectMapper();

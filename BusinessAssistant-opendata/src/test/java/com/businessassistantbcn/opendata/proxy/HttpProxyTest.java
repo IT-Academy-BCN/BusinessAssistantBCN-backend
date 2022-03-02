@@ -1,5 +1,6 @@
-package com.businessassistantbcn.opendata.helper;
+package com.businessassistantbcn.opendata.proxy;
 
+import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 
@@ -22,6 +23,11 @@ import org.springframework.web.reactive.function.client.WebClientRequestExceptio
 import reactor.core.publisher.Mono;
 
 import reactor.netty.http.client.HttpClient;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -49,5 +55,16 @@ public class HttpProxyTest {
 							response.createException().flatMap(Mono::error))
 						.block());
 	}
-	
+
+	@Test
+	void getRequestDataTest() throws MalformedURLException {
+		URL url = new URL("http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/" +
+				"opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json");
+
+		BigMallsDto[] bigMalls = httpProxy.getRequestData(url, BigMallsDto[].class).block();
+
+		assertEquals(28, bigMalls.length);
+		assertEquals(43326348, bigMalls[0].getClassifications_data().get(0).getId());
+	}
+
 }
