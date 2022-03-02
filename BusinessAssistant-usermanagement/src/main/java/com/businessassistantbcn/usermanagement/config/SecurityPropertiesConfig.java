@@ -1,4 +1,4 @@
-package com.businessassistantbcn.usermanagement.security;
+package com.businessassistantbcn.usermanagement.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties
 @ConfigurationProperties("security.datasource")
 @Getter @Setter
-public class PropertiesConfig {
+public class SecurityPropertiesConfig {
 
-	private String verifyUserUrl;
 	private String secret;
 	private String headerString;
 	private String authoritiesClaim;

@@ -1,7 +1,6 @@
-package com.businessassistantbcn.usermanagement.security;
+package com.businessassistantbcn.mydata.security;
 
-import com.businessassistantbcn.usermanagement.config.SecurityPropertiesConfig;
-import com.businessassistantbcn.usermanagement.document.Role;
+import com.businessassistantbcn.mydata.config.SecurityPropertiesConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -33,8 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/businessassistantbcn/api/v1/usermanagement/test")
-				.hasAuthority(Role.ADMIN.toString());
+			.antMatchers(HttpMethod.GET, "/businessassistantbcn/api/v1/mydata/test")
+				.hasAuthority("ADMIN");
 		//http.authorizeRequests().anyRequest().authenticated();
 		http.exceptionHandling().authenticationEntryPoint(
 			new BasicAuthenticationEntryPoint() {

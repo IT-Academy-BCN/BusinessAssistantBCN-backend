@@ -1,6 +1,6 @@
-package com.businessassistantbcn.usermanagement.security;
+package com.businessassistantbcn.opendata.security;
 
-import com.businessassistantbcn.usermanagement.config.SecurityPropertiesConfig;
+import com.businessassistantbcn.opendata.config.SecurityPropertiesConfig;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;

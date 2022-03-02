@@ -23,7 +23,6 @@ springfox:
 
 security:
   datasource:
-    verifyUserUrl: /businessassistantbcn/api/v1/usermanagement/verify_user
     secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
     headerString: Authorization
     authoritiesClaim: authorities

@@ -16,6 +16,13 @@ springfox:
   documentation:
     auto-startup: false
 
+security:
+  datasource:
+    secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
+    headerString: Authorization
+    authoritiesClaim: authorities
+    err: Auth Error, Token Unavailable
+
 server:
   port: 8762
 
