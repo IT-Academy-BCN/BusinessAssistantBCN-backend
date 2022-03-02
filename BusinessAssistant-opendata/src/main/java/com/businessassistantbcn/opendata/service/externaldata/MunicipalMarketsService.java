@@ -33,17 +33,15 @@ public class MunicipalMarketsService {
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getMunicipalMarketsDefaultPage")
 	public Mono<GenericResultDto<MunicipalMarketsDto>> getPage(int offset, int limit) throws MalformedURLException {
 		return httpProxy
-				.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
-				.flatMap(municipalMarketsDtos -> {
-					MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(municipalMarketsDtos, offset, limit);
-					genericResultDto.setInfo(offset, limit, municipalMarketsDtos.length, pagedDto);
-					return Mono.just(genericResultDto);
-				});
+			.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
+			.flatMap(dtos -> {
+				MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
+				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
+				return Mono.just(genericResultDto);
+			});
 	}
 
-	public Mono<GenericResultDto<MunicipalMarketsDto>> getMunicipalMarketsDefaultPage(
-			int offset, int limit, Throwable exception
-	) {
+	public Mono<GenericResultDto<MunicipalMarketsDto>> getMunicipalMarketsDefaultPage(Throwable exception) {
 		genericResultDto.setInfo(0, 0, 0, new MunicipalMarketsDto[0]);
 		return Mono.just(genericResultDto);
 	}
