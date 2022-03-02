@@ -1,7 +1,6 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.ClientProperties;
-import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

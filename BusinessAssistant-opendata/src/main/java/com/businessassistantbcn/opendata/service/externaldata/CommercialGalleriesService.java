@@ -1,7 +1,6 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.ClientProperties;
-import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;

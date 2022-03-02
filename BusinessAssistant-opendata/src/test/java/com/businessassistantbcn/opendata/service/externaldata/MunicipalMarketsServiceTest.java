@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
-import com.businessassistantbcn.opendata.config.PropertiesConfig;
+import com.businessassistantbcn.opendata.config.ClientProperties;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -34,8 +34,8 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class MunicipalMarketsServiceTest {
 
-    @MockBean
-    private PropertiesConfig config;
+    @MockBean(name = "urlConfig")
+    private ClientProperties config;
 
     @MockBean
     private HttpProxy httpProxy;

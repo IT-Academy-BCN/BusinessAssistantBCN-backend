@@ -6,40 +6,29 @@ import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
-import com.businessassistantbcn.opendata.dto.test.*;
-import com.businessassistantbcn.opendata.service.config.*;
+import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
+import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
+import com.businessassistantbcn.opendata.service.config.DataConfigService;
+import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import org.mockito.Mockito;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.reactive.server.EntityExchangeResult;
-import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
-
 import reactor.core.publisher.Mono;
+
+import java.lang.reflect.*;
+import java.net.MalformedURLException;
+import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
