@@ -65,6 +65,8 @@ dependencies {
     implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.6.1'
 
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+
 
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
