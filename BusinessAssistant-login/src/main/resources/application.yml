@@ -25,8 +25,11 @@ security:
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
   testuser:
-    userName: jvicente@gmail.com
+    email: jvicente@gmail.com
     password: 56589pp05s
+  superuser:
+    email: uebermensch@zarathustra.com
+    roles: [SUPERUSER]
 
 url:
   # 30 seconds, expressed in milliseconds

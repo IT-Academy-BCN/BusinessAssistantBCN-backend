@@ -1,6 +1,8 @@
 package com.businessassistantbcn.login.proxy;
 
 import com.businessassistantbcn.login.config.ProxyConfig;
+import com.businessassistantbcn.login.config.SecurityConfig;
+import com.businessassistantbcn.login.dto.AuthenticationRequest;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,11 +30,15 @@ import reactor.netty.http.client.HttpClient;
 @Component
 public class HttpProxy {
 	
+	@Autowired
+	private SecurityConfig secConfig;
+	
 	private HttpClient httpClient;
 	private WebClient webClient;
 	
 	@Autowired
 	public HttpProxy(ProxyConfig config) {
+		
 		httpClient = HttpClient.create()
 			.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, Integer.valueOf(config.getConnection_timeout()))
 			.responseTimeout(Duration.ofMillis((long)config.getConnection_timeout()));
@@ -49,19 +55,13 @@ public class HttpProxy {
 		clientCodecConfigurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder(mapper, MediaType.APPLICATION_JSON));
 	}
 	
-//	public <T> Mono<T> getRequestData(URL url, Class<T> clazz) {
-//		return webClient.method(HttpMethod.GET)
-//				.uri(URI.create(url.toString()))
-//				.retrieve()
-//				.bodyToMono(clazz);
-//	}
-	
-//	public <T> Mono<T> postRequestData(URL url, Class<T> clazz, String jwt) {
-//		return webClient.method(HttpMethod.POST)
-//				.uri(URI.create(url.toString()))
-//				.header("token", jwt)
-//				.retrieve()
-//				.bodyToMono(clazz);
-//	}
+	public <T> Mono<T> getRequestData(URL url, String jwt, AuthenticationRequest request, Class<T> clazz) {
+		return webClient.method(HttpMethod.GET)
+				.uri(URI.create(url.toString()))
+				.header(secConfig.getHeaderString(), jwt)
+				.bodyValue(request)
+				.retrieve()
+				.bodyToMono(clazz);
+	}
 	
 }

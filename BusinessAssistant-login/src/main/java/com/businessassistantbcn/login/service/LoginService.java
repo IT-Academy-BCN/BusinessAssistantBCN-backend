@@ -1,24 +1,24 @@
 package com.businessassistantbcn.login.service;
 
-import com.businessassistantbcn.login.config.TestUser;
 import com.businessassistantbcn.login.config.SecurityConfig;
+import com.businessassistantbcn.login.config.SuperUser;
+import com.businessassistantbcn.login.dto.AuthenticationRequest;
+import com.businessassistantbcn.login.dto.UserDto;
+import com.businessassistantbcn.login.proxy.HttpProxy;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import java.util.ArrayList;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.crypto.spec.SecretKeySpec;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -29,19 +29,25 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import reactor.core.publisher.Mono;
+
 @Service
-public class LoginService implements UserDetailsService, AuthenticationProvider {
+public class LoginService implements AuthenticationProvider {
 	
 	@Autowired
 	private SecurityConfig config;
 	
-	public String generateToken(UserDetails userDetails) {
+	@Autowired
+	private HttpProxy httpProxy;
+	
+	@Autowired
+	public LoginService(SuperUser superUserData) {
+		superUser = new UserDto(superUserData.getEmail(), superUserData.getRoles());
+	}
+	
+	private String generateToken(UserDto userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		long epochTime = System.currentTimeMillis();
 		byte[] bytes = config.getSecret().getBytes();
@@ -49,90 +55,62 @@ public class LoginService implements UserDetailsService, AuthenticationProvider 
 		
 		return Jwts.builder()
 			.setClaims(claims)
-			.setSubject(userDetails.getUsername())
-			.claim(config.getAuthoritiesClaim(),
-					AuthorityUtils.authorityListToSet(userDetails.getAuthorities()))
+			.setSubject(userDetails.getEmail())
+			.claim(config.getAuthoritiesClaim(), AuthorityUtils.authorityListToSet(
+					conversionStringAuthorities(userDetails.getRoles())))
 			.setIssuedAt(new Date(epochTime))
 			.setExpiration(new Date(epochTime + config.getExpiresIn()))
 			.signWith(new SecretKeySpec(bytes, alg.getJcaName()), alg)
 			.compact();
 	}
 	
-	public String generateToken(Authentication authentication) {
-		return generateToken(loadUserByUsername(authentication.getName()));
+	public String generateToken() {
+		return generateToken(userFound);
 	}
 	
-// ***  WARNING -- For development purposes only  **
-	@SuppressWarnings("unused")
-	private static final List<GrantedAuthority> AUTHORITIES; // Potencialmente útil próximamente
-	
-	@Autowired
-	public LoginService(TestUser adminUser) {
-		tempUsers.add(new TempUser(adminUser.getUserName(), adminUser.getPassword(), List.of("ADMIN")));
-		// Aquí se pueden añadir más usuarios a 'testUsers'
+	private List<GrantedAuthority> conversionStringAuthorities(List<String> roles) {
+		return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}
 	
-	static {
-		AUTHORITIES = AuthorityUtils.commaSeparatedStringToAuthorityList(""
-				+ "ADMIN,"
-				+ "USER"
-				// Aquí se pueden añadir más credenciales separadas por comas
-				);
-	}
+	private final String userManagementEndpoint = "http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user";
+	private final UserDto superUser;
 	
-	// BBDD provisional
-	private static List<TempUser> tempUsers = new ArrayList<>();
-	
-	// Elemento de la BBDD provisional
-	@Getter
-	@AllArgsConstructor
-	private static class TempUser {
+	private Mono<UserDto> loadUser(AuthenticationRequest request) { try {
+		String jwt = generateToken(superUser);
 		
-		private String email;
-		private String password;
-		private List<String> roles;
-		
-		public boolean match(String name) {
-			return email.equals(name);
-		}
-		
-	}
+		return httpProxy.getRequestData(new URL(userManagementEndpoint), jwt, request, UserDto.class);
+	} catch(MalformedURLException e) {
+		return Mono.error(e);
+	} }
 	
-	@Override
-	public UserDetails loadUserByUsername(String username) {
-		Function<TempUser, User> conversion = user -> {
-			List<String> auth = user.getRoles();
-			
-			return new User(user.getEmail(), user.getPassword(),
-					auth.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-		};
-		
-		return tempUsers.stream()
-				.filter(u -> u.match(username)).map(conversion).findFirst()
-				.orElseThrow(() -> new UsernameNotFoundException("Username \'" + username + "\' not found"));
-	}
-	
-	private UserDetails userFound;
+	private UserDto userFound;
 	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		Optional<String> username = Optional.ofNullable((String)authentication.getPrincipal());
-		Optional<String> password = Optional.ofNullable((String)authentication.getCredentials());
+		return authenticate(new AuthenticationRequest(
+				(String)authentication.getPrincipal(), (String)authentication.getCredentials()));
+	}
+	
+	public Authentication authenticate(AuthenticationRequest request) throws AuthenticationException {
+		Optional<String> username = Optional.ofNullable((String)request.getEmail());
+		Optional<String> password = Optional.ofNullable((String)request.getPassword());
 		
-		if(credentialsMissing(username, password) || !credentialsValid(username, password))
+		if(credentialsMissing(username, password) || !credentialsValid(request))
 			throw new BadCredentialsException("Invalid credentials");
 		
-		return new UsernamePasswordAuthenticationToken(username.get(), null, userFound.getAuthorities());
+		return new UsernamePasswordAuthenticationToken(username.get(), null,
+				conversionStringAuthorities(userFound.getRoles()));
 	}
 	
 	private boolean credentialsMissing(Optional<String> username, Optional<String> password) {
 		return !username.isPresent() || !password.isPresent();
 	}
 	
-	private boolean credentialsValid(Optional<String> username, Optional<String> password) { try {
-		userFound = loadUserByUsername(username.get());			// finds username...
-		return password.get().equals(userFound.getPassword());	// ...and checks the password
-	} catch(UsernameNotFoundException e) { return false; } }
+	private boolean credentialsValid(AuthenticationRequest request) {
+		loadUser(request).subscribe(user -> userFound = user, t -> userFound = null);
+		
+		return userFound != null;
+	}
 	
 	@Override
 	public boolean supports(Class<?> authentication) {
