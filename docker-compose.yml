@@ -48,6 +48,8 @@ services:
     image: babcn:opendata-v1.0-SNAPSHOT
     container_name: opendata-v1.0-SNAPSHOT
     restart: "no"
+    networks:
+      - consul
     ports:
       - "7777:8762"
     #environment:
