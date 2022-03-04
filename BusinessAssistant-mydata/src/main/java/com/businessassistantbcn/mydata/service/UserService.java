@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.businessassistantbcn.mydata.dto.GenericResultDto;
+import com.businessassistantbcn.mydata.dto.SavedSearchResponseDto;
 import com.businessassistantbcn.mydata.entities.Search;
+import com.businessassistantbcn.mydata.helper.DtoHelper;
+import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.businessassistantbcn.mydata.repository.MySearchesRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import reactor.core.publisher.Mono;
 
@@ -29,43 +29,16 @@ public class UserService {
 		this.mySearchesRepo = mySearchesRepo;
 	}
 	
-	/*
-	 * Save a Search
-	 *  -> String payload (Dynamic Json Object)
-	 *     dynamic: means I don't know if the format is gonna be always the same
-	 *  -> String user_uuid
-	 *     user_uuid of the User who's saving the search
-	 */
-	public Search saveSearch(String payload, String user_uuid) {
-		// Uses ObjectMapper to read the JSON payload.
-		ObjectMapper objectMapper = new ObjectMapper();
-		
-		// Creates a Search entity
-		Search search = new Search();
-		
-		try {
-			// Read payload value and map it to Search
-			search = objectMapper.readValue(payload, Search.class);
-		} catch (JsonMappingException e) {
-			// Needs to be checked (throw to controller?)
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// Needs to be checked (throw to controller?)
-			e.printStackTrace();
-		}
-		
-		// set user_uuid in Search.
+	public SavedSearchResponseDto saveSearch(String jsonSearch, String user_uuid) {
+		Search search = JsonHelper.jsonToEntity(jsonSearch);
 		search.setUserUuid(user_uuid);
-		
-		// set today's date in Search
 		search.setSearchDate(new Date());
-		
-		// save the entity
-		Search saved = mySearchesRepo.save(search);
-		
-		return saved;
-	}
 	
+		Search savedSearch = mySearchesRepo.save(search);
+		
+		return DtoHelper.mapSearchToSearchResponseDto(savedSearch);
+	}
+
 	/* 
 	 * Get all searches
 	 * No support for pagination (not required?)
@@ -113,7 +86,7 @@ public class UserService {
 		JsonNode searchResult = null;
 		
 		// Save the results of the search
-		searchResult = isSearch.getSearch_result();
+		searchResult = isSearch.getSearchResult();
 		
 		// Get the value of the property results
 		JsonNode results = searchResult.findValue("results");

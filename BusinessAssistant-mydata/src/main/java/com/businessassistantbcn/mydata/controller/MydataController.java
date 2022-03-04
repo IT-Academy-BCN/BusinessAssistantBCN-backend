@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.businessassistantbcn.mydata.dto.GenericResultDto;
-import com.businessassistantbcn.mydata.entities.Search;
+import com.businessassistantbcn.mydata.dto.SavedSearchResponseDto;
 import com.businessassistantbcn.mydata.service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -48,7 +48,7 @@ public class MydataController {
 	
     // String payload => Payload is the data normally sent by POST or PUT request.
     @PostMapping(value="/mysearches/{user_uuid}")
-    public Search saveSearch(@PathVariable(value="user_uuid") String user_uuid, 
+    public SavedSearchResponseDto saveSearch(@PathVariable(value="user_uuid") String user_uuid, 
     						 @RequestBody String payload) {
 
     	return userService.saveSearch(payload, user_uuid);
