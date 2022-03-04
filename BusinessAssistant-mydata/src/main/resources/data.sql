@@ -1,10 +1,6 @@
-INSERT INTO MY_SEARCHES (search_uuid, user_uuid, search_date, search_name, search_detail, search_result) VALUES ('searchuuid', 'useruuid', '2022-3-3', 'searchname', 'searchdetail','[{"clave": "valor"}]');
- 
- 
-/*
 INSERT INTO my_searches (search_uuid,user_uuid,search_date,search_name,search_detail, search_result)
 VALUES
-  ('49E7DD6D-A774-CC81-C2B6-ED223E872397','B6727887-5068-ABF7-952A-B31B56262AFC','10/10/2021','Arcu Vivamus Incorporated','commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies',
+  ("49E7DD6D-A774-CC81-C2B6-ED223E872397","B6727887-5068-ABF7-952A-B31B56262AFC","10/10/2021","Arcu Vivamus Incorporated","commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies",
   	'[
         {
             "name": "Groupe Zannier Espanya",
@@ -1838,5 +1834,3 @@ VALUES
 		}
 		]'
 	);
-    
-    */
