@@ -1,15 +1,20 @@
 package com.businessassistantbcn.usermanagement.dto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+@Data
+@Document(collection = "users")
 public class UserDto {
-	
-    
-    private String uuid;
-    
-    private String email;
-    
-    private String role;
+
+	@Field(name="uuid")
+	private String uuid;
+	@Field(name="email")
+	private String email;
+	@Field(name="role")
+	private String role;
     
     public UserDto() {}
 
