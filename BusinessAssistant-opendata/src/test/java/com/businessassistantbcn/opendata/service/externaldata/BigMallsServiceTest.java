@@ -89,14 +89,7 @@ public class BigMallsServiceTest {
     @Test
     void getPageReturnsBigMallsDefaultPageWhenMalformedURLTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn("gibberish");
-        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
-        expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
-
-        GenericResultDto<BigMallsDto> actualResult = bigMallsService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_bigmalls();
+        this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
         verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
 
@@ -104,15 +97,7 @@ public class BigMallsServiceTest {
     void getPageReturnsBigMallsDefaultPageTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
-
-        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
-        expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
-
-        GenericResultDto<BigMallsDto> actualResult = bigMallsService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_bigmalls();
+        this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
 
@@ -121,15 +106,7 @@ public class BigMallsServiceTest {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
             .thenReturn(Mono.error(new RuntimeException()));
-
-        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
-        expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
-
-        GenericResultDto<BigMallsDto> actualResult = bigMallsService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_bigmalls();
+        this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
 
@@ -153,14 +130,7 @@ public class BigMallsServiceTest {
     @Test
     void getBigMallsAllActivitiesReturnsBigMallsDefaultPageWhenMalformedURLTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn("gibberish");
-        GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
-        expectedResult.setInfo(0, 0, 0, new ActivityInfoDto[0]);
-
-        GenericResultDto<ActivityInfoDto> actualResult = bigMallsService.bigMallsAllActivities(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_bigmalls();
+        this.returnsActivitiesDefaultPage(bigMallsService.bigMallsAllActivities(0, -1).block());
         verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
 
@@ -168,15 +138,7 @@ public class BigMallsServiceTest {
     void getBigMallsAllActivitiesReturnsActivitiesDefaultPageTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
-
-        GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
-        expectedResult.setInfo(0, 0, 0, new ActivityInfoDto[0]);
-
-        GenericResultDto<ActivityInfoDto> actualResult = bigMallsService.bigMallsAllActivities(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_bigmalls();
+        this.returnsActivitiesDefaultPage(bigMallsService.bigMallsAllActivities(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
 
@@ -184,6 +146,26 @@ public class BigMallsServiceTest {
         assertEquals(expected.getOffset(), actual.getOffset());
         assertEquals(expected.getLimit(), actual.getLimit());
         assertEquals(expected.getCount(), actual.getCount());
+    }
+
+    private void returnsBigMallsDefaultPage(GenericResultDto<BigMallsDto> actualResult) {
+        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
+        expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
+
+        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
+
+        verify(config, times(1)).getDs_bigmalls();
+    }
+
+    private void returnsActivitiesDefaultPage(GenericResultDto<ActivityInfoDto> actualResult) {
+        GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
+        expectedResult.setInfo(0, 0, 0, new ActivityInfoDto[0]);
+
+        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
+
+        verify(config, times(1)).getDs_bigmalls();
     }
 
 }
