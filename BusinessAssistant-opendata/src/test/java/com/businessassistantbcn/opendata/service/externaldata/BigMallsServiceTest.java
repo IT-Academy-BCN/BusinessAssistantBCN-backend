@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
@@ -102,7 +103,24 @@ public class BigMallsServiceTest {
     @Test
     void getPageReturnsBigMallsDefaultPageTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
-        when(httpProxy.getRequestData(any(URL.class), any(Class.class))).thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
+
+        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
+        expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
+
+        GenericResultDto<BigMallsDto> actualResult = bigMallsService.getPage(0, -1).block();
+        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
+
+        verify(config, times(1)).getDs_bigmalls();
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+    }
+
+    @Test
+    void getPageReturnsBigMallsDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+            .thenReturn(Mono.error(new RuntimeException()));
 
         GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
         expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);

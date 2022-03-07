@@ -5,7 +5,6 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -43,7 +42,9 @@ public class BigMallsService {
 				BigMallsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
 				return Mono.just(genericResultDto);
-			});
+			})
+			// Change the RuntimeException for a custom exception
+			.onErrorResume(e -> this.getBigMallsDefaultPage(new RuntimeException()));
 	}
 
 	public Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage(Throwable exception) {
