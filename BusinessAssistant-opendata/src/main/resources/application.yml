@@ -7,11 +7,11 @@ spring:
     consul:
       host: localhost
       port: 8500 #puerto HTTP del agente
-      #config:
-        #enabled: true
+      config:
+        enabled: true
       discovery:
         enabled: true
-        #register: true
+        register: true
         instanceId: ${spring.application.name}:${random.value}
         port: 8762 #puerto del servicio
         #prefer-ip-address: true
