@@ -1,12 +1,14 @@
 package com.businessassistantbcn.usermanagement.dto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @Document(collection = "users")
+@Builder
 public class UserDto {
 
 	@Field(name="uuid")
