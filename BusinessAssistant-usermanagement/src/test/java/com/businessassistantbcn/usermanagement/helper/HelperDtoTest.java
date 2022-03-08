@@ -10,22 +10,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.businessassistantbcn.usermanagement.config.SpringMongoDBTestConfiguration;
 import com.businessassistantbcn.usermanagement.document.Role;
 import com.businessassistantbcn.usermanagement.document.User;
 import com.businessassistantbcn.usermanagement.dto.UserCreationDto;
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 
+
 @ExtendWith(SpringExtension.class)
-//This context config will be applied when it's done. 
-//@ContextConfiguration(classes = {SpringMongoDBTestConfiguration.class})
-@DataMongoTest(excludeAutoConfiguration = EmbeddedMongoAutoConfiguration.class)
+@ContextConfiguration(classes = { SpringMongoDBTestConfiguration.class })
+@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+
 public class HelperDtoTest {
 	
     @MockBean
@@ -40,7 +40,7 @@ public class HelperDtoTest {
      
     @Test
     public void test_convertToUser() {
-    rolesString = new ArrayList();
+    rolesString = new ArrayList<String>();
     rolesString.add("ADMIN");
     rolesString.add("USER");
     userDto = new UserDto("7e10fe51-772e-441f-874d-1c03dee79ad9", 
@@ -59,7 +59,7 @@ public class HelperDtoTest {
     
     @Test
     public void test_convertToDto() {
-    roles = new ArrayList();
+    roles = new ArrayList<Role>();
     
     roles.add(Role.ADMIN);
     roles.add(Role.USER);
@@ -78,7 +78,7 @@ public class HelperDtoTest {
     
     @Test
     public void test_convertToUserFromCreationDto() {
-    rolesString = new ArrayList();
+    rolesString = new ArrayList<String>();
     rolesString.add("ADMIN");
     rolesString.add("USER");
     userCreationDto = new UserCreationDto("user@Dto.es", "1234");
@@ -94,7 +94,7 @@ public class HelperDtoTest {
     
     @Test
     public void test_convertToUserRoles() {
-    rolesString = new ArrayList();
+    rolesString = new ArrayList<String>();
     rolesString.add("USER"); 
     rolesString.add("ADMIN");
     UserDto userDto = new UserDto("7e10fe51-772e-441f-874d-1c03dee79ad9", 
@@ -102,7 +102,7 @@ public class HelperDtoTest {
     User user = new User("7e10fe51-772e-441f-874d-1c03dee79ad9", 
                          "user@Dto.es", "1234", null);
     
-    roles = new ArrayList();
+    roles = new ArrayList<Role>();
     roles.add(Role.USER);
     roles.add(Role.ADMIN);   
 
@@ -113,7 +113,7 @@ public class HelperDtoTest {
 	
     @Test
 	public void test_convertToUserDtoRoles() {   	
-    roles = new ArrayList();
+    roles = new ArrayList<Role>();
     roles.add(Role.USER); 
     roles.add(Role.ADMIN);
     
@@ -123,7 +123,7 @@ public class HelperDtoTest {
     UserDto userDto = new UserDto("7e10fe51-772e-441f-874d-1c03dee79ad9", 
                                   "user@Dto.es", null);
     
-    rolesString = new ArrayList();
+    rolesString = new ArrayList<String>();
     rolesString.add("USER");
     rolesString.add("ADMIN");   
 

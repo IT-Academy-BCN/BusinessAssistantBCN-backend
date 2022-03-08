@@ -15,7 +15,7 @@ import com.businessassistantbcn.usermanagement.document.Role;
 @Component
 public class HelperDto {
 	
-	//No se utilizará porque no se almacenan usuarios sin password.	
+	//No se utilizar porque no se almacenan usuarios sin password.	
 	public User convertToUser (UserDto userDto) {
 		User user = new User();
 		List<Role> roles; 

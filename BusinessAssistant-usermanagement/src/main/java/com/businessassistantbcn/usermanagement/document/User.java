@@ -29,7 +29,6 @@ public class User {
     @Field(name="role")
     private List<Role> roles;
 
-    
     public User() {}
 
 
