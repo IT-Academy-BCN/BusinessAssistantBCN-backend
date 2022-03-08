@@ -1,6 +1,6 @@
 package com.businessassistantbcn.usermanagement.helper;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -108,7 +108,7 @@ public class HelperDtoTest {
 
     when(helperDto.convertToUserRoles(rolesString)).thenReturn(roles);
    
-    assertEquals(roles,  helperDto.convertToUserRoles(rolesString));   
+    assertEquals(roles, helperDto.convertToUserRoles(rolesString));   
 	}
 	
     @Test
@@ -131,9 +131,4 @@ public class HelperDtoTest {
    
     assertEquals(rolesString,  helperDto.convertToUserDtoRoles(roles));			
 	}
-    
-    	
-	
-	
-
 }
