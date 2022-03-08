@@ -5,6 +5,7 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.ClassificationDataDto;
+import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -35,40 +36,37 @@ public class BigMallsService {
 	@Autowired
 	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 
-	private Mono<BigMallsDto[]> getBigMalls() throws MalformedURLException {
-		URL url = new URL(config.getDs_bigmalls());
-		return httpProxy.getRequestData(url, BigMallsDto[].class);
-	}
-
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getBigMallsDefaultPage")
 	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) throws MalformedURLException {
-		return this.getBigMalls().flatMap(bigMallsDto -> {
-			BigMallsDto[] pagedDto = JsonHelper.filterDto(bigMallsDto, offset, limit);
-			genericResultDto.setInfo(offset, limit, bigMallsDto.length, pagedDto);
-			return Mono.just(genericResultDto);
-		});
+		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
+			.flatMap(dtos -> {
+				BigMallsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
+				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
+				return Mono.just(genericResultDto);
+			});
 	}
 
-	public Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage(int offset, int limit, Throwable exception) {
+	public Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage(Throwable exception) {
 		genericResultDto.setInfo(0, 0, 0, new BigMallsDto[0]);
 		return Mono.just(genericResultDto);
 	}
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getActivitiesDefaultPage")
 	public Mono<GenericResultDto<ActivityInfoDto>> bigMallsAllActivities(int offset, int limit) throws MalformedURLException {
-		return this.getBigMalls().flatMap(bigMallsDto -> {
-			List<ActivityInfoDto> listFullPathFiltered = this.getListWithoutInvalidFullPaths(bigMallsDto);
-			List<ActivityInfoDto> listActivityInfoDto = this.getListWithoutRepeatedNames(listFullPathFiltered);
-			ActivityInfoDto[] activityInfoDto =
-				listActivityInfoDto.toArray(new ActivityInfoDto[listActivityInfoDto.size()]);
+		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
+			.flatMap(bigMallsDto -> {
+				List<ActivityInfoDto> listFullPathFiltered = this.getListWithoutInvalidFullPaths(bigMallsDto);
+				List<ActivityInfoDto> listActivityInfoDto = this.getListWithoutRepeatedNames(listFullPathFiltered);
+				ActivityInfoDto[] activityInfoDto =
+					listActivityInfoDto.toArray(new ActivityInfoDto[listActivityInfoDto.size()]);
 
-			ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
-			genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
-			return Mono.just(genericActivityResultDto);
-		});
+				ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
+				genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
+				return Mono.just(genericActivityResultDto);
+			});
 	}
 
-	public Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage(int offset, int limit, Throwable exception) {
+	public Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage(Throwable exception) {
 		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 		return Mono.just(genericActivityResultDto);
 	}
