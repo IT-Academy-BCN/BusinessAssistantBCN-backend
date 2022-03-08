@@ -5,8 +5,8 @@ services:
     image: consul
     container_name: consul-server1
     restart: always
-    #networks:
-    #  - consul
+    networks:
+      - consul-net
     ports:
       - '8500:8500'
       - '8600:8600/tcp'
@@ -49,7 +49,7 @@ services:
     container_name: opendata-v1.0-SNAPSHOT
     restart: "no"
     networks:
-      - consul
+      - consul-net
     ports:
       - "7777:8762"
     #environment:
@@ -102,6 +102,6 @@ volumes:
     portainer_data:
 
 networks:
-  consul:
+  consul-net:
     driver:
       bridge
