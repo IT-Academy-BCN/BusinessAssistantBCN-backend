@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"name","web","email","phone","location","addresses",})
+@JsonPropertyOrder({"name","web","email","phone","activity","addresses",})
 public class MunicipalMarketsDto {
 
     @JsonIgnore
@@ -25,33 +25,45 @@ public class MunicipalMarketsDto {
     private String suffix;
 
     @JsonProperty("web")
-    private List<String> web;
-    public List<String> getWeb() {
-        return getValues()
-                .stream()
-                .filter(t -> t.getUrl_value()!=null)
-                .map(ValueDto::getUrl_value)
-                .collect(Collectors.toList());
+    private String web;
+
+    public String getWeb() {
+        try {
+            List<String> z = getValues()
+                    .stream()
+                    .filter(t -> t.getEmail_value() != null)
+                    .map(ValueDto::getEmail_value)
+                    .collect(Collectors.toList());
+            return z.get(0);
+        }catch (Exception e){
+            return "Null";
+        }
     }
 
     @JsonProperty("email")
-    private List<String> email;
-    public List<String> getEmail() {
-        return getValues()
-                .stream()
-                .filter(t -> t.getEmail_value()!=null)
-                .map(ValueDto::getEmail_value)
-                .collect(Collectors.toList());
+    private String email;
+    public String getEmail() {
+        try {
+            List<String> z = getValues()
+                    .stream()
+                    .filter(t -> t.getEmail_value() != null)
+                    .map(ValueDto::getEmail_value)
+                    .collect(Collectors.toList());
+            return z.get(0);
+        }catch (Exception e){
+            return "Null";
+        }
     }
 
     @JsonProperty("phone")
-    private List<String> phone;
-    public List<String> getPhone() {
-        return getValues()
+    private String phone;
+    public String getPhone() {
+        List<String>z= getValues()
                 .stream()
                 .filter(t->"Telèfons".equals(t.getCategory_name()))
                 .map(ValueDto::getValue)
                 .collect(Collectors.toList());
+        return z.get(0);
     }
 
     @JsonIgnore
@@ -122,9 +134,20 @@ public class MunicipalMarketsDto {
     @JsonProperty("to_relationships")
     private List<ToRelationshipDto> to_relationships;
 
-    @JsonIgnore
-    @JsonProperty("classifications_data")
-    private List<ClassificationsDataDto> classifications_data;
+    @JsonProperty("activity")
+    private List<ClassificationsDataDto> classificationsData;
+
+    public String getClassificationsData() {
+        List<String>z=classificationsData.stream()
+                .map(t-> t.getName())
+
+                .collect(Collectors.toList());
+        return z.get(0);
+    }
+
+    public void setClassifications_data(List<ClassificationsDataDto>classificationsData){
+        this.classificationsData=classificationsData;
+    }
 
     @JsonIgnore
     @JsonProperty("secondary_filters_data")
@@ -154,7 +177,7 @@ public class MunicipalMarketsDto {
     @JsonProperty("geo_epgs_23031")
     private GeoEpgs23031Dto geo_epgs_23031;
 
-    @JsonAlias({"geo_epgs_4326", "location"})
+   // @JsonAlias({"geo_epgs_4326", "location"})
     @JsonProperty("location")
     private GeoEpgs4326Dto location;
 

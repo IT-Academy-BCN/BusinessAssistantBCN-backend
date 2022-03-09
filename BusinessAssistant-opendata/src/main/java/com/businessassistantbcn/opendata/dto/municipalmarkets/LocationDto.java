@@ -28,15 +28,16 @@ public class LocationDto {
     }
     private ArrayList<GeometryDto> geometries;
 
-    @JsonIgnore
-    @JsonProperty("location")
-    public List<ArrayList<Double>> getLocation() {
-        return getGeometries()
+    //@JsonIgnore
+    @JsonProperty("location") // Que no sea una array
+    public String  getLocation() {
+        List<ArrayList<Double>> d= getGeometries()
                 .stream()
                 .map(GeometryDto::getCoordinates)
                 .collect(Collectors.toList());
-                  }
-    private ArrayList<Double> location;
+        return "x:"+d.get(0).get(0)+ " y:"+d.get(0).get(1);
+    }
+    private String  location;
 
 }
 
