@@ -263,7 +263,7 @@ public class AddressDto {
     }
     private Object roadtype_id;
 
-    //@JsonIgnore <-Cambio
+    
     @JsonProperty("location")
     public LocationDto getLocation() {
         return this.location;
