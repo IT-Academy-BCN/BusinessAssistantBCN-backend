@@ -10,7 +10,7 @@ import com.businessassistantbcn.mydata.entities.Search;
 
 @Repository
 @Transactional
-public interface MySearchesRepository extends JpaRepository<Search, String>{
+public interface MySearchesRepository extends JpaRepository<Search, String> {
 	
 	public boolean existsBySearchUuid(String searchUuid);
 	public boolean existsByUserUuid(String userUuid);
