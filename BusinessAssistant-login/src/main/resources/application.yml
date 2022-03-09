@@ -27,6 +27,7 @@ security:
   testuser:
     email: jvicente@gmail.com
     password: 56589pp05s
+    roles: [ADMIN]
   superuser:
     email: uebermensch@zarathustra.com
     roles: [SUPERUSER]

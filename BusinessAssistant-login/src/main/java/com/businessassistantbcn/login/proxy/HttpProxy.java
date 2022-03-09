@@ -33,8 +33,8 @@ public class HttpProxy {
 	@Autowired
 	private SecurityConfig secConfig;
 	
-	private HttpClient httpClient;
-	private WebClient webClient;
+	public HttpClient httpClient;
+	public WebClient webClient;
 	
 	@Autowired
 	public HttpProxy(ProxyConfig config) {

@@ -1,7 +1,7 @@
 package com.businessassistantbcn.login.service;
 
 import com.businessassistantbcn.login.config.SecurityConfig;
-import com.businessassistantbcn.login.config.SuperUser;
+import com.businessassistantbcn.login.config.SuperUserConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.dto.UserDto;
 import com.businessassistantbcn.login.proxy.HttpProxy;
@@ -43,11 +43,12 @@ public class LoginService implements AuthenticationProvider {
 	private HttpProxy httpProxy;
 	
 	@Autowired
-	public LoginService(SuperUser superUserData) {
+	public LoginService(SuperUserConfig superUserData) {
 		superUser = new UserDto(superUserData.getEmail(), superUserData.getRoles());
 	}
 	
-	private String generateToken(UserDto userDetails) {
+	// JSON Web Token generator
+	public String generateToken(UserDto userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		long epochTime = System.currentTimeMillis();
 		byte[] bytes = config.getSecret().getBytes();
@@ -72,10 +73,11 @@ public class LoginService implements AuthenticationProvider {
 		return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}
 	
+	// Database liaison
 	private final String userManagementEndpoint = "http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user";
 	private final UserDto superUser;
 	
-	private Mono<UserDto> loadUser(AuthenticationRequest request) { try {
+	public Mono<UserDto> loadUser(AuthenticationRequest request) { try {
 		String jwt = generateToken(superUser);
 		
 		return httpProxy.getRequestData(new URL(userManagementEndpoint), jwt, request, UserDto.class);
@@ -85,6 +87,7 @@ public class LoginService implements AuthenticationProvider {
 	
 	private UserDto userFound;
 	
+	// Authentication provider
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		return authenticate(new AuthenticationRequest(

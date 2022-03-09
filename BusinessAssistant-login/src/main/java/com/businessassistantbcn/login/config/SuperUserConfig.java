@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties("security.superuser")
 @Getter @Setter
-public class SuperUser {
+public class SuperUserConfig {
 	
 	private String email;
 	private List<String> roles;
