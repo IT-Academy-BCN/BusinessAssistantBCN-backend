@@ -28,8 +28,8 @@ public class LocationDto {
     }
     private ArrayList<GeometryDto> geometries;
 
-    //@JsonIgnore
-    @JsonProperty("location") // Que no sea una array
+
+    @JsonProperty("location")
     public String  getLocation() {
         List<ArrayList<Double>> d= getGeometries()
                 .stream()

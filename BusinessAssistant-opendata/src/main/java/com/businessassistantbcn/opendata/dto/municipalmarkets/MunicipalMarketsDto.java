@@ -177,7 +177,8 @@ public class MunicipalMarketsDto {
     @JsonProperty("geo_epgs_23031")
     private GeoEpgs23031Dto geo_epgs_23031;
 
-   // @JsonAlias({"geo_epgs_4326", "location"})
+    @JsonIgnore
+    @JsonAlias({"geo_epgs_4326", "location"})
     @JsonProperty("location")
     private GeoEpgs4326Dto location;
 
