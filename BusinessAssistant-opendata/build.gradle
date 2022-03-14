@@ -33,8 +33,9 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-resilience4j', version: '2.1.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.6.3'
 
+   // implementation 'org.springframework.cloud:spring-cloud-starter-consul-config:3.1.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.0'
-    //implementation 'org.springframework.cloud:spring-cloud-starter-consul-config:3.1.0'
+    //implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.1.0'
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'
     implementation group: 'org.springframework', name: 'spring-context', version: '5.3.15'
     implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.15'
