@@ -6,9 +6,9 @@ spring:
   cloud:
     consul:
       #CAUTION: for development purposes only (start with Gradle's command bootRun).
-      #host: localhost
+      host: localhost
       #Docker start requires container_name att as hostname
-      host: consul-server1
+      #host: consul-server1
       port: 8500 #puerto HTTP del agente
       config:
         enabled: true
