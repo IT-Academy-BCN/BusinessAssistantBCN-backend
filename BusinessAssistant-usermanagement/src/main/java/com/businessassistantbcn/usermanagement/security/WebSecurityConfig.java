@@ -32,10 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-		http.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/businessassistantbcn/api/v1/usermanagement/test")
-				.hasAuthority(Role.ADMIN.toString());
-		//http.authorizeRequests().anyRequest().authenticated();
+		http.authorizeRequests().anyRequest().authenticated();
 		http.exceptionHandling().authenticationEntryPoint(
 			new BasicAuthenticationEntryPoint() {
 				@Override
