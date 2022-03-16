@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -38,6 +39,11 @@ public class SpringMongoDBTestConfiguration {
                 .applyConnectionString(new ConnectionString(env.getProperty("spring.data.mongodb.uri") ))
                 .codecRegistry(codecRegistry)
                 .build());
+    }
+
+    @Bean
+    public MongoTemplate mongoTemplate() throws Exception {
+        return new MongoTemplate(mongoClient(), env.getProperty("spring.data.mongodb.database"));
     }
 
 

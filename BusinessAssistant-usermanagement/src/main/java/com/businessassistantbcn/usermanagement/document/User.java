@@ -2,16 +2,19 @@ package com.businessassistantbcn.usermanagement.document;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 @Document(collection="users")
 public class User {
     @Transient
@@ -25,7 +28,7 @@ public class User {
     @Field(name="password")
     private String password;
     @Field(name="role")
-    private Role role;
+    private List<Role> roles;
 
 
 

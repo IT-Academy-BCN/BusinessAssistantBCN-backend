@@ -1,7 +1,7 @@
 package com.businessassistantbcn.usermanagement.controller;
 
-import com.businessassistantbcn.usermanagement.dto.UserDto;
-import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
+import com.businessassistantbcn.usermanagement.document.User;
+import com.businessassistantbcn.usermanagement.repository.IUserManagementRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 public class UserManagementController {
 
     @Autowired
-    UserManagementRepository userManagementRepository;
+    IUserManagementRepository iUserManagementRepository;
 
 
     @GetMapping(value="/test")
@@ -29,7 +29,7 @@ public class UserManagementController {
     @ApiOperation("Get get-users")
     @ApiResponse(code = 200, message = "OK")
     @GetMapping(value="/get-users")
-    public List<UserDto> getUser(){
-        return userManagementRepository.findAll();
+    public List<User> getUser(){
+        return iUserManagementRepository.findAll();
     }
 }
