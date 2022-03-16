@@ -5,22 +5,12 @@ spring:
     enabled: true
   cloud:
     consul:
-      #CAUTION: for development purposes only (start with Gradle's command bootRun).
-      host: localhost
-      #Docker start requires container_name att as hostname
-      #host: consul-server1
-      port: 8500 #puerto HTTP del agente
-      config:
-        enabled: true
+      host: 172.17.0.3
+      port: 8500
       discovery:
-        enabled: true
-        register: true
-        instanceId: ${spring.application.name}:${random.value}
-        port: 8762 #puerto del servicio
+        port: 8762
         prefer-ip-address: true
-        healthCheckPath: ${management.server.servlet.context-path}/health
-        healthCheckInterval: 15s
-
+        healthCheckPath: /health
 # OJO bug afecta a Swagger
 springfox:
   documentation:
