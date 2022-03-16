@@ -5,9 +5,11 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.ClassificationDataDto;
+import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +45,13 @@ public class BigMallsService {
 				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
 				return Mono.just(genericResultDto);
 			})
-			// Change the RuntimeException for a custom exception
-			.onErrorResume(e -> this.getBigMallsDefaultPage(new RuntimeException()));
+			.onErrorResume(e -> this.getBigMallsDefaultPage(new OpendataUnavailableServiceException()));
 	}
 
 	public Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage(Throwable exception) {
+		if (exception instanceof OpendataUnavailableServiceException) {
+			log.error("Opendata is down");
+		}
 		genericResultDto.setInfo(0, 0, 0, new BigMallsDto[0]);
 		return Mono.just(genericResultDto);
 	}
