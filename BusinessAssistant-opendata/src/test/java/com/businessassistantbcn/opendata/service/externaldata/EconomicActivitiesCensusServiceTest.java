@@ -5,6 +5,7 @@ import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -61,7 +62,7 @@ public class EconomicActivitiesCensusServiceTest {
             StandardCharsets.UTF_8
         ).get(0);
 
-        mapper = new ObjectMapper();
+        mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         twoEconomicActivitiesCensus =
             mapper.readValue(economicActivitiesCensusAsString, EconomicActivitiesCensusDto[].class);
     }
