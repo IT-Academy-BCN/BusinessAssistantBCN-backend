@@ -25,7 +25,7 @@ public class JsonHelperTest {
 
     private final Integer[] intArray = new Integer[]{0, 1, 2, 3, 4};
     private static final Logger log = LoggerFactory.getLogger(JsonHelperTest.class);
-    static final String JSON_FILENAME = "json/twoBigMallsForTesting.json";
+    static final String JSON_FILENAME = "json/twoBigMallsForJsonHelper.json";
     static String JSON_TEST_FILE;
 
     @BeforeAll
