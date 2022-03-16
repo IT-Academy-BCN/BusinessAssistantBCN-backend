@@ -2,6 +2,7 @@ package com.businessassistantbcn.opendata.proxy;
 
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
+import com.businessassistantbcn.opendata.service.externaldata.BigMallsServiceTest;
 import io.netty.channel.ChannelOption;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -21,7 +22,11 @@ import reactor.netty.http.client.HttpClient;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,11 +42,18 @@ public class HttpProxyTest {
 
 	public static MockWebServer mockWebServer;
 	private URL url;
+	private static final String JSON_FILENAME_BIG_MALLS = "json/twoBigMallsForTesting.json";
+	private static String bigMallsAsString;
 
 	@BeforeAll
-	static void setUp() throws IOException {
+	static void setUp() throws IOException, URISyntaxException {
 		mockWebServer = new MockWebServer();
 		mockWebServer.start();
+
+		bigMallsAsString = Files.readAllLines(
+				Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
+				StandardCharsets.UTF_8
+		).get(0);
 	}
 
 	@BeforeEach
@@ -73,21 +85,19 @@ public class HttpProxyTest {
 	}
 
 	@Test
+	void getRequestDataTest() throws MalformedURLException {
+		mockWebServer.enqueue(new MockResponse().addHeader("Content-Type", "application/json").setBody(bigMallsAsString));
+		BigMallsDto[] bigMalls = httpProxy.getRequestData(url, BigMallsDto[].class).block();
+
+		assertEquals(2, bigMalls.length);
+		assertEquals(43326349, bigMalls[0].getClassifications_data().get(0).getId());
+	}
+
+	@Test
 	void getRequestDataServerIsDownTest() throws MalformedURLException {
 		mockWebServer.enqueue(new MockResponse().setResponseCode(500));
 		Mono<BigMallsDto[]> requestData = httpProxy.getRequestData(url, BigMallsDto[].class);
 		assertThrows(WebClientResponseException.class, () -> httpProxy.getRequestData(url, BigMallsDto[].class).block());
-	}
-
-	@Test
-	void getRequestDataTest() throws MalformedURLException {
-		URL url = new URL("http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/" +
-				"opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json");
-
-		BigMallsDto[] bigMalls = httpProxy.getRequestData(url, BigMallsDto[].class).block();
-
-		assertEquals(28, bigMalls.length);
-		assertEquals(43326348, bigMalls[0].getClassifications_data().get(0).getId());
 	}
 
 }
