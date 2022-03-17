@@ -312,6 +312,33 @@ public class OpendataControllerTest {
 
 	}
 	
+	@Test
+	public void getCommercialGalleriesActivitiesTest() throws MalformedURLException {
+		
+		final String URI_TEST ="/commercial-galleries/activities";
+		
+		ActivityInfoDto[] results = {new ActivityInfoDto(1L, "Activitat 1")};
+		
+		GenericResultDto<ActivityInfoDto> genericResultDto = new GenericResultDto<>();
+		genericResultDto.setInfo(0, -1, 1, results);
+		
+		when(commercialGalleriesService.commercialGalleriesActivities(0, -1)).thenReturn(Mono.just(genericResultDto));
+		
+		webTestClient.get()
+		.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST).build())
+		.accept(MediaType.APPLICATION_JSON)
+		.exchange()
+		.expectStatus().isOk()
+		.expectBody()
+		.jsonPath("$.count").isEqualTo(1)
+		.jsonPath("$.offset").isEqualTo(0)
+		.jsonPath("$.limit").isEqualTo(-1)
+		.jsonPath(RES0 + "activityId").isEqualTo(1)
+		.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
+		
+		verify(commercialGalleriesService).commercialGalleriesActivities(0, -1);
+	}
+	
 /* ***  MOVER ESTO A 'CommonControllerTest.java' ***
  * 
 	@DisplayName("Opendata response -- JSON elements of Barcelona's districts ")
