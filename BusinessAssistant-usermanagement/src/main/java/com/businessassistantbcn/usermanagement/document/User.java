@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.List;
+
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
@@ -25,8 +28,7 @@ public class User {
     @Field(name="password")
     private String password;
     @Field(name="role")
-    private Role role;
+    private List<Role> roles;
 
-
-
+    public User() {}
 }
