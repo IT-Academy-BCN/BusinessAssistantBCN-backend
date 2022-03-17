@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @JsonIgnoreProperties({ "place","district_name",/*"district_id",*/ "neighborhood_name","neighborhood_id",
         /*"address_name",*/ "address_id","block_id","start_street_number","end_street_number",/*"street_number_1",*/
         "street_number_2","stairs","level","door",/*"zip_code",*/ "province",/*"town",*/"country","comments","position",
-        "main_address","road_name","road_id","roadtype_name","roadtype_id",/*"location",*/ "related_entity","related_entity_data","street_number"})
+        "main_address","road_name","road_id","roadtype_name","roadtype_id","location","related_entity","related_entity_data","street_number"})
 public class AddressDto {
 
     private String address_name;
@@ -27,7 +27,6 @@ public class AddressDto {
     private String zip_code;
     private String district_id;
     private String town;
-    private LocationDto location;
 
     @JsonGetter("street_name")
     public String getAddress_name() {
@@ -63,11 +62,5 @@ public class AddressDto {
     public String getTown() {
         return town;
     }
-
-    @JsonGetter("location")
-    public LocationDto getLocation() {
-        return location;
-    }
-
 
 }

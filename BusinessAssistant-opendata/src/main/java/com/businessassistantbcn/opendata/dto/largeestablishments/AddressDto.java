@@ -28,7 +28,6 @@ import org.springframework.stereotype.Component;
     private String zip_code;
     private String district_id;
     private String town;
-    private LocationDto location;
 
     @JsonGetter("street_name")
     public String getAddress_name() {
@@ -64,11 +63,6 @@ import org.springframework.stereotype.Component;
     @JsonGetter("town")
     public String getTown() {
         return town;
-    }
-
-    @JsonGetter("location")
-    public LocationDto getLocation() {
-        return location;
     }
 
 }

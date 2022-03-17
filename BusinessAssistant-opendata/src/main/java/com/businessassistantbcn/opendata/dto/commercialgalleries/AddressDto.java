@@ -26,7 +26,7 @@ public class AddressDto {
     private String zip_code;
     private String district_id;
     private String town;
-    private LocationDto location;
+
 
     @JsonGetter("street_name")
     public String getAddress_name() {
@@ -63,9 +63,5 @@ public class AddressDto {
         return town;
     }
 
-    @JsonGetter("location")
-    public LocationDto getLocation() {
-        return location;
-    }
 
 }

@@ -1,9 +1,7 @@
 package com.businessassistantbcn.opendata.dto.largeestablishments;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.businessassistantbcn.opendata.dto.municipalmarkets.GeoEpgs4326Dto;
+import com.fasterxml.jackson.annotation.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -75,4 +73,8 @@ public class LargeEstablishmentsDto {
     public List<AddressDto> getAddresses() {
         return addresses;
     }
+
+    @JsonAlias({"geo_epgs_4326", "location"})
+    @JsonProperty("location")
+    private GeoEpgs4326Dto location;
 }
