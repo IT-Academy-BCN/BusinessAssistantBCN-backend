@@ -76,7 +76,7 @@ public class CommercialGalleriesServiceTest {
 								.getResource(JSON_FILENAME_COMERCIAL_GALLERIES_ACTIVITIES).toURI()),
 						StandardCharsets.UTF_8)
 				.get(0);
-		mapper = new ObjectMapper();
+		mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		twocommercialGalleriesDto = mapper.readValue(commercialGalleriesAsString, CommercialGalleriesDto[].class);
 		activities = mapper.readValue(commercialGalleriesActivitiesAsString, ActivityInfoDto[].class);
 
@@ -99,6 +99,35 @@ public class CommercialGalleriesServiceTest {
 		verify(config, times(1)).getDs_commercialgalleries();
 		verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
 	}
+	
+    @Test
+    void getPageReturnsCommercialGalleriesDefaultPageWhenMalformedURLTest() throws MalformedURLException {
+    	when(config.getDs_commercialgalleries()).thenReturn("gibberish");
+    	GenericResultDto<CommercialGalleriesDto> expectedResult = new GenericResultDto<CommercialGalleriesDto>();
+    	expectedResult.setInfo(0, 0, 0, new CommercialGalleriesDto[0]);
+    	
+    	GenericResultDto<CommercialGalleriesDto> actualResult = commercialGalleriesService.getPage(0, -1).block();
+    	 areOffsetLimitAndCountEqual(expectedResult, actualResult);
+         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
+         
+         verify(config, times(1)).getDs_commercialgalleries();
+         verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+    }
+    @Test
+    void getPageReturnsCommercialGalleriesPageTest() throws MalformedURLException {
+    	when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
+    	when(httpProxy.getRequestData(any(URL.class), any(Class.class))).thenThrow(RuntimeException.class);
+    	
+    	GenericResultDto<CommercialGalleriesDto> expectedResult = new GenericResultDto<CommercialGalleriesDto>();
+    	expectedResult.setInfo(0, 0, 0, new CommercialGalleriesDto[0]);
+    	
+    	GenericResultDto<CommercialGalleriesDto> actualResult = commercialGalleriesService.getPage(0, -1).block();
+    	 areOffsetLimitAndCountEqual(expectedResult, actualResult);
+         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
+
+         verify(config, times(1)).getDs_commercialgalleries();
+         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+    }
 
 	@Test
 	void getCommercialGalleriesActivitiesTest() throws MalformedURLException, JsonProcessingException {
@@ -109,8 +138,9 @@ public class CommercialGalleriesServiceTest {
 		GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
 		expectedResult.setInfo(0, -1, activities.length, activities);
 
-		GenericResultDto<ActivityInfoDto> actualResult = commercialGalleriesService.CommercialGalleriesActivities(0, -1)
+		GenericResultDto<ActivityInfoDto> actualResult = commercialGalleriesService.commercialGalleriesActivities(0, -1)
 				.block();
+		
 		areOffsetLimitAndCountEqual(expectedResult, actualResult);
 		assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
 				mapper.writeValueAsString(actualResult.getResults()));
@@ -126,13 +156,13 @@ public class CommercialGalleriesServiceTest {
 		GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
 		expectedResult.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 
-		GenericResultDto<ActivityInfoDto> actualResult = commercialGalleriesService.CommercialGalleriesActivities(0, -1)
+		GenericResultDto<ActivityInfoDto> actualResult = commercialGalleriesService.commercialGalleriesActivities(0, -1)
 				.block();
 		areOffsetLimitAndCountEqual(expectedResult, actualResult);
 		assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
 		verify(config, times(1)).getDs_commercialgalleries();
-		verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+		verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
 	}
 
 	@Test
@@ -143,7 +173,7 @@ public class CommercialGalleriesServiceTest {
 
 		GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
 		expectedResult.setInfo(0, 0, 0, new ActivityInfoDto[0]);
-		GenericResultDto<ActivityInfoDto> actualResult = commercialGalleriesService.CommercialGalleriesActivities(0, -1)
+		GenericResultDto<ActivityInfoDto> actualResult = commercialGalleriesService.commercialGalleriesActivities(0, -1)
 				.block();
 		areOffsetLimitAndCountEqual(expectedResult, actualResult);
 		assertArrayEquals(expectedResult.getResults(), actualResult.getResults());

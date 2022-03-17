@@ -58,7 +58,7 @@ public class CommercialGalleriesService {
 		return Mono.just(genericResultDto);
 	}
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getActivitiesDefaultPage")
-	public Mono<GenericResultDto<ActivityInfoDto>> CommercialGalleriesActivities(int offset, int limit) throws MalformedURLException {
+	public Mono<GenericResultDto<ActivityInfoDto>> commercialGalleriesActivities(int offset, int limit) throws MalformedURLException {
 		return httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()), CommercialGalleriesDto[].class)
 			.flatMap(commercialGalleriesDto -> {
 				List<ActivityInfoDto> listFullPathFiltered = this.getListWithoutInvalidFullPaths(commercialGalleriesDto);
