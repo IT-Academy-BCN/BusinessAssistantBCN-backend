@@ -45,13 +45,15 @@ public class BigMallsService {
 				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
 				return Mono.just(genericResultDto);
 			})
-			.onErrorResume(e -> this.getBigMallsDefaultPage(new OpendataUnavailableServiceException()));
+			.onErrorResume(e -> this.logServerError(new OpendataUnavailableServiceException()));
+	}
+
+	private Mono<GenericResultDto<BigMallsDto>> logServerError(Throwable exception) {
+		log.error("Opendata is down");
+		return this.getBigMallsDefaultPage(exception);
 	}
 
 	public Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage(Throwable exception) {
-		if (exception instanceof OpendataUnavailableServiceException) {
-			log.error("Opendata is down");
-		}
 		genericResultDto.setInfo(0, 0, 0, new BigMallsDto[0]);
 		return Mono.just(genericResultDto);
 	}
