@@ -33,7 +33,6 @@ public class DtoHelper {
 		search.setSearchResult(dto.getSearchResult());
 		search.setUserUuid(user_uuid);
 		search.setSearchDate(new Date());
-		
 		return search;
 	}
 

@@ -25,19 +25,19 @@ import org.springframework.test.context.ActiveProfiles;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.entities.Search;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
-import com.businessassistantbcn.mydata.repository.MySearchesRepository;
+import com.businessassistantbcn.mydata.repository.UserSearchesRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ActiveProfiles("test")
 //@SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+class UserSearchesServiceTest {
 	
 	@InjectMocks
-	UserService userService;
+	UserSearchesService userService;
 	
 	@Mock
-	MySearchesRepository mysearchesRepoMock;
+	UserSearchesRepository mysearchesRepoMock;
 	
 	//TODO
 
@@ -63,11 +63,11 @@ class UserServiceTest {
 //		assertTrue("searchUuid".equals(savedSearchDto.getSearchUuid()));
 //	}
 
-//	@Test
-//	void testGetAllSearches() {
-//		fail("Not yet implemented");
-//	}
-//
+	@Test
+	void testGetAllSearches() {
+		fail("Not yet implemented");
+	}
+
 //	@Test
 //	void testGetSearchResults() {
 //		fail("Not yet implemented");
