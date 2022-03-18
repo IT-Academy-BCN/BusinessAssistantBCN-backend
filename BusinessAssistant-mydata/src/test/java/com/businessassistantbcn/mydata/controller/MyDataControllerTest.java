@@ -19,7 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 
-import com.businessassistantbcn.mydata.service.UserService;
+import com.businessassistantbcn.mydata.service.UserSearchesService;
 
 @Profile("test")
 @ExtendWith(SpringExtension.class)
@@ -32,7 +32,7 @@ class MyDataControllerTest {
 	private WebTestClient webTestClient;
 	
 	@MockBean
-	private UserService userService;	
+	private UserSearchesService userService;	
 	
 	private final String
 	CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/mydata",

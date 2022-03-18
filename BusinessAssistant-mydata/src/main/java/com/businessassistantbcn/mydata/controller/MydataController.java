@@ -24,7 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.businessassistantbcn.mydata.dto.GenericResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
-import com.businessassistantbcn.mydata.service.UserService;
+import com.businessassistantbcn.mydata.service.UserSearchesService;
 import com.fasterxml.jackson.databind.JsonNode;
 
 
@@ -32,10 +32,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 @RequestMapping("/businessassistantbcn/api/v1/mydata")
 public class MydataController {
 
-	 UserService userService;
+	 UserSearchesService userService;
 	 
 	 @Autowired
-	 public MydataController(UserService userService) {
+	 public MydataController(UserSearchesService userService) {
 		 this.userService = userService;
 	 }
 
@@ -48,13 +48,10 @@ public class MydataController {
 		return "Hello from BusinessAssistant MyData!!!";
 	}
 
-//TODO	
     @PostMapping(value="/mysearches/{user_uuid}")
-//  public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @RequestBody String payload) {
     public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @RequestBody SaveSearchRequestDto searchToSave) {
     	return userService.saveSearch(searchToSave, user_uuid);
     }
-//****************************
    
 	@GetMapping("/mysearches/{user_uuid}")
 	@ApiOperation("Get searches  SET 0 LIMIT 0")
