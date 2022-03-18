@@ -1,21 +1,22 @@
 package com.businessassistantbcn.mydata.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.businessassistantbcn.mydata.dto.GenericResultDto;
-import com.businessassistantbcn.mydata.dto.SavedSearchResponseDto;
+import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
+import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.entities.Search;
 import com.businessassistantbcn.mydata.helper.DtoHelper;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.businessassistantbcn.mydata.repository.MySearchesRepository;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import reactor.core.publisher.Mono;
 
@@ -29,123 +30,146 @@ public class UserService {
 		this.mySearchesRepo = mySearchesRepo;
 	}
 	
-	public SavedSearchResponseDto saveSearch(String jsonSearch, String user_uuid) {
-		Search search = JsonHelper.jsonToEntity(jsonSearch);
-		search.setUserUuid(user_uuid);
-		search.setSearchDate(new Date());
-	
+//TODO
+	//No guarda search en el repo ==> es por algo relacionado con el searchUuid que se supone que se genera al guardar, pero da error
+	//Más abajo están las versiones usando string en el body del post. Ocurre lo mismo, la segunda opción el el código cleanded de la 3ª que es la que alguien hizo al principio
+	//No funciona ninguna
+	public Mono<SaveSearchResponseDto> saveSearch(SaveSearchRequestDto searchToSave, String user_uuid) {
+		Search search = new Search();
+		search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
+		
 		Search savedSearch = mySearchesRepo.save(search);
 		
-		return DtoHelper.mapSearchToSearchResponseDto(savedSearch);
+		return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
 	}
 
-	/* 
-	 * Get all searches
-	 * No support for pagination (not required?)
-	 */
-	public Mono<GenericResultDto<Search>> getAllSearches(String user_uuid) {
-		// find all searches
-		List<Search> resultsList = mySearchesRepo.findByUserUuid(user_uuid);
-		
-		// array to save in GenericResultDto
-		Search[] resultsArray = {};
-		
-		// convert list to array
-		if(resultsList.size() > 0) {
-			resultsArray = new Search[resultsList.size()];
-			resultsList.toArray(resultsArray);
+//2ª VERSIÓN	
+//	public Mono<SaveSearchResponseDto> saveSearch(String searchToSave, String user_uuid) {
+//		Search search = JsonHelper.jsonToEntity(searchToSave);
+//		search.setUserUuid(user_uuid);
+//		search.setSearchDate(new Date());
+//		
+//		Search savedSearch = mySearchesRepo.save(search);
+//		
+//		return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
+//	}
+
+//3ª VERSIÓN
+//	public Mono<SaveSearchResponseDto> saveSearch(String payload, String user_uuid) {
+//
+//		// Uses ObjectMapper to read the JSON payload.
+//		ObjectMapper objectMapper = new ObjectMapper();
+//
+//		// Creates a Search entity
+//		Search search = new Search();
+//
+//		try {
+//			// Read payload value and map it to Search
+//			search = objectMapper.readValue(payload, Search.class);
+//		} catch (JsonMappingException e) {
+//			// Needs to be checked (throw to controller?)
+//			e.printStackTrace();
+//		} catch (JsonProcessingException e) {
+//			// Needs to be checked (throw to controller?)
+//			e.printStackTrace();
+//		}
+//
+//		// set user_uuid in Search.
+//		search.setUserUuid(user_uuid);
+//
+//		// set today's date in Search
+//		search.setSearchDate(new Date());
+//
+//		// save the entity
+//		Search saved = mySearchesRepo.save(search);
+//
+//		return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(saved));
+//	}
+
+//******************************************************
+	
+	public Mono<GenericResultDto<JsonNode>> getAllSearches(String user_uuid, int offset, int limit) {
+		List<JsonNode> allUserSearches = mySearchesRepo.findByUserUuid(user_uuid).stream()
+												.map(search -> JsonHelper.entityToJsonString(search))
+												.map(string -> JsonHelper.deserializeToJsonNode(string))
+												.collect(Collectors.toList());
+		for(JsonNode searchNode : allUserSearches) {
+			        ObjectNode object = (ObjectNode) searchNode;
+			        object.remove("searchResult");
 		}
 		
-		// Create Response Dto and set it properties
-		GenericResultDto<Search> result = new GenericResultDto<Search>();
-		result.setCount(resultsArray.length);
-		result.setOffset(0); result.setLimit(0);
-		result.setResults(resultsArray);
+		List<JsonNode> pageFilteredResults = filterJsonNodeResultsPagination(allUserSearches, offset, limit);
 		
-		// return the response
+		GenericResultDto<JsonNode> result = createResultDto(pageFilteredResults, offset, limit);
+		
 		return Mono.just(result);
 	}
 	
-	/*
-	 * Get results of a search
-	 * Support for pagination
-	 */
+	
 	public Mono<GenericResultDto<JsonNode>> getSearchResults(String search_uuid, String user_uuid, int offset, int limit) {
-		// Find a Search by id;
-		Optional<Search> search = mySearchesRepo.findById(search_uuid);
-		
-		// If the result is empty returns null
-		if(search.isEmpty()) {
-			return null;
+		if (!mySearchesRepo.findById(search_uuid).isPresent())
+			throw new NoSuchElementException("No existe ninguna búsqueda con ese id");
+		else if (!mySearchesRepo.findById(search_uuid).get().getUserUuid().equals(user_uuid))
+			throw new NoSuchElementException("Este usuario no tiene ninguna búsqueda con ese id");
+		else {
+			Search search = mySearchesRepo.findById(search_uuid).get();
+
+			JsonNode searchResult = search.getSearchResult();
+
+			List<JsonNode> pageFilteredResults = filterJsonNodeResultsPagination(mapJsonNodeToList(searchResult), offset, limit);
+			
+			GenericResultDto<JsonNode> result = createResultDto(pageFilteredResults, offset, limit);
+
+			return Mono.just(result);
 		}
-		
-		// Gets the result
-		Search isSearch = search.get();
-		
-		// JsonNode object where I'm gonna save the results inside of the search
-		JsonNode searchResult = null;
-		
-		// Save the results of the search
-		searchResult = isSearch.getSearchResult();
-		
-		// Get the value of the property results
-		JsonNode results = searchResult.findValue("results");
-		
-		// Converts results into a List of JsonNode
-		List<JsonNode> resultsArray = new ArrayList<JsonNode>();
-		
-		for(int i = 0; i < results.size(); i++) {
-			resultsArray.add(results.get(i));
+	}
+	
+	private JsonNode[] mapListToJsonNodeArray(List<JsonNode> pageFilteredResults) {
+		JsonNode[] resultsForDto = {};
+		if (pageFilteredResults.size() > 0) {
+			resultsForDto = new JsonNode[pageFilteredResults.size()];
+			pageFilteredResults.toArray(resultsForDto);
 		}
-		
-		// Filter JSON data if there's pagination
-		List<JsonNode> realResults = filterJsonNode(resultsArray, offset, limit);
-		
-		// Generate final results
-		GenericResultDto<JsonNode> finalResult = new GenericResultDto<JsonNode>();
-		
-		// Convert JsonNode list to Array in order to put it in the dto
-		JsonNode[] lastArray = {};
-		
-		if(realResults.size() > 0) {
-			lastArray = new JsonNode[realResults.size()];
-			realResults.toArray(lastArray);
+		return resultsForDto;
+	}
+	
+	private List<JsonNode> mapJsonNodeToList(JsonNode searchResult){
+		List<JsonNode> allResults = new ArrayList<JsonNode>();
+		for (int i = 0; i < searchResult.size(); i++) {
+			allResults.add(searchResult.get(i));
 		}
+		return allResults;
+	}
+	
+	private GenericResultDto<JsonNode> createResultDto(List<JsonNode> pageFilteredResults,int offset, int limit){
+		GenericResultDto<JsonNode> result = new GenericResultDto<JsonNode>();
+		result.setCount(pageFilteredResults.size());
+		result.setOffset(offset);
+		result.setLimit(limit);
+		result.setResults(mapListToJsonNodeArray(pageFilteredResults));
 		
-		// fill dto
-		finalResult.setCount(realResults.size());
-		finalResult.setOffset(offset);
-		finalResult.setLimit(limit);
-		finalResult.setResults(lastArray);
-		
-		return Mono.just(finalResult);
+		return result;
 	}
 	
 	// code modified from OpenData Json Helper
-	public List<JsonNode> filterJsonNode(List<JsonNode> array, int offset, int limit){
-		if(offset > array.size()-1){
-			List<JsonNode> toReturn = 
-					array.stream()
-					.skip(offset).limit(limit).collect(Collectors.toList());
-			return toReturn;
-		}
+	private List<JsonNode> filterJsonNodeResultsPagination(List<JsonNode> allResults, int offset, int limit){
+		
+		List<JsonNode> toReturn = null;
+		
+		if(offset > allResults.size()-1)
+			toReturn = allResults.stream().skip(offset).limit(limit).collect(Collectors.toList());
 		//if limit == -1 it means that we should get all Data
-		if(limit == -1){
-			List<JsonNode> toReturn = 
-					array.stream()
-					.skip(offset).limit(array.size()).collect(Collectors.toList());	
-			return toReturn;
+		else if(limit == -1)
+			toReturn = allResults.stream().skip(offset).limit(allResults.size()).collect(Collectors.toList());
+		else {
+			// If the ending point is out of bounce, we set the ending point in the last point of the array +1
+			int end = offset + limit; // the ending index +1
+			if (end > allResults.size())
+				end = allResults.size();
+
+			// Makes the subarray. The end point is excluded thats why we do +1.
+			toReturn = allResults.stream().skip(offset).limit(end).collect(Collectors.toList());
 		}
-		//the ending index +1
-		int end = offset + limit;
-		//If the ending point is out of bounce, we set the ending point in the last point of the array +1
-		if(end > array.size()){
-			end = array.size();
-		}
-		//Makes the subarray. The end point is excluded thats why we do +1.
-		List<JsonNode> toReturn = 
-				array.stream()
-				.skip(offset).limit(end).collect(Collectors.toList());		
 		return toReturn;
 	}
 }

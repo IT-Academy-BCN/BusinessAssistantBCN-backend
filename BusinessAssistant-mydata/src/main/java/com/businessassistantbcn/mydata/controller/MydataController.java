@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiResponses;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.businessassistantbcn.mydata.dto.GenericResultDto;
-import com.businessassistantbcn.mydata.dto.SavedSearchResponseDto;
+import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
+import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.service.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -45,59 +47,59 @@ public class MydataController {
 	public String test() {
 		return "Hello from BusinessAssistant MyData!!!";
 	}
-	
-    // String payload => Payload is the data normally sent by POST or PUT request.
+
+//TODO	
     @PostMapping(value="/mysearches/{user_uuid}")
-    public SavedSearchResponseDto saveSearch(@PathVariable(value="user_uuid") String user_uuid, 
-    						 @RequestBody String payload) {
-
-    	return userService.saveSearch(payload, user_uuid);
+//  public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @RequestBody String payload) {
+    public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @RequestBody SaveSearchRequestDto searchToSave) {
+    	return userService.saveSearch(searchToSave, user_uuid);
     }
-	
-	/* C�digo Vanesa */
-	 @GetMapping("/mysearches/{user_uuid}")
-	 @ApiOperation("Get searches  SET 0 LIMIT 0")
-	 @ApiResponses({
-	    	@ApiResponse(code = 200, message = "OK"),
-	    	@ApiResponse(code = 404, message = "Not Found"),
-	    	@ApiResponse(code = 503, message = "Service Unavailable")})
-	    public Mono<GenericResultDto<Search>> getAllSearchesByUser(
-	        @ApiParam(value = "Offset", name= "Offset")
-	        @RequestParam(required = false) String offset,
-	        @ApiParam(value = "Limit", name= "Limit")
-	        @RequestParam(required = false)  String limit,
-	        @PathVariable("user_uuid") String user_uuid,
-	        @RequestParam Map<String,String> map
-	   ){
-	        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
-	        
-	        /* if mydataService.getAllSearches(useruu_id.toString());
-	         * has no data, means the user has no data or doesnt exists.
-	         * 
-	         */
-	        
-	        return userService.getAllSearches(user_uuid);
-	         //mySearchesService
-	            //.getPageBySearches(this.getValidOffset(offset), this.getValidLimit(limit), searches);
-	    }
+//****************************
+   
+	@GetMapping("/mysearches/{user_uuid}")
+	@ApiOperation("Get searches  SET 0 LIMIT 0")
+	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), 
+					@ApiResponse(code = 404, message = "Not Found"),
+					@ApiResponse(code = 503, message = "Service Unavailable") })
+	public Mono<GenericResultDto<JsonNode>> getAllSearchesByUser(
+			@ApiParam(value = "Offset", name = "Offset") 
+			@RequestParam(required = false) String offset,
+			@ApiParam(value = "Limit", name = "Limit") 
+			@RequestParam(required = false) String limit,
+			@PathVariable("user_uuid") String user_uuid, 
+			@RequestParam Map<String, String> map) {
+		this.validateRequestParameters(map, this.PAGINATION_ENABLED);
 
-	// Get Search_Result
+		/*
+		 * if mydataService.getAllSearches(useruu_id.toString()); has no data, means the
+		 * user has no data or doesnt exists.
+		 * 
+		 */
+
+		return userService.getAllSearches(user_uuid, getValidOffset(offset), getValidLimit(limit));
+		// mySearchesService
+		// .getPageBySearches(this.getValidOffset(offset), this.getValidLimit(limit),
+		// searches);
+	}
+
 	@GetMapping("/mysearches/{user_uuid}/search/{search_uuid}")
 	@ApiOperation("Get a search SET 0 LIMIT -1")
 	@ApiResponses({ @ApiResponse(code = 200, message = "OK"),
-			@ApiResponse(code = 404, message = "Not Found"),
-			@ApiResponse(code = 503, message = "Service Unavailable"), })
+					@ApiResponse(code = 404, message = "Not Found"),
+					@ApiResponse(code = 503, message = "Service Unavailable"), })
 	public Mono<GenericResultDto<JsonNode>> getAllSearchesResults(
-			@ApiParam(value = "Offset", name = "Offset") @RequestParam(required = false) String offset,
-			@ApiParam(value = "Limit", name = "Limit") @RequestParam(required = false) String limit,
-			@PathVariable("user_uuid") String user_uuid, @PathVariable("search_uuid") String search_uuid,
+			@ApiParam(value = "Offset", name = "Offset") 
+			@RequestParam(required = false) String offset,
+			@ApiParam(value = "Limit", name = "Limit")
+			@RequestParam(required = false) String limit,
+			@PathVariable("user_uuid") String user_uuid, 
+			@PathVariable("search_uuid") String search_uuid,
 			@RequestParam Map<String, String> map) {
 		
 		this.validateRequestParameters(map, PAGINATION_ENABLED);
-
+		
 		return userService.getSearchResults(search_uuid, user_uuid, getValidOffset(offset), getValidLimit(limit));
 	}
-
 
 	private void validateRequestParameters(Map<String, String> map, boolean paginationEnabled) {
 		if (!paginationEnabled && !map.keySet().isEmpty()) {
