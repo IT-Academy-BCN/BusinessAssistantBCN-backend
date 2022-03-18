@@ -2,6 +2,7 @@ package com.businessassistantbcn.login.service;
 
 import com.businessassistantbcn.login.config.SecurityConfig;
 import com.businessassistantbcn.login.config.SuperUserConfig;
+import com.businessassistantbcn.login.config.TestUserConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.dto.UserDto;
 import com.businessassistantbcn.login.proxy.HttpProxy;
@@ -43,8 +44,9 @@ public class LoginService implements AuthenticationProvider {
 	private HttpProxy httpProxy;
 	
 	@Autowired
-	public LoginService(SuperUserConfig superUserData) {
-		superUser = new UserDto(superUserData.getEmail(), superUserData.getRoles());
+	public LoginService(SuperUserConfig su, TestUserConfig tu) {
+		superUser = new UserDto(su.getEmail(), su.getRoles());
+		testUser = new UserDto(tu.getEmail(), tu.getRoles());
 	}
 	
 	// JSON Web Token generator
@@ -75,15 +77,21 @@ public class LoginService implements AuthenticationProvider {
 	
 	// Database liaison
 	private final String userManagementEndpoint = "http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user";
-	private final UserDto superUser;
+	private final UserDto superUser, testUser;
 	
-	public Mono<UserDto> loadUser(AuthenticationRequest request) { try {
-		String jwt = generateToken(superUser);
-		
-		return httpProxy.getRequestData(new URL(userManagementEndpoint), jwt, request, UserDto.class);
-	} catch(MalformedURLException e) {
-		return Mono.error(e);
-	} }
+// TODO **** Provisional response with testuser ****
+	public Mono<UserDto> loadUser(AuthenticationRequest request) {
+		return Mono.just(testUser);
+	}
+	
+// TODO **** Enable the following code once the secured endpoint in 'usermanagement' is established **** 
+//	public Mono<UserDto> loadUser(AuthenticationRequest request) { try {
+//		String jwt = generateToken(superUser);
+//		
+//		return httpProxy.getRequestData(new URL(userManagementEndpoint), jwt, request, UserDto.class);
+//	} catch(MalformedURLException e) {
+//		return Mono.error(e);
+//	} }
 	
 	private UserDto userFound;
 	
@@ -109,7 +117,7 @@ public class LoginService implements AuthenticationProvider {
 		return !username.isPresent() || !password.isPresent();
 	}
 	
-	private boolean credentialsValid(AuthenticationRequest request) {
+	private boolean credentialsValid(AuthenticationRequest request) { // Request to DB
 		loadUser(request).subscribe(user -> userFound = user, t -> userFound = null);
 		
 		return userFound != null;
