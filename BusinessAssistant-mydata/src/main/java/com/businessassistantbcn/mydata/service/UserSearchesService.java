@@ -14,7 +14,7 @@ import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.entities.Search;
 import com.businessassistantbcn.mydata.helper.DtoHelper;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
-import com.businessassistantbcn.mydata.repository.UserSearchesRepository;
+import com.businessassistantbcn.mydata.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
