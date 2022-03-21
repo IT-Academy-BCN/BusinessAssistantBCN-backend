@@ -2,6 +2,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -89,46 +90,36 @@ public class EconomicActivitiesCensusServiceTest {
     }
 
     @Test
-    void getPageReturnsEconomicActivitiesCensusDefaultPageWhenMalformedURLTest() throws MalformedURLException {
-        when(config.getDs_economicactivitiescensus()).thenReturn("gibberish");
-        GenericResultDto<EconomicActivitiesCensusDto> expectedResult =
-            new GenericResultDto<EconomicActivitiesCensusDto>();
-        expectedResult.setInfo(0, 0, 0, new EconomicActivitiesCensusDto[0]);
-
-        GenericResultDto<EconomicActivitiesCensusDto> actualResult =
-            economicActivitiesCensusService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_economicactivitiescensus();
-        verify(httpProxy, times(0))
-            .getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
+    void getPageReturnsEconomicActivitiesCensusDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+        when(config.getDs_economicactivitiescensus()).thenReturn(urlEconomicActivitiesCensus);
+        when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class))).thenThrow(RuntimeException.class);
+        this.returnsEconomicActivitiesCensusDefaultPage(economicActivitiesCensusService.getPage(0, -1).block());
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
     }
 
     @Test
-    void getPageReturnsEconomicActivitiesCensusDefaultPageTest() throws MalformedURLException {
+    void getPageReturnsEconomicActivitiesCensusDefaultPageWhenServerIsDownTest() throws MalformedURLException {
         when(config.getDs_economicactivitiescensus()).thenReturn(urlEconomicActivitiesCensus);
         when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class)))
-            .thenThrow(RuntimeException.class);
-
-        GenericResultDto<EconomicActivitiesCensusDto> expectedResult =
-            new GenericResultDto<EconomicActivitiesCensusDto>();
-        expectedResult.setInfo(0, 0, 0, new EconomicActivitiesCensusDto[0]);
-
-        GenericResultDto<EconomicActivitiesCensusDto> actualResult =
-            economicActivitiesCensusService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_economicactivitiescensus();
-        verify(httpProxy, times(1))
-            .getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
+            .thenReturn(Mono.error(new RuntimeException()));
+        this.returnsEconomicActivitiesCensusDefaultPage(economicActivitiesCensusService.getPage(0, -1).block());
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
     }
 
     private void areOffsetLimitAndCountEqual(GenericResultDto<?> expected, GenericResultDto<?> actual) {
         assertEquals(expected.getOffset(), actual.getOffset());
         assertEquals(expected.getLimit(), actual.getLimit());
         assertEquals(expected.getCount(), actual.getCount());
+    }
+
+    private void returnsEconomicActivitiesCensusDefaultPage(GenericResultDto<EconomicActivitiesCensusDto> actualResult) {
+        GenericResultDto<EconomicActivitiesCensusDto> expectedResult = new GenericResultDto<EconomicActivitiesCensusDto>();
+        expectedResult.setInfo(0, 0, 0, new EconomicActivitiesCensusDto[0]);
+
+        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
+
+        verify(config, times(1)).getDs_economicactivitiescensus();
     }
 
 }
