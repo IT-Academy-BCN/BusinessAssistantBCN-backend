@@ -14,14 +14,11 @@ public class DtoHelper {
 	public static SaveSearchResponseDto mapSearchToSaveSearchResponseDto(Search search) {
 		SaveSearchResponseDto dto = new SaveSearchResponseDto();
 		dto.setSearchUuid(search.getSearchUuid());
-		if(dto.getUserUuid()!=null)
-			dto.setUserUuid(search.getUserUuid());
+		dto.setUserUuid(search.getUserUuid());
 		dto.setSearchDate(search.getSearchDate());
 		dto.setSearchName(search.getSearchName());
-		if(dto.getSearchDetail()!=null)
-			dto.setSearchDetail(search.getSearchDetail());
-		if(dto.getSearchResult()!=null)
-			dto.setSearchResult(search.getSearchResult());
+		dto.setSearchDetail(search.getSearchDetail());
+		dto.setSearchResult(search.getSearchResult());
 		
 		return dto;
 	}
