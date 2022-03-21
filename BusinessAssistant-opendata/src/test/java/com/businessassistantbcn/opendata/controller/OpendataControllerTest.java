@@ -24,16 +24,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import org.mockito.Mockito;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.reactive.server.EntityExchangeResult;
-import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -294,7 +290,7 @@ public class OpendataControllerTest {
 		GenericResultDto<ActivityInfoDto> genericResultDto = new GenericResultDto<>();
 		genericResultDto.setInfo(0, -1, 1, results);
 
-		when(bigMallsService.bigMallsAllActivities(0,-1)).thenReturn(Mono.just(genericResultDto));
+		when(bigMallsService.getBigMallsActivities(0,-1)).thenReturn(Mono.just(genericResultDto));
 
 		webTestClient.get()
 				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST).build())
@@ -308,7 +304,7 @@ public class OpendataControllerTest {
 				.jsonPath(RES0 + "activityId").isEqualTo(1)
 				.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
 
-		verify(bigMallsService).bigMallsAllActivities(0,-1);
+		verify(bigMallsService).getBigMallsActivities(0,-1);
 
 	}
 	

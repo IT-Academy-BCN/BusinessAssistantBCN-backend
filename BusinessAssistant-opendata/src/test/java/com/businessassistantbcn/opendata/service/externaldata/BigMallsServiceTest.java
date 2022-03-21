@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
@@ -88,14 +87,7 @@ public class BigMallsServiceTest {
     }
 
     @Test
-    void getPageReturnsBigMallsDefaultPageWhenMalformedURLTest() throws MalformedURLException {
-        when(config.getDs_bigmalls()).thenReturn("gibberish");
-        this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
-        verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
-    }
-
-    @Test
-    void getPageReturnsBigMallsDefaultPageTest() throws MalformedURLException {
+    void getPageReturnsBigMallsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
         this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
@@ -119,7 +111,7 @@ public class BigMallsServiceTest {
         GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
         expectedResult.setInfo(0, -1, activities.length, activities);
 
-        GenericResultDto<ActivityInfoDto> actualResult = bigMallsService.bigMallsAllActivities(0, -1).block();
+        GenericResultDto<ActivityInfoDto> actualResult = bigMallsService.getBigMallsActivities(0, -1).block();
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
             mapper.writeValueAsString(actualResult.getResults()));
@@ -129,17 +121,19 @@ public class BigMallsServiceTest {
     }
 
     @Test
-    void getBigMallsAllActivitiesReturnsBigMallsDefaultPageWhenMalformedURLTest() throws MalformedURLException {
-        when(config.getDs_bigmalls()).thenReturn("gibberish");
-        this.returnsActivitiesDefaultPage(bigMallsService.bigMallsAllActivities(0, -1).block());
-        verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+    void getBigMallsAllActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
+        this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
 
     @Test
-    void getBigMallsAllActivitiesReturnsActivitiesDefaultPageTest() throws MalformedURLException {
+    void getBigMallsAllActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
-        this.returnsActivitiesDefaultPage(bigMallsService.bigMallsAllActivities(0, -1).block());
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+                .thenReturn(Mono.error(new RuntimeException()));
+        this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
 

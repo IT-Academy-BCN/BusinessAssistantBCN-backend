@@ -176,7 +176,7 @@ public class OpendataController {
             @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit
     ) throws MalformedURLException {
-        return bigMallsService.bigMallsAllActivities(this.getValidOffset(offset), this.getValidLimit(limit));
+        return bigMallsService.getBigMallsActivities(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
     @GetMapping("/municipal-markets")
