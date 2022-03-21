@@ -2,7 +2,6 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;

@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -84,32 +83,19 @@ public class MarketFairsServiceTest {
     }
 
     @Test
-    void getPageReturnsMarketFairsDefaultPageWhenMalformedURLTest() throws MalformedURLException {
-        when(config.getDs_marketfairs()).thenReturn("gibberish");
-        GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
-        expectedResult.setInfo(0, 0, 0, new MarketFairsDto[0]);
-
-        GenericResultDto<MarketFairsDto> actualResult = marketFairsService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_marketfairs();
-        verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
+    void getPageReturnsMarketFairsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+        when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
+        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class))).thenThrow(RuntimeException.class);
+        this.returnsMarketFairsDefaultPage(marketFairsService.getPage(0, -1).block());
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
     }
 
     @Test
-    void getPageReturnsMarketFairsDefaultPageTest() throws MalformedURLException {
+    void getPageReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class))).thenThrow(RuntimeException.class);
-
-        GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
-        expectedResult.setInfo(0, 0, 0, new MarketFairsDto[0]);
-
-        GenericResultDto<MarketFairsDto> actualResult = marketFairsService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_marketfairs();
+        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+                .thenReturn(Mono.error(new RuntimeException()));
+        this.returnsMarketFairsDefaultPage(marketFairsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
     }
 
@@ -117,5 +103,15 @@ public class MarketFairsServiceTest {
         assertEquals(expected.getOffset(), actual.getOffset());
         assertEquals(expected.getLimit(), actual.getLimit());
         assertEquals(expected.getCount(), actual.getCount());
+    }
+
+    private void returnsMarketFairsDefaultPage(GenericResultDto<MarketFairsDto> actualResult) {
+        GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
+        expectedResult.setInfo(0, 0, 0, new MarketFairsDto[0]);
+
+        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
+
+        verify(config, times(1)).getDs_marketfairs();
     }
 }

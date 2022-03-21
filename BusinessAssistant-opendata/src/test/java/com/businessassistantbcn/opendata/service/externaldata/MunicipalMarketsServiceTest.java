@@ -85,33 +85,19 @@ public class MunicipalMarketsServiceTest {
     }
 
     @Test
-    void getPageReturnsMunicipalMarketsDefaultPageWhenMalformedURLTest() throws MalformedURLException {
-        when(config.getDs_municipalmarkets()).thenReturn("gibberish");
-        GenericResultDto<MunicipalMarketsDto> expectedResult = new GenericResultDto<MunicipalMarketsDto>();
-        expectedResult.setInfo(0, 0, 0, new MunicipalMarketsDto[0]);
-
-        GenericResultDto<MunicipalMarketsDto> actualResult = municipalMarketsService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_municipalmarkets();
-        verify(httpProxy, times(0)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));
+    void getPageReturnsMunicipalMarketsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+        when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
+        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class))).thenThrow(RuntimeException.class);
+        this.returnsMunicipalMarketDefaultPage(municipalMarketsService.getPage(0, -1).block());
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));
     }
 
     @Test
-    void getPageReturnsMunicipalMarketsDefaultPageTest() throws MalformedURLException {
+    void getPageReturnsMunicipalMarketsDefaultPageWhenServerIsDownTest() throws MalformedURLException {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
         when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class)))
-            .thenThrow(RuntimeException.class);
-
-        GenericResultDto<MunicipalMarketsDto> expectedResult = new GenericResultDto<MunicipalMarketsDto>();
-        expectedResult.setInfo(0, 0, 0, new MunicipalMarketsDto[0]);
-
-        GenericResultDto<MunicipalMarketsDto> actualResult = municipalMarketsService.getPage(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
-
-        verify(config, times(1)).getDs_municipalmarkets();
+                .thenReturn(Mono.error(new RuntimeException()));
+        this.returnsMunicipalMarketDefaultPage(municipalMarketsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));
     }
 
@@ -119,6 +105,16 @@ public class MunicipalMarketsServiceTest {
         assertEquals(expected.getOffset(), actual.getOffset());
         assertEquals(expected.getLimit(), actual.getLimit());
         assertEquals(expected.getCount(), actual.getCount());
+    }
+
+    private void returnsMunicipalMarketDefaultPage(GenericResultDto<MunicipalMarketsDto> actualResult) {
+        GenericResultDto<MunicipalMarketsDto> expectedResult = new GenericResultDto<MunicipalMarketsDto>();
+        expectedResult.setInfo(0, 0, 0, new MunicipalMarketsDto[0]);
+
+        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
+
+        verify(config, times(1)).getDs_municipalmarkets();
     }
 
 }

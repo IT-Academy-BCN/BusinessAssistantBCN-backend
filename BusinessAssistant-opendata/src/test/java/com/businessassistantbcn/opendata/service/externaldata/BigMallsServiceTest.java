@@ -1,4 +1,5 @@
 package com.businessassistantbcn.opendata.service.externaldata;
+
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
@@ -25,7 +26,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -104,7 +106,7 @@ public class BigMallsServiceTest {
     }
 
     @Test
-    void getBigMallsAllActivitiesTest() throws MalformedURLException, JsonProcessingException {
+    void getBigMallsActivitiesTest() throws MalformedURLException, JsonProcessingException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
@@ -121,7 +123,7 @@ public class BigMallsServiceTest {
     }
 
     @Test
-    void getBigMallsAllActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+    void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
         this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
@@ -129,7 +131,7 @@ public class BigMallsServiceTest {
     }
 
     @Test
-    void getBigMallsAllActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+    void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.error(new RuntimeException()));
