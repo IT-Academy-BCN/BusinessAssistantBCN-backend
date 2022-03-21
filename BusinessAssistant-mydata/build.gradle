@@ -29,6 +29,10 @@ dependencies {
     implementation 'org.json:json:20210307'
     implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.6.0'
 
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.5.6'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
     // JAX-B dependencies for JDK 9+
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
