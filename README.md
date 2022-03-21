@@ -46,7 +46,7 @@ docker-compose up consul-server1
 
 ```
 ./start_container.sh
-``
+```
 
 
 
