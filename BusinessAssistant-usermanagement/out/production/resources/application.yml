@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: businessassistant-usermanagement
+  jmx:
+    enabled: true
+  cloud:
+    consul:
+      host: 172.17.0.3
+      port: 8500
+      discovery:
+        port: 8762
+        prefer-ip-address: true
+        healthCheckPath: /health
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: babcn-users
+
+springfox:
+  documentation:
+    auto-startup: false
+
+security:
+  datasource:
+    secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
+    headerString: Authorization
+    authoritiesClaim: authorities
+    err: Auth Error, Token Unavailable
+
+server:
+  port: 8763
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    root: INFO
+    "[org.springframework]": ERROR
+    "[com.businessassistantbcn]": INFO
+  pattern:
+    # console: Spring's default
+    file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
+#  file:
+#    name: opendata.log
