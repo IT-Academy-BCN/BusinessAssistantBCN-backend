@@ -24,6 +24,7 @@ security:
     expiresIn: 36_000_000
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
+    userManagementUrl: http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user
   testuser:
     email: jvicente@gmail.com
     password: 56589pp05s

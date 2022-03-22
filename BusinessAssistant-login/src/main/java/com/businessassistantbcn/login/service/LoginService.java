@@ -75,20 +75,19 @@ public class LoginService implements AuthenticationProvider {
 		return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}
 	
-	// Database liaison
-	private final String userManagementEndpoint = "http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user";
 	private final UserDto superUser, testUser;
 	
-// TODO **** Provisional response with testuser ****
+// TODO **** Provisional response with testUser ****
 	public Mono<UserDto> loadUser(AuthenticationRequest request) {
 		return Mono.just(testUser);
 	}
 	
-// TODO **** Enable the following code once the secured endpoint in 'usermanagement' is established **** 
+	// Database liaison
+// TODO **** Enable the following code once the secured endpoint in 'usermanagement' is established ****
 //	public Mono<UserDto> loadUser(AuthenticationRequest request) { try {
 //		String jwt = generateToken(superUser);
 //		
-//		return httpProxy.getRequestData(new URL(userManagementEndpoint), jwt, request, UserDto.class);
+//		return httpProxy.getRequestData(new URL(config.getUserManagementUrl()), jwt, request, UserDto.class);
 //	} catch(MalformedURLException e) {
 //		return Mono.error(e);
 //	} }

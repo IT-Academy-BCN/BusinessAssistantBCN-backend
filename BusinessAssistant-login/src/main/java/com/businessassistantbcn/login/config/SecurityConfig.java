@@ -18,5 +18,6 @@ public class SecurityConfig {
 	private long expiresIn;
 	private String authoritiesClaim;
 	private String err;
+	private String userManagementUrl;
 	
 }
