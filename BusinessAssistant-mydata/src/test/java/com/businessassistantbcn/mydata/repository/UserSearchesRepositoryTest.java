@@ -4,7 +4,6 @@ import com.businessassistantbcn.mydata.config.SpringDBTestConfiguration;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,9 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ContextConfiguration(classes = { SpringDBTestConfiguration.class })
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
-
 //CAUTION: For uses with real database
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+//@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class UserSearchesRepositoryTest {
 
     @Autowired

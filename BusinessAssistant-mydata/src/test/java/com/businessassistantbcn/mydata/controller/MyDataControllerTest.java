@@ -1,6 +1,5 @@
 package com.businessassistantbcn.mydata.controller;
 
-import static net.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -9,9 +8,7 @@ import com.businessassistantbcn.mydata.dto.GenericResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.entities.Search;
-import com.businessassistantbcn.mydata.helper.DtoHelper;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -20,13 +17,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -35,17 +29,13 @@ import com.businessassistantbcn.mydata.service.UserSearchesService;
 
 import reactor.core.publisher.Mono;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-@Profile("test")
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = MydataController.class)
-@ActiveProfiles("test")
-
 class MyDataControllerTest {
 
 	@Autowired
@@ -111,7 +101,7 @@ class MyDataControllerTest {
 	}
 
 	@Test
-	public void getAllsearchesByUserTest() throws MalformedURLException, JsonProcessingException {
+	public void getAllsearchesByUserTest() {
 
 		final String URI_ALL_SEARCHES = "/mysearches/{user_uuid}";
 
@@ -153,4 +143,5 @@ class MyDataControllerTest {
 
 		verify(userService).getAllSearches("44c5c069-e907-45a9-8d49-2042044c56e0",0,-1);
 	}
-	}
+
+}
