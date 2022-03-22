@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.dto.bigmalls;
 
-import com.businessassistantbcn.opendata.dto.largeestablishments.LocationDto;
+import com.businessassistantbcn.opendata.dto.municipalmarkets.GeoEpgs4326Dto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
     private String zip_code;
     private String district_id;
     private String town;
-    private LocationDto location;
+    private GeoEpgs4326Dto location;
 
     @JsonGetter("street_name")
     public String getAddress_name() {
@@ -66,8 +66,13 @@ import org.springframework.stereotype.Component;
     }
 
     @JsonGetter("location")
-    public LocationDto getLocation() {
+    public GeoEpgs4326Dto getLocation() {
         return location;
+    }
+
+    @JsonSetter
+    public void setLocation(GeoEpgs4326Dto location) {
+        this.location=location;
     }
 
 }
