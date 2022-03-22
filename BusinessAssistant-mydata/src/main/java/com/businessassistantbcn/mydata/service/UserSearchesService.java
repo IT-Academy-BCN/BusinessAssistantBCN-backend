@@ -23,24 +23,24 @@ import reactor.core.publisher.Mono;
 @Service
 public class UserSearchesService {
 	
-	UserSearchesRepository mySearchesRepo;
+	UserSearchesRepository userSearchesRepo;
 	
 	@Autowired
-	public UserSearchesService(UserSearchesRepository mySearchesRepo) {
-		this.mySearchesRepo = mySearchesRepo;
+	public UserSearchesService(UserSearchesRepository userSearchesRepo) {
+		this.userSearchesRepo = userSearchesRepo;
 	}
 
 	public Mono<SaveSearchResponseDto> saveSearch(SaveSearchRequestDto searchToSave, String user_uuid) {
 		Search search = new Search();
 		search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
 		
-		Search savedSearch = mySearchesRepo.save(search);
+		Search savedSearch = userSearchesRepo.save(search);
 		
 		return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
 	}
 	
 	public Mono<GenericResultDto<JsonNode>> getAllSearches(String user_uuid, int offset, int limit) {
-		List<JsonNode> allUserSearches = mySearchesRepo.findByUserUuid(user_uuid).stream()
+		List<JsonNode> allUserSearches = userSearchesRepo.findByUserUuid(user_uuid).stream()
 												.map(search -> JsonHelper.entityToJsonString(search))
 												.map(string -> JsonHelper.deserializeToJsonNode(string))
 												.collect(Collectors.toList());
@@ -57,12 +57,12 @@ public class UserSearchesService {
 	}
 	
 	public Mono<GenericResultDto<JsonNode>> getSearchResults(String search_uuid, String user_uuid, int offset, int limit) {
-		if (!mySearchesRepo.findById(search_uuid).isPresent())
+		if (!userSearchesRepo.findById(search_uuid).isPresent())
 			throw new NoSuchElementException("No existe ninguna búsqueda con ese id");
-		else if (!mySearchesRepo.findById(search_uuid).get().getUserUuid().equals(user_uuid))
+		else if (!userSearchesRepo.findById(search_uuid).get().getUserUuid().equals(user_uuid))
 			throw new NoSuchElementException("Este usuario no tiene ninguna búsqueda con ese id");
 		else {
-			Search search = mySearchesRepo.findById(search_uuid).get();
+			Search search = userSearchesRepo.findById(search_uuid).get();
 
 			JsonNode searchResult = search.getSearchResult();
 
