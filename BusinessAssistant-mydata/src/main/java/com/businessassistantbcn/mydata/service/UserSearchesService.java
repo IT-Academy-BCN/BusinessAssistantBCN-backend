@@ -14,26 +14,22 @@ import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.entities.Search;
 import com.businessassistantbcn.mydata.helper.DtoHelper;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
-import com.businessassistantbcn.mydata.repository.MySearchesRepository;
+import com.businessassistantbcn.mydata.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import reactor.core.publisher.Mono;
 
 @Service
-public class UserService {
+public class UserSearchesService {
 	
-	MySearchesRepository mySearchesRepo;
+	UserSearchesRepository mySearchesRepo;
 	
 	@Autowired
-	public UserService(MySearchesRepository mySearchesRepo) {
+	public UserSearchesService(UserSearchesRepository mySearchesRepo) {
 		this.mySearchesRepo = mySearchesRepo;
 	}
-	
-//TODO
-	//No guarda search en el repo ==> es por algo relacionado con el searchUuid que se supone que se genera al guardar, pero da error
-	//Más abajo están las versiones usando string en el body del post. Ocurre lo mismo, la segunda opción el el código cleanded de la 3ª que es la que alguien hizo al principio
-	//No funciona ninguna
+
 	public Mono<SaveSearchResponseDto> saveSearch(SaveSearchRequestDto searchToSave, String user_uuid) {
 		Search search = new Search();
 		search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
@@ -42,51 +38,6 @@ public class UserService {
 		
 		return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
 	}
-
-//2ª VERSIÓN	
-//	public Mono<SaveSearchResponseDto> saveSearch(String searchToSave, String user_uuid) {
-//		Search search = JsonHelper.jsonToEntity(searchToSave);
-//		search.setUserUuid(user_uuid);
-//		search.setSearchDate(new Date());
-//		
-//		Search savedSearch = mySearchesRepo.save(search);
-//		
-//		return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
-//	}
-
-//3ª VERSIÓN
-//	public Mono<SaveSearchResponseDto> saveSearch(String payload, String user_uuid) {
-//
-//		// Uses ObjectMapper to read the JSON payload.
-//		ObjectMapper objectMapper = new ObjectMapper();
-//
-//		// Creates a Search entity
-//		Search search = new Search();
-//
-//		try {
-//			// Read payload value and map it to Search
-//			search = objectMapper.readValue(payload, Search.class);
-//		} catch (JsonMappingException e) {
-//			// Needs to be checked (throw to controller?)
-//			e.printStackTrace();
-//		} catch (JsonProcessingException e) {
-//			// Needs to be checked (throw to controller?)
-//			e.printStackTrace();
-//		}
-//
-//		// set user_uuid in Search.
-//		search.setUserUuid(user_uuid);
-//
-//		// set today's date in Search
-//		search.setSearchDate(new Date());
-//
-//		// save the entity
-//		Search saved = mySearchesRepo.save(search);
-//
-//		return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(saved));
-//	}
-
-//******************************************************
 	
 	public Mono<GenericResultDto<JsonNode>> getAllSearches(String user_uuid, int offset, int limit) {
 		List<JsonNode> allUserSearches = mySearchesRepo.findByUserUuid(user_uuid).stream()
@@ -104,7 +55,6 @@ public class UserService {
 		
 		return Mono.just(result);
 	}
-	
 	
 	public Mono<GenericResultDto<JsonNode>> getSearchResults(String search_uuid, String user_uuid, int offset, int limit) {
 		if (!mySearchesRepo.findById(search_uuid).isPresent())

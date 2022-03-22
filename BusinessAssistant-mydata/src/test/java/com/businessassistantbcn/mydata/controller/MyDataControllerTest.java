@@ -32,6 +32,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 
 import com.businessassistantbcn.mydata.service.UserSearchesService;
+
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
@@ -52,6 +53,7 @@ class MyDataControllerTest {
 	
 	@MockBean
 	private UserSearchesService userService;
+
 	
 	private final String
 	CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/mydata",

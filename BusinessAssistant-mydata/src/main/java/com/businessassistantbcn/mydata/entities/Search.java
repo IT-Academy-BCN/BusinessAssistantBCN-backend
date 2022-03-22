@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -28,6 +30,7 @@ import lombok.Setter;
 public class Search {
 	@Id
 	@GeneratedValue(generator = "idGenerator") 
+	@GenericGenerator(name = "idGenerator", strategy = "uuid")
 	@Column(name = "search_uuid")
 	private String searchUuid;
 	@Column(name = "user_uuid", nullable = false)
