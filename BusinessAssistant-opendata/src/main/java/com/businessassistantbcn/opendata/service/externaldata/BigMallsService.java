@@ -53,7 +53,7 @@ public class BigMallsService {
 	}
 
 	private Mono<GenericResultDto<BigMallsDto>> logInternalErrorReturnBigMallsDefaultPage(Throwable exception) {
-		log.error("BusinessAssistant error");
+		log.error("BusinessAssistant error:"+exception.getMessage());
 		return this.getBigMallsDefaultPage(exception);
 	}
 

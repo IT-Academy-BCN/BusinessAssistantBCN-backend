@@ -49,7 +49,7 @@ public class EconomicActivitiesCensusService {
 
 	private Mono<GenericResultDto<EconomicActivitiesCensusDto>> logInternalErrorReturnEconomicActivitiesCensusDefaultPage
 		(Throwable exception) {
-		log.error("BusinessAssistant error");
+		log.error("BusinessAssistant error"+exception.getMessage());
 		return this.getEconomicActivitiesCensusDefaultPage(exception);
 	}
 
