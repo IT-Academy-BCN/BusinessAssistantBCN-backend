@@ -19,6 +19,7 @@ public class ClassificationDataDto {
 
     private Long id;
     private String name;
+    private String fullPath;
 
     @JsonGetter("id")
     public Long getId() {
@@ -30,5 +31,13 @@ public class ClassificationDataDto {
         return name;
     }
 
-
+    @JsonGetter("full_path")
+    public String getFullPath() {
+        return fullPath;
+    }
+    
+    public ClassificationDataDto(Long id,String name){//Is used Only for OpendataControllerTest
+        this.id=id;
+        this.name=name;
+    }
 }
