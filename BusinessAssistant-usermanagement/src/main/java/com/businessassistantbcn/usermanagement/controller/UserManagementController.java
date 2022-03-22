@@ -21,19 +21,19 @@ import com.businessassistantbcn.usermanagement.document.User;
 import com.businessassistantbcn.usermanagement.service.ServiceUser;
 
 @RestController
-@RequestMapping(value = "c")
+@RequestMapping(value = "/businessassistantbcn/api/v1/usermanagement")
 public class UserManagementController {
 	  
 	@Autowired
 	private ServiceUser serviceUser;
 
-	
+	/*
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
     public String test() {
         return "Hello from BusinessAssistant User!!!";
-    }
+    }*/
   
     
     @GetMapping(value="/user/{uuid}")
@@ -43,28 +43,29 @@ public class UserManagementController {
     		User foundUser = new User(); 
     		return ResponseEntity.ok(foundUser); 
     	} else {
+    		System.out.println("Usuario no encontrado");
     		return ResponseEntity.notFound().build();
     	} 	
     }
     
-    @PostMapping(value="/user/newuser")
+    @PostMapping(value="/user/newuser", consumes="application/json")
     public ResponseEntity<User> newUser(@RequestBody User user){
     	Optional<User> findingUser = serviceUser.getUserbyEmail(user.getEmail());
     	if (findingUser.isPresent()) {
     		System.out.println("Usuario ya existente");
     		return ResponseEntity.badRequest().build();
     	} else {
-    		User newUser = findingUser.get();
-    		return ResponseEntity.ok(serviceUser.newUser(newUser));
+    		System.out.println("Usuario creado correctamente");
+    		return ResponseEntity.ok(serviceUser.newUser(user));
+    		
     	}
     }
     
-    @PutMapping(value="/user/{uuid}")
+    @PutMapping(value="/user/{uuid}", consumes="application/json")
     public ResponseEntity<User> updateUser(@PathVariable("uuid") String uuid, @RequestBody User user){
     	Optional<User> findingUser = serviceUser.getUserbyuuid(uuid);
     	if (findingUser.isPresent()) {
-    		User updateableUser = findingUser.get();
-    		return ResponseEntity.ok(serviceUser.updateUser(updateableUser));
+    		return ResponseEntity.ok(serviceUser.updateUser(user));
     	} else {
     		System.out.println("Usuario no encontrado");
     		return ResponseEntity.badRequest().build();
@@ -77,7 +78,7 @@ public class UserManagementController {
     	Optional<User> findingUser = serviceUser.getUserbyuuid(uuid);
     	if (findingUser.isPresent()) {
     		Scanner escaner = new Scanner(System.in);
-    		System.out.println("Está seguro que desea borrar el usuario " + uuid + "? (Aprete y para aceptar)");
+    		System.out.println("Está seguro que desea borrar el usuario " + uuid + " ? (Aprete y para aceptar)");
     		String resp = escaner.next(); 
     		escaner.close();
     		if (resp == "y") {
