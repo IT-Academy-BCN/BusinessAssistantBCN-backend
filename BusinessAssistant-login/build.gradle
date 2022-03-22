@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.6.4'
+    id 'org.springframework.boot' version '2.6.1'
 }
 
 group 'com.businessassistantbcn'
@@ -11,11 +11,11 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.6.4'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.6.1'
     implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.16'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.4'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.6.4'
-    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.6.4'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.6.1'
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.6.1'
     testImplementation group: 'org.springframework.security', name: 'spring-security-test', version: '5.6.2'
     
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
