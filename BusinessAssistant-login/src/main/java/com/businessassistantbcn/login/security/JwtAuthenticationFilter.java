@@ -1,6 +1,6 @@
 package com.businessassistantbcn.login.security;
 
-import com.businessassistantbcn.login.config.PropertiesConfig;
+import com.businessassistantbcn.login.config.SecurityConfig;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -10,8 +10,8 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 
 import java.io.IOException;
+
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
@@ -30,7 +30,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Autowired
-	private PropertiesConfig config;
+	private SecurityConfig config;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
@@ -40,11 +40,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String authorizationHeader = request.getHeader(config.getHeaderString());
 		
 		if(authorizationHeaderIsValid(authorizationHeader)) {
-			Claims claims = validateToken(request);        	
-			
+			Claims claims = validateToken(request);
 			if(claims.getExpiration() != null && claims.get(config.getAuthoritiesClaim()) != null)
 				setUpSpringAuthentication(claims);
-			else throw new UnsupportedJwtException("Missing expiration or authorities claim");
 		}
 		
 		filterChain.doFilter(request, response);

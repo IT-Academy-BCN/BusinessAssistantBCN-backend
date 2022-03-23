@@ -4,14 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties
 @ConfigurationProperties("security.datasource")
 @Getter @Setter
-public class PropertiesConfig {
+public class SecurityConfig {
 	
 	private String signUpUrl;
 	private String secret;
@@ -20,5 +18,6 @@ public class PropertiesConfig {
 	private long expiresIn;
 	private String authoritiesClaim;
 	private String err;
+	private String userManagementUrl;
 	
 }

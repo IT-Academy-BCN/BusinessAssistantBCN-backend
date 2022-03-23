@@ -24,6 +24,18 @@ security:
     expiresIn: 36_000_000
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
+    userManagementUrl: http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user
+  testuser:
+    email: jvicente@gmail.com
+    password: 56589pp05s
+    roles: [ADMIN]
+  superuser:
+    email: uebermensch@zarathustra.com
+    roles: [SUPERUSER]
+
+url:
+  # 30 seconds, expressed in milliseconds
+  connection_timeout: 30000
 
 logging:
   level:
