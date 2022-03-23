@@ -24,9 +24,9 @@ import reactor.core.publisher.Mono;
 @Service
 public class UserSearchesService {
 	
-	UserSearchesRepository userSearchesRepo;
-	
 	@Autowired
+	UserSearchesRepository userSearchesRepo;
+
 	public UserSearchesService(UserSearchesRepository userSearchesRepo) {
 		this.userSearchesRepo = userSearchesRepo;
 	}

@@ -54,17 +54,6 @@ public class JsonHelper implements AttributeConverter<JsonNode, String> {
 	    }
 	    return null;
 	  }
-
-//	public static Search jsonToEntity(String jsonSearch) {
-//		Search search = new Search();
-//		try {
-//			search = objectMapper.readValue(jsonSearch, Search.class);
-//		} catch (JsonProcessingException e) {
-//			log.error(e.getMessage());
-//		}
-//		
-//		return search;
-//	}
 	
 	public static String entityToJsonString(Search search) {
 		String jsonSearch = new String();

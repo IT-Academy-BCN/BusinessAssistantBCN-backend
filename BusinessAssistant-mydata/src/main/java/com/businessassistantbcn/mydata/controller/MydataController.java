@@ -32,12 +32,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 @RequestMapping("/businessassistantbcn/api/v1/mydata")
 public class MydataController {
 
-	 UserSearchesService userService;
-	 
-	 @Autowired
-	 public MydataController(UserSearchesService userService) {
-		 this.userService = userService;
-	 }
+	@Autowired
+	UserSearchesService userService;
+
+	public MydataController(UserSearchesService userService) {
+		this.userService = userService;
+	}
 
 	private final boolean PAGINATION_ENABLED = true;
 
@@ -67,16 +67,7 @@ public class MydataController {
 			@RequestParam Map<String, String> map) {
 		this.validateRequestParameters(map, this.PAGINATION_ENABLED);
 
-		/*
-		 * if mydataService.getAllSearches(useruu_id.toString()); has no data, means the
-		 * user has no data or doesnt exists.
-		 * 
-		 */
-
 		return userService.getAllSearches(user_uuid, getValidOffset(offset), getValidLimit(limit));
-		// mySearchesService
-		// .getPageBySearches(this.getValidOffset(offset), this.getValidLimit(limit),
-		// searches);
 	}
 
 	@GetMapping("/mysearches/{user_uuid}/search/{search_uuid}")

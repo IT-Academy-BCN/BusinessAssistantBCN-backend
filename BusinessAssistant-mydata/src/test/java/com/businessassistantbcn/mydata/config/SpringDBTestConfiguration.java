@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EntityScan("com.businessassistantbcn.mydata.entities.*")
-@EnableJpaRepositories("com.magnetoresistance.my-data.repository")
+@EnableJpaRepositories("com.businessassistantbcn.mydata.repository.*")
 @PropertySource("classpath:application-test.properties")
 @EnableTransactionManagement
 public class SpringDBTestConfiguration {
