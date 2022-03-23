@@ -2,7 +2,6 @@ package com.businessassistantbcn.mydata.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,10 @@ import com.businessassistantbcn.mydata.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Service
 public class UserSearchesService {
 	
@@ -57,21 +58,23 @@ public class UserSearchesService {
 	}
 	
 	public Mono<GenericResultDto<JsonNode>> getSearchResults(String search_uuid, String user_uuid, int offset, int limit) {
-		if (!userSearchesRepo.findById(search_uuid).isPresent())
-			throw new NoSuchElementException("No existe ninguna búsqueda con ese id");
-		else if (!userSearchesRepo.findById(search_uuid).get().getUserUuid().equals(user_uuid))
-			throw new NoSuchElementException("Este usuario no tiene ninguna búsqueda con ese id");
-		else {
+		GenericResultDto<JsonNode> result = null;
+		if (!userSearchesRepo.findById(search_uuid).isPresent()) {
+			result = createResultDto(null, offset, limit);
+			log.info("No Search found with UUID="+search_uuid);
+		} else if (!userSearchesRepo.findById(search_uuid).get().getUserUuid().equals(user_uuid)) {
+			result = createResultDto(null, offset, limit);
+			log.info("User with UUID="+user_uuid+"does not have a search with UUID="+search_uuid);
+		}else {
 			Search search = userSearchesRepo.findById(search_uuid).get();
 
 			JsonNode searchResult = search.getSearchResult();
 
 			List<JsonNode> pageFilteredResults = filterJsonNodeResultsPagination(mapJsonNodeToList(searchResult), offset, limit);
 			
-			GenericResultDto<JsonNode> result = createResultDto(pageFilteredResults, offset, limit);
-
-			return Mono.just(result);
+			result = createResultDto(pageFilteredResults, offset, limit);
 		}
+		return Mono.just(result);
 	}
 	
 	private JsonNode[] mapListToJsonNodeArray(List<JsonNode> pageFilteredResults) {
@@ -93,10 +96,19 @@ public class UserSearchesService {
 	
 	private GenericResultDto<JsonNode> createResultDto(List<JsonNode> pageFilteredResults,int offset, int limit){
 		GenericResultDto<JsonNode> result = new GenericResultDto<JsonNode>();
-		result.setCount(pageFilteredResults.size());
 		result.setOffset(offset);
 		result.setLimit(limit);
-		result.setResults(mapListToJsonNodeArray(pageFilteredResults));
+		if(pageFilteredResults!=null) {
+			result.setCount(pageFilteredResults.size());
+			result.setResults(mapListToJsonNodeArray(pageFilteredResults));
+		}else {
+			result.setCount(0);
+			JsonNode[] resultsForDto = new JsonNode[1];
+			JsonNode results = JsonHelper.deserializeToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
+			resultsForDto[0]=results;
+			
+			result.setResults(resultsForDto);
+		}
 		
 		return result;
 	}

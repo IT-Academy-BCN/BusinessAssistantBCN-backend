@@ -1,7 +1,6 @@
 package com.businessassistantbcn.mydata.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -11,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -146,36 +144,5 @@ class UserSearchesServiceTest {
 		
 		assertThat(genericDto.equals(searchResults.block()));
 	}
-	
-	@Test
-	public void testGetSearchResultsWithNonExistingSearchUuid_shouldThrowNoSuchElementException() {
 
-		when(userSearchesRepoMock.findById("33b4c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Optional.empty());
-		
-		try {
-			userSearchesService.getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0","44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
-			fail("Exception expected!");
-		} catch (NoSuchElementException e) {
-			assertThat(NoSuchElementException.class.equals(e.getClass()));
-			assertThat(e.getMessage().equals("No existe ninguna búsqueda con ese id"));
-		}catch(Exception e) {
-			fail("wrong exception thrown");
-		}
-	}
-	
-	public void testGetSearchResultsWithSearchNotOwnedByUser_shouldThrowNoSuchElementException() {
-
-		when(userSearchesRepoMock.findById("33b4c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Optional.of(search));
-		
-		try {
-			userSearchesService.getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0","55d6d170-e907-45a9-8d49-2042044c56e0", 0, -1);
-			fail("Exception expected!");
-		} catch (NoSuchElementException e) {
-			assertThat(NoSuchElementException.class.equals(e.getClass()));
-			assertThat(e.getMessage().equals("Este usuario no tiene ninguna búsqueda con ese id"));
-		}catch(Exception e) {
-			fail("wrong exception thrown");
-		}
-	}
-	
 }
