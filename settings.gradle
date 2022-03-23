@@ -1,8 +1,8 @@
 rootProject.name = 'BusinessAssistantBCN-backend'
 include 'BusinessAssistant-login'
 include 'BusinessAssistant-opendata'
-include 'BusinessAssistant-consul'
 include 'BusinessAssistant-gateway'
 include 'BusinessAssistant-mydata'
 include 'BusinessAssistant-usermanagement'
+include 'BusinessAssistant-gencat'
 

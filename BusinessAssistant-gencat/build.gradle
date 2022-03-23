@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.6.1'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.businessassistantbcn.opendata.App'
+        )
+    }
+}
+
+group 'com.businessassistantbcn'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.6.1'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation 'org.json:json:20210307'
+    implementation 'com.jayway.jsonpath:json-path:2.6.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-resilience4j', version: '2.1.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.6.3'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'
+    implementation group: 'org.springframework', name: 'spring-context', version: '5.3.15'
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.15'
+    implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.13'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testCompileOnly 'org.projectlombok:lombok:1.18.22'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
+
+test {
+    useJUnitPlatform()
+}
