@@ -5,7 +5,7 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.bigmalls.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -36,14 +36,25 @@ public class BigMallsService {
 	@Autowired
 	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 
-	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getBigMallsDefaultPage")
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnBigMallsDefaultPage")
 	public Mono<GenericResultDto<BigMallsDto>>getPage(int offset, int limit) throws MalformedURLException {
 		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
 			.flatMap(dtos -> {
 				BigMallsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
 				return Mono.just(genericResultDto);
-			});
+			})
+			.onErrorResume(e -> this.logServerErrorReturnBigMallsDefaultPage(new OpendataUnavailableServiceException()));
+	}
+
+	private Mono<GenericResultDto<BigMallsDto>> logServerErrorReturnBigMallsDefaultPage(Throwable exception) {
+		log.error("Opendata is down");
+		return this.getBigMallsDefaultPage(exception);
+	}
+
+	private Mono<GenericResultDto<BigMallsDto>> logInternalErrorReturnBigMallsDefaultPage(Throwable exception) {
+		log.error("BusinessAssistant error:"+exception.getMessage());
+		return this.getBigMallsDefaultPage(exception);
 	}
 
 	public Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage(Throwable exception) {
@@ -51,8 +62,8 @@ public class BigMallsService {
 		return Mono.just(genericResultDto);
 	}
 
-	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "getActivitiesDefaultPage")
-	public Mono<GenericResultDto<ActivityInfoDto>> bigMallsAllActivities(int offset, int limit) throws MalformedURLException {
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnActivitiesDefaultPage")
+	public Mono<GenericResultDto<ActivityInfoDto>> getBigMallsActivities(int offset, int limit) throws MalformedURLException {
 		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
 			.flatMap(bigMallsDto -> {
 				List<ActivityInfoDto> listFullPathFiltered = this.getListWithoutInvalidFullPaths(bigMallsDto);
@@ -63,7 +74,8 @@ public class BigMallsService {
 				ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
 				genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
 				return Mono.just(genericActivityResultDto);
-			});
+			})
+			.onErrorResume(e -> this.logServerErrorReturnActivitiesDefaultPage(new OpendataUnavailableServiceException()));
 	}
 
 	public Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage(Throwable exception) {
@@ -98,6 +110,16 @@ public class BigMallsService {
 	private String getValidActivityName(ClassificationDataDto dto) {
 		//If name == null, sort method fails
 		return dto.getName() == null ? "" : dto.getName();
+	}
+
+	private Mono<GenericResultDto<ActivityInfoDto>> logServerErrorReturnActivitiesDefaultPage(Throwable exception) {
+		log.error("Opendata is down");
+		return this.getActivitiesDefaultPage(exception);
+	}
+
+	private Mono<GenericResultDto<ActivityInfoDto>> logInternalErrorReturnActivitiesDefaultPage(Throwable exception) {
+		log.error("BusinessAssistant error");
+		return this.getActivitiesDefaultPage(exception);
 	}
 
 	public GenericResultDto<BigMallsDto> getBigMallsByActivityDto(int[] activities, int offset, int limit) {

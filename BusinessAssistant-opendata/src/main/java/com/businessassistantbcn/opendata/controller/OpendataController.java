@@ -141,7 +141,6 @@ public class OpendataController {
             @RequestParam(required = false)  String limit,
             @PathVariable("activity") String activity,
             @RequestParam Map<String, String> map) {
-
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService
                 .getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
@@ -158,8 +157,9 @@ public class OpendataController {
             @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
-            @RequestParam(required = false)  String limit
-    ) throws MalformedURLException {
+            @RequestParam(required = false)  String limit,
+            @RequestParam Map<String, String> map) throws MalformedURLException {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return bigMallsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
@@ -174,9 +174,10 @@ public class OpendataController {
             @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
-            @RequestParam(required = false)  String limit
-    ) throws MalformedURLException {
-        return bigMallsService.bigMallsAllActivities(this.getValidOffset(offset), this.getValidLimit(limit));
+            @RequestParam(required = false)  String limit,
+            @RequestParam Map<String, String> map) throws MalformedURLException {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return bigMallsService.getBigMallsActivities(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
     @GetMapping("/municipal-markets")
@@ -189,8 +190,9 @@ public class OpendataController {
             @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
-            @RequestParam(required = false)  String limit
-    ) throws MalformedURLException {
+            @RequestParam(required = false)  String limit,
+            @RequestParam Map<String, String> map) throws MalformedURLException {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return municipalMarketsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
