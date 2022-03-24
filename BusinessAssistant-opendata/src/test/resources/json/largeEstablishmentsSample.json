@@ -1,0 +1,84 @@
+[
+	{
+		"name": "Empresa_1",
+		"addresses": [
+			{
+				"district_id": "10",
+				"address_name": "Av Diagonal",
+				"street_number_1": "662",
+				"zip_code": "08034",
+				"town": "BARCELONA",
+				"location": {
+					"type": "GeometryCollection",
+					"geometries": [
+						{
+							"type": "Point",
+							"coordinates": [
+								427166.0568587024,
+								4582342.956642098
+							]
+						}
+					]
+				}
+			}
+		],
+		"classifications_data": [
+			{
+				"id": 32804746,
+				"name": "Delegacions - oficines comercials",
+				"full_path": "Tipologia EQ >> Activitats comercials genériques >> Delegacions - oficines comercials"
+			},
+			{
+				"id": 31804968,
+				"name": "Lavazza",
+				"full_path": "Marques i cadenes d'establiments >> Marques L >> Lavazza"
+			},
+			{
+				"id": 14104799,
+				"name": "Màquines de café",
+				"full_path": "Productes >> Maquinaria >> Màquines expenedores automÃ tiques >> Màquines de cafe"
+			}
+		]
+	},
+	{
+		"name": "Empresa_2",
+		"addresses": [
+			{
+				"district_id": "10",
+				"address_name": "Av Diagonal",
+				"street_number_1": "662",
+				"zip_code": "08034",
+				"town": "BARCELONA",
+				"location": {
+					"type": "GeometryCollection",
+					"geometries": [
+						{
+							"type": "Point",
+							"coordinates": [
+								427166.0568587024,
+								4582342.956642098
+							]
+						}
+					]
+				}
+			}
+		],
+		"classifications_data": [
+			{
+				"id": 32804746,
+				"name": "Delegacions - oficines comercials",
+				"full_path": "Tipologia EQ >> Activitats comercials genériques >> Delegacions - oficines comercials"
+			},
+			{
+				"id": 46366354,
+				"name": "Oci i Lleure (PIC's, Ús intern) ",
+				"full_path": "Tipologia EQ >> Ciutat >> Punts d'Interés Cultural (Ús intern DAC) >> Oci i Lleure (PIC's, Ús intern) "
+			},
+			{
+				"id": 148414580,
+				"name": "Equipaments on es celebra la Mercé 2021(per a la web)",
+				"full_path": "Gestió BI >> Equipaments on es celebra la Mercé 2021(per a la web)"
+			}
+		]
+	}
+]
