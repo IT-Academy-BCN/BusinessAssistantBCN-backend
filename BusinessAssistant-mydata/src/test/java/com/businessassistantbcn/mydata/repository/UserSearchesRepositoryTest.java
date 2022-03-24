@@ -23,7 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 //CAUTION: For uses with real database
 //@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class UserSearchesRepositoryTest {
-
+	@Autowired
+	private UserSearchesRepository userSearchesRepository;
+	
     @Autowired
     private TestEntityManager entityManager;
 
@@ -32,6 +34,8 @@ public class UserSearchesRepositoryTest {
 
     @Test
     void test(){
+    	System.out.println(userSearchesRepository.findAll().toString());
+    	
         assertNotNull(entityManager);
         assertNotNull(dataSource);
     }
