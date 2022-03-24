@@ -1,6 +1,7 @@
 package com.businessassistantbcn.mydata.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +14,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.businessassistantbcn.mydata.repository")
-@PropertySource("classpath:persistence-test.properties")
+@EntityScan(basePackages = "com.businessassistantbcn.mydata.entities")
+@PropertySource("classpath:application-test.properties")
 @EnableTransactionManagement
-
 public class SpringDBTestConfiguration {
 
     @Autowired
@@ -31,5 +32,4 @@ public class SpringDBTestConfiguration {
         dataSourceBuilder.password(env.getProperty("spring.datasource.password"));
         return dataSourceBuilder.build();
     }
-
 }
