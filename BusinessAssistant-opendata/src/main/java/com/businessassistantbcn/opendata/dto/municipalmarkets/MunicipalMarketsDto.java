@@ -1,14 +1,11 @@
 package com.businessassistantbcn.opendata.dto.municipalmarkets;
 
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
-import com.fasterxml.jackson.annotation.*;
+import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @Getter
@@ -26,6 +23,6 @@ import java.util.stream.Collectors;
  * @JsonGetter for json deserialization
  * @JsonSetter for json serialization
  */
-public class MunicipalMarketsDto extends BigMallsDto {
+public class MunicipalMarketsDto extends CommercialGalleriesDto {
 
 }

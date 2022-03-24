@@ -1,6 +1,7 @@
 package com.businessassistantbcn.opendata.dto.largeestablishments;
 
 import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -29,6 +30,6 @@ import java.util.List;
  * @JsonSetter for json serialization
  */
 
-public class LargeEstablishmentsDto extends BigMallsDto {
+public class LargeEstablishmentsDto extends CommercialGalleriesDto {
 
 }
