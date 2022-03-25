@@ -30,6 +30,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Mono;
@@ -47,6 +48,7 @@ public class LoginService implements AuthenticationProvider {
 	public LoginService(SuperUserConfig su, TestUserConfig tu) {
 		superUser = new UserDto(su.getEmail(), su.getRoles());
 		testUser = new UserDto(tu.getEmail(), tu.getRoles());
+		testUserA = new AuthenticationRequest(tu.getEmail(), tu.getPassword());
 	}
 	
 	// JSON Web Token generator
@@ -76,10 +78,13 @@ public class LoginService implements AuthenticationProvider {
 	}
 	
 	private final UserDto superUser, testUser;
+	private final AuthenticationRequest testUserA;
 	
 // TODO **** Provisional response with testUser ****
 	public Mono<UserDto> loadUser(AuthenticationRequest request) {
-		return Mono.just(testUser);
+		return request.equals(testUserA)
+				? Mono.just(testUser)
+				: Mono.error(new UsernameNotFoundException("Unknown user \'" + testUserA.getEmail()  + "\'"));
 	}
 	
 	// Database liaison
