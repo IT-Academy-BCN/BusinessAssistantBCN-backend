@@ -60,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"username\": \"nbonaparte@gmail.com\", \"password\": \"11FrimaireAnXIV\"}",
+					"raw": "{\"email\": \"nbonaparte@gmail.com\", \"password\": \"11FrimaireAnXIV\"}",
 					"options": {
 						"raw": {
 							"language": "json"
