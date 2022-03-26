@@ -1,7 +1,6 @@
 package com.businessassistantbcn.login.proxy;
 
 import com.businessassistantbcn.login.config.ProxyConfig;
-import com.businessassistantbcn.login.config.SecurityConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -14,6 +13,7 @@ import java.net.URL;
 import java.time.Duration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -29,9 +29,6 @@ import reactor.netty.http.client.HttpClient;
 
 @Component
 public class HttpProxy {
-	
-	@Autowired
-	private SecurityConfig secConfig;
 	
 	public HttpClient httpClient;
 	public WebClient webClient;
@@ -58,7 +55,7 @@ public class HttpProxy {
 	public <T> Mono<T> getRequestData(URL url, String jwt, AuthenticationRequest request, Class<T> clazz) {
 		return webClient.method(HttpMethod.GET)
 				.uri(URI.create(url.toString()))
-				.header(secConfig.getHeaderString(), jwt)
+				.header(HttpHeaders.AUTHORIZATION, jwt)
 				.bodyValue(request)
 				.retrieve()
 				.bodyToMono(clazz);

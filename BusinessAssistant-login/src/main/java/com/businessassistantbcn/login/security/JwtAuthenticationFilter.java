@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			HttpServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException { try {
 		
-		String authorizationHeader = request.getHeader(config.getHeaderString());
+		String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 		
 		if(authorizationHeaderIsValid(authorizationHeader)) {
 			Claims claims = validateToken(request);
@@ -55,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 	
 	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(config.getHeaderString()).replace(config.getTokenPrefix(), "");
+		String jwtToken = request.getHeader(HttpHeaders.AUTHORIZATION).replace(config.getTokenPrefix(), "");
 		
 		return Jwts.parserBuilder()
 				.setSigningKey(config.getSecret().getBytes())

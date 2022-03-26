@@ -13,7 +13,6 @@ public class SecurityConfig {
 	
 	private String signUpUrl;
 	private String secret;
-	private String headerString;
 	private String tokenPrefix;
 	private long expiresIn;
 	private String authoritiesClaim;
