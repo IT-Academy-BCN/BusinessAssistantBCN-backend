@@ -2,10 +2,13 @@ package com.businessassistantbcn.usermanagement.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,80 +24,67 @@ import com.businessassistantbcn.usermanagement.document.User;
 import com.businessassistantbcn.usermanagement.service.ServiceUser;
 
 @RestController
+@Slf4j
 @RequestMapping(value = "/businessassistantbcn/api/v1/usermanagement")
 public class UserManagementController {
-	  
+	
+	private static Logger log;
+	
 	@Autowired
 	private ServiceUser serviceUser;
 
-	/*
+	
     @GetMapping(value="/test")
     @ApiOperation("Get test")
     @ApiResponse(code = 200, message = "OK")
     public String test() {
         return "Hello from BusinessAssistant User!!!";
-    }*/
+    }
   
     
     @GetMapping(value="/user/{uuid}")
-    public ResponseEntity<User> getUser(@PathVariable ("uuid") String uuid) {
+    public void getUser(@PathVariable ("uuid") String uuid) {
     	Optional<User> findingUser = serviceUser.getUserbyuuid(uuid);
-    	if (!findingUser.isEmpty()) {
-    		User foundUser = new User(); 
-    		return ResponseEntity.ok(foundUser); 
+    	if (findingUser.isPresent()) {
+    		log.info("Usuario encontrado"); 
     	} else {
-    		System.out.println("Usuario no encontrado");
-    		return ResponseEntity.notFound().build();
+    		log.info("Usuario no encontrado");
     	} 	
     }
     
     @PostMapping(value="/user/newuser", consumes="application/json")
-    public ResponseEntity<User> newUser(@RequestBody User user){
+    public void newUser(@RequestBody User user){
     	Optional<User> findingUser = serviceUser.getUserbyEmail(user.getEmail());
-    	if (findingUser.isPresent()) {
-    		System.out.println("Usuario ya existente");
-    		return ResponseEntity.badRequest().build();
+    	if (!findingUser.isPresent()) {
+    		log.info("Usuario introducido correctamente");
     	} else {
-    		System.out.println("Usuario creado correctamente");
-    		return ResponseEntity.ok(serviceUser.newUser(user));
-    		
+    		log.info("Usuario ya existente");
     	}
     }
     
     @PutMapping(value="/user/{uuid}", consumes="application/json")
-    public ResponseEntity<User> updateUser(@PathVariable("uuid") String uuid, @RequestBody User user){
+    public void updateUser(@PathVariable("uuid") String uuid, @RequestBody User user){
     	Optional<User> findingUser = serviceUser.getUserbyuuid(uuid);
     	if (findingUser.isPresent()) {
-    		return ResponseEntity.ok(serviceUser.updateUser(user));
+    		User updatedUser = findingUser.get();
+    		updatedUser = serviceUser.newUser(user);
+    		log.info("Usuario actualizado correctamente");
     	} else {
-    		System.out.println("Usuario no encontrado");
-    		return ResponseEntity.badRequest().build();
+    		log.info("Usuario no encontrado");
     	}
     	    
     }
     
     @DeleteMapping(value="/user/{uuid}")
-    public ResponseEntity<User> deleteUser(@PathVariable("uuid") String uuid){
+    public void deleteUser(@PathVariable("uuid") String uuid){
     	Optional<User> findingUser = serviceUser.getUserbyuuid(uuid);
     	if (findingUser.isPresent()) {
-    		Scanner escaner = new Scanner(System.in);
-    		System.out.println("Está seguro que desea borrar el usuario " + uuid + " ? (Aprete y para aceptar)");
-    		String resp = escaner.next(); 
-    		escaner.close();
-    		if (resp == "y") {
-    			User deletableUser = findingUser.get();
-    			serviceUser.deleteUser(deletableUser);
-    			System.out.println("Usuario eliminado correctamente");
-    			return ResponseEntity.ok().build();
-    		} else {
-    			System.out.println("Usuario no eliminado");
-    			return ResponseEntity.badRequest().build();
+    		serviceUser.deleteUser(findingUser.get());
+    		log.info("Usuario eliminado correctamente");
+    	} else {
+    		log.info("Usuario no encontrado");
     		}
     		
-    	} else {
-			System.out.println("Usuario no encontrado");
-    		return ResponseEntity.badRequest().build();
-    	}
     }
     
 }
