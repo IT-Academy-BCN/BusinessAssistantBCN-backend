@@ -56,6 +56,7 @@ public class UserManagementController {
     public void newUser(@RequestBody User user){
     	Optional<User> findingUser = serviceUser.getUserbyEmail(user.getEmail());
     	if (!findingUser.isPresent()) {
+    		User newUser = serviceUser.newUser(user);
     		log.info("Usuario introducido correctamente");
     	} else {
     		log.info("Usuario ya existente");
