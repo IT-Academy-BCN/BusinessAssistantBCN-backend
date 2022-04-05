@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-	runtimeOnly 'mysql:mysql-connector-java'
+	//runtimeOnly 'mysql:mysql-connector-java'
 
 	// Spring Boot Starter
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
@@ -55,12 +55,10 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'org.json:json:20210307'
     implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.6.0'
-<<<<<<< HEAD
+
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
 
-=======
     implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
->>>>>>> integrationBABCN84
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.5.6'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
