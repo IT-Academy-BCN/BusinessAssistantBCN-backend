@@ -2,15 +2,12 @@ package com.businessassistantbcn.usermanagement.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
-import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +29,8 @@ public class UserManagementController {
 	
 	@Autowired
 	private ServiceUser serviceUser;
+
+	private User updatedUser;
 
 	
     @GetMapping(value="/test")
@@ -56,18 +55,18 @@ public class UserManagementController {
     public void newUser(@RequestBody User user){
     	Optional<User> findingUser = serviceUser.getUserbyEmail(user.getEmail());
     	if (!findingUser.isPresent()) {
-    		User newUser = serviceUser.newUser(user);
+    		serviceUser.newUser(user);
     		log.info("Usuario introducido correctamente");
     	} else {
     		log.info("Usuario ya existente");
     	}
-    }
-    
+    } 
+
     @PutMapping(value="/user/{uuid}", consumes="application/json")
     public void updateUser(@PathVariable("uuid") String uuid, @RequestBody User user){
     	Optional<User> findingUser = serviceUser.getUserbyuuid(uuid);
     	if (findingUser.isPresent()) {
-    		User updatedUser = findingUser.get();
+    		updatedUser = findingUser.get();
     		updatedUser = serviceUser.newUser(user);
     		log.info("Usuario actualizado correctamente");
     	} else {
