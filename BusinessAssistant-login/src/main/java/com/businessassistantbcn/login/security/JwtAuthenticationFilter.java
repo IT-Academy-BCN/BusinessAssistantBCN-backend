@@ -1,6 +1,6 @@
 package com.businessassistantbcn.login.security;
 
-import com.businessassistantbcn.login.config.PropertiesConfig;
+import com.businessassistantbcn.login.config.SecurityConfig;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -10,8 +10,8 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 
 import java.io.IOException;
+
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,21 +31,19 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	
 	@Autowired
-	private PropertiesConfig config;
+	private SecurityConfig config;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException { try {
 		
-		String authorizationHeader = request.getHeader(config.getHeaderString());
+		String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 		
 		if(authorizationHeaderIsValid(authorizationHeader)) {
-			Claims claims = validateToken(request);        	
-			
+			Claims claims = validateToken(request);
 			if(claims.getExpiration() != null && claims.get(config.getAuthoritiesClaim()) != null)
 				setUpSpringAuthentication(claims);
-			else throw new UnsupportedJwtException("Missing expiration or authorities claim");
 		}
 		
 		filterChain.doFilter(request, response);
@@ -57,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 	
 	private Claims validateToken(HttpServletRequest request) {
-		String jwtToken = request.getHeader(config.getHeaderString()).replace(config.getTokenPrefix(), "");
+		String jwtToken = request.getHeader(HttpHeaders.AUTHORIZATION).replace(config.getTokenPrefix(), "");
 		
 		return Jwts.parserBuilder()
 				.setSigningKey(config.getSecret().getBytes())
