@@ -1,6 +1,7 @@
-package com.businessassistantbcn.mydata.security;
+package com.businessassistantbcn.mydata.config;
 
 import com.businessassistantbcn.mydata.config.PropertiesConfig;
+import com.businessassistantbcn.mydata.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
