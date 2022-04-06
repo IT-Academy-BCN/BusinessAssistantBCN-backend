@@ -40,14 +40,14 @@ class MyDataControllerTest {
 
 	@Autowired
 	private WebTestClient webTestClient;
-	
+
 	@MockBean
 	private UserSearchesService userService;
 
-	
+
 	private final String
-	CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/mydata",
-	RES0 = "$.results[0].";
+			CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/mydata",
+			RES0 = "$.results[0].";
 
 
 	private Search search = new Search();
@@ -82,6 +82,7 @@ class MyDataControllerTest {
 		responseDto.setSearchResult(mapper.valueToTree(searchResult));
 
 	}
+
 	@AfterEach
 	void tearDown() throws Exception {
 	}
@@ -92,12 +93,12 @@ class MyDataControllerTest {
 	void test() {
 		final String URI_TEST = "/test";
 		webTestClient.get()
-					.uri(CONTROLLER_BASE_URL + URI_TEST)
-					.accept(MediaType.APPLICATION_JSON)
-					.exchange()
-					.expectStatus().isOk()
-					.expectBody(String.class)
-					.value(s -> s.toString(), equalTo("Hello from BusinessAssistant MyData!!!"));
+				.uri(CONTROLLER_BASE_URL + URI_TEST)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody(String.class)
+				.value(s -> s.toString(), equalTo("Hello from BusinessAssistant MyData!!!"));
 	}
 
 	@Test
@@ -110,8 +111,8 @@ class MyDataControllerTest {
 
 		String jsonSearch = JsonHelper.entityToJsonString(search);
 		JsonNode jsonNodeSearch = JsonHelper.deserializeToJsonNode(jsonSearch);
-		JsonNode[] results = new JsonNode[] {jsonNodeSearch};
-		for(JsonNode searchNode : results) {
+		JsonNode[] results = new JsonNode[]{jsonNodeSearch};
+		for (JsonNode searchNode : results) {
 			ObjectNode object = (ObjectNode) searchNode;
 			object.remove("searchResult");
 		}
@@ -121,7 +122,7 @@ class MyDataControllerTest {
 		genericDto.setLimit(-1);
 		genericDto.setResults(results);
 
-		when(userService.getAllSearches("44c5c069-e907-45a9-8d49-2042044c56e0",0,-1)).thenReturn(Mono.just(genericDto));
+		when(userService.getAllSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1)).thenReturn(Mono.just(genericDto));
 
 		webTestClient.get()
 				.uri(CONTROLLER_BASE_URL + URI_ALL_SEARCHES, "44c5c069-e907-45a9-8d49-2042044c56e0")
@@ -141,7 +142,34 @@ class MyDataControllerTest {
 				.jsonPath(RES0 + "searchDetail").isNotEmpty()
 				.jsonPath(RES0 + "searchDetail").isEqualTo("detail");
 
-		verify(userService).getAllSearches("44c5c069-e907-45a9-8d49-2042044c56e0",0,-1);
+		verify(userService).getAllSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
 	}
 
+	@Test
+	public void getSearchResultsTest() {
+		final String URI_ONE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
+
+		JsonNode searchResult = search.getSearchResult();
+		JsonNode[] results = new JsonNode[]{searchResult};
+		GenericResultDto<JsonNode> genericDto = new GenericResultDto<JsonNode>();
+		genericDto.setCount(1);
+		genericDto.setOffset(0);
+		genericDto.setLimit(-1);
+		genericDto.setResults(results);
+
+		when(userService.getSearchResults("44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0", 0, -1)).thenReturn(Mono.just(genericDto));
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH, "44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0")
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath(RES0 + "name[0]",("Groupe Zannier Espanya"));
+
+		verify(userService).getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0", "44c5c069-e907-45a9-8d49-2042044c56e0",0, -1);
+	}
 }
+
+
