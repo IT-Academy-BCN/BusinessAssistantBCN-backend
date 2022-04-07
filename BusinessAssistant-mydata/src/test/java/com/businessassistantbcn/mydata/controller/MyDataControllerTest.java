@@ -4,9 +4,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.businessassistantbcn.mydata.dto.GenericResultDto;
+import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
+import com.businessassistantbcn.mydata.dto.SearchResultsDto;
 import com.businessassistantbcn.mydata.entities.Search;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -116,13 +117,13 @@ class MyDataControllerTest {
 			ObjectNode object = (ObjectNode) searchNode;
 			object.remove("searchResult");
 		}
-		GenericResultDto<JsonNode> genericDto = new GenericResultDto<JsonNode>();
+		GenericSearchesResultDto<JsonNode> genericDto = new GenericSearchesResultDto<JsonNode>();
 		genericDto.setCount(1);
 		genericDto.setOffset(0);
 		genericDto.setLimit(-1);
 		genericDto.setResults(results);
 
-		when(userService.getAllSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1)).thenReturn(Mono.just(genericDto));
+		when(userService.getAllUserSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1)).thenReturn(Mono.just(genericDto));
 
 		webTestClient.get()
 				.uri(CONTROLLER_BASE_URL + URI_ALL_SEARCHES, "44c5c069-e907-45a9-8d49-2042044c56e0")
@@ -142,7 +143,7 @@ class MyDataControllerTest {
 				.jsonPath(RES0 + "searchDetail").isNotEmpty()
 				.jsonPath(RES0 + "searchDetail").isEqualTo("detail");
 
-		verify(userService).getAllSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
+		verify(userService).getAllUserSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
 	}
 
 	@Test
@@ -151,13 +152,10 @@ class MyDataControllerTest {
 
 		JsonNode searchResult = search.getSearchResult();
 		JsonNode[] results = new JsonNode[]{searchResult};
-		GenericResultDto<JsonNode> genericDto = new GenericResultDto<JsonNode>();
-		genericDto.setCount(1);
-		genericDto.setOffset(0);
-		genericDto.setLimit(-1);
-		genericDto.setResults(results);
+		SearchResultsDto searchResultsDto = new SearchResultsDto();
+		searchResultsDto.setResults(results);
 
-		when(userService.getSearchResults("44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0", 0, -1)).thenReturn(Mono.just(genericDto));
+		when(userService.getSearchResults("44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Mono.just(searchResultsDto));
 
 		webTestClient.get()
 				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH, "44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0")
@@ -168,7 +166,7 @@ class MyDataControllerTest {
 				.expectBody()
 				.jsonPath(RES0 + "name[0]",("Groupe Zannier Espanya"));
 
-		verify(userService).getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0", "44c5c069-e907-45a9-8d49-2042044c56e0",0, -1);
+		verify(userService).getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0", "44c5c069-e907-45a9-8d49-2042044c56e0");
 	}
 }
 

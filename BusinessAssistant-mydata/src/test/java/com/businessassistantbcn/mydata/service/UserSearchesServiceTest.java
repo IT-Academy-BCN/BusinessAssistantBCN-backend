@@ -22,9 +22,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.businessassistantbcn.mydata.dto.GenericResultDto;
+import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
+import com.businessassistantbcn.mydata.dto.SearchResultsDto;
 import com.businessassistantbcn.mydata.entities.Search;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.businessassistantbcn.mydata.repository.UserSearchesRepository;
@@ -114,7 +115,7 @@ class UserSearchesServiceTest {
 	        ObjectNode object = (ObjectNode) searchNode;
 	        object.remove("searchResult");
 		}
-		GenericResultDto<JsonNode> genericDto = new GenericResultDto<JsonNode>();
+		GenericSearchesResultDto<JsonNode> genericDto = new GenericSearchesResultDto<JsonNode>();
 		genericDto.setCount(1);
 		genericDto.setOffset(0);
 		genericDto.setLimit(-1);
@@ -122,7 +123,7 @@ class UserSearchesServiceTest {
 		
 		when(userSearchesRepoMock.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0")).thenReturn(searchList);
 	
-		Mono<GenericResultDto<JsonNode>> allUserSearches = userSearchesService.getAllSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
+		Mono<GenericSearchesResultDto<JsonNode>> allUserSearches = userSearchesService.getAllUserSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
 		
 		assertThat(genericDto.equals(allUserSearches.block()));
 	}
@@ -132,17 +133,14 @@ class UserSearchesServiceTest {
 		String jsonSearch = JsonHelper.entityToJsonString(search);
 		JsonNode jsonNodeSearch = JsonHelper.deserializeToJsonNode(jsonSearch);
 		JsonNode[] results = new JsonNode[] {jsonNodeSearch};
-		GenericResultDto<JsonNode> genericDto = new GenericResultDto<JsonNode>();
-		genericDto.setCount(1);
-		genericDto.setOffset(0);
-		genericDto.setLimit(-1);
-		genericDto.setResults(results);
+		SearchResultsDto searchResultsDto = new SearchResultsDto();
+		searchResultsDto.setResults(results);
 		
 		when(userSearchesRepoMock.findById("33b4c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Optional.of(search));
 		
-		Mono<GenericResultDto<JsonNode>> searchResults = userSearchesService.getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0","44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
+		Mono<SearchResultsDto> searchResults = userSearchesService.getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0","44c5c069-e907-45a9-8d49-2042044c56e0");
 		
-		assertThat(genericDto.equals(searchResults.block()));
+		assertThat(searchResultsDto.equals(searchResults.block()));
 	}
 
 }
