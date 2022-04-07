@@ -8,7 +8,7 @@ import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.dto.SearchResultsDto;
-import com.businessassistantbcn.mydata.entities.Search;
+import com.businessassistantbcn.mydata.entities.UserSearch;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -51,7 +51,7 @@ class MyDataControllerTest {
 			RES0 = "$.results[0].";
 
 
-	private Search search = new Search();
+	private UserSearch search = new UserSearch();
 	private Date date = new Date();
 	private SaveSearchRequestDto requestDto = new SaveSearchRequestDto();
 	private SaveSearchResponseDto responseDto = new SaveSearchResponseDto();
@@ -107,11 +107,11 @@ class MyDataControllerTest {
 
 		final String URI_ALL_SEARCHES = "/mysearches/{user_uuid}";
 
-		List<Search> searchList = new ArrayList<Search>();
+		List<UserSearch> searchList = new ArrayList<UserSearch>();
 		searchList.add(search);
 
 		String jsonSearch = JsonHelper.entityToJsonString(search);
-		JsonNode jsonNodeSearch = JsonHelper.deserializeToJsonNode(jsonSearch);
+		JsonNode jsonNodeSearch = JsonHelper.deserializeStringToJsonNode(jsonSearch);
 		JsonNode[] results = new JsonNode[]{jsonNodeSearch};
 		for (JsonNode searchNode : results) {
 			ObjectNode object = (ObjectNode) searchNode;

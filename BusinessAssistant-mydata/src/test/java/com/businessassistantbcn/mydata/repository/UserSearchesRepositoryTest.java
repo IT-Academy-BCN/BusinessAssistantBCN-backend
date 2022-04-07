@@ -1,7 +1,7 @@
 package com.businessassistantbcn.mydata.repository;
 
 import com.businessassistantbcn.mydata.config.SpringDBTestConfiguration;
-import com.businessassistantbcn.mydata.entities.Search;
+import com.businessassistantbcn.mydata.entities.UserSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -42,7 +42,7 @@ public class UserSearchesRepositoryTest {
     @Autowired
     private DataSource dataSource;
     
-    private static Search search = new Search();
+    private static UserSearch search = new UserSearch();
     private String userUuidFromTestDb = "DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57";
 	private String searchUuidFromTestDb = "8480788D-1FE0-035D-32D7-24984EBA8615";
 	private String userUuidNotInTestDb = "NOEXITS1-D36E-38C7-8A0C-1B2D3CF2BE57";

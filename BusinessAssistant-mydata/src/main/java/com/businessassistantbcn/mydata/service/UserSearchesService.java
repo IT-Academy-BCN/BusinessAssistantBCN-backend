@@ -12,7 +12,7 @@ import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.dto.SearchResultsDto;
-import com.businessassistantbcn.mydata.entities.Search;
+import com.businessassistantbcn.mydata.entities.UserSearch;
 import com.businessassistantbcn.mydata.helper.DtoHelper;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.businessassistantbcn.mydata.repository.*;
@@ -34,10 +34,10 @@ public class UserSearchesService {
 	}
 
 	public Mono<SaveSearchResponseDto> saveSearch(SaveSearchRequestDto searchToSave, String user_uuid) {
-		Search search = new Search();
+		UserSearch search = new UserSearch();
 		search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
 		
-		Search savedSearch = userSearchesRepo.save(search);
+		UserSearch savedSearch = userSearchesRepo.save(search);
 		
 		return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
 	}
@@ -45,7 +45,7 @@ public class UserSearchesService {
 	public Mono<GenericSearchesResultDto<JsonNode>> getAllUserSearches(String user_uuid, int offset, int limit) {
 		List<JsonNode> allUserSearches = userSearchesRepo.findByUserUuid(user_uuid).stream()
 												.map(search -> JsonHelper.entityToJsonString(search))
-												.map(string -> JsonHelper.deserializeToJsonNode(string))
+												.map(string -> JsonHelper.deserializeStringToJsonNode(string))
 												.collect(Collectors.toList());
 		for(JsonNode searchNode : allUserSearches) {
 			        ObjectNode object = (ObjectNode) searchNode;
@@ -98,7 +98,7 @@ public class UserSearchesService {
 		}else {
 			result.setCount(0);
 			JsonNode[] resultsForDto = new JsonNode[1];
-			JsonNode results = JsonHelper.deserializeToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
+			JsonNode results = JsonHelper.deserializeStringToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
 			resultsForDto[0]=results;
 			result.setResults(resultsForDto);
 		}
@@ -114,7 +114,7 @@ public class UserSearchesService {
 			result = createSearchResultsDto(null);
 			log.info("User with UUID="+user_uuid+"does not have a search with UUID="+search_uuid);
 		}else {
-			Search search = userSearchesRepo.findById(search_uuid).get();
+			UserSearch search = userSearchesRepo.findById(search_uuid).get();
 
 			JsonNode searchResult = search.getSearchResult();
 			
@@ -130,7 +130,7 @@ public class UserSearchesService {
 		}else {
 			JsonNode[] resultsForDto = new JsonNode[1];
 			
-			JsonNode results = JsonHelper.deserializeToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
+			JsonNode results = JsonHelper.deserializeStringToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
 			resultsForDto[0]=results;
 			
 			result.setResults(resultsForDto);

@@ -26,7 +26,7 @@ import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.dto.SearchResultsDto;
-import com.businessassistantbcn.mydata.entities.Search;
+import com.businessassistantbcn.mydata.entities.UserSearch;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.businessassistantbcn.mydata.repository.UserSearchesRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -48,7 +48,7 @@ class UserSearchesServiceTest {
 	@Mock
 	private ObjectMapper mapper = new ObjectMapper();
 	
-	private Search search = new Search();
+	private UserSearch search = new UserSearch();
 	private Date date = new Date();
 	private SaveSearchRequestDto requestDto = new SaveSearchRequestDto();
 	private SaveSearchResponseDto responseDto = new SaveSearchResponseDto();
@@ -87,7 +87,7 @@ class UserSearchesServiceTest {
 		
 		userSearchesService.saveSearch(requestDto, "44c5c069-e907-45a9-8d49-2042044c56e0");
 		
-		ArgumentCaptor<Search> argument = ArgumentCaptor.forClass(Search.class);
+		ArgumentCaptor<UserSearch> argument = ArgumentCaptor.forClass(UserSearch.class);
 		verify(userSearchesRepoMock).save(argument.capture());
 		assertEquals(search.getUserUuid(), argument.getValue().getUserUuid());
 	}
@@ -105,11 +105,11 @@ class UserSearchesServiceTest {
 	
 	@Test	
 	public void getAllSearchesOfAUserByUserUuid_shouldReturnAllSearchesWithThatUserUuid() {
-		List<Search> searchList = new ArrayList<Search>();
+		List<UserSearch> searchList = new ArrayList<UserSearch>();
 		searchList.add(search);
 		
 		String jsonSearch = JsonHelper.entityToJsonString(search);
-		JsonNode jsonNodeSearch = JsonHelper.deserializeToJsonNode(jsonSearch);
+		JsonNode jsonNodeSearch = JsonHelper.deserializeStringToJsonNode(jsonSearch);
 		JsonNode[] results = new JsonNode[] {jsonNodeSearch};
 		for(JsonNode searchNode : results) {
 	        ObjectNode object = (ObjectNode) searchNode;
@@ -131,7 +131,7 @@ class UserSearchesServiceTest {
 	@Test
 	public void testGetSearchResults() {
 		String jsonSearch = JsonHelper.entityToJsonString(search);
-		JsonNode jsonNodeSearch = JsonHelper.deserializeToJsonNode(jsonSearch);
+		JsonNode jsonNodeSearch = JsonHelper.deserializeStringToJsonNode(jsonSearch);
 		JsonNode[] results = new JsonNode[] {jsonNodeSearch};
 		SearchResultsDto searchResultsDto = new SearchResultsDto();
 		searchResultsDto.setResults(results);
