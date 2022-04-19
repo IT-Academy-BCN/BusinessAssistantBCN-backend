@@ -6,31 +6,32 @@ import org.springframework.stereotype.Component;
 
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
-import com.businessassistantbcn.mydata.entities.Search;
+import com.businessassistantbcn.mydata.entities.UserSearch;
 
 @Component
 public class DtoHelper {
 	
-	public static SaveSearchResponseDto mapSearchToSaveSearchResponseDto(Search search) {
+	public static SaveSearchResponseDto mapSearchToSaveSearchResponseDto(UserSearch userSearch) {
 		SaveSearchResponseDto dto = new SaveSearchResponseDto();
-		dto.setSearchUuid(search.getSearchUuid());
-		dto.setUserUuid(search.getUserUuid());
-		dto.setSearchDate(search.getSearchDate());
-		dto.setSearchName(search.getSearchName());
-		dto.setSearchDetail(search.getSearchDetail());
-		dto.setSearchResult(search.getSearchResult());
+		dto.setSearchUuid(userSearch.getSearchUuid());
+		dto.setUserUuid(userSearch.getUserUuid());
+		dto.setSearchDate(userSearch.getSearchDate());
+		dto.setSearchName(userSearch.getSearchName());
+		dto.setSearchDetail(userSearch.getSearchDetail());
+		dto.setSearchResult(userSearch.getSearchResult());
 		
 		return dto;
 	}
 	
-	public static Search mapSaveSearchRequestDtoToSearch(SaveSearchRequestDto dto, String user_uuid) {
-		Search search = new Search();
-		search.setSearchName(dto.getSearchName());
-		search.setSearchDetail(dto.getSearchDetail());
-		search.setSearchResult(dto.getSearchResult());
-		search.setUserUuid(user_uuid);
-		search.setSearchDate(new Date());
-		return search;
+	public static UserSearch mapSaveSearchRequestDtoToSearch(SaveSearchRequestDto requestDto, String user_uuid) {
+		UserSearch userSearch = new UserSearch();
+		userSearch.setSearchName(requestDto.getSearchName());
+		userSearch.setSearchDetail(requestDto.getSearchDetail());
+		userSearch.setSearchResult(requestDto.getSearchResult());
+		userSearch.setUserUuid(user_uuid);
+		userSearch.setSearchDate(new Date());
+		
+		return userSearch;
 	}
 
 }

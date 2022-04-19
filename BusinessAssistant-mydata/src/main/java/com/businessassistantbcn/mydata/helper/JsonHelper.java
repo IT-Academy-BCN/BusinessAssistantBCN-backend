@@ -6,9 +6,7 @@ import javax.persistence.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import com.businessassistantbcn.mydata.entities.Search;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,69 +19,57 @@ public class JsonHelper implements AttributeConverter<JsonNode, String> {
 	
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	
-	 @Override
-	  public String convertToDatabaseColumn(JsonNode jsonNode)
-	  {
-	    if( jsonNode == null)
-	    {
-	      log.warn( "jsonNode input is null, returning null" );
-	      return null;
-	    }
+	@Override
+	public String convertToDatabaseColumn(JsonNode jsonNode) {
+		if (jsonNode == null) {
+			log.warn("jsonNode input is null, returning null");
+			return null;
+		}
+		return jsonNode.toPrettyString();
+	}
 
-	    String jsonNodeString = jsonNode.toPrettyString();
-	    return jsonNodeString;
-	  }
-	 
-	 @Override
-	  public JsonNode convertToEntityAttribute(String jsonNodeString) {
+	@Override
+	public JsonNode convertToEntityAttribute(String jsonNodeString) {
+		JsonNode jsonNode = null;
+		if (jsonNodeString.isEmpty())
+			log.warn("jsonNodeString input is empty, returning null");
+		else {
+			try {
+				jsonNode = objectMapper.readTree(jsonNodeString);
+			} catch (JsonProcessingException e) {
+				log.error("Error parsing jsonNodeString", e);
+			}
+		}
+		return jsonNode;
+	}
 
-	    if ( StringUtils.isEmpty(jsonNodeString) )
-	    {
-	      log.warn( "jsonNodeString input is empty, returning null" );
-	      return null;
-	    }
-
-	    ObjectMapper mapper = new ObjectMapper();
-	    try
-	    {
-	      return mapper.readTree( jsonNodeString );
-	    }
-	    catch( JsonProcessingException e )
-	    {
-	      log.error( "Error parsing jsonNodeString", e );
-	    }
-	    return null;
-	  }
-	
-	public static String entityToJsonString(Search search) {
-		String jsonSearch = new String();
+	public static<T> String entityToJsonString(T entity) {
+		String jsonEntity = new String();
 		try {
-			jsonSearch = objectMapper.writeValueAsString(search);
+			jsonEntity = objectMapper.writeValueAsString(entity);
 		} catch (JsonProcessingException e) {
 			log.error(e.getMessage());
 		}
-		return jsonSearch;
+		return jsonEntity;
 	}
 	
-	public static JsonNode deserializeToJsonNode(String json){
+	public static JsonNode deserializeStringToJsonNode(String json){
 		JsonNode jsonNode = null;
 		try {
 			jsonNode = objectMapper.readTree(json);
 		} catch (JsonProcessingException e) {
 			log.error("Unable to deserialize to jsonNode:", e.getMessage());
 		}
-		
 		return jsonNode;
 	}
 	
-	public static String serialize(JsonNode node) {
+	public static String serializeJsonNodeToString(JsonNode node) {
 		String jsonString = null;
 		try {
 			jsonString = objectMapper.writeValueAsString(node);
 		} catch (JsonProcessingException e) {
 			log.error("Unable to serialize jsonNode", e.getMessage());
 		}
-		
 		return jsonString;
 	}
 }

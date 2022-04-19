@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Getter 
 @Setter
 @ToString
-public class GenericResultDto<T> {
+public class GenericSearchesResultDto<T> {
 
     private int offset;
     private int limit;
@@ -18,7 +18,7 @@ public class GenericResultDto<T> {
 
     private T[] results;
 
-    public GenericResultDto() {}
+    public GenericSearchesResultDto() {}
 
     public void setInfo(int offset, int limit, int count, T[] results) {
         this.offset = offset;

@@ -27,7 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "my_searches")
-public class Search {
+public class UserSearch {
 	@Id
 	@GeneratedValue(generator = "idGenerator") 
 	@GenericGenerator(name = "idGenerator", strategy = "uuid")
