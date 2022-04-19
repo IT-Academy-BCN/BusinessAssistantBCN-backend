@@ -8,6 +8,8 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,6 @@ import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.dto.SearchResultsDto;
 import com.businessassistantbcn.mydata.service.UserSearchesService;
 import com.fasterxml.jackson.databind.JsonNode;
-
 
 @RestController
 @RequestMapping("/businessassistantbcn/api/v1/mydata")
@@ -49,8 +50,13 @@ public class MydataController {
 		return "Hello from BusinessAssistant MyData!!!";
 	}
 
-    @PostMapping(value="/mysearches/{user_uuid}")
-    public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @RequestBody SaveSearchRequestDto searchToSave) {
+	@PostMapping(value="/mysearches/{user_uuid}")
+    @ApiOperation("Save user search")
+    @ApiResponses({ @ApiResponse(code = 200, message = "OK"), 
+    	@ApiResponse(code = 400, message = "Bad Request"),
+		@ApiResponse(code = 404, message = "Not Found"),
+		@ApiResponse(code = 503, message = "Service Unavailable") })
+    public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @Valid @RequestBody SaveSearchRequestDto searchToSave) {
     	return userService.saveSearch(searchToSave, user_uuid);
     }
    
