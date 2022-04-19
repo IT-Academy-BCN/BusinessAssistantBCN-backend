@@ -6,24 +6,16 @@ import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
 import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
-import com.businessassistantbcn.opendata.dto.test.*;
-import com.businessassistantbcn.opendata.service.config.*;
+import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
+import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
+import com.businessassistantbcn.opendata.service.config.DataConfigService;
+import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,8 +24,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
-
 import reactor.core.publisher.Mono;
+
+import java.lang.reflect.*;
+import java.net.MalformedURLException;
+import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
@@ -132,12 +127,13 @@ public class OpendataControllerTest {
 	} catch(MalformedURLException e) {
 		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", e);
 	} }
-	
+
+
 	@DisplayName("Opendata response -- JSON elements of commercial centers")
 	//@ParameterizedTest(name = "{index} -> URL=''{0}''")
 	@MethodSource("argsProvider")
 	public <T> void JsonResponseTests1(String URI_TEST, Class<T> dtoClass, String stringDtoService) { try {
-		
+
 		// Crear un DTO genérico…
 		String packageName = dtoClass.getPackageName();
 		Class<?> clazzA = Class.forName(packageName + ".ContactDto");
@@ -155,31 +151,31 @@ public class OpendataControllerTest {
 						007L, // Afortunadamente, el número también es válido en octal.
 						"LicenceToKill")),
 				List.of());
-				
+
 		// Crear el empaquetamiento para el DTO anterior …
 		GenericResultDto<T> genericResultDTO = new GenericResultDto<>();
 		genericResultDTO.setCount(1);
 		genericResultDTO.setOffset(0);
 		genericResultDTO.setLimit(1);
-		
+
 		// … y guardarlo dentro.
 		@SuppressWarnings("unchecked")
-		T[] results = (T[])Array.newInstance(dtoClass, 1);
+		T[] results = (T[]) Array.newInstance(dtoClass, 1);
 		results[0] = genericDTO;
 		genericResultDTO.setResults(results);
-		
+
 		// Servicio DTO particular.
 		Field dtoServiceField = this.getClass().getDeclaredField(stringDtoService);
 		Object dtoService = dtoServiceField.get(this);
-		
+
 		// Método '.getPage(int,int)' dentro del servicio particular.
 		Method getPage0m1 = dtoServiceField.getType().getDeclaredMethod("getPage", Integer.TYPE, Integer.TYPE);
-		
+
 		// Intercepta la petición de ensayo, devolviendo un 'Mono' con el 'GenericResultDto<genericDto>'
-		// de un solo resultado fabricado anteriormente. 
+		// de un solo resultado fabricado anteriormente.
 		when(getPage0m1.invoke(dtoService, 0, -1))
 			.thenReturn(Mono.just(genericResultDTO));
-		
+
 		// Petición de prueba a la página web solicitando datos concretos; parámetros 'offset' y 'limit' sin
 		// especificar -> equivalente a solicitar todos los resultados. Batería de ensayos sobre el objeto
 		// JSON "retornado".
@@ -207,17 +203,17 @@ public class OpendataControllerTest {
 				.jsonPath(RES0 + "activities[0]." + "id").isEqualTo(7)
 				.jsonPath(RES0 + "activities[0]." + "name").isNotEmpty()
 				.jsonPath(RES0 + "activities[0]." + "name").isEqualTo("LicenceToKill");
-		
+
 		// Verificación de la llamada única al método 'getPage(0,-1)' del servicio
 		getPage0m1.invoke(verify(dtoService), 0, -1);
-		
+
 	} catch(ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
 			InvocationTargetException | NoSuchFieldException e) {
-		
+
 		throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Failed to return a DTO", e);
-		
+
 	} }
-	
+
 	// Generador de argumentos para los ensayos del controlador con los centros económicos
 	private static Arguments[] argsProvider() {
 		
@@ -305,6 +301,35 @@ public class OpendataControllerTest {
 				.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
 
 		verify(bigMallsService).getBigMallsActivities(0,-1);
+
+	}
+
+	@Test
+	public void getCommercialGalleriesActivitiesTest() throws MalformedURLException {
+
+		final String URI_TEST = "/commercial-galleries/activities";
+
+		ActivityInfoDto[] results = {new ActivityInfoDto(1L, "Activitat 1")};
+
+		GenericResultDto<ActivityInfoDto> genericResultDto = new GenericResultDto<>();
+		genericResultDto.setInfo(0, -1, 1, results);
+
+		when(commercialGalleriesService.getCommercialGalleriesActivities(0,-1))
+			.thenReturn(Mono.just(genericResultDto));
+
+		webTestClient.get()
+				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST).build())
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.jsonPath("$.count").isEqualTo(1)
+				.jsonPath("$.offset").isEqualTo(0)
+				.jsonPath("$.limit").isEqualTo(-1)
+				.jsonPath(RES0 + "activityId").isEqualTo(1)
+				.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
+
+		verify(commercialGalleriesService).getCommercialGalleriesActivities(0,-1);
 
 	}
 	

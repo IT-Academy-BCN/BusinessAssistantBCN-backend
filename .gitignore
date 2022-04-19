@@ -45,6 +45,7 @@ tmp/
 .svn/
 .iml/
 .idea/
+.gradle/
 *.classpath
 *.project
 *.tern-project

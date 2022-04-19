@@ -46,7 +46,7 @@ public class MunicipalMarketsService {
 	}
 
 	private Mono<GenericResultDto<MunicipalMarketsDto>> logInternalErrorReturnMunicipalMarketsDefaultPage(Throwable exception) {
-		log.error("BusinessAssistant error:"+exception.getMessage());
+		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getMunicipalMarketsDefaultPage(exception);
 	}
 
