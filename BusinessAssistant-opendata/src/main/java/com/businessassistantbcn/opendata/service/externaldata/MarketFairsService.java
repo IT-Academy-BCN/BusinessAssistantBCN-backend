@@ -46,7 +46,7 @@ public class MarketFairsService {
 	}
 
 	private Mono<GenericResultDto<MarketFairsDto>> logInternalErrorReturnMarketFairsDefaultPage(Throwable exception) {
-		log.error("BusinessAssistant error"+exception.getMessage());
+		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getMarketFairsDefaultPage(exception);
 	}
 
