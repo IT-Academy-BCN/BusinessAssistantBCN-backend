@@ -107,6 +107,7 @@ class MyDataControllerTest {
 	}
 	@Test
 	public void saveSearchTest(){
+
 		final String URI_SAVE_SEARCH="/mysearches/{user_uuid}";
 
 		when(userService.saveSearch(requestDto,"44c5c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Mono.just(responseDto));
