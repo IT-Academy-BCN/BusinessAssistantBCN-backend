@@ -114,7 +114,7 @@ public class BigMallsServiceTest {
         expectedResult.setInfo(0, -1, activities.length, activities);
 
         GenericResultDto<ActivityInfoDto> actualResult = bigMallsService.getBigMallsActivities(0, -1).block();
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
             mapper.writeValueAsString(actualResult.getResults()));
 
@@ -149,7 +149,7 @@ public class BigMallsServiceTest {
         GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
         expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
 
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
         verify(config, times(1)).getDs_bigmalls();
@@ -159,7 +159,7 @@ public class BigMallsServiceTest {
         GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
         expectedResult.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 
-        areOffsetLimitAndCountEqual(expectedResult, actualResult);
+        this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
         verify(config, times(1)).getDs_bigmalls();
