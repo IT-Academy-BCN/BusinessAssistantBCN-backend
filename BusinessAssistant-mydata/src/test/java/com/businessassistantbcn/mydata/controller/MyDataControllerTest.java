@@ -20,7 +20,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -37,6 +39,8 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = MydataController.class)
+//@SpringBootTest()
+//@Import(UserSearchesService.class)
 class MyDataControllerTest {
 
 	@Autowired
@@ -100,6 +104,23 @@ class MyDataControllerTest {
 				.expectStatus().isOk()
 				.expectBody(String.class)
 				.value(s -> s.toString(), equalTo("Hello from BusinessAssistant MyData!!!"));
+	}
+	@Test
+	public void saveSearchTest(){
+
+		final String URI_SAVE_SEARCH="/mysearches/{user_uuid}";
+
+		when(userService.saveSearch(requestDto,"44c5c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Mono.just(responseDto));
+
+		webTestClient.post()
+				.uri(CONTROLLER_BASE_URL + URI_SAVE_SEARCH, "44c5c069-e907-45a9-8d49-2042044c56e0")
+				.accept(MediaType.APPLICATION_JSON)
+				.body(Mono.just(requestDto),SaveSearchRequestDto.class)
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.equals(Mono.just(responseDto));
+
 	}
 
 	@Test
