@@ -19,7 +19,7 @@ import lombok.Setter;
 @JsonIgnoreProperties({ "place","district_name",/*"district_id",*/ "neighborhood_name","neighborhood_id",
         /*"address_name",*/ "address_id","block_id","start_street_number","end_street_number",/*"street_number_1",*/
         "street_number_2","stairs","level","door",/*"zip_code",*/ "province",/*"town",*/"country","comments","position",
-        "main_address","road_name","road_id","roadtype_name","roadtype_id",/*"location",*/ "related_entity","related_entity_data",/*"street_number"*/})
+        "main_address","road_name","road_id","roadtype_name","roadtype_id",/*"location",*/ "related_entity","related_entity_data"/*,"street_number"*/})
 @JsonPropertyOrder({"street_name","street_number","zip_code","town","district_id","location"})
 public class AddressDto {
 
