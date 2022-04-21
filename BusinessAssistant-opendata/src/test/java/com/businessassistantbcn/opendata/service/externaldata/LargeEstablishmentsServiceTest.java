@@ -25,6 +25,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,6 +77,57 @@ public class LargeEstablishmentsServiceTest {
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         twoLargeEstablishmentsDto = mapper.readValue(largeEstablishmentsAsString, LargeEstablishmentsDto[].class);
         activities = mapper.readValue(largeEstablishmentsActivitiesAsString, ActivityInfoDto[].class);
+    }
+
+    @Test
+    void getPageByDistrictTest() throws MalformedURLException {
+        when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
+        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+            .thenReturn(Mono.just(twoLargeEstablishmentsDto));
+
+        GenericResultDto<LargeEstablishmentsDto> actualResult =
+            largeEstablishmentsService.getPageByDistrict(0, -1, 5).block();
+
+        assertEquals(0, actualResult.getOffset());
+        assertEquals(-1, actualResult.getLimit());
+        assertEquals(1, actualResult.getCount());
+        assertEquals(
+            "05",
+            Arrays.stream(actualResult.getResults())
+                .collect(Collectors.toList()).get(0).getAddresses().get(0).getDistrict_id()
+        );
+
+        verify(config, times(1)).getDs_largeestablishments();
+        verify(httpProxy, times(1))
+            .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+    }
+
+    @Test
+    void getPageByActivityTest() throws MalformedURLException {
+        when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
+        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+            .thenReturn(Mono.just(twoLargeEstablishmentsDto));
+
+        GenericResultDto<LargeEstablishmentsDto> actualResult =
+            largeEstablishmentsService.getPageByActivity(0, -1, "1008031").block();
+
+        assertEquals(0, actualResult.getOffset());
+        assertEquals(-1, actualResult.getLimit());
+        assertEquals(2, actualResult.getCount());
+        assertEquals(
+            1008031,
+            Arrays.stream(actualResult.getResults())
+                    .collect(Collectors.toList()).get(0).getClassifications_data().get(0).getId()
+        );
+        assertEquals(
+            1008031,
+            Arrays.stream(actualResult.getResults())
+                    .collect(Collectors.toList()).get(1).getClassifications_data().get(0).getId()
+        );
+
+        verify(config, times(1)).getDs_largeestablishments();
+        verify(httpProxy, times(1))
+                .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
