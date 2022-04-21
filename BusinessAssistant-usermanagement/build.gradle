@@ -21,7 +21,7 @@ repositories {
 dependencies {
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
-
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive:2.6.1'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.1'
@@ -53,6 +53,7 @@ dependencies {
     testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.13'
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.6.1'
     testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.3.1'
+    testImplementation group: 'io.projectreactor', name: 'reactor-test', version: '3.1.0.RELEASE'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 
