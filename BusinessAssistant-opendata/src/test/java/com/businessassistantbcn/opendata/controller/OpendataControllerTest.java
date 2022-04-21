@@ -278,47 +278,39 @@ public class OpendataControllerTest {
 
 	@Test
 	public void getBigMallsActivitiesTest() throws MalformedURLException {
-
-		final String URI_TEST = "/big-malls/activities";
-
-		ActivityInfoDto[] results = {new ActivityInfoDto(1L, "Activitat 1")};
-
-		GenericResultDto<ActivityInfoDto> genericResultDto = new GenericResultDto<>();
-		genericResultDto.setInfo(0, -1, 1, results);
-
-		when(bigMallsService.getBigMallsActivities(0,-1)).thenReturn(Mono.just(genericResultDto));
-
-		webTestClient.get()
-				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST).build())
-				.accept(MediaType.APPLICATION_JSON)
-				.exchange()
-				.expectStatus().isOk()
-				.expectBody()
-				.jsonPath("$.count").isEqualTo(1)
-				.jsonPath("$.offset").isEqualTo(0)
-				.jsonPath("$.limit").isEqualTo(-1)
-				.jsonPath(RES0 + "activityId").isEqualTo(1)
-				.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
-
+		when(bigMallsService.getBigMallsActivities(0,-1)).thenReturn(Mono.just(this.getGenericResultDto()));
+		this.requestActivities("/big-malls/activities");
 		verify(bigMallsService).getBigMallsActivities(0,-1);
 
 	}
 
 	@Test
 	public void getCommercialGalleriesActivitiesTest() throws MalformedURLException {
+		when(commercialGalleriesService.getCommercialGalleriesActivities(0,-1))
+			.thenReturn(Mono.just(this.getGenericResultDto()));
+		this.requestActivities("/commercial-galleries/activities");
+		verify(commercialGalleriesService).getCommercialGalleriesActivities(0,-1);
+	}
 
-		final String URI_TEST = "/commercial-galleries/activities";
+	@Test
+	public void getLargeEstablishmentsActivitiesTest() throws MalformedURLException {
+		when(largeEstablishmentsService.getLargeEstablishmentsActivities(0,-1))
+				.thenReturn(Mono.just(this.getGenericResultDto()));
+		this.requestActivities("/large-establishments/activities");
+		verify(largeEstablishmentsService).getLargeEstablishmentsActivities(0,-1);
 
+	}
+
+	private GenericResultDto<ActivityInfoDto> getGenericResultDto() {
 		ActivityInfoDto[] results = {new ActivityInfoDto(1L, "Activitat 1")};
-
 		GenericResultDto<ActivityInfoDto> genericResultDto = new GenericResultDto<>();
 		genericResultDto.setInfo(0, -1, 1, results);
+		return genericResultDto;
+	}
 
-		when(commercialGalleriesService.getCommercialGalleriesActivities(0,-1))
-			.thenReturn(Mono.just(genericResultDto));
-
+	private void requestActivities(String uriTest) {
 		webTestClient.get()
-				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_TEST).build())
+				.uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + uriTest).build())
 				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
 				.expectStatus().isOk()
@@ -328,10 +320,8 @@ public class OpendataControllerTest {
 				.jsonPath("$.limit").isEqualTo(-1)
 				.jsonPath(RES0 + "activityId").isEqualTo(1)
 				.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
-
-		verify(commercialGalleriesService).getCommercialGalleriesActivities(0,-1);
-
 	}
+
 	
 /* ***  MOVER ESTO A 'CommonControllerTest.java' ***
  * 

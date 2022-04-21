@@ -76,9 +76,27 @@ public class OpendataController {
             @RequestParam(required = false) String offset,
             @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
-            @RequestParam Map<String, String> map) {
+            @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
+    }
+
+    @GetMapping("/large-establishments/activities")
+    @ApiOperation("Get large establishments activities SET 0 LIMIT 10")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 503, message = "Service Unavailable")})
+    public Mono<?> largeEstablishmentsActivities(
+            @ApiParam(value = "Offset", name= "Offset")
+            @RequestParam(required = false) String offset,
+            @ApiParam(value = "Limit", name= "Limit")
+            @RequestParam(required = false)  String limit,
+            @RequestParam Map<String, String> map) throws MalformedURLException {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return largeEstablishmentsService.getLargeEstablishmentsActivities(
+            this.getValidOffset(offset), this.getValidLimit(limit)
+        );
     }
 
     @GetMapping("/commercial-galleries")
@@ -132,7 +150,7 @@ public class OpendataController {
             @RequestParam(required = false)  String limit,
             @PathVariable("district") int district,
             @RequestParam Map<String, String> map
-    ) {
+    ) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService
                 .getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
@@ -152,7 +170,7 @@ public class OpendataController {
             @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @PathVariable("activity") String activity,
-            @RequestParam Map<String, String> map) {
+            @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService
                 .getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
