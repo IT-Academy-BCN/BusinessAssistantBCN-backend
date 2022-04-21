@@ -13,7 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.test.context.ActiveProfiles;
 
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -27,24 +33,24 @@ public class JsonHelperTest {
     private JsonNode node;
     private ObjectMapper mapper = new ObjectMapper();
     private Logger log = LoggerFactory.getLogger(this.getClass());
+    static String json_file;
+
 
     @BeforeEach
     void init() throws Exception {
 
         log.info("Getting Json Node from Json");
-        String json = "{\n" +
-                "    \"searchUuid\": \"14ED11B5-AD19-C53D-E5E6-8B6E4CFD157A\",\n" +
-                "    \"userUuid\": \"DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57\",\n" +
-                "    \"searchDate\": \"2014-09-15T15:03:23\",\n" +
-                "    \"searchName\": \"Vivamus Incorporated\",\n" +
-                "    \"searchDetail\": \"Testing\",\n" +
-                "    \"searchResult\": {\n" +
-                "        \"name\": \"Integration test\",\n" +
-                "        \"web\": \"http://www.testing.com\"\n" +
-                "    }\n" +
-                "}";
+        json_file = "{"+
+                "\"searchUuid\":\"14ED11B5-AD19-C53D-E5E6-8B6E4CFD157A\","
+                +"\"userUuid\":\"DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57\","+
+                "\"searchDate\":\"2014-09-15T15:03:23\"," +
+                "\"searchName\":\"Vivamus Incorporated\"," +
+                "\"searchDetail\":\"Testing\"," +
+                "\"searchResult\":{" +
+                "\"name\":\"Integration test\"," +
+                "\"web\":\"http://www.testing.com\"" +"}"+"}";
 
-        node = mapper.readTree(json);
+        node = JsonHelper.deserializeStringToJsonNode(json_file);
     }
 
     //method -> deserializeStringToJsonNode
@@ -63,6 +69,7 @@ public class JsonHelperTest {
                 () -> assertEquals("http://www.testing.com", node.get("searchResult").get("web").textValue(), "should get web searchResult")
         );
 
+
     }
 
     //method -> entityToJsonString
@@ -72,28 +79,10 @@ public class JsonHelperTest {
         log.info("Running: Validate json to json node transformation at {}", new Date());
 
         UserSearch userSearch = mapper.treeToValue(node, UserSearch.class);
-        String stringUserSearch = mapper.writeValueAsString(UserSearch.class);
+
+        String stringUserSearch = JsonHelper.entityToJsonString(userSearch);
 
         assertAll("stringUserSearch",
-                () -> assertEquals("14ED11B5-AD19-C53D-E5E6-8B6E4CFD157A", userSearch.getSearchUuid(), "Should get searchUuid"),
-                () -> assertEquals("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57", userSearch.getUserUuid(), "Should get userUuid"),
-                () -> assertEquals("2014-09-15T15:03:23Z", userSearch.getSearchDate().toInstant().toString(), "Should get searchDate"),
-                () -> assertEquals("Vivamus Incorporated", userSearch.getSearchName(), "Should get searchName"),
-                () -> assertEquals("Testing", userSearch.getSearchDetail(), "should get searchDetail"),
-                () -> assertEquals("Integration test", userSearch.getSearchResult().get("name").textValue(), "should get name searchResult"),
-                () -> assertEquals("http://www.testing.com", userSearch.getSearchResult().get("web").textValue(), "should get web searchResult")
-        );
-
-    }
-
-    @Test
-    @DisplayName("Validate JsonNode to UserSearch transformation")
-    void shouldGetUserSearchFromJsonNode() throws Exception {
-        log.info("Running: Validate UserSearch to json node transformation at {}", new Date());
-
-        UserSearch userSearch = mapper.treeToValue(node, UserSearch.class);
-
-        assertAll("userSearch",
                 () -> assertEquals("14ED11B5-AD19-C53D-E5E6-8B6E4CFD157A", userSearch.getSearchUuid(), "Should get searchUuid"),
                 () -> assertEquals("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57", userSearch.getUserUuid(), "Should get userUuid"),
                 () -> assertEquals("2014-09-15T15:03:23Z", userSearch.getSearchDate().toInstant().toString(), "Should get searchDate"),
@@ -110,8 +99,7 @@ public class JsonHelperTest {
     void shouldGetStringFromJsonNode() throws Exception {
         log.info("Running: Validate json to json node transformation at {}", new Date());
 
-        String jsonString = mapper.writeValueAsString(node);
-        //System.out.println(jsonString);
+        String jsonString = JsonHelper.serializeJsonNodeToString(node);
 
         assertAll("jsonString",
                 () -> assertEquals("14ED11B5-AD19-C53D-E5E6-8B6E4CFD157A", node.get("searchUuid").textValue(), "Should get searchUuid"),
