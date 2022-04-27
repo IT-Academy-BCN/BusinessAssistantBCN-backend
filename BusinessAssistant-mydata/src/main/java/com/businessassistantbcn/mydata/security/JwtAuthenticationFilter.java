@@ -4,9 +4,10 @@ import com.businessassistantbcn.mydata.config.PropertiesConfig;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+/*import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;*/
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -19,7 +20,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter{
+	/*extends
+} OncePerRequestFilter {
 	
 	@Autowired
 	private PropertiesConfig config;
@@ -67,5 +70,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		
 		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 	}
-	
+*/
 }

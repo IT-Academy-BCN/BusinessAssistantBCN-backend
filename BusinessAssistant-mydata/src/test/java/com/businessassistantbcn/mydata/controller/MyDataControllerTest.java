@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.businessassistantbcn.mydata.config.SpringDBTestConfiguration;
+import com.businessassistantbcn.mydata.config.TestSecurityConfig;
 import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
@@ -37,6 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+@SpringBootTest(classes = {TestSecurityConfig.class, SpringDBTestConfiguration.class})
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = MydataController.class)
 //@SpringBootTest()
