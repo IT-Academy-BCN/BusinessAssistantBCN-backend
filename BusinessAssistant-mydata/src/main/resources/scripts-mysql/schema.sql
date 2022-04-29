@@ -1,15 +1,9 @@
-DROP SCHEMA IF EXISTS businessassistantbcndb;
-
-CREATE DATABASE IF NOT EXISTS businessassistantbcndb;
-
-use businessassistantbcndb;
-
 CREATE TABLE IF NOT EXISTS my_searches(
   search_uuid VARCHAR(36) NOT NULL,
   user_uuid VARCHAR(36) NOT NULL,
-  search_date VARCHAR(10),
-  search_name VARCHAR(45),
-  search_detail TEXT DEFAULT NULL,
-  search_result JSON,
-  PRIMARY KEY (search_uuid)
+  search_date DATE NOT NULL,
+  search_name VARCHAR(45) NOT NULL,
+  search_detail VARCHAR(150) DEFAULT NULL,
+  search_result JSON NOT NULL,
+  PRIMARY KEY (search_uuid) 
  );

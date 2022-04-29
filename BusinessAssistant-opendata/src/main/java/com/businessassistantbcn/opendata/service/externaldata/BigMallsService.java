@@ -9,8 +9,7 @@ import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceExc
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -22,10 +21,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class BigMallsService {
 
-	private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
+	//private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
 
 	@Autowired
 	private PropertiesConfig config;
@@ -53,11 +53,11 @@ public class BigMallsService {
 	}
 
 	private Mono<GenericResultDto<BigMallsDto>> logInternalErrorReturnBigMallsDefaultPage(Throwable exception) {
-		log.error("BusinessAssistant error:"+exception.getMessage());
+		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getBigMallsDefaultPage(exception);
 	}
 
-	public Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<BigMallsDto>> getBigMallsDefaultPage(Throwable exception) {
 		genericResultDto.setInfo(0, 0, 0, new BigMallsDto[0]);
 		return Mono.just(genericResultDto);
 	}
@@ -78,7 +78,7 @@ public class BigMallsService {
 			.onErrorResume(e -> this.logServerErrorReturnActivitiesDefaultPage(new OpendataUnavailableServiceException()));
 	}
 
-	public Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage(Throwable exception) {
 		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 		return Mono.just(genericActivityResultDto);
 	}
@@ -118,7 +118,7 @@ public class BigMallsService {
 	}
 
 	private Mono<GenericResultDto<ActivityInfoDto>> logInternalErrorReturnActivitiesDefaultPage(Throwable exception) {
-		log.error("BusinessAssistant error");
+		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getActivitiesDefaultPage(exception);
 	}
 

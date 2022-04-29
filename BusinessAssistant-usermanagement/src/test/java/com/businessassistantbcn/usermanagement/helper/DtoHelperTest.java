@@ -10,21 +10,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.businessassistantbcn.usermanagement.config.SpringMongoDBTestConfiguration;
 import com.businessassistantbcn.usermanagement.document.Role;
 import com.businessassistantbcn.usermanagement.document.User;
 import com.businessassistantbcn.usermanagement.dto.UserCreationDto;
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { SpringMongoDBTestConfiguration.class })
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-
 public class DtoHelperTest {
 	
     @MockBean

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({"name","web","email","phone","location","addresses",})
+@JsonPropertyOrder({"name","web","email","phone","location","addresses","activity"})
 public class MunicipalMarketsDto {
 
     @JsonIgnore
@@ -35,23 +35,34 @@ public class MunicipalMarketsDto {
     }
 
     @JsonProperty("email")
-    private List<String> email;
-    public List<String> getEmail() {
+    private String email;
+    public String getEmail() {
         return getValues()
                 .stream()
                 .filter(t -> t.getEmail_value()!=null)
                 .map(ValueDto::getEmail_value)
-                .collect(Collectors.toList());
+                .collect(Collectors.joining(","));
     }
 
     @JsonProperty("phone")
-    private List<String> phone;
-    public List<String> getPhone() {
+    private String phone;
+    public String getPhone() {
         return getValues()
                 .stream()
                 .filter(t->"Telèfons".equals(t.getCategory_name()))
                 .map(ValueDto::getValue)
-                .collect(Collectors.toList());
+                .collect(Collectors.joining(","));
+    }
+
+    @JsonProperty("activity")
+    private List<ClassificationsDataDto> classificationsData;
+
+    public ClassificationsDataDto getClassificationsData() {
+       return classificationsData.get(0);
+    }
+
+    public void setClassifications_data(List<ClassificationsDataDto>classificationsData){
+        this.classificationsData=classificationsData;
     }
 
     @JsonIgnore
