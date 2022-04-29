@@ -40,11 +40,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-//@SpringBootTest(classes = {TestSecurityConfig.class})
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = MydataController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
-//@SpringBootTest()
-//@Import(UserSearchesService.class)
 class MyDataControllerTest {
 
 	@Autowired
@@ -58,7 +55,7 @@ class MyDataControllerTest {
 			CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/mydata",
 			RES0 = "$.results[0].";
 
-/*
+
 	private UserSearch search = new UserSearch();
 	private Date date = new Date();
 	private SaveSearchRequestDto requestDto = new SaveSearchRequestDto();
@@ -94,7 +91,7 @@ class MyDataControllerTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-	}*/
+	}
 
 
 	@Test
@@ -109,7 +106,7 @@ class MyDataControllerTest {
 				.expectBody(String.class)
 				.value(s -> s.toString(), equalTo("Hello from BusinessAssistant MyData!!!"));
 	}
-/*	@Test
+	@Test
 	public void saveSearchTest(){
 
 		final String URI_SAVE_SEARCH="/mysearches/{user_uuid}";
@@ -125,9 +122,9 @@ class MyDataControllerTest {
 				.expectBody()
 				.equals(Mono.just(responseDto));
 
-	}*/
+	}
 
-/*	@Test
+	@Test
 	public void getAllsearchesByUserTest() {
 
 		final String URI_ALL_SEARCHES = "/mysearches/{user_uuid}";
@@ -169,9 +166,9 @@ class MyDataControllerTest {
 				.jsonPath(RES0 + "searchDetail").isEqualTo("detail");
 
 		verify(userService).getAllUserSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
-	}*/
+	}
 
-/*	@Test
+	@Test
 	public void getSearchResultsTest() {
 		final String URI_ONE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
 
@@ -192,7 +189,7 @@ class MyDataControllerTest {
 				.jsonPath(RES0 + "name[0]",("Groupe Zannier Espanya"));
 
 		verify(userService).getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0", "44c5c069-e907-45a9-8d49-2042044c56e0");
-	}*/
+	}
 }
 
 
