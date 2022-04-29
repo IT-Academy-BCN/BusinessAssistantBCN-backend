@@ -5,18 +5,17 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
 
 import com.businessassistantbcn.usermanagement.document.User;
-import com.businessassistantbcn.usermanagement.dto.UserCreationDto;
+import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
+
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 import com.businessassistantbcn.usermanagement.document.Role;
 
-@Component
 public class DtoHelper {
 	
 	//No se utilizar porque no se almacenan usuarios sin password.	
-	public User convertToUser (UserDto userDto) {
+	public static User convertToUser (UserDto userDto) {
 		User user = new User();
 		List<Role> roles; 
 		
@@ -27,7 +26,7 @@ public class DtoHelper {
 		return user;
 	}
 	
-	public UserDto convertToDto (User user) {
+	public static UserDto convertToDto (User user) {
 		UserDto userDto = new UserDto();
 		List<String> stringRoles;
 			
@@ -38,11 +37,11 @@ public class DtoHelper {
 		return userDto;
 	}
 	
-	public User convertToUserFromCreationDto (UserCreationDto userCreationDto) {
+	public static User convertToUserFromEmailDto (UserEmailDto userEmailDto) {
 		User user = new User();
 		List<Role> roles = new ArrayList();
 		
-		BeanUtils.copyProperties(userCreationDto, user);
+		BeanUtils.copyProperties(userEmailDto, user);
 		
 		//User role and UUID given to all new users.
 		user.setUuid(UUID.randomUUID().toString());
@@ -51,9 +50,9 @@ public class DtoHelper {
 		
 		return user;
 	}
-	
+
 	//Convert from string to roles. 
-	List<Role> convertToUserRoles(List<String> stringRoles) {
+	static List<Role> convertToUserRoles(List<String> stringRoles) {
 		List<Role> roles = new ArrayList();	
 		
 		for (String s : stringRoles) {
@@ -68,13 +67,13 @@ public class DtoHelper {
 	}
 	
 	//Convert from roles to strings. 
-	List<String> convertToUserDtoRoles(List<Role> roles) {
+	static List<String> convertToUserDtoRoles(List<Role> roles) {
 		List<String> stringRoles = new ArrayList();
 		
 		for (Role r : roles) {
-			if (r.USER.name().equalsIgnoreCase("USER")) {
+			if (r.name().equalsIgnoreCase("USER")) {
 				stringRoles.add(r.USER.name());
-			} if (r.USER.name().equalsIgnoreCase("ADMIN")) {
+			} if (r.name().equalsIgnoreCase("ADMIN")) {
 				stringRoles.add(r.ADMIN.name());
 			}	
 		 }
