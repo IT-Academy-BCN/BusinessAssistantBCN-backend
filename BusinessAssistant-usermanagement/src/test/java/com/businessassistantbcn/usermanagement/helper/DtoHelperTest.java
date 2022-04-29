@@ -18,22 +18,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.businessassistantbcn.usermanagement.config.SpringMongoDBTestConfiguration;
 import com.businessassistantbcn.usermanagement.document.Role;
 import com.businessassistantbcn.usermanagement.document.User;
-import com.businessassistantbcn.usermanagement.dto.UserCreationDto;
+import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { SpringMongoDBTestConfiguration.class })
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-
 public class DtoHelperTest {
-	
-    @MockBean
-	@Autowired
-    DtoHelper helperDto;
-       
+     
     User user;
     UserDto userDto;
-    UserCreationDto userCreationDto;
+    UserEmailDto userEmailDto;
     List<Role> roles;
     List<String> rolesString;
      
@@ -44,12 +37,9 @@ public class DtoHelperTest {
     rolesString.add("USER");
     userDto = new UserDto("7e10fe51-772e-441f-874d-1c03dee79ad9", 
     		              "user@Dto.es", rolesString);
-    user = new User();
+       
+    user = DtoHelper.convertToUser(userDto);
     
-    when(helperDto.convertToUser(userDto)).thenReturn(user);
-    BeanUtils.copyProperties(userDto, user); 
-    
-    assertEquals(user, helperDto.convertToUser(userDto));
     assertEquals("7e10fe51-772e-441f-874d-1c03dee79ad9", user.getUuid());
     assertEquals("user@Dto.es", user.getEmail());  
     assertEquals(null, user.getPassword());
@@ -64,31 +54,26 @@ public class DtoHelperTest {
     roles.add(Role.USER);
     user = new User("7e10fe51-772e-441f-874d-1c03dee79ad9", 
     		        "user@Dto.es", "1234", roles);
-    userDto = new UserDto();
-    
-    when(helperDto.convertToDto(user)).thenReturn(userDto);
-    BeanUtils.copyProperties(user, userDto);
+  
+    userDto = DtoHelper.convertToDto(user);
       
-    assertEquals(userDto, helperDto.convertToDto(user));
     assertEquals("7e10fe51-772e-441f-874d-1c03dee79ad9", userDto.getUuid());
     assertEquals("user@Dto.es", userDto.getEmail());  
     }
     
     
     @Test
-    public void test_convertToUserFromCreationDto() {
+    public void test_convertToUserFromEmailDto() {
     rolesString = new ArrayList<String>();
     rolesString.add("ADMIN");
     rolesString.add("USER");
-    userCreationDto = new UserCreationDto("user@Dto.es", "1234");
-    user = new User();
-    
-    when(helperDto.convertToUserFromCreationDto(userCreationDto)).thenReturn(user);
-    BeanUtils.copyProperties(userCreationDto, user);
+    userEmailDto = new UserEmailDto("user@Dto.es", "1234");
+        
+    user = DtoHelper.convertToUserFromEmailDto(userEmailDto);
       
-    assertEquals(user, helperDto.convertToUserFromCreationDto(userCreationDto));
     assertEquals("user@Dto.es", user.getEmail());  
     assertEquals("1234", user.getPassword());    
+    assertNotNull(user.getUuid());
     }
     
     @Test
@@ -104,10 +89,8 @@ public class DtoHelperTest {
     roles = new ArrayList<Role>();
     roles.add(Role.USER);
     roles.add(Role.ADMIN);   
-
-    when(helperDto.convertToUserRoles(rolesString)).thenReturn(roles);
    
-    assertEquals(roles, helperDto.convertToUserRoles(rolesString));   
+    assertEquals(roles, DtoHelper.convertToUserRoles(rolesString));   
 	}
 	
     @Test
@@ -118,16 +101,12 @@ public class DtoHelperTest {
     
     User user = new User("7e10fe51-772e-441f-874d-1c03dee79ad9", 
                          "user@Dto.es", "1234", roles);
-    
-    UserDto userDto = new UserDto("7e10fe51-772e-441f-874d-1c03dee79ad9", 
-                                  "user@Dto.es", null);
+
     
     rolesString = new ArrayList<String>();
     rolesString.add("USER");
     rolesString.add("ADMIN");   
-
-    when(helperDto.convertToUserDtoRoles(roles)).thenReturn(rolesString);
    
-    assertEquals(rolesString,  helperDto.convertToUserDtoRoles(roles));			
+    assertEquals(rolesString,  DtoHelper.convertToUserDtoRoles(roles));
 	}
 }
