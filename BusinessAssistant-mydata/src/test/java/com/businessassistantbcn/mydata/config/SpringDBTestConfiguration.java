@@ -1,6 +1,6 @@
 package com.businessassistantbcn.mydata.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+/*import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -16,18 +16,18 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.EnableTransactionManagement;*/
 
 import javax.sql.DataSource;
 
-@Configuration
+/*@Configuration
 @EnableJpaRepositories(basePackages = "com.businessassistantbcn.mydata.repository")
 @EntityScan(basePackages = "com.businessassistantbcn.mydata.entities")
 @PropertySource("classpath:application-test.properties")
-@EnableTransactionManagement
+@EnableTransactionManagement*/
 public class SpringDBTestConfiguration {
 
-    @Autowired
+/*    @Autowired
     private Environment env;
 
     @Bean
@@ -39,5 +39,5 @@ public class SpringDBTestConfiguration {
         dataSourceBuilder.username(env.getProperty("spring.datasource.user"));
         dataSourceBuilder.password(env.getProperty("spring.datasource.password"));
         return dataSourceBuilder.build();
-    }
+    }*/
 }

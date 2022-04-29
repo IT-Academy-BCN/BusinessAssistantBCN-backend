@@ -30,21 +30,21 @@ import java.util.Arrays;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-@ExtendWith(SpringExtension.class)
+/*@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
-@ActiveProfiles("test")
+@ActiveProfiles("test")*/
 public class MyDataControllerIT {
 
-    @Autowired
+   /* @Autowired
     private WebTestClient webTestClient;
     private JsonNode[] results;
 
     //TEST DUMMY
-    /*@Test
+    *//*@Test
     void test() {
         Assertions.assertThat(1).isEqualTo(1);
-    }*/
+    }*//*
 
    @Test
     @Order(1)
@@ -86,5 +86,5 @@ public class MyDataControllerIT {
                 .expectBody()
                 .jsonPath("results")
                 .isArray();
-    }
+    }*/
 }

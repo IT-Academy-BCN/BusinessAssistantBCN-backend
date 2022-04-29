@@ -13,7 +13,7 @@ public class SecurityConfig {
     //https://dev.to/trexinc/spring-boot-and-multiple-authentication-profiles-none-password-okta-5bce
     //https://www.javachinna.com/disable-spring-security-or-mock-authentication-junit-tests/
 
-    @Profile("test")
+/*    @Profile("test")
     @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
     @EnableWebSecurity
     public static class DisableSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,7 +22,7 @@ public class SecurityConfig {
         public void configure(WebSecurity web) throws Exception {
             web.ignoring().antMatchers("/**");
         }
-    }
+    }*/
 
 
 }

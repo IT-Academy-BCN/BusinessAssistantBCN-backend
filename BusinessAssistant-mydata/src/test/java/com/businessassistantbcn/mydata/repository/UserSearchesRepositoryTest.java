@@ -26,14 +26,14 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-@ExtendWith(SpringExtension.class)
+/*@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { SpringDBTestConfiguration.class })
 @DataJpaTest
-@Transactional(propagation = Propagation.NOT_SUPPORTED)
+@Transactional(propagation = Propagation.NOT_SUPPORTED)*/
 //CAUTION: For uses with real database
 //@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class UserSearchesRepositoryTest {
-	@Autowired
+	/*@Autowired
 	private UserSearchesRepository userSearchesRepository;
 	
     @Autowired
@@ -114,5 +114,5 @@ public class UserSearchesRepositoryTest {
 	void whenFindByNonExistingSearchUuid_thenReturnsEmptyList() {
 		assertThat(userSearchesRepository.findByUserUuid(searchUuidNotIntTestDb)).isEmpty();
 	}
-
+*/
 }

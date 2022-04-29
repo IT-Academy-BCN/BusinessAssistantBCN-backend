@@ -21,10 +21,10 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@JsonTest
+//@JsonTest
 public class JsonHelperTest {
 
-    private JsonNode node;
+    /*private JsonNode node;
     private ObjectMapper mapper = new ObjectMapper();
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -128,5 +128,5 @@ public class JsonHelperTest {
     @AfterEach
     void finish()  {
         log.info("Test execution finished");
-    }
+    }*/
 }
