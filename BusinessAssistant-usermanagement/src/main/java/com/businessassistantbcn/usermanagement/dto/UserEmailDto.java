@@ -3,15 +3,15 @@ package com.businessassistantbcn.usermanagement.dto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class UserCreationDto {
+public class UserEmailDto {
 	
 	private String email;
 	
 	private String password;
 	
-	public UserCreationDto() {}
+	public UserEmailDto() {}
 
-	public UserCreationDto(String email, String password) {
+	public UserEmailDto(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
