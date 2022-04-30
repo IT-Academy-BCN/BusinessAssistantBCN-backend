@@ -23,8 +23,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.6.1'
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'org.json:json:20210307'
     implementation 'com.jayway.jsonpath:json-path:2.6.0'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
