@@ -1,9 +1,8 @@
 package com.businessassistantbcn.mydata.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
@@ -44,31 +43,29 @@ public class MydataController {
 	private final boolean PAGINATION_ENABLED = true;
 
 	@GetMapping(value = "/test")
-	@ApiOperation("Get test")
-	@ApiResponse(code = 200, message = "OK")
+	@Operation(summary = "Get test")
+	@ApiResponse(responseCode = "200", description = "OK")
 	public String test() {
 		return "Hello from BusinessAssistant MyData!!!";
 	}
 
 	@PostMapping(value="/mysearches/{user_uuid}")
-    @ApiOperation("Save user search")
-    @ApiResponses({ @ApiResponse(code = 200, message = "OK"), 
-    	@ApiResponse(code = 400, message = "Bad Request"),
-		@ApiResponse(code = 404, message = "Not Found"),
-		@ApiResponse(code = 503, message = "Service Unavailable") })
+    @Operation(summary = "Save user search")
+    @ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+    	@ApiResponse(responseCode = "400", description = "Bad Request"),
+		@ApiResponse(responseCode = "404", description = "Not Found"),
+		@ApiResponse(responseCode = "503", description = "Service Unavailable") })
     public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @Valid @RequestBody SaveSearchRequestDto searchToSave) {
     	return userService.saveSearch(searchToSave, user_uuid);
     }
    
 	@GetMapping("/mysearches/{user_uuid}")
-	@ApiOperation("Get searches  SET 0 LIMIT 0")
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"), 
-					@ApiResponse(code = 404, message = "Not Found"),
-					@ApiResponse(code = 503, message = "Service Unavailable") })
+	@Operation(summary = "Get searches  SET 0 LIMIT 0")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+					@ApiResponse(responseCode = "404", description = "Not Found"),
+					@ApiResponse(responseCode = "503", description = "Service Unavailable") })
 	public Mono<GenericSearchesResultDto<JsonNode>> getAllSearchesByUser(
-			@ApiParam(value = "Offset", name = "Offset") 
 			@RequestParam(required = false) String offset,
-			@ApiParam(value = "Limit", name = "Limit") 
 			@RequestParam(required = false) String limit,
 			@PathVariable("user_uuid") String user_uuid, 
 			@RequestParam Map<String, String> map) {
@@ -111,9 +108,9 @@ public class MydataController {
 	}
 
 	@GetMapping("/mysearches/{user_uuid}/search/{search_uuid}")
-	@ApiResponses({ @ApiResponse(code = 200, message = "OK"),
-					@ApiResponse(code = 404, message = "Not Found"),
-					@ApiResponse(code = 503, message = "Service Unavailable"), })
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+					@ApiResponse(responseCode = "404", description = "Not Found"),
+					@ApiResponse(responseCode = "503", description = "Service Unavailable"), })
 	public Mono<SearchResultsDto> getOneSearchResults(
 			@PathVariable("user_uuid") String user_uuid, 
 			@PathVariable("search_uuid") String search_uuid) {

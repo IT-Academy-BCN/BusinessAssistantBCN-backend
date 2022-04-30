@@ -20,7 +20,7 @@
 
 ### Swagger URL
 
-- http://localhost:8763/swagger-ui/index.html
+- Swagger disponible en http://localhost:8763/api-docs/ y http://localhost:8763/swagger-ui-custom.html (JWT auth)
 
 ### Creación y arranque de container Docker
 
