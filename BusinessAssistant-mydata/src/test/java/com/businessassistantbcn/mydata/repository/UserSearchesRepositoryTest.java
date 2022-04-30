@@ -1,6 +1,6 @@
 package com.businessassistantbcn.mydata.repository;
 
-import com.businessassistantbcn.mydata.config.SpringDBTestConfiguration;
+import com.businessassistantbcn.mydata.config.DBTestConfiguration;
 import com.businessassistantbcn.mydata.entities.UserSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,14 +26,14 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-/*@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { SpringDBTestConfiguration.class })
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = { DBTestConfiguration.class })
 @DataJpaTest
-@Transactional(propagation = Propagation.NOT_SUPPORTED)*/
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
 //CAUTION: For uses with real database
 //@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class UserSearchesRepositoryTest {
-	/*@Autowired
+	@Autowired
 	private UserSearchesRepository userSearchesRepository;
 	
     @Autowired
@@ -114,5 +114,4 @@ public class UserSearchesRepositoryTest {
 	void whenFindByNonExistingSearchUuid_thenReturnsEmptyList() {
 		assertThat(userSearchesRepository.findByUserUuid(searchUuidNotIntTestDb)).isEmpty();
 	}
-*/
 }

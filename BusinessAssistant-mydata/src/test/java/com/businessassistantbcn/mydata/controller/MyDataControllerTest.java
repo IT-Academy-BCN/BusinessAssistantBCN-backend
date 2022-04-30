@@ -4,8 +4,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.businessassistantbcn.mydata.config.SpringDBTestConfiguration;
-import com.businessassistantbcn.mydata.config.TestSecurityConfig;
 import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
@@ -23,9 +21,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
