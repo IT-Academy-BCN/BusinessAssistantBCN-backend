@@ -1,7 +1,7 @@
 package com.businessassistantbcn.mydata.repository;
 
 import com.businessassistantbcn.mydata.config.DBTestConfiguration;
-import com.businessassistantbcn.mydata.entities.UserSearch;
+import com.businessassistantbcn.mydata.entity.UserSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeAll;

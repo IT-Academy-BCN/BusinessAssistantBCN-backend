@@ -8,7 +8,7 @@ import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.dto.SearchResultsDto;
-import com.businessassistantbcn.mydata.entities.UserSearch;
+import com.businessassistantbcn.mydata.entity.UserSearch;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.businessassistantbcn.mydata.entities;
+package com.businessassistantbcn.mydata.entity;
 
 import java.util.Date;
 

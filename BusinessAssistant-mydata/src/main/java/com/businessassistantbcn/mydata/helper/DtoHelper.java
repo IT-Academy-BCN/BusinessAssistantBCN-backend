@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
-import com.businessassistantbcn.mydata.entities.UserSearch;
+import com.businessassistantbcn.mydata.entity.UserSearch;
 
 @Component
 public class DtoHelper {
