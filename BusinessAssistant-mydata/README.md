@@ -18,9 +18,15 @@
 - http<nolink>://localhost:8763/actuator/scheduledtasks
 - http<nolink>://localhost:8763/actuator/threaddump
 
-### Swagger URL
+#### Spring Security & Profiles
 
-- Swagger disponible en http://localhost:8763/api-docs/ y http://localhost:8763/swagger-ui-custom.html (JWT auth)
+Perfiles habilitados (véase configuración en application.properties):
+- **dev**: deshabilita la seguridad
+- **pro**: habilita seguridad por JWT
+
+#### Swagger URL
+
+- Swagger disponible en http://localhost:8763/api-docs/ y http://localhost:8763/swagger-ui-custom.html (con JWT disabled)
 
 ### Creación y arranque de container Docker
 

@@ -37,10 +37,8 @@ public class HttpSecurityConfig {
 
         @Autowired
         private PropertiesConfig config;
-
         @Autowired
         private JwtAuthenticationFilter jwtFilter;
-
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.csrf().disable();
@@ -58,8 +56,5 @@ public class HttpSecurityConfig {
                     }
             );
         }
-
     }
-
-
 }
