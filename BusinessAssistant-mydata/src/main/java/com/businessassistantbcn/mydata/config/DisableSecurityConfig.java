@@ -12,9 +12,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
-@Configuration
-@Profile("dev")
-public class DisableSecurityConfig extends WebSecurityConfigurerAdapter {
+/*@Configuration
+@Profile("dev")*/
+public class DisableSecurityConfig{
+    /*
+} extends WebSecurityConfigurerAdapter {
 
 
     @Override
@@ -22,9 +24,9 @@ public class DisableSecurityConfig extends WebSecurityConfigurerAdapter {
 
         System.out.println("hola pp ******************************************");
 
-/*        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
+*//*        http.csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);*//*
         http.authorizeRequests().anyRequest().permitAll();
     }
-
+*/
 }

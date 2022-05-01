@@ -18,9 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Configuration
-@Profile("pro")
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+/*@Configuration
+@Profile("pro")*/
+public class WebSecurityConfig{
+
+    /*extends
+} WebSecurityConfigurerAdapter {
 
     @Autowired
     private PropertiesConfig config;
@@ -45,5 +48,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 }
         );
     }
-
+*/
 }
