@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"name","web","email","phone","addresses","activity"})
+@JsonIgnoreProperties({"location"})
 public class MunicipalMarketsDto {
 
     @JsonIgnore
