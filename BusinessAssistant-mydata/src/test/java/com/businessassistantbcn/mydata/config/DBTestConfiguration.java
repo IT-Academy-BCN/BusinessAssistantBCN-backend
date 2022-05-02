@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 @EntityScan(basePackages = "com.businessassistantbcn.mydata.entities")
 @PropertySource("classpath:application-test.properties")
 @EnableTransactionManagement
-public class SpringDBTestConfiguration {
+public class DBTestConfiguration {
 
     @Autowired
     private Environment env;

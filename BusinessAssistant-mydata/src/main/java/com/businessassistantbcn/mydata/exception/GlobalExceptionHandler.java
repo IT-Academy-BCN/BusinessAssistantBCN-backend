@@ -1,4 +1,4 @@
-package com.businessassistantbcn.mydata.controller;
+package com.businessassistantbcn.mydata.exception;
 
 import java.util.HashMap;
 import java.util.List;

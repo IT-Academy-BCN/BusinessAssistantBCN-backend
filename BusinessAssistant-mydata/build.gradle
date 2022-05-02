@@ -27,9 +27,7 @@ dependencies {
 	implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.1'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '2.6.1'
-	implementation 'io.springfox:springfox-boot-starter:3.0.0'
-	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-	
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.6.6'
 	
     //implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
@@ -38,9 +36,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.6.1'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.1'
     implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.13'
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'
-    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'org.json:json:20210307'
     implementation group: 'com.jayway.jsonpath', name: 'json-path', version: '2.6.0'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
@@ -51,8 +47,7 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     // JAX-B dependencies for JDK 9+
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
-    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
-    
+
 	// Testing Dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'

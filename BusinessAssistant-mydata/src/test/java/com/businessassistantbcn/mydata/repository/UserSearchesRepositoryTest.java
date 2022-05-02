@@ -1,7 +1,7 @@
 package com.businessassistantbcn.mydata.repository;
 
-import com.businessassistantbcn.mydata.config.SpringDBTestConfiguration;
-import com.businessassistantbcn.mydata.entities.UserSearch;
+import com.businessassistantbcn.mydata.config.DBTestConfiguration;
+import com.businessassistantbcn.mydata.entity.UserSearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -27,7 +27,7 @@ import java.util.HashMap;
 
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { SpringDBTestConfiguration.class })
+@ContextConfiguration(classes = { DBTestConfiguration.class })
 @DataJpaTest
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 //CAUTION: For uses with real database
@@ -114,5 +114,4 @@ public class UserSearchesRepositoryTest {
 	void whenFindByNonExistingSearchUuid_thenReturnsEmptyList() {
 		assertThat(userSearchesRepository.findByUserUuid(searchUuidNotIntTestDb)).isEmpty();
 	}
-
 }

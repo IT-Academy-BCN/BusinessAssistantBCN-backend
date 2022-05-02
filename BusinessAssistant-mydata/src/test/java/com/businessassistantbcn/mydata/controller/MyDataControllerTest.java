@@ -8,7 +8,7 @@ import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.dto.SearchResultsDto;
-import com.businessassistantbcn.mydata.entities.UserSearch;
+import com.businessassistantbcn.mydata.entity.UserSearch;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,10 +19,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -38,9 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @ExtendWith(SpringExtension.class)
-@WebFluxTest(controllers = MydataController.class)
-//@SpringBootTest()
-//@Import(UserSearchesService.class)
+@WebFluxTest(controllers = MydataController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
 class MyDataControllerTest {
 
 	@Autowired

@@ -2,10 +2,6 @@ package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +39,6 @@ public class OpendataController {
     private final boolean PAGINATION_ENABLED = true;
 
     @GetMapping(value="/test")
-    @ApiOperation("Get test")
-    @ApiResponse(code = 200, message = "OK")
     public String test() {
         log.info("** Saludos desde el logger **");
         return "Hello from BusinessAssistant Barcelona!!!";
@@ -52,11 +46,6 @@ public class OpendataController {
 
     //reactive
     @GetMapping(value="/test-reactive")
-    @ApiOperation("Get test")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = Mono.class),
-            @ApiResponse(code = 503, message = "Resource Not Found", response = String.class)
-    })
     public Mono<?> testReactive(){
         try {
             return testService.getTestData();
@@ -66,15 +55,8 @@ public class OpendataController {
     }
 
     @GetMapping("/large-establishments")
-    @ApiOperation("Get large establishments SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable")})
     public Mono<?> largeEstablishments(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -82,15 +64,8 @@ public class OpendataController {
     }
 
     @GetMapping("/large-establishments/activities")
-    @ApiOperation("Get large establishments activities SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable")})
     public Mono<?> largeEstablishmentsActivities(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -100,16 +75,8 @@ public class OpendataController {
     }
 
     @GetMapping("/commercial-galleries")
-    @ApiOperation("Get commercial galleries SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
     public Mono<?> commercialGalleries(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -117,16 +84,8 @@ public class OpendataController {
     }
 
     @GetMapping("/commercial-galleries/activities")
-    @ApiOperation("Get commercial galleries SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
     public Mono<?> commercialGalleriesAllActivities(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -137,16 +96,8 @@ public class OpendataController {
 
     //GET ?offset=0&limit=10
     @GetMapping("/large-establishments/district/{district}")
-    @ApiOperation("Get large establishments SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
     public Mono<?> largeEstablishmentsByDistrict(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @PathVariable("district") int district,
             @RequestParam Map<String, String> map
@@ -158,16 +109,8 @@ public class OpendataController {
 
     //GET ?offset=0&limit=10
     @GetMapping("/large-establishments/activity/{activity}")
-    @ApiOperation("Get large establishments by activity SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
     public Mono<?> largeEstablishmentsByActivity(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @PathVariable("activity") String activity,
             @RequestParam Map<String, String> map) throws MalformedURLException {
@@ -178,15 +121,8 @@ public class OpendataController {
 
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
-    @ApiOperation("Get big malls SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable")})
     public Mono<?> bigMalls(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -194,16 +130,8 @@ public class OpendataController {
     }
 
     @GetMapping("/big-malls/activities")
-    @ApiOperation("Get big malls SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable")
-    })
     public Mono<?> bigMallsAllActivities(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -211,15 +139,8 @@ public class OpendataController {
     }
 
     @GetMapping("/municipal-markets")
-    @ApiOperation("Get municipal markets SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable")})
     public Mono<?> municipalMarkets(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -228,17 +149,8 @@ public class OpendataController {
 
     //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets/district/{district}")
-    @ApiOperation("Get large establishments SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 400, message = "Offset or Limit cannot be null"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
     public String municipalMarketsByDistrict( //provisional return. (Mono<?>)
-                                              @ApiParam(value = "Offset", name= "Offset")
                                               @RequestParam(required = false) String offset,
-                                              @ApiParam(value = "Limit", name= "Limit")
                                               @RequestParam(required = false)  String limit,
                                               @PathVariable("district") int district){ // It's int why BusinessAssistantBCN-frontend/blob/develop/src/app/models/common/zone.model.ts   it's  number
 
@@ -255,16 +167,8 @@ public class OpendataController {
     }
 
     @GetMapping("/market-fairs")
-    @ApiOperation("Get market fairs SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
     public Mono<?> marketFairs(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map
     ) throws MalformedURLException {
@@ -274,16 +178,8 @@ public class OpendataController {
 
     //GET ?offset=0&limit=10
     @GetMapping("/economic-activities-census")
-    @ApiOperation("Get markets fairs SET 0 LIMIT 10")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 503, message = "Service Unavailable"),
-    })
     public Mono<?> economicActivitiesCensus(
-            @ApiParam(value = "Offset", name= "Offset")
             @RequestParam(required = false) String offset,
-            @ApiParam(value = "Limit", name= "Limit")
             @RequestParam(required = false)  String limit,
             @RequestParam Map<String, String> map
     ) throws MalformedURLException {

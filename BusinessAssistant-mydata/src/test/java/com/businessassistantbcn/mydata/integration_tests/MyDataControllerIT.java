@@ -1,50 +1,22 @@
 package com.businessassistantbcn.mydata.integration_tests;
 
-import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
-import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
-import com.businessassistantbcn.mydata.dto.SearchResultsDto;
-import com.businessassistantbcn.mydata.entities.UserSearch;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.swing.*;
-
-import java.util.Arrays;
-
-import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-@ExtendWith(SpringExtension.class)
+/*@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
-@ActiveProfiles("test")
+@ActiveProfiles("test")*/
 public class MyDataControllerIT {
 
-    @Autowired
+   /* @Autowired
     private WebTestClient webTestClient;
     private JsonNode[] results;
 
     //TEST DUMMY
-    /*@Test
+    *//*@Test
     void test() {
         Assertions.assertThat(1).isEqualTo(1);
-    }*/
+    }*//*
 
    @Test
     @Order(1)
@@ -86,5 +58,5 @@ public class MyDataControllerIT {
                 .expectBody()
                 .jsonPath("results")
                 .isArray();
-    }
+    }*/
 }

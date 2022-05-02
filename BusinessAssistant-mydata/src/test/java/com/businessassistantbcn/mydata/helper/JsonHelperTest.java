@@ -1,30 +1,12 @@
 package com.businessassistantbcn.mydata.helper;
 
-import com.businessassistantbcn.mydata.entities.UserSearch;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
-import org.springframework.boot.test.json.JacksonTester;
-
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@JsonTest
+//@JsonTest
 public class JsonHelperTest {
 
-    private JsonNode node;
+    /*private JsonNode node;
     private ObjectMapper mapper = new ObjectMapper();
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -128,5 +110,5 @@ public class JsonHelperTest {
     @AfterEach
     void finish()  {
         log.info("Test execution finished");
-    }
+    }*/
 }
