@@ -3,20 +3,18 @@ package com.businessassistantbcn.mydata.helper;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Slf4j
 @Component
 @Converter
 public class JsonHelper implements AttributeConverter<JsonNode, String> {
-	
-	private static final Logger log = LoggerFactory.getLogger(JsonHelper.class);
-	
+
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	
 	@Override

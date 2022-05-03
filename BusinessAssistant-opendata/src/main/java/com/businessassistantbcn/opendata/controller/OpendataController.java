@@ -2,6 +2,7 @@ package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +15,12 @@ import reactor.core.publisher.Mono;
 import java.net.MalformedURLException;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/businessassistantbcn/api/v1/opendata")
 public class OpendataController {
 
-    private static final Logger log = LoggerFactory.getLogger(OpendataController.class);
+    //private static final Logger log = LoggerFactory.getLogger(OpendataController.class);
 
     @Autowired
     BigMallsService bigMallsService;
