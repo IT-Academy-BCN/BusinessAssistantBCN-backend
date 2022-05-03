@@ -61,6 +61,10 @@ public class CommercialGalleriesDto {
         }
         return newContactDto;
     }
+    
+    public List<ContactDto> getValuesList(){
+    	return this.values;
+    }
 
     @JsonGetter("addresses")
     public List<AddressDto> getAddresses() {
