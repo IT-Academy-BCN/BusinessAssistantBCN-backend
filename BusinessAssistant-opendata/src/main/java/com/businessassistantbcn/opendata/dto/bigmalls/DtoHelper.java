@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.dto.commercialgalleries;
+package com.businessassistantbcn.opendata.dto.bigmalls;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 
 public class DtoHelper {
 
-	public static CommercialGalleriesResponseDto mapIncommingDtoToResponseDto(CommercialGalleriesDto incommingDto) {
-		CommercialGalleriesResponseDto result = new CommercialGalleriesResponseDto();
+	public static BigMallsResponseDto mapIncommingDtoToResponseDto(BigMallsDto incommingDto) {
+		BigMallsResponseDto result = new BigMallsResponseDto();
 		
 		result.setName(incommingDto.getName());
 		result.setValue(incommingDto.getValues());

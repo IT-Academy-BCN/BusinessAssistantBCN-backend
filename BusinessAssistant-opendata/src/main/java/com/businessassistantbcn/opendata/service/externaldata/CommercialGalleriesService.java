@@ -46,7 +46,6 @@ public class CommercialGalleriesService {
 	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnCommercialGalleriesDefaultPage")
-//	public Mono<GenericResultDto<CommercialGalleriesDto>> getPage(int offset, int limit) throws MalformedURLException {
 	public Mono<GenericResultDto<CommercialGalleriesResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
 		
 		return httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()), CommercialGalleriesDto[].class)
@@ -59,15 +58,6 @@ public class CommercialGalleriesService {
 				
 				CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> DtoHelper.mapIncommingDtoToResponseDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
 				
-//				List<JsonNode> commercialGalleries = Arrays.stream(pagedDto)
-//						.map(dto -> dto.getClassifications_data())
-//						.map(classData -> JsonHelper.entityToJsonString(classData))
-//						.map(string -> JsonHelper.deserializeToJsonNode(string))
-//						.map(jsonNode -> removeAtributeFromJsonNode(jsonNode))
-//						.collect(Collectors.toList());
-//				
-//				CommercialGalleriesDto[] resultsForDto = mapListJsonNodeToDtoArray(commercialGalleries); 
-				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
 			})
@@ -76,54 +66,12 @@ public class CommercialGalleriesService {
 			);
 	}
 
-//	private JsonNode removeAtributeFromJsonNode(JsonNode node) {
-//		ObjectNode object = (ObjectNode) node;
-//        object.remove("full_path");
-//        return object;
-//		
-//	}
 	private CommercialGalleriesDto removeClassificationDataWithUsInternInFullPath(CommercialGalleriesDto commercialGalleriesDto) {
 		List<ClassificationDataDto> classData = commercialGalleriesDto.getClassifications_data().stream()
 				.filter(d -> !d.getFullPath().toUpperCase().contains("ÚS INTERN")).collect(Collectors.toList());
 		commercialGalleriesDto.setClassifications_data(classData);
 		return commercialGalleriesDto;
 	}
-//	private CommercialGalleriesDto[] mapListJsonNodeToDtoArray(List<JsonNode> commercialGalleries) {
-//		CommercialGalleriesDto[] resultsForDto = {};
-//		List<CommercialGalleriesDto> resultsList = new ArrayList<CommercialGalleriesDto>();
-//		if (commercialGalleries.size() > 0) {
-//			resultsForDto = new CommercialGalleriesDto[commercialGalleries.size()];
-//			for(JsonNode node : commercialGalleries) {
-//				CommercialGalleriesDto dto;
-//				try {
-//					dto = new ObjectMapper().readValue(JsonHelper.serialize(node), CommercialGalleriesDto.class);
-//					resultsList.add(dto);
-//				} catch (JsonProcessingException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//					log.error("Unable to serialize jsonNode", e.getMessage());
-//				}
-//				
-//			}
-//			
-//			resultsList.toArray(resultsForDto);
-//		}
-//		return resultsForDto;
-//	}
-	
-//	private CommercialGalleriesNoFullPathDto mapCommercialGalleriesDtoToNoFullPathDto(CommercialGalleriesDto commercialGalleriesDto) {
-//		CommercialGalleriesNoFullPathDto noFullPathDto = new CommercialGalleriesNoFullPathDto();
-//		noFullPathDto.setName(commercialGalleriesDto.getName());
-//		noFullPathDto.setValues(commercialGalleriesDto.getValues());
-//		noFullPathDto.setAddresses(commercialGalleriesDto.getAddresses());
-//		List<Long> activityIds = commercialGalleriesDto.getClassifications_data().stream().map(cd -> cd.getId()).collect(Collectors.toList());
-//		List<ActivityInfoDto> activities = activityIds.stream().map(i -> {
-//			ActivityInfoDto dto = dto
-//			
-//		})
-//		noFullPathDto.setActivityInfo(null);
-//		return noFullPathDto;
-//	}
 
 	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> logServerErrorReturnCommercialGalleriesDefaultPage(
 		Throwable exception

@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.dto.commercialgalleries;
+package com.businessassistantbcn.opendata.dto.bigmalls;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommercialGalleriesResponseDto {
+public class BigMallsResponseDto {
 
 	private String name;
 	@JsonUnwrapped
