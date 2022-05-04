@@ -3,28 +3,23 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesResponseDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.DtoHelper;
+import com.businessassistantbcn.opendata.dto.input.commercialgalleries.ClassificationDataDto;
+import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -41,6 +36,8 @@ public class CommercialGalleriesService {
 	@Autowired
 	private PropertiesConfig config;
 	@Autowired
+	private ModelMapper modelMapper;
+	@Autowired
 	private GenericResultDto<CommercialGalleriesResponseDto> genericResultDto;
 	@Autowired
 	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
@@ -56,7 +53,7 @@ public class CommercialGalleriesService {
 						.toArray(CommercialGalleriesDto[]::new);
 				CommercialGalleriesDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 				
-				CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> DtoHelper.mapIncommingDtoToResponseDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
+				CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
 				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
@@ -71,6 +68,12 @@ public class CommercialGalleriesService {
 				.filter(d -> !d.getFullPath().toUpperCase().contains("ÚS INTERN")).collect(Collectors.toList());
 		commercialGalleriesDto.setClassifications_data(classData);
 		return commercialGalleriesDto;
+	}
+	
+	private CommercialGalleriesResponseDto convertToDto(CommercialGalleriesDto commercialGalleriesDto) {
+		CommercialGalleriesResponseDto responseDto = modelMapper.map(commercialGalleriesDto, CommercialGalleriesResponseDto.class);
+		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(commercialGalleriesDto.getClassifications_data()));
+	    return responseDto;
 	}
 
 	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> logServerErrorReturnCommercialGalleriesDefaultPage(

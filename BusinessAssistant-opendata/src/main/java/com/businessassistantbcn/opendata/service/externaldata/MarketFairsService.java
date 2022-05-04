@@ -2,7 +2,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;

@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.proxy;
 
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.service.externaldata.BigMallsServiceTest;
 import io.netty.channel.ChannelOption;

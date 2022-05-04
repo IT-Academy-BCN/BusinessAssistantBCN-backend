@@ -3,15 +3,16 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsResponseDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.DtoHelper;
+import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.input.bigmalls.ClassificationDataDto;
+import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -28,11 +29,12 @@ import java.util.stream.Collectors;
 public class BigMallsService {
 
 	//private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
-
 	@Autowired
 	private PropertiesConfig config;
 	@Autowired
 	private HttpProxy httpProxy;
+	@Autowired
+	private ModelMapper modelMapper;
 	@Autowired
 	private GenericResultDto<BigMallsResponseDto> genericResultDto;
 	@Autowired
@@ -47,7 +49,7 @@ public class BigMallsService {
 						.toArray(BigMallsDto[]::new);
 				BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 				
-				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> DtoHelper.mapIncommingDtoToResponseDto(p)).toArray(BigMallsResponseDto[]::new);
+				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(BigMallsResponseDto[]::new);
 				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
@@ -60,6 +62,12 @@ public class BigMallsService {
 				.filter(d -> !d.getFullPath().toUpperCase().contains("ÚS INTERN")).collect(Collectors.toList());
 		bigMallsDto.setClassifications_data(classData);
 		return bigMallsDto;
+	}
+	
+	private BigMallsResponseDto convertToDto(BigMallsDto bigMallsDto) {
+		BigMallsResponseDto responseDto = modelMapper.map(bigMallsDto, BigMallsResponseDto.class);
+		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(bigMallsDto.getClassifications_data()));
+	    return responseDto;
 	}
 
 	private Mono<GenericResultDto<BigMallsResponseDto>> logServerErrorReturnBigMallsDefaultPage(Throwable exception) {
