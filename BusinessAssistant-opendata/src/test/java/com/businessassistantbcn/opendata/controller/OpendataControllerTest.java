@@ -8,7 +8,6 @@ import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishm
 import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
-import com.businessassistantbcn.opendata.service.config.DataConfigService;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
 import org.junit.jupiter.api.DisplayName;
@@ -59,8 +58,6 @@ public class OpendataControllerTest {
 	private CommercialGalleriesService commercialGalleriesService;
 	@MockBean
 	private EconomicActivitiesCensusService economicActivitiesCensusService;
-	@MockBean
-	private DataConfigService bcnZonesService;
 	
 	@DisplayName("Simple String response")
 	@Test
@@ -321,45 +318,4 @@ public class OpendataControllerTest {
 				.jsonPath(RES0 + "activityId").isEqualTo(1)
 				.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
 	}
-
-	
-/* ***  MOVER ESTO A 'CommonControllerTest.java' ***
- * 
-	@DisplayName("Opendata response -- JSON elements of Barcelona's districts ")
-	//@Test
-	public void JsonResponseTests3() {
-		
-		final String URI_TEST = "/bcn-zones";
-		
-		BcnZonesDto
-			bcnZonesDto1 = new BcnZonesDto(1, "Îles Kerguelen"),
-			bcnZonesDto2 = new BcnZonesDto(2, "Klendathu");
-		
-		BcnZonesResponseDto bcnZonesRespDto
-				= new BcnZonesResponseDto(2, new BcnZonesDto[]{bcnZonesDto1, bcnZonesDto2}); 
-		
-		Mockito
-			.when(bcnZonesService.getBcnZones())
-			.thenReturn(Mono.just(bcnZonesRespDto));
-		
-		webTestClient.get()
-				.uri(CONTROLLER_BASE_URL + URI_TEST)
-				.accept(MediaType.APPLICATION_JSON)
-				.exchange()
-				.expectStatus().isOk()
-				.expectHeader().contentType(MediaType.APPLICATION_JSON)
-				.expectBody()
-				.jsonPath("$.count").isEqualTo(2)
-				.jsonPath("$.elements[0]." + "idZone").isEqualTo(1)
-				.jsonPath("$.elements[0]." + "zoneName").isNotEmpty()
-				.jsonPath("$.elements[0]." + "zoneName").isEqualTo("Îles Kerguelen")
-				.jsonPath("$.elements[1]." + "idZone").isEqualTo(2)
-				.jsonPath("$.elements[1]." + "zoneName").isNotEmpty()
-				.jsonPath("$.elements[1]." + "zoneName").isEqualTo("Klendathu");
-		
-		Mockito.verify(bcnZonesService).getBcnZones();
-		
-	}
-*/
-	
 }
