@@ -4,6 +4,14 @@ spring:
   jmx:
     enabled: true
 
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui/login.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs/login"
+
 server:
   port: 8761
 
