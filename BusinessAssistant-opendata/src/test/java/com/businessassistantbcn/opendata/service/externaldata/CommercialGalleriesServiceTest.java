@@ -4,6 +4,7 @@ import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -50,6 +51,7 @@ public class CommercialGalleriesServiceTest {
 	private static final String JSON_FILENAME_COMERCIAL_GALLERIES_ACTIVITIES = "json/activitiesFromTwoComercialGalleriesForTesting.json";
 	private static ObjectMapper mapper;
 	private static CommercialGalleriesDto[] twoCommercialGalleriesDto;
+	private static CommercialGalleriesResponseDto[] responseDto;
 	private static ActivityInfoDto[] activities;
 	 
 	@BeforeAll
@@ -67,6 +69,20 @@ public class CommercialGalleriesServiceTest {
 		mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		twoCommercialGalleriesDto = mapper.readValue(commercialGalleriesAsString, CommercialGalleriesDto[].class);
 		activities = mapper.readValue(commercialGalleriesActivitiesAsString, ActivityInfoDto[].class);
+		
+		responseDto = new CommercialGalleriesResponseDto[2];
+        CommercialGalleriesResponseDto responseDto1 = new CommercialGalleriesResponseDto();
+        responseDto1.setName(twoCommercialGalleriesDto[0].getName());
+        responseDto1.setValue(twoCommercialGalleriesDto[0].getValues());
+        responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoCommercialGalleriesDto[0].getClassifications_data()));
+        responseDto1.setAddresses(twoCommercialGalleriesDto[0].getAddresses());
+        responseDto[0] = responseDto1;
+        CommercialGalleriesResponseDto responseDto2 = new CommercialGalleriesResponseDto();
+        responseDto2.setName(twoCommercialGalleriesDto[1].getName());
+        responseDto2.setValue(twoCommercialGalleriesDto[1].getValues());
+        responseDto2.setActivities(responseDto2.mapClassificationDataListToActivityInfoList(twoCommercialGalleriesDto[1].getClassifications_data()));
+        responseDto2.setAddresses(twoCommercialGalleriesDto[1].getAddresses());
+        responseDto[1] =responseDto2;
 	}
 
 	@Test
@@ -75,10 +91,10 @@ public class CommercialGalleriesServiceTest {
 		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
 			.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
-		GenericResultDto<CommercialGalleriesDto> expectedResult = new GenericResultDto<CommercialGalleriesDto>();
-		expectedResult.setInfo(0, -1, twoCommercialGalleriesDto.length, twoCommercialGalleriesDto);
+		GenericResultDto<CommercialGalleriesResponseDto> expectedResult = new GenericResultDto<CommercialGalleriesResponseDto>();
+		expectedResult.setInfo(0, -1, twoCommercialGalleriesDto.length, responseDto);
 
-		GenericResultDto<CommercialGalleriesDto> actualResult =
+		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
 			commercialGalleriesService.getPage(0, -1).block();
 		this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
 		assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
@@ -151,9 +167,9 @@ public class CommercialGalleriesServiceTest {
 		assertEquals(expected.getCount(), actual.getCount());
 	}
 
-	private void returnsCommercialGalleriesDefaultPage(GenericResultDto<CommercialGalleriesDto> actualResult) {
-		GenericResultDto<CommercialGalleriesDto> expectedResult = new GenericResultDto<CommercialGalleriesDto>();
-		expectedResult.setInfo(0, 0, 0, new CommercialGalleriesDto[0]);
+	private void returnsCommercialGalleriesDefaultPage(GenericResultDto<CommercialGalleriesResponseDto> actualResult) {
+		GenericResultDto<CommercialGalleriesResponseDto> expectedResult = new GenericResultDto<CommercialGalleriesResponseDto>();
+		expectedResult.setInfo(0, 0, 0, new CommercialGalleriesResponseDto[0]);
 
 		this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
 		assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
