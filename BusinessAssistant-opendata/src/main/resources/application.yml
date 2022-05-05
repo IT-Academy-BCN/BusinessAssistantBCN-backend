@@ -22,9 +22,18 @@ spring:
         healthCheckInterval: 15s
 
 # OJO bug afecta a Swagger
-springfox:
-  documentation:
-    auto-startup: false
+#springfox:
+#  documentation:
+#    auto-startup: false
+#Se usa la dependencia springdoc-open-api-ui para documentar la api en formato Swagger
+
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui-opendata.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs"
 
 server:
   port: 8762
