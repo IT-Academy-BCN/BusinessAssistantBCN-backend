@@ -53,7 +53,7 @@ public class CommercialGalleriesService {
 						.toArray(CommercialGalleriesDto[]::new);
 				CommercialGalleriesDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 				
-				CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
+				CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToResponseDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
 				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
@@ -70,8 +70,9 @@ public class CommercialGalleriesService {
 		return commercialGalleriesDto;
 	}
 	
-	private CommercialGalleriesResponseDto convertToDto(CommercialGalleriesDto commercialGalleriesDto) {
+	private CommercialGalleriesResponseDto convertToResponseDto(CommercialGalleriesDto commercialGalleriesDto) {
 		CommercialGalleriesResponseDto responseDto = modelMapper.map(commercialGalleriesDto, CommercialGalleriesResponseDto.class);
+		responseDto.setValue(commercialGalleriesDto.getValues());		
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(commercialGalleriesDto.getClassifications_data()));
 	    return responseDto;
 	}
