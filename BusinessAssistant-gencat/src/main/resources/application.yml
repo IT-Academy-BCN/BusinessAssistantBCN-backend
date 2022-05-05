@@ -5,10 +5,18 @@ spring:
     enabled: true
 
 
-# OJO bug afecta a Swagger
-springfox:
-  documentation:
-    auto-startup: false
+#springfox:
+#  documentation:
+#    auto-startup: false
+#Se usa la dependencia de springdoc-openapi-ui para documentar la api en formato Swagger
+
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui-gencat.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs"
 
 server:
   port: 8762
