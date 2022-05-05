@@ -43,6 +43,9 @@ dependencies {
     // JAX-B dependencies for JDK 9+
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
 
+    //dependency for Swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
