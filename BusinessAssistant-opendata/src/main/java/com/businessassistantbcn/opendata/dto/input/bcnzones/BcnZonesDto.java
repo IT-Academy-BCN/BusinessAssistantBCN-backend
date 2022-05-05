@@ -1,7 +1,6 @@
 package com.businessassistantbcn.opendata.dto.input.bcnzones;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class BcnZonesDto {
