@@ -2,10 +2,10 @@ package com.businessassistantbcn.opendata.controller;
 
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
-import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
-import com.businessassistantbcn.opendata.dto.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
+import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.service.config.DataConfigService;

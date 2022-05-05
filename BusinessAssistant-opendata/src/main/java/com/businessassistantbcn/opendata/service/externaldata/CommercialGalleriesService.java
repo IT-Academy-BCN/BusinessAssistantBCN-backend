@@ -3,13 +3,17 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.dto.input.commercialgalleries.ClassificationDataDto;
+import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
+
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -32,16 +36,26 @@ public class CommercialGalleriesService {
 	@Autowired
 	private PropertiesConfig config;
 	@Autowired
-	private GenericResultDto<CommercialGalleriesDto> genericResultDto;
+	private ModelMapper modelMapper;
+	@Autowired
+	private GenericResultDto<CommercialGalleriesResponseDto> genericResultDto;
 	@Autowired
 	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnCommercialGalleriesDefaultPage")
-	public Mono<GenericResultDto<CommercialGalleriesDto>> getPage(int offset, int limit) throws MalformedURLException {
+	public Mono<GenericResultDto<CommercialGalleriesResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
+		
 		return httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()), CommercialGalleriesDto[].class)
 			.flatMap(dtos -> {
-				CommercialGalleriesDto[] filteredDto = JsonHelper.filterDto(dtos, offset, limit);
-				genericResultDto.setInfo(offset, limit, dtos.length, filteredDto);
+				
+				CommercialGalleriesDto[] filteredDto = Arrays.stream(dtos)
+						.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
+						.toArray(CommercialGalleriesDto[]::new);
+				CommercialGalleriesDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
+				
+				CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
+				
+				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
 			})
 			.onErrorResume(
@@ -49,22 +63,35 @@ public class CommercialGalleriesService {
 			);
 	}
 
-	private Mono<GenericResultDto<CommercialGalleriesDto>> logServerErrorReturnCommercialGalleriesDefaultPage(
+	private CommercialGalleriesDto removeClassificationDataWithUsInternInFullPath(CommercialGalleriesDto commercialGalleriesDto) {
+		List<ClassificationDataDto> classData = commercialGalleriesDto.getClassifications_data().stream()
+				.filter(d -> !d.getFullPath().toUpperCase().contains("ÚS INTERN")).collect(Collectors.toList());
+		commercialGalleriesDto.setClassifications_data(classData);
+		return commercialGalleriesDto;
+	}
+	
+	private CommercialGalleriesResponseDto convertToDto(CommercialGalleriesDto commercialGalleriesDto) {
+		CommercialGalleriesResponseDto responseDto = modelMapper.map(commercialGalleriesDto, CommercialGalleriesResponseDto.class);
+		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(commercialGalleriesDto.getClassifications_data()));
+	    return responseDto;
+	}
+
+	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> logServerErrorReturnCommercialGalleriesDefaultPage(
 		Throwable exception
 	) {
 		log.error("Opendata is down");
 		return this.getCommercialGalleriesDefaultPage(exception);
 	}
 
-	private Mono<GenericResultDto<CommercialGalleriesDto>> logInternalErrorReturnCommercialGalleriesDefaultPage(
+	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> logInternalErrorReturnCommercialGalleriesDefaultPage(
 		Throwable exception
 	) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getCommercialGalleriesDefaultPage(exception);
 	}
 
-	private Mono<GenericResultDto<CommercialGalleriesDto>> getCommercialGalleriesDefaultPage(Throwable exception) {
-		genericResultDto.setInfo(0, 0, 0, new CommercialGalleriesDto[0]);
+	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> getCommercialGalleriesDefaultPage(Throwable exception) {
+		genericResultDto.setInfo(0, 0, 0, new CommercialGalleriesResponseDto[0]);
 		return Mono.just(genericResultDto);
 	}
 
@@ -92,7 +119,7 @@ public class CommercialGalleriesService {
 
 	private List<ActivityInfoDto> getListWithoutInvalidFullPaths(CommercialGalleriesDto[] dtos) {
 		return Arrays.stream(dtos)
-			.flatMap(bigMallDto -> bigMallDto.getClassifications_data().stream())
+			.flatMap(commercialGalleryDto -> commercialGalleryDto.getClassifications_data().stream())
 			.filter(classificationsDataDto -> this.isFullPathValid(classificationsDataDto))
 			.map(classificationsDataDto -> new ActivityInfoDto(
 				classificationsDataDto.getId(),

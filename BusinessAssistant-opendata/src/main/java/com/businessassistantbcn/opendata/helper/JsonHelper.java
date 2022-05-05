@@ -67,4 +67,14 @@ public class JsonHelper<T> {
 		}
 		return jsonString;
 	}
+	
+	public static<T> String entityToJsonString(T entity) {
+		String jsonEntity = new String();
+		try {
+			jsonEntity = mapper.writeValueAsString(entity);
+		} catch (JsonProcessingException e) {
+			log.error(e.getMessage());
+		}
+		return jsonEntity;
+	}
 }

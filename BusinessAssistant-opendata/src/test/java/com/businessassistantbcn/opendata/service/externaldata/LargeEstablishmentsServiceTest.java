@@ -3,7 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
