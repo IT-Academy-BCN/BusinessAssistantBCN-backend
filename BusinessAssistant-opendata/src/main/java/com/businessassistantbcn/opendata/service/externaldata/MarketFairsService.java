@@ -7,19 +7,19 @@ import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceExc
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@Slf4j
 @Service
 public class MarketFairsService {
 
-	//private static final Logger log = LoggerFactory.getLogger(MarketFairsService.class);
+	private static final Logger log = LoggerFactory.getLogger(MarketFairsService.class);
 
 	@Autowired
 	private PropertiesConfig config;
