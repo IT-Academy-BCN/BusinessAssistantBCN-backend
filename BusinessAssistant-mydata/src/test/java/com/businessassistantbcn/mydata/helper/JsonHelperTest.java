@@ -1,14 +1,17 @@
 package com.businessassistantbcn.mydata.helper;
 
+import lombok.extern.slf4j.Slf4j;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+//@Slf4j
 //@JsonTest
 public class JsonHelperTest {
 
     /*private JsonNode node;
     private ObjectMapper mapper = new ObjectMapper();
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    //private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @BeforeEach
     void init() throws Exception {
