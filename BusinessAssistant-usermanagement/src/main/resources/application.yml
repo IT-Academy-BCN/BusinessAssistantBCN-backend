@@ -17,9 +17,18 @@ spring:
       port: 27017
       database: babcn-users
 
-springfox:
-  documentation:
-    auto-startup: false
+#springfox:
+#  documentation:
+#    auto-startup: false
+#Utiliza la dependencia springdoc-openapi-ui para documentar la api
+
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui/usermanagement.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs/usermanagement"
 
 security:
   datasource:
