@@ -70,4 +70,9 @@ import org.springframework.stereotype.Component;
         return location;
     }
 
+    @JsonSetter("location")
+    public void setLocation(LocationDto location) {
+        this.location = location;
+    }
+
 }

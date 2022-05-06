@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -19,7 +21,7 @@ import java.util.List;
 @JsonIgnoreProperties({ "register_id","prefix","suffix",/*"name",*/"created","modified","status","status_name","core_type","core_type_name",
         "body","tickets_data",/*"addresses",*/"entity_types_data","attribute_categories"/*,"values"*/,"from_relationships","to_relationships",
         /*"classifications_data",*/"secondary_filters_data","timetable","image_data","gallery_data","warnings","geo_epgs_25831",
-        "geo_epgs_23031","geo_epgs_4326","is_section_of_data","sections_data","start_date","end_date","estimated_dates",
+        "geo_epgs_23031",/*"geo_epgs_4326",*/"is_section_of_data","sections_data","start_date","end_date","estimated_dates",
         "languages_data","type","type_name","period","period_name","event_status_name","event_status","ical"
 })
 
@@ -48,7 +50,7 @@ public class BigMallsDto {
     @JsonGetter("values")
     public ContactDto getValues() {
 
-        ContactDto newContactDto = new ContactDto();;
+        ContactDto newContactDto = new ContactDto();
         for(ContactDto c:values){
 
             if(c.getEmail_value() !=null){
@@ -69,5 +71,18 @@ public class BigMallsDto {
     @JsonGetter("addresses")
     public List<AddressDto> getAddresses() {
         return addresses;
+    }
+
+    @JsonSetter("geo_epgs_4326")
+    public void setGeo_epgs_4326(CoordinateDto geo_epgs_4326) {
+        System.out.println("x: "+geo_epgs_4326.getX());
+        System.out.println("y: "+geo_epgs_4326.getY());
+
+        GeometryDto geometryCorregida = new GeometryDto();
+        geometryCorregida.setCoordinateDto(geo_epgs_4326);
+        List<GeometryDto> locationCorregida = new ArrayList<>();
+        locationCorregida.add(geometryCorregida);
+        //addresses.get(0).getLocation().setGeometries(locationCorregida); //fa petar la data
+        System.out.println("x pre: "+addresses.get(0).getLocation().getGeometries().getX());
     }
 }
