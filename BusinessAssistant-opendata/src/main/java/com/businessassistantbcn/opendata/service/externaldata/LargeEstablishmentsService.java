@@ -3,8 +3,8 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.largeestablishments.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.largeestablishments.LargeEstablishmentsDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.ClassificationDataDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -56,20 +56,21 @@ public class LargeEstablishmentsService {
 	public Mono<GenericResultDto<LargeEstablishmentsDto>> getPageByActivity(int offset, int limit, String activityId)
 		throws MalformedURLException {
 	
-		Predicate<LargeEstablishmentsDto> doFilter = largeEstablishmentsDto -> 
+		Predicate<LargeEstablishmentsDto> dtoFilter = largeEstablishmentsDto -> 
 			largeEstablishmentsDto.getClassifications_data()
 			.stream()
 			.anyMatch(classificationsDataDto -> classificationsDataDto.getId() == Integer.parseInt(activityId));
 		
-		return getResultDto(offset, limit, doFilter);
+		return getResultDto(offset, limit, dtoFilter);
 	}
 
 	private Mono<GenericResultDto<LargeEstablishmentsDto>> getResultDto(
 		int offset, int limit, Predicate<LargeEstablishmentsDto> dtoFilter) throws MalformedURLException {
 		return 	httpProxy.getRequestData(new URL(config.getDs_largeestablishments()), LargeEstablishmentsDto[].class)
-			.flatMap(dto -> {
-			LargeEstablishmentsDto[] filteredDto = Arrays.stream(dto)
+			.flatMap(largeEstablishmentsDto -> {
+			LargeEstablishmentsDto[] filteredDto = Arrays.stream(largeEstablishmentsDto)
 				.filter(dtoFilter)
+				.map(d -> this.removeClassificationDataWithMarquesInFullPath(d))
 				.toArray(LargeEstablishmentsDto[]::new);
 			
 			LargeEstablishmentsDto[] pagedDto = JsonHelper
@@ -79,6 +80,13 @@ public class LargeEstablishmentsService {
 			return Mono.just(genericResultDto);
 		})
 		.onErrorResume(e -> this.getLargeEstablishmentsDefaultPage(new OpendataUnavailableServiceException()));
+	}
+	
+	private LargeEstablishmentsDto removeClassificationDataWithMarquesInFullPath(LargeEstablishmentsDto largeEstablishmentDto) {
+		List<ClassificationDataDto> classData = largeEstablishmentDto.getClassifications_data().stream()
+				.filter(d -> !d.getFullPath().toUpperCase().contains("MARQUES")).collect(Collectors.toList());
+		largeEstablishmentDto.setClassifications_data(classData);
+		return largeEstablishmentDto;
 	}
 
 	private Mono<GenericResultDto<LargeEstablishmentsDto>> logServerErrorReturnLargeEstablishmentsDefaultPage(Throwable exception) {
