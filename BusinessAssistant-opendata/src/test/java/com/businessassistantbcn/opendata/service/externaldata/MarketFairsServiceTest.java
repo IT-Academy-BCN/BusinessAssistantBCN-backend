@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -49,6 +50,7 @@ public class MarketFairsServiceTest {
     private static final String JSON_FILENAME_MARKET_FAIRS = "json/twoMarketFairsForTesting.json";
     private static ObjectMapper mapper;
     private static MarketFairsDto[] twoMarketFairsDto;
+    private static MarketFairsResponseDto[] responseDto;
 
     @BeforeAll
     static void beforeAll() throws URISyntaxException, IOException {
@@ -62,6 +64,20 @@ public class MarketFairsServiceTest {
 
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         twoMarketFairsDto = mapper.readValue(marketFairsAsString, MarketFairsDto[].class);
+        
+        responseDto = new MarketFairsResponseDto[2];
+        MarketFairsResponseDto responseDto1 = new MarketFairsResponseDto();
+        responseDto1.setName(twoMarketFairsDto[0].getName());
+        responseDto1.setValue(twoMarketFairsDto[0].getValues());
+        responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoMarketFairsDto[0].getClassifications_data()));
+        responseDto1.setAddresses(twoMarketFairsDto[0].getAddresses());
+        responseDto[0] = responseDto1;
+        MarketFairsResponseDto responseDto2 = new MarketFairsResponseDto();
+        responseDto2.setName(twoMarketFairsDto[1].getName());
+        responseDto2.setValue(twoMarketFairsDto[1].getValues());
+        responseDto2.setActivities(responseDto2.mapClassificationDataListToActivityInfoList(twoMarketFairsDto[1].getClassifications_data()));
+        responseDto2.setAddresses(twoMarketFairsDto[1].getAddresses());
+        responseDto[1] =responseDto2;
     }
 
     @Test
@@ -70,10 +86,10 @@ public class MarketFairsServiceTest {
         when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
             .thenReturn(Mono.just(twoMarketFairsDto));
 
-        GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
-        expectedResult.setInfo(0, -1, twoMarketFairsDto.length, twoMarketFairsDto);
+        GenericResultDto<MarketFairsResponseDto> expectedResult = new GenericResultDto<MarketFairsResponseDto>();
+        expectedResult.setInfo(0, -1, twoMarketFairsDto.length, responseDto);
 
-        GenericResultDto<MarketFairsDto> actualResult = marketFairsService.getPage(0, -1).block();
+        GenericResultDto<MarketFairsResponseDto> actualResult = marketFairsService.getPage(0, -1).block();
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
             mapper.writeValueAsString(actualResult.getResults()));
@@ -105,9 +121,9 @@ public class MarketFairsServiceTest {
         assertEquals(expected.getCount(), actual.getCount());
     }
 
-    private void returnsMarketFairsDefaultPage(GenericResultDto<MarketFairsDto> actualResult) {
-        GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
-        expectedResult.setInfo(0, 0, 0, new MarketFairsDto[0]);
+    private void returnsMarketFairsDefaultPage(GenericResultDto<MarketFairsResponseDto> actualResult) {
+        GenericResultDto<MarketFairsResponseDto> expectedResult = new GenericResultDto<MarketFairsResponseDto>();
+        expectedResult.setInfo(0, 0, 0, new MarketFairsResponseDto[0]);
 
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
