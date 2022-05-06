@@ -158,9 +158,11 @@ public class LargeEstablishmentsServiceTest {
         GenericResultDto<LargeEstablishmentsResponseDto> actualResult =
             largeEstablishmentsService.getPage(0, -1).block();
         this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
-            mapper.writeValueAsString(actualResult.getResults()));
-
+        
+        assertEquals(Arrays.stream(expectedResult.getResults()).collect(Collectors.toList()).get(0).getActivities().size(),
+                Arrays.stream(actualResult.getResults()).collect(Collectors.toList()).get(0).getActivities().size());
+        assertEquals(expectedResult.getResults().length, actualResult.getResults().length);
+        
         verify(config, times(1)).getDs_largeestablishments();
         verify(httpProxy, times(1))
             .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
