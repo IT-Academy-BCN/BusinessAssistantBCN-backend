@@ -81,7 +81,7 @@ public class LargeEstablishmentsService {
 			LargeEstablishmentsDto[] pagedDto = JsonHelper
 				.filterDto(filteredDto, offset, limit);
 
-			LargeEstablishmentsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToResponseDto(p)).toArray(LargeEstablishmentsResponseDto[]::new);
+			LargeEstablishmentsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(LargeEstablishmentsResponseDto[]::new);
 			genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 			return Mono.just(genericResultDto);
 		})
@@ -95,7 +95,7 @@ public class LargeEstablishmentsService {
 		return largeEstablishmentDto;
 	}
 	
-	private LargeEstablishmentsResponseDto convertToResponseDto(LargeEstablishmentsDto largeEstablishmentsDto) {
+	private LargeEstablishmentsResponseDto mapToResponseDto(LargeEstablishmentsDto largeEstablishmentsDto) {
 		LargeEstablishmentsResponseDto responseDto = modelMapper.map(largeEstablishmentsDto, LargeEstablishmentsResponseDto.class);
 		responseDto.setValue(largeEstablishmentsDto.getValues());
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(largeEstablishmentsDto.getClassifications_data()));
