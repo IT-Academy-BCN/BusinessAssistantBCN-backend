@@ -13,8 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import com.businessassistantbcn.opendata.dto.bcnzones.BcnZonesDto;
-import com.businessassistantbcn.opendata.dto.bcnzones.BcnZonesResponseDto;
+import com.businessassistantbcn.opendata.dto.input.bcnzones.BcnZonesDto;
+import com.businessassistantbcn.opendata.dto.output.BcnZonesResponseDto;
 import com.businessassistantbcn.opendata.service.config.DataConfigService;
 
 import reactor.core.publisher.Mono;
