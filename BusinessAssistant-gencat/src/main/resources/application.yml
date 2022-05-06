@@ -12,7 +12,7 @@ spring:
 
 springdoc:
   swagger-ui:
-    path: "/swagger-ui-gencat.html"
+    path: "/swagger-ui-custom.html"
     operationsSorted: method
   api-docs:
     enable: true
