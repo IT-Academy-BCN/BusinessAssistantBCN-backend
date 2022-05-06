@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.dto.input.bigmalls;
 
-import com.businessassistantbcn.opendata.dto.input.largeestablishments.LocationDto;
+//import com.businessassistantbcn.opendata.dto.largeestablishments.LocationDto; //llamaba a locationDTO de otra carpeta ??
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
