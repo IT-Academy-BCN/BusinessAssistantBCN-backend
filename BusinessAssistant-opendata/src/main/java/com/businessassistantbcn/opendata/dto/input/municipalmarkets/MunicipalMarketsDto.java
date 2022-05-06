@@ -100,6 +100,9 @@ public class MunicipalMarketsDto {
 
     @JsonProperty("name")
     private String name;
+    public String getName() {
+    	return name;
+    }
 
     @JsonProperty("addresses")
     private List<AddressDto> addresses;
