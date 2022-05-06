@@ -1,20 +1,21 @@
 package com.businessassistantbcn.opendata.dto.input.municipalmarkets;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Component
+@Getter
+@Setter
+@ToString
 public class ActivityDto {
-    @JsonProperty("id")
-    public int getId() {
-        return this.id; }
-    public void setId(int id) {
-        this.id = id; }
-    private int id;
-
-    @JsonProperty("name")
-    public String getName() {
-        return this.name; }
-    public void setName(String name) {
-        this.name = name; }
-    private String name;
+    @JsonProperty("activityId")
+    private int activityId;
+    @JsonProperty("activityName")
+    private String activityName;
+    
 }
