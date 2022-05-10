@@ -45,6 +45,10 @@ dependencies {
     
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.5'
+
+    //dependency for Swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-data-rest', version: '1.6.8'
     
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
