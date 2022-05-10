@@ -3,6 +3,12 @@ spring:
     name: businessassistant-login
   jmx:
     enabled: true
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+    - dev
 
 server:
   port: 8761
