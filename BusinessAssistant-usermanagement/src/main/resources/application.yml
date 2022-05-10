@@ -16,6 +16,12 @@ spring:
       host: localhost
       port: 27017
       database: babcn-users
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+    - pro        
 
 springfox:
   documentation:
