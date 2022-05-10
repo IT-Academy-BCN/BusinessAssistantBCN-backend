@@ -49,7 +49,7 @@ public class BigMallsService {
 						.toArray(BigMallsDto[]::new);
 				BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 				
-				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(BigMallsResponseDto[]::new);
+				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(BigMallsResponseDto[]::new);
 				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
@@ -64,8 +64,9 @@ public class BigMallsService {
 		return bigMallsDto;
 	}
 	
-	private BigMallsResponseDto convertToDto(BigMallsDto bigMallsDto) {
+	private BigMallsResponseDto mapToResponseDto(BigMallsDto bigMallsDto) {
 		BigMallsResponseDto responseDto = modelMapper.map(bigMallsDto, BigMallsResponseDto.class);
+		responseDto.setValue(bigMallsDto.getValues());
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(bigMallsDto.getClassifications_data()));
 	    return responseDto;
 	}

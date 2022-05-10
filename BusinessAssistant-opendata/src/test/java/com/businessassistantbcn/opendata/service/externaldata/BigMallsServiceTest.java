@@ -4,6 +4,7 @@ import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -49,6 +50,7 @@ public class BigMallsServiceTest {
     private static final String JSON_FILENAME_BIG_MALLS_ACTIVITIES = "json/activitiesFromTwoBigMallsForTesting.json";
     private static ObjectMapper mapper;
     private static BigMallsDto[] twoBigMallsDto;
+    private static BigMallsResponseDto[] responseDto;
     private static ActivityInfoDto[] activities;
 
     @BeforeAll
@@ -69,6 +71,20 @@ public class BigMallsServiceTest {
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         twoBigMallsDto = mapper.readValue(bigMallsAsString, BigMallsDto[].class);
         activities = mapper.readValue(bigMallsActivitiesAsString, ActivityInfoDto[].class);
+        
+        responseDto = new BigMallsResponseDto[2];
+        BigMallsResponseDto responseDto1 = new BigMallsResponseDto();
+        responseDto1.setName(twoBigMallsDto[0].getName());
+        responseDto1.setValue(twoBigMallsDto[0].getValues());
+        responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoBigMallsDto[0].getClassifications_data()));
+        responseDto1.setAddresses(twoBigMallsDto[0].getAddresses());
+        responseDto[0] = responseDto1;
+        BigMallsResponseDto responseDto2 = new BigMallsResponseDto();
+        responseDto2.setName(twoBigMallsDto[1].getName());
+        responseDto2.setValue(twoBigMallsDto[1].getValues());
+        responseDto2.setActivities(responseDto2.mapClassificationDataListToActivityInfoList(twoBigMallsDto[1].getClassifications_data()));
+        responseDto2.setAddresses(twoBigMallsDto[1].getAddresses());
+        responseDto[1] =responseDto2;
     }
 
     @Test
@@ -76,10 +92,10 @@ public class BigMallsServiceTest {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
-        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
-        expectedResult.setInfo(0, -1, twoBigMallsDto.length, twoBigMallsDto);
+        GenericResultDto<BigMallsResponseDto> expectedResult = new GenericResultDto<BigMallsResponseDto>();
+        expectedResult.setInfo(0, -1, twoBigMallsDto.length, responseDto);
 
-        GenericResultDto<BigMallsDto> actualResult = bigMallsService.getPage(0, -1).block();
+        GenericResultDto<BigMallsResponseDto> actualResult = bigMallsService.getPage(0, -1).block();
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
             mapper.writeValueAsString(actualResult.getResults()));
@@ -145,7 +161,7 @@ public class BigMallsServiceTest {
         assertEquals(expected.getCount(), actual.getCount());
     }
 
-    private void returnsBigMallsDefaultPage(GenericResultDto<BigMallsDto> actualResult) {
+    private void returnsBigMallsDefaultPage(GenericResultDto<BigMallsResponseDto> actualResult) {
         GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
         expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
 
