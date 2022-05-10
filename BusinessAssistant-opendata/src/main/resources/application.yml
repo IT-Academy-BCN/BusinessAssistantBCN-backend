@@ -20,6 +20,12 @@ spring:
         prefer-ip-address: true
         healthCheckPath: ${management.server.servlet.context-path}/health
         healthCheckInterval: 15s
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+    - dev   
 
 # OJO bug afecta a Swagger
 #springfox:
@@ -67,6 +73,12 @@ url:
     - "Sant Andreu"
     - "Sant Martí"
 
+security:
+  datasource:
+    secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
+    headerString: Authorization
+    authoritiesClaim: authorities
+    err: Auth Error, Token Unavailable 
 ---
 logging:
   level:
