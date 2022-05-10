@@ -3,7 +3,19 @@ spring:
     name: businessassistant-gencat
   jmx:
     enabled: true
-
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+    - dev 
+    
+security:
+  datasource:
+    secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
+    headerString: Authorization
+    authoritiesClaim: authorities
+    err: Auth Error, Token Unavailable 
 
 # OJO bug afecta a Swagger
 #springfox:
