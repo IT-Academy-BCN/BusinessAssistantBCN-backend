@@ -25,7 +25,7 @@ public class GeometryDto {
     private CoordinateDto coordinateDto;
 
     @JsonGetter("coordinates")
-    public com.businessassistantbcn.opendata.dto.input.bigmalls.CoordinateDto getCoordinates() {
+    public CoordinateDto getCoordinates() {
 
         coordinateDto = new CoordinateDto();
         if(coordinates.size()>1){
@@ -33,6 +33,15 @@ public class GeometryDto {
             coordinateDto.setY(coordinates.get(1));
         }
         return coordinateDto;
+    }
+
+    public CoordinateDto setNewCoordinates(CoordinateDto newCoordinates){
+        System.out.println("rebo a GeometryDto: "+newCoordinates.getX());
+        CoordinateDto newCoordinateDto = new CoordinateDto();
+        newCoordinateDto.setX(newCoordinates.getX());
+        newCoordinateDto.setY(newCoordinates.getY());
+        //this.coordinateDto.setX(newCoordinates.getX()); //error Opendata is down
+        return newCoordinateDto;
     }
 
 }

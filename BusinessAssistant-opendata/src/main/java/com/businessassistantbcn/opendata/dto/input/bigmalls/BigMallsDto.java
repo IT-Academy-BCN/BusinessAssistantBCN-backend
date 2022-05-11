@@ -36,6 +36,7 @@ public class BigMallsDto {
     private List<ContactDto> values; // contact
     private List<ClassificationDataDto> classifications_data; // activities
     private List<AddressDto> addresses;
+    private CoordinateDto coordinates;
 
     @JsonGetter("activities") // deserialize clasification_data activities
     public List<ClassificationDataDto> getClassifications_data() {
@@ -68,21 +69,28 @@ public class BigMallsDto {
         return newContactDto;
     }
 
+    @JsonGetter("geo_epgs_4326") //retorna coordinades per gravar a json sortida
+    public CoordinateDto getCoordinates() {
+        return coordinates;
+    }
+
+    @JsonSetter("geo_epgs_4326") //llegeix de bcn.cat
+    public void setCoordinates(CoordinateDto coordinates) {
+        this.coordinates = coordinates;
+    }
+
     @JsonGetter("addresses")
     public List<AddressDto> getAddresses() {
+        CoordinateDto newCoordinates = getCoordinates();
+        System.out.println("envia a AddressDto: "+newCoordinates.getX());
+        addresses.get(0).setNewLocation(newCoordinates);
         return addresses;
     }
 
-    @JsonSetter("geo_epgs_4326")
-    public void setGeo_epgs_4326(CoordinateDto geo_epgs_4326) {
-        System.out.println("x: "+geo_epgs_4326.getX());
-        System.out.println("y: "+geo_epgs_4326.getY());
-
-        GeometryDto geometryCorregida = new GeometryDto();
-        geometryCorregida.setCoordinateDto(geo_epgs_4326);
-        List<GeometryDto> locationCorregida = new ArrayList<>();
-        locationCorregida.add(geometryCorregida);
-        //addresses.get(0).getLocation().setGeometries(locationCorregida); //fa petar la data
-        System.out.println("x pre: "+addresses.get(0).getLocation().getGeometries().getX());
+    @JsonSetter("addresses")
+    public void setAddresses(List<AddressDto> addresses) {
+        this.addresses = addresses;
+        //System.out.println("x: "+getCoordinates().getX());
+        //System.out.println("y: "+getCoordinates().getY());
     }
 }

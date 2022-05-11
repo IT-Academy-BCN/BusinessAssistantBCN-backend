@@ -75,4 +75,10 @@ import org.springframework.stereotype.Component;
         this.location = location;
     }
 
+    public void setNewLocation(CoordinateDto coordinateDto){
+        System.out.println("rebo a AddressDto: "+coordinateDto.getX());
+        System.out.println("envio a LocationDto: "+coordinateDto.getX());
+        location.setNewGeometries(coordinateDto);
+    }
+
 }
