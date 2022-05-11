@@ -4,6 +4,7 @@ import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
+import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -54,6 +55,7 @@ public class LargeEstablishmentsServiceTest {
         "json/activitiesFromTwoLargeEstablishmentsForTesting.json";
     private static ObjectMapper mapper;
     private static LargeEstablishmentsDto[] twoLargeEstablishmentsDto;
+    private static LargeEstablishmentsResponseDto[] responseDto;
     private static ActivityInfoDto[] activities;
 
     @BeforeAll
@@ -77,6 +79,20 @@ public class LargeEstablishmentsServiceTest {
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         twoLargeEstablishmentsDto = mapper.readValue(largeEstablishmentsAsString, LargeEstablishmentsDto[].class);
         activities = mapper.readValue(largeEstablishmentsActivitiesAsString, ActivityInfoDto[].class);
+        
+        responseDto = new LargeEstablishmentsResponseDto[2];
+        LargeEstablishmentsResponseDto responseDto1 = new LargeEstablishmentsResponseDto();
+        responseDto1.setName(twoLargeEstablishmentsDto[0].getName());
+        responseDto1.setValue(twoLargeEstablishmentsDto[0].getValues());
+        responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoLargeEstablishmentsDto[0].getClassifications_data()));
+        responseDto1.setAddresses(twoLargeEstablishmentsDto[0].getAddresses());
+        responseDto[0] = responseDto1;
+        LargeEstablishmentsResponseDto responseDto2 = new LargeEstablishmentsResponseDto();
+        responseDto2.setName(twoLargeEstablishmentsDto[1].getName());
+        responseDto2.setValue(twoLargeEstablishmentsDto[1].getValues());
+        responseDto2.setActivities(responseDto2.mapClassificationDataListToActivityInfoList(twoLargeEstablishmentsDto[1].getClassifications_data()));
+        responseDto2.setAddresses(twoLargeEstablishmentsDto[1].getAddresses());
+        responseDto[1] =responseDto2;
     }
 
     @Test
@@ -85,7 +101,7 @@ public class LargeEstablishmentsServiceTest {
         when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
-        GenericResultDto<LargeEstablishmentsDto> actualResult =
+        GenericResultDto<LargeEstablishmentsResponseDto> actualResult =
             largeEstablishmentsService.getPageByDistrict(0, -1, 5).block();
 
         assertEquals(0, actualResult.getOffset());
@@ -108,7 +124,7 @@ public class LargeEstablishmentsServiceTest {
         when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
-        GenericResultDto<LargeEstablishmentsDto> actualResult =
+        GenericResultDto<LargeEstablishmentsResponseDto> actualResult =
             largeEstablishmentsService.getPageByActivity(0, -1, "1008031").block();
 
         assertEquals(0, actualResult.getOffset());
@@ -117,12 +133,12 @@ public class LargeEstablishmentsServiceTest {
         assertEquals(
             1008031,
             Arrays.stream(actualResult.getResults())
-                    .collect(Collectors.toList()).get(0).getClassifications_data().get(0).getId()
+                    .collect(Collectors.toList()).get(0).getActivities().get(0).getActivityId()
         );
         assertEquals(
             1008031,
             Arrays.stream(actualResult.getResults())
-                    .collect(Collectors.toList()).get(1).getClassifications_data().get(0).getId()
+                    .collect(Collectors.toList()).get(1).getActivities().get(0).getActivityId()
         );
 
         verify(config, times(1)).getDs_largeestablishments();
@@ -136,15 +152,17 @@ public class LargeEstablishmentsServiceTest {
         when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
-        GenericResultDto<LargeEstablishmentsDto> expectedResult = new GenericResultDto<LargeEstablishmentsDto>();
-        expectedResult.setInfo(0, -1, twoLargeEstablishmentsDto.length, twoLargeEstablishmentsDto);
+        GenericResultDto<LargeEstablishmentsResponseDto> expectedResult = new GenericResultDto<LargeEstablishmentsResponseDto>();
+        expectedResult.setInfo(0, -1, twoLargeEstablishmentsDto.length, responseDto);
 
-        GenericResultDto<LargeEstablishmentsDto> actualResult =
+        GenericResultDto<LargeEstablishmentsResponseDto> actualResult =
             largeEstablishmentsService.getPage(0, -1).block();
         this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
-            mapper.writeValueAsString(actualResult.getResults()));
-
+        
+        assertEquals(Arrays.stream(expectedResult.getResults()).collect(Collectors.toList()).get(0).getActivities().size(),
+                Arrays.stream(actualResult.getResults()).collect(Collectors.toList()).get(0).getActivities().size());
+        assertEquals(expectedResult.getResults().length, actualResult.getResults().length);
+        
         verify(config, times(1)).getDs_largeestablishments();
         verify(httpProxy, times(1))
             .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
@@ -215,9 +233,9 @@ public class LargeEstablishmentsServiceTest {
         assertEquals(expected.getCount(), actual.getCount());
     }
 
-    private void returnsLargeEstablishmentsDefaultPage(GenericResultDto<LargeEstablishmentsDto> actualResult) {
-        GenericResultDto<LargeEstablishmentsDto> expectedResult = new GenericResultDto<>();
-        expectedResult.setInfo(0, 0, 0, new LargeEstablishmentsDto[0]);
+    private void returnsLargeEstablishmentsDefaultPage(GenericResultDto<LargeEstablishmentsResponseDto> actualResult) {
+        GenericResultDto<LargeEstablishmentsResponseDto> expectedResult = new GenericResultDto<>();
+        expectedResult.setInfo(0, 0, 0, new LargeEstablishmentsResponseDto[0]);
 
         this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
