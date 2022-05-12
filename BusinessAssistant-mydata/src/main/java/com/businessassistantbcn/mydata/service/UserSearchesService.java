@@ -18,13 +18,14 @@ import com.businessassistantbcn.mydata.helper.JsonHelper;
 import com.businessassistantbcn.mydata.repository.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 @Service
 public class UserSearchesService {
+	private static final Logger log = LoggerFactory.getLogger(UserSearchesService.class);
 	
 	@Autowired
 	UserSearchesRepository userSearchesRepo;

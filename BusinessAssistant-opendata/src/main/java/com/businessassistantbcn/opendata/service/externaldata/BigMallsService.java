@@ -10,7 +10,8 @@ import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceExc
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Service
 public class BigMallsService {
 
-	//private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
+	private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
+
 	@Autowired
 	private PropertiesConfig config;
 	@Autowired
