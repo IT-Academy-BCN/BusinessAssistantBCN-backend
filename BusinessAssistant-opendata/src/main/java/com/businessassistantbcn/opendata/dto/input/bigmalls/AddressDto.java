@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -73,12 +75,6 @@ import org.springframework.stereotype.Component;
     @JsonSetter("location")
     public void setLocation(LocationDto location) {
         this.location = location;
-    }
-
-    public void setNewLocation(CoordinateDto coordinateDto){
-        System.out.println("rebo a AddressDto: "+coordinateDto.getX());
-        System.out.println("envio a LocationDto: "+coordinateDto.getX());
-        location.setNewGeometries(coordinateDto);
     }
 
 }

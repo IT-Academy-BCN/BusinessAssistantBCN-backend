@@ -81,16 +81,7 @@ public class BigMallsDto {
 
     @JsonGetter("addresses")
     public List<AddressDto> getAddresses() {
-        CoordinateDto newCoordinates = getCoordinates();
-        System.out.println("envia a AddressDto: "+newCoordinates.getX());
-        addresses.get(0).setNewLocation(newCoordinates);
         return addresses;
     }
 
-    @JsonSetter("addresses")
-    public void setAddresses(List<AddressDto> addresses) {
-        this.addresses = addresses;
-        //System.out.println("x: "+getCoordinates().getX());
-        //System.out.println("y: "+getCoordinates().getY());
-    }
 }

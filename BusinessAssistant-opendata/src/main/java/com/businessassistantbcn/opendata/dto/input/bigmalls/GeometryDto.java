@@ -35,13 +35,4 @@ public class GeometryDto {
         return coordinateDto;
     }
 
-    public CoordinateDto setNewCoordinates(CoordinateDto newCoordinates){
-        System.out.println("rebo a GeometryDto: "+newCoordinates.getX());
-        CoordinateDto newCoordinateDto = new CoordinateDto();
-        newCoordinateDto.setX(newCoordinates.getX());
-        newCoordinateDto.setY(newCoordinates.getY());
-        //this.coordinateDto.setX(newCoordinates.getX()); //error Opendata is down
-        return newCoordinateDto;
-    }
-
 }
