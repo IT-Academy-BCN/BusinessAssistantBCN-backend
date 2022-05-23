@@ -24,6 +24,12 @@ dependencies {
     // JAX-B dependencies for JDK 9+
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
 
+    //dependencies for Swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-data-rest', version: '1.6.8'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-security', version: '1.6.8'
+
+
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
     
