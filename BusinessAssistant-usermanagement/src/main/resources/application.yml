@@ -23,9 +23,13 @@ spring:
     active:
     - pro        
 
-springfox:
-  documentation:
-    auto-startup: false
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui-custom.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs"
 
 security:
   datasource:
