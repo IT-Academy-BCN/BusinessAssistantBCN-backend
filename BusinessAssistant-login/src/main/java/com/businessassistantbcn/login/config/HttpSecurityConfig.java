@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -49,6 +48,36 @@ public class HttpSecurityConfig {
 			web.ignoring().antMatchers("/swagger-ui/**", "/swagger-ui-custom.html", "/api-docs/**").anyRequest();
 		}
 	}
+	@Profile("pro")
+	@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+	@EnableWebSecurity
+	public static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	
+		@Autowired
+		private ApiSecurityConfig config;
+		
+		@Autowired
+		private JwtAuthenticationFilter jwtFilter;
+
+		@Override
+		public void configure(HttpSecurity http) throws Exception {
+			http.csrf().disable();
+			http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+			http.authorizeRequests().anyRequest().authenticated();
+			http.exceptionHandling().authenticationEntryPoint(new BasicAuthenticationEntryPoint() {
+				@Override
+				public void commence(HttpServletRequest request, HttpServletResponse response,
+						AuthenticationException authException) throws IOException {
+					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+					response.getWriter().print(config.getErr());
+				}
+			});
+		}
+
+		@Override
+		public void configure(WebSecurity web) {
+			web.ignoring().antMatchers("/swagger-ui/**", "/swagger-ui-custom.html", "/api-docs/**").anyRequest();
+		}
+	}
 }

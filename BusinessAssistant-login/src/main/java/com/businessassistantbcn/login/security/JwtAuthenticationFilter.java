@@ -1,7 +1,5 @@
 package com.businessassistantbcn.login.security;
 
-import com.businessassistantbcn.login.config.SecurityConfig;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -27,16 +25,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.businessassistantbcn.login.config.ApiSecurityConfig;
+
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-	
+
 	@Autowired
-	private SecurityConfig config;
+	private ApiSecurityConfig config;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response,
-			FilterChain filterChain) throws IOException, ServletException { try {
+			FilterChain filterChain) throws IOException, ServletException { 
+		try {
 		
 		String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 		
