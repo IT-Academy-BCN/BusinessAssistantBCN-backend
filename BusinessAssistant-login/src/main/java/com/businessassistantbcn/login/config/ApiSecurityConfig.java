@@ -1,22 +1,18 @@
 package com.businessassistantbcn.login.config;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Configuration
-@ConfigurationProperties("security.datasource")
+@ConfigurationProperties("security.apisecurity")
 @Getter @Setter
-public class SecurityConfig {
-	
-	private String signUpUrl;
+public class ApiSecurityConfig {
+
 	private String secret;
 	private String tokenPrefix;
-	private long expiresIn;
 	private String authoritiesClaim;
 	private String err;
-	private String userManagementUrl;
-	
 }
