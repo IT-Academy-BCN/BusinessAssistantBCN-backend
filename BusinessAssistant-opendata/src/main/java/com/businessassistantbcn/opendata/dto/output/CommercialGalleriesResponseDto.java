@@ -30,7 +30,7 @@ public class CommercialGalleriesResponseDto {
     private List<AddressDto> addresses;
     
     public List<ActivityInfoDto> mapClassificationDataListToActivityInfoList(List<ClassificationDataDto> classificationDataList) {
-		List<ActivityInfoDto> activities = new ArrayList<ActivityInfoDto>();
+		activities = new ArrayList<ActivityInfoDto>();
 
 		activities = classificationDataList.stream().map(c -> mapClassificationDataDtoToActivityInfoDto(c)).collect(Collectors.toList());
 		return activities;

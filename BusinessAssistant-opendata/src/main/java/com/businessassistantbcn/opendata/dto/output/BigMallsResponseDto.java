@@ -30,7 +30,7 @@ public class BigMallsResponseDto {
     private List<AddressInfoDto> addresses;
 
 	public List<ActivityInfoDto> mapClassificationDataListToActivityInfoList(List<ClassificationDataDto> classificationDataList) {
-		List<ActivityInfoDto> activities = new ArrayList<ActivityInfoDto>();
+		activities = new ArrayList<>();
 
 		activities = classificationDataList.stream().map(c -> mapClassificationDataDtoToActivityInfoDto(c)).collect(Collectors.toList());
 		return activities;
@@ -45,7 +45,7 @@ public class BigMallsResponseDto {
 	}
 
 	public List<AddressInfoDto> mapAddressesToCorrectLocation(List<AddressDto> addressesDataList, CoordinateDto coordinateDto){
-		List<AddressInfoDto> addresses = new ArrayList<AddressInfoDto>();
+		addresses = new ArrayList<>();
 		CoordinateInfoDto newCoords = new CoordinateInfoDto();
 		newCoords.setX(coordinateDto.getX());
 		newCoords.setY(coordinateDto.getY());

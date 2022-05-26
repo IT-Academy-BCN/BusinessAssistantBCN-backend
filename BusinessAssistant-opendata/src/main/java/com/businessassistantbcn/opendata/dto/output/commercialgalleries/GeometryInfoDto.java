@@ -1,4 +1,4 @@
-package com.businessassistantbcn.opendata.dto.output.bigmalls;
+package com.businessassistantbcn.opendata.dto.output.commercialgalleries;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
