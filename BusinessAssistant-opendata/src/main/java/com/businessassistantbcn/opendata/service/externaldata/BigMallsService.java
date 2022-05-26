@@ -66,8 +66,8 @@ public class BigMallsService {
 	
 	private BigMallsResponseDto convertToDto(BigMallsDto bigMallsDto) {
 		BigMallsResponseDto responseDto = modelMapper.map(bigMallsDto, BigMallsResponseDto.class);
-		responseDto.setActivities(responseDto.mapAddressesToCorrectLocation(bigMallsDto.getAddresses(), bigMallsDto.getCoordinates()));
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(bigMallsDto.getClassifications_data()));
+		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(bigMallsDto.getAddresses(), bigMallsDto.getCoordinates()));
 	    return responseDto;
 	}
 

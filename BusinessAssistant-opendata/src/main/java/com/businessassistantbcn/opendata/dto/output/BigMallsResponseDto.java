@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.businessassistantbcn.opendata.dto.output.bigmalls.AddressInfoDto;
+import com.businessassistantbcn.opendata.dto.input.bigmalls.*;
+import com.businessassistantbcn.opendata.dto.output.bigmalls.CoordinateInfoDto;
 import org.springframework.stereotype.Component;
 
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.AddressDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.ContactDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.CoordinateDto;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import lombok.AllArgsConstructor;
@@ -28,9 +27,9 @@ public class BigMallsResponseDto {
 	@JsonUnwrapped
     private ContactDto value; // contact
     private List<ActivityInfoDto> activities; // activities
-    private List<AddressDto> addresses;
+    private List<AddressInfoDto> addresses;
 
-    public List<ActivityInfoDto> mapClassificationDataListToActivityInfoList(List<ClassificationDataDto> classificationDataList) {
+	public List<ActivityInfoDto> mapClassificationDataListToActivityInfoList(List<ClassificationDataDto> classificationDataList) {
 		List<ActivityInfoDto> activities = new ArrayList<ActivityInfoDto>();
 
 		activities = classificationDataList.stream().map(c -> mapClassificationDataDtoToActivityInfoDto(c)).collect(Collectors.toList());
@@ -41,24 +40,29 @@ public class BigMallsResponseDto {
 		ActivityInfoDto activity = new ActivityInfoDto();
 		activity.setActivityId(classificationDataDto.getId());
 		activity.setActivityName(classificationDataDto.getName());
-		
+
 		return activity;
 	}
 
-	public List<ActivityInfoDto> mapAddressesToCorrectLocation(List<AddressDto> addressesDataList, CoordinateDto coordinateDto){
-		List<ActivityInfoDto> activities = new ArrayList<ActivityInfoDto>();
-
-		activities = addressesDataList.stream().map(c -> mapAddressesToCorrectLocationDto(c, coordinateDto)).collect(Collectors.toList());
-		return activities;
+	public List<AddressInfoDto> mapAddressesToCorrectLocation(List<AddressDto> addressesDataList, CoordinateDto coordinateDto){
+		List<AddressInfoDto> addresses = new ArrayList<AddressInfoDto>();
+		CoordinateInfoDto newCoords = new CoordinateInfoDto();
+		newCoords.setX(coordinateDto.getX());
+		newCoords.setY(coordinateDto.getY());
+		addresses = addressesDataList.stream().map(c -> mapClassificationDataDtoToAddressInfoDto(c, newCoords)).collect(Collectors.toList());
+		return addresses;
 	}
 
-	public ActivityInfoDto mapAddressesToCorrectLocationDto(AddressDto addressesDataDto, CoordinateDto coordinateDto){
-		ActivityInfoDto activity = new ActivityInfoDto();
-		System.out.println("rebut: "+coordinateDto.getX());
-		System.out.println("abans: "+addressesDataDto.getLocation().getGeometries().getX());
-		//addressesDataDto.
-		System.out.println("després: "+addressesDataDto.getLocation().getGeometries().getX());
+	public AddressInfoDto mapClassificationDataDtoToAddressInfoDto(AddressDto classificationDataDto, CoordinateInfoDto coordinateDto){
 
-		return activity;
+		AddressInfoDto address = new AddressInfoDto();
+		address.setAddress_name(classificationDataDto.getAddress_name());
+		address.setStreet_number(classificationDataDto.getStreet_number_1());
+		address.setZip_code(classificationDataDto.getZip_code());
+		address.setDistrict_id(classificationDataDto.getDistrict_id());
+		address.setTown(classificationDataDto.getTown());
+		address.setLocation(coordinateDto);
+
+		return address;
 	}
 }
