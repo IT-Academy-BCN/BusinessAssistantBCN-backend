@@ -37,7 +37,7 @@ Aquest Codi de Conducta és d'aplicació dins de tots els espais de la comunitat
 
 ## Aplicació
 
-Casos de comportament abusiu, assetjador o de qualsevol altre caire inapropiat podran ser reportats als administradors de la comunitat responsables del compliment a través de [INSERIR MÈTODE DE CONTACTE]. Totes les queixes seran investigades i avaluades de forma justa i puntual.
+Casos de comportament abusiu, assetjador o de qualsevol altre caire inapropiat podran ser reportats als administradors de la comunitat responsables del compliment a través de itacademybcn@gmail.com. Totes les queixes seran investigades i avaluades de forma justa i puntual.
 
 Tots els administradors de la comunitat estan obligats a respectar la privacitat i la seguretat de qui reporti incidents.
 
