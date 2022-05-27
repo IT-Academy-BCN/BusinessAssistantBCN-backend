@@ -73,7 +73,8 @@ public class CommercialGalleriesService {
 	private CommercialGalleriesResponseDto convertToDto(CommercialGalleriesDto commercialGalleriesDto) {
 		CommercialGalleriesResponseDto responseDto = modelMapper.map(commercialGalleriesDto, CommercialGalleriesResponseDto.class);
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(commercialGalleriesDto.getClassifications_data()));
-	    return responseDto;
+	    responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(commercialGalleriesDto.getAddresses(), commercialGalleriesDto.getCoordinates()));
+		return responseDto;
 	}
 
 	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> logServerErrorReturnCommercialGalleriesDefaultPage(

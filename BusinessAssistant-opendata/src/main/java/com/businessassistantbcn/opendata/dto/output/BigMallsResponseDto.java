@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.businessassistantbcn.opendata.dto.output.bigmalls.AddressInfoDto;
+import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.*;
-import com.businessassistantbcn.opendata.dto.output.bigmalls.CoordinateInfoDto;
+import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import org.springframework.stereotype.Component;
 
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
