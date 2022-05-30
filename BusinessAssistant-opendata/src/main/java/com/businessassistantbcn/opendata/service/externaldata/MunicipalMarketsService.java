@@ -39,9 +39,16 @@ public class MunicipalMarketsService {
 	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
 		return httpProxy.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
 			.flatMap(dtos -> {
+				/*
 				MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(MunicipalMarketsResponseDto[]::new);
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
+				return Mono.just(genericResultDto);
+				 */
+				MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
+
+				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(MunicipalMarketsResponseDto[]::new);
+				genericResultDto.setInfo(offset, limit, dtos.length, responseDto);
 				return Mono.just(genericResultDto);
 			})
 			.onErrorResume(e -> this.logServerErrorReturnMunicipalMarketsDefaultPage(new OpendataUnavailableServiceException()));
@@ -50,8 +57,14 @@ public class MunicipalMarketsService {
 	private MunicipalMarketsResponseDto convertToDto(MunicipalMarketsDto municipalMarketsDto) {
 		MunicipalMarketsResponseDto responseDto = modelMapper.map(municipalMarketsDto, MunicipalMarketsResponseDto.class);
 		//responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(municipalMarketsDto.getClassifications_data()));
-		responseDto.setValue(responseDto.mapClassificationDataDtoToContactInfoDto(municipalMarketsDto.getValues()));
-		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(municipalMarketsDto.getAddresses(), municipalMarketsDto.getCoordinates()));
+		//responseDto.setValues(responseDto.mapClassificationDataDtoToContactInfoDto(municipalMarketsDto.getValues()));
+		//responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(municipalMarketsDto.getAddresses(), municipalMarketsDto.getCoordinates()));
+		return responseDto;
+	}
+
+	private MunicipalMarketsResponseDto mapToResponseDto(MunicipalMarketsDto municipalMarketsDto) {
+		MunicipalMarketsResponseDto responseDto = modelMapper.map(municipalMarketsDto, MunicipalMarketsResponseDto.class);
+		responseDto.setActivity(responseDto.mapClassificationDataDtoToActivityDto(municipalMarketsDto.getClassificationsData()));
 		return responseDto;
 	}
 

@@ -1,79 +1,36 @@
 package com.businessassistantbcn.opendata.dto.output;
 
-import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.ActivityDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.AddressDto;
-import com.businessassistantbcn.opendata.dto.input.municipalmarkets.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.input.municipalmarkets.ContactDto;
-import com.businessassistantbcn.opendata.dto.input.municipalmarkets.CoordinateDto;
-import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
-import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.ClassificationsDataDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MunicipalMarketsResponseDto {
-	private static final Logger log = LoggerFactory.getLogger(MunicipalMarketsResponseDto.class);
 
 	private String name;
-	@JsonUnwrapped
-    private ContactDto value; // contact
-    //private List<ActivityInfoDto> activities; // activities
-    private List<AddressInfoDto> addresses;
+	private List<String> web;
+	private String email;
+	private String phone;
+	private ActivityDto activity;
+	private List<AddressDto> addresses;
 
-	/*public List<ActivityInfoDto> mapClassificationDataListToActivityInfoList(List<ClassificationDataDto> classificationDataList) {
-		activities = new ArrayList<>();
-		activities = classificationDataList.stream().map(c -> mapClassificationDataDtoToActivityInfoDto(c)).collect(Collectors.toList());
-		return activities;
-	}
-
-	public ActivityInfoDto mapClassificationDataDtoToActivityInfoDto(ClassificationDataDto classificationDataDto) {
-		ActivityInfoDto activity = new ActivityInfoDto();
-		activity.setActivityId(classificationDataDto.getId());
-		activity.setActivityName(classificationDataDto.getName());
+	public ActivityDto mapClassificationDataDtoToActivityDto(ClassificationsDataDto classificationsDataDto) {
+		ActivityDto activity = new ActivityDto();
+		activity.setActivityId(classificationsDataDto.getId());
+		activity.setActivityName(classificationsDataDto.getName());
 
 		return activity;
-	}*/
-
-	public ContactDto mapClassificationDataDtoToContactInfoDto(ContactDto contactDto){
-		ContactDto contact = new ContactDto();
-		contact.setUrl_value(contactDto.getUrl_value());
-		contact.setEmail_value(contactDto.getEmail_value());
-		contact.setPhone_value(contactDto.getPhone_value());
-		return contact;
-	}
-
-	public List<AddressInfoDto> mapAddressesToCorrectLocation(List<AddressDto> addressesDataList, CoordinateDto coordinateDto){
-		addresses = new ArrayList<>();
-		CoordinateInfoDto newCoords = new CoordinateInfoDto();
-		newCoords.setX(coordinateDto.getX());
-		newCoords.setY(coordinateDto.getY());
-		addresses = addressesDataList.stream().map(c -> mapClassificationDataDtoToAddressInfoDto(c, newCoords)).collect(Collectors.toList());
-		return addresses;
-	}
-
-	public AddressInfoDto mapClassificationDataDtoToAddressInfoDto(AddressDto classificationDataDto, CoordinateInfoDto coordinateDto){
-
-		AddressInfoDto address = new AddressInfoDto();
-		address.setAddress_name(classificationDataDto.getAddress_name());
-		address.setStreet_number(classificationDataDto.getStreet_number_1());
-		address.setZip_code(classificationDataDto.getZip_code());
-		address.setDistrict_id(classificationDataDto.getDistrict_id());
-		address.setTown(classificationDataDto.getTown());
-		address.setLocation(coordinateDto);
-
-		return address;
 	}
 }
