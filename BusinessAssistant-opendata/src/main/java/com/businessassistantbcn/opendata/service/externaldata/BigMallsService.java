@@ -158,32 +158,11 @@ public class BigMallsService {
 
 	public String getBigMallsByActivity(int[] activities, int offset, int limit) {
 		//JsonPath search
-		/* OJO a formato de salida:
-		{
-		"count": 1217,
-		"elements": [
-		{
-		"id": 3716,
-		"name": "Paola",
-		"surnames": "dos Reis Figueira",
-		...
-		*/
 		return null;
 	}
 
 	public String getBigMallsByDistrict(int[] districts, int offset, int limit) {
 		//JsonPath search
-		/* OJO a formato de salida:
-		{
-		"count": 1217,
-		"elements": [
-		{
-		"id": 3716,
-		"name": "Paola",
-		"surnames": "dos Reis Figueira",
-		...
-		*/
-
 		return null;
 	}
 

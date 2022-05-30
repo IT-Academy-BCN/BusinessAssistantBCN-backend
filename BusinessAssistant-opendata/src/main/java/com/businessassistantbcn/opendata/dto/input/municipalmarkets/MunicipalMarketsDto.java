@@ -10,8 +10,10 @@ import java.util.stream.Collectors;
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({"name","web","email","phone","addresses","activity"})
-@JsonIgnoreProperties({"location"})
+//@JsonIgnoreProperties({"location"})
 public class MunicipalMarketsDto {
+
+    private CoordinateDto coordinates;
 
     @JsonIgnore
     @JsonProperty("register_id")
@@ -62,7 +64,7 @@ public class MunicipalMarketsDto {
        return classificationsData.get(0);
     }
 
-    public void setClassifications_data(List<ClassificationsDataDto>classificationsData){
+    public void setClassificationsData(List<ClassificationsDataDto>classificationsData){
         this.classificationsData=classificationsData;
     }
 
@@ -172,6 +174,16 @@ public class MunicipalMarketsDto {
     @JsonAlias({"geo_epgs_4326", "location"})
     @JsonProperty("location")
     private GeoEpgs4326Dto location;
+
+    @JsonGetter("geo_epgs_4326") //retorna coordinades per gravar a json sortida
+    public CoordinateDto getCoordinates() {
+        return coordinates;
+    }
+
+    @JsonSetter("geo_epgs_4326") //llegeix de bcn.cat
+    public void setCoordinates(CoordinateDto coordinates) {
+        this.coordinates = coordinates;
+    }
 
     @JsonIgnore
     @JsonProperty("is_section_of_data")
