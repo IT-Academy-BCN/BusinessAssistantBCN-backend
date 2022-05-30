@@ -1,10 +1,10 @@
 package com.businessassistantbcn.opendata.dto.output;
 
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
-import com.businessassistantbcn.opendata.dto.input.marketfairs.AddressDto;
-import com.businessassistantbcn.opendata.dto.input.marketfairs.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.input.marketfairs.ContactDto;
-import com.businessassistantbcn.opendata.dto.input.marketfairs.CoordinateDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.AddressDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.ClassificationDataDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.ContactDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.CoordinateDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -24,18 +24,17 @@ import java.util.stream.Collectors;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MarketFairsResponseDto {
-	private static final Logger log = LoggerFactory.getLogger(MarketFairsResponseDto.class);
+public class MunicipalMarketsResponseDto {
+	private static final Logger log = LoggerFactory.getLogger(MunicipalMarketsResponseDto.class);
 
 	private String name;
 	@JsonUnwrapped
     private ContactDto value; // contact
-    private List<ActivityInfoDto> activities; // activities
+    //private List<ActivityInfoDto> activities; // activities
     private List<AddressInfoDto> addresses;
 
-	public List<ActivityInfoDto> mapClassificationDataListToActivityInfoList(List<ClassificationDataDto> classificationDataList) {
+	/*public List<ActivityInfoDto> mapClassificationDataListToActivityInfoList(List<ClassificationDataDto> classificationDataList) {
 		activities = new ArrayList<>();
-
 		activities = classificationDataList.stream().map(c -> mapClassificationDataDtoToActivityInfoDto(c)).collect(Collectors.toList());
 		return activities;
 	}
@@ -46,6 +45,14 @@ public class MarketFairsResponseDto {
 		activity.setActivityName(classificationDataDto.getName());
 
 		return activity;
+	}*/
+
+	public ContactDto mapClassificationDataDtoToContactInfoDto(ContactDto contactDto){
+		ContactDto contact = new ContactDto();
+		contact.setUrl_value(contactDto.getUrl_value());
+		contact.setEmail_value(contactDto.getEmail_value());
+		contact.setPhone_value(contactDto.getPhone_value());
+		return contact;
 	}
 
 	public List<AddressInfoDto> mapAddressesToCorrectLocation(List<AddressDto> addressesDataList, CoordinateDto coordinateDto){

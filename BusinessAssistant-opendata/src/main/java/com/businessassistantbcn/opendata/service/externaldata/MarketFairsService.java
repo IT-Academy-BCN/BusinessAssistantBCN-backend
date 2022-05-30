@@ -3,7 +3,6 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.input.marketfairs.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
@@ -20,8 +19,6 @@ import reactor.core.publisher.Mono;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MarketFairsService {

@@ -1,9 +1,9 @@
 package com.businessassistantbcn.opendata.dto.input.municipalmarkets;
 
-public class ClassificationsDataDto {
+public class ClassificationDataDto {
 
-    private int id;
-    public int getId(){return this.id;}//necessary only for activity in MunicipalMarketsDto
+    private Long id;
+    public Long getId(){return this.id;}//necessary only for activity in MunicipalMarketsDto
 
     private String name;
     public String getName(){return this.name;}//necessary only for activity in MunicipalMarketsDto
