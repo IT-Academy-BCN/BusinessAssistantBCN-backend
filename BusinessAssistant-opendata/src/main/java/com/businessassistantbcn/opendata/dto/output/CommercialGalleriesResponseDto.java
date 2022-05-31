@@ -30,6 +30,9 @@ public class CommercialGalleriesResponseDto {
 	private static final Logger log = LoggerFactory.getLogger(CommercialGalleriesResponseDto.class);
 
 	private String name;
+	private String web;
+	private String email;
+	private String phone;
 	@JsonUnwrapped
     private ContactDto value; // contact
     private List<ActivityInfoDto> activities; // activities
