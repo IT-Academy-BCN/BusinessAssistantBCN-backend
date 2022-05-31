@@ -4,6 +4,7 @@ import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -78,7 +79,7 @@ public class CommercialGalleriesServiceTest {
 		GenericResultDto<CommercialGalleriesDto> expectedResult = new GenericResultDto<CommercialGalleriesDto>();
 		expectedResult.setInfo(0, -1, twoCommercialGalleriesDto.length, twoCommercialGalleriesDto);
 
-		GenericResultDto<CommercialGalleriesDto> actualResult =
+		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
 			commercialGalleriesService.getPage(0, -1).block();
 		this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
 		assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
@@ -151,7 +152,7 @@ public class CommercialGalleriesServiceTest {
 		assertEquals(expected.getCount(), actual.getCount());
 	}
 
-	private void returnsCommercialGalleriesDefaultPage(GenericResultDto<CommercialGalleriesDto> actualResult) {
+	private void returnsCommercialGalleriesDefaultPage(GenericResultDto<CommercialGalleriesResponseDto> actualResult) {
 		GenericResultDto<CommercialGalleriesDto> expectedResult = new GenericResultDto<CommercialGalleriesDto>();
 		expectedResult.setInfo(0, 0, 0, new CommercialGalleriesDto[0]);
 

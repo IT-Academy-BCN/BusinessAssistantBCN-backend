@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
+import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -75,7 +76,7 @@ public class MunicipalMarketsServiceTest {
         GenericResultDto<MunicipalMarketsDto> expectedResult = new GenericResultDto<MunicipalMarketsDto>();
         expectedResult.setInfo(0, -1, twoMunicipalMarkets.length, twoMunicipalMarkets);
 
-        GenericResultDto<MunicipalMarketsDto> actualResult = municipalMarketsService.getPage(0, -1).block();
+        GenericResultDto<MunicipalMarketsResponseDto> actualResult = municipalMarketsService.getPage(0, -1).block();
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
             mapper.writeValueAsString(actualResult.getResults()));
@@ -107,7 +108,7 @@ public class MunicipalMarketsServiceTest {
         assertEquals(expected.getCount(), actual.getCount());
     }
 
-    private void returnsMunicipalMarketDefaultPage(GenericResultDto<MunicipalMarketsDto> actualResult) {
+    private void returnsMunicipalMarketDefaultPage(GenericResultDto<MunicipalMarketsResponseDto> actualResult) {
         GenericResultDto<MunicipalMarketsDto> expectedResult = new GenericResultDto<MunicipalMarketsDto>();
         expectedResult.setInfo(0, 0, 0, new MunicipalMarketsDto[0]);
 

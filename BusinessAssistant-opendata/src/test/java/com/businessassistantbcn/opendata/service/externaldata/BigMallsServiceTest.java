@@ -4,6 +4,7 @@ import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -79,7 +80,7 @@ public class BigMallsServiceTest {
         GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
         expectedResult.setInfo(0, -1, twoBigMallsDto.length, twoBigMallsDto);
 
-        GenericResultDto<BigMallsDto> actualResult = bigMallsService.getPage(0, -1).block();
+        GenericResultDto<BigMallsResponseDto> actualResult = bigMallsService.getPage(0, -1).block();
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
             mapper.writeValueAsString(actualResult.getResults()));
@@ -145,7 +146,7 @@ public class BigMallsServiceTest {
         assertEquals(expected.getCount(), actual.getCount());
     }
 
-    private void returnsBigMallsDefaultPage(GenericResultDto<BigMallsDto> actualResult) {
+    private void returnsBigMallsDefaultPage(GenericResultDto<BigMallsResponseDto> actualResult) {
         GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
         expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
 

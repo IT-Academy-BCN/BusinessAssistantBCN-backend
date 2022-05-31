@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -73,7 +74,7 @@ public class MarketFairsServiceTest {
         GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
         expectedResult.setInfo(0, -1, twoMarketFairsDto.length, twoMarketFairsDto);
 
-        GenericResultDto<MarketFairsDto> actualResult = marketFairsService.getPage(0, -1).block();
+        GenericResultDto<MarketFairsResponseDto> actualResult = marketFairsService.getPage(0, -1).block();
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
             mapper.writeValueAsString(actualResult.getResults()));
@@ -105,7 +106,7 @@ public class MarketFairsServiceTest {
         assertEquals(expected.getCount(), actual.getCount());
     }
 
-    private void returnsMarketFairsDefaultPage(GenericResultDto<MarketFairsDto> actualResult) {
+    private void returnsMarketFairsDefaultPage(GenericResultDto<MarketFairsResponseDto> actualResult) {
         GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
         expectedResult.setInfo(0, 0, 0, new MarketFairsDto[0]);
 
