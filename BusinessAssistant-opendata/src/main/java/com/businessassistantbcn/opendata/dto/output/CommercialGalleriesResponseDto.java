@@ -60,8 +60,6 @@ public class CommercialGalleriesResponseDto {
 	}
 
 	public AddressInfoDto mapClassificationDataDtoToAddressInfoDto(AddressDto classificationDataDto, CoordinateInfoDto coordinateDto){
-
-		log.info("hola!");
 		AddressInfoDto address = new AddressInfoDto();
 		address.setAddress_name(classificationDataDto.getAddress_name());
 		address.setStreet_number(classificationDataDto.getStreet_number_1());

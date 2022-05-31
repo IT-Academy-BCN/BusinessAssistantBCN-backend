@@ -8,7 +8,8 @@ import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.*;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import org.springframework.stereotype.Component;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
@@ -22,6 +23,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BigMallsResponseDto {
+	private static final Logger log = LoggerFactory.getLogger(BigMallsResponseDto.class);
 
 	private String name;
 	@JsonUnwrapped

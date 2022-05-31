@@ -1,10 +1,10 @@
 package com.businessassistantbcn.opendata.dto.output;
 
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.AddressDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.ContactDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.CoordinateDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.AddressDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.ClassificationDataDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.ContactDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.CoordinateDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +25,12 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LargeEstablishmentsResponseDto {
+	private static final Logger log = LoggerFactory.getLogger(LargeEstablishmentsResponseDto.class);
 
 	private String name;
+	private String web;
+	private String email;
+	private String phone;
 	@JsonUnwrapped
     private ContactDto value; // contact
     private List<ActivityInfoDto> activities; // activities
@@ -55,7 +61,6 @@ public class LargeEstablishmentsResponseDto {
 	}
 
 	public AddressInfoDto mapClassificationDataDtoToAddressInfoDto(AddressDto classificationDataDto, CoordinateInfoDto coordinateDto){
-
 		AddressInfoDto address = new AddressInfoDto();
 		address.setAddress_name(classificationDataDto.getAddress_name());
 		address.setStreet_number(classificationDataDto.getStreet_number_1());
