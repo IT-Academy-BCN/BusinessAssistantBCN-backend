@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.dto.SearchRequestDto;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -7,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
@@ -119,16 +121,22 @@ public class OpendataController {
                 .getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
     }
 
-    //GET ?offset=0&limit=10
-    @GetMapping("/big-malls")
-    public Mono<?> bigMalls(
-            @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
-            @RequestParam Map<String, String> map) throws MalformedURLException {
-        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
-        return bigMallsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
-    }
+//    //GET ?offset=0&limit=10
+//    @GetMapping("/big-malls")
+//    public Mono<?> bigMalls(
+//            @RequestParam(required = false) String offset,
+//            @RequestParam(required = false)  String limit,
+//            @RequestParam Map<String, String> map) throws MalformedURLException {
+//        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+//        return bigMallsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
+//    }
 
+    @GetMapping("/big-malls")
+    public ResponseEntity<?> bigMalls(){
+    	ResponseEntity<?> response = null;
+    	response = ResponseEntity.ok(bigMallsService.displayOrders());
+    	return response;
+    }
     @GetMapping("/big-malls/activities")
     public Mono<?> bigMallsAllActivities(
             @RequestParam(required = false) String offset,

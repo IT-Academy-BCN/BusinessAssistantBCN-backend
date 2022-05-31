@@ -3,27 +3,36 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.SearchRequestDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
+
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
+
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BigMallsService {
@@ -41,22 +50,56 @@ public class BigMallsService {
 	@Autowired
 	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 
-	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnBigMallsDefaultPage")
-	public Mono<GenericResultDto<BigMallsResponseDto>>getPage(int offset, int limit) throws MalformedURLException {
-		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
-			.flatMap(dtos -> {
-				BigMallsDto[] filteredDto = Arrays.stream(dtos)
-						.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
-						.toArray(BigMallsDto[]::new);
-				BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
-				
-				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(BigMallsResponseDto[]::new);
-				
-				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
-				return Mono.just(genericResultDto);
-			})
-			.onErrorResume(e -> this.logServerErrorReturnBigMallsDefaultPage(new OpendataUnavailableServiceException()));
-	}
+//	@CircuitBreaker(name = "opendataService", fallbackMethod = "logInternalErrorReturnBigMallsDefaultPage")
+//	public Mono<GenericResultDto<BigMallsResponseDto>>getPage(int offset, int limit) throws MalformedURLException {
+//		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
+//			.flatMap(dtos -> {
+//				BigMallsDto[] filteredDto = Arrays.stream(dtos)
+//						.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
+//						.toArray(BigMallsDto[]::new);
+//				BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
+//				
+//				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(BigMallsResponseDto[]::new);
+//				
+//				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
+//				return Mono.just(genericResultDto);
+//			})
+//			.onErrorResume(e -> this.logServerErrorReturnBigMallsDefaultPage(new OpendataUnavailableServiceException()));
+//	}
+	
+//	@CircuitBreaker(name = "opendataService") //, fallbackMethod = "logInternalErrorReturnBigMallsDefaultPage")
+//	public Mono<String>getPage(int offset, int limit){
+//		Mono<String> response = null;
+//		try {
+//			response = httpProxy.getRequestData(new URL("http://httpbin.org/status/500"), String.class);
+//		} catch (MalformedURLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return response;
+//		nErrorResume(e -> this.logServerErrorReturnBigMallsDefaultPage(new OpendataUnavailableServiceException()));
+//	}
+	
+	  @Autowired
+	    @Lazy
+	    private RestTemplate restTemplate;
+	  @CircuitBreaker(name = "opendataService",fallbackMethod = "getAllAvailableProducts")
+    public List<OrderDTO> displayOrders() {
+        String url = "http://localhost:9191/orders";
+        return restTemplate.getForObject(url, ArrayList.class);
+    }
+
+
+    public List<OrderDTO> getAllAvailableProducts(Exception e){
+        return Stream.of(
+                new OrderDTO(119, "LED TV", "electronics", "white", 45000),
+                new OrderDTO(345, "Headset", "electronics", "black", 7000),
+                new OrderDTO(475, "Sound bar", "electronics", "black", 13000),
+                new OrderDTO(574, "Puma Shoes", "foot wear", "black & white", 4600),
+                new OrderDTO(678, "Vegetable chopper", "kitchen", "blue", 999),
+                new OrderDTO(532, "Oven Gloves", "kitchen", "gray", 745)
+        ).collect(Collectors.toList());
+    }
 	
 	private BigMallsDto removeClassificationDataWithUsInternInFullPath(BigMallsDto bigMallsDto) {
 		List<ClassificationDataDto> classData = bigMallsDto.getClassifications_data().stream()
@@ -72,17 +115,17 @@ public class BigMallsService {
 	    return responseDto;
 	}
 
-	private Mono<GenericResultDto<BigMallsResponseDto>> logServerErrorReturnBigMallsDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<BigMallsResponseDto>> logServerErrorReturnBigMallsDefaultPage(Exception exception) {
 		log.error("Opendata is down");
 		return this.getBigMallsDefaultPage(exception);
 	}
 
-	private Mono<GenericResultDto<BigMallsResponseDto>> logInternalErrorReturnBigMallsDefaultPage(Throwable exception) {
+	private Mono<String> logInternalErrorReturnBigMallsDefaultPage(Exception exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getBigMallsDefaultPage(exception);
+		return Mono.just(exception.getMessage());
 	}
 
-	private Mono<GenericResultDto<BigMallsResponseDto>> getBigMallsDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<BigMallsResponseDto>> getBigMallsDefaultPage(Exception exception) {
 		genericResultDto.setInfo(0, 0, 0, new BigMallsResponseDto[0]);
 		return Mono.just(genericResultDto);
 	}
@@ -187,6 +230,7 @@ public class BigMallsService {
 
 		return null;
 	}
+
 
 }
 
