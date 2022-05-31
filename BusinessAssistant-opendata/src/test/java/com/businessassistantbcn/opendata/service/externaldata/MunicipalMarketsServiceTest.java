@@ -49,7 +49,7 @@ public class MunicipalMarketsServiceTest {
     private static String urlMunicipalMarkets;
     private static final String JSON_FILENAME_ECONOMIC_MUNICIPAL_MARKETS = "json/twoMunicipalMarketsForTesting.json";
     private static ObjectMapper mapper;
-    private static MunicipalMarketsDto[] twoMunicipalMarkets;
+    private static MunicipalMarketsResponseDto[] twoMunicipalMarkets;
 
     @BeforeAll
     static void beforeAll() throws URISyntaxException, IOException {
@@ -64,16 +64,16 @@ public class MunicipalMarketsServiceTest {
 
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         twoMunicipalMarkets =
-                mapper.readValue(municipalMarketsAsString, MunicipalMarketsDto[].class);
+                mapper.readValue(municipalMarketsAsString, MunicipalMarketsResponseDto[].class);
     }
 
     @Test
     void getPageTest() throws MalformedURLException, JsonProcessingException {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
-        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class)))
+        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsResponseDto[].class)))
             .thenReturn(Mono.just(twoMunicipalMarkets));
 
-        GenericResultDto<MunicipalMarketsDto> expectedResult = new GenericResultDto<MunicipalMarketsDto>();
+        GenericResultDto<MunicipalMarketsResponseDto> expectedResult = new GenericResultDto<MunicipalMarketsResponseDto>();
         expectedResult.setInfo(0, -1, twoMunicipalMarkets.length, twoMunicipalMarkets);
 
         GenericResultDto<MunicipalMarketsResponseDto> actualResult = municipalMarketsService.getPage(0, -1).block();

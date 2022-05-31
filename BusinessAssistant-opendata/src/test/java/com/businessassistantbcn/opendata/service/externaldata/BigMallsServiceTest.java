@@ -49,7 +49,7 @@ public class BigMallsServiceTest {
     private static final String JSON_FILENAME_BIG_MALLS = "json/twoBigMallsForTesting.json";
     private static final String JSON_FILENAME_BIG_MALLS_ACTIVITIES = "json/activitiesFromTwoBigMallsForTesting.json";
     private static ObjectMapper mapper;
-    private static BigMallsDto[] twoBigMallsDto;
+    private static BigMallsResponseDto[] twoBigMallsDto;
     private static ActivityInfoDto[] activities;
 
     @BeforeAll
@@ -68,16 +68,16 @@ public class BigMallsServiceTest {
         ).get(0);
 
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        twoBigMallsDto = mapper.readValue(bigMallsAsString, BigMallsDto[].class);
+        twoBigMallsDto = mapper.readValue(bigMallsAsString, BigMallsResponseDto[].class);
         activities = mapper.readValue(bigMallsActivitiesAsString, ActivityInfoDto[].class);
     }
 
     @Test
     void getPageTest() throws MalformedURLException, JsonProcessingException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsResponseDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
-        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
+        GenericResultDto<BigMallsResponseDto> expectedResult = new GenericResultDto<BigMallsResponseDto>();
         expectedResult.setInfo(0, -1, twoBigMallsDto.length, twoBigMallsDto);
 
         GenericResultDto<BigMallsResponseDto> actualResult = bigMallsService.getPage(0, -1).block();
@@ -109,7 +109,7 @@ public class BigMallsServiceTest {
     @Test
     void getBigMallsActivitiesTest() throws MalformedURLException, JsonProcessingException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsResponseDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
         GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
         expectedResult.setInfo(0, -1, activities.length, activities);

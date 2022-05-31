@@ -26,6 +26,9 @@ public class BigMallsResponseDto {
 	private static final Logger log = LoggerFactory.getLogger(BigMallsResponseDto.class);
 
 	private String name;
+	private String web;
+	private String email;
+	private String phone;
 	@JsonUnwrapped
     private ContactDto value; // contact
     private List<ActivityInfoDto> activities; // activities
