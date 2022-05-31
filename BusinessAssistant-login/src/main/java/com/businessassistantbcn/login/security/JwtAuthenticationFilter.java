@@ -1,7 +1,5 @@
 package com.businessassistantbcn.login.security;
 
-import com.businessassistantbcn.login.config.SecurityConfig;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -27,29 +25,33 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.businessassistantbcn.login.config.ApiSecurityConfig;
+
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-	
+
 	@Autowired
-	private SecurityConfig config;
+	private ApiSecurityConfig config;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response,
-			FilterChain filterChain) throws IOException, ServletException { try {
+			FilterChain filterChain) throws IOException, ServletException { 
+		try {
 		
 		String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 		
 		if(authorizationHeaderIsValid(authorizationHeader)) {
 			Claims claims = validateToken(request);
-			if(claims.getExpiration() != null && claims.get(config.getAuthoritiesClaim()) != null)
+			if(claims.get(config.getAuthoritiesClaim()) != null)
 				setUpSpringAuthentication(claims);
-		}
-		
-		filterChain.doFilter(request, response);
-	} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
-		response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-	} }
+			filterChain.doFilter(request, response);
+		}else
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+		} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+		} 
+	}
 	
 	private boolean authorizationHeaderIsValid(String authorizationHeader) {
 		return authorizationHeader != null && authorizationHeader.startsWith(config.getTokenPrefix());
