@@ -50,7 +50,7 @@ public class CommercialGalleriesServiceTest {
 	private static final String JSON_FILENAME_COMERCIAL_GALLERIES = "json/twoComercialGalleriesForTesting.json";
 	private static final String JSON_FILENAME_COMERCIAL_GALLERIES_ACTIVITIES = "json/activitiesFromTwoComercialGalleriesForTesting.json";
 	private static ObjectMapper mapper;
-	private static CommercialGalleriesDto[] twoCommercialGalleriesDto;
+	private static CommercialGalleriesResponseDto[] twoCommercialGalleriesDto;
 	private static ActivityInfoDto[] activities;
 	 
 	@BeforeAll
@@ -66,17 +66,17 @@ public class CommercialGalleriesServiceTest {
 				StandardCharsets.UTF_8)
 			.get(0);
 		mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		twoCommercialGalleriesDto = mapper.readValue(commercialGalleriesAsString, CommercialGalleriesDto[].class);
+		twoCommercialGalleriesDto = mapper.readValue(commercialGalleriesAsString, CommercialGalleriesResponseDto[].class);
 		activities = mapper.readValue(commercialGalleriesActivitiesAsString, ActivityInfoDto[].class);
 	}
 
 	@Test
 	void getPageTest() throws MalformedURLException, JsonProcessingException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesResponseDto[].class)))
 			.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
-		GenericResultDto<CommercialGalleriesDto> expectedResult = new GenericResultDto<CommercialGalleriesDto>();
+		GenericResultDto<CommercialGalleriesResponseDto> expectedResult = new GenericResultDto<CommercialGalleriesResponseDto>();
 		expectedResult.setInfo(0, -1, twoCommercialGalleriesDto.length, twoCommercialGalleriesDto);
 
 		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
@@ -112,7 +112,7 @@ public class CommercialGalleriesServiceTest {
 	@Test
 	void getCommercialGalleriesActivitiesTest() throws MalformedURLException, JsonProcessingException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesResponseDto[].class)))
 			.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
 		GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();

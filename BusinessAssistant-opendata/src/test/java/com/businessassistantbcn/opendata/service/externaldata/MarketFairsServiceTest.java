@@ -49,7 +49,7 @@ public class MarketFairsServiceTest {
     private static String urlMarketFairs;
     private static final String JSON_FILENAME_MARKET_FAIRS = "json/twoMarketFairsForTesting.json";
     private static ObjectMapper mapper;
-    private static MarketFairsDto[] twoMarketFairsDto;
+    private static MarketFairsResponseDto[] twoMarketFairsDto;
 
     @BeforeAll
     static void beforeAll() throws URISyntaxException, IOException {
@@ -62,16 +62,16 @@ public class MarketFairsServiceTest {
         ).get(0);
 
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        twoMarketFairsDto = mapper.readValue(marketFairsAsString, MarketFairsDto[].class);
+        twoMarketFairsDto = mapper.readValue(marketFairsAsString, MarketFairsResponseDto[].class);
     }
 
     @Test
     void getPageTest() throws MalformedURLException, JsonProcessingException {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsResponseDto[].class)))
             .thenReturn(Mono.just(twoMarketFairsDto));
 
-        GenericResultDto<MarketFairsDto> expectedResult = new GenericResultDto<MarketFairsDto>();
+        GenericResultDto<MarketFairsResponseDto> expectedResult = new GenericResultDto<MarketFairsResponseDto>();
         expectedResult.setInfo(0, -1, twoMarketFairsDto.length, twoMarketFairsDto);
 
         GenericResultDto<MarketFairsResponseDto> actualResult = marketFairsService.getPage(0, -1).block();
@@ -86,7 +86,7 @@ public class MarketFairsServiceTest {
     @Test
     void getPageReturnsMarketFairsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class))).thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsResponseDto[].class))).thenThrow(RuntimeException.class);
         this.returnsMarketFairsDefaultPage(marketFairsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
     }

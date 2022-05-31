@@ -25,7 +25,7 @@ import java.util.List;
 
  public class AddressDto {
 
-    private String street_name;
+    private String address_name;
     private String street_number_1;
     private String zip_code;
     private String district_id;
@@ -34,12 +34,12 @@ import java.util.List;
 
     @JsonGetter("street_name")
     public String getAddress_name() {
-        return street_name;
+        return address_name;
     }
 
-    @JsonSetter("street_name")
-    public void setAddress_name(String street_name) {
-        this.street_name = street_name;
+    @JsonSetter("address_name")
+    public void setAddress_name(String address_name) {
+        this.address_name = address_name;
     }
 
     @JsonGetter("street_number")

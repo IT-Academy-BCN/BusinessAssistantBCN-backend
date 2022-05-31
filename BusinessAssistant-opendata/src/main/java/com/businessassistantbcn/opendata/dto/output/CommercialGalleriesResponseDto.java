@@ -64,7 +64,7 @@ public class CommercialGalleriesResponseDto {
 
 	public AddressInfoDto mapClassificationDataDtoToAddressInfoDto(AddressDto classificationDataDto, CoordinateInfoDto coordinateDto){
 		AddressInfoDto address = new AddressInfoDto();
-		address.setAddress_name(classificationDataDto.getAddress_name());
+		address.setStreet_name(classificationDataDto.getAddress_name());
 		address.setStreet_number(classificationDataDto.getStreet_number_1());
 		address.setZip_code(classificationDataDto.getZip_code());
 		address.setDistrict_id(classificationDataDto.getDistrict_id());

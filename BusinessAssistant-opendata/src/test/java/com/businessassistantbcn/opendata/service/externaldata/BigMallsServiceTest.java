@@ -77,7 +77,7 @@ public class BigMallsServiceTest {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsResponseDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
-        GenericResultDto<BigMallsResponseDto> expectedResult = new GenericResultDto<BigMallsResponseDto>();
+        GenericResultDto<BigMallsResponseDto> expectedResult = new GenericResultDto<>();
         expectedResult.setInfo(0, -1, twoBigMallsDto.length, twoBigMallsDto);
 
         GenericResultDto<BigMallsResponseDto> actualResult = bigMallsService.getPage(0, -1).block();
@@ -86,7 +86,7 @@ public class BigMallsServiceTest {
             mapper.writeValueAsString(actualResult.getResults()));
 
         verify(config, times(1)).getDs_bigmalls();
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsResponseDto[].class));
     }
 
     @Test
