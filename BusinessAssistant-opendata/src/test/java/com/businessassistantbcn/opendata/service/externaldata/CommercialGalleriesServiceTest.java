@@ -5,6 +5,8 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
+import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
+import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -26,6 +28,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,7 +54,8 @@ public class CommercialGalleriesServiceTest {
 	private static final String JSON_FILENAME_COMERCIAL_GALLERIES = "json/twoComercialGalleriesForTesting.json";
 	private static final String JSON_FILENAME_COMERCIAL_GALLERIES_ACTIVITIES = "json/activitiesFromTwoComercialGalleriesForTesting.json";
 	private static ObjectMapper mapper;
-	private static CommercialGalleriesResponseDto[] twoCommercialGalleriesDto;
+	private static CommercialGalleriesDto[] twoCommercialGalleriesDto;
+	private static CommercialGalleriesResponseDto[] responseDto;
 	private static ActivityInfoDto[] activities;
 	 
 	@BeforeAll
@@ -66,18 +71,60 @@ public class CommercialGalleriesServiceTest {
 				StandardCharsets.UTF_8)
 			.get(0);
 		mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		twoCommercialGalleriesDto = mapper.readValue(commercialGalleriesAsString, CommercialGalleriesResponseDto[].class);
+		twoCommercialGalleriesDto = mapper.readValue(commercialGalleriesAsString, CommercialGalleriesDto[].class);
 		activities = mapper.readValue(commercialGalleriesActivitiesAsString, ActivityInfoDto[].class);
+		
+		responseDto = new CommercialGalleriesResponseDto[2];
+        CommercialGalleriesResponseDto responseDto1 = new CommercialGalleriesResponseDto();
+		List<AddressInfoDto> addressInfoDto1 = new ArrayList<>();
+		AddressInfoDto addressInfoDto11 = new AddressInfoDto();
+		addressInfoDto11.setStreet_name(twoCommercialGalleriesDto[0].getAddresses().get(0).getAddress_name());
+		addressInfoDto11.setStreet_number(twoCommercialGalleriesDto[0].getAddresses().get(0).getStreet_number_1());
+		addressInfoDto11.setZip_code(twoCommercialGalleriesDto[0].getAddresses().get(0).getZip_code());
+		addressInfoDto11.setDistrict_id(twoCommercialGalleriesDto[0].getAddresses().get(0).getDistrict_id());
+		addressInfoDto11.setTown(twoCommercialGalleriesDto[0].getAddresses().get(0).getTown());
+		CoordinateInfoDto coords1 = new CoordinateInfoDto();
+		coords1.setX(twoCommercialGalleriesDto[0].getCoordinates().getX());
+		coords1.setY(twoCommercialGalleriesDto[0].getCoordinates().getY());
+		addressInfoDto11.setLocation(coords1);
+		addressInfoDto1.add(addressInfoDto11);
+        responseDto1.setName(twoCommercialGalleriesDto[0].getName());
+		responseDto1.setWeb(twoCommercialGalleriesDto[0].getValues().getUrl_value());
+		responseDto1.setEmail(twoCommercialGalleriesDto[0].getValues().getEmail_value());
+		responseDto1.setPhone(twoCommercialGalleriesDto[0].getValues().getPhone_value());
+        responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoCommercialGalleriesDto[0].getClassifications_data()));
+        responseDto1.setAddresses(addressInfoDto1);
+        responseDto[0] = responseDto1;
+        CommercialGalleriesResponseDto responseDto2 = new CommercialGalleriesResponseDto();
+		List<AddressInfoDto> addressInfoDto2 = new ArrayList<>();
+		AddressInfoDto addressInfoDto21 = new AddressInfoDto();
+		addressInfoDto21.setStreet_name(twoCommercialGalleriesDto[1].getAddresses().get(0).getAddress_name());
+		addressInfoDto21.setStreet_number(twoCommercialGalleriesDto[1].getAddresses().get(0).getStreet_number_1());
+		addressInfoDto21.setZip_code(twoCommercialGalleriesDto[1].getAddresses().get(0).getZip_code());
+		addressInfoDto21.setDistrict_id(twoCommercialGalleriesDto[1].getAddresses().get(0).getDistrict_id());
+		addressInfoDto21.setTown(twoCommercialGalleriesDto[1].getAddresses().get(0).getTown());
+		CoordinateInfoDto coords2 = new CoordinateInfoDto();
+		coords2.setX(twoCommercialGalleriesDto[1].getCoordinates().getX());
+		coords2.setY(twoCommercialGalleriesDto[1].getCoordinates().getY());
+		addressInfoDto21.setLocation(coords2);
+		addressInfoDto2.add(addressInfoDto21);
+        responseDto2.setName(twoCommercialGalleriesDto[1].getName());
+		responseDto2.setWeb(twoCommercialGalleriesDto[1].getValues().getUrl_value());
+		responseDto2.setEmail(twoCommercialGalleriesDto[1].getValues().getEmail_value());
+		responseDto2.setPhone(twoCommercialGalleriesDto[1].getValues().getPhone_value());
+        responseDto2.setActivities(responseDto2.mapClassificationDataListToActivityInfoList(twoCommercialGalleriesDto[1].getClassifications_data()));
+        responseDto2.setAddresses(addressInfoDto2);
+        responseDto[1] =responseDto2;
 	}
 
 	@Test
 	void getPageTest() throws MalformedURLException, JsonProcessingException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesResponseDto[].class)))
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
 			.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
 		GenericResultDto<CommercialGalleriesResponseDto> expectedResult = new GenericResultDto<CommercialGalleriesResponseDto>();
-		expectedResult.setInfo(0, -1, twoCommercialGalleriesDto.length, twoCommercialGalleriesDto);
+		expectedResult.setInfo(0, -1, twoCommercialGalleriesDto.length, responseDto);
 
 		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
 			commercialGalleriesService.getPage(0, -1).block();
@@ -112,7 +159,7 @@ public class CommercialGalleriesServiceTest {
 	@Test
 	void getCommercialGalleriesActivitiesTest() throws MalformedURLException, JsonProcessingException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesResponseDto[].class)))
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
 			.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
 		GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
@@ -153,8 +200,8 @@ public class CommercialGalleriesServiceTest {
 	}
 
 	private void returnsCommercialGalleriesDefaultPage(GenericResultDto<CommercialGalleriesResponseDto> actualResult) {
-		GenericResultDto<CommercialGalleriesDto> expectedResult = new GenericResultDto<CommercialGalleriesDto>();
-		expectedResult.setInfo(0, 0, 0, new CommercialGalleriesDto[0]);
+		GenericResultDto<CommercialGalleriesResponseDto> expectedResult = new GenericResultDto<CommercialGalleriesResponseDto>();
+		expectedResult.setInfo(0, 0, 0, new CommercialGalleriesResponseDto[0]);
 
 		this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
 		assertArrayEquals(expectedResult.getResults(), actualResult.getResults());

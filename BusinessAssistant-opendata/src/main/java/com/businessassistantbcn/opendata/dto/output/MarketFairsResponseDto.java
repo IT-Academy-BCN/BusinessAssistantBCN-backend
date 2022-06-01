@@ -28,6 +28,9 @@ public class MarketFairsResponseDto {
 	private static final Logger log = LoggerFactory.getLogger(MarketFairsResponseDto.class);
 
 	private String name;
+	private String web;
+	private String email;
+	private String phone;
 	@JsonUnwrapped
     private ContactDto value; // contact
     private List<ActivityInfoDto> activities; // activities

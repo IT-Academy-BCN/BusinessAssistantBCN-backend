@@ -50,6 +50,9 @@ public class MarketFairsService {
 
 	private MarketFairsResponseDto convertToDto(MarketFairsDto marketFairsDto) {
 		MarketFairsResponseDto responseDto = modelMapper.map(marketFairsDto, MarketFairsResponseDto.class);
+		responseDto.setWeb(marketFairsDto.getValues().getUrl_value());
+		responseDto.setEmail(marketFairsDto.getValues().getEmail_value());
+		responseDto.setPhone(marketFairsDto.getValues().getPhone_value());
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(marketFairsDto.getClassifications_data()));
 		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(marketFairsDto.getAddresses(), marketFairsDto.getCoordinates()));
 	    return responseDto;

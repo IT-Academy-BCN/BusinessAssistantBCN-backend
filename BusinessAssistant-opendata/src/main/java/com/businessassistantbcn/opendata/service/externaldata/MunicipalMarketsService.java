@@ -50,6 +50,9 @@ public class MunicipalMarketsService {
 
 	private MunicipalMarketsResponseDto mapToResponseDto(MunicipalMarketsDto municipalMarketsDto) {
 		MunicipalMarketsResponseDto responseDto = modelMapper.map(municipalMarketsDto, MunicipalMarketsResponseDto.class);
+		responseDto.setWeb(municipalMarketsDto.getWeb());
+		responseDto.setEmail(municipalMarketsDto.getEmail());
+		responseDto.setPhone(municipalMarketsDto.getPhone());
 		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(municipalMarketsDto.getAddresses(), municipalMarketsDto.getCoordinates()));
 		return responseDto;
 	}
