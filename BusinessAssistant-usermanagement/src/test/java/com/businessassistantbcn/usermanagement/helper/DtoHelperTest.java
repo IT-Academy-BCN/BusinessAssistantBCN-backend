@@ -36,8 +36,7 @@ public class DtoHelperTest {
 
         assertEquals("7e10fe51-772e-441f-874d-1c03dee79ad9", user.getUuid());
         assertEquals("user@Dto.es", user.getEmail());
-        assertNotEquals(null, user.getPassword());
-
+        assertEquals(null, user.getPassword());
     }
 
 
