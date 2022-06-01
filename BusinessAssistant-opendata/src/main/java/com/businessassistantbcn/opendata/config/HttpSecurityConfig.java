@@ -42,7 +42,7 @@ public class HttpSecurityConfig {
         private JwtAuthenticationFilter jwtFilter;
         @Override
         public void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable();
+            http.csrf();
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
             http.authorizeRequests().anyRequest().authenticated();
