@@ -43,12 +43,13 @@ public class HttpProxy {
                 .doOnConnected(conn ->
                         conn.addHandlerLast(new ReadTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS))
                                 .addHandlerLast(new WriteTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS)));
+        
 //        		 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
 //                 .responseTimeout(Duration.ofMillis(5000))
 //                 .doOnConnected(conn ->
 //                         conn.addHandlerLast(new ReadTimeoutHandler(5000, TimeUnit.MILLISECONDS))
 //                         	.addHandlerLast(new WriteTimeoutHandler(5000, TimeUnit.MILLISECONDS)));
-//                 
+                 
 
         client = WebClient.builder()
                 .clientConnector(new ReactorClientHttpConnector(httpClient))

@@ -96,9 +96,12 @@ resilience4j:
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 5s
         permittedNumberOfCallsInHalfOpenState: 3
-        slidingWindowSize: 10
+        slidingWindowSize: 2
         slidingWindowType: count-based
-        
+  timelimiter:
+    instances:
+      opendataService:
+        timeout-duration: 3s      
       
     
 

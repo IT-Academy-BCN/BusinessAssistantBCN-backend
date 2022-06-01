@@ -12,6 +12,9 @@ import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
+import io.netty.handler.timeout.ReadTimeoutException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,10 +23,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import reactor.core.publisher.Mono;
 
+import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -77,29 +83,77 @@ public class BigMallsService {
 //			e.printStackTrace();
 //		}
 //		return response;
-//		nErrorResume(e -> this.logServerErrorReturnBigMallsDefaultPage(new OpendataUnavailableServiceException()));
 //	}
 	
-	  @Autowired
-	    @Lazy
-	    private RestTemplate restTemplate;
-	  @CircuitBreaker(name = "opendataService",fallbackMethod = "getAllAvailableProducts")
-    public List<OrderDTO> displayOrders() {
-        String url = "http://localhost:9191/orders";
-        return restTemplate.getForObject(url, ArrayList.class);
+//*******************************************
+	
+	//funciona perfectamente si te conectas directamente a la api externa
+	//cuando ésta está desconectada salta el fallbackmethod ok
+	@CircuitBreaker(name = "opendataService",fallbackMethod = "fallbackMethod_NoProxy")
+    public Mono<String> testCircuitBreaker_Sin_Proxy() {
+        String url = "http://localhost:9191/orders/test-circuitbreaker";
+        RestTemplate response = new RestTemplate();
+        return Mono.just(response.getForObject(url, String.class));
     }
-
-
-    public List<OrderDTO> getAllAvailableProducts(Exception e){
-        return Stream.of(
-                new OrderDTO(119, "LED TV", "electronics", "white", 45000),
-                new OrderDTO(345, "Headset", "electronics", "black", 7000),
-                new OrderDTO(475, "Sound bar", "electronics", "black", 13000),
-                new OrderDTO(574, "Puma Shoes", "foot wear", "black & white", 4600),
-                new OrderDTO(678, "Vegetable chopper", "kitchen", "blue", 999),
-                new OrderDTO(532, "Oven Gloves", "kitchen", "gray", 745)
-        ).collect(Collectors.toList());
+	
+	public Mono<String> fallbackMethod_NoProxy(Exception e){
+		return Mono.just("Este es el fallback method SIN PROXY!");
+	}
+	
+	//PARA PROBAR EL TIMELIMITER 
+	//en la api del puerto 9191 puse un Thread.sleep(3000) (3s>2s del timelimter)
+	//como esa api devuelve un String, el timelimiter da error pq necesita un return de tipo reactive o completableFuture
+	@CircuitBreaker(name = "opendataService",fallbackMethod = "fallbackMethod_NoProxy_Delay")
+	@TimeLimiter(name = "opendataService",fallbackMethod = "fallbackMethod_NoProxy_Delay")
+    public Mono<String> testCircuitBreaker_Sin_Proxy_Con_Delay() {
+        String url = "http://localhost:9191/orders/test-circuitbreaker-delay";
+        RestTemplate response = new RestTemplate();
+        return Mono.just(response.getForObject(url, String.class));
     }
+	
+	public Mono<String> fallbackMethod_NoProxy_Delay(Exception e){
+		return Mono.just("Este es el fallback method SIN PROXY y con DELAY!");
+	}
+	
+	//Cuando la api externa está desconectada da una excepción que el circuitbreaker no recoge, 
+	//por eso en opendata se estaba controlando esto sin el circuitbreaker (usando .onErrorResume)
+	@CircuitBreaker(name = "opendataService",fallbackMethod = "fallbackMethod_Proxy")
+    public Mono<String> testCircuitBreaker_Proxy() throws MalformedURLException{
+//		Mono<String> response = null;
+//		try {
+//			response = httpProxy.getRequestData(new URL("http://localhost:9191/orders/test-circuitbreaker-proxy"), String.class);
+//		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return response;
+		return httpProxy.getRequestData(new URL("http://localhost:9191/orders/test-circuitbreaker-proxy"), String.class);
+				//.onErrorResume(e -> this.fallbackMethod_Proxy(e));
+    }
+	
+	private Mono<String> fallbackMethod_Proxy(Throwable e) {
+		return Mono.just("Este es el fallback method CON PROXY cuando se controla el error, aún no ha saltado el circuitbreaker-creo!");
+	}
+
+	public Mono<String> fallbackMethod_Proxy(Exception e){
+		return Mono.just("Este es el fallback method CON PROXY!");
+	}
+	
+	//cuando se conecta a la api externa y ésta tarda en responder (usando un Thread.sleep) NO FUNCIONA CIRCUIT BREAKER
+	//en vez de el fallbackMethod devuelve un 500 y en la consola da esta info:
+	//2022-06-01 10:48:01.689 ERROR 10548 --- [nio-8762-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] threw exception
+		//io.netty.handler.timeout.ReadTimeoutException: null
+	@CircuitBreaker(name = "opendataService",fallbackMethod = "fallbackMethod_Proxy_Delay")
+    public Mono<String> testCircuitBreaker_Proxy_y_delay() throws MalformedURLException {
+		Mono<String> response = null;
+		response = httpProxy.getRequestData(new URL("http://localhost:9191/orders/test-circuitbreaker-proxy-y-delay"), String.class);
+		return response;
+    }
+	
+	public Mono<String> fallbackMethod_Proxy_Delay(Exception e){
+		return Mono.just("Este es el fallback method CON PROXY y Delay superior al timeout!!!\n Ha saltado el circuit breaker, lo que tenía que ocurrir :)");
+	}
+//*****************************************
 	
 	private BigMallsDto removeClassificationDataWithUsInternInFullPath(BigMallsDto bigMallsDto) {
 		List<ClassificationDataDto> classData = bigMallsDto.getClassifications_data().stream()

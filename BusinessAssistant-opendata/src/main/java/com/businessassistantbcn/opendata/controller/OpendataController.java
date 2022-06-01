@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
+import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.util.Map;
 
@@ -121,6 +122,8 @@ public class OpendataController {
                 .getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
     }
 
+//****************PRUEBAS DE CIRCUIT BREAKER**********************
+    
 //    //GET ?offset=0&limit=10
 //    @GetMapping("/big-malls")
 //    public Mono<?> bigMalls(
@@ -131,12 +134,37 @@ public class OpendataController {
 //        return bigMallsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
 //    }
 
-    @GetMapping("/big-malls")
-    public ResponseEntity<?> bigMalls(){
-    	ResponseEntity<?> response = null;
-    	response = ResponseEntity.ok(bigMallsService.displayOrders());
-    	return response;
+    @GetMapping("/big-malls/test-cb")
+    public Mono<String> bigMalls_testCircuitBreaker_SinProxy(){
+    	return bigMallsService.testCircuitBreaker_Sin_Proxy();
     }
+    @GetMapping("/big-malls/test-cb-delay")
+    public Mono<String> bigMalls_testCircuitBreaker_SinProxy_Con_Delay(){
+    	return bigMallsService.testCircuitBreaker_Sin_Proxy_Con_Delay();
+    }
+    @GetMapping("/big-malls/test-cb-proxy")
+    public Mono<String> bigMalls_testCircuitBreaker_ConProxy(){
+    	try {
+			return bigMallsService.testCircuitBreaker_Proxy();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return Mono.empty();
+    }
+    @GetMapping("/big-malls/test-cb-proxy-y-delay")
+    public Mono<String> bigMalls_testCircuitBreaker_ConProxy_y_delay(){
+    	try {
+			return bigMallsService.testCircuitBreaker_Proxy_y_delay();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return Mono.empty();
+    }
+ 
+//**************************************************************************    
+    
     @GetMapping("/big-malls/activities")
     public Mono<?> bigMallsAllActivities(
             @RequestParam(required = false) String offset,
