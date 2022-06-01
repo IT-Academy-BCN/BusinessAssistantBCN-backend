@@ -30,10 +30,9 @@ public class DtoHelper {
 
 	public static UserDto convertToDto (User user) {
 		UserDto userDto = new UserDto();
-		List<String> stringRoles;
-
 		BeanUtils.copyProperties(user, userDto);
-		stringRoles = convertToUserDtoRoles(user.getRoles());
+
+		List<String> stringRoles = convertToUserDtoRoles(user.getRoles());
 		userDto.setRoles(stringRoles);
 
 		return userDto;
@@ -60,7 +59,7 @@ public class DtoHelper {
 		for (String s : stringRoles) {
 			if (s.equalsIgnoreCase("USER")) {
 				roles.add(Role.USER);
-			} if (s.equalsIgnoreCase("ADMIN")) {
+			}else if (s.equalsIgnoreCase("ADMIN")) {
 				roles.add(Role.ADMIN);
 			}
 		}
@@ -75,11 +74,10 @@ public class DtoHelper {
 		for (Role r : roles) {
 			if (r.name().equalsIgnoreCase("USER")) {
 				stringRoles.add(r.USER.name());
-			} if (r.name().equalsIgnoreCase("ADMIN")) {
+			}else if (r.name().equalsIgnoreCase("ADMIN")) {
 				stringRoles.add(r.ADMIN.name());
 			}
 		}
-
 		return stringRoles;
 	}
 
