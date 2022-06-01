@@ -16,10 +16,20 @@ spring:
       host: localhost
       port: 27017
       database: babcn-users
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+    - pro        
 
-springfox:
-  documentation:
-    auto-startup: false
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui-custom.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs"
 
 security:
   datasource:

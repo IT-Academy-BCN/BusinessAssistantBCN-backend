@@ -47,7 +47,6 @@ public class LargeEstablishmentsResponseDto {
 		ActivityInfoDto activity = new ActivityInfoDto();
 		activity.setActivityId(classificationDataDto.getId());
 		activity.setActivityName(classificationDataDto.getName());
-
 		return activity;
 	}
 

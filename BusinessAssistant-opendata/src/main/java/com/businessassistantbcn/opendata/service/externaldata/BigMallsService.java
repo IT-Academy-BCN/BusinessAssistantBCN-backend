@@ -10,7 +10,6 @@ import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceExc
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.modelmapper.ModelMapper;
@@ -29,7 +28,7 @@ import java.util.stream.Collectors;
 public class BigMallsService {
 	private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
 
-	@Autowired
+  @Autowired
 	private PropertiesConfig config;
 	@Autowired
 	private HttpProxy httpProxy;
@@ -50,7 +49,7 @@ public class BigMallsService {
 
 				BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 				
-				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(BigMallsResponseDto[]::new);
+				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(BigMallsResponseDto[]::new);
 				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
@@ -65,7 +64,7 @@ public class BigMallsService {
 		return bigMallsDto;
 	}
 	
-	private BigMallsResponseDto convertToDto(BigMallsDto bigMallsDto) {
+	private BigMallsResponseDto mapToResponseDto(BigMallsDto bigMallsDto) {
 		BigMallsResponseDto responseDto = modelMapper.map(bigMallsDto, BigMallsResponseDto.class);
 		responseDto.setWeb(bigMallsDto.getValues().getUrl_value());
 		responseDto.setEmail(bigMallsDto.getValues().getEmail_value());

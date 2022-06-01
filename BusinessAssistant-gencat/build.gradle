@@ -34,6 +34,15 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.13'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    
+    //security
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.5.6'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+    //dependency for Swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-data-rest', version: '1.6.8'
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'

@@ -10,13 +10,12 @@ import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceExc
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -94,6 +93,13 @@ public class LargeEstablishmentsService {
 				.filter(d -> !d.getFullPath().toUpperCase().contains("MARQUES")).collect(Collectors.toList());
 		largeEstablishmentDto.setClassifications_data(classData);
 		return largeEstablishmentDto;
+	}
+	
+	private LargeEstablishmentsResponseDto mapToResponseDto(LargeEstablishmentsDto largeEstablishmentsDto) {
+		LargeEstablishmentsResponseDto responseDto = modelMapper.map(largeEstablishmentsDto, LargeEstablishmentsResponseDto.class);
+		responseDto.setValue(largeEstablishmentsDto.getValues());
+		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(largeEstablishmentsDto.getClassifications_data()));
+	    return responseDto;
 	}
 
 	private LargeEstablishmentsResponseDto convertToDto(LargeEstablishmentsDto largeEstablishmentsDto) {

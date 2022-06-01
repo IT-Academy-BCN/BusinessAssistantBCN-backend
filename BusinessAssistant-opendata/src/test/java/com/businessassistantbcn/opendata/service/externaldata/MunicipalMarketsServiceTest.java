@@ -30,6 +30,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -82,7 +83,6 @@ public class MunicipalMarketsServiceTest {
         responseDto1.setName(twoMunicipalMarkets[0].getName());
         responseDto1.setWeb(twoMunicipalMarkets[0].getWeb());
         responseDto1.setEmail(twoMunicipalMarkets[0].getEmail());
-        //responseDto1.setActivity(responseDto1.mapClassificationDataDtoToActivityDto(twoMunicipalMarkets[0].getClassificationsData()));
         responseDto1.setAddresses(addressInfoDto1);
         responseDto[0] = responseDto1;
         MunicipalMarketsResponseDto responseDto2 = new MunicipalMarketsResponseDto();
@@ -93,7 +93,6 @@ public class MunicipalMarketsServiceTest {
         responseDto2.setName(twoMunicipalMarkets[1].getName());
         responseDto2.setWeb(twoMunicipalMarkets[1].getWeb());
         responseDto2.setEmail(twoMunicipalMarkets[1].getEmail());
-        //responseDto2.setActivity(responseDto2.mapClassificationDataDtoToActivityDto(twoMunicipalMarkets[1].getClassificationsData()));
         responseDto2.setAddresses(addressInfoDto2);
         responseDto[1] =responseDto2;
     }
@@ -113,6 +112,7 @@ public class MunicipalMarketsServiceTest {
         /*assertEquals(Arrays.stream(expectedResult.getResults()).collect(Collectors.toList()).get(0).getActivity().getActivityId(),
                 Arrays.stream(actualResult.getResults()).collect(Collectors.toList()).get(0).getActivity().getActivityId());
         assertEquals(expectedResult.getResults().length, actualResult.getResults().length);*/
+
 
         verify(config, times(1)).getDs_municipalmarkets();
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));

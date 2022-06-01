@@ -11,7 +11,6 @@ import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +52,7 @@ public class CommercialGalleriesService {
 						.toArray(CommercialGalleriesDto[]::new);
 				CommercialGalleriesDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 				
-				CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
+				CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
 				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
@@ -70,7 +69,7 @@ public class CommercialGalleriesService {
 		return commercialGalleriesDto;
 	}
 	
-	private CommercialGalleriesResponseDto convertToDto(CommercialGalleriesDto commercialGalleriesDto) {
+	private CommercialGalleriesResponseDto mapToResponseDto(CommercialGalleriesDto commercialGalleriesDto) {
 		CommercialGalleriesResponseDto responseDto = modelMapper.map(commercialGalleriesDto, CommercialGalleriesResponseDto.class);
 		responseDto.setWeb(commercialGalleriesDto.getValues().getUrl_value());
 		responseDto.setEmail(commercialGalleriesDto.getValues().getEmail_value());

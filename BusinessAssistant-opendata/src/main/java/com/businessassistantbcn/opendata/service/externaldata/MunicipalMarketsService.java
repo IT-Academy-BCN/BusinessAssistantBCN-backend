@@ -9,12 +9,13 @@ import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceExc
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 
 @Service
 public class MunicipalMarketsService {
+
 	private static final Logger log = LoggerFactory.getLogger(MunicipalMarketsService.class);
 
 	@Autowired
@@ -41,6 +43,7 @@ public class MunicipalMarketsService {
 			.flatMap(dtos -> {
 				MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 
+
 				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(MunicipalMarketsResponseDto[]::new);
 				genericResultDto.setInfo(offset, limit, dtos.length, responseDto);
 				return Mono.just(genericResultDto);
@@ -54,6 +57,7 @@ public class MunicipalMarketsService {
 		responseDto.setEmail(municipalMarketsDto.getEmail());
 		responseDto.setPhone(municipalMarketsDto.getPhone());
 		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(municipalMarketsDto.getAddresses(), municipalMarketsDto.getCoordinates()));
+
 		return responseDto;
 	}
 

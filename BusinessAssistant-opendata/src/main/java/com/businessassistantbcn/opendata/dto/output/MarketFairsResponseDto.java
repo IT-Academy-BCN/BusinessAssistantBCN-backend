@@ -47,7 +47,6 @@ public class MarketFairsResponseDto {
 		ActivityInfoDto activity = new ActivityInfoDto();
 		activity.setActivityId(classificationDataDto.getId());
 		activity.setActivityName(classificationDataDto.getName());
-
 		return activity;
 	}
 
@@ -61,7 +60,6 @@ public class MarketFairsResponseDto {
 	}
 
 	public AddressInfoDto mapClassificationDataDtoToAddressInfoDto(AddressDto classificationDataDto, CoordinateInfoDto coordinateDto){
-
 		AddressInfoDto address = new AddressInfoDto();
 		address.setStreet_name(classificationDataDto.getAddress_name());
 		address.setStreet_number(classificationDataDto.getStreet_number_1());
@@ -69,7 +67,6 @@ public class MarketFairsResponseDto {
 		address.setDistrict_id(classificationDataDto.getDistrict_id());
 		address.setTown(classificationDataDto.getTown());
 		address.setLocation(coordinateDto);
-
 		return address;
 	}
 }
