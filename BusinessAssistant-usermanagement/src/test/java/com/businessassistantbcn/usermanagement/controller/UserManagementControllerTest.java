@@ -57,7 +57,7 @@ public class UserManagementControllerTest {
 	}
 
 	@Test
-	public void AddUserTest(){
+	void AddUserTest(){
 
 		final String URI_ADD_USER="/user";
 
