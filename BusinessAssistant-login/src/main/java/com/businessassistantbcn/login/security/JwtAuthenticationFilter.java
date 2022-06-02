@@ -38,19 +38,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			HttpServletResponse response,
 			FilterChain filterChain) throws IOException, ServletException { 
 		try {
-		
-		String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-		
-		if(authorizationHeaderIsValid(authorizationHeader)) {
-			Claims claims = validateToken(request);
-			if(claims.get(config.getAuthoritiesClaim()) != null)
-				setUpSpringAuthentication(claims);
-			filterChain.doFilter(request, response);
-		}else
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-		} catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
-			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-		} 
+
+			String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+			if(authorizationHeaderIsValid(authorizationHeader)) {
+                Claims claims = validateToken(request);
+                setUpSpringAuthentication(claims);
+            }
+            filterChain.doFilter(request, response);
+        } catch(ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        }
 	}
 	
 	private boolean authorizationHeaderIsValid(String authorizationHeader) {
