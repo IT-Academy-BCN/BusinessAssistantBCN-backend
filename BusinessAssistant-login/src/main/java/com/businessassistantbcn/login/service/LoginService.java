@@ -1,6 +1,6 @@
 package com.businessassistantbcn.login.service;
 
-import com.businessassistantbcn.login.config.SecurityConfig;
+import com.businessassistantbcn.login.config.SecurityPropertiesConfig;
 import com.businessassistantbcn.login.config.SuperUserConfig;
 import com.businessassistantbcn.login.config.TestUserConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
@@ -39,7 +39,7 @@ import reactor.core.publisher.Mono;
 public class LoginService implements AuthenticationProvider {
 	
 	@Autowired
-	private SecurityConfig config;
+	private SecurityPropertiesConfig config;
 	
 	@Autowired
 	private HttpProxy httpProxy;

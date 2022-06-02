@@ -25,6 +25,12 @@ public class LoginController {
 		
 		return "Hello from BusinessAssistant Barcelona!!!";
 	}
+	@PostMapping("/test-post")
+	public String testPost() {
+		log.info("** Saludos desde el logger --- POST**");
+		
+		return "Hello from BusinessAssistant Barcelona --- POST!!!";
+	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(
