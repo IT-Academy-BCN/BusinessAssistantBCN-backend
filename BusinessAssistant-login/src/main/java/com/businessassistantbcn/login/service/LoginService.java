@@ -43,7 +43,10 @@ public class LoginService implements AuthenticationProvider {
 	
 	@Autowired
 	private HttpProxy httpProxy;
-	
+
+	private final UserDto superUser, testUser;
+	private final AuthenticationRequest testUserA;
+
 	@Autowired
 	public LoginService(SuperUserConfig su, TestUserConfig tu) {
 		superUser = new UserDto(su.getEmail(), su.getRoles());
@@ -76,10 +79,7 @@ public class LoginService implements AuthenticationProvider {
 	private List<GrantedAuthority> conversionStringAuthorities(List<String> roles) {
 		return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}
-	
-	private final UserDto superUser, testUser;
-	private final AuthenticationRequest testUserA;
-	
+
 // TODO **** Provisional response with testUser ****
 	public Mono<UserDto> loadUser(AuthenticationRequest request) {
 		return request.equals(testUserA)
