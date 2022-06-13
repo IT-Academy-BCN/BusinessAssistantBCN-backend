@@ -1,6 +1,6 @@
 package com.businessassistantbcn.opendata.dto.input.bigmalls;
 
-import com.businessassistantbcn.opendata.dto.input.largeestablishments.LocationDto;
+//import com.businessassistantbcn.opendata.dto.largeestablishments.LocationDto; //llamaba a locationDTO de otra carpeta ??
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -68,6 +70,11 @@ import org.springframework.stereotype.Component;
     @JsonGetter("location")
     public LocationDto getLocation() {
         return location;
+    }
+
+    @JsonSetter("location")
+    public void setLocation(LocationDto location) {
+        this.location = location;
     }
 
 }

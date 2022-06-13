@@ -1,6 +1,7 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
+import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
@@ -8,6 +9,7 @@ import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceExc
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,14 +34,16 @@ public class MunicipalMarketsService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private GenericResultDto<MunicipalMarketsResponseDto> genericResultDto;
+	@Autowired
+	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMunicipalMarketsDefaultPage")
 	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
-		return httpProxy
-			.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
+		return httpProxy.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
 			.flatMap(dtos -> {
 				MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
-				
+
+
 				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(MunicipalMarketsResponseDto[]::new);
 				genericResultDto.setInfo(offset, limit, dtos.length, responseDto);
 				return Mono.just(genericResultDto);
@@ -49,7 +53,11 @@ public class MunicipalMarketsService {
 
 	private MunicipalMarketsResponseDto mapToResponseDto(MunicipalMarketsDto municipalMarketsDto) {
 		MunicipalMarketsResponseDto responseDto = modelMapper.map(municipalMarketsDto, MunicipalMarketsResponseDto.class);
-		responseDto.setActivity(responseDto.mapClassificationDataDtoToActivityDto(municipalMarketsDto.getClassificationsData()));
+		responseDto.setWeb(municipalMarketsDto.getWeb());
+		responseDto.setEmail(municipalMarketsDto.getEmail());
+		responseDto.setPhone(municipalMarketsDto.getPhone());
+		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(municipalMarketsDto.getAddresses(), municipalMarketsDto.getCoordinates()));
+
 		return responseDto;
 	}
 

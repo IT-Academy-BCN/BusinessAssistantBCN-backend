@@ -78,10 +78,10 @@ public class LargeEstablishmentsService {
 				.map(d -> this.removeClassificationDataWithMarquesInFullPath(d))
 				.toArray(LargeEstablishmentsDto[]::new);
 			
-			LargeEstablishmentsDto[] pagedDto = JsonHelper
-				.filterDto(filteredDto, offset, limit);
+			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 
-			LargeEstablishmentsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(LargeEstablishmentsResponseDto[]::new);
+			LargeEstablishmentsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(LargeEstablishmentsResponseDto[]::new);
+
 			genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 			return Mono.just(genericResultDto);
 		})
@@ -99,6 +99,16 @@ public class LargeEstablishmentsService {
 		LargeEstablishmentsResponseDto responseDto = modelMapper.map(largeEstablishmentsDto, LargeEstablishmentsResponseDto.class);
 		responseDto.setValue(largeEstablishmentsDto.getValues());
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(largeEstablishmentsDto.getClassifications_data()));
+	    return responseDto;
+	}
+
+	private LargeEstablishmentsResponseDto convertToDto(LargeEstablishmentsDto largeEstablishmentsDto) {
+		LargeEstablishmentsResponseDto responseDto = modelMapper.map(largeEstablishmentsDto, LargeEstablishmentsResponseDto.class);
+		responseDto.setWeb(largeEstablishmentsDto.getValues().getUrl_value());
+		responseDto.setEmail(largeEstablishmentsDto.getValues().getEmail_value());
+		responseDto.setPhone(largeEstablishmentsDto.getValues().getPhone_value());
+		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(largeEstablishmentsDto.getClassifications_data()));
+		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(largeEstablishmentsDto.getAddresses(), largeEstablishmentsDto.getCoordinates()));
 	    return responseDto;
 	}
 

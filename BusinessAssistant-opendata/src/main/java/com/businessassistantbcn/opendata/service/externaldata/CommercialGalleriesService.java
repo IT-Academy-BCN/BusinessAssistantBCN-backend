@@ -11,13 +11,12 @@ import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -72,9 +71,12 @@ public class CommercialGalleriesService {
 	
 	private CommercialGalleriesResponseDto mapToResponseDto(CommercialGalleriesDto commercialGalleriesDto) {
 		CommercialGalleriesResponseDto responseDto = modelMapper.map(commercialGalleriesDto, CommercialGalleriesResponseDto.class);
-		responseDto.setValue(commercialGalleriesDto.getValues());		
+		responseDto.setWeb(commercialGalleriesDto.getValues().getUrl_value());
+		responseDto.setEmail(commercialGalleriesDto.getValues().getEmail_value());
+		responseDto.setPhone(commercialGalleriesDto.getValues().getPhone_value());
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(commercialGalleriesDto.getClassifications_data()));
-	    return responseDto;
+	    responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(commercialGalleriesDto.getAddresses(), commercialGalleriesDto.getCoordinates()));
+		return responseDto;
 	}
 
 	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> logServerErrorReturnCommercialGalleriesDefaultPage(
