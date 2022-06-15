@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import reactor.core.publisher.Mono;
 
-import java.net.MalformedURLException;
 import java.util.Map;
 
 @RestController
@@ -28,24 +26,20 @@ public class UserManagementController {
         return "Hello from BusinessAssistant User!!!";
     }
 
-    /*@GetMapping(value="/user")
-    public String user() {
-        return "acció user!!!";
-    }*/
-
     @GetMapping("/user")
     @Operation(summary = "get user")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "503", description = "Service Unavailable") })
-    public Mono<?> userResponse(
+    //public Mono<?> userResponse( //TODO implementar service
+    public String userResonse(
             @RequestParam(required = false) String email,
             @RequestParam(required = false)  String password,
-            @RequestParam Map<String, String> map) throws MalformedURLException {
+            @RequestParam Map<String, String> map) {
         this.validateRequestParameters(map);
         //return userManagementService.getUser(email, password);
-        return userManagementService.getUserByEmail(email);
+        return "{\"uuid\": \"user_uuid\",\"email\": \"user_email\",\"role\": \"user_role\"}";
     }
 
     private void validateRequestParameters(Map<String, String> map)
