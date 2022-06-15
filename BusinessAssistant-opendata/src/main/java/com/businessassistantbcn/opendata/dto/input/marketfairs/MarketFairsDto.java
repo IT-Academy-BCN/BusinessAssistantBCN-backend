@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @JsonIgnoreProperties({ "register_id","prefix","suffix",/*"name",*/"created","modified","status","status_name","core_type","core_type_name",
         "body","tickets_data",/*"addresses",*/"entity_types_data","attribute_categories"/*,"values"*/,"from_relationships","to_relationships",
         /*"classifications_data",*/"secondary_filters_data","timetable","image_data","gallery_data","warnings","geo_epgs_25831",
-        "geo_epgs_23031","geo_epgs_4326","is_section_of_data","sections_data","start_date","end_date","estimated_dates",
+        "geo_epgs_23031",/*"geo_epgs_4326",*/"is_section_of_data","sections_data","start_date","end_date","estimated_dates",
         "languages_data","type","type_name","period","period_name","event_status_name","event_status","ical"
 })
 
@@ -34,6 +34,7 @@ public class MarketFairsDto {
     private List<ContactDto> values; // contact
     private List<ClassificationDataDto> classifications_data; // activities
     private List<AddressDto> addresses;
+    private CoordinateDto coordinates;
 
     @JsonGetter("activities") // deserialize clasification_data activities
     public List<ClassificationDataDto> getClassifications_data() {
@@ -48,7 +49,7 @@ public class MarketFairsDto {
     @JsonGetter("values")
     public ContactDto getValues() {
 
-        ContactDto newContactDto = new ContactDto();;
+        ContactDto newContactDto = new ContactDto();
         for(ContactDto c:values){
 
             if(c.getEmail_value() !=null){
@@ -64,6 +65,16 @@ public class MarketFairsDto {
             }
         }
         return newContactDto;
+    }
+
+    @JsonGetter("geo_epgs_4326") //retorna coordinades per gravar a json sortida
+    public CoordinateDto getCoordinates() {
+        return coordinates;
+    }
+
+    @JsonSetter("geo_epgs_4326") //llegeix de bcn.cat
+    public void setCoordinates(CoordinateDto coordinates) {
+        this.coordinates = coordinates;
     }
 
     @JsonGetter("addresses")
