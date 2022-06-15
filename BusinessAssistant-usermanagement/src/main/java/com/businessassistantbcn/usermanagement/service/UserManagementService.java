@@ -34,4 +34,8 @@ public class UserManagementService implements IUserManagementService {
     public Mono<UserDto> getUserByEmail(String email) {
         return userRepository.findByEmail(email).map(DtoHelper::convertToDto);
     }
+
+    public Mono<UserDto> getUser(String email, String password) {
+        return userRepository.findByEmail(email).map(DtoHelper::convertToDto);
+    }
 }
