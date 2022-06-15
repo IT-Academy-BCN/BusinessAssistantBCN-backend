@@ -12,7 +12,6 @@ import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +26,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class BigMallsService {
-
 	private static final Logger log = LoggerFactory.getLogger(BigMallsService.class);
 
-	@Autowired
+  @Autowired
 	private PropertiesConfig config;
 	@Autowired
 	private HttpProxy httpProxy;
@@ -48,6 +46,7 @@ public class BigMallsService {
 				BigMallsDto[] filteredDto = Arrays.stream(dtos)
 						.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
 						.toArray(BigMallsDto[]::new);
+
 				BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 				
 				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(BigMallsResponseDto[]::new);
@@ -67,8 +66,11 @@ public class BigMallsService {
 	
 	private BigMallsResponseDto mapToResponseDto(BigMallsDto bigMallsDto) {
 		BigMallsResponseDto responseDto = modelMapper.map(bigMallsDto, BigMallsResponseDto.class);
-		responseDto.setValue(bigMallsDto.getValues());
+		responseDto.setWeb(bigMallsDto.getValues().getUrl_value());
+		responseDto.setEmail(bigMallsDto.getValues().getEmail_value());
+		responseDto.setPhone(bigMallsDto.getValues().getPhone_value());
 		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(bigMallsDto.getClassifications_data()));
+		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(bigMallsDto.getAddresses(), bigMallsDto.getCoordinates()));
 	    return responseDto;
 	}
 
@@ -159,32 +161,11 @@ public class BigMallsService {
 
 	public String getBigMallsByActivity(int[] activities, int offset, int limit) {
 		//JsonPath search
-		/* OJO a formato de salida:
-		{
-		"count": 1217,
-		"elements": [
-		{
-		"id": 3716,
-		"name": "Paola",
-		"surnames": "dos Reis Figueira",
-		...
-		*/
 		return null;
 	}
 
 	public String getBigMallsByDistrict(int[] districts, int offset, int limit) {
 		//JsonPath search
-		/* OJO a formato de salida:
-		{
-		"count": 1217,
-		"elements": [
-		{
-		"id": 3716,
-		"name": "Paola",
-		"surnames": "dos Reis Figueira",
-		...
-		*/
-
 		return null;
 	}
 

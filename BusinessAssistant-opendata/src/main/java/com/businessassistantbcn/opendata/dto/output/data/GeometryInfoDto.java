@@ -1,33 +1,26 @@
-package com.businessassistantbcn.opendata.dto.input.bigmalls;
+package com.businessassistantbcn.opendata.dto.output.data;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Component("BigMallsGeometryDto")
-@JsonIgnoreProperties({"type"})
-
-public class GeometryDto {
+public class GeometryInfoDto {
     @JsonUnwrapped
     private List<Double> coordinates;
 
-    private CoordinateDto coordinateDto;
+    private CoordinateInfoDto coordinateDto;
 
     @JsonGetter("coordinates")
-    public CoordinateDto getCoordinates() {
+    public CoordinateInfoDto getCoordinates() {
 
-        coordinateDto = new CoordinateDto();
+        coordinateDto = new CoordinateInfoDto();
         if(coordinates.size()>1){
             coordinateDto.setX(coordinates.get(0));
             coordinateDto.setY(coordinates.get(1));

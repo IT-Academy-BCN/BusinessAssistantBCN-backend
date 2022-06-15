@@ -5,6 +5,7 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
+import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -26,7 +27,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -82,16 +85,24 @@ public class LargeEstablishmentsServiceTest {
         
         responseDto = new LargeEstablishmentsResponseDto[2];
         LargeEstablishmentsResponseDto responseDto1 = new LargeEstablishmentsResponseDto();
+        List<AddressInfoDto> addressInfoDto1 = new ArrayList<>();
+        AddressInfoDto addressInfoDto11 = new AddressInfoDto();
+        addressInfoDto11.setStreet_name(twoLargeEstablishmentsDto[0].getAddresses().get(0).getAddress_name());
+        addressInfoDto1.add(addressInfoDto11);
         responseDto1.setName(twoLargeEstablishmentsDto[0].getName());
         responseDto1.setValue(twoLargeEstablishmentsDto[0].getValues());
         responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoLargeEstablishmentsDto[0].getClassifications_data()));
-        responseDto1.setAddresses(twoLargeEstablishmentsDto[0].getAddresses());
+        responseDto1.setAddresses(addressInfoDto1);
         responseDto[0] = responseDto1;
         LargeEstablishmentsResponseDto responseDto2 = new LargeEstablishmentsResponseDto();
+        List<AddressInfoDto> addressInfoDto2 = new ArrayList<>();
+        AddressInfoDto addressInfoDto21 = new AddressInfoDto();
+        addressInfoDto21.setStreet_name(twoLargeEstablishmentsDto[1].getAddresses().get(0).getAddress_name());
+        addressInfoDto2.add(addressInfoDto21);
         responseDto2.setName(twoLargeEstablishmentsDto[1].getName());
         responseDto2.setValue(twoLargeEstablishmentsDto[1].getValues());
         responseDto2.setActivities(responseDto2.mapClassificationDataListToActivityInfoList(twoLargeEstablishmentsDto[1].getClassifications_data()));
-        responseDto2.setAddresses(twoLargeEstablishmentsDto[1].getAddresses());
+        responseDto2.setAddresses(addressInfoDto2);
         responseDto[1] =responseDto2;
     }
 
