@@ -18,9 +18,6 @@ import java.util.Map;
 @RequestMapping(value = "/businessassistantbcn/api/v1/usermanagement")
 public class UserManagementController {
 
-    @Autowired
-    UserManagementService userManagementService;
-
     @GetMapping(value="/test")
     public String test() {
         return "Hello from BusinessAssistant User!!!";

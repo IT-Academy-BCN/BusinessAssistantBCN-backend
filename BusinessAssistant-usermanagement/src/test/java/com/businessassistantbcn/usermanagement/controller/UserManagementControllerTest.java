@@ -33,4 +33,28 @@ public class UserManagementControllerTest {
 				.expectBody(String.class)
 				.value(s -> s.toString(), equalTo("Hello from BusinessAssistant User!!!"));
 	}
+
+	@Test
+	@DisplayName("Test fails get user")
+	void testGetUserKo(){
+		final String URI_GET_USER = "/user";
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isEqualTo(400);
+	}
+
+	@Test
+	@DisplayName("Test response get user")
+	void testGetUserResponse(){
+		final String URI_GET_USER = "/user?email=user@mail.com&password=abc123";
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.equals("{\"uuid\": \"user_uuid\",\"email\": \"user_email\",\"role\": \"user_role\"}");
+	}
 }
