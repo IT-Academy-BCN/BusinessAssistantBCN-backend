@@ -7,6 +7,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Map;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -22,6 +26,22 @@ public class UserManagementController {
         return "Hello from BusinessAssistant User!!!";
     }
 
+    @GetMapping("/user")
+    @Operation(summary = "get user")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable") })
+    //public Mono<?> userResponse( //TODO implementar service
+    public String userResonse(
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false)  String password,
+            @RequestParam Map<String, String> map) {
+        this.validateRequestParameters(map);
+        //return userManagementService.getUser(email, password);
+        return "{\"uuid\": \"user_uuid\",\"email\": \"user_email\",\"role\": \"user_role\"}";
+    }
+  
     @PostMapping("/user")
     @Operation(summary = "add user")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
@@ -31,4 +51,18 @@ public class UserManagementController {
     public Mono<UserDto> addUser(@RequestBody UserEmailDto userEmailDto){
         return userManagementService.addUser(Mono.just(userEmailDto));
     }
+
+    private void validateRequestParameters(Map<String, String> map)
+    {
+        if (map.keySet().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        for (String key : map.keySet()) {
+            if (!key.equals("email") && !key.equals("password")) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            }
+        }
+    }
+  
+  
 }
