@@ -5,6 +5,7 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
@@ -49,7 +50,6 @@ public class MarketFairsService {
 						.toArray(MarketFairsDto[]::new);
 
 				MarketFairsDto[] pagedDto = JsonHelper.filterDto(filterDto, offset, limit);
-
 				MarketFairsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(MarketFairsResponseDto[]::new);
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 
@@ -67,6 +67,7 @@ public class MarketFairsService {
 	}
 
 	private MarketFairsResponseDto convertToDto(MarketFairsDto marketFairsDto) {
+
 		MarketFairsResponseDto responseDto = modelMapper.map(marketFairsDto, MarketFairsResponseDto.class);
 		responseDto.setWeb(marketFairsDto.getValues().getUrl_value());
 		responseDto.setEmail(marketFairsDto.getValues().getEmail_value());
