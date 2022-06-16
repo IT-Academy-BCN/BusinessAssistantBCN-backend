@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.input.marketfairs.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
@@ -19,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MarketFairsService {
@@ -48,6 +51,14 @@ public class MarketFairsService {
 				return Mono.just(genericResultDto);
 			})
 			.onErrorResume(e -> this.logServerErrorReturnMarketFairsDefaultPage(new OpendataUnavailableServiceException()));
+	}
+
+	private MarketFairsDto removeClassificationDataWithUsInternInFullPath(MarketFairsDto marketFairsDto){
+		List<ClassificationDataDto> cassData = marketFairsDto.getClassifications_data().stream()
+				.filter(d -> !d.getName().toUpperCase().contains("ÚS INTERN"))
+				.collect(Collectors.toList());
+		marketFairsDto.setClassifications_data(cassData);
+		return marketFairsDto;
 	}
 
 	private MarketFairsResponseDto convertToDto(MarketFairsDto marketFairsDto) {
