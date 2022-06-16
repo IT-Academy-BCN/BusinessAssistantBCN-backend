@@ -27,21 +27,25 @@ public class UserManagementController {
     }
 
     @GetMapping("/user")
-    @Operation(summary = "get user")
+    @Operation(summary = "get user by email")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "503", description = "Service Unavailable") })
-    //public Mono<?> userResponse( //TODO implementar service
-    public String userResonse(
+    //public Mono<?> getUser( //TODO implementar service
+    public String getUser(
             @RequestParam(required = false) String email,
+            @RequestParam(required = false) String uuid,
             @RequestParam(required = false)  String password,
             @RequestParam Map<String, String> map) {
         this.validateRequestParameters(map);
-        //return userManagementService.getUser(email, password);
+        /**
+         * return userManagementService.getUser(email, password);
+         * return userManagementService.getUser(uuid, password);
+         */
         return "{\"uuid\": \"user_uuid\",\"email\": \"user_email\",\"role\": \"user_role\"}";
     }
-  
+
     @PostMapping("/user")
     @Operation(summary = "add user")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
@@ -58,7 +62,7 @@ public class UserManagementController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         for (String key : map.keySet()) {
-            if (!key.equals("email") && !key.equals("password")) {
+            if ( !(key.equals("email")||key.equals("uuid")) && !key.equals("password")) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
         }
