@@ -75,7 +75,7 @@ public class LargeEstablishmentsService {
 			.flatMap(largeEstablishmentsDto -> {
 			LargeEstablishmentsDto[] filteredDto = Arrays.stream(largeEstablishmentsDto)
 				.filter(dtoFilter)
-				.map(d -> this.removeClassificationDataWithMarquesInFullPath(d))
+				.map(d -> this.removeClassificationDataWithMarquesAndUsInternInFullPath(d))
 				.toArray(LargeEstablishmentsDto[]::new);
 			
 			LargeEstablishmentsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
@@ -88,9 +88,11 @@ public class LargeEstablishmentsService {
 		.onErrorResume(e -> this.getLargeEstablishmentsDefaultPage(new OpendataUnavailableServiceException()));
 	}
 	
-	private LargeEstablishmentsDto removeClassificationDataWithMarquesInFullPath(LargeEstablishmentsDto largeEstablishmentDto) {
+	private LargeEstablishmentsDto removeClassificationDataWithMarquesAndUsInternInFullPath(LargeEstablishmentsDto largeEstablishmentDto) {
 		List<ClassificationDataDto> classData = largeEstablishmentDto.getClassifications_data().stream()
-				.filter(d -> !d.getFullPath().toUpperCase().contains("MARQUES")).collect(Collectors.toList());
+				.filter(d -> !d.getFullPath().toUpperCase().contains("MARQUES"))
+				.filter(d -> !d.getFullPath().toUpperCase().contains("ÚS INTERN"))
+				.collect(Collectors.toList());
 		largeEstablishmentDto.setClassifications_data(classData);
 		return largeEstablishmentDto;
 	}
