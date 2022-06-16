@@ -44,7 +44,12 @@ public class MarketFairsService {
 	public Mono<GenericResultDto<MarketFairsResponseDto>>getPage(int offset, int limit) throws MalformedURLException {
 		return httpProxy.getRequestData(new URL(config.getDs_marketfairs()), MarketFairsDto[].class)
 			.flatMap(dtos -> {
-				MarketFairsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
+				MarketFairsDto[] filterDto = Arrays.stream(dtos)
+						.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
+						.toArray(MarketFairsDto[]::new);
+
+				MarketFairsDto[] pagedDto = JsonHelper.filterDto(filterDto, offset, limit);
+
 				MarketFairsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(MarketFairsResponseDto[]::new);
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 
