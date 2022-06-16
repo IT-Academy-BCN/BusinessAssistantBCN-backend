@@ -27,7 +27,7 @@ public class UserManagementController {
     }
 
     @GetMapping("/user")
-    @Operation(summary = "get user by email")
+    @Operation(summary = "get user by email or by uuid")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
