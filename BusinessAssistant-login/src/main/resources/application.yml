@@ -3,6 +3,12 @@ spring:
     name: businessassistant-login
   jmx:
     enabled: true
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+      - pro
 
 springdoc:
   swagger-ui:
@@ -39,6 +45,14 @@ security:
   superuser:
     email: uebermensch@zarathustra.com
     roles: [SUPERUSER]
+    apisecurity:
+      name: businessassistantbcn
+      roles: [ SUPERADMIN ]
+      secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
+      tokenPrefix: Bearer
+      authoritiesClaim: authorities
+      err: Auth Error, Token Unavailable
+      #apiToken: eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYnVzaW5lc3Nhc3Npc3RhbnRiY24iLCJhdXRob3JpdGllcyI6WyJTVVBFUkFETUlOIl0sImlhdCI6MTY1MzQ2ODk3MH0.RoQBQuf1KIKOYb__lszw-L7fHVs1cIxzC0ewlifGEco
 
 url:
   # 30 seconds, expressed in milliseconds
