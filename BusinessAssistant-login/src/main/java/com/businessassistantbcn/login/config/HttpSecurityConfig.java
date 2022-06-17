@@ -29,11 +29,6 @@ public class HttpSecurityConfig {
             http.csrf().disable();
             http.authorizeRequests().anyRequest().permitAll();
         }
-//
-//		@Override
-//		public void configure(WebSecurity web) {
-//			web.ignoring().antMatchers("/swagger-ui/**", "/swagger-ui-custom.html", "/api-docs/**").anyRequest();
-//		}
     }
 
     @Profile("pro")
@@ -64,10 +59,5 @@ public class HttpSecurityConfig {
                 }
             });
         }
-
-//		@Override
-//		public void configure(WebSecurity web) {
-//			web.ignoring().antMatchers("/swagger-ui/**", "/swagger-ui-custom.html", "/api-docs/**").anyRequest();
-//		}
     }
 }
