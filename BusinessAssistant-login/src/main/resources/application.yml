@@ -32,7 +32,7 @@ security:
     signUpUrl: /businessassistantbcn/api/v1/login
     secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
     # Mind the trailing white space below!
-    tokenPrefix: Bearer 
+    tokenPrefix: Bearer
     # 10 hours, expressed in milliseconds
     expiresIn: 36_000_000
     authoritiesClaim: authorities
@@ -45,14 +45,14 @@ security:
   superuser:
     email: uebermensch@zarathustra.com
     roles: [SUPERUSER]
-    apisecurity:
-      name: businessassistantbcn
-      roles: [ SUPERADMIN ]
-      secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
-      tokenPrefix: Bearer
-      authoritiesClaim: authorities
-      err: Auth Error, Token Unavailable
-      #apiToken: eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYnVzaW5lc3Nhc3Npc3RhbnRiY24iLCJhdXRob3JpdGllcyI6WyJTVVBFUkFETUlOIl0sImlhdCI6MTY1MzQ2ODk3MH0.RoQBQuf1KIKOYb__lszw-L7fHVs1cIxzC0ewlifGEco
+  apisecurity:
+    name: businessassistantbcn
+    roles: [SUPERADMIN]
+    secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
+    tokenPrefix: Bearer
+    authoritiesClaim: authorities
+    err: Auth Error, Token Unavailable
+    #apiToken: eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYnVzaW5lc3Nhc3Npc3RhbnRiY24iLCJhdXRob3JpdGllcyI6WyJTVVBFUkFETUlOIl0sImlhdCI6MTY1MzQ2ODk3MH0.RoQBQuf1KIKOYb__lszw-L7fHVs1cIxzC0ewlifGEco
 
 url:
   # 30 seconds, expressed in milliseconds
@@ -64,7 +64,7 @@ logging:
     "[org.springframework]": ERROR
     "[com.businessassistantbcn]": INFO
   pattern:
-  # console: Spring's default
+    # console: Spring's default
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: login.log

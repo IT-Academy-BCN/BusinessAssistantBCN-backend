@@ -21,7 +21,7 @@ import java.io.IOException;
 public class HttpSecurityConfig {
 
     @Profile("dev")
-    @EnableGlobalMethodSecurity(prePostEnabled = true)
+    @EnableGlobalMethodSecurity(prePostEnabled = true) // JWT & CSRF disabled
     @EnableWebSecurity
     public static class DisableSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
