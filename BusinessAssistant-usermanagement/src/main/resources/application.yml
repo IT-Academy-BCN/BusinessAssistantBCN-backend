@@ -21,7 +21,7 @@ spring:
   #   - pro: enable JWT security
   profiles:
     active:
-    - pro
+    - dev
 
 springdoc:
   swagger-ui:
