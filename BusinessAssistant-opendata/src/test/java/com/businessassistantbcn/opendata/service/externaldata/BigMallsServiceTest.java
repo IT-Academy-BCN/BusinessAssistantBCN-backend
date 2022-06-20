@@ -227,7 +227,8 @@ public class BigMallsServiceTest {
 
         assertEquals(0, actualResult.getOffset());
         assertEquals(-1, actualResult.getLimit());
-        assertEquals(43326348, Arrays.stream(actualResult.getResults()).toList().get(0).getActivities().get(0).getActivityId());
+        assertEquals(43326348, Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+                        .get(0).getActivities().get(0).getActivityId());
 
     }
 
@@ -242,7 +243,8 @@ public class BigMallsServiceTest {
 
         assertEquals(0, actualResult.getOffset());
         assertEquals(-1, actualResult.getLimit());
-        assertEquals("02", Arrays.stream(actualResult.getResults()).toList().get(0).getAddresses().get(0).getDistrict_id());
+        assertEquals("02", Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+                .get(0).getAddresses().get(0).getDistrict_id());
     }
 
 

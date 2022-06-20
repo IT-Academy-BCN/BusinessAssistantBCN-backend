@@ -33,6 +33,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -233,7 +234,8 @@ public class CommercialGalleriesServiceTest {
 
 		assertEquals(0, actualResult.getOffset());
 		assertEquals(-1, actualResult.getLimit());
-		assertEquals(1008025, Arrays.stream(actualResult.getResults()).toList().get(0).getActivities().get(0).getActivityId());
+		assertEquals(1008025, Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+				.get(0).getActivities().get(0).getActivityId());
 	}
 
 	@Test
@@ -247,7 +249,8 @@ public class CommercialGalleriesServiceTest {
 
 		assertEquals(0, actualResult.getOffset());
 		assertEquals(-1, actualResult.getLimit());
-		assertEquals("02", Arrays.stream(actualResult.getResults()).toList().get(0).getAddresses().get(0).getDistrict_id());
+		assertEquals("02", Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+				.get(0).getAddresses().get(0).getDistrict_id());
 	}
 
 }
