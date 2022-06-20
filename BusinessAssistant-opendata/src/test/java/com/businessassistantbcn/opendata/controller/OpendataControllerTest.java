@@ -3,13 +3,18 @@ package com.businessassistantbcn.opendata.controller;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
+import com.businessassistantbcn.opendata.dto.input.bigmalls.AddressDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
+import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,9 +33,12 @@ import reactor.core.publisher.Mono;
 
 import java.lang.reflect.*;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -59,7 +67,8 @@ public class OpendataControllerTest {
 	private CommercialGalleriesService commercialGalleriesService;
 	@MockBean
 	private EconomicActivitiesCensusService economicActivitiesCensusService;
-	
+
+
 	@DisplayName("Simple String response")
 	@Test
 	public void testHello(){
@@ -318,5 +327,101 @@ public class OpendataControllerTest {
 				.jsonPath("$.limit").isEqualTo(-1)
 				.jsonPath(RES0 + "activityId").isEqualTo(1)
 				.jsonPath(RES0 + "activityName").isEqualTo("Activitat 1");
+	}
+
+	@Test
+	public void getLargeEstablishmentsByActivityTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/large-establishments/activity/1";
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath("activityId");
+
+		verify(largeEstablishmentsService).getPageByActivity(0, -1, "1");
+	}
+
+	@Test
+	public void getLargeEstablishmentsByDistrictTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/large-establishments/district/1";
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath("district_id");
+
+		verify(largeEstablishmentsService).getPageByDistrict(0, -1, 1);
+	}
+
+	@Test
+	public void getCommercialGalleriesByActivityTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/commercial-galleries/activity/12345";
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath("activityId");
+
+		verify(commercialGalleriesService).getPageByActivity(0, -1, "12345");
+	}
+
+	@Test
+	public void getCommercialGaleriesByDistrictTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/commercial-galleries/district/1";
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath("district_id");
+
+		verify(commercialGalleriesService).getPageByDistrict(0, -1, 1);
+	}
+
+	@Test
+	public void getBigMallsByActivityTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/big-malls/activity/12345";
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath("activityId");
+
+		verify(bigMallsService).getPageByActivity(0, -1, "12345");
+	}
+
+	@Test
+	public void getBigMallsByDistrictTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/big-malls/district/1";
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath("district_id");
+
+		verify(bigMallsService).getPageByDistrict(0, -1, 1);
 	}
 }

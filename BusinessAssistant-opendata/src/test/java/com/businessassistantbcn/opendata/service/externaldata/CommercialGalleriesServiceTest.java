@@ -3,7 +3,9 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
@@ -29,6 +31,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -217,6 +220,34 @@ public class CommercialGalleriesServiceTest {
 		assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
 		verify(config, times(1)).getDs_commercialgalleries();
+	}
+
+	@Test
+	void getPageByActivity() throws MalformedURLException {
+		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+				.thenReturn(Mono.just(twoCommercialGalleriesDto));
+
+		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
+				commercialGalleriesService.getPageByActivity(0, -1, "1008025").block();
+
+		assertEquals(0, actualResult.getOffset());
+		assertEquals(-1, actualResult.getLimit());
+		assertEquals(1008025, Arrays.stream(actualResult.getResults()).toList().get(0).getActivities().get(0).getActivityId());
+	}
+
+	@Test
+	void getPageByDistrict() throws MalformedURLException {
+		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+				.thenReturn(Mono.just(twoCommercialGalleriesDto));
+
+		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
+				commercialGalleriesService.getPageByDistrict(0, -1, 2).block();
+
+		assertEquals(0, actualResult.getOffset());
+		assertEquals(-1, actualResult.getLimit());
+		assertEquals("02", Arrays.stream(actualResult.getResults()).toList().get(0).getAddresses().get(0).getDistrict_id());
 	}
 
 }

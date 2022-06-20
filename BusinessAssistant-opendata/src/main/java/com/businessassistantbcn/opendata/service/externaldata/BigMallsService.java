@@ -5,7 +5,9 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.ClassificationDataDto;
+import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
+import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -22,6 +24,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -167,6 +170,56 @@ public class BigMallsService {
 	public String getBigMallsByDistrict(int[] districts, int offset, int limit) {
 		//JsonPath search
 		return null;
+	}
+
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorReturnActivitiesDefaultPage")
+	public Mono<GenericResultDto<BigMallsResponseDto>> getPageByActivity(int offset, int limit, String activityId)
+			throws MalformedURLException {
+
+		Predicate<BigMallsDto> dtoFilter = bigMallsDto ->
+				bigMallsDto.getClassifications_data()
+						.stream()
+						.anyMatch(classificationsDataDto -> classificationsDataDto.getId() == Integer.parseInt(activityId));
+
+		return getResultDto(offset, limit, dtoFilter);
+	}
+
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorReturnActivitiesDefaultPage")
+	public Mono<GenericResultDto<BigMallsResponseDto>> getPageByDistrict(int offset, int limit, int district)
+			throws MalformedURLException {
+		return getResultDto(offset, limit, dto ->
+				dto.getAddresses().stream().anyMatch(a ->
+						Integer.parseInt(a.getDistrict_id()) == district
+				));
+	}
+
+	private Mono<GenericResultDto<BigMallsResponseDto>> getResultDto(
+			int offset, int limit, Predicate<BigMallsDto> dtoFilter) throws MalformedURLException {
+		return 	httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
+				.flatMap(bigMallsDto -> {
+					BigMallsDto[] filteredDto = Arrays.stream(bigMallsDto)
+							.filter(dtoFilter)
+							.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
+							.toArray(BigMallsDto[]::new);
+
+					BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
+
+					BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(BigMallsResponseDto[]::new);
+
+					genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
+					return Mono.just(genericResultDto);
+				})
+				.onErrorResume(e -> this.getBigMallsDefaultPage(new OpendataUnavailableServiceException()));
+	}
+
+	private BigMallsResponseDto convertToDto(BigMallsDto bigMallsDto) {
+		BigMallsResponseDto responseDto = modelMapper.map(bigMallsDto, BigMallsResponseDto.class);
+		responseDto.setWeb(bigMallsDto.getValues().getUrl_value());
+		responseDto.setEmail(bigMallsDto.getValues().getEmail_value());
+		responseDto.setPhone(bigMallsDto.getValues().getPhone_value());
+		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(bigMallsDto.getClassifications_data()));
+		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(bigMallsDto.getAddresses(), bigMallsDto.getCoordinates()));
+		return responseDto;
 	}
 
 }
