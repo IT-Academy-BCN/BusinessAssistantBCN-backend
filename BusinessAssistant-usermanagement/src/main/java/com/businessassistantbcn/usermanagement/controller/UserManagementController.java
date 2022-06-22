@@ -2,6 +2,7 @@ package com.businessassistantbcn.usermanagement.controller;
 
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -35,6 +36,17 @@ public class UserManagementController {
     public Mono<?> userResponse(
             @RequestBody UserEmailDto userEmailDto) {
         return userManagementService.getUserByEmail(userEmailDto);
+    }
+
+    @GetMapping("/user/uuid")
+    @Operation(summary = "get user")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable") })
+    public Mono<?> userResponse(
+            @RequestBody UserUuidDto userUuidDto) {
+        return userManagementService.getUserByUuid(userUuidDto);
     }
   
     @PostMapping("/user")

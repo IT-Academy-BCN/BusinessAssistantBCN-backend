@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,6 +37,7 @@ public class UserManagementServiceTest {
     User user;
     UserDto userDto;
     UserEmailDto userEmailDto;
+    UserUuidDto userUuidDto;
 
     @Test
     public void test_addUser() {
@@ -60,15 +62,19 @@ public class UserManagementServiceTest {
     public void test_getUserByUuid() {
         List<Role> roles = new ArrayList<Role>();
         roles.add(Role.USER);
-        String Uuid = UUID.randomUUID().toString();
-        user = new User(Uuid, "user@user.com", "12345", roles);
+        String uuid = UUID.randomUUID().toString();
+        String password = "12345";
+        user = new User(uuid, "user@user.com", password, roles);
+        userUuidDto = new UserUuidDto(uuid, password);
 
-        when(repository.findByUuid(Uuid)).thenReturn(Mono.just(user));
-        when(service.getUserByUuid(Uuid)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
+        when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(user));
+        when(repository.existsByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(true));
+        when(repository.existsByPassword(userUuidDto.getPassword())).thenReturn(Mono.just(true));
+        when(service.getUserByUuid(userUuidDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
 
         StepVerifier.create(Mono.just(DtoHelper.convertToDto(user)))
                 .consumeNextWith(userDto -> {
-                    assertEquals(userDto.getUuid(), Uuid);
+                    assertEquals(userDto.getUuid(), uuid);
                 })
                 .verifyComplete();
     }

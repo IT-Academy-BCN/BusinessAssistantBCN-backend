@@ -1,5 +1,6 @@
 package com.businessassistantbcn.usermanagement.service;
 
+import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,17 @@ public class UserManagementService implements IUserManagementService {
     }
 
     @Override
-    public Mono<UserDto> getUserByUuid(String uuid) {
-        return userRepository.findByUuid(uuid).map(DtoHelper::convertToDto);
+    public Mono<UserDto> getUserByUuid(UserUuidDto userUuidDto) {
+        if(userRepository.existsByUuid(userUuidDto.getUuid()).block()){
+            if(userRepository.existsByPassword(userUuidDto.getPassword()).block()){
+                return userRepository.findByUuid(userUuidDto.getUuid()).map(DtoHelper::convertToDto);
+            }else{
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
@@ -43,7 +53,6 @@ public class UserManagementService implements IUserManagementService {
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
     }
 
     public Mono<UserDto> getUser(String email, String password) {
