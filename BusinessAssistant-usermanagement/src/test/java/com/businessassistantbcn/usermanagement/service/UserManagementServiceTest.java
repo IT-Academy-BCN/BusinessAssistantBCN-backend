@@ -79,9 +79,12 @@ public class UserManagementServiceTest {
         roles.add(Role.USER);
         String email = "user@user.com";
         user = new User(UUID.randomUUID().toString(), email, "12345", roles);
+        userEmailDto = new UserEmailDto(email, "12345");
 
         when(repository.findByEmail(email)).thenReturn(Mono.just(user));
-        when(service.getUserByEmail(email)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
+        when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(true));
+        when(repository.existsByPassword(userEmailDto.getPassword())).thenReturn(Mono.just(true));
+        when(service.getUserByEmail(userEmailDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
 
         StepVerifier.create(Mono.just(DtoHelper.convertToDto(user)))
                 .consumeNextWith(userDto -> {

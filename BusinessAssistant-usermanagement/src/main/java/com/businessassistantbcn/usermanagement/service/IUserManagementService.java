@@ -11,6 +11,6 @@ public interface IUserManagementService {
 
     public Mono<UserDto> getUserByUuid(String uuid);
 
-    public Mono<UserDto> getUserByEmail(String email);
+    public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto);
 
 }

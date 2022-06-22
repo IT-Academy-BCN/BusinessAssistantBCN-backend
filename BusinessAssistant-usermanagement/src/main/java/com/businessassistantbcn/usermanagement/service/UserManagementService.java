@@ -1,8 +1,10 @@
 package com.businessassistantbcn.usermanagement.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import com.businessassistantbcn.usermanagement.document.User;
@@ -31,11 +33,21 @@ public class UserManagementService implements IUserManagementService {
         return userRepository.findByUuid(uuid).map(DtoHelper::convertToDto);
     }
 
-    public Mono<UserDto> getUserByEmail(String email) {
-        return userRepository.findByEmail(email).map(DtoHelper::convertToDto);
+    public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
+        if (userRepository.existsByEmail(userEmailDto.getEmail()).block()){
+                if(userRepository.existsByPassword(userEmailDto.getPassword()).block()){
+                    return userRepository.findByEmail(userEmailDto.getEmail()).map(DtoHelper::convertToDto);
+                }else{
+                    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+                }
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
     }
 
     public Mono<UserDto> getUser(String email, String password) {
         return userRepository.findByEmail(email).map(DtoHelper::convertToDto);
     }
+
 }
