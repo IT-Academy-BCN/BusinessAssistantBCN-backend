@@ -42,19 +42,17 @@ security:
     email: jvicente@gmail.com
     password: 56589pp05s
     roles: [ADMIN]
-#  superuser:
-#    email: uebermensch@zarathustra.com
-#    roles: [SUPERUSER]
+
   apisecurity:
-    name: businessassistantbcn
     email: uebermensch@zarathustra.com
+    password: lJU!LUBOqa7k
     roles: [SUPERUSER]
     secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
     tokenPrefix: Bearer
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
-    #apiToken: eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYnVzaW5lc3Nhc3Npc3RhbnRiY24iLCJhdXRob3JpdGllcyI6WyJTVVBFUkFETUlOIl0sImlhdCI6MTY1MzQ2ODk3MH0.RoQBQuf1KIKOYb__lszw-L7fHVs1cIxzC0ewlifGEco
-    #apiTokenV2: eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYnVzaW5lc3Nhc3Npc3RhbnRiY24iLCJlbWFpbCI6InVlYmVybWVuc2NoQHphcmF0aHVzdHJhLmNvbSIsImF1dGhvcml0aWVzIjpbIlNVUEVSVVNFUiJdLCJpYXQiOjE2NTM0Njg5NzB9.DRTBpk8Oeb42qpOIFiGlZWPRUzruALsl-O06p5CPp7o
+    # Api token con información de SuperUser:
+    # apiToken: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InVlYmVybWVuc2NoQHphcmF0aHVzdHJhLmNvbSIsInBhc3N3b3JkIjoibEpVIUxVQk9xYTdrIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJVU0VSIl0sImlhdCI6MTY1MzQ2ODk3MH0.6eKYwreYatBQCTpA6Uk_v_O8QBNEksHPMrvBpzAtjdg
 url:
   # 30 seconds, expressed in milliseconds
   connection_timeout: 30000
