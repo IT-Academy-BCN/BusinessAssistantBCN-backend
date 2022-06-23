@@ -69,7 +69,6 @@ public class UserManagementServiceTest {
 
         when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(user));
         when(repository.existsByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(true));
-        when(repository.existsByPassword(userUuidDto.getPassword())).thenReturn(Mono.just(true));
         when(service.getUserByUuid(userUuidDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
 
         StepVerifier.create(Mono.just(DtoHelper.convertToDto(user)))
@@ -89,7 +88,6 @@ public class UserManagementServiceTest {
 
         when(repository.findByEmail(email)).thenReturn(Mono.just(user));
         when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(true));
-        when(repository.existsByPassword(userEmailDto.getPassword())).thenReturn(Mono.just(true));
         when(service.getUserByEmail(userEmailDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
 
         StepVerifier.create(Mono.just(DtoHelper.convertToDto(user)))
