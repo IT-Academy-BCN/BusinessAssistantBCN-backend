@@ -46,6 +46,7 @@ public class LoginService implements AuthenticationProvider {
 
 	private final UserDto superUser, testUser;
 	private final AuthenticationRequest testUserA;
+	private UserDto userFound;
 
 	@Autowired
 	public LoginService(SuperUserConfig su, TestUserConfig tu) {
@@ -88,16 +89,15 @@ public class LoginService implements AuthenticationProvider {
 	}
 	
 	// Database liaison
-// TODO **** Enable the following code once the secured endpoint in 'usermanagement' is established ****
-//	public Mono<UserDto> loadUser(AuthenticationRequest request) { try {
-//		String jwt = generateToken(superUser);
-//		
-//		return httpProxy.getRequestData(new URL(config.getUserManagementUrl()), jwt, request, UserDto.class);
-//	} catch(MalformedURLException e) {
-//		return Mono.error(e);
-//	} }
-	
-	private UserDto userFound;
+ // TODO **** Enable the following code once the secured endpoint in 'usermanagement' is established ****
+//	public Mono<UserDto> loadUser(AuthenticationRequest request) {
+//		try {
+//			String jwt = generateToken(superUser);
+//			return httpProxy.getRequestData(new URL(config.getUserManagementUrl()), jwt, request, UserDto.class);
+//		} catch(MalformedURLException e) {
+//			return Mono.error(e);
+//		}
+//	}
 	
 	// Authentication provider
 	@Override
@@ -118,7 +118,7 @@ public class LoginService implements AuthenticationProvider {
 	}
 	
 	private boolean credentialsMissing(Optional<String> username, Optional<String> password) {
-		return !username.isPresent() || !password.isPresent();
+		return username.isEmpty() || password.isEmpty();
 	}
 	
 	private boolean credentialsValid(AuthenticationRequest request) { // Request to DB

@@ -33,8 +33,8 @@ security:
     secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
     # Mind the trailing white space below!
     tokenPrefix: Bearer
-    # 10 hours, expressed in milliseconds
-    expiresIn: 36_000_000
+    # 20 minutes, expressed in milliseconds
+    expiresIn: 1_200_000
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
     userManagementUrl: http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user
@@ -42,11 +42,12 @@ security:
     email: jvicente@gmail.com
     password: 56589pp05s
     roles: [ADMIN]
-
-  apisecurity:
+  superuser:
     email: uebermensch@zarathustra.com
     password: lJU!LUBOqa7k
     roles: [SUPERUSER]
+
+  apisecurity:
     secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
     tokenPrefix: Bearer
     authoritiesClaim: authorities
