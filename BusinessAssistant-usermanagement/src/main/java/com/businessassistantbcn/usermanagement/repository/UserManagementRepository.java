@@ -14,8 +14,6 @@ public interface UserManagementRepository extends ReactiveMongoRepository<User,S
 
     Mono<Boolean> existsByEmail(String email);
 
-    Mono<Boolean> existsByPassword(String password);
-
     Mono<Boolean> existsByUuid(String uuid);
 }
 
