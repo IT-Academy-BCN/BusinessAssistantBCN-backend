@@ -8,7 +8,7 @@ spring:
   #   - pro: enable JWT security
   profiles:
     active:
-      - dev
+      - pro
 
 springdoc:
   swagger-ui:
@@ -42,18 +42,19 @@ security:
     email: jvicente@gmail.com
     password: 56589pp05s
     roles: [ADMIN]
-  superuser:
-    email: uebermensch@zarathustra.com
-    roles: [SUPERUSER]
+#  superuser:
+#    email: uebermensch@zarathustra.com
+#    roles: [SUPERUSER]
   apisecurity:
     name: businessassistantbcn
-    roles: [SUPERADMIN]
+    email: uebermensch@zarathustra.com
+    roles: [SUPERUSER]
     secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
     tokenPrefix: Bearer
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
     #apiToken: eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYnVzaW5lc3Nhc3Npc3RhbnRiY24iLCJhdXRob3JpdGllcyI6WyJTVVBFUkFETUlOIl0sImlhdCI6MTY1MzQ2ODk3MH0.RoQBQuf1KIKOYb__lszw-L7fHVs1cIxzC0ewlifGEco
-
+    #apiTokenV2: eyJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYnVzaW5lc3Nhc3Npc3RhbnRiY24iLCJlbWFpbCI6InVlYmVybWVuc2NoQHphcmF0aHVzdHJhLmNvbSIsImF1dGhvcml0aWVzIjpbIlNVUEVSVVNFUiJdLCJpYXQiOjE2NTM0Njg5NzB9.DRTBpk8Oeb42qpOIFiGlZWPRUzruALsl-O06p5CPp7o
 url:
   # 30 seconds, expressed in milliseconds
   connection_timeout: 30000
