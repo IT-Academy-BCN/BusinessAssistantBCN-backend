@@ -35,9 +35,12 @@ security:
     tokenPrefix: Bearer
     # 20 minutes, expressed in milliseconds
     expiresIn: 1_200_000
+    headerString: Authorization
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
     userManagementUrl: http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user
+    # Api token con información de SuperUser:
+    # apiToken: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InVlYmVybWVuc2NoQHphcmF0aHVzdHJhLmNvbSIsInBhc3N3b3JkIjoibEpVIUxVQk9xYTdrIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJVU0VSIl0sImlhdCI6MTY1MzQ2ODk3MH0.n0B3xGZBR6fAT1qpONHkmbJd4YRGccxdEuIjhHOJlJE
   testuser:
     email: jvicente@gmail.com
     password: 56589pp05s
@@ -47,13 +50,12 @@ security:
     password: lJU!LUBOqa7k
     roles: [SUPERUSER]
 
-  apisecurity:
-    secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
-    tokenPrefix: Bearer
-    authoritiesClaim: authorities
-    err: Auth Error, Token Unavailable
-    # Api token con información de SuperUser:
-    # apiToken: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InVlYmVybWVuc2NoQHphcmF0aHVzdHJhLmNvbSIsInBhc3N3b3JkIjoibEpVIUxVQk9xYTdrIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJVU0VSIl0sImlhdCI6MTY1MzQ2ODk3MH0.6eKYwreYatBQCTpA6Uk_v_O8QBNEksHPMrvBpzAtjdg
+#  apisecurity:
+#    secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
+#    tokenPrefix: Bearer
+#    authoritiesClaim: authorities
+#    err: Auth Error, Token Unavailable
+
 url:
   # 30 seconds, expressed in milliseconds
   connection_timeout: 30000

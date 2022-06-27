@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class SuperUserConfig {
 	
 	private String email;
+	private String password;
 	private List<String> roles;
 	
 }
