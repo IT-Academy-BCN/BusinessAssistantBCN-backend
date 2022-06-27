@@ -44,15 +44,17 @@ public class LoginService implements AuthenticationProvider {
 	@Autowired
 	private HttpProxy httpProxy;
 
-	private final UserDto superUser, testUser;
-	private final AuthenticationRequest testUserA;
+	private final UserDto superUser;
+	private final AuthenticationRequest superUserA;
+	// private final UserDto testUser;
+	// private final AuthenticationRequest testUserA;
 	private UserDto userFound;
 
-	@Autowired
 	public LoginService(SuperUserConfig su, TestUserConfig tu) {
 		superUser = new UserDto(su.getEmail(), su.getRoles());
-		testUser = new UserDto(tu.getEmail(), tu.getRoles());
-		testUserA = new AuthenticationRequest(tu.getEmail(), tu.getPassword());
+		superUserA = new AuthenticationRequest(su.getEmail(), su.getPassword());
+		// testUser = new UserDto(tu.getEmail(), tu.getRoles());
+		// testUserA = new AuthenticationRequest(tu.getEmail(), tu.getPassword());
 	}
 	
 	// JSON Web Token generator
@@ -82,12 +84,17 @@ public class LoginService implements AuthenticationProvider {
 	}
 
 // TODO **** Provisional response with testUser ****
+//	public Mono<UserDto> loadUser(AuthenticationRequest request) {
+//		return request.equals(testUserA)
+//				? Mono.just(testUser)
+//				: Mono.error(new UsernameNotFoundException("Unknown user \'" + testUserA.getEmail()  + "\'"));
+//	}
 	public Mono<UserDto> loadUser(AuthenticationRequest request) {
-		return request.equals(testUserA)
-				? Mono.just(testUser)
-				: Mono.error(new UsernameNotFoundException("Unknown user \'" + testUserA.getEmail()  + "\'"));
+		return request.equals(superUserA)
+				? Mono.just(superUser)
+				: Mono.error(new UsernameNotFoundException("Unknown user \'" + superUserA.getEmail()  + "\'"));
 	}
-	
+
 	// Database liaison
  // TODO **** Enable the following code once the secured endpoint in 'usermanagement' is established ****
 //	public Mono<UserDto> loadUser(AuthenticationRequest request) {
@@ -107,8 +114,8 @@ public class LoginService implements AuthenticationProvider {
 	}
 	
 	public Authentication authenticate(AuthenticationRequest request) throws AuthenticationException {
-		Optional<String> username = Optional.ofNullable((String)request.getEmail());
-		Optional<String> password = Optional.ofNullable((String)request.getPassword());
+		Optional<String> username = Optional.ofNullable(request.getEmail());
+		Optional<String> password = Optional.ofNullable(request.getPassword());
 		
 		if(credentialsMissing(username, password) || !credentialsValid(request))
 			throw new BadCredentialsException("Invalid credentials");
