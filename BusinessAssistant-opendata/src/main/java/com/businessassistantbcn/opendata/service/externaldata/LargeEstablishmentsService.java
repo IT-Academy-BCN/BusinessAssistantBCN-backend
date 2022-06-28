@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.AddressDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
@@ -19,11 +20,13 @@ import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class LargeEstablishmentsService {
@@ -51,11 +54,11 @@ public class LargeEstablishmentsService {
 	public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPageByDistrict(int offset, int limit, int district)
 		throws MalformedURLException {
 		return getResultDto(offset, limit, dto ->
-			dto.getAddresses().stream().anyMatch(a ->
-				Integer.parseInt(a.getDistrict_id()) == district
-		));
+				dto.getAddresses().stream()
+						.anyMatch(a -> Integer.parseInt(a.getDistrict_id()) == district
+				));
 	}
-	
+
 	// Get paged results filtered by activity
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnLargeEstablishmentsDefaultPage")
 	public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPageByActivity(int offset, int limit, String activityId)

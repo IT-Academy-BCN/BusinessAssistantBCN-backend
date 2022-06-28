@@ -4,7 +4,9 @@ import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
+import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -29,10 +31,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -212,5 +215,37 @@ public class BigMallsServiceTest {
 
         verify(config, times(1)).getDs_bigmalls();
     }
+
+    @Test
+    void getPageByActivity() throws MalformedURLException {
+        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+                .thenReturn(Mono.just(twoBigMallsDto));
+
+        GenericResultDto<BigMallsResponseDto> actualResult =
+                bigMallsService.getPageByActivity(0, -1, "43326348").block();
+
+        assertEquals(0, actualResult.getOffset());
+        assertEquals(-1, actualResult.getLimit());
+        assertEquals(43326348, Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+                        .get(0).getActivities().get(0).getActivityId());
+
+    }
+
+    @Test
+    void getPageByDistrict() throws MalformedURLException {
+        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+                .thenReturn(Mono.just(twoBigMallsDto));
+
+        GenericResultDto<BigMallsResponseDto> actualResult =
+                bigMallsService.getPageByDistrict(0, -1, 2).block();
+
+        assertEquals(0, actualResult.getOffset());
+        assertEquals(-1, actualResult.getLimit());
+        assertEquals("02", Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+                .get(0).getAddresses().get(0).getDistrict_id());
+    }
+
 
 }
