@@ -81,19 +81,23 @@ public class UserManagementControllerTest {
 	}
 
 	@Test
+
 	@DisplayName("Test response get user")
 	void testGetUserByMailResponse(){
 		final String URI_GET_USER = "/user/email";
 		when(userManagementService.getUserByEmail(userEmailDto)).thenReturn(Mono.just(userDto));
 		webTestClient.method(HttpMethod.GET)
+
 				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
 				.accept(MediaType.APPLICATION_JSON)
 				.body(Mono.just(userEmailDto), UserEmailDto.class)
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()
+
 				.equals(Mono.just(userDto));
   }
+
 	
   @Test
   void AddUserTest(){

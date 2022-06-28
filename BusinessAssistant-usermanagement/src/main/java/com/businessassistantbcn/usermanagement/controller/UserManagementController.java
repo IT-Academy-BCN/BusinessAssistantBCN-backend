@@ -29,13 +29,16 @@ public class UserManagementController {
         return "Hello from BusinessAssistant User!!!";
     }
 
+
     @GetMapping("/user/email")
     //@PreAuthorize("hasAuthority('SUPERUSER')") // Comentar en modo dev
     @Operation(summary = "get user")
+
     @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "503", description = "Service Unavailable") })
+
     public Mono<?> userResponse(
             @RequestBody UserEmailDto userEmailDto) {
         return userManagementService.getUserByEmail(userEmailDto);
@@ -51,8 +54,9 @@ public class UserManagementController {
     public Mono<?> userResponse(
             @RequestBody UserUuidDto userUuidDto) {
         return userManagementService.getUserByUuid(userUuidDto);
+
     }
-  
+
     @PostMapping("/user")
     //@PreAuthorize("hasAuthority('SUPERUSER')") // Comentar en modo dev
     @Operation(summary = "add user")
