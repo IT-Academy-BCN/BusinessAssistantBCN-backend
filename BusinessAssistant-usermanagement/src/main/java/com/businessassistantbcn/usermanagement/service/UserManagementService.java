@@ -24,21 +24,15 @@ public class UserManagementService implements IUserManagementService {
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
 
 
-    public Mono<UserDto> addUser(Mono<UserEmailDto> userEmailDto) {
-        Mono <User> userEncoder = userEmailDto.map(userEmailDto1 -> {
-                    userEmailDto1.setPassword(encoder.encode(userEmailDto1.getPassword()));
-                    return DtoHelper.convertToUserFromEmailDto(userEmailDto1);
-                }
-            );
-        userEncoder.flatMap(userRepository::save).subscribe();
+    public Mono<UserDto> addUser(UserEmailDto userEmailDto) {
 
-        return userEncoder.map(DtoHelper::convertToDto);
-
+        userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
+        return userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);
     }
 
     @Override
     public Mono<UserDto> getUserByUuid(UserUuidDto userUuidDto) {
-        if(userRepository.existsByUuid(userUuidDto.getUuid()).block()){
+        if(Boolean.TRUE.equals(userRepository.existsByUuid(userUuidDto.getUuid()).block())){
 
             return userRepository.findByUuid(userUuidDto.getUuid()).map(user -> {
                         String storedPass = user.getPassword();
@@ -72,9 +66,4 @@ public class UserManagementService implements IUserManagementService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
-
-    public Mono<UserDto> getUser(String email, String password) {
-        return userRepository.findByEmail(email).map(DtoHelper::convertToDto);
-    }
-
 }

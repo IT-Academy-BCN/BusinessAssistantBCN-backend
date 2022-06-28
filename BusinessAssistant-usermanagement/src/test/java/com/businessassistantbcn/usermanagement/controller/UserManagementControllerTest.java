@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,10 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = UserManagementController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
@@ -33,6 +37,8 @@ public class UserManagementControllerTest {
 	private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/usermanagement";
 
 	UserEmailDto userEmailDto = new UserEmailDto();
+
+	UserUuidDto userUuidDto = new UserUuidDto();
 	UserDto userDto = new UserDto();
 
 	@BeforeEach
@@ -41,6 +47,9 @@ public class UserManagementControllerTest {
 
 		userEmailDto.setEmail("pp@gmail.com");
 		userEmailDto.setPassword("wwdd98e");
+
+		userUuidDto.setUuid(UUID. randomUUID().toString());
+		userUuidDto.setPassword("123456");
 	}
 	
 	@Test
@@ -57,33 +66,39 @@ public class UserManagementControllerTest {
 	}
 
 	@Test
-	@DisplayName("Test fails get user")
-	void testGetUserKo(){
-		final String URI_GET_USER = "/user";
-		webTestClient.get()
+	@DisplayName("Test response get user")
+	void testGetUserByUuidResponse(){
+		final String URI_GET_USER = "/user/uuid";
+		when(userManagementService.getUserByUuid(userUuidDto)).thenReturn(Mono.just(userDto));
+		webTestClient.method(HttpMethod.GET)
 				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
 				.accept(MediaType.APPLICATION_JSON)
+				.body(Mono.just(userUuidDto), UserEmailDto.class)
 				.exchange()
-				.expectStatus().isEqualTo(400);
+				.expectStatus().isOk()
+				.expectBody()
+				.equals(Mono.just(userDto));
 	}
 
 	@Test
 	@DisplayName("Test response get user")
-	void testGetUserResponse(){
-		final String URI_GET_USER = "/user?email=user@mail.com&password=abc123";
-		webTestClient.get()
+	void testGetUserByMailResponse(){
+		final String URI_GET_USER = "/user/email";
+		when(userManagementService.getUserByEmail(userEmailDto)).thenReturn(Mono.just(userDto));
+		webTestClient.method(HttpMethod.GET)
 				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
 				.accept(MediaType.APPLICATION_JSON)
+				.body(Mono.just(userEmailDto), UserEmailDto.class)
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()
-				.equals("{\"uuid\": \"user_uuid\",\"email\": \"user_email\",\"role\": \"user_role\"}");
+				.equals(Mono.just(userDto));
   }
 	
   @Test
   void AddUserTest(){
 		final String URI_ADD_USER="/user";
-		when(userManagementService.addUser(Mono.just(userEmailDto))).thenReturn(Mono.just(userDto));
+		when(userManagementService.addUser(userEmailDto)).thenReturn(Mono.just(userDto));
 		webTestClient.post()
 				.uri(CONTROLLER_BASE_URL + URI_ADD_USER)
 				.accept(MediaType.APPLICATION_JSON)
