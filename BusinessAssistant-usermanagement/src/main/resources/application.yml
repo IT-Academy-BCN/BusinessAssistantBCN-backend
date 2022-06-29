@@ -15,6 +15,8 @@ spring:
     mongodb:
       host: localhost
       port: 27017
+      user: root
+      password: UhWQQYFVBx95W7
       database: babcn-users
   #Spring profiles available:
   #   - dev: disable security
