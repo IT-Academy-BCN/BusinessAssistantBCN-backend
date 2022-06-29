@@ -5,7 +5,9 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
+import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
+import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
 import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -23,6 +25,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -157,6 +160,56 @@ public class CommercialGalleriesService {
 	private Mono<GenericResultDto<ActivityInfoDto>> logInternalErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getActivitiesDefaultPage(exception);
+	}
+
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorReturnActivitiesDefaultPage")
+	public Mono<GenericResultDto<CommercialGalleriesResponseDto>> getPageByActivity(int offset, int limit, String activityId)
+			throws MalformedURLException {
+
+		Predicate<CommercialGalleriesDto> dtoFilter = commercialGalleriesDto ->
+				commercialGalleriesDto.getClassifications_data()
+						.stream()
+						.anyMatch(classificationsDataDto -> classificationsDataDto.getId() == Integer.parseInt(activityId));
+
+		return getResultDto(offset, limit, dtoFilter);
+	}
+
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorReturnActivitiesDefaultPage")
+	public Mono<GenericResultDto<CommercialGalleriesResponseDto>> getPageByDistrict(int offset, int limit, int district)
+			throws MalformedURLException {
+		return getResultDto(offset, limit, dto ->
+				dto.getAddresses().stream().anyMatch(a ->
+						Integer.parseInt(a.getDistrict_id()) == district
+				));
+	}
+
+	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> getResultDto(
+			int offset, int limit, Predicate<CommercialGalleriesDto> dtoFilter) throws MalformedURLException {
+		return 	httpProxy.getRequestData(new URL(config.getDs_commercialgalleries()), CommercialGalleriesDto[].class)
+				.flatMap(commercialGalleriesDtos -> {
+					CommercialGalleriesDto[] filteredDto = Arrays.stream(commercialGalleriesDtos)
+							.filter(dtoFilter)
+							.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
+							.toArray(CommercialGalleriesDto[]::new);
+
+					CommercialGalleriesDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
+
+					CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(CommercialGalleriesResponseDto[]::new);
+
+					genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
+					return Mono.just(genericResultDto);
+				})
+				.onErrorResume(e -> this.getCommercialGalleriesDefaultPage(new OpendataUnavailableServiceException()));
+	}
+
+	private CommercialGalleriesResponseDto convertToDto(CommercialGalleriesDto commercialGalleriesDto) {
+		CommercialGalleriesResponseDto responseDto = modelMapper.map(commercialGalleriesDto, CommercialGalleriesResponseDto.class);
+		responseDto.setWeb(commercialGalleriesDto.getValues().getUrl_value());
+		responseDto.setEmail(commercialGalleriesDto.getValues().getEmail_value());
+		responseDto.setPhone(commercialGalleriesDto.getValues().getPhone_value());
+		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(commercialGalleriesDto.getClassifications_data()));
+		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(commercialGalleriesDto.getAddresses(), commercialGalleriesDto.getCoordinates()));
+		return responseDto;
 	}
 
 }
