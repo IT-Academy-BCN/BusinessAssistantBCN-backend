@@ -6,6 +6,7 @@ import com.businessassistantbcn.login.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,16 +36,18 @@ public class LoginController {
 	
 	@PostMapping("/login")
 	@PreAuthorize("hasAuthority('SUPERUSER')")
-	public ResponseEntity<?> createAuthenticationToken(
-			@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	public ResponseEntity<AuthenticationResponse> createAuthenticationToken(
+			@RequestBody AuthenticationRequest authenticationRequest) {
 		try {
 			loginService.authenticate(authenticationRequest);
+			String jwt = loginService.generateToken();
+			return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
 		} catch(BadCredentialsException e) {
-			throw new Exception("Incorrect username or password", e);
+			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		}
-		String jwt = loginService.generateToken();
+
 		
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+
 	}
 	
 }

@@ -7,9 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.authentication.BadCredentialsException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 
 class LoginControllerTest {
 
@@ -20,13 +21,17 @@ class LoginControllerTest {
     LoginController loginController;
 
     String test;
+    String testPost;
     AuthenticationRequest authenticationRequest;
+    AuthenticationRequest badAuthenticationRequest;
 
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
         test = "Hello from BusinessAssistant Barcelona!!!";
+        testPost = "Hello from BusinessAssistant Barcelona --- POST!!!";
         authenticationRequest = new AuthenticationRequest("jvicente@gmail.com", "56589pp05s");
+        badAuthenticationRequest = new AuthenticationRequest("pepe@test.com", "12345");
     }
 
     @Test
@@ -35,10 +40,21 @@ class LoginControllerTest {
     }
 
     @Test
-    void createAuthenticationToken() throws Exception {
+    void testingTestPostMethod() {
+        assertEquals(loginController.testPost(), testPost);
+    }
+
+    @Test
+    void createAuthenticationToken() {
         loginService.authenticate(authenticationRequest);
         loginService.generateToken();
         assertNotNull(loginController.createAuthenticationToken(authenticationRequest));
+    }
+
+    @Test
+    void createAuthenticationToken_withBadCredentials() {
+        given(loginService.authenticate(badAuthenticationRequest)).willThrow(new BadCredentialsException("Invalid credentials"));
+        assertTrue(loginController.createAuthenticationToken(badAuthenticationRequest).getStatusCode().is4xxClientError());
     }
 
 }
