@@ -35,7 +35,6 @@ security:
     tokenPrefix: Bearer
     # 20 minutes, expressed in milliseconds
     expiresIn: 1_200_000
-    headerString: Authorization
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
     userManagementUrl: http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user
@@ -49,12 +48,6 @@ security:
     email: uebermensch@zarathustra.com
     password: lJU!LUBOqa7k
     roles: [SUPERUSER]
-
-#  apisecurity:
-#    secret: UXB0UCkWSyqOWMdZK1xAqpttUojhWXXm
-#    tokenPrefix: Bearer
-#    authoritiesClaim: authorities
-#    err: Auth Error, Token Unavailable
 
 url:
   # 30 seconds, expressed in milliseconds

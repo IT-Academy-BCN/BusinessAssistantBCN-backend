@@ -1,7 +1,5 @@
 package com.businessassistantbcn.login.controller;
 
-import com.businessassistantbcn.login.config.SuperUserConfig;
-import com.businessassistantbcn.login.config.TestUserConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.service.LoginService;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,12 +8,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class LoginControllerTest {
 
     @Mock
-    LoginService loginService = new LoginService(new SuperUserConfig(), new TestUserConfig());
+    LoginService loginService;
 
     @InjectMocks
     LoginController loginController;

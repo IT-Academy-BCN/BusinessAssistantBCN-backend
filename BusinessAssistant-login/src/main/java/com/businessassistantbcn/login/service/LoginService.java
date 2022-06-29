@@ -6,21 +6,10 @@ import com.businessassistantbcn.login.config.TestUserConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.dto.UserDto;
 import com.businessassistantbcn.login.proxy.HttpProxy;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.crypto.spec.SecretKeySpec;
-
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,31 +21,34 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import reactor.core.publisher.Mono;
+
+import javax.crypto.spec.SecretKeySpec;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class LoginService implements AuthenticationProvider {
-	
+
 	@Autowired
 	private SecurityConfig config;
-	
+
 	@Autowired
 	private HttpProxy httpProxy;
 
 	private final UserDto superUser;
-	private final AuthenticationRequest superUserA;
-	// private final UserDto testUser;
-	// private final AuthenticationRequest testUserA;
+	private final UserDto testUser;
 	private UserDto userFound;
+	private final AuthenticationRequest testUserA;
+	private final AuthenticationRequest superUserA;
 
-	public LoginService(SuperUserConfig su, TestUserConfig tu) {
-		superUser = new UserDto(su.getEmail(), su.getRoles());
-		superUserA = new AuthenticationRequest(su.getEmail(), su.getPassword());
-		// testUser = new UserDto(tu.getEmail(), tu.getRoles());
-		// testUserA = new AuthenticationRequest(tu.getEmail(), tu.getPassword());
+	public LoginService(SuperUserConfig superUserConfig, TestUserConfig testUserConfig) {
+		superUser = new UserDto(superUserConfig.getEmail(), superUserConfig.getRoles());
+		superUserA = new AuthenticationRequest(superUserConfig.getEmail(), superUserConfig.getPassword());
+		testUser = new UserDto(testUserConfig.getEmail(), testUserConfig.getRoles());
+		testUserA = new AuthenticationRequest(testUserConfig.getEmail(), testUserConfig.getPassword());
 	}
-	
+
 	// JSON Web Token generator
 	public String generateToken(UserDto userDetails) {
 		Map<String, Object> claims = new HashMap<>();
@@ -83,16 +75,11 @@ public class LoginService implements AuthenticationProvider {
 		return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}
 
-// TODO **** Provisional response with testUser ****
-//	public Mono<UserDto> loadUser(AuthenticationRequest request) {
-//		return request.equals(testUserA)
-//				? Mono.just(testUser)
-//				: Mono.error(new UsernameNotFoundException("Unknown user \'" + testUserA.getEmail()  + "\'"));
-//	}
+	// TODO **** DISABLE following code once the secured endpoint in 'usermanagement' is established ****
 	public Mono<UserDto> loadUser(AuthenticationRequest request) {
-		return request.equals(superUserA)
-				? Mono.just(superUser)
-				: Mono.error(new UsernameNotFoundException("Unknown user \'" + superUserA.getEmail()  + "\'"));
+		return request.equals(testUserA)
+				? Mono.just(testUser)
+				: Mono.error(new UsernameNotFoundException("Unknown user \'" + testUserA.getEmail()  + "\'"));
 	}
 
 	// Database liaison
