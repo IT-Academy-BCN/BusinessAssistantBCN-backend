@@ -76,15 +76,17 @@ services:
 
   businessassistantbcn-mongodb:
     container_name: mongodb-businessassistantbcn
-    image: mongo
+    image: mongo:5.0.9
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_USERNAME: admin_businessassistantbcn
       MONGO_INITDB_ROOT_PASSWORD: UhWQQYFVBx95W7
+      MONGO_INITDB_DATABASE: babcn-users
     ports:
       - 27017:27017
     volumes:
       - businessassistantbcn_mongodb_data:/var/lib/mongodb
+      - ./BusinessAssistant-usermanagement/src/main/resources/scripts-mongodb/create-user.js:/docker-entrypoint-initdb.d/mongo-init.js
 
   portainer:
     container_name: portainer-babcn
