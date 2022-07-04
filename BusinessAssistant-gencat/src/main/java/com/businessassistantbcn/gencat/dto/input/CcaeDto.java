@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @NoArgsConstructor
@@ -22,31 +21,15 @@ import java.util.List;
 public class CcaeDto {
 
     @JsonProperty("data")
-    private List<Object> data;
+    private List<List<String>> data;
 
     @JsonGetter("data")
-    public List<Object> getData() {
+    public List<List<String>> getData() {
         return data;
     }
 
     @JsonSetter("data")
-    public void setData(List<Object> data) {
+    public void setData(List<List<String>> data) {
         this.data = data;
     }
-
-   /* public Object getId(){
-        return data.get(1);
-    }
-
-    public String getType(){
-        return data.get(9);
-    }
-
-    public String getIdCcae(){
-        return data.get(8);
-    }
-
-    public String getDescription(){
-        return data.get(10);
-    }*/
 }

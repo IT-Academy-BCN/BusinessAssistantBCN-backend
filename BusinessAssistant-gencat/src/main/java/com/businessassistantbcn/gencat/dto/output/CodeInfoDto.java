@@ -13,6 +13,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class CodeInfoDto {
 
-    private String idCcae;
-    private String description;
+    private Object idCcae;
+    private Object description;
 }

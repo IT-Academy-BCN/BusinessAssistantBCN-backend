@@ -9,10 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class CcaeService {
@@ -26,28 +25,34 @@ public class CcaeService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Mono<CcaeDto[]> getResultDTO() throws MalformedURLException {
+    public Mono<CcaeResponseDto[]> getResultDTO() throws MalformedURLException {
 
-        return httpProxy.getRequestData(new URL(config.getDs_ccae()), CcaeDto[].class)
-                /*.flatMap(ccaeDtos -> {
-                    CcaeResponseDto[] responseDtos = Arrays.stream(ccaeDtos)
+        return httpProxy.getRequestData(new URL(config.getDs_ccae()), CcaeDto.class)
+                .flatMap(ccaeDtos -> {
+                    CcaeResponseDto[] responseDtos = ccaeDtos
+                            .getData()
+                            .stream()
                             .map(this::covertToDto)
                             .toArray(CcaeResponseDto[]::new);
                     return Mono.just(responseDtos);
-                })*/;
+                });
 
     }
 
-    /*private CcaeResponseDto covertToDto(CcaeDto ccaeDto) {
-        CcaeResponseDto ccaeResponseDto = new CcaeResponseDto();
+    private CcaeResponseDto covertToDto(List<String> ccaeDto) {
+        final int id = 1;
+        final int type = 9;
+        final int idCcae = 8;
+        final int description = 10;
+        CcaeResponseDto ccaeResponseDto = modelMapper.map(ccaeDto, CcaeResponseDto.class);
         CodeInfoDto codeInfoDto = new CodeInfoDto();
-        codeInfoDto.setIdCcae(ccaeDto.getIdCcae());
-        codeInfoDto.setDescription(ccaeDto.getDescription());
-        ccaeResponseDto.setId(ccaeDto.getId());
-        ccaeResponseDto.setType(ccaeDto.getType());
+        ccaeResponseDto.setId(ccaeDto.get(id));
+        ccaeResponseDto.setType(ccaeDto.get(type));
+        codeInfoDto.setIdCcae(ccaeDto.get(idCcae));
+        codeInfoDto.setDescription(ccaeDto.get(description));
         ccaeResponseDto.setCode(codeInfoDto);
         return ccaeResponseDto;
-    }*/
+    }
 
 
 }
