@@ -6,7 +6,7 @@ plugins {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'com.businessassistantbcn.opendata.App'
+                'Main-Class': 'com.businessassistantbcn.gencat.App'
         )
     }
 }
@@ -44,6 +44,9 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
+    // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
+    implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
+
     //dependency for Swagger
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-data-rest', version: '1.6.8'
@@ -52,6 +55,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    implementation "io.netty:netty-resolver-dns-native-macos:4.1.72.Final:osx-aarch_64" // adding for Mac
 }
 
 test {

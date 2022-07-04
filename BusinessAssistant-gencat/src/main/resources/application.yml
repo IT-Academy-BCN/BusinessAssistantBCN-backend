@@ -44,6 +44,7 @@ url:
   connection_timeout: 30000
   maxBytesInMemory: 30000000
   ds_test: https://swapi.py4e.com/api/vehicles/
+  ds_ccae: https://analisi.transparenciacatalunya.cat/api/views/get5-imi7/rows.json
 
 
 logging:
