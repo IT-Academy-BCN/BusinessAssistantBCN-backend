@@ -16,7 +16,47 @@
 - - [BusinessAssistant-opendata](BusinessAssistant-opendata/README.md). Microservicio para manejo de información de [datos.gob.es](https://datos.gob.es/es/catalogo)
 - [BusinessAssistant-usermanagement](BusinessAssistant-usermanagement/README.md). Microservicio para gestión de usuarios.
 
-## Ejecución de contenedores. Configuraciones 
+## Inicialización de contenedores 
+
+### Arranque de microservicios en contenedores Docker
+
+- Construcción del contenedor (UNIX based)
+
+```
+./start_container.sh
+```
+
+### MongoDB
+
+La configuración para la inicialización de la base de datos Mongo está incluida en docker-compose.yml (**importante**: docker-compose.yml aún
+contiene rutas hard-coded a los scripts de inicialización de BD -tanto MongoDB como Mysql-. No olvide sustituirlas por las suyas propias :(  
+La comprobación de inicialización es válida aún si la base de datos se levanta en host (sin container), aunque será necesario 
+ejecutar manualmente las instrucciones del script BusinessAssistant-usermanagement/src/main/resources/scripts-mongodb/mongo-init.js para creación 
+de usuarios, ya que el arranque con Docker incluye la creación de configuración inicial (especialmente la creación de usuarios).
+
+#### Comandos
+
+- Arranque instancia MongoDB (desde directorio raíz, versión en docker-compose.yml):
+```
+docker compose up -d businessassistantbcn-mongodb
+```
+
+- Entrar en contenedor accediendo a consola bash (para conectar por consola Mongo shell, p.ej.):
+```
+docker exec -it [containerID] bash
+```
+
+- Verificación de inicialización Mongo (desde dentro del contenedor): ejecutar desde cmd 
+```
+mongosh --username [user] --password [pwd]  --authenticationDatabase babcn-users babcn-users --eval "db.adminCommand({ listDatabases: 1 })"
+```
+
+- Verificación de inicialización Mongo (desde fuera del contenedor):
+
+```
+docker exec -it [containerID] mongosh --username admin_businessassistantbcn --password UhWQQYFVBx95W7  --authenticationDatabase babcn-users babcn-users --eval "db.adminCommand({ listDatabases: 1 })"
+```
+
 
 ### Consul
 
@@ -40,15 +80,6 @@ docker-compose up consul-server1
 ```
 
 - http://localhost:8500 debe mostrar consola de Administración Consul ![Administracion Consul](img/Consul.png)
-
-### Arranque de microservicios en Contenedor Docker
-
-- Construcción del contenedor (UNIX based)
-
-```
-./start_container.sh
-```
-
 
 
 <hr/>
