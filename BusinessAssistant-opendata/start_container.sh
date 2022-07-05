@@ -1,12 +1,12 @@
 #!/bin/sh
 
 cd ..
-# CAUTION: avoid tests
-#./gradlew :BusinessAssistant-opendata:build -x test
-./gradlew :BusinessAssistant-opendata:build
+# CAUTION: avoid tests, only for development purposes
+./gradlew :BusinessAssistant-opendata:build -x test
+#./gradlew :BusinessAssistant-opendata:build
 
 cd BusinessAssistant-opendata
 docker build -t=babcn:opendata-v1.0-SNAPSHOT .
 
 cd ..
-docker compose up -d businessassistantbcn-opendata
+docker compose up businessassistantbcn-opendata

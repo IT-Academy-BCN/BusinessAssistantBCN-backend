@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   consul-server1:
-    image: consul
+    image: consul:1.12.2
     container_name: consul-server1
     restart: always
     networks:
