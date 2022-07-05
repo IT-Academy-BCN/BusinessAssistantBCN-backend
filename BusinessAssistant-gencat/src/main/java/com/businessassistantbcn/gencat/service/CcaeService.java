@@ -4,6 +4,7 @@ import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.input.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.CcaeResponseDto;
 import com.businessassistantbcn.gencat.dto.output.CodeInfoDto;
+import com.businessassistantbcn.gencat.helper.JsonHelper;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class CcaeService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Mono<CcaeResponseDto[]> getResultDTO() throws MalformedURLException {
+    public Mono<CcaeResponseDto[]> getResultDTO(int offset, int limit) throws MalformedURLException {
 
         return httpProxy.getRequestData(new URL(config.getDs_ccae()), CcaeDto.class)
                 .flatMap(ccaeDtos -> {
@@ -34,7 +35,10 @@ public class CcaeService {
                             .stream()
                             .map(this::covertToDto)
                             .toArray(CcaeResponseDto[]::new);
-                    return Mono.just(responseDtos);
+
+                    CcaeResponseDto[] pagedDto = JsonHelper.filterDto(responseDtos, offset, limit);
+
+                    return Mono.just(pagedDto);
                 });
 
     }
