@@ -86,7 +86,8 @@ services:
       - 27017:27017
     volumes:
       - businessassistantbcn_mongodb_data:/var/lib/mongodb
-      - ./BusinessAssistant-usermanagement/src/main/resources/scripts-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./BusinessAssistant-usermanagement/src/main/resources/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      #- ./BusinessAssistant-usermanagement/src/main/resources/mongo-test-data:/tmp/data/
 
   portainer:
     container_name: portainer-babcn
