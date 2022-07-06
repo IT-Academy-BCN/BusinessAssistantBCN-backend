@@ -1,10 +1,12 @@
 package com.businessassistantbcn.gencat.controller;
 
+import com.businessassistantbcn.gencat.service.CcaeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -17,6 +19,9 @@ class GencatControllerTest {
 
     @Autowired
     private WebTestClient webTestClient;
+
+    @MockBean
+    private CcaeService ccaeService;
 
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/gencat";
 
