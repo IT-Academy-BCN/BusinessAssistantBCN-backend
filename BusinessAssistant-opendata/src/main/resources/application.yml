@@ -20,10 +20,12 @@ spring:
         register: true
         register-health-check: true
         deregister: true
-        port: 7777 #puerto del servicio
-        #prefer-ip-address: true
+        port: 8762 #puerto del servicio
+        prefer-ip-address: true
+        healthCheckPath: /health
         #healthCheckPath: ${management.server.servlet.context-path}/health
-        healthCheckPath: /businessassistantbcn/api/v1/opendata/test
+        #healthCheckPath: /businessassistantbcn/api/v1/opendata/test
+        #healthCheckPath: /actuator/health
         healthCheckInterval: 15s
   #Spring profiles available:
   #   - dev: disable security
