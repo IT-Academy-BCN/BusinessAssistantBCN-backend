@@ -2,7 +2,9 @@ package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +15,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.util.ResourceUtils;
 import reactor.core.publisher.Mono;
 
 import java.io.*;
 import java.net.URL;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = GencatController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
@@ -38,12 +42,20 @@ class GencatControllerTest {
     private PropertiesConfig config;
 
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/gencat";
+    private static String urlEconomicActivitiesString;
+    private static final String JSON_FILENAME = "/get5-imi7.json";
+    private static ObjectMapper mapper;
+    private static Object[] economicActivities;
 
-    @Autowired
-    private GencatController gencatController;
 
-    private URL url;
-    private Object[] economicActivities;
+    @BeforeEach
+    void setUp() throws IOException {
+        urlEconomicActivitiesString = "https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json";
+        mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        File file = ResourceUtils.getFile(this.getClass().getResource(JSON_FILENAME));
+        economicActivities = mapper.readValue(file, Object[].class);
+        System.out.println(economicActivities);
+    }
 
     @Test
     void testHello() {
@@ -60,12 +72,19 @@ class GencatControllerTest {
     //Una vez implementado correctamente el método, el test se debe adecuar
     @Test
     void getAllEconomicActivities() throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        url = new URL("https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json");
-        economicActivities = mapper.readValue(url, Object[].class);
-        when(config.getDs_economicActivities()).thenReturn(url.toString());
-        when(httpProxy.getRequestData(url, Object[].class)).thenReturn(Mono.just(economicActivities));
-        assertNotNull(gencatController.getAllClassificationOfEconomicActivities());
+        when(config.getDs_economicActivities()).thenReturn(urlEconomicActivitiesString);
+        when(httpProxy.getRequestData(any(URL.class), eq(Object[].class))).thenReturn((Mono.just(economicActivities)));
+
+        final String URI_TEST = "/ccae";
+
+        webTestClient.get()
+                .uri(CONTROLLER_BASE_URL + URI_TEST)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk();
+
+        verify(config, times(1)).getDs_economicActivities();
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(Object[].class));
     }
 
     //Una vez implementado correctamente el método, el test se debe adecuar
