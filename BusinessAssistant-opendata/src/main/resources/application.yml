@@ -15,17 +15,14 @@ spring:
         enabled: true
       discovery:
         instanceId: id:${spring.application.name}:${random.value}
-        serviceName: name:${spring.application.name}
+        serviceName: ${spring.application.name}
         enabled: true
         register: true
         register-health-check: true
         deregister: true
         port: 8762 #puerto del servicio
         prefer-ip-address: true
-        healthCheckPath: /health
-        #healthCheckPath: ${management.server.servlet.context-path}/health
-        #healthCheckPath: /businessassistantbcn/api/v1/opendata/test
-        #healthCheckPath: /actuator/health
+        healthCheckPath: /actuator/health
         healthCheckInterval: 15s
   #Spring profiles available:
   #   - dev: disable security
