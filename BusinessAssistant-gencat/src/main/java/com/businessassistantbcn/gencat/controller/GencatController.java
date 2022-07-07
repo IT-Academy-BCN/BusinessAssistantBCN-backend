@@ -1,6 +1,6 @@
 package com.businessassistantbcn.gencat.controller;
 
-import com.businessassistantbcn.gencat.dto.output.CcaeResponseDto;
+
 import com.businessassistantbcn.gencat.service.CcaeService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
-
 import java.net.MalformedURLException;
-import java.net.http.HttpResponse;
 
 @RestController
 @RequestMapping(value = "/businessassistantbcn/api/v1/gencat")
