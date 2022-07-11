@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 import java.net.MalformedURLException;
@@ -34,6 +31,27 @@ public class GencatController {
     public Mono<?> getCcae(@RequestParam(required = false) String offset,
                            @RequestParam(required = false)  String limit) throws MalformedURLException {
         return ccaeService.getResultDTO(getValidOffset(offset), getValidLimit(limit));
+    }
+
+    //se debe implementar
+    @GetMapping("/ccae/{ccae_id}")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public Mono getEconomicActivityById(@PathVariable("ccae_id") String ccaeId) {
+        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    //se debe implementar
+    @GetMapping("/ccae/type/{type}")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public Mono getEconomicActivityByType(@PathVariable("type") String type) {
+        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    //se debe implementar
+    @GetMapping("/ccae/types")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public Mono getEconomicActivitiesTypes() {
+        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
     }
 
     private int getValidOffset(String offset)

@@ -53,14 +53,6 @@ class GencatControllerTest {
     private static Object[] economicActivities;
 
 
-    @BeforeEach
-    void setUp() throws IOException {
-        urlEconomicActivitiesString = "https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json";
-        mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        File file = ResourceUtils.getFile(this.getClass().getResource(JSON_FILENAME));
-        economicActivities = mapper.readValue(file, Object[].class);
-        System.out.println(economicActivities);
-    }
 
     @Test
     void testHello() {
@@ -74,24 +66,6 @@ class GencatControllerTest {
                 .expectStatus().isOk()
                 .expectBody(String.class)
                 .value(s -> s.toString(), equalTo("Hello from GenCat Controller!!!"));
-    }
-
-    //Una vez implementado correctamente el método, el test se debe adecuar
-    @Test
-    void getAllEconomicActivities() throws IOException {
-        when(config.getDs_economicActivities()).thenReturn(urlEconomicActivitiesString);
-        when(httpProxy.getRequestData(any(URL.class), eq(Object[].class))).thenReturn((Mono.just(economicActivities)));
-
-        final String URI_TEST = "/ccae";
-
-        webTestClient.get()
-                .uri(CONTROLLER_BASE_URL + URI_TEST)
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk();
-
-        verify(config, times(1)).getDs_economicActivities();
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(Object[].class));
     }
 
     //Una vez implementado correctamente el método, el test se debe adecuar
