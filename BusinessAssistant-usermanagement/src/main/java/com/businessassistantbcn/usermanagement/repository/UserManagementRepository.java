@@ -11,6 +11,10 @@ public interface UserManagementRepository extends ReactiveMongoRepository<User,S
 
     //search by email
     Mono<User> findByEmail(String email);
+
+    Mono<Boolean> existsByEmail(String email);
+
+    Mono<Boolean> existsByUuid(String uuid);
 }
 
 

@@ -56,4 +56,37 @@ public class UserManagementRepositoryTest {
                 .expectNextMatches(userPredicate)
                 .verifyComplete();
     }
+
+    @Test
+    public void existsByEmail() {
+
+        Publisher<Boolean> setup = this.userRepository //
+                .deleteAll() //
+                .thenMany(this.userRepository.saveAll(Flux.just(user1, user2))) //
+                .thenMany(this.userRepository.existsByEmail(email_1));
+
+        Predicate<Boolean> userPredicate = exist ->  true;
+
+        StepVerifier
+                .create(setup)
+                .expectNextMatches(userPredicate)
+                .verifyComplete();
+    }
+
+    @Test
+    public void existsByUuid() {
+
+        Publisher<Boolean> setup = this.userRepository //
+                .deleteAll() //
+                .thenMany(this.userRepository.saveAll(Flux.just(user1, user2))) //
+                .thenMany(this.userRepository.existsByUuid(uuid_1));
+
+        Predicate<Boolean> userPredicate = exist ->  true;
+
+        StepVerifier
+                .create(setup)
+                .expectNextMatches(userPredicate)
+                .verifyComplete();
+    }
+
 }

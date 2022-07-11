@@ -2,12 +2,15 @@ package com.businessassistantbcn.usermanagement.controller;
 
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
@@ -26,47 +29,43 @@ public class UserManagementController {
         return "Hello from BusinessAssistant User!!!";
     }
 
-    @GetMapping("/user")
-    @Operation(summary = "get user by email or by uuid")
+
+    @GetMapping("/user/email")
+    //@PreAuthorize("hasAuthority('SUPERUSER')") // Comentar en modo dev
+    @Operation(summary = "get user")
+
     @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "503", description = "Service Unavailable") })
-    //public Mono<?> getUser( //TODO implementar service
-    public String getUser(
-            @RequestParam(required = false) String email,
-            @RequestParam(required = false) String uuid,
-            @RequestParam(required = false)  String password,
-            @RequestParam Map<String, String> map) {
-        this.validateRequestParameters(map);
-        /**
-         * return userManagementService.getUser(email, password);
-         * return userManagementService.getUser(uuid, password);
-         */
-        return "{\"uuid\": \"user_uuid\",\"email\": \"user_email\",\"role\": \"user_role\"}";
+
+    public Mono<?> userResponse(
+            @RequestBody UserEmailDto userEmailDto) {
+        return userManagementService.getUserByEmail(userEmailDto);
+    }
+
+    @GetMapping("/user/uuid")
+    //@PreAuthorize("hasAuthority('SUPERUSER')") // Comentar en modo dev
+    @Operation(summary = "get user")
+    @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "503", description = "Service Unavailable") })
+    public Mono<?> userResponse(
+            @RequestBody UserUuidDto userUuidDto) {
+        return userManagementService.getUserByUuid(userUuidDto);
+
     }
 
     @PostMapping("/user")
+    //@PreAuthorize("hasAuthority('SUPERUSER')") // Comentar en modo dev
     @Operation(summary = "add user")
     @ApiResponses({@ApiResponse(responseCode = "200", description = "OK"),
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "503", description = "Service Unavailable") })
     public Mono<UserDto> addUser(@RequestBody UserEmailDto userEmailDto){
-        return userManagementService.addUser(Mono.just(userEmailDto));
+        return userManagementService.addUser(userEmailDto);
     }
 
-    private void validateRequestParameters(Map<String, String> map)
-    {
-        if (map.keySet().isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-        for (String key : map.keySet()) {
-            if ( !(key.equals("email")||key.equals("uuid")) && !key.equals("password")) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-            }
-        }
-    }
-  
-  
 }

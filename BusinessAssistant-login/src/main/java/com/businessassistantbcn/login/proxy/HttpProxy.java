@@ -37,8 +37,8 @@ public class HttpProxy {
 	public HttpProxy(ProxyConfig config) {
 		
 		httpClient = HttpClient.create()
-			.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, Integer.valueOf(config.getConnection_timeout()))
-			.responseTimeout(Duration.ofMillis((long)config.getConnection_timeout()));
+			.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, config.getConnection_timeout())
+			.responseTimeout(Duration.ofMillis(config.getConnection_timeout()));
 		
 		webClient = WebClient.builder()
 			.clientConnector(new ReactorClientHttpConnector(httpClient))
