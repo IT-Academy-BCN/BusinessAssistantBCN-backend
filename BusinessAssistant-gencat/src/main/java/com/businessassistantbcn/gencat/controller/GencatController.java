@@ -1,18 +1,19 @@
 package com.businessassistantbcn.gencat.controller;
 
-import com.businessassistantbcn.gencat.config.PropertiesConfig;
-import com.businessassistantbcn.gencat.proxy.HttpProxy;
+
+import com.businessassistantbcn.gencat.service.CcaeService;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
-
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/businessassistantbcn/api/v1/gencat")
@@ -21,46 +22,42 @@ public class GencatController {
     private static final Logger log = LoggerFactory.getLogger(GencatController.class);
 
     @Autowired
-    private HttpProxy httpProxy;
+    CcaeService ccaeService;
 
-    @Autowired
-    private PropertiesConfig config;
-
-    private URL url;
-
-    @GetMapping(value = "/test")
+    @GetMapping(value="/test")
     public String test() {
         log.info("** Saludos desde el logger **");
         return "Hello from GenCat Controller!!!";
     }
 
-    //se debe implementar cuando se hayan definido los dto y service layer
     @GetMapping("/ccae")
-    public Mono<List<Object>> getAllClassificationOfEconomicActivities() throws MalformedURLException {
-        url = new URL(config.getDs_economicActivities());
-        Object[] economicActivities = httpProxy.getRequestData(url, Object[].class).block();
-        return Mono.just((Arrays.asList(economicActivities)));
+    public Mono<?> getCcae(@RequestParam(required = false) String offset,
+                           @RequestParam(required = false)  String limit) throws MalformedURLException {
+        return ccaeService.getResultDTO(getValidOffset(offset), getValidLimit(limit));
     }
 
-    //se debe implementar
-    @GetMapping("/ccae/{ccae_id}")
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Mono getEconomicActivityById(@PathVariable("ccae_id") String ccaeId) {
-        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    private int getValidOffset(String offset)
+    {
+        if (offset == null || offset.isEmpty()) {
+            return 0;
+        }
+        // NumberUtils.isDigits returns false for negative numbers
+        if (!NumberUtils.isDigits(offset)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return Integer.parseInt(offset);
     }
 
-    //se debe implementar
-    @GetMapping("/ccae/type/{type}")
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Mono getEconomicActivityByType(@PathVariable("type") String type) {
-        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    private int getValidLimit(String limit) {
+        if (limit == null || limit.isEmpty() || limit.equals("-1")) {
+            return -1;
+        }
+        // NumberUtils.isDigits returns false for negative numbers
+        if (!NumberUtils.isDigits(limit)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        return Integer.parseInt(limit);
     }
 
-    //se debe implementar
-    @GetMapping("/ccae/types")
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Mono getEconomicActivitiesTypes() {
-        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
-    }
 
 }

@@ -11,6 +11,9 @@ public class PropertiesConfig {
 
     private Integer connection_timeout;//millis
     private String ds_test;
+
+    private String ds_ccae;
+
     private Integer maxBytesInMemory;
 
     private String ds_economicActivities;
@@ -45,5 +48,13 @@ public class PropertiesConfig {
 
     public void setDs_economicActivities(String ds_economicActivities) {
         this.ds_economicActivities = ds_economicActivities;
+    }
+
+    public String getDs_ccae() {
+        return ds_ccae;
+    }
+
+    public void setDs_ccae(String ds_ccae) {
+        this.ds_ccae = ds_ccae;
     }
 }

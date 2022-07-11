@@ -5,6 +5,7 @@ import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import com.businessassistantbcn.gencat.service.CcaeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurity
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -41,6 +43,9 @@ class GencatControllerTest {
     @Autowired
     private PropertiesConfig config;
 
+    @MockBean
+    private CcaeService ccaeService;
+
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/gencat";
     private static String urlEconomicActivitiesString;
     private static final String JSON_FILENAME = "/get5-imi7.json";
@@ -59,7 +64,9 @@ class GencatControllerTest {
 
     @Test
     void testHello() {
+
         final String URI_TEST = "/test";
+
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
