@@ -5,6 +5,8 @@ services:
     image: consul:1.12.2
     container_name: consul-server1
     restart: always
+    volumes:
+      - ./consul/server1.json:/consul/config/server1.json:ro
     networks:
       - consul-net
     ports:
@@ -17,28 +19,21 @@ services:
     image: consul:1.12.2
     container_name: consul-server2
     restart: always
+    volumes:
+      - ./consul/server2.json:/consul/config/server2.json:ro
     networks:
       - consul-net
-    command: 'agent -bootstrap-expect=3'
+    command: "agent -bootstrap-expect=3"
 
   consul-server3:
     image: consul:1.12.2
     container_name: consul-server3
     restart: always
-    networks:
-      - consul-net
-    command: 'agent -bootstrap-expect=3'
-
-  consul-client:
-    image: consul:1.12.2
-    container_name: consul-client
-    restart: always
     volumes:
-      - ./client.json:/consul/config/client.json:ro
-      - ./certs/:/consul/config/certs/:ro
+      - ./consul/server3.json:/consul/config/server3.json:ro
     networks:
       - consul-net
-    command: 'agent'
+    command: "agent -bootstrap-expect=3"
 
 networks:
   consul-net:
