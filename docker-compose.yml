@@ -11,6 +11,8 @@ services:
       - '8500:8500'
       - '8600:8600/tcp'
       - '8600:8600/udp'
+    command:
+      - 'agent'
 
   businessassistantbcn-mydata:
     image: babcn:mydata-v1.0-SNAPSHOT
