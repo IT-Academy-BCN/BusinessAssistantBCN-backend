@@ -2,13 +2,13 @@
     {
         "uuid": "b0fe0ac0-8bb3-4338-ba13-b744bdffe008",
         "email": "justo.nec@google.org",
-        "password": "LJT77RVE3TV",
+        "password": "$2a$10$OpRXIDY0zddKcKNji07I0eufSq5k3XpdwbZYbf4j7KnFDkER4apM.",
         "role": ["ADMIN"]
     },
     {
         "uuid": "330695cb-de30-4254-9e79-faa7bcb8e9cd",
         "email": "natoque@yahoo.com",
-        "password": "ECG30VWU4FL",
+        "password": "$2a$10$mG8cN1ASRxVtpiY4ZtHPkeR2BIEd45UtDCN2t4prOWkOqnQX71gTO",
         "role": ["USER"]
     },
     {
