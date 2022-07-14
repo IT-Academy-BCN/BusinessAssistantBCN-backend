@@ -73,10 +73,10 @@ sudo systemctl start docker
 docker pull consul
 ```
 
-- Arrancar contenedor consul (desde directorio raíz)
+- Arrancar cluster consul (desde directorio raíz)
 
 ```
-docker-compose up consul-server1
+docker compose -f consul/consul-compose.yml up
 ```
 
 - http://localhost:8500 debe mostrar consola de Administración Consul ![Administracion Consul](img/Consul.png)
