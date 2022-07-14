@@ -16,7 +16,6 @@ import java.util.function.Predicate;
 @ExtendWith(SpringExtension.class)
 @DataMongoTest
 @TestPropertySource(locations = "classpath:persistence-test.properties")
-@ActiveProfiles("test")
 public class UserManagementRepositoryTest {
 
     @Autowired

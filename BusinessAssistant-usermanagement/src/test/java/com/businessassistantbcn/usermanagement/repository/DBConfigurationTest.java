@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataMongoTest
 @TestPropertySource(locations = "classpath:persistence-test.properties")
-@ActiveProfiles("test")
 class DBConfigurationTest {
 
     @Autowired
