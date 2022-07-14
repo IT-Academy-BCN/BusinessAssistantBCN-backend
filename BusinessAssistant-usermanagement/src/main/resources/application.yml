@@ -1,9 +1,4 @@
 spring:
-  profiles:
-    active: dev
----
-spring:
-  profiles: dev
   application:
     name: businessassistant-usermanagement
   jmx:
@@ -26,8 +21,9 @@ spring:
   #Spring profiles available:
   #   - dev: disable security
   #   - pro: enable JWT security
-
-
+  profiles:
+    active:
+      - dev
 
 springdoc:
   swagger-ui:
@@ -63,17 +59,3 @@ logging:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: opendata.log
-
----
-spring:
-  profiles: test
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      user: root
-      password: UhWQQYFVBx95W7
-      database: babcn-users
-server:
-  port: 8763
----
