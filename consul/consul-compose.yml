@@ -35,12 +35,32 @@ services:
       - consul-net
     command: "agent -bootstrap-expect=3"
 
-  consul-client:
+  consul-client-mysql:
     image: consul:1.12.2
-    container_name: consul-client
+    container_name: consul-client-mysql
     restart: always
     volumes:
-      - ./client.json:/consul/config/client.json:ro
+      - ./consul-client-mysql.json:/consul/config/consul-client-mysql.json:ro
+    networks:
+      - consul-net
+    command: "agent"
+
+  consul-client-mongodb:
+    image: consul:1.12.2
+    container_name: consul-client-mongodb
+    restart: always
+    volumes:
+      - ./consul-client-mongodb.json:/consul/config/consul-client-mongodb.json:ro
+    networks:
+      - consul-net
+    command: "agent"
+
+  consul-client-babcn:
+    image: consul:1.12.2
+    container_name: consul-client-babcn
+    restart: always
+    volumes:
+      - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       - consul-net
     command: "agent"
