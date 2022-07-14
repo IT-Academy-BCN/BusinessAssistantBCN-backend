@@ -2,14 +2,18 @@ package com.businessassistantbcn.usermanagement.repository;
 
 import com.businessassistantbcn.usermanagement.document.User;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 import java.util.function.Predicate;
 
+@ExtendWith(SpringExtension.class)
 @DataMongoTest
 @TestPropertySource(locations = "classpath:persistence-test.properties")
 public class UserManagementRepositoryTest {
