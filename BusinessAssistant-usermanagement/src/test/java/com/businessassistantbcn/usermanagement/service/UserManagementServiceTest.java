@@ -82,7 +82,7 @@ public class UserManagementServiceTest {
         String uuid = UUID.randomUUID().toString();
         String password = "12345";
         user = new User(uuid, "user@user.com", password, roles);
-        userUuidDto = new UserUuidDto(uuid, password);
+        userUuidDto = new UserUuidDto(uuid);
 
         when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(user));
         when(repository.existsByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(true));
@@ -101,7 +101,7 @@ public class UserManagementServiceTest {
         roles.add(Role.USER);
         String email = "user@user.com";
         user = new User(UUID.randomUUID().toString(), email, "12345", roles);
-        userUuidDto = new UserUuidDto(email, "12345");
+        userUuidDto = new UserUuidDto(email);
 
         assertThrows(ResponseStatusException.class, ()-> {
             when(repository.existsByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(false));

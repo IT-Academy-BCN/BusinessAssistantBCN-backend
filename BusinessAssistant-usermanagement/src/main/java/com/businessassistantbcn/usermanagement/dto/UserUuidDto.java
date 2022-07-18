@@ -7,13 +7,10 @@ public class UserUuidDto {
 
     private String uuid;
 
-    private String password;
-
     public UserUuidDto() {}
 
-    public UserUuidDto(String uuid, String password) {
+    public UserUuidDto(String uuid) {
         this.uuid     = uuid;
-        this.password = password;
     }
 
     @JsonGetter("uuid")
@@ -24,16 +21,6 @@ public class UserUuidDto {
     @JsonSetter("uuid")
     public void setUuid(String uuid) {
         this.uuid = uuid;
-    }
-
-    @JsonGetter("password")
-    public String getPassword() {
-        return password;
-    }
-
-    @JsonSetter("password")
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 }

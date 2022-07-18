@@ -32,38 +32,15 @@ public class UserManagementService implements IUserManagementService {
 
     @Override
     public Mono<UserDto> getUserByUuid(UserUuidDto userUuidDto) {
-        if(Boolean.TRUE.equals(userRepository.existsByUuid(userUuidDto.getUuid()).block())){
 
-            return userRepository.findByUuid(userUuidDto.getUuid()).map(user -> {
-                        String storedPass = user.getPassword();
-                        String actualPassEncoder = userUuidDto.getPassword();
-                        if (encoder.matches(actualPassEncoder, storedPass)){
-                            return DtoHelper.convertToDto(user);
-                        }else {
-                            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-                        }
-                    });
-        }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
+        //QQQ -TODO
+            return userRepository.findByUuid(userUuidDto.getUuid()).map( user -> DtoHelper.convertToDto(user));
     }
 
     public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
 
-        if (userRepository.existsByEmail(userEmailDto.getEmail()).block()){
+        //QQQ -TODO
+        return userRepository.findByUuid(userEmailDto.getEmail()).map( user -> DtoHelper.convertToDto(user));
 
-            return userRepository.findByEmail(userEmailDto.getEmail()).map(user -> {
-                String storedPass = user.getPassword();
-                String actualPassEncoder = userEmailDto.getPassword();
-                if (encoder.matches(actualPassEncoder, storedPass)){
-                    return DtoHelper.convertToDto(user);
-                }else {
-                    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-                }
-            });
-        }else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
     }
 }

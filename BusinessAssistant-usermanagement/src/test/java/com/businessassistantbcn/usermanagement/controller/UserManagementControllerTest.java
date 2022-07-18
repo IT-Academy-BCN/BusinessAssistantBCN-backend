@@ -49,7 +49,6 @@ public class UserManagementControllerTest {
 		userEmailDto.setPassword("wwdd98e");
 
 		userUuidDto.setUuid(UUID. randomUUID().toString());
-		userUuidDto.setPassword("123456");
 	}
 	
 	@Test
