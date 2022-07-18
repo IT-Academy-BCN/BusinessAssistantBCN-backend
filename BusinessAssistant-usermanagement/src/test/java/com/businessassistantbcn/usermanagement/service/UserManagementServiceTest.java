@@ -59,20 +59,11 @@ public class UserManagementServiceTest {
 
         when(repository.save(any(User.class))).thenReturn(Mono.just(user));
         when(encoder.encode(userEmailDto.getPassword())).thenReturn("passwordEncoded");
-        //when(service.addUser(userEmailDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
 
-        //Publisher<User> setup = repository.save(user);
         Mono<UserDto> save = service.addUser(userEmailDto);
-        //Publisher<UserDto> composite = Mono.from(setup).then(save);
 
         assertEquals(save.block().getEmail(), userEmailDto.getEmail());
 
-        /*StepVerifier.create(save)
-                .consumeNextWith(user1 -> {
-                    assertEquals(user1.getEmail(), email);
-                })
-                //.expectNextCount(1)
-                .verifyComplete();*/
     }
 
     @Test
@@ -85,8 +76,9 @@ public class UserManagementServiceTest {
         userUuidDto = new UserUuidDto(uuid);
 
         when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(user));
-        when(repository.existsByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(true));
+
         when(service.getUserByUuid(userUuidDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
+
 
         StepVerifier.create(Mono.just(DtoHelper.convertToDto(user)))
                 .consumeNextWith(userDto -> {
@@ -100,11 +92,11 @@ public class UserManagementServiceTest {
         List<Role> roles = new ArrayList<>();
         roles.add(Role.USER);
         String email = "user@user.com";
-        user = new User(UUID.randomUUID().toString(), email, "12345", roles);
+        user = new User(null, null, null, null);
         userUuidDto = new UserUuidDto(email);
 
         assertThrows(ResponseStatusException.class, ()-> {
-            when(repository.existsByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(false));
+            when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(user));
             when(service.getUserByUuid(userUuidDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
         });
     }
@@ -118,7 +110,6 @@ public class UserManagementServiceTest {
         userEmailDto = new UserEmailDto(email, "12345");
 
         when(repository.findByEmail(email)).thenReturn(Mono.just(user));
-        when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(true));
         when(service.getUserByEmail(userEmailDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
 
         StepVerifier.create(Mono.just(DtoHelper.convertToDto(user)))
@@ -134,11 +125,11 @@ public class UserManagementServiceTest {
         List<Role> roles = new ArrayList<>();
         roles.add(Role.USER);
         String email = "user@user.com";
-        user = new User(UUID.randomUUID().toString(), email, "12345", roles);
+        user = new User(null, null, null, null);
         userEmailDto = new UserEmailDto(email, "12345");
 
         assertThrows(ResponseStatusException.class, ()-> {
-            when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(false));
+            when(repository.findByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(user));
             when(service.getUserByEmail(userEmailDto)).thenReturn(Mono.just(DtoHelper.convertToDto(user)));
         });
     }

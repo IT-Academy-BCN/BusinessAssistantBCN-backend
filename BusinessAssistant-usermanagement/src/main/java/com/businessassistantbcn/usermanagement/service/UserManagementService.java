@@ -33,14 +33,26 @@ public class UserManagementService implements IUserManagementService {
     @Override
     public Mono<UserDto> getUserByUuid(UserUuidDto userUuidDto) {
 
-        //QQQ -TODO
-            return userRepository.findByUuid(userUuidDto.getUuid()).map( user -> DtoHelper.convertToDto(user));
+        Mono<User> user = userRepository.findByUuid(userUuidDto.getUuid())
+                .switchIfEmpty(Mono.just(new User(null, null, null, null)));
+
+        if(user.block().getUuid()==null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }else{
+            return user.map(DtoHelper::convertToDto);
+        }
     }
 
     public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
 
-        //QQQ -TODO
-        return userRepository.findByUuid(userEmailDto.getEmail()).map( user -> DtoHelper.convertToDto(user));
+        Mono<User> user = userRepository.findByEmail(userEmailDto.getEmail())
+                .switchIfEmpty(Mono.just(new User(null, null, null, null)));
+
+        if(user.block().getEmail()==null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }else{
+            return user.map(DtoHelper::convertToDto);
+        }
 
     }
 }
