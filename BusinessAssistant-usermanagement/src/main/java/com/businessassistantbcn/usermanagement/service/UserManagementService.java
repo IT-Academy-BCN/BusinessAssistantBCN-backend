@@ -2,10 +2,8 @@ package com.businessassistantbcn.usermanagement.service;
 
 import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 import com.businessassistantbcn.usermanagement.document.User;
 import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
@@ -26,25 +24,30 @@ public class UserManagementService implements IUserManagementService {
 
         Optional<Boolean> aBoolean = userRepository.existsByEmail(userEmailDto.getEmail()).blockOptional();
 
+        boolean result;
+
         if (aBoolean.isPresent()){
-            return aBoolean.get();
+            result = aBoolean.get();
         } else {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+            result = true;
         }
+
+        return result;
 
     }
 
-
     public Mono<UserDto> addUser(UserEmailDto userEmailDto) {
 
+        Mono<UserDto> response;
 
         if(existByEmail(userEmailDto)){
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE);
+            response = Mono.empty();
         }else {
             userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
-            return userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto))
+            response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto))
                                     .map(DtoHelper::convertToDto);
         }
+        return response;
     }
 
     @Override
@@ -52,23 +55,27 @@ public class UserManagementService implements IUserManagementService {
 
         Mono<User> user = userRepository.findByUuid(userUuidDto.getUuid());
 
+        Mono<UserDto> response;
+
         if(user.blockOptional().isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            response = Mono.empty();
         }else{
-            return user.map(DtoHelper::convertToDto);
+            response = user.map(DtoHelper::convertToDto);
         }
+        return response;
 
     }
 
     public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
 
         Mono<User> user = userRepository.findByEmail(userEmailDto.getEmail());
+        Mono<UserDto> response;
 
         if(user.blockOptional().isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            response = Mono.empty();
         }else{
-            return user.map(DtoHelper::convertToDto);
+            response = user.map(DtoHelper::convertToDto);
         }
-
+        return response;
     }
 }

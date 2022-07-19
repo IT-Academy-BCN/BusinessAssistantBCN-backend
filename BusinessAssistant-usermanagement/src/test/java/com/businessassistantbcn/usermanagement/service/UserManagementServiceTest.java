@@ -71,15 +71,43 @@ public class UserManagementServiceTest {
     }
 
     @Test
+    public void test_addUserWithEmailInUse() {
+
+        when(repository.save(any(User.class))).thenReturn(Mono.just(user));
+        when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(true));
+        when(encoder.encode(userEmailDto.getPassword())).thenReturn("passwordEncoded");
+
+        Mono<UserDto> save = service.addUser(userEmailDto);
+
+        StepVerifier.create(save)
+                .verifyComplete();
+
+    }
+
+    @Test
+    public void test_donNotExistByEmail() {
+
+        when(repository.save(any(User.class))).thenReturn(Mono.just(user));
+        when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
+        when(encoder.encode(userEmailDto.getPassword())).thenReturn("passwordEncoded");
+
+        Mono<UserDto> save = service.addUser(userEmailDto);
+
+        StepVerifier.create(save)
+                .verifyComplete();
+
+    }
+
+    /*@Test
     public void test_donNotExistByEmail(){
 
         assertThrows(ResponseStatusException.class, () -> {
             when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
             service.addUser(userEmailDto);
         });
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void test_addUserWithEmailInUse(){
 
         assertThrows(ResponseStatusException.class, ()-> {
@@ -88,7 +116,7 @@ public class UserManagementServiceTest {
         });
 
 
-    }
+    }*/
 
     @Test
     public void test_getUserByUuid() {
@@ -107,11 +135,22 @@ public class UserManagementServiceTest {
     @Test
     public void test_getUserByUuidNotExist() {
 
+        when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.empty());
+
+        Mono<UserDto> user1 = service.getUserByUuid(userUuidDto);
+
+        StepVerifier.create(user1)
+                .verifyComplete();
+    }
+
+    /*@Test
+    public void test_getUserByUuidNotExist() {
+
         assertThrows(ResponseStatusException.class, ()-> {
             when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.empty());
             service.getUserByUuid(userUuidDto);
         });
-    }
+    }*/
 
     @Test
     public void test_getUserByEmail() {
@@ -129,10 +168,21 @@ public class UserManagementServiceTest {
 
     @Test
     public void test_getUserByEmailNotExist() {
+        when(repository.findByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
+
+        Mono<UserDto> user1 = service.getUserByEmail(userEmailDto);
+
+        StepVerifier.create(user1)
+                .verifyComplete();
+
+    }
+
+    /*@Test
+    public void test_getUserByEmailNotExist() {
 
         assertThrows(ResponseStatusException.class, ()-> {
             when(repository.findByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
             service.getUserByEmail(userEmailDto);
         });
-    }
+    }*/
 }
