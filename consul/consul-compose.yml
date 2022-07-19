@@ -56,14 +56,14 @@ services:
     command: "agent"
 
   consul-client-babcn:
-    image: consul:1.12.3
-    container_name: consul-client-babcn
+    image: babcn:opendata-v1.0-SNAPSHOT
+    container_name: opendata-v1.0-SNAPSHOT
     restart: always
     volumes:
       - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       - consul-net
-    command: "agent"
+    command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
 
 networks:
   consul-net:
