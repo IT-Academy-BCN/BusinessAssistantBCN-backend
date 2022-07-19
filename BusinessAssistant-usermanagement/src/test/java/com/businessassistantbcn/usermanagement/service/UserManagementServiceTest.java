@@ -69,6 +69,16 @@ public class UserManagementServiceTest {
                 .verifyComplete();
 
     }
+
+    @Test
+    public void test_donNotExistByEmail(){
+
+        assertThrows(ResponseStatusException.class, () -> {
+            when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
+            service.addUser(userEmailDto);
+        });
+    }
+
     @Test
     public void test_addUserWithEmailInUse(){
 
