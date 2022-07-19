@@ -15,6 +15,8 @@ public interface UserManagementRepository extends ReactiveMongoRepository<User,S
     Mono<Boolean> existsByEmail(String email);
 
     Mono<Boolean> existsByUuid(String uuid);
+    @Override
+    Mono<User> save(User entity);
 }
 
 
