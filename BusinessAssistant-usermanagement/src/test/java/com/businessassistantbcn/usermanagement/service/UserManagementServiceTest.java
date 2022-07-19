@@ -19,7 +19,6 @@ import com.businessassistantbcn.usermanagement.document.User;
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
 import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
-import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -98,26 +97,6 @@ public class UserManagementServiceTest {
 
     }
 
-    /*@Test
-    public void test_donNotExistByEmail(){
-
-        assertThrows(ResponseStatusException.class, () -> {
-            when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
-            service.addUser(userEmailDto);
-        });
-    }*/
-
-    /*@Test
-    public void test_addUserWithEmailInUse(){
-
-        assertThrows(ResponseStatusException.class, ()-> {
-            when(repository.existsByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(true));
-            service.addUser(userEmailDto);
-        });
-
-
-    }*/
-
     @Test
     public void test_getUserByUuid() {
 
@@ -142,15 +121,6 @@ public class UserManagementServiceTest {
         StepVerifier.create(user1)
                 .verifyComplete();
     }
-
-    /*@Test
-    public void test_getUserByUuidNotExist() {
-
-        assertThrows(ResponseStatusException.class, ()-> {
-            when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.empty());
-            service.getUserByUuid(userUuidDto);
-        });
-    }*/
 
     @Test
     public void test_getUserByEmail() {
@@ -177,12 +147,4 @@ public class UserManagementServiceTest {
 
     }
 
-    /*@Test
-    public void test_getUserByEmailNotExist() {
-
-        assertThrows(ResponseStatusException.class, ()-> {
-            when(repository.findByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
-            service.getUserByEmail(userEmailDto);
-        });
-    }*/
 }
