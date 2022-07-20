@@ -1,0 +1,1000 @@
+[{"codi":"A","tipus":"Secció","descripci":"Agricultura, ramaderia, silvicultura i pesca"}
+,{"codi":"01","tipus":"Divisió","descripci":"Agricultura, ramaderia, caça i activitats dels serveis que s'hi relacionen","pertany":"A"}
+,{"codi":"011","tipus":"Grup","descripci":"Conreus no perennes","pertany":"01"}
+,{"codi":"0111","tipus":"Classe","descripci":"Conreu de cereals (excepte arròs), lleguminoses i llavors oleaginoses","pertany":"011"}
+,{"codi":"0112","tipus":"Classe","descripci":"Conreu d'arròs","pertany":"011"}
+,{"codi":"0113","tipus":"Classe","descripci":"Conreu d'hortalisses, arrels i tubercles","pertany":"011"}
+,{"codi":"0114","tipus":"Classe","descripci":"Conreu de canya de sucre","pertany":"011"}
+,{"codi":"0115","tipus":"Classe","descripci":"Conreu de tabac","pertany":"011"}
+,{"codi":"0116","tipus":"Classe","descripci":"Conreu de plantes per a fibres tèxtils","pertany":"011"}
+,{"codi":"0119","tipus":"Classe","descripci":"Altres conreus no perennes","pertany":"011"}
+,{"codi":"012","tipus":"Grup","descripci":"Conreus perennes","pertany":"01"}
+,{"codi":"0121","tipus":"Classe","descripci":"Conreu de vinya","pertany":"012"}
+,{"codi":"0122","tipus":"Classe","descripci":"Conreu de fruites tropicals","pertany":"012"}
+,{"codi":"0123","tipus":"Classe","descripci":"Conreu de cítrics","pertany":"012"}
+,{"codi":"0124","tipus":"Classe","descripci":"Conreu de fruites amb os i amb llavors","pertany":"012"}
+,{"codi":"0125","tipus":"Classe","descripci":"Conreu d'altres arbres i arbusts fruiters i fruita seca","pertany":"012"}
+,{"codi":"0126","tipus":"Classe","descripci":"Conreu de fruits oleaginosos","pertany":"012"}
+,{"codi":"0127","tipus":"Classe","descripci":"Conreu de plantes per a begudes","pertany":"012"}
+,{"codi":"0128","tipus":"Classe","descripci":"Conreu d'espècies, plantes aromàtiques, medicinals i farmacèutiques","pertany":"012"}
+,{"codi":"0129","tipus":"Classe","descripci":"Altres conreus perennes","pertany":"012"}
+,{"codi":"013","tipus":"Grup","descripci":"Vivers i conreus de plantes ornamentals","pertany":"01"}
+,{"codi":"0130","tipus":"Classe","descripci":"Vivers i conreus de plantes ornamentals","pertany":"013"}
+,{"codi":"014","tipus":"Grup","descripci":"Producció ramadera","pertany":"01"}
+,{"codi":"0141","tipus":"Classe","descripci":"Explotació de bestiar boví per a la producció de llet","pertany":"014"}
+,{"codi":"0142","tipus":"Classe","descripci":"Explotació de bestiar boví (excepte per a la producció de llet) i búfals","pertany":"014"}
+,{"codi":"0143","tipus":"Classe","descripci":"Explotació de cavalls i altres equins","pertany":"014"}
+,{"codi":"0144","tipus":"Classe","descripci":"Explotació de camells i altres camèlids","pertany":"014"}
+,{"codi":"0145","tipus":"Classe","descripci":"Explotació de bestiar oví i cabrum","pertany":"014"}
+,{"codi":"0146","tipus":"Classe","descripci":"Explotació de bestiar porcí","pertany":"014"}
+,{"codi":"0147","tipus":"Classe","descripci":"Avicultura","pertany":"014"}
+,{"codi":"0149","tipus":"Classe","descripci":"Altres explotacions de bestiar","pertany":"014"}
+,{"codi":"015","tipus":"Grup","descripci":"Producció agrícola combinada amb la producció ramadera","pertany":"01"}
+,{"codi":"0150","tipus":"Classe","descripci":"Producció agrícola combinada amb la producció ramadera","pertany":"015"}
+,{"codi":"016","tipus":"Grup","descripci":"Activitats de suport a l'agricultura, ramaderia i preparació posterior a la collita","pertany":"01"}
+,{"codi":"0161","tipus":"Classe","descripci":"Activitats de suport a l'agricultura","pertany":"016"}
+,{"codi":"0162","tipus":"Classe","descripci":"Activitats de suport a la ramaderia","pertany":"016"}
+,{"codi":"0163","tipus":"Classe","descripci":"Activitats de preparació posterior a la collita","pertany":"016"}
+,{"codi":"0164","tipus":"Classe","descripci":"Activitats de tractament de llavors per a la reproducció","pertany":"016"}
+,{"codi":"017","tipus":"Grup","descripci":"Caça, captura d'animals i activitats dels serveis que s'hi  relacionen","pertany":"01"}
+,{"codi":"0170","tipus":"Classe","descripci":"Caça, captura d'animals i activitats dels serveis que s'hi relacionen","pertany":"017"}
+,{"codi":"02","tipus":"Divisió","descripci":"Silvicultura i explotació forestal","pertany":"A"}
+,{"codi":"021","tipus":"Grup","descripci":"Silvicultura i altres activitats forestals","pertany":"02"}
+,{"codi":"0210","tipus":"Classe","descripci":"Silvicultura i altres activitats forestals","pertany":"021"}
+,{"codi":"022","tipus":"Grup","descripci":"Aprofitament de la fusta","pertany":"02"}
+,{"codi":"0220","tipus":"Classe","descripci":"Aprofitament de la fusta","pertany":"022"}
+,{"codi":"023","tipus":"Grup","descripci":"Recol·lecció de productes forestals silvestres, excepte la fusta","pertany":"02"}
+,{"codi":"0230","tipus":"Classe","descripci":"Recol·lecció de productes forestals silvestres, excepte la fusta","pertany":"023"}
+,{"codi":"024","tipus":"Grup","descripci":"Serveis de suport a la silvicultura","pertany":"02"}
+,{"codi":"0240","tipus":"Classe","descripci":"Serveis de suport a la silvicultura","pertany":"024"}
+,{"codi":"03","tipus":"Divisió","descripci":"Pesca i aqüicultura","pertany":"A"}
+,{"codi":"031","tipus":"Grup","descripci":"Pesca","pertany":"03"}
+,{"codi":"0311","tipus":"Classe","descripci":"Pesca marítima","pertany":"031"}
+,{"codi":"0312","tipus":"Classe","descripci":"Pesca en aigua dolça","pertany":"031"}
+,{"codi":"032","tipus":"Grup","descripci":"Aqüicultura","pertany":"03"}
+,{"codi":"0321","tipus":"Classe","descripci":"Aqüicultura marina","pertany":"032"}
+,{"codi":"0322","tipus":"Classe","descripci":"Aqüicultura en aigua dolça","pertany":"032"}
+,{"codi":"B","tipus":"Secció","descripci":"Indústries extractives"}
+,{"codi":"05","tipus":"Divisió","descripci":"Extracció d'antracita, hulla i lignit","pertany":"B"}
+,{"codi":"051","tipus":"Grup","descripci":"Extracció d'antracita i hulla","pertany":"05"}
+,{"codi":"0510","tipus":"Classe","descripci":"Extracció d'antracita i hulla","pertany":"051"}
+,{"codi":"052","tipus":"Grup","descripci":"Extracció de lignit","pertany":"05"}
+,{"codi":"0520","tipus":"Classe","descripci":"Extracció de lignit","pertany":"052"}
+,{"codi":"06","tipus":"Divisió","descripci":"Extracció de petroli brut i de gas natural","pertany":"B"}
+,{"codi":"061","tipus":"Grup","descripci":"Extracció de petroli brut","pertany":"06"}
+,{"codi":"0610","tipus":"Classe","descripci":"Extracció de petroli brut","pertany":"061"}
+,{"codi":"062","tipus":"Grup","descripci":"Extracció de gas natural","pertany":"06"}
+,{"codi":"0620","tipus":"Classe","descripci":"Extracció de gas natural","pertany":"062"}
+,{"codi":"07","tipus":"Divisió","descripci":"Extracció de minerals metàl·lics","pertany":"B"}
+,{"codi":"071","tipus":"Grup","descripci":"Extracció de minerals de ferro","pertany":"07"}
+,{"codi":"0710","tipus":"Classe","descripci":"Extracció de minerals de ferro","pertany":"071"}
+,{"codi":"072","tipus":"Grup","descripci":"Extracció de minerals metàl·lics no fèrrics","pertany":"07"}
+,{"codi":"0721","tipus":"Classe","descripci":"Extracció de minerals d'urani i de tori","pertany":"072"}
+,{"codi":"0729","tipus":"Classe","descripci":"Extracció de minerals metàl·lics no fèrrics, excepte els minerals d'urani i de tori","pertany":"072"}
+,{"codi":"08","tipus":"Divisió","descripci":"Extracció de minerals no metàl·lics ni energètics","pertany":"B"}
+,{"codi":"081","tipus":"Grup","descripci":"Extracció de pedra, sorra i argila guix, creta i pissarra","pertany":"08"}
+,{"codi":"0811","tipus":"Classe","descripci":"Extracció de pedra ornamental i per a la construcció, pedra calcària, guix, creta i pissarra","pertany":"081"}
+,{"codi":"0812","tipus":"Classe","descripci":"Extracció de graves i sorres; extracció d'argila i caolí","pertany":"081"}
+,{"codi":"089","tipus":"Grup","descripci":"Indústries extractives ncaa","pertany":"08"}
+,{"codi":"0891","tipus":"Classe","descripci":"Extracció de minerals per a productes químics i fertilitzants","pertany":"089"}
+,{"codi":"0892","tipus":"Classe","descripci":"Extracció de torba","pertany":"089"}
+,{"codi":"0893","tipus":"Classe","descripci":"Extracció de sal","pertany":"089"}
+,{"codi":"0899","tipus":"Classe","descripci":"Altres indústries extractives ncaa","pertany":"089"}
+,{"codi":"09","tipus":"Divisió","descripci":"Activitats de suport a les indústries extractives","pertany":"B"}
+,{"codi":"091","tipus":"Grup","descripci":"Activitats de suport a l'extracció de petroli i de gas natural","pertany":"09"}
+,{"codi":"0910","tipus":"Classe","descripci":"Activitats de suport a l'extracció de petroli i de gas natural","pertany":"091"}
+,{"codi":"099","tipus":"Grup","descripci":"Altres activitats de suport a les indústries extractives","pertany":"09"}
+,{"codi":"0990","tipus":"Classe","descripci":"Altres activitats de suport a les indústries extractives","pertany":"099"}
+,{"codi":"C","tipus":"Secció","descripci":"Indústries manufactureres"}
+,{"codi":"10","tipus":"Divisió","descripci":"Indústries de productes alimentaris","pertany":"C"}
+,{"codi":"101","tipus":"Grup","descripci":"Sacrifici de bestiar i conservació de carn i elaboració de productes carnis","pertany":"10"}
+,{"codi":"1011","tipus":"Classe","descripci":"Sacrifici de bestiar i conservació de carn","pertany":"101"}
+,{"codi":"1012","tipus":"Classe","descripci":"Sacrifici i conservació de volateria","pertany":"101"}
+,{"codi":"1013","tipus":"Classe","descripci":"Elaboració de productes carnis i de volateria","pertany":"101"}
+,{"codi":"102","tipus":"Grup","descripci":"Elaboració i conservació de peix, crustacis i mol·luscos","pertany":"10"}
+,{"codi":"1021","tipus":"Classe","descripci":"Elaboració de peix, crustacis i mol·luscos","pertany":"102"}
+,{"codi":"1022","tipus":"Classe","descripci":"Fabricació de conserves de peix","pertany":"102"}
+,{"codi":"103","tipus":"Grup","descripci":"Preparació i conservació de fruites i hortalisses","pertany":"10"}
+,{"codi":"1031","tipus":"Classe","descripci":"Preparació i conservació de patates","pertany":"103"}
+,{"codi":"1032","tipus":"Classe","descripci":"Elaboració de sucs de fruites i hortalisses","pertany":"103"}
+,{"codi":"1039","tipus":"Classe","descripci":"Preparació i conservació de fruites i hortalisses ncaa","pertany":"103"}
+,{"codi":"104","tipus":"Grup","descripci":"Fabricació d'olis i greixos vegetals i animals","pertany":"10"}
+,{"codi":"1042","tipus":"Classe","descripci":"Fabricació de margarina i greixos comestibles similars","pertany":"104"}
+,{"codi":"1043","tipus":"Classe","descripci":"Fabricació d'oli d'oliva","pertany":"104"}
+,{"codi":"1044","tipus":"Classe","descripci":"Fabricació d'olis (excepte d'oliva) i greixos","pertany":"104"}
+,{"codi":"105","tipus":"Grup","descripci":"Fabricació de productes lactis","pertany":"10"}
+,{"codi":"1052","tipus":"Classe","descripci":"Elaboració de gelats","pertany":"105"}
+,{"codi":"1053","tipus":"Classe","descripci":"Fabricació de formatges","pertany":"105"}
+,{"codi":"1054","tipus":"Classe","descripci":"Preparació de llet i altres productes lactis","pertany":"105"}
+,{"codi":"106","tipus":"Grup","descripci":"Fabricació de productes de molineria, midons i productes amilacis","pertany":"10"}
+,{"codi":"1061","tipus":"Classe","descripci":"Fabricació de productes de molineria","pertany":"106"}
+,{"codi":"1062","tipus":"Classe","descripci":"Fabricació de midons i productes amilacis","pertany":"106"}
+,{"codi":"107","tipus":"Grup","descripci":"Fabricació de productes de fleca i de pastes alimentàries","pertany":"10"}
+,{"codi":"1071","tipus":"Classe","descripci":"Fabricació de pa i de productes de fleca i pastisseria frescos","pertany":"107"}
+,{"codi":"1072","tipus":"Classe","descripci":"Fabricació de galetes i productes de fleca i pastisseria de llarga durada","pertany":"107"}
+,{"codi":"1073","tipus":"Classe","descripci":"Fabricació de pastes alimentàries, cuscús i productes similars","pertany":"107"}
+,{"codi":"108","tipus":"Grup","descripci":"Fabricació d'altres productes alimentaris","pertany":"10"}
+,{"codi":"1081","tipus":"Classe","descripci":"Fabricació de sucre","pertany":"108"}
+,{"codi":"1082","tipus":"Classe","descripci":"Fabricació de cacau, xocolata i productes de confiteria","pertany":"108"}
+,{"codi":"1083","tipus":"Classe","descripci":"Elaboració de cafè, te i infusions","pertany":"108"}
+,{"codi":"1084","tipus":"Classe","descripci":"Elaboració d'espècies, salses i condiments","pertany":"108"}
+,{"codi":"1085","tipus":"Classe","descripci":"Elaboració de menjars i plats preparats","pertany":"108"}
+,{"codi":"1086","tipus":"Classe","descripci":"Elaboració de preparats per a l'alimentació infantil i preparats dietètics","pertany":"108"}
+,{"codi":"1089","tipus":"Classe","descripci":"Elaboració d'altres productes alimentaris ncaa","pertany":"108"}
+,{"codi":"109","tipus":"Grup","descripci":"Fabricació de productes per a l'alimentació animal","pertany":"10"}
+,{"codi":"1091","tipus":"Classe","descripci":"Fabricació de productes per a l'alimentació d'animals de granja","pertany":"109"}
+,{"codi":"1092","tipus":"Classe","descripci":"Fabricació de productes per a l'alimentació d'animals de companyia","pertany":"109"}
+,{"codi":"11","tipus":"Divisió","descripci":"Fabricació de begudes","pertany":"C"}
+,{"codi":"110","tipus":"Grup","descripci":"Fabricació de begudes","pertany":"11"}
+,{"codi":"1101","tipus":"Classe","descripci":"Destil·lació, rectificació i mescla de begudes alcohòliques","pertany":"110"}
+,{"codi":"1102","tipus":"Classe","descripci":"Elaboració de vins","pertany":"110"}
+,{"codi":"1103","tipus":"Classe","descripci":"Elaboració de sidra i altres begudes fermentades a partir de fruites","pertany":"110"}
+,{"codi":"1104","tipus":"Classe","descripci":"Elaboració d'altres begudes no destil·lades, procedents de la fermentació","pertany":"110"}
+,{"codi":"1105","tipus":"Classe","descripci":"Fabricació de cervesa","pertany":"110"}
+,{"codi":"1106","tipus":"Classe","descripci":"Fabricació de malt","pertany":"110"}
+,{"codi":"1107","tipus":"Classe","descripci":"Fabricació de begudes analcohòliques; producció d'aigües minerals i altres tipus d'aigües embotellades","pertany":"110"}
+,{"codi":"12","tipus":"Divisió","descripci":"Indústries del tabac","pertany":"C"}
+,{"codi":"120","tipus":"Grup","descripci":"Indústries del tabac","pertany":"12"}
+,{"codi":"1200","tipus":"Classe","descripci":"Indústries del tabac","pertany":"120"}
+,{"codi":"13","tipus":"Divisió","descripci":"Indústries tèxtils","pertany":"C"}
+,{"codi":"131","tipus":"Grup","descripci":"Preparació i filatura de fibres tèxtils","pertany":"13"}
+,{"codi":"1310","tipus":"Classe","descripci":"Preparació i filatura de fibres tèxtils","pertany":"131"}
+,{"codi":"132","tipus":"Grup","descripci":"Fabricació de teixits tèxtils","pertany":"13"}
+,{"codi":"1320","tipus":"Classe","descripci":"Fabricació de teixits tèxtils","pertany":"132"}
+,{"codi":"133","tipus":"Grup","descripci":"Acabament de tèxtils","pertany":"13"}
+,{"codi":"1330","tipus":"Classe","descripci":"Acabament de tèxtils","pertany":"133"}
+,{"codi":"139","tipus":"Grup","descripci":"Fabricació d'altres productes tèxtils","pertany":"13"}
+,{"codi":"1391","tipus":"Classe","descripci":"Fabricació de teixits de punt","pertany":"139"}
+,{"codi":"1392","tipus":"Classe","descripci":"Fabricació d'articles confeccionats amb tèxtils, excepte la roba de vestir","pertany":"139"}
+,{"codi":"1393","tipus":"Classe","descripci":"Fabricació de catifes i moquetes","pertany":"139"}
+,{"codi":"1394","tipus":"Classe","descripci":"Fabricació de cordes, cordills, caramells i xarxes","pertany":"139"}
+,{"codi":"1395","tipus":"Classe","descripci":"Fabricació de teles no teixides i articles confeccionats amb aquestes teles, excepte la roba de vestir","pertany":"139"}
+,{"codi":"1396","tipus":"Classe","descripci":"Fabricació de productes tèxtils per a ús tècnic i industrial","pertany":"139"}
+,{"codi":"1399","tipus":"Classe","descripci":"Fabricació d'altres productes tèxtils ncaa","pertany":"139"}
+,{"codi":"14","tipus":"Divisió","descripci":"Confecció de peces de vestir","pertany":"C"}
+,{"codi":"141","tipus":"Grup","descripci":"Confecció de peces de vestir, excepte de pelleteria","pertany":"14"}
+,{"codi":"1411","tipus":"Classe","descripci":"Confecció de peces de vestir de cuir","pertany":"141"}
+,{"codi":"1412","tipus":"Classe","descripci":"Confecció de roba de treball","pertany":"141"}
+,{"codi":"1413","tipus":"Classe","descripci":"Confecció d'altres peces de vestir exteriors","pertany":"141"}
+,{"codi":"1414","tipus":"Classe","descripci":"Confecció de roba interior","pertany":"141"}
+,{"codi":"1419","tipus":"Classe","descripci":"Confecció d'altres tipus de peces de vestir i accessoris","pertany":"141"}
+,{"codi":"142","tipus":"Grup","descripci":"Fabricació d'articles de pelleteria","pertany":"14"}
+,{"codi":"1420","tipus":"Classe","descripci":"Fabricació d'articles de pelleteria","pertany":"142"}
+,{"codi":"143","tipus":"Grup","descripci":"Confecció d'articles amb teixits de punt","pertany":"14"}
+,{"codi":"1431","tipus":"Classe","descripci":"Confecció de calceteria","pertany":"143"}
+,{"codi":"1439","tipus":"Classe","descripci":"Confecció d'altres articles amb teixits de punt","pertany":"143"}
+,{"codi":"15","tipus":"Divisió","descripci":"Indústria del cuir i del calçat","pertany":"C"}
+,{"codi":"151","tipus":"Grup","descripci":"Preparació, adob i acabament del cuir; fabricació d'articles de marroquineria i viatge; guarnicioneria i talabarderia; preparació i tenyida de pells de pelleteria","pertany":"15"}
+,{"codi":"1511","tipus":"Classe","descripci":"Preparació, adob i acabament del cuir; preparació i tenyida de pells de pelleteria","pertany":"151"}
+,{"codi":"1512","tipus":"Classe","descripci":"Fabricació d'articles de marroquineria i viatge; articles de guarnicioneria i talabarderia","pertany":"151"}
+,{"codi":"152","tipus":"Grup","descripci":"Fabricació de calçat","pertany":"15"}
+,{"codi":"1520","tipus":"Classe","descripci":"Fabricació de calçat","pertany":"152"}
+,{"codi":"16","tipus":"Divisió","descripci":"Indústria de la fusta i del suro, excepte mobles; cistelleria i esparteria","pertany":"C"}
+,{"codi":"161","tipus":"Grup","descripci":"Serrada i planejament de la fusta","pertany":"16"}
+,{"codi":"1610","tipus":"Classe","descripci":"Serrada i planejament de la fusta","pertany":"161"}
+,{"codi":"162","tipus":"Grup","descripci":"Fabricació de productes de fusta, suro, cistelleria i esparteria","pertany":"16"}
+,{"codi":"1621","tipus":"Classe","descripci":"Fabricació de fulloles i taulers de fusta","pertany":"162"}
+,{"codi":"1622","tipus":"Classe","descripci":"Fabricació de terres de fusta","pertany":"162"}
+,{"codi":"1623","tipus":"Classe","descripci":"Fabricació d'altres estructures de fusta i peces de fusteria i ebenisteria per a la construcció, excepte els terres de fusta","pertany":"162"}
+,{"codi":"1624","tipus":"Classe","descripci":"Fabricació d'envasos i embalatges de fusta","pertany":"162"}
+,{"codi":"1629","tipus":"Classe","descripci":"Fabricació d'altres productes de fusta; fabricació de productes de suro, cistelleria i esparteria","pertany":"162"}
+,{"codi":"17","tipus":"Divisió","descripci":"Indústries del paper","pertany":"C"}
+,{"codi":"171","tipus":"Grup","descripci":"Fabricació de pasta de paper, paper i cartó","pertany":"17"}
+,{"codi":"1711","tipus":"Classe","descripci":"Fabricació de pasta de paper","pertany":"171"}
+,{"codi":"1712","tipus":"Classe","descripci":"Fabricació de paper i de cartó","pertany":"171"}
+,{"codi":"172","tipus":"Grup","descripci":"Fabricació d'articles de paper i de cartó","pertany":"17"}
+,{"codi":"1721","tipus":"Classe","descripci":"Fabricació de paper i de cartó ondulats; fabricació d'envasos i embalatges de paper i de cartó","pertany":"172"}
+,{"codi":"1722","tipus":"Classe","descripci":"Fabricació d'articles de paper i de cartó per a ús domèstic, sanitari i higiènic","pertany":"172"}
+,{"codi":"1723","tipus":"Classe","descripci":"Fabricació d'articles de papereria","pertany":"172"}
+,{"codi":"1724","tipus":"Classe","descripci":"Fabricació de papers pintats","pertany":"172"}
+,{"codi":"1729","tipus":"Classe","descripci":"Fabricació d'altres articles de paper i de cartó","pertany":"172"}
+,{"codi":"18","tipus":"Divisió","descripci":"Arts gràfiques i reproducció de suports enregistrats","pertany":"C"}
+,{"codi":"181","tipus":"Grup","descripci":"Arts gràfiques i activitats dels serveis que s'hi relacionen","pertany":"18"}
+,{"codi":"1811","tipus":"Classe","descripci":"Impressió de periòdics","pertany":"181"}
+,{"codi":"1812","tipus":"Classe","descripci":"Altres activitats d'impressió i arts gràfiques","pertany":"181"}
+,{"codi":"1813","tipus":"Classe","descripci":"Activitats de preimpressió i de preparació de suports","pertany":"181"}
+,{"codi":"1814","tipus":"Classe","descripci":"Enquadernació i activitats dels serveis que s'hi relacionen","pertany":"181"}
+,{"codi":"182","tipus":"Grup","descripci":"Reproducció de suports enregistrats","pertany":"18"}
+,{"codi":"1820","tipus":"Classe","descripci":"Reproducció de suports enregistrats","pertany":"182"}
+,{"codi":"19","tipus":"Divisió","descripci":"Coqueries i refinació del petroli","pertany":"C"}
+,{"codi":"191","tipus":"Grup","descripci":"Coqueries","pertany":"19"}
+,{"codi":"1910","tipus":"Classe","descripci":"Coqueries","pertany":"191"}
+,{"codi":"192","tipus":"Grup","descripci":"Refinació del petroli","pertany":"19"}
+,{"codi":"1920","tipus":"Classe","descripci":"Refinació del petroli","pertany":"192"}
+,{"codi":"20","tipus":"Divisió","descripci":"Indústries químiques","pertany":"C"}
+,{"codi":"201","tipus":"Grup","descripci":"Fabricació de productes químics bàsics, compostos nitrogenats, fertilitzants, plàstics i cautxú sintètic en formes primàries","pertany":"20"}
+,{"codi":"2011","tipus":"Classe","descripci":"Fabricació de gasos industrials","pertany":"201"}
+,{"codi":"2012","tipus":"Classe","descripci":"Fabricació de colorants i pigments","pertany":"201"}
+,{"codi":"2013","tipus":"Classe","descripci":"Fabricació d'altres productes bàsics de química inorgànica","pertany":"201"}
+,{"codi":"2014","tipus":"Classe","descripci":"Fabricació d'altres productes bàsics de química orgànica","pertany":"201"}
+,{"codi":"2015","tipus":"Classe","descripci":"Fabricació d'adobs i compostos nitrogenats fertilitzants","pertany":"201"}
+,{"codi":"2016","tipus":"Classe","descripci":"Fabricació de primeres matèries plàstiques","pertany":"201"}
+,{"codi":"2017","tipus":"Classe","descripci":"Fabricació de cautxú sintètic en formes primàries","pertany":"201"}
+,{"codi":"202","tipus":"Grup","descripci":"Fabricació de plaguicides i altres productes agroquímics","pertany":"20"}
+,{"codi":"2020","tipus":"Classe","descripci":"Fabricació de plaguicides i altres productes agroquímics","pertany":"202"}
+,{"codi":"203","tipus":"Grup","descripci":"Fabricació de pintures, vernissos i revestiments similars; tintes d'impremta i màstics","pertany":"20"}
+,{"codi":"2030","tipus":"Classe","descripci":"Fabricació de pintures, vernissos i revestiments similars; tintes d'impremta i màstics","pertany":"203"}
+,{"codi":"204","tipus":"Grup","descripci":"Fabricació de sabons, detergents i altres articles de neteja i abrillantament; fabricació de perfums i productes de cosmètica","pertany":"20"}
+,{"codi":"2041","tipus":"Classe","descripci":"Fabricació de sabons, detergents i altres articles de neteja i abrillantament","pertany":"204"}
+,{"codi":"2042","tipus":"Classe","descripci":"Fabricació de perfums i productes de cosmètica","pertany":"204"}
+,{"codi":"205","tipus":"Grup","descripci":"Fabricació d'altres productes químics","pertany":"20"}
+,{"codi":"2051","tipus":"Classe","descripci":"Fabricació d'explosius","pertany":"205"}
+,{"codi":"2052","tipus":"Classe","descripci":"Fabricació de coles","pertany":"205"}
+,{"codi":"2053","tipus":"Classe","descripci":"Fabricació d'olis essencials","pertany":"205"}
+,{"codi":"2059","tipus":"Classe","descripci":"Fabricació d'altres productes químics ncaa","pertany":"205"}
+,{"codi":"206","tipus":"Grup","descripci":"Fabricació de fibres artificials i sintètiques","pertany":"20"}
+,{"codi":"2060","tipus":"Classe","descripci":"Fabricació de fibres artificials i sintètiques","pertany":"206"}
+,{"codi":"21","tipus":"Divisió","descripci":"Fabricació de productes farmacèutics","pertany":"C"}
+,{"codi":"211","tipus":"Grup","descripci":"Fabricació de productes farmacèutics de base","pertany":"21"}
+,{"codi":"2110","tipus":"Classe","descripci":"Fabricació de productes farmacèutics de base","pertany":"211"}
+,{"codi":"212","tipus":"Grup","descripci":"Fabricació de preparats farmacèutics i altres productes farmacèutics d'ús medicinal","pertany":"21"}
+,{"codi":"2120","tipus":"Classe","descripci":"Fabricació de preparats farmacèutics i altres productes farmacèutics d'ús medicinal","pertany":"212"}
+,{"codi":"22","tipus":"Divisió","descripci":"Fabricació de productes de cautxú i matèries plàstiques","pertany":"C"}
+,{"codi":"221","tipus":"Grup","descripci":"Fabricació de productes de cautxú","pertany":"22"}
+,{"codi":"2211","tipus":"Classe","descripci":"Fabricació de pneumàtics i cambres de cautxú; reconstrucció i recautxutatge de pneumàtics","pertany":"221"}
+,{"codi":"2219","tipus":"Classe","descripci":"Fabricació d'altres productes de cautxú","pertany":"221"}
+,{"codi":"222","tipus":"Grup","descripci":"Fabricació de productes de matèries plàstiques","pertany":"22"}
+,{"codi":"2221","tipus":"Classe","descripci":"Fabricació de plaques, fulls, tubs i perfils de matèries plàstiques","pertany":"222"}
+,{"codi":"2222","tipus":"Classe","descripci":"Fabricació d'envasos i embalatges de matèries plàstiques","pertany":"222"}
+,{"codi":"2223","tipus":"Classe","descripci":"Fabricació de productes de matèries plàstiques per a la construcció","pertany":"222"}
+,{"codi":"2229","tipus":"Classe","descripci":"Fabricació d'altres productes de matèries plàstiques","pertany":"222"}
+,{"codi":"23","tipus":"Divisió","descripci":"Fabricació d'altres productes minerals no metàl·lics","pertany":"C"}
+,{"codi":"231","tipus":"Grup","descripci":"Fabricació de vidre i productes de vidre","pertany":"23"}
+,{"codi":"2311","tipus":"Classe","descripci":"Fabricació de vidre pla","pertany":"231"}
+,{"codi":"2312","tipus":"Classe","descripci":"Manipulació i transformació del vidre pla","pertany":"231"}
+,{"codi":"2313","tipus":"Classe","descripci":"Fabricació de vidre buit","pertany":"231"}
+,{"codi":"2314","tipus":"Classe","descripci":"Fabricació de fibra de vidre","pertany":"231"}
+,{"codi":"2319","tipus":"Classe","descripci":"Fabricació i manipulació d'altres vidres, inclòs el vidre tècnic","pertany":"231"}
+,{"codi":"232","tipus":"Grup","descripci":"Fabricació de productes ceràmics refractaris","pertany":"23"}
+,{"codi":"2320","tipus":"Classe","descripci":"Fabricació de productes ceràmics refractaris","pertany":"232"}
+,{"codi":"233","tipus":"Grup","descripci":"Fabricació de productes ceràmics no refractaris i productes de terra cuita per a la construcció","pertany":"23"}
+,{"codi":"2331","tipus":"Classe","descripci":"Fabricació de rajoles de València i rajoles de ceràmica","pertany":"233"}
+,{"codi":"2332","tipus":"Classe","descripci":"Fabricació de maons, teules, i productes de terra cuita per a la construcció","pertany":"233"}
+,{"codi":"234","tipus":"Grup","descripci":"Fabricació d'altres productes ceràmics","pertany":"23"}
+,{"codi":"2341","tipus":"Classe","descripci":"Fabricació d'articles ceràmics d'ús domèstic i ornamental","pertany":"234"}
+,{"codi":"2342","tipus":"Classe","descripci":"Fabricació d'aparells sanitaris ceràmics","pertany":"234"}
+,{"codi":"2343","tipus":"Classe","descripci":"Fabricació d'aïlladors i peces aïllants de material ceràmic","pertany":"234"}
+,{"codi":"2344","tipus":"Classe","descripci":"Fabricació d'altres productes ceràmics d'ús tècnic","pertany":"234"}
+,{"codi":"2349","tipus":"Classe","descripci":"Fabricació d'altres productes ceràmics ncaa","pertany":"234"}
+,{"codi":"235","tipus":"Grup","descripci":"Fabricació de ciment, calç i guix","pertany":"23"}
+,{"codi":"2351","tipus":"Classe","descripci":"Fabricació de ciment","pertany":"235"}
+,{"codi":"2352","tipus":"Classe","descripci":"Fabricació de calç i guix","pertany":"235"}
+,{"codi":"236","tipus":"Grup","descripci":"Fabricació d'elements de formigó, guix i ciment","pertany":"23"}
+,{"codi":"2361","tipus":"Classe","descripci":"Fabricació d'elements de formigó per a la construcció","pertany":"236"}
+,{"codi":"2362","tipus":"Classe","descripci":"Fabricació d'elements de guix per a la construcció","pertany":"236"}
+,{"codi":"2363","tipus":"Classe","descripci":"Fabricació de formigó fresc","pertany":"236"}
+,{"codi":"2364","tipus":"Classe","descripci":"Fabricació de morter","pertany":"236"}
+,{"codi":"2365","tipus":"Classe","descripci":"Fabricació de fibrociment","pertany":"236"}
+,{"codi":"2369","tipus":"Classe","descripci":"Fabricació d'altres productes de formigó, guix i ciment","pertany":"236"}
+,{"codi":"237","tipus":"Grup","descripci":"Indústria de la pedra ornamental i per a la construcció","pertany":"23"}
+,{"codi":"2370","tipus":"Classe","descripci":"Indústria de la pedra ornamental i per a la construcció","pertany":"237"}
+,{"codi":"239","tipus":"Grup","descripci":"Fabricació d'altres productes minerals no metàl·lics","pertany":"23"}
+,{"codi":"2391","tipus":"Classe","descripci":"Fabricació de productes abrasius","pertany":"239"}
+,{"codi":"2399","tipus":"Classe","descripci":"Fabricació d'altres productes minerals no metàl·lics ncaa","pertany":"239"}
+,{"codi":"24","tipus":"Divisió","descripci":"Metal·lúrgia; fabricació de productes bàsics de ferro, acer i ferroaliatges","pertany":"C"}
+,{"codi":"241","tipus":"Grup","descripci":"Fabricació de productes bàsics de ferro, acer i ferroaliatges","pertany":"24"}
+,{"codi":"2410","tipus":"Classe","descripci":"Fabricació de productes bàsics de ferro, acer i ferroaliatges","pertany":"241"}
+,{"codi":"242","tipus":"Grup","descripci":"Fabricació de tubs, canonades, perfils buits i els seus accessoris, d'acer","pertany":"24"}
+,{"codi":"2420","tipus":"Classe","descripci":"Fabricació de tubs, canonades, perfils buits i els seus accessoris, d'acer","pertany":"242"}
+,{"codi":"243","tipus":"Grup","descripci":"Fabricació d'altres productes de primera transformació de l'acer","pertany":"24"}
+,{"codi":"2431","tipus":"Classe","descripci":"Estiratge en fred","pertany":"243"}
+,{"codi":"2432","tipus":"Classe","descripci":"Laminatge en fred","pertany":"243"}
+,{"codi":"2433","tipus":"Classe","descripci":"Producció de perfils en fred amb conformació per doblegament","pertany":"243"}
+,{"codi":"2434","tipus":"Classe","descripci":"Trefilatge en fred","pertany":"243"}
+,{"codi":"244","tipus":"Grup","descripci":"Producció de metalls preciosos i d'altres metalls no ferris","pertany":"24"}
+,{"codi":"2441","tipus":"Classe","descripci":"Producció de metalls preciosos","pertany":"244"}
+,{"codi":"2442","tipus":"Classe","descripci":"Producció d'alumini","pertany":"244"}
+,{"codi":"2443","tipus":"Classe","descripci":"Producció de plom, zinc i estany","pertany":"244"}
+,{"codi":"2444","tipus":"Classe","descripci":"Producció de coure","pertany":"244"}
+,{"codi":"2445","tipus":"Classe","descripci":"Producció d'altres metalls no ferris","pertany":"244"}
+,{"codi":"2446","tipus":"Classe","descripci":"Tractament de combustibles nuclears","pertany":"244"}
+,{"codi":"245","tipus":"Grup","descripci":"Fosa de metalls","pertany":"24"}
+,{"codi":"2451","tipus":"Classe","descripci":"Fosa de ferro","pertany":"245"}
+,{"codi":"2452","tipus":"Classe","descripci":"Fosa d'acer","pertany":"245"}
+,{"codi":"2453","tipus":"Classe","descripci":"Fosa de metalls lleugers","pertany":"245"}
+,{"codi":"2454","tipus":"Classe","descripci":"Fosa d'altres metalls no ferris","pertany":"245"}
+,{"codi":"25","tipus":"Divisió","descripci":"Fabricació de productes metàl·lics, excepte maquinària i equips","pertany":"C"}
+,{"codi":"251","tipus":"Grup","descripci":"Fabricació d'elements metàl·lics per a la construcció","pertany":"25"}
+,{"codi":"2511","tipus":"Classe","descripci":"Fabricació d'estructures metàl·liques i els seus components","pertany":"251"}
+,{"codi":"2512","tipus":"Classe","descripci":"Fabricació de tancaments metàl·lics","pertany":"251"}
+,{"codi":"252","tipus":"Grup","descripci":"Fabricació de cisternes, grans dipòsits i contenidors de metall","pertany":"25"}
+,{"codi":"2521","tipus":"Classe","descripci":"Fabricació de radiadors i calderes per a calefacció central","pertany":"252"}
+,{"codi":"2529","tipus":"Classe","descripci":"Fabricació d'altres cisternes, grans dipòsits i contenidors de metall","pertany":"252"}
+,{"codi":"253","tipus":"Grup","descripci":"Fabricació de generadors de vapor, excepte calderes per a calefacció central","pertany":"25"}
+,{"codi":"2530","tipus":"Classe","descripci":"Fabricació de generadors de vapor, excepte calderes per a calefacció central","pertany":"253"}
+,{"codi":"254","tipus":"Grup","descripci":"Fabricació d'armes i municions","pertany":"25"}
+,{"codi":"2540","tipus":"Classe","descripci":"Fabricació d'armes i municions","pertany":"254"}
+,{"codi":"255","tipus":"Grup","descripci":"Forja, estampació i embotició de metalls; pulverimetal·lúrgia","pertany":"25"}
+,{"codi":"2550","tipus":"Classe","descripci":"Forja, estampació i embotició de metalls; pulverimetal·lúrgia","pertany":"255"}
+,{"codi":"256","tipus":"Grup","descripci":"Tractament i revestiment de metalls; enginyeria mecànica general per compte d'altri","pertany":"25"}
+,{"codi":"2561","tipus":"Classe","descripci":"Tractament i revestiment de metalls","pertany":"256"}
+,{"codi":"2562","tipus":"Classe","descripci":"Enginyeria mecànica general per compte d'altri","pertany":"256"}
+,{"codi":"257","tipus":"Grup","descripci":"Fabricació d'articles de ganiveteria i coberts, eines i ferreteria","pertany":"25"}
+,{"codi":"2571","tipus":"Classe","descripci":"Fabricació d'articles de ganiveteria i coberts","pertany":"257"}
+,{"codi":"2572","tipus":"Classe","descripci":"Fabricació de panys i ferramentes","pertany":"257"}
+,{"codi":"2573","tipus":"Classe","descripci":"Fabricació d'eines","pertany":"257"}
+,{"codi":"259","tipus":"Grup","descripci":"Fabricació d'altres productes metàl·lics","pertany":"25"}
+,{"codi":"2591","tipus":"Classe","descripci":"Fabricació de bidons i tonells de ferro o d'acer","pertany":"259"}
+,{"codi":"2592","tipus":"Classe","descripci":"Fabricació d'envasos i embalatges lleugers, en metall","pertany":"259"}
+,{"codi":"2593","tipus":"Classe","descripci":"Fabricació de productes de filferro, cadenes i molles","pertany":"259"}
+,{"codi":"2594","tipus":"Classe","descripci":"Fabricació de perns i cargols","pertany":"259"}
+,{"codi":"2599","tipus":"Classe","descripci":"Fabricació d'altres productes metàl·lics ncaa","pertany":"259"}
+,{"codi":"26","tipus":"Divisió","descripci":"Fabricació de productes informàtics, electrònics i òptics","pertany":"C"}
+,{"codi":"261","tipus":"Grup","descripci":"Fabricació de components electrònics i circuits impresos acoblats","pertany":"26"}
+,{"codi":"2611","tipus":"Classe","descripci":"Fabricació de components electrònics","pertany":"261"}
+,{"codi":"2612","tipus":"Classe","descripci":"Fabricació de circuits impresos acoblats","pertany":"261"}
+,{"codi":"262","tipus":"Grup","descripci":"Fabricació d'ordinadors i equips perifèrics","pertany":"26"}
+,{"codi":"2620","tipus":"Classe","descripci":"Fabricació d'ordinadors i equips perifèrics","pertany":"262"}
+,{"codi":"263","tipus":"Grup","descripci":"Fabricació d'equips de telecomunicacions","pertany":"26"}
+,{"codi":"2630","tipus":"Classe","descripci":"Fabricació d'equips de telecomunicacions","pertany":"263"}
+,{"codi":"264","tipus":"Grup","descripci":"Fabricació de productes electrònics de consum","pertany":"26"}
+,{"codi":"2640","tipus":"Classe","descripci":"Fabricació de productes electrònics de consum","pertany":"264"}
+,{"codi":"265","tipus":"Grup","descripci":"Fabricació d'instruments i aparells de mesura, verificació i navegació; fabricació de rellotges","pertany":"26"}
+,{"codi":"2651","tipus":"Classe","descripci":"Fabricació d'instruments i aparells de mesura, verificació i navegació","pertany":"265"}
+,{"codi":"2652","tipus":"Classe","descripci":"Fabricació de rellotges","pertany":"265"}
+,{"codi":"266","tipus":"Grup","descripci":"Fabricació d'equips de radiació, electromèdics i electroterapèutics","pertany":"26"}
+,{"codi":"2660","tipus":"Classe","descripci":"Fabricació d'equips de radiació, electromèdics i electroterapèutics","pertany":"266"}
+,{"codi":"267","tipus":"Grup","descripci":"Fabricació d'instruments d'òptica i d'equips fotogràfics","pertany":"26"}
+,{"codi":"2670","tipus":"Classe","descripci":"Fabricació d'instruments d'òptica i d'equips fotogràfics","pertany":"267"}
+,{"codi":"268","tipus":"Grup","descripci":"Fabricació de suports magnètics i òptics","pertany":"26"}
+,{"codi":"2680","tipus":"Classe","descripci":"Fabricació de suports magnètics i òptics","pertany":"268"}
+,{"codi":"27","tipus":"Divisió","descripci":"Fabricació de materials i equips elèctrics","pertany":"C"}
+,{"codi":"271","tipus":"Grup","descripci":"Fabricació de motors, transformadors i generadors elèctrics, i d'aparells de distribució i control elèctrics","pertany":"27"}
+,{"codi":"2711","tipus":"Classe","descripci":"Fabricació de motors, transformadors i generadors elèctrics","pertany":"271"}
+,{"codi":"2712","tipus":"Classe","descripci":"Fabricació d'aparells de distribució i control elèctrics","pertany":"271"}
+,{"codi":"272","tipus":"Grup","descripci":"Fabricació d'acumuladors i piles elèctriques","pertany":"27"}
+,{"codi":"2720","tipus":"Classe","descripci":"Fabricació d'acumuladors i piles elèctriques","pertany":"272"}
+,{"codi":"273","tipus":"Grup","descripci":"Fabricació de cables i dispositius de cablatge","pertany":"27"}
+,{"codi":"2731","tipus":"Classe","descripci":"Fabricació de cables de fibra òptica","pertany":"273"}
+,{"codi":"2732","tipus":"Classe","descripci":"Fabricació d'altres fils i cables electrònics i elèctrics","pertany":"273"}
+,{"codi":"2733","tipus":"Classe","descripci":"Fabricació de dispositius de cablatge","pertany":"273"}
+,{"codi":"274","tipus":"Grup","descripci":"Fabricació de llums elèctrics i aparells d'il·luminació","pertany":"27"}
+,{"codi":"2740","tipus":"Classe","descripci":"Fabricació de llums elèctrics i aparells d'il·luminació","pertany":"274"}
+,{"codi":"275","tipus":"Grup","descripci":"Fabricació d'aparells domèstics","pertany":"27"}
+,{"codi":"2751","tipus":"Classe","descripci":"Fabricació d'aparells electrodomèstics","pertany":"275"}
+,{"codi":"2752","tipus":"Classe","descripci":"Fabricació d'aparells domèstics no elèctrics","pertany":"275"}
+,{"codi":"279","tipus":"Grup","descripci":"Fabricació d'altres tipus de materials i equips elèctrics","pertany":"27"}
+,{"codi":"2790","tipus":"Classe","descripci":"Fabricació d'altres tipus de materials i equips elèctrics","pertany":"279"}
+,{"codi":"28","tipus":"Divisió","descripci":"Fabricació de maquinària i equips ncaa","pertany":"C"}
+,{"codi":"281","tipus":"Grup","descripci":"Fabricació de maquinària d'ús general","pertany":"28"}
+,{"codi":"2811","tipus":"Classe","descripci":"Fabricació de motors i turbines, excepte els d'aeronaus, vehicles automòbils i ciclomotors","pertany":"281"}
+,{"codi":"2812","tipus":"Classe","descripci":"Fabricació d'equips de transmissions hidràuliques i pneumàtiques","pertany":"281"}
+,{"codi":"2813","tipus":"Classe","descripci":"Fabricació d'altres bombes i compressors","pertany":"281"}
+,{"codi":"2814","tipus":"Classe","descripci":"Fabricació de vàlvules i aixetes","pertany":"281"}
+,{"codi":"2815","tipus":"Classe","descripci":"Fabricació de coixinets, engranatges i òrgans mecànics de transmissió","pertany":"281"}
+,{"codi":"282","tipus":"Grup","descripci":"Fabricació d'un altre tipus de maquinària d'ús general","pertany":"28"}
+,{"codi":"2821","tipus":"Classe","descripci":"Fabricació de forns i cremadors","pertany":"282"}
+,{"codi":"2822","tipus":"Classe","descripci":"Fabricació de maquinària d'elevació i manipulació","pertany":"282"}
+,{"codi":"2823","tipus":"Classe","descripci":"Fabricació de màquines i equips d'oficina, excepte equips informàtics","pertany":"282"}
+,{"codi":"2824","tipus":"Classe","descripci":"Fabricació de màquines eina elèctriques portàtils","pertany":"282"}
+,{"codi":"2825","tipus":"Classe","descripci":"Fabricació de maquinària de ventilació i refrigeració no domèstica","pertany":"282"}
+,{"codi":"2829","tipus":"Classe","descripci":"Fabricació d'altre tipus de maquinària d'ús general ncaa","pertany":"282"}
+,{"codi":"283","tipus":"Grup","descripci":"Fabricació de maquinària agrària i forestal","pertany":"28"}
+,{"codi":"2830","tipus":"Classe","descripci":"Fabricació de maquinària agrària i forestal","pertany":"283"}
+,{"codi":"284","tipus":"Grup","descripci":"Fabricació de màquines eina per treballar els metalls, i altres màquines eina","pertany":"28"}
+,{"codi":"2841","tipus":"Classe","descripci":"Fabricació de màquines eina per treballar els metalls","pertany":"284"}
+,{"codi":"2849","tipus":"Classe","descripci":"Fabricació d'altres tipus de màquines eina","pertany":"284"}
+,{"codi":"289","tipus":"Grup","descripci":"Fabricació d'altres tipus de maquinària per a usos específics","pertany":"28"}
+,{"codi":"2891","tipus":"Classe","descripci":"Fabricació de maquinària per a les indústries metal·lúrgiques","pertany":"289"}
+,{"codi":"2892","tipus":"Classe","descripci":"Fabricació de maquinària per a les indústries extractives i de la construcció","pertany":"289"}
+,{"codi":"2893","tipus":"Classe","descripci":"Fabricació de maquinària per a les indústries de l'alimentació, begudes i tabac","pertany":"289"}
+,{"codi":"2894","tipus":"Classe","descripci":"Fabricació de maquinària per a les indústries tèxtils, de la confecció i del cuir","pertany":"289"}
+,{"codi":"2895","tipus":"Classe","descripci":"Fabricació de maquinària per a les indústries del paper i del cartó","pertany":"289"}
+,{"codi":"2896","tipus":"Classe","descripci":"Fabricació de maquinària per a les indústries del plàstic i del cautxú","pertany":"289"}
+,{"codi":"2899","tipus":"Classe","descripci":"Fabricació d'altres tipus de maquinària per a usos específics ncaa","pertany":"289"}
+,{"codi":"29","tipus":"Divisió","descripci":"Fabricació de vehicles de motor, remolcs i semiremolcs","pertany":"C"}
+,{"codi":"291","tipus":"Grup","descripci":"Fabricació de vehicles de motor","pertany":"29"}
+,{"codi":"2910","tipus":"Classe","descripci":"Fabricació de vehicles de motor","pertany":"291"}
+,{"codi":"292","tipus":"Grup","descripci":"Fabricació de carrosseries per a vehicles de motor; fabricació de remolcs i semiremolcs","pertany":"29"}
+,{"codi":"2920","tipus":"Classe","descripci":"Fabricació de carrosseries per a vehicles de motor; fabricació de remolcs i semiremolcs","pertany":"292"}
+,{"codi":"293","tipus":"Grup","descripci":"Fabricació de components, peces i accessoris per a vehicles de motor i els seus motors","pertany":"29"}
+,{"codi":"2931","tipus":"Classe","descripci":"Fabricació d'equips elèctrics per a vehicles de motor i els seus motors","pertany":"293"}
+,{"codi":"2932","tipus":"Classe","descripci":"Fabricació d'altres components, peces i accessoris per a vehicles de motor i els seus motors","pertany":"293"}
+,{"codi":"30","tipus":"Divisió","descripci":"Fabricació d'altres materials de transport","pertany":"C"}
+,{"codi":"301","tipus":"Grup","descripci":"Construcció naval","pertany":"30"}
+,{"codi":"3011","tipus":"Classe","descripci":"Construcció de vaixells i estructures flotants","pertany":"301"}
+,{"codi":"3012","tipus":"Classe","descripci":"Construcció d'embarcacions d'esbarjo i d'esport","pertany":"301"}
+,{"codi":"302","tipus":"Grup","descripci":"Fabricació de locomotores i material ferroviari","pertany":"30"}
+,{"codi":"3020","tipus":"Classe","descripci":"Fabricació de locomotores i material ferroviari","pertany":"302"}
+,{"codi":"303","tipus":"Grup","descripci":"Construcció aeronàutica i espacial","pertany":"30"}
+,{"codi":"3030","tipus":"Classe","descripci":"Construcció aeronàutica i espacial","pertany":"303"}
+,{"codi":"304","tipus":"Grup","descripci":"Fabricació de vehicles de combat","pertany":"30"}
+,{"codi":"3040","tipus":"Classe","descripci":"Fabricació de vehicles de combat","pertany":"304"}
+,{"codi":"309","tipus":"Grup","descripci":"Fabricació d'altres materials de transport ncaa","pertany":"30"}
+,{"codi":"3091","tipus":"Classe","descripci":"Fabricació de motocicletes","pertany":"309"}
+,{"codi":"3092","tipus":"Classe","descripci":"Fabricació de bicicletes i vehicles per a persones amb discapacitat","pertany":"309"}
+,{"codi":"3099","tipus":"Classe","descripci":"Fabricació d'altres materials de transport ncaa","pertany":"309"}
+,{"codi":"31","tipus":"Divisió","descripci":"Fabricació de mobles","pertany":"C"}
+,{"codi":"310","tipus":"Grup","descripci":"Fabricació de mobles","pertany":"31"}
+,{"codi":"3101","tipus":"Classe","descripci":"Fabricació de mobles d'oficina i d'establiments comercials","pertany":"310"}
+,{"codi":"3102","tipus":"Classe","descripci":"Fabricació de mobles de cuina","pertany":"310"}
+,{"codi":"3103","tipus":"Classe","descripci":"Fabricació de matalassos","pertany":"310"}
+,{"codi":"3109","tipus":"Classe","descripci":"Fabricació d'altres tipus de mobles","pertany":"310"}
+,{"codi":"32","tipus":"Divisió","descripci":"Indústries manufactureres diverses","pertany":"C"}
+,{"codi":"321","tipus":"Grup","descripci":"Fabricació d'articles de joieria, bijuteria i similars","pertany":"32"}
+,{"codi":"3211","tipus":"Classe","descripci":"Fabricació de monedes","pertany":"321"}
+,{"codi":"3212","tipus":"Classe","descripci":"Fabricació d'articles de joieria i articles similars","pertany":"321"}
+,{"codi":"3213","tipus":"Classe","descripci":"Fabricació d'articles de bijuteria i articles similars","pertany":"321"}
+,{"codi":"322","tipus":"Grup","descripci":"Fabricació d'instruments musicals","pertany":"32"}
+,{"codi":"3220","tipus":"Classe","descripci":"Fabricació d'instruments musicals","pertany":"322"}
+,{"codi":"323","tipus":"Grup","descripci":"Fabricació d'articles d'esport","pertany":"32"}
+,{"codi":"3230","tipus":"Classe","descripci":"Fabricació d'articles d'esport","pertany":"323"}
+,{"codi":"324","tipus":"Grup","descripci":"Fabricació de jocs i joguines","pertany":"32"}
+,{"codi":"3240","tipus":"Classe","descripci":"Fabricació de jocs i joguines","pertany":"324"}
+,{"codi":"325","tipus":"Grup","descripci":"Fabricació d'instruments i subministraments mèdics i odontològics","pertany":"32"}
+,{"codi":"3250","tipus":"Classe","descripci":"Fabricació d'instruments i subministraments mèdics i odontològics","pertany":"325"}
+,{"codi":"329","tipus":"Grup","descripci":"Altres indústries manufactureres diverses","pertany":"32"}
+,{"codi":"3291","tipus":"Classe","descripci":"Fabricació d'escombres, brotxes i raspalls","pertany":"329"}
+,{"codi":"3299","tipus":"Classe","descripci":"Altres indústries manufactureres diverses ncaa","pertany":"329"}
+,{"codi":"33","tipus":"Divisió","descripci":"Reparació i instal·lació de maquinària i equips","pertany":"C"}
+,{"codi":"331","tipus":"Grup","descripci":"Reparació de productes metàl·lics, maquinària i equips","pertany":"33"}
+,{"codi":"3311","tipus":"Classe","descripci":"Reparació de productes metàl·lics","pertany":"331"}
+,{"codi":"3312","tipus":"Classe","descripci":"Reparació de maquinària","pertany":"331"}
+,{"codi":"3313","tipus":"Classe","descripci":"Reparació d'equips electrònics i òptics","pertany":"331"}
+,{"codi":"3314","tipus":"Classe","descripci":"Reparació d'equips elèctrics","pertany":"331"}
+,{"codi":"3315","tipus":"Classe","descripci":"Reparació i manteniment naval","pertany":"331"}
+,{"codi":"3316","tipus":"Classe","descripci":"Reparació i manteniment aeronàutic i espacial","pertany":"331"}
+,{"codi":"3317","tipus":"Classe","descripci":"Reparació i manteniment d'altres materials de transport","pertany":"331"}
+,{"codi":"3319","tipus":"Classe","descripci":"Reparació d'altres equips","pertany":"331"}
+,{"codi":"332","tipus":"Grup","descripci":"Instal·lació de maquinària i equips industrials","pertany":"33"}
+,{"codi":"3320","tipus":"Classe","descripci":"Instal·lació de maquinària i equips industrials","pertany":"332"}
+,{"codi":"D","tipus":"Secció","descripci":"Subministrament d'energia elèctrica, gas, vapor i aire condicionat"}
+,{"codi":"35","tipus":"Divisió","descripci":"Subministrament d'energia elèctrica, gas, vapor i aire condicionat","pertany":"D"}
+,{"codi":"351","tipus":"Grup","descripci":"Producció, transport i distribució d'energia elèctrica","pertany":"35"}
+,{"codi":"3512","tipus":"Classe","descripci":"Transport d'energia elèctrica","pertany":"351"}
+,{"codi":"3513","tipus":"Classe","descripci":"Distribució d'energia elèctrica","pertany":"351"}
+,{"codi":"3514","tipus":"Classe","descripci":"Comerç d'energia elèctrica","pertany":"351"}
+,{"codi":"3515","tipus":"Classe","descripci":"Producció d'energia hidroelèctrica","pertany":"351"}
+,{"codi":"3516","tipus":"Classe","descripci":"Producció d'energia elèctrica d'origen tèrmic convencional","pertany":"351"}
+,{"codi":"3517","tipus":"Classe","descripci":"Producció d'energia elèctrica d'origen nuclear","pertany":"351"}
+,{"codi":"3518","tipus":"Classe","descripci":"Producció d'energia elèctrica d'origen eòlic","pertany":"351"}
+,{"codi":"3519","tipus":"Classe","descripci":"Producció d'energia elèctrica d'altres tipus","pertany":"351"}
+,{"codi":"352","tipus":"Grup","descripci":"Producció de gas; distribució de combustibles gasosos per conductes urbans, excepte gasoductes","pertany":"35"}
+,{"codi":"3521","tipus":"Classe","descripci":"Producció de gas","pertany":"352"}
+,{"codi":"3522","tipus":"Classe","descripci":"Distribució de combustibles gasosos per conductes urbans, excepte gasoductes","pertany":"352"}
+,{"codi":"3523","tipus":"Classe","descripci":"Comerç de gas per conductes urbans","pertany":"352"}
+,{"codi":"353","tipus":"Grup","descripci":"Subministrament de vapor i aire condicionat","pertany":"35"}
+,{"codi":"3530","tipus":"Classe","descripci":"Subministrament de vapor i aire condicionat","pertany":"353"}
+,{"codi":"E","tipus":"Secció","descripci":"Subministrament d'aigua; activitats de sanejament, gestió de residus i descontaminació"}
+,{"codi":"36","tipus":"Divisió","descripci":"Captació, potabilització i distribució d'aigua","pertany":"E"}
+,{"codi":"360","tipus":"Grup","descripci":"Captació, potabilització i distribució d'aigua","pertany":"36"}
+,{"codi":"3600","tipus":"Classe","descripci":"Captació, potabilització i distribució d'aigua","pertany":"360"}
+,{"codi":"37","tipus":"Divisió","descripci":"Recollida i tractament d'aigües residuals","pertany":"E"}
+,{"codi":"370","tipus":"Grup","descripci":"Recollida i tractament d'aigües residuals","pertany":"37"}
+,{"codi":"3700","tipus":"Classe","descripci":"Recollida i tractament d'aigües residuals","pertany":"370"}
+,{"codi":"38","tipus":"Divisió","descripci":"Activitats de recollida, tractament i eliminació de residus; activitats de valorització","pertany":"E"}
+,{"codi":"381","tipus":"Grup","descripci":"Recollida de residus","pertany":"38"}
+,{"codi":"3811","tipus":"Classe","descripci":"Recollida de residus no perillosos","pertany":"381"}
+,{"codi":"3812","tipus":"Classe","descripci":"Recollida de residus perillosos","pertany":"381"}
+,{"codi":"382","tipus":"Grup","descripci":"Tractament i eliminació de residus","pertany":"38"}
+,{"codi":"3821","tipus":"Classe","descripci":"Tractament i eliminació de residus no perillosos","pertany":"382"}
+,{"codi":"3822","tipus":"Classe","descripci":"Tractament i eliminació de residus perillosos","pertany":"382"}
+,{"codi":"383","tipus":"Grup","descripci":"Activitats de valorització","pertany":"38"}
+,{"codi":"3831","tipus":"Classe","descripci":"Activitats de classificació i separació de materials","pertany":"383"}
+,{"codi":"3832","tipus":"Classe","descripci":"Activitats de valorització de materials classificats","pertany":"383"}
+,{"codi":"39","tipus":"Divisió","descripci":"Activitats de descontaminació i altres serveis de gestió de residus","pertany":"E"}
+,{"codi":"390","tipus":"Grup","descripci":"Activitats de descontaminació i altres serveis de gestió de residus","pertany":"39"}
+,{"codi":"3900","tipus":"Classe","descripci":"Activitats de descontaminació i altres serveis de gestió de residus","pertany":"390"}
+,{"codi":"F","tipus":"Secció","descripci":"Construcció"}
+,{"codi":"41","tipus":"Divisió","descripci":"Construcció d'immobles","pertany":"F"}
+,{"codi":"411","tipus":"Grup","descripci":"Promoció immobiliària","pertany":"41"}
+,{"codi":"4110","tipus":"Classe","descripci":"Promoció immobiliària","pertany":"411"}
+,{"codi":"412","tipus":"Grup","descripci":"Construcció d'edificis","pertany":"41"}
+,{"codi":"4121","tipus":"Classe","descripci":"Construcció d'edificis residencials","pertany":"412"}
+,{"codi":"4122","tipus":"Classe","descripci":"Construcció d'edificis no residencials","pertany":"412"}
+,{"codi":"42","tipus":"Divisió","descripci":"Construcció d'obres d'enginyeria civil","pertany":"F"}
+,{"codi":"421","tipus":"Grup","descripci":"Construcció de carreteres, vies fèrries, ponts i túnels","pertany":"42"}
+,{"codi":"4211","tipus":"Classe","descripci":"Construcció de carreteres i autopistes","pertany":"421"}
+,{"codi":"4212","tipus":"Classe","descripci":"Construcció de vies fèrries","pertany":"421"}
+,{"codi":"4213","tipus":"Classe","descripci":"Construcció de ponts i túnels","pertany":"421"}
+,{"codi":"422","tipus":"Grup","descripci":"Construcció de xarxes","pertany":"42"}
+,{"codi":"4221","tipus":"Classe","descripci":"Construcció de xarxes per a fluids","pertany":"422"}
+,{"codi":"4222","tipus":"Classe","descripci":"Construcció de xarxes elèctriques i de telecomunicacions","pertany":"422"}
+,{"codi":"429","tipus":"Grup","descripci":"Construcció d'altres obres d'enginyeria civil","pertany":"42"}
+,{"codi":"4291","tipus":"Classe","descripci":"Construcció d'obres hidràuliques","pertany":"429"}
+,{"codi":"4299","tipus":"Classe","descripci":"Construcció d'altres obres d'enginyeria civil ncaa","pertany":"429"}
+,{"codi":"43","tipus":"Divisió","descripci":"Activitats especialitzades de la construcció","pertany":"F"}
+,{"codi":"431","tipus":"Grup","descripci":"Preparació d'obres","pertany":"43"}
+,{"codi":"4311","tipus":"Classe","descripci":"Demolició d'immobles","pertany":"431"}
+,{"codi":"4312","tipus":"Classe","descripci":"Moviments de terres","pertany":"431"}
+,{"codi":"4313","tipus":"Classe","descripci":"Perforacions i sondatges","pertany":"431"}
+,{"codi":"432","tipus":"Grup","descripci":"Instal·lacions elèctriques, de lampisteria i altres instal·lacions d'edificis i obres","pertany":"43"}
+,{"codi":"4321","tipus":"Classe","descripci":"Instal·lacions elèctriques","pertany":"432"}
+,{"codi":"4322","tipus":"Classe","descripci":"Lampisteria, instal·lacions de calefacció i aire condicionat","pertany":"432"}
+,{"codi":"4329","tipus":"Classe","descripci":"Altres activitats d'instal·lació en edificis i obres","pertany":"432"}
+,{"codi":"433","tipus":"Grup","descripci":"Acabament d'edificis","pertany":"43"}
+,{"codi":"4331","tipus":"Classe","descripci":"Arrebossat","pertany":"433"}
+,{"codi":"4332","tipus":"Classe","descripci":"Instal·lacions de fusteria","pertany":"433"}
+,{"codi":"4333","tipus":"Classe","descripci":"Revestiments de terres i parets","pertany":"433"}
+,{"codi":"4334","tipus":"Classe","descripci":"Pintura i vidrieria","pertany":"433"}
+,{"codi":"4339","tipus":"Classe","descripci":"Altres treballs d'acabament d'edificis","pertany":"433"}
+,{"codi":"439","tipus":"Grup","descripci":"Altres activitats especialitzades de la construcció","pertany":"43"}
+,{"codi":"4391","tipus":"Classe","descripci":"Construcció de cobertes","pertany":"439"}
+,{"codi":"4399","tipus":"Classe","descripci":"Altres activitats especialitzades de la construcció ncaa","pertany":"439"}
+,{"codi":"G","tipus":"Secció","descripci":"Comerç a l'engròs i al detall; reparació de vehicles de motor i motocicletes"}
+,{"codi":"45","tipus":"Divisió","descripci":"Venda i reparació de vehicles de motor i motocicletes","pertany":"G"}
+,{"codi":"451","tipus":"Grup","descripci":"Venda de vehicles de motor","pertany":"45"}
+,{"codi":"4511","tipus":"Classe","descripci":"Venda d'automòbils i vehicles de motor lleuger","pertany":"451"}
+,{"codi":"4519","tipus":"Classe","descripci":"Venda d'altres vehicles de motor","pertany":"451"}
+,{"codi":"452","tipus":"Grup","descripci":"Manteniment i reparació de vehicles de motor","pertany":"45"}
+,{"codi":"4520","tipus":"Classe","descripci":"Manteniment i reparació de vehicles de motor","pertany":"452"}
+,{"codi":"453","tipus":"Grup","descripci":"Venda de recanvis i accessoris de vehicles de motor","pertany":"45"}
+,{"codi":"4531","tipus":"Classe","descripci":"Comerç a l'engròs de recanvis i accessoris de vehicles de motor","pertany":"453"}
+,{"codi":"4532","tipus":"Classe","descripci":"Comerç al detall de recanvis i accessoris de vehicles de motor","pertany":"453"}
+,{"codi":"454","tipus":"Grup","descripci":"Venda, manteniment i reparació de motocicletes, i dels seus recanvis i accessoris","pertany":"45"}
+,{"codi":"4540","tipus":"Classe","descripci":"Venda, manteniment i reparació de motocicletes, i dels seus recanvis i accessoris","pertany":"454"}
+,{"codi":"46","tipus":"Divisió","descripci":"Comerç a l'engròs i intermediaris del comerç, excepte vehicles de motor i motocicletes","pertany":"G"}
+,{"codi":"461","tipus":"Grup","descripci":"Intermediaris del comerç","pertany":"46"}
+,{"codi":"4611","tipus":"Classe","descripci":"Intermediaris del comerç de primeres matèries agràries, animals vius, primeres matèries tèxtils i productes semielaborats","pertany":"461"}
+,{"codi":"4612","tipus":"Classe","descripci":"Intermediaris del comerç de combustibles, minerals, metalls i productes químics industrials","pertany":"461"}
+,{"codi":"4613","tipus":"Classe","descripci":"Intermediaris del comerç de la fusta i materials de construcció","pertany":"461"}
+,{"codi":"4614","tipus":"Classe","descripci":"Intermediaris del comerç de maquinària, equips industrials, embarcacions i aeronaus","pertany":"461"}
+,{"codi":"4615","tipus":"Classe","descripci":"Intermediaris del comerç de mobles, articles per a la llar i ferreteria","pertany":"461"}
+,{"codi":"4616","tipus":"Classe","descripci":"Intermediaris del comerç de tèxtils, peces de vestir, calçat i articles de cuir","pertany":"461"}
+,{"codi":"4617","tipus":"Classe","descripci":"Intermediaris del comerç de productes alimentaris, begudes i tabac","pertany":"461"}
+,{"codi":"4618","tipus":"Classe","descripci":"Intermediaris del comerç especialitzat en la venda d'altres productes","pertany":"461"}
+,{"codi":"4619","tipus":"Classe","descripci":"Intermediaris del comerç de productes diversos","pertany":"461"}
+,{"codi":"462","tipus":"Grup","descripci":"Comerç a l'engròs de primeres matèries agràries i d'animals vius","pertany":"46"}
+,{"codi":"4621","tipus":"Classe","descripci":"Comerç a l'engròs de cereals, tabac en brut, llavors i aliments per al bestiar","pertany":"462"}
+,{"codi":"4622","tipus":"Classe","descripci":"Comerç a l'engròs de flors i plantes","pertany":"462"}
+,{"codi":"4623","tipus":"Classe","descripci":"Comerç a l'engròs d'animals vius","pertany":"462"}
+,{"codi":"4624","tipus":"Classe","descripci":"Comerç a l'engròs de cuirs i pells","pertany":"462"}
+,{"codi":"463","tipus":"Grup","descripci":"Comerç a l'engròs de productes alimentaris, begudes i tabac","pertany":"46"}
+,{"codi":"4631","tipus":"Classe","descripci":"Comerç a l'engròs de fruites i hortalisses","pertany":"463"}
+,{"codi":"4632","tipus":"Classe","descripci":"Comerç a l'engròs de carn i productes carnis","pertany":"463"}
+,{"codi":"4633","tipus":"Classe","descripci":"Comerç a l'engròs de productes lactis, ous, olis i greixos comestibles","pertany":"463"}
+,{"codi":"4634","tipus":"Classe","descripci":"Comerç a l'engròs de begudes","pertany":"463"}
+,{"codi":"4635","tipus":"Classe","descripci":"Comerç a l'engròs de productes del tabac","pertany":"463"}
+,{"codi":"4636","tipus":"Classe","descripci":"Comerç a l'engròs de sucre, xocolata i confiteria","pertany":"463"}
+,{"codi":"4637","tipus":"Classe","descripci":"Comerç a l'engròs de cafè, te, cacau i espècies","pertany":"463"}
+,{"codi":"4638","tipus":"Classe","descripci":"Comerç a l'engròs de peix i marisc i altres productes alimentaris","pertany":"463"}
+,{"codi":"4639","tipus":"Classe","descripci":"Comerç a l'engròs, no especialitzat, de productes alimentaris, begudes i tabac","pertany":"463"}
+,{"codi":"464","tipus":"Grup","descripci":"Comerç a l'engròs d'articles d'ús domèstic","pertany":"46"}
+,{"codi":"4641","tipus":"Classe","descripci":"Comerç a l'engròs de tèxtils","pertany":"464"}
+,{"codi":"4642","tipus":"Classe","descripci":"Comerç a l'engròs de peces de vestir i calçat","pertany":"464"}
+,{"codi":"4643","tipus":"Classe","descripci":"Comerç a l'engròs d'aparells electrodomèstics i d'aparells de ràdio i televisió","pertany":"464"}
+,{"codi":"4644","tipus":"Classe","descripci":"Comerç a l'engròs de porcellana i cristalleria, i articles de neteja","pertany":"464"}
+,{"codi":"4645","tipus":"Classe","descripci":"Comerç a l'engròs de perfumeria i cosmètica","pertany":"464"}
+,{"codi":"4646","tipus":"Classe","descripci":"Comerç a l'engròs de productes farmacèutics","pertany":"464"}
+,{"codi":"4647","tipus":"Classe","descripci":"Comerç a l'engròs de mobles, catifes i aparells d'il·luminació","pertany":"464"}
+,{"codi":"4648","tipus":"Classe","descripci":"Comerç a l'engròs de rellotges i joieria","pertany":"464"}
+,{"codi":"4649","tipus":"Classe","descripci":"Comerç a l'engròs d'altres articles d'ús domèstic","pertany":"464"}
+,{"codi":"465","tipus":"Grup","descripci":"Comerç a l'engròs d'equips per a les tecnologies de la informació i les comunicacions (TIC)","pertany":"46"}
+,{"codi":"4651","tipus":"Classe","descripci":"Comerç a l'engròs d'ordinadors, equips perifèrics i programes informàtics","pertany":"465"}
+,{"codi":"4652","tipus":"Classe","descripci":"Comerç a l'engròs d'equips electrònics i de telecomunicacions i els seus components","pertany":"465"}
+,{"codi":"466","tipus":"Grup","descripci":"Comerç a l'engròs d'una altra maquinària, equips i subministraments","pertany":"46"}
+,{"codi":"4661","tipus":"Classe","descripci":"Comerç a l'engròs de maquinària, equips i subministraments agrícoles","pertany":"466"}
+,{"codi":"4662","tipus":"Classe","descripci":"Comerç a l'engròs de màquines eina","pertany":"466"}
+,{"codi":"4663","tipus":"Classe","descripci":"Comerç a l'engròs de maquinària per a la mineria, la construcció i l'enginyeria civil","pertany":"466"}
+,{"codi":"4664","tipus":"Classe","descripci":"Comerç a l'engròs de maquinària per a les indústries tèxtils, màquines de cosir i de tricotar","pertany":"466"}
+,{"codi":"4665","tipus":"Classe","descripci":"Comerç a l'engròs de mobles d'oficina","pertany":"466"}
+,{"codi":"4666","tipus":"Classe","descripci":"Comerç a l'engròs d'altres tipus de maquinària i equips d'oficina","pertany":"466"}
+,{"codi":"4669","tipus":"Classe","descripci":"Comerç a l'engròs d'altres tipus de maquinària i equips","pertany":"466"}
+,{"codi":"467","tipus":"Grup","descripci":"Altres tipus de comerç a l'engròs especialitzat","pertany":"46"}
+,{"codi":"4671","tipus":"Classe","descripci":"Comerç a l'engròs de combustibles sòlids, líquids i gasosos, i productes similars","pertany":"467"}
+,{"codi":"4672","tipus":"Classe","descripci":"Comerç a l'engròs de metalls i minerals metàl·lics","pertany":"467"}
+,{"codi":"4673","tipus":"Classe","descripci":"Comerç a l'engròs de fusta, materials de construcció i aparells sanitaris","pertany":"467"}
+,{"codi":"4674","tipus":"Classe","descripci":"Comerç a l'engròs de ferreteria, lampisteria i calefacció","pertany":"467"}
+,{"codi":"4675","tipus":"Classe","descripci":"Comerç a l'engròs de productes químics","pertany":"467"}
+,{"codi":"4676","tipus":"Classe","descripci":"Comerç a l'engròs d'altres productes semielaborats","pertany":"467"}
+,{"codi":"4677","tipus":"Classe","descripci":"Comerç a l'engròs de ferralla i productes de rebuig","pertany":"467"}
+,{"codi":"469","tipus":"Grup","descripci":"Comerç a l'engròs no especialitzat","pertany":"46"}
+,{"codi":"4690","tipus":"Classe","descripci":"Comerç a l'engròs no especialitzat","pertany":"469"}
+,{"codi":"47","tipus":"Divisió","descripci":"Comerç al detall, excepte el comerç de vehicles de motor i motocicletes","pertany":"G"}
+,{"codi":"471","tipus":"Grup","descripci":"Comerç al detall en establiments no especialitzats","pertany":"47"}
+,{"codi":"4711","tipus":"Classe","descripci":"Comerç al detall, amb predomini de productes alimentaris, begudes i tabac en establiments no especialitzats","pertany":"471"}
+,{"codi":"4719","tipus":"Classe","descripci":"Altres tipus de comerç al detall en establiments no especialitzats","pertany":"471"}
+,{"codi":"472","tipus":"Grup","descripci":"Comerç al detall de productes alimentaris, begudes i tabac en establiments especialitzats","pertany":"47"}
+,{"codi":"4721","tipus":"Classe","descripci":"Comerç al detall de fruites i hortalisses en establiments especialitzats","pertany":"472"}
+,{"codi":"4722","tipus":"Classe","descripci":"Comerç al detall de carn i productes carnis en establiments especialitzats","pertany":"472"}
+,{"codi":"4723","tipus":"Classe","descripci":"Comerç al detall de peix i marisc en establiments especialitzats","pertany":"472"}
+,{"codi":"4724","tipus":"Classe","descripci":"Comerç al detall de pa i productes de fleca, confiteria i pastisseria en establiments especialitzats","pertany":"472"}
+,{"codi":"4725","tipus":"Classe","descripci":"Comerç al detall de begudes en establiments especialitzats","pertany":"472"}
+,{"codi":"4726","tipus":"Classe","descripci":"Comerç al detall de productes de tabac en establiments especialitzats","pertany":"472"}
+,{"codi":"4729","tipus":"Classe","descripci":"Comerç al detall d'altres tipus de productes alimentaris en establiments especialitzats","pertany":"472"}
+,{"codi":"473","tipus":"Grup","descripci":"Comerç al detall de combustibles per a l'automoció en establiments especialitzats","pertany":"47"}
+,{"codi":"4730","tipus":"Classe","descripci":"Comerç al detall de combustibles per a l'automoció en establiments especialitzats","pertany":"473"}
+,{"codi":"474","tipus":"Grup","descripci":"Comerç al detall d'equips per a les tecnologies de la informació i les comunicacions (TIC) en establiments especialitzats","pertany":"47"}
+,{"codi":"4741","tipus":"Classe","descripci":"Comerç al detall d'ordinadors, equips perifèrics i programes informàtics en establiments especialitzats","pertany":"474"}
+,{"codi":"4742","tipus":"Classe","descripci":"Comerç al detall d'equips de telecomunicacions en establiments especialitzats","pertany":"474"}
+,{"codi":"4743","tipus":"Classe","descripci":"Comerç al detall d'equips d'àudio i vídeo en establiments especialitzats","pertany":"474"}
+,{"codi":"475","tipus":"Grup","descripci":"Comerç al detall d'altres articles d'ús domèstic en establiments especialitzats","pertany":"47"}
+,{"codi":"4751","tipus":"Classe","descripci":"Comerç al detall de tèxtils en establiments especialitzats","pertany":"475"}
+,{"codi":"4752","tipus":"Classe","descripci":"Comerç al detall de ferreteria, pintures i vidre en establiments especialitzats","pertany":"475"}
+,{"codi":"4753","tipus":"Classe","descripci":"Comerç al detall de catifes, moquetes i revestiments de parets i terres en establiments especialitzats","pertany":"475"}
+,{"codi":"4754","tipus":"Classe","descripci":"Comerç al detall d'electrodomèstics en establiments especialitzats","pertany":"475"}
+,{"codi":"4759","tipus":"Classe","descripci":"Comerç al detall de mobles, aparells d'il·luminació i d'altres articles d'ús domèstic en establiments especialitzats","pertany":"475"}
+,{"codi":"476","tipus":"Grup","descripci":"Comerç al detall d'articles culturals i recreatius en establiments especialitzats","pertany":"47"}
+,{"codi":"4761","tipus":"Classe","descripci":"Comerç al detall de llibres en establiments especialitzats","pertany":"476"}
+,{"codi":"4762","tipus":"Classe","descripci":"Comerç al detall de periòdics i articles de papereria en establiments especialitzats","pertany":"476"}
+,{"codi":"4763","tipus":"Classe","descripci":"Comerç al detall d'enregistrament de música i vídeo en establiments especialitzats","pertany":"476"}
+,{"codi":"4764","tipus":"Classe","descripci":"Comerç al detall d'articles d'esport en establiments especialitzats","pertany":"476"}
+,{"codi":"4765","tipus":"Classe","descripci":"Comerç al detall de jocs i joguines en establiments especialitzats","pertany":"476"}
+,{"codi":"477","tipus":"Grup","descripci":"Comerç al detall d'altres articles en establiments especialitzats","pertany":"47"}
+,{"codi":"4771","tipus":"Classe","descripci":"Comerç al detall de peces de vestir en establiments especialitzats","pertany":"477"}
+,{"codi":"4772","tipus":"Classe","descripci":"Comerç al detall de calçat i articles de cuir en establiments especialitzats","pertany":"477"}
+,{"codi":"4773","tipus":"Classe","descripci":"Comerç al detall de productes farmacèutics en establiments especialitzats","pertany":"477"}
+,{"codi":"4774","tipus":"Classe","descripci":"Comerç al detall d'articles mèdics i ortopèdics en establiments especialitzats","pertany":"477"}
+,{"codi":"4775","tipus":"Classe","descripci":"Comerç al detall de productes cosmètics i higiènics en establiments especialitzats","pertany":"477"}
+,{"codi":"4776","tipus":"Classe","descripci":"Comerç al detall de flors, plantes, llavors, fertilitzants, animals de companyia i aliments per a animals domèstics en establiments especialitzats","pertany":"477"}
+,{"codi":"4777","tipus":"Classe","descripci":"Comerç al detall d'articles de rellotgeria i joieria en establiments especialitzats","pertany":"477"}
+,{"codi":"4778","tipus":"Classe","descripci":"Comerç al detall d'altres tipus d'articles nous en establiments especialitzats","pertany":"477"}
+,{"codi":"4779","tipus":"Classe","descripci":"Comerç al detall d'articles de segona mà en establiments especialitzats","pertany":"477"}
+,{"codi":"478","tipus":"Grup","descripci":"Comerç al detall en parades de venda i mercats ambulants","pertany":"47"}
+,{"codi":"4781","tipus":"Classe","descripci":"Comerç al detall de productes alimentaris, begudes i tabac en parades de venda i mercats ambulants","pertany":"478"}
+,{"codi":"4782","tipus":"Classe","descripci":"Comerç al detall de productes tèxtils, peces de vestir i calçat en parades de venda i mercats ambulants","pertany":"478"}
+,{"codi":"4789","tipus":"Classe","descripci":"Comerç al detall d'altres productes en parades de venda i mercats ambulants","pertany":"478"}
+,{"codi":"479","tipus":"Grup","descripci":"Comerç al detall fora d'establiments, excepte en parades de venda i mercats ambulants","pertany":"47"}
+,{"codi":"4791","tipus":"Classe","descripci":"Comerç al detall per correspondència i per Internet","pertany":"479"}
+,{"codi":"4799","tipus":"Classe","descripci":"Comerç al detall d'altres tipus fora d'establiments, excepte en parades de venda i mercats ambulants","pertany":"479"}
+,{"codi":"H","tipus":"Secció","descripci":"Transport i emmagatzematge"}
+,{"codi":"49","tipus":"Divisió","descripci":"Transport terrestre; transport per canonades","pertany":"H"}
+,{"codi":"491","tipus":"Grup","descripci":"Transport interurbà de passatgers per ferrocarril","pertany":"49"}
+,{"codi":"4910","tipus":"Classe","descripci":"Transport interurbà de passatgers per ferrocarril","pertany":"491"}
+,{"codi":"492","tipus":"Grup","descripci":"Transport de mercaderies per ferrocarril","pertany":"49"}
+,{"codi":"4920","tipus":"Classe","descripci":"Transport de mercaderies per ferrocarril","pertany":"492"}
+,{"codi":"493","tipus":"Grup","descripci":"Altres tipus de transport terrestre de passatgers","pertany":"49"}
+,{"codi":"4931","tipus":"Classe","descripci":"Transport terrestre urbà i suburbà de passatgers","pertany":"493"}
+,{"codi":"4932","tipus":"Classe","descripci":"Transport en taxi","pertany":"493"}
+,{"codi":"4939","tipus":"Classe","descripci":"Altres tipus de transport terrestre de passatgers ncaa","pertany":"493"}
+,{"codi":"494","tipus":"Grup","descripci":"Transport de mercaderies per carretera i servei de mudances","pertany":"49"}
+,{"codi":"4941","tipus":"Classe","descripci":"Transport de mercaderies per carretera, excepte servei de mudances","pertany":"494"}
+,{"codi":"4942","tipus":"Classe","descripci":"Servei de mudances","pertany":"494"}
+,{"codi":"495","tipus":"Grup","descripci":"Transport per canonada","pertany":"49"}
+,{"codi":"4950","tipus":"Classe","descripci":"Transport per canonada","pertany":"495"}
+,{"codi":"50","tipus":"Divisió","descripci":"Transport marítim i per vies de navegació interiors","pertany":"H"}
+,{"codi":"501","tipus":"Grup","descripci":"Transport marítim de passatgers","pertany":"50"}
+,{"codi":"5010","tipus":"Classe","descripci":"Transport marítim de passatgers","pertany":"501"}
+,{"codi":"502","tipus":"Grup","descripci":"Transport marítim de mercaderies","pertany":"50"}
+,{"codi":"5020","tipus":"Classe","descripci":"Transport marítim de mercaderies","pertany":"502"}
+,{"codi":"503","tipus":"Grup","descripci":"Transport de passatgers per vies de navegació interiors","pertany":"50"}
+,{"codi":"5030","tipus":"Classe","descripci":"Transport de passatgers per vies de navegació interiors","pertany":"503"}
+,{"codi":"504","tipus":"Grup","descripci":"Transport de mercaderies per vies de navegació interiors","pertany":"50"}
+,{"codi":"5040","tipus":"Classe","descripci":"Transport de mercaderies per vies de navegació interiors","pertany":"504"}
+,{"codi":"51","tipus":"Divisió","descripci":"Transport aeri","pertany":"H"}
+,{"codi":"511","tipus":"Grup","descripci":"Transport aeri de passatgers","pertany":"51"}
+,{"codi":"5110","tipus":"Classe","descripci":"Transport aeri de passatgers","pertany":"511"}
+,{"codi":"512","tipus":"Grup","descripci":"Transport aeri de mercaderies i transport espacial","pertany":"51"}
+,{"codi":"5121","tipus":"Classe","descripci":"Transport aeri de mercaderies","pertany":"512"}
+,{"codi":"5122","tipus":"Classe","descripci":"Transport espacial","pertany":"512"}
+,{"codi":"52","tipus":"Divisió","descripci":"Emmagatzematge i activitats afins al transport","pertany":"H"}
+,{"codi":"521","tipus":"Grup","descripci":"Dipòsit i emmagatzematge","pertany":"52"}
+,{"codi":"5210","tipus":"Classe","descripci":"Dipòsit i emmagatzematge","pertany":"521"}
+,{"codi":"522","tipus":"Grup","descripci":"Activitats afins al transport","pertany":"52"}
+,{"codi":"5221","tipus":"Classe","descripci":"Activitats afins al transport terrestre","pertany":"522"}
+,{"codi":"5222","tipus":"Classe","descripci":"Activitats afins al transport marítim i per vies de navegació interiors","pertany":"522"}
+,{"codi":"5223","tipus":"Classe","descripci":"Activitats afins al transport aeri","pertany":"522"}
+,{"codi":"5224","tipus":"Classe","descripci":"Manipulació de mercaderies","pertany":"522"}
+,{"codi":"5229","tipus":"Classe","descripci":"Altres activitats afins al transport","pertany":"522"}
+,{"codi":"53","tipus":"Divisió","descripci":"Activitats postals i de correus","pertany":"H"}
+,{"codi":"531","tipus":"Grup","descripci":"Activitats postals nacionals","pertany":"53"}
+,{"codi":"5310","tipus":"Classe","descripci":"Activitats postals nacionals","pertany":"531"}
+,{"codi":"532","tipus":"Grup","descripci":"Altres activitats postals i de correus","pertany":"53"}
+,{"codi":"5320","tipus":"Classe","descripci":"Altres activitats postals i de correus","pertany":"532"}
+,{"codi":"I","tipus":"Secció","descripci":"Hostaleria"}
+,{"codi":"55","tipus":"Divisió","descripci":"Serveis d'allotjament","pertany":"I"}
+,{"codi":"551","tipus":"Grup","descripci":"Hotels i allotjaments similars","pertany":"55"}
+,{"codi":"5510","tipus":"Classe","descripci":"Hotels i allotjaments similars","pertany":"551"}
+,{"codi":"552","tipus":"Grup","descripci":"Allotjaments turístics i altres allotjaments de curta durada","pertany":"55"}
+,{"codi":"5520","tipus":"Classe","descripci":"Allotjaments turístics i altres allotjaments de curta durada","pertany":"552"}
+,{"codi":"553","tipus":"Grup","descripci":"Càmpings","pertany":"55"}
+,{"codi":"5530","tipus":"Classe","descripci":"Càmpings","pertany":"553"}
+,{"codi":"559","tipus":"Grup","descripci":"Altres tipus d'allotjaments","pertany":"55"}
+,{"codi":"5590","tipus":"Classe","descripci":"Altres tipus d'allotjaments","pertany":"559"}
+,{"codi":"56","tipus":"Divisió","descripci":"Serveis de menjar i begudes","pertany":"I"}
+,{"codi":"561","tipus":"Grup","descripci":"Restaurants i establiments de menjars","pertany":"56"}
+,{"codi":"5610","tipus":"Classe","descripci":"Restaurants i establiments de menjars","pertany":"561"}
+,{"codi":"562","tipus":"Grup","descripci":"Provisió de menjars preparats per a celebracions i altres serveis de menjars","pertany":"56"}
+,{"codi":"5621","tipus":"Classe","descripci":"Provisió de menjars preparats per a celebracions","pertany":"562"}
+,{"codi":"5629","tipus":"Classe","descripci":"Altres serveis de menjars","pertany":"562"}
+,{"codi":"563","tipus":"Grup","descripci":"Establiments de begudes","pertany":"56"}
+,{"codi":"5630","tipus":"Classe","descripci":"Establiments de begudes","pertany":"563"}
+,{"codi":"J","tipus":"Secció","descripci":"Informació i comunicacions"}
+,{"codi":"58","tipus":"Divisió","descripci":"Edició","pertany":"J"}
+,{"codi":"581","tipus":"Grup","descripci":"Edició de llibres, periòdics i altres activitats d'edició","pertany":"58"}
+,{"codi":"5811","tipus":"Classe","descripci":"Edició de llibres","pertany":"581"}
+,{"codi":"5812","tipus":"Classe","descripci":"Edició de directoris i llistes de correu","pertany":"581"}
+,{"codi":"5813","tipus":"Classe","descripci":"Edició de periòdics","pertany":"581"}
+,{"codi":"5814","tipus":"Classe","descripci":"Edició de revistes","pertany":"581"}
+,{"codi":"5819","tipus":"Classe","descripci":"Altres activitats d'edició","pertany":"581"}
+,{"codi":"582","tipus":"Grup","descripci":"Edició de programes informàtics","pertany":"58"}
+,{"codi":"5821","tipus":"Classe","descripci":"Edició de videojocs","pertany":"582"}
+,{"codi":"5829","tipus":"Classe","descripci":"Edició de programes informàtics, excepte de videojocs","pertany":"582"}
+,{"codi":"59","tipus":"Divisió","descripci":"Activitats de cinematografia, de vídeo i de programes de televisió; activitats d'enregistrament de so i edició musical","pertany":"J"}
+,{"codi":"591","tipus":"Grup","descripci":"Activitats cinematogràfiques, de vídeo i de programes de televisió","pertany":"59"}
+,{"codi":"5912","tipus":"Classe","descripci":"Activitats de postproducció cinematogràfica, de vídeo i de programes de televisió","pertany":"591"}
+,{"codi":"5914","tipus":"Classe","descripci":"Activitats d'exhibició cinematogràfica","pertany":"591"}
+,{"codi":"5915","tipus":"Classe","descripci":"Activitats de producció cinematogràfica i de vídeo","pertany":"591"}
+,{"codi":"5916","tipus":"Classe","descripci":"Activitats de producció de programes de televisió","pertany":"591"}
+,{"codi":"5917","tipus":"Classe","descripci":"Activitats de distribució cinematogràfica i de vídeo","pertany":"591"}
+,{"codi":"5918","tipus":"Classe","descripci":"Activitats de distribució de programes de televisió","pertany":"591"}
+,{"codi":"592","tipus":"Grup","descripci":"Activitats d'enregistrament de so i edició musical","pertany":"59"}
+,{"codi":"5920","tipus":"Classe","descripci":"Activitats d'enregistrament de so i edició musical","pertany":"592"}
+,{"codi":"60","tipus":"Divisió","descripci":"Activitats d'emissió i programació de ràdio i televisió","pertany":"J"}
+,{"codi":"601","tipus":"Grup","descripci":"Activitats de radiodifusió","pertany":"60"}
+,{"codi":"6010","tipus":"Classe","descripci":"Activitats de radiodifusió","pertany":"601"}
+,{"codi":"602","tipus":"Grup","descripci":"Activitats de programació i emissió de televisió","pertany":"60"}
+,{"codi":"6020","tipus":"Classe","descripci":"Activitats de programació i emissió de televisió","pertany":"602"}
+,{"codi":"61","tipus":"Divisió","descripci":"Telecomunicacions","pertany":"J"}
+,{"codi":"611","tipus":"Grup","descripci":"Telecomunicacions per cable","pertany":"61"}
+,{"codi":"6110","tipus":"Classe","descripci":"Telecomunicacions per cable","pertany":"611"}
+,{"codi":"612","tipus":"Grup","descripci":"Telecomunicacions sense fils","pertany":"61"}
+,{"codi":"6120","tipus":"Classe","descripci":"Telecomunicacions sense fils","pertany":"612"}
+,{"codi":"613","tipus":"Grup","descripci":"Telecomunicacions per satèl·lit","pertany":"61"}
+,{"codi":"6130","tipus":"Classe","descripci":"Telecomunicacions per satèl·lit","pertany":"613"}
+,{"codi":"619","tipus":"Grup","descripci":"Altres activitats de telecomunicacions","pertany":"61"}
+,{"codi":"6190","tipus":"Classe","descripci":"Altres activitats de telecomunicacions","pertany":"619"}
+,{"codi":"62","tipus":"Divisió","descripci":"Serveis de tecnologies de la informació","pertany":"J"}
+,{"codi":"620","tipus":"Grup","descripci":"Serveis de tecnologies de la informació","pertany":"62"}
+,{"codi":"6201","tipus":"Classe","descripci":"Activitats de programació informàtica","pertany":"620"}
+,{"codi":"6202","tipus":"Classe","descripci":"Activitats de consultoria sobre tecnologies de la informació","pertany":"620"}
+,{"codi":"6203","tipus":"Classe","descripci":"Gestió d'instal·lacions informàtiques","pertany":"620"}
+,{"codi":"6209","tipus":"Classe","descripci":"Altres serveis relacionats amb les tecnologies de la informació","pertany":"620"}
+,{"codi":"63","tipus":"Divisió","descripci":"Serveis d'informació","pertany":"J"}
+,{"codi":"631","tipus":"Grup","descripci":"Processament de dades, hostatge i activitats relacionades; portals web","pertany":"63"}
+,{"codi":"6311","tipus":"Classe","descripci":"Processament de dades, hostatge i activitats relacionades","pertany":"631"}
+,{"codi":"6312","tipus":"Classe","descripci":"Portals web","pertany":"631"}
+,{"codi":"639","tipus":"Grup","descripci":"Altres serveis d'informació","pertany":"63"}
+,{"codi":"6391","tipus":"Classe","descripci":"Activitats d'agències de notícies","pertany":"639"}
+,{"codi":"6399","tipus":"Classe","descripci":"Altres serveis d'informació ncaa","pertany":"639"}
+,{"codi":"K","tipus":"Secció","descripci":"Activitats financeres i d'assegurances"}
+,{"codi":"64","tipus":"Divisió","descripci":"Mediació financera, excepte assegurances i fons de pensions","pertany":"K"}
+,{"codi":"641","tipus":"Grup","descripci":"Mediació monetària","pertany":"64"}
+,{"codi":"6411","tipus":"Classe","descripci":"Banca central","pertany":"641"}
+,{"codi":"6419","tipus":"Classe","descripci":"Altres tipus de mediació monetària","pertany":"641"}
+,{"codi":"642","tipus":"Grup","descripci":"Activitats de les societats holding","pertany":"64"}
+,{"codi":"6420","tipus":"Classe","descripci":"Activitats de les societats holding","pertany":"642"}
+,{"codi":"643","tipus":"Grup","descripci":"Inversió col·lectiva, fons i entitats financeres similars","pertany":"64"}
+,{"codi":"6430","tipus":"Classe","descripci":"Inversió col·lectiva, fons i entitats financeres similars","pertany":"643"}
+,{"codi":"649","tipus":"Grup","descripci":"Altres tipus de mediació financera","pertany":"64"}
+,{"codi":"6491","tipus":"Classe","descripci":"Arrendament financer","pertany":"649"}
+,{"codi":"6492","tipus":"Classe","descripci":"Altres tipus d'activitats creditícies","pertany":"649"}
+,{"codi":"6499","tipus":"Classe","descripci":"Altres tipus de mediació financera ncaa","pertany":"649"}
+,{"codi":"65","tipus":"Divisió","descripci":"Assegurances, reassegurances i fons de pensions, excepte la Seguretat Social obligatòria","pertany":"K"}
+,{"codi":"651","tipus":"Grup","descripci":"Assegurances","pertany":"65"}
+,{"codi":"6511","tipus":"Classe","descripci":"Assegurances de vida","pertany":"651"}
+,{"codi":"6512","tipus":"Classe","descripci":"Assegurances, excepte assegurances de vida","pertany":"651"}
+,{"codi":"652","tipus":"Grup","descripci":"Reassegurances","pertany":"65"}
+,{"codi":"6520","tipus":"Classe","descripci":"Reassegurances","pertany":"652"}
+,{"codi":"653","tipus":"Grup","descripci":"Fons de pensions","pertany":"65"}
+,{"codi":"6530","tipus":"Classe","descripci":"Fons de pensions","pertany":"653"}
+,{"codi":"66","tipus":"Divisió","descripci":"Activitats auxiliars de la mediació financera i d'assegurances","pertany":"K"}
+,{"codi":"661","tipus":"Grup","descripci":"Activitats auxiliars de la mediació financera, excepte assegurances i fons de pensions","pertany":"66"}
+,{"codi":"6611","tipus":"Classe","descripci":"Administració de mercats financers","pertany":"661"}
+,{"codi":"6612","tipus":"Classe","descripci":"Activitats auxiliars de mediació en operacions de valors i altres actius","pertany":"661"}
+,{"codi":"6619","tipus":"Classe","descripci":"Activitats auxiliars de la mediació financera ncaa","pertany":"661"}
+,{"codi":"662","tipus":"Grup","descripci":"Activitats auxiliars d'assegurances i fons de pensions","pertany":"66"}
+,{"codi":"6621","tipus":"Classe","descripci":"Avaluació de riscos i danys","pertany":"662"}
+,{"codi":"6622","tipus":"Classe","descripci":"Activitats d'agents i corredors d'assegurances","pertany":"662"}
+,{"codi":"6629","tipus":"Classe","descripci":"Altres activitats auxiliars d'assegurances i fons de pensions","pertany":"662"}
+,{"codi":"663","tipus":"Grup","descripci":"Activitats de gestió de fons","pertany":"66"}
+,{"codi":"6630","tipus":"Classe","descripci":"Activitats de gestió de fons","pertany":"663"}
+,{"codi":"L","tipus":"Secció","descripci":"Activitats immobiliàries"}
+,{"codi":"68","tipus":"Divisió","descripci":"Activitats immobiliàries","pertany":"L"}
+,{"codi":"681","tipus":"Grup","descripci":"Compravenda de béns immobiliaris per compte propi","pertany":"68"}
+,{"codi":"6810","tipus":"Classe","descripci":"Compravenda de béns immobiliaris per compte propi","pertany":"681"}
+,{"codi":"682","tipus":"Grup","descripci":"Lloguer de béns immobiliaris per compte propi","pertany":"68"}
+,{"codi":"6820","tipus":"Classe","descripci":"Lloguer de béns immobiliaris per compte propi","pertany":"682"}
+,{"codi":"683","tipus":"Grup","descripci":"Activitats immobiliàries per compte d'altri","pertany":"68"}
+,{"codi":"6831","tipus":"Classe","descripci":"Agents de la propietat immobiliària","pertany":"683"}
+,{"codi":"6832","tipus":"Classe","descripci":"Gestió i administració de la propietat immobiliària","pertany":"683"}
+,{"codi":"M","tipus":"Secció","descripci":"Activitats professionals, científiques i tècniques"}
+,{"codi":"69","tipus":"Divisió","descripci":"Activitats jurídiques i de comptabilitat","pertany":"M"}
+,{"codi":"691","tipus":"Grup","descripci":"Activitats jurídiques","pertany":"69"}
+,{"codi":"6910","tipus":"Classe","descripci":"Activitats jurídiques","pertany":"691"}
+,{"codi":"692","tipus":"Grup","descripci":"Activitats de comptabilitat, tenidoria de llibres, auditoria i assessoria fiscal","pertany":"69"}
+,{"codi":"6920","tipus":"Classe","descripci":"Activitats de comptabilitat, tenidoria de llibres, auditoria i assessoria fiscal","pertany":"692"}
+,{"codi":"70","tipus":"Divisió","descripci":"Activitats de les seus centrals; activitats de consultoria de gestió empresarial","pertany":"M"}
+,{"codi":"701","tipus":"Grup","descripci":"Activitats de les seus centrals","pertany":"70"}
+,{"codi":"7010","tipus":"Classe","descripci":"Activitats de les seus centrals","pertany":"701"}
+,{"codi":"702","tipus":"Grup","descripci":"Activitats de consultoria de gestió empresarial","pertany":"70"}
+,{"codi":"7021","tipus":"Classe","descripci":"Relacions públiques i comunicació","pertany":"702"}
+,{"codi":"7022","tipus":"Classe","descripci":"Altres activitats de consultoria de gestió empresarial","pertany":"702"}
+,{"codi":"71","tipus":"Divisió","descripci":"Serveis tècnics d'arquitectura i enginyeria; assajos i anàlisis tècnics","pertany":"M"}
+,{"codi":"711","tipus":"Grup","descripci":"Serveis tècnics d'arquitectura i enginyeria i altres activitats relacionades amb l'assessorament tècnic","pertany":"71"}
+,{"codi":"7111","tipus":"Classe","descripci":"Serveis tècnics d'arquitectura","pertany":"711"}
+,{"codi":"7112","tipus":"Classe","descripci":"Serveis tècnics d'enginyeria i altres activitats relacionades amb l'assessorament tècnic","pertany":"711"}
+,{"codi":"712","tipus":"Grup","descripci":"Anàlisis i assajos tècnics","pertany":"71"}
+,{"codi":"7120","tipus":"Classe","descripci":"Anàlisis i assajos tècnics","pertany":"712"}
+,{"codi":"72","tipus":"Divisió","descripci":"Recerca i desenvolupament","pertany":"M"}
+,{"codi":"721","tipus":"Grup","descripci":"Recerca i desenvolupament en ciències naturals i tècniques","pertany":"72"}
+,{"codi":"7211","tipus":"Classe","descripci":"Recerca i desenvolupament en biotecnologia","pertany":"721"}
+,{"codi":"7219","tipus":"Classe","descripci":"Altres tipus de recerca i desenvolupament en ciències naturals i tècniques","pertany":"721"}
+,{"codi":"722","tipus":"Grup","descripci":"Recerca i desenvolupament en ciències socials i humanitats","pertany":"72"}
+,{"codi":"7220","tipus":"Classe","descripci":"Recerca i desenvolupament en ciències socials i humanitats","pertany":"722"}
+,{"codi":"73","tipus":"Divisió","descripci":"Publicitat i estudis de mercat","pertany":"M"}
+,{"codi":"731","tipus":"Grup","descripci":"Publicitat","pertany":"73"}
+,{"codi":"7311","tipus":"Classe","descripci":"Agències de publicitat","pertany":"731"}
+,{"codi":"7312","tipus":"Classe","descripci":"Serveis de representació de mitjans de comunicació","pertany":"731"}
+,{"codi":"732","tipus":"Grup","descripci":"Estudis de mercat i enquestes d'opinió pública","pertany":"73"}
+,{"codi":"7320","tipus":"Classe","descripci":"Estudis de mercat i enquestes d'opinió pública","pertany":"732"}
+,{"codi":"74","tipus":"Divisió","descripci":"Altres activitats professionals, científiques i tècniques","pertany":"M"}
+,{"codi":"741","tipus":"Grup","descripci":"Activitats de disseny especialitzat","pertany":"74"}
+,{"codi":"7410","tipus":"Classe","descripci":"Activitats de disseny especialitzat","pertany":"741"}
+,{"codi":"742","tipus":"Grup","descripci":"Activitats de fotografia","pertany":"74"}
+,{"codi":"7420","tipus":"Classe","descripci":"Activitats de fotografia","pertany":"742"}
+,{"codi":"743","tipus":"Grup","descripci":"Activitats de traducció i d'interpretació","pertany":"74"}
+,{"codi":"7430","tipus":"Classe","descripci":"Activitats de traducció i d'interpretació","pertany":"743"}
+,{"codi":"749","tipus":"Grup","descripci":"Altres activitats professionals, científiques i tècniques ncaa","pertany":"74"}
+,{"codi":"7490","tipus":"Classe","descripci":"Altres activitats professionals, científiques i tècniques ncaa","pertany":"749"}
+,{"codi":"75","tipus":"Divisió","descripci":"Activitats veterinàries","pertany":"M"}
+,{"codi":"750","tipus":"Grup","descripci":"Activitats veterinàries","pertany":"75"}
+,{"codi":"7500","tipus":"Classe","descripci":"Activitats veterinàries","pertany":"750"}
+,{"codi":"N","tipus":"Secció","descripci":"Activitats administratives i serveis auxiliars"}
+,{"codi":"77","tipus":"Divisió","descripci":"Activitats de lloguer","pertany":"N"}
+,{"codi":"771","tipus":"Grup","descripci":"Lloguer de vehicles de motor","pertany":"77"}
+,{"codi":"7711","tipus":"Classe","descripci":"Lloguer d'automòbils i vehicles de motor lleugers","pertany":"771"}
+,{"codi":"7712","tipus":"Classe","descripci":"Lloguer de camions","pertany":"771"}
+,{"codi":"772","tipus":"Grup","descripci":"Lloguer d'efectes personals i efectes domèstics","pertany":"77"}
+,{"codi":"7721","tipus":"Classe","descripci":"Lloguer d'articles d'oci i esportius","pertany":"772"}
+,{"codi":"7722","tipus":"Classe","descripci":"Lloguer de cintes de vídeo i discos","pertany":"772"}
+,{"codi":"7729","tipus":"Classe","descripci":"Lloguer d'efectes personals i efectes domèstics ncaa","pertany":"772"}
+,{"codi":"773","tipus":"Grup","descripci":"Lloguer d'altres tipus de maquinària, equips i béns tangibles","pertany":"77"}
+,{"codi":"7731","tipus":"Classe","descripci":"Lloguer de maquinària i equips agraris","pertany":"773"}
+,{"codi":"7732","tipus":"Classe","descripci":"Lloguer de maquinària i equips per a la construcció i enginyeria civil","pertany":"773"}
+,{"codi":"7733","tipus":"Classe","descripci":"Lloguer de maquinària i equips d'oficina, inclosos els ordinadors","pertany":"773"}
+,{"codi":"7734","tipus":"Classe","descripci":"Lloguer de mitjans de navegació","pertany":"773"}
+,{"codi":"7735","tipus":"Classe","descripci":"Lloguer de mitjans de transport aeri","pertany":"773"}
+,{"codi":"7739","tipus":"Classe","descripci":"Lloguer d'altres tipus de maquinària, equips i béns tangibles ncaa","pertany":"773"}
+,{"codi":"774","tipus":"Grup","descripci":"Arrendament de la propietat intel·lectual i productes similars, excepte treballs protegits pels drets d'autor","pertany":"77"}
+,{"codi":"7740","tipus":"Classe","descripci":"Arrendament de la propietat intel·lectual i productes similars, excepte treballs protegits pels drets d'autor","pertany":"774"}
+,{"codi":"78","tipus":"Divisió","descripci":"Activitats relacionades amb l'ocupació","pertany":"N"}
+,{"codi":"781","tipus":"Grup","descripci":"Activitats de les agències de col·locació","pertany":"78"}
+,{"codi":"7810","tipus":"Classe","descripci":"Activitats de les agències de col·locació","pertany":"781"}
+,{"codi":"782","tipus":"Grup","descripci":"Activitats de les empreses de treball temporal","pertany":"78"}
+,{"codi":"7820","tipus":"Classe","descripci":"Activitats de les empreses de treball temporal","pertany":"782"}
+,{"codi":"783","tipus":"Grup","descripci":"Altres tipus de provisió de recursos humans","pertany":"78"}
+,{"codi":"7830","tipus":"Classe","descripci":"Altres tipus de provisió de recursos humans","pertany":"783"}
+,{"codi":"79","tipus":"Divisió","descripci":"Activitats de les agències de viatges, operadors turístics i altres serveis de reserves i activitats que s'hi relacionen","pertany":"N"}
+,{"codi":"791","tipus":"Grup","descripci":"Activitats de les agències de viatges i operadors turístics","pertany":"79"}
+,{"codi":"7911","tipus":"Classe","descripci":"Activitats de les agències de viatges","pertany":"791"}
+,{"codi":"7912","tipus":"Classe","descripci":"Activitats dels operadors turístics","pertany":"791"}
+,{"codi":"799","tipus":"Grup","descripci":"Altres serveis de reserves i activitats que s'hi relacionen","pertany":"79"}
+,{"codi":"7990","tipus":"Classe","descripci":"Altres serveis de reserves i activitats que s'hi relacionen","pertany":"799"}
+,{"codi":"80","tipus":"Divisió","descripci":"Activitats de seguretat i investigació","pertany":"N"}
+,{"codi":"801","tipus":"Grup","descripci":"Activitats de seguretat privada","pertany":"80"}
+,{"codi":"8010","tipus":"Classe","descripci":"Activitats de seguretat privada","pertany":"801"}
+,{"codi":"802","tipus":"Grup","descripci":"Serveis de sistemes de seguretat","pertany":"80"}
+,{"codi":"8020","tipus":"Classe","descripci":"Serveis de sistemes de seguretat","pertany":"802"}
+,{"codi":"803","tipus":"Grup","descripci":"Activitats d'investigació","pertany":"80"}
+,{"codi":"8030","tipus":"Classe","descripci":"Activitats d'investigació","pertany":"803"}
+,{"codi":"81","tipus":"Divisió","descripci":"Serveis a edificis i activitats de jardineria","pertany":"N"}
+,{"codi":"811","tipus":"Grup","descripci":"Serveis integrals a edificis i instal·lacions","pertany":"81"}
+,{"codi":"8110","tipus":"Classe","descripci":"Serveis integrals a edificis i instal·lacions","pertany":"811"}
+,{"codi":"812","tipus":"Grup","descripci":"Activitats de neteja","pertany":"81"}
+,{"codi":"8121","tipus":"Classe","descripci":"Neteja general d'edificis","pertany":"812"}
+,{"codi":"8122","tipus":"Classe","descripci":"Altres activitats de neteja industrial i d'edificis","pertany":"812"}
+,{"codi":"8129","tipus":"Classe","descripci":"Activitats de neteja ncaa","pertany":"812"}
+,{"codi":"813","tipus":"Grup","descripci":"Activitats de jardineria","pertany":"81"}
+,{"codi":"8130","tipus":"Classe","descripci":"Activitats de jardineria","pertany":"813"}
+,{"codi":"82","tipus":"Divisió","descripci":"Activitats administratives d'oficina i altres activitats auxiliars a les empreses","pertany":"N"}
+,{"codi":"821","tipus":"Grup","descripci":"Activitats administratives i auxiliars d'oficina","pertany":"82"}
+,{"codi":"8211","tipus":"Classe","descripci":"Serveis administratius combinats","pertany":"821"}
+,{"codi":"8219","tipus":"Classe","descripci":"Activitats de reprografia, preparació de documents i altres activitats especialitzades d'oficina","pertany":"821"}
+,{"codi":"822","tipus":"Grup","descripci":"Activitats de centres d'atenció telefònica","pertany":"82"}
+,{"codi":"8220","tipus":"Classe","descripci":"Activitats de centres d'atenció telefònica","pertany":"822"}
+,{"codi":"823","tipus":"Grup","descripci":"Organització de convencions i fires de mostres","pertany":"82"}
+,{"codi":"8230","tipus":"Classe","descripci":"Organització de convencions i fires de mostres","pertany":"823"}
+,{"codi":"829","tipus":"Grup","descripci":"Altres activitats de suport a les empreses","pertany":"82"}
+,{"codi":"8291","tipus":"Classe","descripci":"Activitats de les agències de cobrament i d'informació comercial","pertany":"829"}
+,{"codi":"8292","tipus":"Classe","descripci":"Activitats d'envasament i empaquetatge per compte d'altri","pertany":"829"}
+,{"codi":"8299","tipus":"Classe","descripci":"Altres activitats de suport a les empreses ncaa","pertany":"829"}
+,{"codi":"O","tipus":"Secció","descripci":"Administració pública, Defensa i Seguretat Social obligatòria"}
+,{"codi":"84","tipus":"Divisió","descripci":"Administració pública, Defensa i Seguretat Social obligatòria","pertany":"O"}
+,{"codi":"841","tipus":"Grup","descripci":"Administració pública i de la política econòmica i social","pertany":"84"}
+,{"codi":"8411","tipus":"Classe","descripci":"Activitats generals de l'Administració pública","pertany":"841"}
+,{"codi":"8412","tipus":"Classe","descripci":"Regulació de les activitats sanitàries, educatives i culturals, i altres serveis socials, excepte la Seguretat Social obligatòria","pertany":"841"}
+,{"codi":"8413","tipus":"Classe","descripci":"Regulació de l'activitat econòmica","pertany":"841"}
+,{"codi":"842","tipus":"Grup","descripci":"Prestació de serveis a la comunitat en general","pertany":"84"}
+,{"codi":"8421","tipus":"Classe","descripci":"Afers exteriors","pertany":"842"}
+,{"codi":"8422","tipus":"Classe","descripci":"Defensa","pertany":"842"}
+,{"codi":"8423","tipus":"Classe","descripci":"Justícia","pertany":"842"}
+,{"codi":"8424","tipus":"Classe","descripci":"Ordre públic i seguretat","pertany":"842"}
+,{"codi":"8425","tipus":"Classe","descripci":"Protecció civil","pertany":"842"}
+,{"codi":"843","tipus":"Grup","descripci":"Seguretat Social obligatòria","pertany":"84"}
+,{"codi":"8430","tipus":"Classe","descripci":"Seguretat Social obligatòria","pertany":"843"}
+,{"codi":"P","tipus":"Secció","descripci":"Educació"}
+,{"codi":"85","tipus":"Divisió","descripci":"Educació","pertany":"P"}
+,{"codi":"851","tipus":"Grup","descripci":"Educació preprimària","pertany":"85"}
+,{"codi":"8510","tipus":"Classe","descripci":"Educació preprimària","pertany":"851"}
+,{"codi":"852","tipus":"Grup","descripci":"Educació primària","pertany":"85"}
+,{"codi":"8520","tipus":"Classe","descripci":"Educació primària","pertany":"852"}
+,{"codi":"853","tipus":"Grup","descripci":"Educació secundària","pertany":"85"}
+,{"codi":"8531","tipus":"Classe","descripci":"Educació secundària general","pertany":"853"}
+,{"codi":"8532","tipus":"Classe","descripci":"Educació secundària tècnica i professional","pertany":"853"}
+,{"codi":"854","tipus":"Grup","descripci":"Educació postsecundària","pertany":"85"}
+,{"codi":"8541","tipus":"Classe","descripci":"Educació postsecundària no superior","pertany":"854"}
+,{"codi":"8543","tipus":"Classe","descripci":"Educació superior universitària","pertany":"854"}
+,{"codi":"8544","tipus":"Classe","descripci":"Educació superior no universitària","pertany":"854"}
+,{"codi":"855","tipus":"Grup","descripci":"Altres activitats d'educació","pertany":"85"}
+,{"codi":"8551","tipus":"Classe","descripci":"Educació relacionada amb l'esport i les activitats recreatives","pertany":"855"}
+,{"codi":"8552","tipus":"Classe","descripci":"Educació relacionada amb la cultura","pertany":"855"}
+,{"codi":"8553","tipus":"Classe","descripci":"Activitats de les escoles de conducció i pilotatge","pertany":"855"}
+,{"codi":"8559","tipus":"Classe","descripci":"Altres activitats d'educació ncaa","pertany":"855"}
+,{"codi":"856","tipus":"Grup","descripci":"Activitats auxiliars a l'educació","pertany":"85"}
+,{"codi":"8560","tipus":"Classe","descripci":"Activitats auxiliars a l'educació","pertany":"856"}
+,{"codi":"Q","tipus":"Secció","descripci":"Activitats sanitàries i de serveis socials"}
+,{"codi":"86","tipus":"Divisió","descripci":"Activitats sanitàries","pertany":"Q"}
+,{"codi":"861","tipus":"Grup","descripci":"Activitats hospitalàries","pertany":"86"}
+,{"codi":"8610","tipus":"Classe","descripci":"Activitats hospitalàries","pertany":"861"}
+,{"codi":"862","tipus":"Grup","descripci":"Activitats mèdiques i odontològiques","pertany":"86"}
+,{"codi":"8621","tipus":"Classe","descripci":"Activitats de medicina general","pertany":"862"}
+,{"codi":"8622","tipus":"Classe","descripci":"Activitats de medicina especialitzada","pertany":"862"}
+,{"codi":"8623","tipus":"Classe","descripci":"Activitats odontològiques","pertany":"862"}
+,{"codi":"869","tipus":"Grup","descripci":"Altres activitats sanitàries","pertany":"86"}
+,{"codi":"8690","tipus":"Classe","descripci":"Altres activitats sanitàries","pertany":"869"}
+,{"codi":"87","tipus":"Divisió","descripci":"Activitats de serveis socials amb allotjament","pertany":"Q"}
+,{"codi":"871","tipus":"Grup","descripci":"Activitats de serveis socials amb allotjament i cures d'infermeria","pertany":"87"}
+,{"codi":"8710","tipus":"Classe","descripci":"Activitats de serveis socials amb allotjament i cures d'infermeria","pertany":"871"}
+,{"codi":"872","tipus":"Grup","descripci":"Activitats de serveis socials amb allotjament a persones amb discapacitat psíquica, malalts mentals i drogodependents","pertany":"87"}
+,{"codi":"8720","tipus":"Classe","descripci":"Activitats de serveis socials amb allotjament a persones amb discapacitat psíquica, malalts mentals i drogodependents","pertany":"872"}
+,{"codi":"873","tipus":"Grup","descripci":"Activitats de serveis socials amb allotjament a persones grans i persones amb discapacitat física","pertany":"87"}
+,{"codi":"8731","tipus":"Classe","descripci":"Activitats de serveis socials amb allotjament a persones grans","pertany":"873"}
+,{"codi":"8732","tipus":"Classe","descripci":"Activitats de serveis socials amb allotjament a persones amb discapacitat física","pertany":"873"}
+,{"codi":"879","tipus":"Grup","descripci":"Altres tipus d'activitats de serveis socials amb allotjament","pertany":"87"}
+,{"codi":"8790","tipus":"Classe","descripci":"Altres tipus d'activitats de serveis socials amb allotjament","pertany":"879"}
+,{"codi":"88","tipus":"Divisió","descripci":"Activitats de serveis socials sense allotjament","pertany":"Q"}
+,{"codi":"881","tipus":"Grup","descripci":"Activitats de serveis socials sense allotjament a persones grans i persones amb discapacitat","pertany":"88"}
+,{"codi":"8811","tipus":"Classe","descripci":"Activitats de serveis socials sense allotjament a persones grans","pertany":"881"}
+,{"codi":"8812","tipus":"Classe","descripci":"Activitats de serveis socials sense allotjament a persones amb discapacitat","pertany":"881"}
+,{"codi":"889","tipus":"Grup","descripci":"Altres tipus d'activitats de serveis socials sense allotjament","pertany":"88"}
+,{"codi":"8891","tipus":"Classe","descripci":"Activitats d'atenció diürna d'infants","pertany":"889"}
+,{"codi":"8899","tipus":"Classe","descripci":"Altres tipus d'activitats de serveis socials sense allotjament ncaa","pertany":"889"}
+,{"codi":"R","tipus":"Secció","descripci":"Activitats artístiques, recreatives i d'entreteniment"}
+,{"codi":"90","tipus":"Divisió","descripci":"Activitats de creació, artístiques i d'espectacles","pertany":"R"}
+,{"codi":"900","tipus":"Grup","descripci":"Activitats de creació, artístiques i d'espectacles","pertany":"90"}
+,{"codi":"9001","tipus":"Classe","descripci":"Arts escèniques","pertany":"900"}
+,{"codi":"9002","tipus":"Classe","descripci":"Activitats auxiliars a les arts escèniques","pertany":"900"}
+,{"codi":"9003","tipus":"Classe","descripci":"Creació artística i literària","pertany":"900"}
+,{"codi":"9004","tipus":"Classe","descripci":"Gestió de sales d'espectacles","pertany":"900"}
+,{"codi":"91","tipus":"Divisió","descripci":"Activitats de biblioteques, arxius, museus i altres activitats culturals","pertany":"R"}
+,{"codi":"910","tipus":"Grup","descripci":"Activitats de biblioteques, arxius, museus i altres activitats culturals","pertany":"91"}
+,{"codi":"9102","tipus":"Classe","descripci":"Activitats de museus","pertany":"910"}
+,{"codi":"9103","tipus":"Classe","descripci":"Gestió de llocs i edificis històrics","pertany":"910"}
+,{"codi":"9104","tipus":"Classe","descripci":"Activitats de jardins botànics, parcs zoològics i reserves naturals","pertany":"910"}
+,{"codi":"9105","tipus":"Classe","descripci":"Activitats de biblioteques","pertany":"910"}
+,{"codi":"9106","tipus":"Classe","descripci":"Activitats d'arxius","pertany":"910"}
+,{"codi":"92","tipus":"Divisió","descripci":"Activitats relacionades amb els jocs d'atzar i les apostes","pertany":"R"}
+,{"codi":"920","tipus":"Grup","descripci":"Activitats relacionades amb els jocs d'atzar i les apostes","pertany":"92"}
+,{"codi":"9200","tipus":"Classe","descripci":"Activitats relacionades amb els jocs d'atzar i les apostes","pertany":"920"}
+,{"codi":"93","tipus":"Divisió","descripci":"Activitats esportives, recreatives i d'entreteniment","pertany":"R"}
+,{"codi":"931","tipus":"Grup","descripci":"Activitats esportives","pertany":"93"}
+,{"codi":"9311","tipus":"Classe","descripci":"Gestió d'instal·lacions esportives","pertany":"931"}
+,{"codi":"9312","tipus":"Classe","descripci":"Activitats de clubs esportius","pertany":"931"}
+,{"codi":"9313","tipus":"Classe","descripci":"Activitats dels gimnasos","pertany":"931"}
+,{"codi":"9319","tipus":"Classe","descripci":"Altres activitats relacionades amb l'esport","pertany":"931"}
+,{"codi":"932","tipus":"Grup","descripci":"Altres activitats recreatives i d'entreteniment","pertany":"93"}
+,{"codi":"9321","tipus":"Classe","descripci":"Activitats de parcs d'atraccions i parcs temàtics","pertany":"932"}
+,{"codi":"9329","tipus":"Classe","descripci":"Altres activitats recreatives i d'entreteniment ncaa","pertany":"932"}
+,{"codi":"S","tipus":"Secció","descripci":"Altres serveis"}
+,{"codi":"94","tipus":"Divisió","descripci":"Activitats associatives","pertany":"W"}
+,{"codi":"941","tipus":"Grup","descripci":"Activitats d'organitzacions empresarials, professionals i patronals","pertany":"94"}
+,{"codi":"9411","tipus":"Classe","descripci":"Activitats d'organitzacions empresarials i patronals","pertany":"941"}
+,{"codi":"9412","tipus":"Classe","descripci":"Activitats d'organitzacions professionals","pertany":"941"}
+,{"codi":"942","tipus":"Grup","descripci":"Activitats sindicals","pertany":"94"}
+,{"codi":"9420","tipus":"Classe","descripci":"Activitats sindicals","pertany":"942"}
+,{"codi":"949","tipus":"Grup","descripci":"Activitats associatives diverses","pertany":"94"}
+,{"codi":"9491","tipus":"Classe","descripci":"Activitats d'organitzacions religioses","pertany":"949"}
+,{"codi":"9492","tipus":"Classe","descripci":"Activitats d'organitzacions polítiques","pertany":"949"}
+,{"codi":"9499","tipus":"Classe","descripci":"Altres activitats associatives ncaa","pertany":"949"}
+,{"codi":"95","tipus":"Divisió","descripci":"Reparació d'ordinadors, d'efectes personals i efectes domèstics","pertany":"W"}
+,{"codi":"951","tipus":"Grup","descripci":"Reparació d'ordinadors i equips de comunicació","pertany":"95"}
+,{"codi":"9511","tipus":"Classe","descripci":"Reparació d'ordinadors i equips perifèrics","pertany":"951"}
+,{"codi":"9512","tipus":"Classe","descripci":"Reparació d'equips de comunicació","pertany":"951"}
+,{"codi":"952","tipus":"Grup","descripci":"Reparació d'efectes personals i efectes domèstics","pertany":"95"}
+,{"codi":"9521","tipus":"Classe","descripci":"Reparació d'aparells electrònics d'àudio i vídeo d'ús domèstic","pertany":"952"}
+,{"codi":"9522","tipus":"Classe","descripci":"Reparació d'aparells electrodomèstics i d'estris per a la llar i el jardí","pertany":"952"}
+,{"codi":"9523","tipus":"Classe","descripci":"Reparació de calçat i altres articles de cuir","pertany":"952"}
+,{"codi":"9524","tipus":"Classe","descripci":"Reparació de mobles i articles de parament de la llar","pertany":"952"}
+,{"codi":"9525","tipus":"Classe","descripci":"Reparació de rellotges i joieria","pertany":"952"}
+,{"codi":"9529","tipus":"Classe","descripci":"Reparació d'efectes personals i articles d'ús domèstic ncaa","pertany":"952"}
+,{"codi":"96","tipus":"Divisió","descripci":"Altres activitats de serveis personals","pertany":"W"}
+,{"codi":"960","tipus":"Grup","descripci":"Altres activitats de serveis personals","pertany":"96"}
+,{"codi":"9601","tipus":"Classe","descripci":"Rentatge i neteja de peces tèxtils i de pell","pertany":"960"}
+,{"codi":"9602","tipus":"Classe","descripci":"Perruqueria i altres tractaments de bellesa","pertany":"960"}
+,{"codi":"9603","tipus":"Classe","descripci":"Pompes fúnebres i activitats que s'hi relacionen","pertany":"960"}
+,{"codi":"9604","tipus":"Classe","descripci":"Activitats de manteniment físic","pertany":"960"}
+,{"codi":"9609","tipus":"Classe","descripci":"Altres activitats de serveis personals ncaa","pertany":"960"}
+,{"codi":"T","tipus":"Secció","descripci":"Activitats de les llars que donen ocupació a personal domèstic; activitats de les llars que produeixen béns i serveis per a ús propi"}
+,{"codi":"97","tipus":"Divisió","descripci":"Activitats de les llars que donen ocupació a personal domèstic","pertany":"T"}
+,{"codi":"970","tipus":"Grup","descripci":"Activitats de les llars que donen ocupació a personal domèstic","pertany":"97"}]

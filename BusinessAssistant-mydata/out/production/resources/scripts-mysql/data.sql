@@ -1,8 +1,6 @@
-use businessassistantbcndb;
-
- INSERT INTO my_searches (search_uuid,user_uuid,search_date,search_name,search_detail, search_result)
+INSERT INTO my_searches (search_uuid,user_uuid,search_date,search_name,search_detail, search_result)
 VALUES
-  ("49E7DD6D-A774-CC81-C2B6-ED223E872397","B6727887-5068-ABF7-952A-B31B56262AFC","10/10/2021","Arcu Vivamus Incorporated","commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies",
+  ("49E7DD6D-A774-CC81-C2B6-ED223E872397","B6727887-5068-ABF7-952A-B31B56262AFC",'2021-10-10',"Arcu Vivamus Incorporated","commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies",
   	'[
         {
             "name": "Groupe Zannier Espanya",
@@ -60,7 +58,7 @@ VALUES
                 },
                 {
                     "id": 31804845,
-                    "name": "Levi\'s"
+                    "name": "Levi''s"
                 },
                 {
                     "id": 31804967,
@@ -152,95 +150,7 @@ VALUES
 		}
 	]'
 	),
-("64A028A5-DB38-6AC6-F7D7-34AB9782012E","39B3E9F6-CD28-BE9A-A992-1E683083F34B","20/11/2021","Quis Corp.","iaculis quis",
-	'[{
-            "name": "Compañia Roca Sanitario",
-            "web": "http://www.roca.es",
-            "email": "infosan@roca.net",
-            "phone": null,
-            "activities": [
-                {
-                    "id": 1008031,
-                    "name": "Delegacions - oficines comercials"
-                },
-                {
-                    "id": 32805741,
-                    "name": "Sanitaris"
-                },
-                {
-                    "id": 29302310,
-                    "name": "Com.may. materiales construccion"
-                },
-                {
-                    "id": 30699721,
-                    "name": "Alquiler locales industriales"
-                }
-            ],
-            "addresses": [
-                {
-                    "street_name": "Av Diagonal",
-                    "number": "513",
-                    "zip_code": "08029",
-                    "district_id": "04",
-                    "town": "BARCELONA",
-                    "location": {
-                        "x": 428171.7030365344,
-                        "y": 4582566.444676705
-                    }
-                }
-            ]
-        },
-        {
-            "name": "Empresa Cinesa",
-            "web": "http://www.cinesa.es",
-            "email": "info@cinesa.es",
-            "phone": null,
-            "activities": [
-                {
-                    "id": 1008031,
-                    "name": "Delegacions - oficines comercials"
-                },
-                {
-                    "id": 31821724,
-                    "name": "Cinesa"
-                },
-                {
-                    "id": 29810744,
-                    "name": "Cinema"
-                },
-                {
-                    "id": 32299309,
-                    "name": "Com.men.ptos.pasteleria,bolleria"
-                },
-                {
-                    "id": 35299312,
-                    "name": "Cafe-bar teatros y cines"
-                },
-                {
-                    "id": 66007067,
-                    "name": "Exhibicion de peliculas cinematograficas"
-                },
-                {
-                    "id": 50844509,
-                    "name": "Empreses Exhibició"
-                }
-            ],
-            "addresses": [
-                {
-                    "street_name": "C Rosselló i Porcel",
-                    "number": "21",
-                    "zip_code": "08016",
-                    "district_id": "08",
-                    "town": "BARCELONA",
-                    "location": {
-                        "x": 431566.9980147745,
-                        "y": 4587597.930328518
-                    }
-                }
-            ]
-        }]'
-	),
-  ("59EB589C-7816-DAE8-8F0C-07AE0B9D3EB6","E23AC9C9-1553-CD54-D6DD-D2EF6A6FDE84","21/09/2022","Mauris Eu Turpis LLC","Morbi metus. Vivamus euismod urna. Nullam lobortis",
+("60FC690D-7816-DAE8-8F0C-07AE0B9D3EB6","B6727887-5068-ABF7-952A-B31B56262AFC",'2022-10-23',"Mauris Eu Turpis LLC","Morbi metus. Vivamus euismod urna. Nullam lobortis",
 	'[{
             "name": "IBM Client Center Barcelona",
             "web": "http://www.ibm.com/es",
@@ -328,7 +238,359 @@ VALUES
             ]
         }]'
     ),
-  ("C8617319-BC18-A3D0-B11B-7BECAE381DCA","24A2785B-7F2D-94B9-F712-23D5A54B3405","30/07/2022","Cursus LLC","et ultrices posuere cubilia Curae Donec tincidunt. Donec vitae",
+("75B139B6-DB38-6AC6-F7D7-34AB9782012E","B6727887-5068-ABF7-952A-B31B56262AFC",'2021-07-19',"Quis Corp.","iaculis quis",
+	'[{
+            "name": "Compañia Roca Sanitario",
+            "web": "http://www.roca.es",
+            "email": "infosan@roca.net",
+            "phone": null,
+            "activities": [
+                {
+                    "id": 1008031,
+                    "name": "Delegacions - oficines comercials"
+                },
+                {
+                    "id": 32805741,
+                    "name": "Sanitaris"
+                },
+                {
+                    "id": 29302310,
+                    "name": "Com.may. materiales construccion"
+                },
+                {
+                    "id": 30699721,
+                    "name": "Alquiler locales industriales"
+                }
+            ],
+            "addresses": [
+                {
+                    "street_name": "Av Diagonal",
+                    "number": "513",
+                    "zip_code": "08029",
+                    "district_id": "04",
+                    "town": "BARCELONA",
+                    "location": {
+                        "x": 428171.7030365344,
+                        "y": 4582566.444676705
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Empresa Cinesa",
+            "web": "http://www.cinesa.es",
+            "email": "info@cinesa.es",
+            "phone": null,
+            "activities": [
+                {
+                    "id": 1008031,
+                    "name": "Delegacions - oficines comercials"
+                },
+                {
+                    "id": 31821724,
+                    "name": "Cinesa"
+                },
+                {
+                    "id": 29810744,
+                    "name": "Cinema"
+                },
+                {
+                    "id": 32299309,
+                    "name": "Com.men.ptos.pasteleria,bolleria"
+                },
+                {
+                    "id": 35299312,
+                    "name": "Cafe-bar teatros y cines"
+                },
+                {
+                    "id": 66007067,
+                    "name": "Exhibicion de peliculas cinematograficas"
+                },
+                {
+                    "id": 50844509,
+                    "name": "Empreses Exhibició"
+                }
+            ],
+            "addresses": [
+                {
+                    "street_name": "C Rosselló i Porcel",
+                    "number": "21",
+                    "zip_code": "08016",
+                    "district_id": "08",
+                    "town": "BARCELONA",
+                    "location": {
+                        "x": 431566.9980147745,
+                        "y": 4587597.930328518
+                    }
+                }
+            ]
+        }]'
+	),
+("86C240C7-DB38-6AC6-F7D7-34AB9782012E","B6727887-5068-ABF7-952A-B31B56262AFC",'2021-05-08',"Quis Corp.","iaculis quis",
+	'[{
+            "name": "Compañia Roca Sanitario",
+            "web": "http://www.roca.es",
+            "email": "infosan@roca.net",
+            "phone": null,
+            "activities": [
+                {
+                    "id": 1008031,
+                    "name": "Delegacions - oficines comercials"
+                },
+                {
+                    "id": 32805741,
+                    "name": "Sanitaris"
+                },
+                {
+                    "id": 29302310,
+                    "name": "Com.may. materiales construccion"
+                },
+                {
+                    "id": 30699721,
+                    "name": "Alquiler locales industriales"
+                }
+            ],
+            "addresses": [
+                {
+                    "street_name": "Av Diagonal",
+                    "number": "513",
+                    "zip_code": "08029",
+                    "district_id": "04",
+                    "town": "BARCELONA",
+                    "location": {
+                        "x": 428171.7030365344,
+                        "y": 4582566.444676705
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Empresa Cinesa",
+            "web": "http://www.cinesa.es",
+            "email": "info@cinesa.es",
+            "phone": null,
+            "activities": [
+                {
+                    "id": 1008031,
+                    "name": "Delegacions - oficines comercials"
+                },
+                {
+                    "id": 31821724,
+                    "name": "Cinesa"
+                },
+                {
+                    "id": 29810744,
+                    "name": "Cinema"
+                },
+                {
+                    "id": 32299309,
+                    "name": "Com.men.ptos.pasteleria,bolleria"
+                },
+                {
+                    "id": 35299312,
+                    "name": "Cafe-bar teatros y cines"
+                },
+                {
+                    "id": 66007067,
+                    "name": "Exhibicion de peliculas cinematograficas"
+                },
+                {
+                    "id": 50844509,
+                    "name": "Empreses Exhibició"
+                }
+            ],
+            "addresses": [
+                {
+                    "street_name": "C Rosselló i Porcel",
+                    "number": "21",
+                    "zip_code": "08016",
+                    "district_id": "08",
+                    "town": "BARCELONA",
+                    "location": {
+                        "x": 431566.9980147745,
+                        "y": 4587597.930328518
+                    }
+                }
+            ]
+        }]'
+	),
+("64A028A5-DB38-6AC6-F7D7-34AB9782012E","39B3E9F6-CD28-BE9A-A992-1E683083F34B",'2021-11-20',"Quis Corp.","iaculis quis",
+	'[{
+            "name": "Compañia Roca Sanitario",
+            "web": "http://www.roca.es",
+            "email": "infosan@roca.net",
+            "phone": null,
+            "activities": [
+                {
+                    "id": 1008031,
+                    "name": "Delegacions - oficines comercials"
+                },
+                {
+                    "id": 32805741,
+                    "name": "Sanitaris"
+                },
+                {
+                    "id": 29302310,
+                    "name": "Com.may. materiales construccion"
+                },
+                {
+                    "id": 30699721,
+                    "name": "Alquiler locales industriales"
+                }
+            ],
+            "addresses": [
+                {
+                    "street_name": "Av Diagonal",
+                    "number": "513",
+                    "zip_code": "08029",
+                    "district_id": "04",
+                    "town": "BARCELONA",
+                    "location": {
+                        "x": 428171.7030365344,
+                        "y": 4582566.444676705
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Empresa Cinesa",
+            "web": "http://www.cinesa.es",
+            "email": "info@cinesa.es",
+            "phone": null,
+            "activities": [
+                {
+                    "id": 1008031,
+                    "name": "Delegacions - oficines comercials"
+                },
+                {
+                    "id": 31821724,
+                    "name": "Cinesa"
+                },
+                {
+                    "id": 29810744,
+                    "name": "Cinema"
+                },
+                {
+                    "id": 32299309,
+                    "name": "Com.men.ptos.pasteleria,bolleria"
+                },
+                {
+                    "id": 35299312,
+                    "name": "Cafe-bar teatros y cines"
+                },
+                {
+                    "id": 66007067,
+                    "name": "Exhibicion de peliculas cinematograficas"
+                },
+                {
+                    "id": 50844509,
+                    "name": "Empreses Exhibició"
+                }
+            ],
+            "addresses": [
+                {
+                    "street_name": "C Rosselló i Porcel",
+                    "number": "21",
+                    "zip_code": "08016",
+                    "district_id": "08",
+                    "town": "BARCELONA",
+                    "location": {
+                        "x": 431566.9980147745,
+                        "y": 4587597.930328518
+                    }
+                }
+            ]
+        }]'
+	),
+  ("59EB589C-7816-DAE8-8F0C-07AE0B9D3EB6","E23AC9C9-1553-CD54-D6DD-D2EF6A6FDE84",'2022-09-21',"Mauris Eu Turpis LLC","Morbi metus. Vivamus euismod urna. Nullam lobortis",
+	'[{
+            "name": "IBM Client Center Barcelona",
+            "web": "http://www.ibm.com/es",
+            "email": null,
+            "phone": null,
+            "activities": [
+                {
+                    "id": 1008031,
+                    "name": "Delegacions - oficines comercials"
+                },
+                {
+                    "id": 31801736,
+                    "name": "Ibm"
+                },
+                {
+                    "id": 32799723,
+                    "name": "Material informàtic"
+                },
+                {
+                    "id": 29302314,
+                    "name": "Com.may. maquinas y material oficina"
+                },
+                {
+                    "id": 103909,
+                    "name": "Alquiler maq. y equipo contable"
+                },
+                {
+                    "id": 102911,
+                    "name": "Explotacion electronica por terceros"
+                },
+                {
+                    "id": 28701728,
+                    "name": "Otros servicios tecnicos ncop"
+                },
+                {
+                    "id": 63006068,
+                    "name": "Enseñanza form. profesional superior"
+                }
+            ],
+            "addresses": [
+                {
+                    "street_name": "Av Diagonal",
+                    "number": "571",
+                    "zip_code": "08029",
+                    "district_id": "04",
+                    "town": "BARCELONA",
+                    "location": {
+                        "x": 427675.4938963018,
+                        "y": 4582393.626257071
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Novartis Farmacéutica S.A.",
+            "web": "http://www.novartis.es",
+            "email": null,
+            "phone": null,
+            "activities": [
+                {
+                    "id": 1008031,
+                    "name": "Delegacions - oficines comercials"
+                },
+                {
+                    "id": 31801850,
+                    "name": "Isostar"
+                },
+                {
+                    "id": 107001,
+                    "name": "Alimentació i begudes"
+                }
+            ],
+            "addresses": [
+                {
+                    "street_name": "G.V. Corts Catalanes",
+                    "number": "764*766",
+                    "zip_code": "08013",
+                    "district_id": "02",
+                    "town": "BARCELONA",
+                    "location": {
+                        "x": 431511.43242964963,
+                        "y": 4583293.693274976
+                    }
+                }
+            ]
+        }]'
+    ),
+  ("C8617319-BC18-A3D0-B11B-7BECAE381DCA","24A2785B-7F2D-94B9-F712-23D5A54B3405",'2022-07-30',"Cursus LLC","et ultrices posuere cubilia Curae Donec tincidunt. Donec vitae",
 	'[{
             "name": "Empresa Basf Española",
             "web": "http://www.basf.com/es",
@@ -408,7 +670,7 @@ VALUES
             ]
         }]'
     ),
-("EC82298E-92FB-0222-9175-94C721EB6E3F","2FE68410-7643-4417-9ACD-E36C57B193C6","26/05/2021","Dui Foundation","ante blandit viverra.",
+("EC82298E-92FB-0222-9175-94C721EB6E3F","2FE68410-7643-4417-9ACD-E36C57B193C6",'2021-05-26',"Dui Foundation","ante blandit viverra.",
 	'[{
             "name": "Henkel Ibérica S.A.",
             "web": "http://www.henkel.es",
@@ -462,7 +724,7 @@ VALUES
                 },
                 {
                     "id": 32815721,
-                    "name": "Material d\'oficina"
+                    "name": "Material d''oficina"
                 },
                 {
                     "id": 32815720,
@@ -770,7 +1032,7 @@ VALUES
                 },
                 {
                     "id": 1008005,
-                    "name": "Serveis d\'Assistència Tècnica"
+                    "name": "Serveis d''Assistència Tècnica"
                 },
                 {
                     "id": 31797011,
@@ -848,7 +1110,7 @@ VALUES
                 },
                 {
                     "id": 32813731,
-                    "name": "Màquines d\'arts gràfiques, fotocopiadores"
+                    "name": "Màquines d''arts gràfiques, fotocopiadores"
                 },
                 {
                     "id": 110008,
@@ -1312,7 +1574,7 @@ VALUES
             ],
             "addresses": [
                 {
-                    "street_name": "Av Ports d\'Europa",
+                    "street_name": "Av Ports d''Europa",
                     "number": "100",
                     "zip_code": "08040",
                     "district_id": "03",
@@ -1414,11 +1676,11 @@ VALUES
                 },
                 {
                     "id": 46366349,
-                    "name": "Nivell 3 (PIC\'s, ús intern)"
+                    "name": "Nivell 3 (PIC''s, ús intern)"
                 },
                 {
                     "id": 46366354,
-                    "name": "Oci i Lleure (PIC\'s, ús intern) "
+                    "name": "Oci i Lleure (PIC''s, ús intern) "
                 },
                 {
                     "id": 31796749,
@@ -1533,7 +1795,7 @@ VALUES
             ],
             "addresses": [
                 {
-                    "street_name": "C Comte d\'Urgell",
+                    "street_name": "C Comte d''Urgell",
                     "number": "240",
                     "zip_code": "08036",
                     "district_id": "02",
@@ -1611,7 +1873,7 @@ VALUES
                 },
                 {
                     "id": 1026019,
-                    "name": "Oficines tècniques (d\'empreses privades)"
+                    "name": "Oficines tècniques (d''empreses privades)"
                 },
                 {
                     "id": 32804724,
@@ -1670,7 +1932,7 @@ VALUES
             ]
         },
         {
-            "name": "Kumon Institut d\'Educació d\'Espanya",
+            "name": "Kumon Institut d''Educació d''Espanya",
             "web": "http://www.kumon.es",
             "email": "info@kumon.es",
             "phone": null,

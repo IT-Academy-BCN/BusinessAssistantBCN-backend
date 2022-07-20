@@ -15,11 +15,23 @@ spring:
     mongodb:
       host: localhost
       port: 27017
+      username: admin_businessassistantbcn
+      password: UhWQQYFVBx95W7
       database: babcn-users
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+      - dev
 
-springfox:
-  documentation:
-    auto-startup: false
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui-custom.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs"
 
 security:
   datasource:

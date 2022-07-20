@@ -3,12 +3,33 @@ spring:
     name: businessassistant-gencat
   jmx:
     enabled: true
-
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+    - dev 
+    
+security:
+  datasource:
+    secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
+    headerString: Authorization
+    authoritiesClaim: authorities
+    err: Auth Error, Token Unavailable 
 
 # OJO bug afecta a Swagger
-springfox:
-  documentation:
-    auto-startup: false
+#springfox:
+#  documentation:
+#    auto-startup: false
+#Se usa springdoc-openapi para documentar la api
+
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui-custom.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs"
 
 server:
   port: 8762
@@ -19,6 +40,14 @@ management:
       exposure:
         include: "*"
 
+url:
+  connection_timeout: 30000
+  maxBytesInMemory: 30000000
+  ds_test: https://swapi.py4e.com/api/vehicles/
+  ds_economicActivities: https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json
+  ds_ccae: https://analisi.transparenciacatalunya.cat/api/views/get5-imi7/rows.json
+
+
 logging:
   level:
     root: INFO  
@@ -28,4 +57,4 @@ logging:
   # console: Spring's default
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
-#    name: opendata.log
+#    name: gencat.log
