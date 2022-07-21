@@ -35,35 +35,17 @@ services:
       - consul-net
     command: "agent -bootstrap-expect=3"
 
-  consul-client-mysql:
-    image: consul:1.12.3
-    container_name: consul-client-mysql
-    restart: always
-    volumes:
-      - ./consul-client-mysql.json:/consul/config/consul-client-mysql.json:ro
-    networks:
-      - consul-net
-    command: "agent"
-
-  consul-client-mongodb:
-    image: consul:1.12.3
-    container_name: consul-client-mongodb
-    restart: always
-    volumes:
-      - ./consul-client-mongodb.json:/consul/config/consul-client-mongodb.json:ro
-    networks:
-      - consul-net
-    command: "agent"
-
-  consul-client-babcn:
+  businessassistantbcn-opendata:
     image: babcn:opendata-v1.0-SNAPSHOT
     container_name: opendata-v1.0-SNAPSHOT
     restart: always
-    volumes:
-      - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
+    #volumes:
+     # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       - consul-net
-    command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
+    ports:
+      - '7777:8762'
+    #command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
 
 networks:
   consul-net:
