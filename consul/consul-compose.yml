@@ -47,6 +47,18 @@ services:
       - '7777:8762'
     #command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
 
+  businessassistantbcn-usermanagement:
+    image: babcn:usermanagement-v1.0-SNAPSHOT
+    container_name: usermanagement-v1.0-SNAPSHOT
+    restart: always
+      #volumes:
+    # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
+    networks:
+      - consul-net
+    ports:
+      - '7778:8762'
+    #command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
+
 networks:
   consul-net:
     driver:

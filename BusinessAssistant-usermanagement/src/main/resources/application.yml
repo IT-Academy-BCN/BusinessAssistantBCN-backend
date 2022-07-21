@@ -3,14 +3,6 @@ spring:
     name: businessassistant-usermanagement
   jmx:
     enabled: true
-  cloud:
-    consul:
-      host: 172.17.0.3
-      port: 8500
-      discovery:
-        port: 8762
-        prefer-ip-address: true
-        healthCheckPath: /health
   data:
     mongodb:
       host: localhost
