@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.service.circuitbreakerstest;
 
+import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.test.ClientFlowerDTO;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -21,12 +22,15 @@ public class CircuitBreakersTestService {
     private static final Logger log = LoggerFactory.getLogger(CircuitBreakersTestService.class);
 
     @Autowired
+    private PropertiesConfig config;
+
+    @Autowired
     private HttpProxy httpProxy;
 
     @CircuitBreaker(name = "FLOWERS", fallbackMethod = "fallBack")
     public Mono<ClientFlowerDTO[]> getAllClienteFlowerProxy() throws MalformedURLException {
 
-        return httpProxy.getRequestData(new URL("http://localhost:8760/testCircuitBreaker/getAll"), ClientFlowerDTO[].class);
+        return httpProxy.getRequestData(new URL(config.getDs_apitestcircuitbreakers()), ClientFlowerDTO[].class);
     }
 
     private Mono<ResponseEntity<List<ClientFlowerDTO>>> fallBack(Exception e) {
