@@ -8,7 +8,8 @@ services:
     volumes:
       - ./server1.json:/consul/config/server1.json:ro
     networks:
-      - consul-net
+      consul-net:
+        ipv4_address: 172.24.2.0
     ports:
       - '8500:8500'
       - '8600:8600/tcp'
@@ -22,7 +23,8 @@ services:
     volumes:
       - ./server2.json:/consul/config/server2.json:ro
     networks:
-      - consul-net
+      consul-net:
+        ipv4_address: 172.24.2.1
     command: "agent -bootstrap-expect=3"
 
   consul-server3:
@@ -32,7 +34,8 @@ services:
     volumes:
       - ./server3.json:/consul/config/server3.json:ro
     networks:
-      - consul-net
+      consul-net:
+        ipv4_address: 172.24.2.2
     command: "agent -bootstrap-expect=3"
 
   businessassistantbcn-opendata:
@@ -42,24 +45,31 @@ services:
     #volumes:
      # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
-      - consul-net
+      consul-net:
+        ipv4_address: 172.24.2.3
     ports:
       - '7777:8762'
-    #command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
+    #depends_on:
+      #- 'consul-server1'
 
-  businessassistantbcn-usermanagement:
-    image: babcn:usermanagement-v1.0-SNAPSHOT
-    container_name: usermanagement-v1.0-SNAPSHOT
+  businessassistantbcn-gencat:
+    image: babcn:gencat-v1.0-SNAPSHOT
+    container_name: gencat-v1.0-SNAPSHOT
     restart: always
-      #volumes:
+    #volumes:
     # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
-      - consul-net
+      consul-net:
+        ipv4_address: 172.24.2.4
     ports:
-      - '7778:8762'
+      - '7776:8762'
     #command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
+
 
 networks:
   consul-net:
-    driver:
-      bridge
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.24.2.0/16
