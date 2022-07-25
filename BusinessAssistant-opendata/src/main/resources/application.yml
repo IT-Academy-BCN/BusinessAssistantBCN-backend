@@ -3,28 +3,6 @@ spring:
     name: businessassistant-opendata
   jmx:
     enabled: true
-  cloud:
-    consul:
-      #CAUTION: for development purposes only (start with Gradle's command bootRun).
-      #host: localhost
-      #Docker start requires container_name att as hostname
-      #host: consul-server1
-      host: 127.0.0.1
-      port: 8500 #puerto HTTP del agente
-      config:
-        enabled: true
-      discovery:
-        instanceId: id:${spring.application.name}:${random.value}
-        serviceName: name:${spring.application.name}
-        enabled: true
-        register: true
-        register-health-check: true
-        deregister: true
-        port: 7777 #puerto del servicio
-        #prefer-ip-address: true
-        #healthCheckPath: ${management.server.servlet.context-path}/health
-        healthCheckPath: /businessassistantbcn/api/v1/opendata/test
-        healthCheckInterval: 15s
   #Spring profiles available:
   #   - dev: disable security
   #   - pro: enable JWT security

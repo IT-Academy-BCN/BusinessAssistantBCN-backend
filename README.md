@@ -18,21 +18,22 @@
 
 ## Inicialización de contenedores 
 
-### Arranque de microservicios en contenedores Docker
-
-- Construcción del contenedor (UNIX based)
+### Arranque de Backend general
 
 ```
-./start_container.sh
+./init.sh
 ```
+
+### Creación de imágenes de cada microservicio
+
+```
+./make_Docker_image.sh
+```
+
 
 ### MongoDB
 
-La configuración para la inicialización de la base de datos Mongo está incluida en docker-compose.yml (**importante**: docker-compose.yml aún
-contiene rutas hard-coded a los scripts de inicialización de BD -tanto MongoDB como Mysql-. No olvide sustituirlas por las suyas propias :(  
-La comprobación de inicialización es válida aún si la base de datos se levanta en host (sin container), aunque será necesario 
-ejecutar manualmente las instrucciones del script BusinessAssistant-usermanagement/src/main/resources/scripts-mongodb/mongo-init.js para creación 
-de usuarios, ya que el arranque con Docker incluye la creación de configuración inicial (especialmente la creación de usuarios).
+La configuración para la inicialización de la base de datos Mongo está incluida en docker-compose.yml 
 
 #### Comandos
 
@@ -73,10 +74,10 @@ sudo systemctl start docker
 docker pull consul
 ```
 
-- Arrancar contenedor consul (desde directorio raíz)
+- Arrancar cluster consul (desde directorio raíz)
 
 ```
-docker-compose up consul-server1
+docker compose -f consul/consul-compose.yml up --remove-orphans
 ```
 
 - http://localhost:8500 debe mostrar consola de Administración Consul ![Administracion Consul](img/Consul.png)
