@@ -1,5 +1,7 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.dto.test.ClientFlowerDTO;
+import com.businessassistantbcn.opendata.service.circuitbreakerstest.CircuitBreakersTestService;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -35,6 +37,9 @@ public class OpendataController {
     @Autowired
     MunicipalMarketsService municipalMarketsService;
 
+    @Autowired
+    CircuitBreakersTestService proxyTestService;
+
     //TODO remove once all endpoints are paginated
     private final boolean PAGINATION_ENABLED = true;
 
@@ -42,6 +47,13 @@ public class OpendataController {
     public String test() {
         log.info("** Saludos desde el logger **");
         return "Hello from BusinessAssistant Barcelona!!!";
+    }
+
+    @GetMapping("clientFlowersGetAll")
+    public Mono<ClientFlowerDTO[]> getAllClienteFlower() throws MalformedURLException {
+
+        return proxyTestService.getAllClienteFlowerProxy();
+
     }
 
     //reactive

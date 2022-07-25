@@ -82,6 +82,19 @@ security:
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable 
 ---
+
+resilience4j.circuitbreaker:
+  instances:
+    FLOWERS:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 3
+      slidingWindowType: TIME_BASED
+      minimumNumberOfCalls: 4
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 50
+      eventConsumerBufferSize: 10
+
 logging:
   level:
     root: INFO  
