@@ -3,7 +3,6 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
-import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -36,24 +34,22 @@ public class EconomicActivitiesCensusService {
 				EconomicActivitiesCensusDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
 				return Mono.just(genericResultDto);
-			}).onErrorResume(e -> this.logServerErrorReturnEconomicActivitiesCensusDefaultPage(
-				new OpendataUnavailableServiceException())
-			);
+			});
 	}
 
 	private Mono<GenericResultDto<EconomicActivitiesCensusDto>> logServerErrorReturnEconomicActivitiesCensusDefaultPage
 		(Throwable exception) {
 		log.error("Opendata is down");
-		return this.getEconomicActivitiesCensusDefaultPage(exception);
+		return this.getEconomicActivitiesCensusDefaultPage();
 	}
 
 	private Mono<GenericResultDto<EconomicActivitiesCensusDto>> logInternalErrorReturnEconomicActivitiesCensusDefaultPage
 		(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getEconomicActivitiesCensusDefaultPage(exception);
+		return this.getEconomicActivitiesCensusDefaultPage();
 	}
 
-	private Mono<GenericResultDto<EconomicActivitiesCensusDto>> getEconomicActivitiesCensusDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<EconomicActivitiesCensusDto>> getEconomicActivitiesCensusDefaultPage() {
 		genericResultDto.setInfo(0, 0, 0, new EconomicActivitiesCensusDto[0]);
 		return Mono.just(genericResultDto);
 	}

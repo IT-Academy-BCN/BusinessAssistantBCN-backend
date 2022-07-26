@@ -3,18 +3,14 @@ package com.businessassistantbcn.opendata.controller;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.AddressDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
-import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
-import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
+import com.businessassistantbcn.opendata.service.circuitbreakerstest.CircuitBreakersTestService;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
-import com.fasterxml.jackson.databind.JsonNode;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,15 +26,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
-
 import java.lang.reflect.*;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -67,6 +58,9 @@ public class OpendataControllerTest {
 	private CommercialGalleriesService commercialGalleriesService;
 	@MockBean
 	private EconomicActivitiesCensusService economicActivitiesCensusService;
+
+	@MockBean
+	CircuitBreakersTestService proxyTestService;
 
 
 	@DisplayName("Simple String response")

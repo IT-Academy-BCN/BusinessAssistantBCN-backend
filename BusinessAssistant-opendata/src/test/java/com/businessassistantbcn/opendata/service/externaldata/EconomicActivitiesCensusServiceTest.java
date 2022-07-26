@@ -91,7 +91,7 @@ public class EconomicActivitiesCensusServiceTest {
     @Test
     void getPageReturnsEconomicActivitiesCensusDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_economicactivitiescensus()).thenReturn(urlEconomicActivitiesCensus);
-        when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class))).thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsEconomicActivitiesCensusDefaultPage(economicActivitiesCensusService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
     }

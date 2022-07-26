@@ -3,11 +3,9 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.input.largeestablishments.AddressDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
-import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -17,16 +15,13 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class LargeEstablishmentsService {
@@ -87,8 +82,7 @@ public class LargeEstablishmentsService {
 
 			genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 			return Mono.just(genericResultDto);
-		})
-		.onErrorResume(e -> this.getLargeEstablishmentsDefaultPage(new OpendataUnavailableServiceException()));
+		});
 	}
 	
 	private LargeEstablishmentsDto removeClassificationDataWithMarquesAndUsInternInFullPath(LargeEstablishmentsDto largeEstablishmentDto) {
@@ -119,15 +113,15 @@ public class LargeEstablishmentsService {
 
 	private Mono<GenericResultDto<LargeEstablishmentsResponseDto>> logServerErrorReturnLargeEstablishmentsDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
-		return this.getLargeEstablishmentsDefaultPage(exception);
+		return this.getLargeEstablishmentsDefaultPage();
 	}
 
 	private Mono<GenericResultDto<LargeEstablishmentsResponseDto>> logInternalErrorReturnLargeEstablishmentsDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getLargeEstablishmentsDefaultPage(exception);
+		return this.getLargeEstablishmentsDefaultPage();
 	}
 
-	private Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getLargeEstablishmentsDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getLargeEstablishmentsDefaultPage() {
 		genericResultDto.setInfo(0, 0, 0, new LargeEstablishmentsResponseDto[0]);
 		return Mono.just(genericResultDto);
 	}
@@ -145,11 +139,10 @@ public class LargeEstablishmentsService {
 			ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
 			genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
 			return Mono.just(genericActivityResultDto);
-		})
-		.onErrorResume(e -> this.logServerErrorReturnActivitiesDefaultPage(new OpendataUnavailableServiceException()));
+		});
 	}
 
-	private Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage() {
 		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 		return Mono.just(genericActivityResultDto);
 	}
@@ -184,11 +177,11 @@ public class LargeEstablishmentsService {
 
 	private Mono<GenericResultDto<ActivityInfoDto>> logServerErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
-		return this.getActivitiesDefaultPage(exception);
+		return this.getActivitiesDefaultPage();
 	}
 
 	private Mono<GenericResultDto<ActivityInfoDto>> logInternalErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getActivitiesDefaultPage(exception);
+		return this.getActivitiesDefaultPage();
 	}
 }

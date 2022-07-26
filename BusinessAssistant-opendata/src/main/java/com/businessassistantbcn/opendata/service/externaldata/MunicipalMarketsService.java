@@ -5,18 +5,15 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
-import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -47,8 +44,7 @@ public class MunicipalMarketsService {
 				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(MunicipalMarketsResponseDto[]::new);
 				genericResultDto.setInfo(offset, limit, dtos.length, responseDto);
 				return Mono.just(genericResultDto);
-			})
-			.onErrorResume(e -> this.logServerErrorReturnMunicipalMarketsDefaultPage(new OpendataUnavailableServiceException()));
+			});
 	}
 
 	private MunicipalMarketsResponseDto mapToResponseDto(MunicipalMarketsDto municipalMarketsDto) {
@@ -63,15 +59,15 @@ public class MunicipalMarketsService {
 
 	private Mono<GenericResultDto<MunicipalMarketsResponseDto>> logServerErrorReturnMunicipalMarketsDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
-		return this.getMunicipalMarketsDefaultPage(exception);
+		return this.getMunicipalMarketsDefaultPage();
 	}
 
 	private Mono<GenericResultDto<MunicipalMarketsResponseDto>> logInternalErrorReturnMunicipalMarketsDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getMunicipalMarketsDefaultPage(exception);
+		return this.getMunicipalMarketsDefaultPage();
 	}
 
-	private Mono<GenericResultDto<MunicipalMarketsResponseDto>> getMunicipalMarketsDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<MunicipalMarketsResponseDto>> getMunicipalMarketsDefaultPage() {
 		genericResultDto.setInfo(0, 0, 0, new MunicipalMarketsResponseDto[0]);
 		return Mono.just(genericResultDto);
 	}

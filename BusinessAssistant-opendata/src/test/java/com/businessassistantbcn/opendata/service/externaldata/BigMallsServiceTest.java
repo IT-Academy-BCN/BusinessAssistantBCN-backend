@@ -142,7 +142,7 @@ public class BigMallsServiceTest {
     @Test
     void getPageReturnsBigMallsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
@@ -151,7 +151,7 @@ public class BigMallsServiceTest {
     void getPageReturnsBigMallsDefaultPageWhenServerIsDownTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
-            .thenReturn(Mono.error(new RuntimeException()));
+                .thenReturn(Mono.error(new RuntimeException()));
         this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
@@ -176,7 +176,7 @@ public class BigMallsServiceTest {
     @Test
     void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.error(new Exception()));
         this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }
@@ -185,7 +185,7 @@ public class BigMallsServiceTest {
     void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
-                .thenReturn(Mono.error(new RuntimeException()));
+                .thenReturn(Mono.error(new Exception()));
         this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
     }

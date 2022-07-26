@@ -143,8 +143,7 @@ public class CommercialGalleriesServiceTest {
 	@Test
 	void getPageReturnsCommercialGalleriesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
-			.thenThrow(RuntimeException.class);
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class))).thenReturn(Mono.error(new RuntimeException()));
 		this.returnsCommercialGalleriesDefaultPage(commercialGalleriesService.getPage(0, -1).block());
 		verify(httpProxy, times(1))
 			.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
@@ -154,7 +153,7 @@ public class CommercialGalleriesServiceTest {
 	void getPageReturnsCommercialGalleriesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
 		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
-			.thenReturn(Mono.error(new RuntimeException()));
+			.thenReturn(Mono.error(new Exception()));
 		this.returnsCommercialGalleriesDefaultPage(commercialGalleriesService.getPage(0, -1).block());
 		verify(httpProxy, times(1))
 			.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
@@ -183,7 +182,7 @@ public class CommercialGalleriesServiceTest {
 	@Test
 	void getCommercialGalleriesActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class))).thenThrow(RuntimeException.class);
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class))).thenReturn(Mono.error(new RuntimeException()));
 		this.returnsActivitiesDefaultPage(commercialGalleriesService.getCommercialGalleriesActivities(0, -1).block());
 		verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
 	}

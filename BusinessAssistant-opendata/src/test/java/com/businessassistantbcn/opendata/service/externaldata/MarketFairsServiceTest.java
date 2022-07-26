@@ -133,7 +133,7 @@ public class MarketFairsServiceTest {
     @Test
     void getPageReturnsMarketFairsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class))).thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsMarketFairsDefaultPage(marketFairsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
     }

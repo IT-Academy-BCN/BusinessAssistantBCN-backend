@@ -182,8 +182,7 @@ public class LargeEstablishmentsServiceTest {
     @Test
     void getPageReturnsLargeEstablishmentsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
-            .thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsLargeEstablishmentsDefaultPage(largeEstablishmentsService.getPage(0, -1).block());
         verify(httpProxy, times(1))
             .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
@@ -222,8 +221,7 @@ public class LargeEstablishmentsServiceTest {
     @Test
     void getLargeEstablishmentsActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
-            .thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsActivitiesDefaultPage(largeEstablishmentsService.getLargeEstablishmentsActivities(0, -1).block());
         verify(httpProxy, times(1))
             .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));

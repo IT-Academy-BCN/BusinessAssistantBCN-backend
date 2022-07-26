@@ -121,7 +121,7 @@ public class MunicipalMarketsServiceTest {
     @Test
     void getPageReturnsMunicipalMarketsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
-        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class))).thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsMunicipalMarketDefaultPage(municipalMarketsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));
     }
