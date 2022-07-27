@@ -26,6 +26,7 @@ spring:
         healthCheckPath: /businessassistantbcn/api/v1/opendata/test
         healthCheckInterval: 15s
   #Spring profiles available:
+  #   - test: disable circuits breakers for testing
   #   - dev: disable security
   #   - pro: enable JWT security
   profiles:
@@ -86,7 +87,7 @@ security:
 
 resilience4j.circuitbreaker:
   instances:
-    FLOWERS:
+    circuitBreaker:
       registerHealthIndicator: true
       slidingWindowSize: 10
       permittedNumberOfCallsInHalfOpenState: 3

@@ -40,7 +40,7 @@ public class BigMallsService {
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnBigMallsDefaultPage")
 	public Mono<GenericResultDto<BigMallsResponseDto>>getPage(int offset, int limit) throws MalformedURLException {
-		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
+		return httpProxy.getRequestData(new URL(config.getDs_apitestcircuitbreakers()), BigMallsDto[].class)
 			.flatMap(dtos -> {
 				BigMallsDto[] filteredDto = Arrays.stream(dtos)
 						.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
