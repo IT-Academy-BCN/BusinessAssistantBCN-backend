@@ -38,6 +38,17 @@ services:
         ipv4_address: 172.24.2.2
     command: "agent -bootstrap-expect=3"
 
+  consul-client-mongodb:
+    image: consul:1.12.3
+    container_name: consul-client-mongodb
+    restart: always
+    volumes:
+      - ./consul-client-mongodb.json:/consul/config/client.json:ro
+    networks:
+      consul-net:
+        ipv4_address: 172.24.2.3
+    command: "agent"
+
   businessassistantbcn-opendata:
     image: babcn:opendata-v1.0-SNAPSHOT
     container_name: opendata-v1.0-SNAPSHOT
@@ -46,11 +57,9 @@ services:
      # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       consul-net:
-        ipv4_address: 172.24.2.3
+        ipv4_address: 172.24.2.4
     ports:
       - '7777:8762'
-    #depends_on:
-      #- 'consul-server1'
 
   businessassistantbcn-gencat:
     image: babcn:gencat-v1.0-SNAPSHOT
@@ -60,7 +69,7 @@ services:
     # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       consul-net:
-        ipv4_address: 172.24.2.4
+        ipv4_address: 172.24.2.5
     ports:
       - '7776:8762'
     #command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
