@@ -1,6 +1,6 @@
 spring:
   application:
-    name: businessassistant-usermanagement
+    name: businessassistant-login
   cloud:
     consul:
       enabled: true
@@ -15,7 +15,7 @@ spring:
         register: true
         register-health-check: true
         deregister: true
-        port: 8762 #puerto del servicio
+        port: 8761 #puerto del servicio
         prefer-ip-address: true
         healthCheckPath: /actuator/health
         healthCheckInterval: 15s

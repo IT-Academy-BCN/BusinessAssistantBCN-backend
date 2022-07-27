@@ -74,6 +74,51 @@ services:
       - '7776:8762'
     #command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
 
+  businessassistantbcn-usermanagement:
+    image: babcn:usermanagement-v1.0-SNAPSHOT
+    container_name: usermanagement-v1.0-SNAPSHOT
+    restart: always
+    #volumes:
+    # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
+    networks:
+      consul-net:
+        ipv4_address: 172.24.2.6
+    ports:
+      - '7778:8762'
+
+  businessassistantbcn-mongodb:
+    container_name: mongodb-businessassistantbcn
+    image: mongo:5.0.9
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin_businessassistantbcn
+      MONGO_INITDB_ROOT_PASSWORD: UhWQQYFVBx95W7
+      MONGO_INITDB_DATABASE: babcn-users
+    ports:
+      - 27017:27017
+    volumes:
+      - businessassistantbcn_mongodb_data:/var/lib/mongodb
+      - ./BusinessAssistant-usermanagement/src/main/resources/mongodb-init:/docker-entrypoint-initdb.d
+      - ./BusinessAssistant-usermanagement/src/main/resources/mongodb-test-data:/tmp/data/
+    networks:
+      consul-net:
+        ipv4_address: 172.24.2.7
+
+
+  businessassistantbcn-login:
+    image: babcn:login-v1.0-SNAPSHOT
+    container_name: login-v1.0-SNAPSHOT
+    restart: always
+    #volumes:
+    # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
+    networks:
+      consul-net:
+        ipv4_address: 172.24.2.8
+    ports:
+      - '7779:8761'
+
+volumes:
+  businessassistantbcn_mongodb_data:
 
 networks:
   consul-net:

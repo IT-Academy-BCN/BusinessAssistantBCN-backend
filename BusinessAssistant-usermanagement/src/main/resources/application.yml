@@ -5,7 +5,7 @@ spring:
     enabled: true
   data:
     mongodb:
-      host: localhost
+      host: 172.24.2.7
       port: 27017
       username: admin_businessassistantbcn
       password: UhWQQYFVBx95W7
