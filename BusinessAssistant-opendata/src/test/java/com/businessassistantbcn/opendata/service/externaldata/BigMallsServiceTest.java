@@ -41,7 +41,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@PropertySource("classpath:resilience4j-test.properties")
 public class BigMallsServiceTest {
 
     @MockBean
@@ -54,7 +53,7 @@ public class BigMallsServiceTest {
     @InjectMocks
     private BigMallsService bigMallsService;
 
-    private static String urlBigMalls;
+    private static final String URL_BIG_MALLS = "json/twoBigMallsForTesting.json";
     private static final String JSON_FILENAME_BIG_MALLS = "json/twoBigMallsForTesting.json";
     private static final String JSON_FILENAME_BIG_MALLS_ACTIVITIES = "json/activitiesFromTwoBigMallsForTesting.json";
     private static ObjectMapper mapper;
@@ -64,8 +63,6 @@ public class BigMallsServiceTest {
 
     @BeforeAll
     static void beforeAll() throws URISyntaxException, IOException {
-        urlBigMalls = "http://www.bcn.cat/tercerlloc/files/" +
-            "mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json";
 
         String bigMallsAsString = Files.readAllLines(
                 Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
@@ -73,14 +70,14 @@ public class BigMallsServiceTest {
         ).get(0);
         String bigMallsActivitiesAsString = Files.readAllLines(
                 Paths.get(BigMallsServiceTest.class.getClassLoader()
-                    .getResource(JSON_FILENAME_BIG_MALLS_ACTIVITIES).toURI()),
+                        .getResource(JSON_FILENAME_BIG_MALLS_ACTIVITIES).toURI()),
                 StandardCharsets.UTF_8
         ).get(0);
 
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         twoBigMallsDto = mapper.readValue(bigMallsAsString, BigMallsDto[].class);
         activities = mapper.readValue(bigMallsActivitiesAsString, ActivityInfoDto[].class);
-        
+
         responseDto = new BigMallsResponseDto[2];
         BigMallsResponseDto responseDto1 = new BigMallsResponseDto();
         List<AddressInfoDto> addressInfoDto1 = new ArrayList<>();
@@ -126,7 +123,7 @@ public class BigMallsServiceTest {
 
     @Test
     void getPageTest() throws MalformedURLException, JsonProcessingException {
-        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
         GenericResultDto<BigMallsResponseDto> expectedResult = new GenericResultDto<BigMallsResponseDto>();
@@ -135,7 +132,7 @@ public class BigMallsServiceTest {
         GenericResultDto<BigMallsResponseDto> actualResult = bigMallsService.getPage(0, -1).block();
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
-            mapper.writeValueAsString(actualResult.getResults()));
+                mapper.writeValueAsString(actualResult.getResults()));
 
         verify(config, times(1)).getDs_bigmalls();
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
@@ -143,7 +140,7 @@ public class BigMallsServiceTest {
 
     @Test
     void getPageReturnsBigMallsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
-        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
@@ -151,7 +148,7 @@ public class BigMallsServiceTest {
 
     @Test
     void getPageReturnsBigMallsDefaultPageWhenServerIsDownTest() throws MalformedURLException {
-        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.error(new RuntimeException()));
         this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
@@ -160,7 +157,7 @@ public class BigMallsServiceTest {
 
     @Test
     void getBigMallsActivitiesTest() throws MalformedURLException, JsonProcessingException {
-        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
         GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
@@ -169,7 +166,7 @@ public class BigMallsServiceTest {
         GenericResultDto<ActivityInfoDto> actualResult = bigMallsService.getBigMallsActivities(0, -1).block();
         this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
         assertEquals(mapper.writeValueAsString(expectedResult.getResults()),
-            mapper.writeValueAsString(actualResult.getResults()));
+                mapper.writeValueAsString(actualResult.getResults()));
 
         verify(config, times(1)).getDs_bigmalls();
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
@@ -177,7 +174,7 @@ public class BigMallsServiceTest {
 
     @Test
     void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
-        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
@@ -185,7 +182,7 @@ public class BigMallsServiceTest {
 
     @Test
     void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
-        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.error(new RuntimeException()));
         this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
@@ -220,7 +217,7 @@ public class BigMallsServiceTest {
 
     @Test
     void getPageByActivity() throws MalformedURLException {
-        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.just(twoBigMallsDto));
 
@@ -230,13 +227,13 @@ public class BigMallsServiceTest {
         assertEquals(0, actualResult.getOffset());
         assertEquals(-1, actualResult.getLimit());
         assertEquals(43326348, Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
-                        .get(0).getActivities().get(0).getActivityId());
+                .get(0).getActivities().get(0).getActivityId());
 
     }
 
     @Test
     void getPageByDistrict() throws MalformedURLException {
-        when(config.getDs_bigmalls()).thenReturn(urlBigMalls);
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.just(twoBigMallsDto));
 
