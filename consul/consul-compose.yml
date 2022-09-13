@@ -95,15 +95,32 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: UhWQQYFVBx95W7
       MONGO_INITDB_DATABASE: babcn-users
     ports:
-      - 27017:27017
+      - 27018:27017
     volumes:
       - businessassistantbcn_mongodb_data:/var/lib/mongodb
-      - ./BusinessAssistant-usermanagement/src/main/resources/mongodb-init:/docker-entrypoint-initdb.d
-      - ./BusinessAssistant-usermanagement/src/main/resources/mongodb-test-data:/tmp/data/
+      - ../BusinessAssistant-usermanagement/src/main/resources/mongodb-init:/docker-entrypoint-initdb.d
+      - ../BusinessAssistant-usermanagement/src/main/resources/mongodb-test-data:/tmp/data/
     networks:
       consul-net:
         ipv4_address: 172.24.2.7
 
+  businessassistantbcn-mysql:
+    container_name: mysql-businessassistantbcn
+    image: mysql
+    #command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: kIFQRsP8BRpODROvy5
+      #MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_DATABASE: businessassistantbcndb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ
+    volumes:
+      - ../BusinessAssistant-mydata/src/main/resources/scripts-mysql:/home/scripts/
+      - businessassistantbcn_db_data:/var/lib/mysql
+      - businessassistantbcn_db_log:/var/log/mysql
 
   businessassistantbcn-login:
     image: babcn:login-v1.0-SNAPSHOT
@@ -119,6 +136,8 @@ services:
 
 volumes:
   businessassistantbcn_mongodb_data:
+  businessassistantbcn_db_data:
+  businessassistantbcn_db_log:
 
 networks:
   consul-net:
