@@ -53,7 +53,7 @@ public class BigMallsServiceTest {
     @InjectMocks
     private BigMallsService bigMallsService;
 
-    private static final String URL_BIG_MALLS = "json/twoBigMallsForTesting.json";
+    private static String URL_BIG_MALLS;
     private static final String JSON_FILENAME_BIG_MALLS = "json/twoBigMallsForTesting.json";
     private static final String JSON_FILENAME_BIG_MALLS_ACTIVITIES = "json/activitiesFromTwoBigMallsForTesting.json";
     private static ObjectMapper mapper;
@@ -63,6 +63,9 @@ public class BigMallsServiceTest {
 
     @BeforeAll
     static void beforeAll() throws URISyntaxException, IOException {
+
+        URL_BIG_MALLS = "http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/" +
+                        "opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json";
 
         String bigMallsAsString = Files.readAllLines(
                 Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
