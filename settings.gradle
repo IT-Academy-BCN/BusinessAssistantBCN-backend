@@ -5,5 +5,5 @@ include 'BusinessAssistant-gateway'
 include 'BusinessAssistant-mydata'
 include 'BusinessAssistant-usermanagement'
 include 'BusinessAssistant-gencat'
-include 'BusinessAssistant-apicircuitbreakertest'
+include 'BusinessAssistant-apitest'
 

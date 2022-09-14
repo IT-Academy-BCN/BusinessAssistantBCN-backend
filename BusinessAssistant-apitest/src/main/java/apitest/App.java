@@ -1,4 +1,4 @@
-package com.apicircuitbreakertest;
+package apitest;
 
 
 import org.springframework.boot.SpringApplication;
