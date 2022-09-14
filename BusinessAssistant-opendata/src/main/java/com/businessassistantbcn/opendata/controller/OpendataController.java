@@ -49,10 +49,10 @@ public class OpendataController {
         return "Hello from BusinessAssistant Barcelona!!!";
     }
 
-    @GetMapping("clientFlowersGetAll")
-    public Mono<ClientFlowerDTO[]> getAllClienteFlower() throws MalformedURLException {
+    @GetMapping("/clientFlowersGetAll")
+    public Mono<ClientFlowerDTO[]> getAllClientsFlower() throws MalformedURLException {
 
-        return proxyTestService.getAllClienteFlowerProxy();
+        return proxyTestService.getAllClientsFlowerProxy();
 
     }
 

@@ -25,7 +25,7 @@ public class CircuitBreakersTestService {
     private HttpProxy httpProxy;
 
     @CircuitBreaker(name = "FLOWERS", fallbackMethod = "fallBack")
-    public Mono<ClientFlowerDTO[]> getAllClienteFlowerProxy() throws MalformedURLException {
+    public Mono<ClientFlowerDTO[]> getAllClientsFlowerProxy() throws MalformedURLException {
 
         return httpProxy.getRequestData(new URL(config.getDs_apitestcircuitbreakers()), ClientFlowerDTO[].class)
                 .onErrorResume(throwable -> this.fallBack(new OpendataUnavailableServiceException("Server is down")));

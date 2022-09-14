@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("testCircuitBreaker")
+@RequestMapping("/testCircuitBreaker")
 public class Controller {
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public String getAll(){
         return "[{\"pk_flowerID\":1,\"flowerName\":\"Rosa\",\"flowerCountry\":\"Italy\",\"flowerType\":\"EU\"}," +
                 "{\"pk_flowerID\":2,\"flowerName\":\"Tulipán\",\"flowerCountry\":\"Spain\",\"flowerType\":\"EU\"}," +
