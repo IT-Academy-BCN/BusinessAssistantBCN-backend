@@ -63,9 +63,9 @@ public class HttpProxy {
     }
 
     public <T> Mono<T> getRequestData(URL url, Class<T> clazz){
-        log.info ("Proxy: Executing remote invocation to "+url.toString());
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
         WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
+        log.info ("Proxy: Executing remote invocation to "+url.toString());
         return bodySpec.retrieve().bodyToMono(clazz);
     }
 

@@ -24,17 +24,15 @@ public class CircuitBreakersTestService {
     @Autowired
     private HttpProxy httpProxy;
 
-    @CircuitBreaker(name = "FLOWERS", fallbackMethod = "fallBack")
+    @CircuitBreaker(name = "babcn-circuitBreaker", fallbackMethod = "fallBack")
     public Mono<ClientFlowerDTO[]> getAllClientsFlowerProxy() throws MalformedURLException {
-
-        return httpProxy.getRequestData(new URL(config.getDs_apitestcircuitbreakers()), ClientFlowerDTO[].class)
-                .onErrorResume(throwable -> this.fallBack(new OpendataUnavailableServiceException("Server is down")));
+        return httpProxy.getRequestData(new URL(config.getDs_apitestcircuitbreakers()), ClientFlowerDTO[].class);
     }
 
     private Mono<ClientFlowerDTO[]> fallBack(Exception e) {
+        log.error("BusinessAssistant error: " + e.getMessage());
         ClientFlowerDTO[] list = new ClientFlowerDTO[1];
         list[0] = (new ClientFlowerDTO("Circuit Breaker Response", "Spain"));
-        log.error("BusinessAssistant error: " + e.getMessage());
         return Mono.just(list);
     }
 
