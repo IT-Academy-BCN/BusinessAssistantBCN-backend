@@ -20,6 +20,7 @@ import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
@@ -41,6 +42,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@PropertySource("classpath:resilience4j-test.properties")
 public class CommercialGalleriesServiceTest {
 	
 
@@ -143,8 +145,7 @@ public class CommercialGalleriesServiceTest {
 	@Test
 	void getPageReturnsCommercialGalleriesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
-			.thenThrow(RuntimeException.class);
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class))).thenReturn(Mono.error(new RuntimeException()));
 		this.returnsCommercialGalleriesDefaultPage(commercialGalleriesService.getPage(0, -1).block());
 		verify(httpProxy, times(1))
 			.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
@@ -154,7 +155,7 @@ public class CommercialGalleriesServiceTest {
 	void getPageReturnsCommercialGalleriesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
 		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
-			.thenReturn(Mono.error(new RuntimeException()));
+			.thenReturn(Mono.error(new Exception()));
 		this.returnsCommercialGalleriesDefaultPage(commercialGalleriesService.getPage(0, -1).block());
 		verify(httpProxy, times(1))
 			.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
@@ -183,7 +184,7 @@ public class CommercialGalleriesServiceTest {
 	@Test
 	void getCommercialGalleriesActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class))).thenThrow(RuntimeException.class);
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class))).thenReturn(Mono.error(new RuntimeException()));
 		this.returnsActivitiesDefaultPage(commercialGalleriesService.getCommercialGalleriesActivities(0, -1).block());
 		verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
 	}

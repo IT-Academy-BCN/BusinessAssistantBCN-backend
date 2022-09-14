@@ -2,12 +2,15 @@ package com.businessassistantbcn.opendata.proxy;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 
+import com.businessassistantbcn.opendata.controller.OpendataController;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -33,6 +36,8 @@ public class HttpProxy {
     private final PropertiesConfig config;
     HttpClient httpClient;
     public WebClient client;
+
+    private static final Logger log = LoggerFactory.getLogger(HttpProxy.class);
 
     @Autowired
     public HttpProxy(PropertiesConfig config){
@@ -60,6 +65,7 @@ public class HttpProxy {
     public <T> Mono<T> getRequestData(URL url, Class<T> clazz){
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
         WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
+        log.info ("Proxy: Executing remote invocation to "+url.toString());
         return bodySpec.retrieve().bodyToMono(clazz);
     }
 

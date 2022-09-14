@@ -5,13 +5,9 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
-import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
-import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
-import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
-
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +15,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -59,10 +54,7 @@ public class CommercialGalleriesService {
 				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
-			})
-			.onErrorResume(
-				e -> this.logServerErrorReturnCommercialGalleriesDefaultPage(new OpendataUnavailableServiceException())
-			);
+			});
 	}
 
 	private CommercialGalleriesDto removeClassificationDataWithUsInternInFullPath(CommercialGalleriesDto commercialGalleriesDto) {
@@ -86,17 +78,17 @@ public class CommercialGalleriesService {
 		Throwable exception
 	) {
 		log.error("Opendata is down");
-		return this.getCommercialGalleriesDefaultPage(exception);
+		return this.getCommercialGalleriesDefaultPage();
 	}
 
 	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> logInternalErrorReturnCommercialGalleriesDefaultPage(
 		Throwable exception
 	) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getCommercialGalleriesDefaultPage(exception);
+		return this.getCommercialGalleriesDefaultPage();
 	}
 
-	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> getCommercialGalleriesDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<CommercialGalleriesResponseDto>> getCommercialGalleriesDefaultPage() {
 		genericResultDto.setInfo(0, 0, 0, new CommercialGalleriesResponseDto[0]);
 		return Mono.just(genericResultDto);
 	}
@@ -114,11 +106,10 @@ public class CommercialGalleriesService {
 				ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
 				genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
 				return Mono.just(genericActivityResultDto);
-			})
-			.onErrorResume(e -> this.logServerErrorReturnActivitiesDefaultPage(new OpendataUnavailableServiceException()));
+			});
 	}
 
-	public Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage(Throwable exception) {
+	public Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage() {
 		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 		return Mono.just(genericActivityResultDto);
 	}
@@ -154,12 +145,12 @@ public class CommercialGalleriesService {
 
 	private Mono<GenericResultDto<ActivityInfoDto>> logServerErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
-		return this.getActivitiesDefaultPage(exception);
+		return this.getActivitiesDefaultPage();
 	}
 
 	private Mono<GenericResultDto<ActivityInfoDto>> logInternalErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getActivitiesDefaultPage(exception);
+		return this.getActivitiesDefaultPage();
 	}
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorReturnActivitiesDefaultPage")
@@ -198,8 +189,7 @@ public class CommercialGalleriesService {
 
 					genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 					return Mono.just(genericResultDto);
-				})
-				.onErrorResume(e -> this.getCommercialGalleriesDefaultPage(new OpendataUnavailableServiceException()));
+				});
 	}
 
 	private CommercialGalleriesResponseDto convertToDto(CommercialGalleriesDto commercialGalleriesDto) {

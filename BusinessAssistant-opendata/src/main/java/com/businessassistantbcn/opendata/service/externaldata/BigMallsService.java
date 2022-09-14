@@ -5,10 +5,7 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.ClassificationDataDto;
-import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
-import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
-import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -18,7 +15,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -56,8 +52,7 @@ public class BigMallsService {
 				
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
-			})
-			.onErrorResume(e -> this.logServerErrorReturnBigMallsDefaultPage(new OpendataUnavailableServiceException()));
+			});
 	}
 	
 	private BigMallsDto removeClassificationDataWithUsInternInFullPath(BigMallsDto bigMallsDto) {
@@ -79,15 +74,15 @@ public class BigMallsService {
 
 	private Mono<GenericResultDto<BigMallsResponseDto>> logServerErrorReturnBigMallsDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
-		return this.getBigMallsDefaultPage(exception);
+		return this.getBigMallsDefaultPage();
 	}
 
 	private Mono<GenericResultDto<BigMallsResponseDto>> logInternalErrorReturnBigMallsDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getBigMallsDefaultPage(exception);
+		return this.getBigMallsDefaultPage();
 	}
 
-	private Mono<GenericResultDto<BigMallsResponseDto>> getBigMallsDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<BigMallsResponseDto>> getBigMallsDefaultPage() {
 		genericResultDto.setInfo(0, 0, 0, new BigMallsResponseDto[0]);
 		return Mono.just(genericResultDto);
 	}
@@ -104,11 +99,10 @@ public class BigMallsService {
 				ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
 				genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
 				return Mono.just(genericActivityResultDto);
-			})
-			.onErrorResume(e -> this.logServerErrorReturnActivitiesDefaultPage(new OpendataUnavailableServiceException()));
+			});
 	}
 
-	private Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage() {
 		genericActivityResultDto.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 		return Mono.just(genericActivityResultDto);
 	}
@@ -144,12 +138,12 @@ public class BigMallsService {
 
 	private Mono<GenericResultDto<ActivityInfoDto>> logServerErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
-		return this.getActivitiesDefaultPage(exception);
+		return this.getActivitiesDefaultPage();
 	}
 
 	private Mono<GenericResultDto<ActivityInfoDto>> logInternalErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getActivitiesDefaultPage(exception);
+		return this.getActivitiesDefaultPage();
 	}
 
 	public GenericResultDto<BigMallsDto> getBigMallsByActivityDto(int[] activities, int offset, int limit) {
@@ -208,8 +202,7 @@ public class BigMallsService {
 
 					genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 					return Mono.just(genericResultDto);
-				})
-				.onErrorResume(e -> this.getBigMallsDefaultPage(new OpendataUnavailableServiceException()));
+				});
 	}
 
 	private BigMallsResponseDto convertToDto(BigMallsDto bigMallsDto) {

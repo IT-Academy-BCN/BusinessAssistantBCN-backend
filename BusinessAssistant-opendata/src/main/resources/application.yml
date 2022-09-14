@@ -4,6 +4,7 @@ spring:
   jmx:
     enabled: true
   #Spring profiles available:
+  #   - test: disable circuits breakers for testing
   #   - dev: disable security
   #   - pro: enable JWT security
   profiles:
@@ -33,6 +34,7 @@ management:
 url:
   connection_timeout: 30000
   maxBytesInMemory: 30000000
+  ds_apitestcircuitbreakers: http://localhost:8760/testCircuitBreaker/getAll
   ds_test: https://swapi.py4e.com/api/vehicles/
   ds_largeestablishments: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-establiments-js.json
   ds_commercialgalleries: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_galeries-comercials-js.json
@@ -60,6 +62,31 @@ security:
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable 
 ---
+
+resilience4j.circuitbreaker:
+  instances:
+    babcn-circuitBreaker:
+     registerHealthIndicator: true
+     #Required before the circuit breaker can calculate the error rate or slow call rate
+     minimumNumberOfCalls: 1
+     #Window size: COUNT_BASED / TIME_BASED
+     slidingWindowType: COUNT_BASED
+     #Size of Window
+     slidingWindowSize: 10
+     # Failure percent (10.0f = 10%)
+     failureRateThreshold: 10.0f
+     #time before switching to half-open state
+     waitDurationInOpenState: 10s
+     #Rate slow call
+     #slowCallRateThreshold:
+     #Time in seconds beyond which a call is considered slow
+     #slowCallDurationThreshold:
+     permittedNumberOfCallsInHalfOpenState: 3
+     #Time staying in half-open state before switching back to open state
+     # (0 = infinitely until all the permittedNumberOfCallsInHalfOpenState() is complete)
+     #maxWaitDurationInHalfOpenState:
+
+
 logging:
   level:
     root: INFO  

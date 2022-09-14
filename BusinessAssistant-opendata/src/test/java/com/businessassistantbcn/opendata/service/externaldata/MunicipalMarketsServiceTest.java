@@ -17,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
@@ -41,6 +42,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@PropertySource("classpath:resilience4j-test.properties")
 public class MunicipalMarketsServiceTest {
 
     @MockBean
@@ -121,7 +123,7 @@ public class MunicipalMarketsServiceTest {
     @Test
     void getPageReturnsMunicipalMarketsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
-        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class))).thenThrow(RuntimeException.class);
+        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsMunicipalMarketDefaultPage(municipalMarketsService.getPage(0, -1).block());
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));
     }

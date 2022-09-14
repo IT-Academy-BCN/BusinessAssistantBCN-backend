@@ -5,9 +5,7 @@ import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
-import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
-import com.businessassistantbcn.opendata.exception.OpendataUnavailableServiceException;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -54,8 +51,7 @@ public class MarketFairsService {
 				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 
 				return Mono.just(genericResultDto);
-			})
-			.onErrorResume(e -> this.logServerErrorReturnMarketFairsDefaultPage(new OpendataUnavailableServiceException()));
+			});
 	}
 
 	private MarketFairsDto removeClassificationDataWithUsInternInFullPath(MarketFairsDto marketFairsDto){
@@ -79,15 +75,15 @@ public class MarketFairsService {
 
 	private Mono<GenericResultDto<MarketFairsResponseDto>> logServerErrorReturnMarketFairsDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
-		return this.getMarketFairsDefaultPage(exception);
+		return this.getMarketFairsDefaultPage();
 	}
 
 	private Mono<GenericResultDto<MarketFairsResponseDto>> logInternalErrorReturnMarketFairsDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
-		return this.getMarketFairsDefaultPage(exception);
+		return this.getMarketFairsDefaultPage();
 	}
 
-	private Mono<GenericResultDto<MarketFairsResponseDto>> getMarketFairsDefaultPage(Throwable exception) {
+	private Mono<GenericResultDto<MarketFairsResponseDto>> getMarketFairsDefaultPage() {
 		genericResultDto.setInfo(0, 0, 0, new MarketFairsResponseDto[0]);
 		return Mono.just(genericResultDto);
 	}
