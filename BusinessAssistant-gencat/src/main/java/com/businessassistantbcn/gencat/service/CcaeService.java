@@ -26,14 +26,14 @@ public class CcaeService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Mono<CcaeResponseDto[]> getResultDTO(int offset, int limit) throws MalformedURLException {
+    public Mono<CcaeResponseDto[]> getAllCcae(int offset, int limit) throws MalformedURLException {
 
         return httpProxy.getRequestData(new URL(config.getDs_ccae()), CcaeDto.class)
                 .flatMap(ccaeDtos -> {
                     CcaeResponseDto[] responseDtos = ccaeDtos
                             .getData()
                             .stream()
-                            .map(this::covertToDto)
+                            .map(this::convertToDto)
                             .toArray(CcaeResponseDto[]::new);
 
                     CcaeResponseDto[] pagedDto = JsonHelper.filterDto(responseDtos, offset, limit);
@@ -43,7 +43,7 @@ public class CcaeService {
 
     }
 
-    private CcaeResponseDto covertToDto(List<String> ccaeDto) {
+    private CcaeResponseDto convertToDto(List<String> ccaeDto) {
         final int id = 1;
         final int type = 9;
         final int idCcae = 8;
