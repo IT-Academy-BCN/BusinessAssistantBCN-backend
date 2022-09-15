@@ -28,9 +28,9 @@ public class GencatController {
     }
 
     @GetMapping("/ccae")
-    public Mono<?> getCcae(@RequestParam(required = false) String offset,
+    public Mono<?> getAllCcae(@RequestParam(required = false) String offset,
                            @RequestParam(required = false)  String limit) throws MalformedURLException {
-        return ccaeService.getResultDTO(getValidOffset(offset), getValidLimit(limit));
+        return ccaeService.getAllCcae(getValidOffset(offset), getValidLimit(limit));
     }
 
     //se debe implementar
@@ -41,18 +41,12 @@ public class GencatController {
     }
 
     //se debe implementar
-    @GetMapping("/ccae/type/{type}")
+    @GetMapping("/ccae/type/{type_id}")
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Mono getEconomicActivityByType(@PathVariable("type") String type) {
+    public Mono getEconomicActivityByType(@PathVariable("type_id") String type) {
         return Mono.just(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    //se debe implementar
-    @GetMapping("/ccae/types")
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Mono getEconomicActivitiesTypes() {
-        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
-    }
 
     private int getValidOffset(String offset)
     {

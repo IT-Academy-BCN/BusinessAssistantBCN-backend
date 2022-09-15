@@ -17,12 +17,6 @@ security:
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable 
 
-# OJO bug afecta a Swagger
-#springfox:
-#  documentation:
-#    auto-startup: false
-#Se usa springdoc-openapi para documentar la api
-
 springdoc:
   swagger-ui:
     path: "/swagger-ui-custom.html"
