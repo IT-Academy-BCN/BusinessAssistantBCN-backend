@@ -118,7 +118,8 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ
     volumes:
-      - ../BusinessAssistant-mydata/src/main/resources/scripts-mysql:/home/scripts/
+      - ../BusinessAssistant-mydata/src/main/resources/mysql-init:/docker-entrypoint-initdb.d
+      - ../BusinessAssistant-mydata/src/main/resources/mysql-test-data:/tmp/data
       - businessassistantbcn_db_data:/var/lib/mysql
       - businessassistantbcn_db_log:/var/log/mysql
 
