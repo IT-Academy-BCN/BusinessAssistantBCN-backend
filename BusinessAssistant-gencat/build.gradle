@@ -32,6 +32,7 @@ dependencies {
     implementation group: 'org.springframework', name: 'spring-context', version: '5.3.15'
     implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.15'
     implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.13'
+    implementation 'org.springframework.boot:spring-boot-starter'
 
     //WARNING: comentar las siguientes líneas si NO está habilitado Consul (para evitar el self-registry)
     //implementation 'org.springframework.cloud:spring-cloud-starter-consul-config:3.1.1'
@@ -44,6 +45,7 @@ dependencies {
     testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.13'
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.6.1'
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+    testImplementation 'io.projectreactor:reactor-test:3.1.0.RELEASE'
     
     //security
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.5.6'

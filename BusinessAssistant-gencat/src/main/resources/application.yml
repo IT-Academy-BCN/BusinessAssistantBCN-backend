@@ -40,6 +40,11 @@ url:
   ds_test: https://swapi.py4e.com/api/vehicles/
   ds_economicActivities: https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json
   ds_ccae: https://analisi.transparenciacatalunya.cat/api/views/get5-imi7/rows.json
+  # Data position
+  id: 1
+  type: 9
+  idCode: 8
+  description: 10
 
 
 logging:

@@ -28,9 +28,6 @@ public class CcaeDtoInputTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
-    private CcaeService ccaeService;
-
     private static final String JSON_FILENAME_CCAE = "json/twoCcaeData.json";
 
     private static final String JSON_FILENAME_CCAE_ERROR_PROPERTIES = "json/twoCcaeDataErrorProperties.json";
