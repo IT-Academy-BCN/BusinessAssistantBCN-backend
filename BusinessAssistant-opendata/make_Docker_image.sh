@@ -1,5 +1,4 @@
 #!/bin/sh
-cd ..
 # CAUTION: avoid tests, only for development purposes
 ./gradlew :BusinessAssistant-opendata:build -x test
 #./gradlew :BusinessAssistant-opendata:build

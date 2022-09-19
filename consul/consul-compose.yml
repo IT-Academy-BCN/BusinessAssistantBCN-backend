@@ -65,26 +65,46 @@ services:
     image: babcn:gencat-v1.0-SNAPSHOT
     container_name: gencat-v1.0-SNAPSHOT
     restart: always
-    #volumes:
-    # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       consul-net:
         ipv4_address: 172.24.2.5
     ports:
       - '7776:8762'
-    #command: "consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3"
 
   businessassistantbcn-usermanagement:
     image: babcn:usermanagement-v1.0-SNAPSHOT
     container_name: usermanagement-v1.0-SNAPSHOT
     restart: always
-    #volumes:
-    # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       consul-net:
         ipv4_address: 172.24.2.6
     ports:
       - '7778:8762'
+
+  businessassistantbcn-mydata:
+    image: babcn:mydata-v1.0-SNAPSHOT
+    container_name: mydata-v1.0-SNAPSHOT
+    restart: always
+    networks:
+      consul-net:
+        ipv4_address: 172.24.2.7
+    ports:
+      - '7780:8763'
+    environment:
+      - 'spring.datasource.url=jdbc:mysql://172.24.0.1:3307/businessassistantbcndb?useSSL=false&allowPublicKeyRetrieval=true'
+      - 'spring.datasource.username=admin'
+      - 'spring.datasource.password=Sb13TU7hw1oCbSIJ'
+
+  businessassistantbcn-login:
+    image: babcn:login-v1.0-SNAPSHOT
+    container_name: login-v1.0-SNAPSHOT
+    restart: always
+    networks:
+      consul-net:
+        ipv4_address: 172.24.2.8
+    ports:
+      - '7779:8761'
+
 
   businessassistantbcn-mongodb:
     container_name: mongodb-businessassistantbcn
@@ -102,7 +122,7 @@ services:
       - ../BusinessAssistant-usermanagement/src/main/resources/mongodb-test-data:/tmp/data/
     networks:
       consul-net:
-        ipv4_address: 172.24.2.7
+        ipv4_address: 172.24.2.9
 
   businessassistantbcn-mysql:
     container_name: mysql-businessassistantbcn
@@ -122,18 +142,9 @@ services:
       - ../BusinessAssistant-mydata/src/main/resources/mysql-test-data:/tmp/data
       - businessassistantbcn_db_data:/var/lib/mysql
       - businessassistantbcn_db_log:/var/log/mysql
-
-  businessassistantbcn-login:
-    image: babcn:login-v1.0-SNAPSHOT
-    container_name: login-v1.0-SNAPSHOT
-    restart: always
-    #volumes:
-    # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       consul-net:
-        ipv4_address: 172.24.2.8
-    ports:
-      - '7779:8761'
+        ipv4_address: 172.24.2.10
 
 volumes:
   businessassistantbcn_mongodb_data:

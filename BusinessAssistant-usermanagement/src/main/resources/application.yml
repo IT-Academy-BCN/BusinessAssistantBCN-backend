@@ -5,8 +5,8 @@ spring:
     enabled: true
   data:
     mongodb:
-      host: 172.24.2.7
-      port: 27017
+      host: 172.24.2.9
+      port: 27018
       username: admin_businessassistantbcn
       password: UhWQQYFVBx95W7
       database: babcn-users

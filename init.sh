@@ -25,20 +25,28 @@ echo " Starting Database Mongo in daemon mode"
 docker compose -f consul/consul-compose.yml up businessassistantbcn-mongodb -d
 sleep ${DELAY_START}s
 
+echo " Starting Database Mysql in daemon mode"
+docker compose -f consul/consul-compose.yml up businessassistantbcn-mysql -d
+sleep ${DELAY_START}s
+
 echo " Starting businessassistantbcn-usermanagement in daemon mode"
-docker compose -f consul/consul-compose.yml up businessassistantbcn-usermanagement
+docker compose -f consul/consul-compose.yml up businessassistantbcn-usermanagement -d
+sleep ${DELAY_START}s
+
+echo " Starting businessassistantbcn-mydata in daemon mode"
+docker compose -f consul/consul-compose.yml up businessassistantbcn-mydata -d
 sleep ${DELAY_START}s
 
 echo " Starting businessassistantbcn-opendata in daemon mode"
-docker compose -f consul/consul-compose.yml up -d businessassistantbcn-opendata
+docker compose -f consul/consul-compose.yml up businessassistantbcn-opendata -d
 sleep ${DELAY_START}s
 
 echo " Starting businessassistantbcn-gencat in daemon mode"
-docker compose -f consul/consul-compose.yml up -d businessassistantbcn-gencat
+docker compose -f consul/consul-compose.yml up businessassistantbcn-gencat -d
 sleep ${DELAY_START}s
 
 echo " Starting businessassistantbcn-login in daemon mode"
-docker compose -f consul/consul-compose.yml up businessassistantbcn-login
+docker compose -f consul/consul-compose.yml up businessassistantbcn-login -d
 sleep ${DELAY_START}s
 
 echo ""

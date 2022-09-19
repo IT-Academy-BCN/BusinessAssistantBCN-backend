@@ -1,5 +1,4 @@
 #!/bin/sh
-cd ..
 # CAUTION: avoid tests, only for development purposes
 ./gradlew :BusinessAssistant-usermanagement:build -x test
 #./gradlew :BusinessAssistant-usermanagement:build

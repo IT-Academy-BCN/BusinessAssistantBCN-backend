@@ -1,6 +1,6 @@
 spring:
   application:
-    name: businessassistant-usermanagement
+    name: businessassistant-mydata
   cloud:
     consul:
       enabled: true
