@@ -45,6 +45,13 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+    //WARNING: comentar las siguientes líneas si NO está habilitado Consul (para evitar el self-registry)
+    implementation 'org.springframework.cloud:spring-cloud-starter-consul-config:3.1.1'
+    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.1'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.1.1'
+    //
+
     // JAX-B dependencies for JDK 9+
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
 
