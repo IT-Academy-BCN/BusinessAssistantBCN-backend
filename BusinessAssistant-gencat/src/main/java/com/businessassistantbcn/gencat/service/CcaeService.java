@@ -1,23 +1,19 @@
 package com.businessassistantbcn.gencat.service;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
+import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.input.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.CcaeResponseDto;
 import com.businessassistantbcn.gencat.dto.output.CodeInfoDto;
 import com.businessassistantbcn.gencat.helper.JsonHelper;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
-import com.jayway.jsonpath.internal.Utils;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class CcaeService {
@@ -28,8 +24,11 @@ public class CcaeService {
     @Autowired
     private PropertiesConfig config;
 
+    @Autowired
+    private GenericResultDto<CcaeResponseDto> genericResultDto;
 
-    public Mono<CcaeResponseDto[]> getAllCcae(int offset, int limit) throws MalformedURLException {
+
+    public Mono<GenericResultDto<CcaeResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
 
         return httpProxy.getRequestData(new URL(config.getDs_ccae()), CcaeDto.class)
                 .flatMap(ccaeDtos -> {
@@ -42,9 +41,16 @@ public class CcaeService {
 
                     CcaeResponseDto[] pagedDto = JsonHelper.filterDto(responseDtos, offset, limit);
 
-                    return Mono.just(pagedDto);
+                    genericResultDto.setInfo(offset, limit, pagedDto.length, pagedDto);
+
+                    return Mono.just(genericResultDto);
                 });
 
+    }
+
+    private Mono<GenericResultDto<CcaeResponseDto>> getBigMallsDefaultPage() {
+        genericResultDto.setInfo(0, 0, 0, new CcaeResponseDto[0]);
+        return Mono.just(genericResultDto);
     }
 
     private CcaeResponseDto convertToDto(List<String> ccaeDto) {

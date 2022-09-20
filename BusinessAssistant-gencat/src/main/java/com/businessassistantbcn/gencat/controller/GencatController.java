@@ -30,7 +30,7 @@ public class GencatController {
     @GetMapping("/ccae")
     public Mono<?> getAllCcae(@RequestParam(required = false) String offset,
                            @RequestParam(required = false)  String limit) throws MalformedURLException {
-        return ccaeService.getAllCcae(getValidOffset(offset), getValidLimit(limit));
+        return ccaeService.getPage(getValidOffset(offset), getValidLimit(limit));
     }
 
     //se debe implementar

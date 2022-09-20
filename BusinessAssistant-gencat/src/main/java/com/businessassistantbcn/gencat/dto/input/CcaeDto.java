@@ -20,7 +20,7 @@ import java.util.List;
 @JsonIgnoreProperties({"meta"})
 public class CcaeDto {
 
-    @JsonProperty("data")
+
     private List<List<String>> data;
 
     @JsonGetter("data")
