@@ -47,26 +47,13 @@ public class CcaeService {
 
     }
 
-    public Mono<CcaeResponseDto[]> getAllCcae1(int offset, int limit) throws MalformedURLException {
-
-        Mono<CcaeDto> data = httpProxy.getRequestData(new URL(config.getDs_ccae()), CcaeDto.class);
-
-        CcaeDto gata1 = data.block();
-
-        CcaeResponseDto[] a = gata1.getData().stream().map(this::convertToDto).toArray(CcaeResponseDto[]::new);
-
-        CcaeResponseDto[] pagedDto = JsonHelper.filterDto(a, offset, limit);
-
-        return Mono.just(pagedDto);
-
-    }
-
     private CcaeResponseDto convertToDto(List<String> ccaeDto) {
         CcaeResponseDto ccaeResponseDto = new CcaeResponseDto();
         CodeInfoDto codeInfoDto = new CodeInfoDto();
 
         ccaeResponseDto.setId(ccaeDto.get(config.getId()));
         ccaeResponseDto.setType(ccaeDto.get(config.getType()));
+
         codeInfoDto.setIdCcae(ccaeDto.get(config.getIdCode()));
         codeInfoDto.setDescription(ccaeDto.get(config.getDescription()));
 

@@ -50,8 +50,6 @@ public class CcaeServiceTest {
 
     private static ObjectMapper mapper;
 
-    private static ModelMapper modelMapper;
-
     private static final String JSON_FILENAME_CCAE = "json/twoCcaeData.json";
 
     private static final String JSON_FILENAME_CCAE_ERROR_PROPERTIES = "json/twoCcaeDataErrorProperties.json";
@@ -99,21 +97,21 @@ public class CcaeServiceTest {
         when(config.getType()).thenReturn(9);
         when(config.getIdCode()).thenReturn(8);
         when(config.getDescription()).thenReturn(10);
+
         when(httpProxy.getRequestData(any(URL.class), eq(CcaeDto.class))).thenReturn(Mono.just(twoCcaeDto));
 
 
+        Mono<CcaeResponseDto[]> ccaeResponseDto = ccaeService.getAllCcae(0, -1);
 
-        //Mono<CcaeResponseDto[]> ccaeResponseDto = ccaeService.getAllCcae(0, -1);
+        StepVerifier.create(ccaeResponseDto)
+                .expectNextMatches(ccaeResponseDtos -> ccaeResponseDtos[0].getId().equalsIgnoreCase(responseDto[0].getId()))
+                .expectComplete()
+                .verify();
 
-        Mono<CcaeResponseDto[]> ccaeResponseDto1 = ccaeService.getAllCcae1(0, -1);
-
-        StepVerifier.create(ccaeResponseDto1)
-                        .expectNextMatches(x -> x[0].getId().equalsIgnoreCase(responseDto[0].getId()))
-                                .expectComplete()
-                                        .verify();
-
-
-        //assertThat(ccaeResponseDto1.block()[0].getId()).isEqualTo(responseDto[0].getId());
+        StepVerifier.create(ccaeResponseDto)
+                .expectNextMatches(ccaeResponseDtos -> ccaeResponseDtos.length==2)
+                .expectComplete()
+                .verify();
     }
 
 
