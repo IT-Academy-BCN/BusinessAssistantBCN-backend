@@ -1,10 +1,9 @@
+/*
 package com.businessassistantbcn.gencat.service;
 
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
-import com.businessassistantbcn.gencat.dto.input.CcaeDto;
-import com.businessassistantbcn.gencat.dto.output.CcaeResponseDto;
 import com.businessassistantbcn.gencat.dto.output.CodeInfoDto;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -51,8 +50,6 @@ public class CcaeServiceTest {
     private static ObjectMapper mapper;
 
     private static final String JSON_FILENAME_CCAE = "json/twoCcaeData.json";
-
-    private static final String JSON_FILENAME_CCAE_ERROR_PROPERTIES = "json/twoCcaeDataErrorProperties.json";
 
     private static final String CCAE_URL = "https://analisi.transparenciacatalunya.cat/api/views/get5-imi7/rows.json";
 
@@ -148,3 +145,4 @@ public class CcaeServiceTest {
 
 
 }
+*/

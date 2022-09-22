@@ -1,7 +1,7 @@
 package com.businessassistantbcn.gencat.proxy;
 
-import com.businessassistantbcn.gencat.dto.input.CcaeDto;
-import com.businessassistantbcn.gencat.dto.output.CcaeResponseDto;
+import com.businessassistantbcn.gencat.dto.output.AllCcaeDto;
+import com.businessassistantbcn.gencat.dto.output.CcaeDto;
 import io.netty.channel.ChannelOption;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -84,7 +84,7 @@ public class HttpProxyTest {
                         .uri(env.getProperty("ds_test"))
                         .exchangeToMono(response ->
                                 response.statusCode().equals(HttpStatus.OK) ?
-                                        response.bodyToMono(CcaeResponseDto.class) :
+                                        response.bodyToMono(CcaeDto.class) :
                                         response.createException().flatMap(Mono::error))
                         .block());
     }
@@ -94,10 +94,10 @@ public class HttpProxyTest {
         mockWebServer.enqueue(new MockResponse().addHeader("Content-Type", "application/json")
                                                 .setBody(ccaeAsString));
 
-        CcaeDto ccaeDto = httpProxy.getRequestData(url, CcaeDto.class).block();
+        AllCcaeDto allCcaeDto = httpProxy.getRequestData(url, AllCcaeDto.class).block();
 
-        assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", ccaeDto.getData().get(0).get(1));
-        assertEquals(2, ccaeDto.getData().size());
+        assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", allCcaeDto.getAllCcae().get(0).getId());
+        assertEquals(2, allCcaeDto.getAllCcae().size());
     }
 
     @Test

@@ -68,6 +68,17 @@ class GencatControllerTest {
                 .value(s -> s.toString(), equalTo("Hello from GenCat Controller!!!"));
     }
 
+    @Test
+    void getEconomicActivities() {
+        final String URI_TEST = "/ccae";
+        webTestClient.get()
+                .uri(CONTROLLER_BASE_URL + URI_TEST)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectBody();
+    }
+
     //Una vez implementado correctamente el método, el test se debe adecuar
     @Test
     void getEconomicActivityById() {

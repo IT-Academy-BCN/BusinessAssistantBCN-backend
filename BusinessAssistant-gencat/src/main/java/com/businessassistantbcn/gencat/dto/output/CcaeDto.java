@@ -1,20 +1,25 @@
 package com.businessassistantbcn.gencat.dto.output;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
-@Getter
-@Setter
+import java.util.Objects;
+
 @NoArgsConstructor
 @AllArgsConstructor
-public class CcaeResponseDto {
+@Getter
+@Setter
+@Component
+public class CcaeDto {
 
     private String id;
+
     private String type;
-    private CodeInfoDto code;
+
+    private CodeInfoDto codeInfoDto;
 
 }
