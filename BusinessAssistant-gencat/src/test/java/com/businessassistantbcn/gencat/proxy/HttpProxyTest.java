@@ -1,7 +1,6 @@
 package com.businessassistantbcn.gencat.proxy;
 
-import com.businessassistantbcn.gencat.dto.output.AllCcaeDto;
-import com.businessassistantbcn.gencat.dto.output.CcaeDto;
+import com.businessassistantbcn.gencat.dto.input.CcaeDto;
 import io.netty.channel.ChannelOption;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;

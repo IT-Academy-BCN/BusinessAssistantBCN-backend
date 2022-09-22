@@ -4,7 +4,7 @@ package com.businessassistantbcn.gencat.service;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
-import com.businessassistantbcn.gencat.dto.output.CodeInfoDto;
+import com.businessassistantbcn.gencat.dto.input.CodeInfoDto;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

@@ -2,9 +2,7 @@ package com.businessassistantbcn.gencat.service;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
-import com.businessassistantbcn.gencat.dto.output.AllCcaeDto;
-import com.businessassistantbcn.gencat.dto.output.CcaeDto;
-import com.businessassistantbcn.gencat.helper.JsonHelper;
+import com.businessassistantbcn.gencat.dto.input.CcaeDto;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,21 +24,43 @@ public class CcaeService {
     private GenericResultDto<CcaeDto> genericResultDto;
 
 
-    public Mono<GenericResultDto<CcaeDto>> getPage(int offset, int limit) throws MalformedURLException {
+    //public Mono<GenericResultDto<CcaeDto>> getPage(int offset, int limit) throws MalformedURLException {
+    public Mono<CcaeDto> getPage(int offset, int limit) throws MalformedURLException {
 
-         return httpProxy.getRequestData(new URL(config.getDs_ccae()), AllCcaeDto.class)
+
+        return httpProxy.getRequestData(new URL(config.getDs_ccae()), CcaeDto.class);
+
+/*
+
+        Collection colKeys = obj.values();
+        Object[] arrayKeys = colKeys.toArray();
+
+        for (int i=0; i<arrayKeys.length; i++) {
+            System.out.println("********KEYS: " + obj.getClass());
+        }
+
+
+       Collection colValues = obj.values();
+       Object[] arrayValues = colValues.toArray();
+
+        for (int i=0; i<arrayValues.length; i++) {
+            System.out.println("********VALUES: " + obj.getClass());
+        }*/
+
+
+/*         return httpProxy.getRequestData(new URL(config.getDs_ccae()), AllCcaeDto.class)
                 .flatMap( ccaeDtos -> {
 
-                    CcaeDto[] resposeDtos = ccaeDtos
+                    CcaeDto[] responseDtos = ccaeDtos
                             .getAllCcae()
                             .toArray(CcaeDto[]::new);
 
-                    CcaeDto[] pagedDto = JsonHelper.filterDto(resposeDtos, offset, limit);
+                    CcaeDto[] pagedDto = JsonHelper.filterDto(responseDtos, offset, limit);
 
                     genericResultDto.setInfo(offset, limit, pagedDto.length, pagedDto);
 
                     return Mono.just(genericResultDto);
-                });
+                });*/
 
     }
 

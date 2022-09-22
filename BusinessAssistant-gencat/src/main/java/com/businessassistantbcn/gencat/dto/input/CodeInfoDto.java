@@ -1,4 +1,4 @@
-package com.businessassistantbcn.gencat.dto.output;
+package com.businessassistantbcn.gencat.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
