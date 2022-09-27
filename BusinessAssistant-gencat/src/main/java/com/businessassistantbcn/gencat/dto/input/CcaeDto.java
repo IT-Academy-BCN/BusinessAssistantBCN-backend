@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-@JsonDeserialize(using = CcaeDeserializer.class)
 public class CcaeDto {
 
     private String id;
