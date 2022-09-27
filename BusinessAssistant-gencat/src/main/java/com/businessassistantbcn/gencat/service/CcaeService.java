@@ -10,6 +10,9 @@ import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Service
 public class CcaeService {
@@ -24,44 +27,27 @@ public class CcaeService {
     private GenericResultDto<CcaeDto> genericResultDto;
 
 
-    //public Mono<GenericResultDto<CcaeDto>> getPage(int offset, int limit) throws MalformedURLException {
-    public Mono<CcaeDto> getPage(int offset, int limit) throws MalformedURLException {
+    public Mono<GenericResultDto<CcaeDto>> getPage(int offset, int limit) throws MalformedURLException {
 
+        Mono<Object> input = httpProxy.getRequestData(new URL(config.getDs_ccae()), Object.class);
+        LinkedHashMap inputData = (LinkedHashMap) input.block();
+        ArrayList data = (ArrayList) inputData.get("data");
 
-        return httpProxy.getRequestData(new URL(config.getDs_ccae()), CcaeDto.class);
+        CcaeDto ccaeDto;
+        List<CcaeDto> listCcae = new ArrayList<CcaeDto>();
 
-/*
-
-        Collection colKeys = obj.values();
-        Object[] arrayKeys = colKeys.toArray();
-
-        for (int i=0; i<arrayKeys.length; i++) {
-            System.out.println("********KEYS: " + obj.getClass());
+        for(int i=0; i<data.size(); i++){
+            ArrayList element = (ArrayList) data.get(i);
+            ccaeDto = new CcaeDto(
+                    element.get(0).toString(),//'id' field
+                    element.get(1).toString(),//'name'
+                    element.get(2).toString());//'assetType'
+            listCcae.add(ccaeDto);
         }
-
-
-       Collection colValues = obj.values();
-       Object[] arrayValues = colValues.toArray();
-
-        for (int i=0; i<arrayValues.length; i++) {
-            System.out.println("********VALUES: " + obj.getClass());
-        }*/
-
-
-/*         return httpProxy.getRequestData(new URL(config.getDs_ccae()), AllCcaeDto.class)
-                .flatMap( ccaeDtos -> {
-
-                    CcaeDto[] responseDtos = ccaeDtos
-                            .getAllCcae()
-                            .toArray(CcaeDto[]::new);
-
-                    CcaeDto[] pagedDto = JsonHelper.filterDto(responseDtos, offset, limit);
-
-                    genericResultDto.setInfo(offset, limit, pagedDto.length, pagedDto);
-
-                    return Mono.just(genericResultDto);
-                });*/
-
+        CcaeDto[] codes = listCcae.toArray(new CcaeDto[0]);
+        GenericResultDto resultDto = new GenericResultDto<CcaeDto>();
+        resultDto.setInfo(offset, limit, codes.length, codes);
+        return Mono.just(resultDto);
     }
 
     private Mono<GenericResultDto<CcaeDto>> getBigMallsDefaultPage() {
