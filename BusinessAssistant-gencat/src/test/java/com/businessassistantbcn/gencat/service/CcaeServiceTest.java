@@ -88,7 +88,7 @@ public class CcaeServiceTest {
 
 
     @Test
-    void convertToDtoTest() throws MalformedURLException {
+    void getPageTest() throws MalformedURLException {
         when(config.getDs_ccae()).thenReturn(CCAE_URL);
         when(ccaeDeserializer.deserialize(any(Object.class))).thenReturn(allData);
         when(httpProxy.getRequestData(any(URL.class), eq(Object.class))).thenReturn(Mono.just(responseDto));

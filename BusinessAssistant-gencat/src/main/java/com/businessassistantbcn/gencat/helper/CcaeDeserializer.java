@@ -17,7 +17,8 @@ public class CcaeDeserializer {
         CodeInfoDto codeInfoDto;
         List<CcaeDto> listCcae = new ArrayList<>();
 
-        if(data instanceof LinkedHashMap inputData) {
+        if(data instanceof LinkedHashMap ) {
+            LinkedHashMap inputData = (LinkedHashMap) data;
             ArrayList dataAdsArray = (ArrayList) inputData.get("data");
             if(dataAdsArray !=null){
                 for (Object o : dataAdsArray) {
