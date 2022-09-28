@@ -12,26 +12,6 @@ import java.util.List;
 @Component
 public class CcaeDeserializer {
 
-
-    /*public List<CcaeDto> deserialize(ArrayList<?> data) {
-        CcaeDto ccaeDto;
-        CodeInfoDto codeInfoDto;
-        List<CcaeDto> listCcae = new ArrayList<>();
-
-        for(int i=0; i<data.size(); i++){
-            ArrayList element = (ArrayList) data.get(i);
-            codeInfoDto = new CodeInfoDto(
-                    element.get(8).toString(),
-                    element.get(10).toString());
-            ccaeDto = new CcaeDto(
-                    element.get(1).toString(),//'id' field
-                    element.get(9).toString(),//'name'
-                    codeInfoDto);//'Code information'
-            listCcae.add(ccaeDto);
-        }
-        return listCcae;
-    }*/
-
     public List<CcaeDto> deserialize(Object data) {
         CcaeDto ccaeDto;
         CodeInfoDto codeInfoDto;
@@ -47,7 +27,7 @@ public class CcaeDeserializer {
                             element.get(10).toString()); // Description
                     ccaeDto = new CcaeDto(
                             element.get(1).toString(),//'id' field
-                            element.get(9).toString(),//'name'
+                            element.get(9).toString(),//'type'
                             codeInfoDto);//'Code information'
                     listCcae.add(ccaeDto);
                 }

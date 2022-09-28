@@ -1,10 +1,11 @@
-/*
 package com.businessassistantbcn.gencat.service;
 
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
-import com.businessassistantbcn.gencat.dto.input.CodeInfoDto;
+import com.businessassistantbcn.gencat.dto.io.CcaeDto;
+import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
+import com.businessassistantbcn.gencat.helper.CcaeDeserializer;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -24,10 +25,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -43,75 +42,60 @@ public class CcaeServiceTest {
     @MockBean
     private PropertiesConfig config;
 
+    @MockBean
+    private CcaeDeserializer ccaeDeserializer;
+
     @Autowired
     @InjectMocks
     private CcaeService ccaeService;
 
-    private static ObjectMapper mapper;
-
-    private static final String JSON_FILENAME_CCAE = "json/twoCcaeData.json";
-
     private static final String CCAE_URL = "https://analisi.transparenciacatalunya.cat/api/views/get5-imi7/rows.json";
 
-    private CcaeDto twoCcaeDto;
+    private List<CcaeDto> allData;
 
-    private CcaeDto[] twoCcaeDtoArray;
-
-    private CcaeResponseDto[] responseDto;
-
-    private static String ccaeAsString;
+    private CcaeDto[] responseDto;
 
 
     @BeforeEach
-    void setUp() throws URISyntaxException, IOException {
+    void setUp() {
 
-        Path path = Paths.get(CcaeServiceTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE).toURI());
+        allData = new ArrayList<>();
 
-        ccaeAsString = Files.readAllLines(path, StandardCharsets.UTF_8).toString();
+        CcaeDto ccaeDto1 = new CcaeDto();
+        String id1 = "00000000-0000-0000-D7DC-CC770365D8FF";
+        String type1 = "Secció";
+        String idCodeInfo1 = "A";
+        String codeDescription1 = "Agricultura, ramaderia, silvicultura i pesca";
+        CodeInfoDto codeInfoDto1 = new CodeInfoDto(idCodeInfo1, codeDescription1);
+        ccaeDto1.setId(id1);
+        ccaeDto1.setType(type1);
+        ccaeDto1.setCode(codeInfoDto1);
+        allData.add(ccaeDto1);
 
-        mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        twoCcaeDtoArray = mapper.readValue(ccaeAsString, CcaeDto[].class);
-
-        twoCcaeDto = new CcaeDto(twoCcaeDtoArray[0].getData());
-
-        responseDto =  new CcaeResponseDto[2];
-
-        CcaeResponseDto ccaeResponseDto1 = new CcaeResponseDto();
-        String id1 = twoCcaeDto.getData().get(0).get(1);
-        String type = twoCcaeDto.getData().get(0).get(9);
-        String idCodeInfo = twoCcaeDto.getData().get(0).get(8);
-        String codeDescription = twoCcaeDto.getData().get(0).get(10);
-        CodeInfoDto codeInfoDto = new CodeInfoDto(idCodeInfo, codeDescription);
-        ccaeResponseDto1.setId(id1);
-        ccaeResponseDto1.setType(type);
-        ccaeResponseDto1.setCode(codeInfoDto);
-        responseDto[0] = ccaeResponseDto1;
-
-        CcaeResponseDto ccaeResponseDto2 = new CcaeResponseDto();
-        String id2 = twoCcaeDto.getData().get(1).get(1);
-        String type2 = twoCcaeDto.getData().get(1).get(9);
-        String idCodeInfo2 = twoCcaeDto.getData().get(1).get(8);
-        String codeDescription2 = twoCcaeDto.getData().get(1).get(10);
+        CcaeDto ccaeDto2 = new CcaeDto();
+        String id2 = "00000000-0000-0000-2335-839767DDAEAB";
+        String type2 = "Divisió";
+        String idCodeInfo2 = "01";
+        String codeDescription2 = "Agricultura, ramaderia, caça i activitats dels serveis que s'hi relacionen";
         CodeInfoDto codeInfoDto2 = new CodeInfoDto(idCodeInfo2, codeDescription2);
-        ccaeResponseDto2.setId(id2);
-        ccaeResponseDto2.setType(type2);
-        ccaeResponseDto2.setCode(codeInfoDto2);
-        responseDto[1] = ccaeResponseDto2;
+        ccaeDto2.setId(id2);
+        ccaeDto2.setType(type2);
+        ccaeDto2.setCode(codeInfoDto2);
+        allData.add(ccaeDto2);
+
+        responseDto = allData.toArray(CcaeDto[]::new);
     }
 
 
     @Test
     void convertToDtoTest() throws MalformedURLException {
         when(config.getDs_ccae()).thenReturn(CCAE_URL);
-        when(config.getId()).thenReturn(1);
-        when(config.getType()).thenReturn(9);
-        when(config.getIdCode()).thenReturn(8);
-        when(config.getDescription()).thenReturn(10);
-
-        when(httpProxy.getRequestData(any(URL.class), eq(CcaeDto.class))).thenReturn(Mono.just(twoCcaeDto));
+        when(ccaeDeserializer.deserialize(any(Object.class))).thenReturn(allData);
+        when(httpProxy.getRequestData(any(URL.class), eq(Object.class))).thenReturn(Mono.just(responseDto));
 
 
-        Mono<GenericResultDto<CcaeResponseDto>> ccaeResponseDto = ccaeService.getPage(0, -1);
+
+        Mono<GenericResultDto<CcaeDto>> ccaeResponseDto = ccaeService.getPage(0, -1);
 
         StepVerifier.create(ccaeResponseDto)
                 .expectNextMatches(ccaeResponseDtos -> ccaeResponseDtos.getResults()[0].getId().equalsIgnoreCase(responseDto[0].getId()))
@@ -123,26 +107,4 @@ public class CcaeServiceTest {
                 .expectComplete()
                 .verify();
     }
-
-    @Test
-    void getPageTest() throws MalformedURLException, JsonProcessingException {
-
-        when(config.getDs_ccae()).thenReturn(CCAE_URL);
-        when(config.getId()).thenReturn(1);
-        when(config.getType()).thenReturn(9);
-        when(config.getIdCode()).thenReturn(8);
-        when(config.getDescription()).thenReturn(10);
-
-        when(httpProxy.getRequestData(any(URL.class), eq(CcaeDto.class))).thenReturn(Mono.just(twoCcaeDto));
-
-        GenericResultDto<CcaeResponseDto> expectedResul = new GenericResultDto<>();
-        expectedResul.setInfo(0, -1, responseDto.length, responseDto);
-
-        GenericResultDto<CcaeResponseDto> actualResult = ccaeService.getPage(0, -1).block();
-
-        assertThat(mapper.writeValueAsString(expectedResul.getResults())).isEqualTo(mapper.writeValueAsString(actualResult.getResults()));
-    }
-
-
 }
-*/

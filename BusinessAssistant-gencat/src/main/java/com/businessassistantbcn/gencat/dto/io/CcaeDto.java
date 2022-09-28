@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class CcaeDto {
 
     private String id;
-    private String name;
-    private CodeInfoDto codeInfoDto;;
+    private String type;
+    private CodeInfoDto code;
 
 }

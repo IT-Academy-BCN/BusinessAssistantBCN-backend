@@ -39,40 +39,14 @@ public class CcaeService {
                     });
     }
 
-    /*private Mono<CcaeDto[]> getData() throws MalformedURLException {
-        return httpProxy.getRequestData(new URL(config.getDs_ccae()), Object.class)
-                .flatMap(ccaeDto -> {
-                    if(ccaeDto instanceof LinkedHashMap) {
-                        LinkedHashMap inputData = (LinkedHashMap) ccaeDto;
-                        ArrayList data = (ArrayList) inputData.get("data");
-                        if(data!=null){
-                            CcaeDto[] codes = ccaeDeserializer.deserialize(data).toArray(CcaeDto[]::new);
-                            return Mono.just(codes);
-                        }else {
-                            throw new IncorrectJsonFormatException("Field 'data' does not found");
-                        }
-
-                    }else {
-                        throw new IncorrectJsonFormatException("The object must be a instance of LinkedHashMap");
-                    }
-
-                });
-    }*/
-
     private Mono<CcaeDto[]> getData() throws MalformedURLException {
         return httpProxy.getRequestData(new URL(config.getDs_ccae()), Object.class)
                 .flatMap(ccaeDto -> {
-
                     CcaeDto[] codes = ccaeDeserializer.deserialize(ccaeDto).toArray(CcaeDto[]::new);
                     return Mono.just(codes);
-
                 });
     }
 
-    private Mono<GenericResultDto<CcaeDto>> getBigMallsDefaultPage() {
-        genericResultDto.setInfo(0, 0, 0, new CcaeDto[0]);
-        return Mono.just(genericResultDto);
-    }
 
 
 }

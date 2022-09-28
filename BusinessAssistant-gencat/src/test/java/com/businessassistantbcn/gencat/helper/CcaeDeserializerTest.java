@@ -34,8 +34,13 @@ public class CcaeDeserializerTest {
 
     private static final String JSON_FILENAME_CCAE_ERROR_PROPERTIES = "json/twoCcaeDataErrorProperties.json";
 
+    private static final String JSON_FILENAME_RANDOM_DATA_FOR_TESTING = "json/randomDataForTesting.json";
+
     private static String ccaeAsString;
-    private static String ccaeErrorAsString;
+
+    private static String ccaeErrorProperiesAsString;
+
+    private static String ccaeErrorDataAsString;
 
 
     @BeforeAll
@@ -47,7 +52,11 @@ public class CcaeDeserializerTest {
 
         Path path1 = Paths.get(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE_ERROR_PROPERTIES).toURI());
 
-        ccaeErrorAsString = Files.readAllLines(path1, StandardCharsets.UTF_8).get(0);
+        ccaeErrorProperiesAsString = Files.readAllLines(path1, StandardCharsets.UTF_8).get(0);
+
+        Path path2 = Paths.get(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_RANDOM_DATA_FOR_TESTING).toURI());
+
+        ccaeErrorDataAsString = Files.readAllLines(path2, StandardCharsets.UTF_8).get(0);
 
         mapper = new ObjectMapper();
 
@@ -61,31 +70,35 @@ public class CcaeDeserializerTest {
 
         List<CcaeDto> ccaeDtos = ccaeDeserializer.deserialize(data);
 
+        //CcaeDto[] deserialize = ccaeDeserializer.deserialize(data);
+
         assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", ccaeDtos.get(0).getId());
         assertEquals(2, ccaeDtos.size());
+
+        /*assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", deserialize[0].getId());
+        assertEquals(2, deserialize.length);*/
 
     }
 
     @Test
     void getCcaeDtoInputFromDataWithoutDataProperty() throws JsonProcessingException {
 
-        Object data = mapper.readValue(ccaeErrorAsString, Object.class);
+        Object data = mapper.readValue(ccaeErrorProperiesAsString, Object.class);
         IncorrectJsonFormatException exception = assertThrows(IncorrectJsonFormatException.class, () -> {
             ccaeDeserializer.deserialize(data);
         });
         assertThat("Field 'data' does not found").isEqualTo(exception.getMessage());
     }
 
-    /*@Test
+    @Test
     void getCcaeDtoInputFromDataPropertiesType() throws JsonProcessingException {
 
-        CcaeDto ccaeDto = mapper.readValue(ccaeAsString, CcaeDto.class);
+        Object data = mapper.readValue(ccaeErrorDataAsString, Object.class);
+        IncorrectJsonFormatException exception = assertThrows(IncorrectJsonFormatException.class, () -> {
+            ccaeDeserializer.deserialize(data);
+        });
+        assertThat("The object must be a instance of LinkedHashMap").isEqualTo(exception.getMessage());
 
-        assertEquals(String.class, ccaeDto.getData().get(0).get(1).getClass());
-        assertEquals(String.class, ccaeDto.getData().get(0).get(8).getClass());
-        assertEquals(String.class, ccaeDto.getData().get(0).get(9).getClass());
-        assertEquals(String.class, ccaeDto.getData().get(0).get(10).getClass());
-
-    }*/
+    }
 
 }
