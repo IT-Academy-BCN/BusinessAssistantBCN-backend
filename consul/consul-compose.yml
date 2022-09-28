@@ -38,23 +38,21 @@ services:
         ipv4_address: 172.24.2.2
     command: "agent -bootstrap-expect=3"
 
-  consul-client-mongodb:
-    image: consul:1.12.3
-    container_name: consul-client-mongodb
-    restart: always
-    volumes:
-      - ./consul-client-mongodb.json:/consul/config/client.json:ro
-    networks:
-      consul-net:
-        ipv4_address: 172.24.2.3
-    command: "agent"
+  #consul-client-mongodb:
+    # image: consul:1.12.3
+    #container_name: consul-client-mongodb
+    #restart: always
+      #volumes:
+    #- ./consul-client-mongodb.json:/consul/config/client.json:ro
+      #networks:
+      #consul-net:
+    # ipv4_address: 172.24.2.3
+    #command: "agent"
 
   businessassistantbcn-opendata:
     image: babcn:opendata-v1.0-SNAPSHOT
     container_name: opendata-v1.0-SNAPSHOT
     restart: always
-    #volumes:
-     # - ./consul-client-babcn.json:/consul/config/consul-client-babcn.json:ro
     networks:
       consul-net:
         ipv4_address: 172.24.2.4
@@ -80,6 +78,13 @@ services:
         ipv4_address: 172.24.2.6
     ports:
       - '7778:8762'
+    environment:
+      - 'spring.data.mongodb.host=172.24.0.1'
+      - 'spring.data.mongodb.port=27018'
+      - 'spring.data.mongodb.username=admin_businessassistantbcn'
+      - 'spring.data.mongodb.password=UhWQQYFVBx95W7'
+      - 'spring.data.mongodb.database=babcn-users'
+
 
   businessassistantbcn-mydata:
     image: babcn:mydata-v1.0-SNAPSHOT
