@@ -12,7 +12,7 @@
   },
   "Checks": [
     {
-      "Name": "mongodb-ping",
+      "Name": "Serf Health Status",
       "status": "passing",
       "Definition": {
         "script": "mongosh --eval 'db.runCommand(\"ping\").ok' localhost:27018/test --quiet",

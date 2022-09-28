@@ -12,7 +12,7 @@
   },
   "Checks": [
     {
-      "Name": "mysql-ping",
+      "Name": "Serf Health Status",
       "status": "passing",
       "Definition": {
         "script": "mysqladmin ping --host=172.24.2.10 --port=3307 --user=admin --password=Sb13TU7hw1oCbSIJ",
