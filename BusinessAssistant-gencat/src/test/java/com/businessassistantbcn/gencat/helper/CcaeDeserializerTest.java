@@ -1,10 +1,9 @@
-package com.businessassistantbcn.gencat.dto;
+package com.businessassistantbcn.gencat.helper;
 
-import com.businessassistantbcn.gencat.helper.CcaeDeserializer;
+import com.businessassistantbcn.gencat.dto.io.CcaeDto;
+import com.businessassistantbcn.gencat.exception.IncorrectJsonFormatException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,17 +15,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class CcaeDtoOutputTest {
+public class CcaeDeserializerTest {
 
 
     private  static ObjectMapper mapper;
 
-    private  static SimpleModule module;
+
+    private static CcaeDeserializer ccaeDeserializer;
 
     private static final String JSON_FILENAME_CCAE = "json/twoCcaeData.json";
 
@@ -36,49 +38,42 @@ public class CcaeDtoOutputTest {
     private static String ccaeErrorAsString;
 
 
-    @Before
-    public void beforeAll() {
-
-
-
-    }
-
     @BeforeAll
     static void setUp() throws URISyntaxException, IOException {
 
-        Path path = Paths.get(CcaeDtoOutputTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE).toURI());
+        Path path = Paths.get(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE).toURI());
 
         ccaeAsString = Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
 
-        Path path1 = Paths.get(CcaeDtoOutputTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE_ERROR_PROPERTIES).toURI());
+        Path path1 = Paths.get(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE_ERROR_PROPERTIES).toURI());
 
         ccaeErrorAsString = Files.readAllLines(path1, StandardCharsets.UTF_8).get(0);
 
         mapper = new ObjectMapper();
 
-        module = new SimpleModule();
-
-      //  module.addDeserializer(AllCcaeDto.class, new CcaeDeserializer());
-
-        mapper.registerModule(module);
-
+        ccaeDeserializer = new CcaeDeserializer();
     }
 
     @Test
     void getCcaeDtoInputFromData() throws JsonProcessingException {
 
-/*        AllCcaeDto allCcaeDto = mapper.readValue(ccaeAsString, AllCcaeDto.class);
+        Object data = mapper.readValue(ccaeAsString, Object.class);
 
-        assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", allCcaeDto.getAllCcae().get(0).getId());
-        assertEquals(2, allCcaeDto.getAllCcae().size());*/
+        List<CcaeDto> ccaeDtos = ccaeDeserializer.deserialize(data);
+
+        assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", ccaeDtos.get(0).getId());
+        assertEquals(2, ccaeDtos.size());
 
     }
 
     @Test
     void getCcaeDtoInputFromDataWithoutDataProperty() throws JsonProcessingException {
 
-/*        AllCcaeDto allCcaeDto = mapper.readValue(ccaeErrorAsString, AllCcaeDto.class);
-        assertNull(allCcaeDto.getAllCcae());*/
+        Object data = mapper.readValue(ccaeErrorAsString, Object.class);
+        IncorrectJsonFormatException exception = assertThrows(IncorrectJsonFormatException.class, () -> {
+            ccaeDeserializer.deserialize(data);
+        });
+        assertThat("Field 'data' does not found").isEqualTo(exception.getMessage());
     }
 
     /*@Test

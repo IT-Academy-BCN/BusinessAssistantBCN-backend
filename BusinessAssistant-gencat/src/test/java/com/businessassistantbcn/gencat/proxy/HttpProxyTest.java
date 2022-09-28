@@ -1,6 +1,6 @@
 package com.businessassistantbcn.gencat.proxy;
 
-import com.businessassistantbcn.gencat.dto.input.CcaeDto;
+import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import io.netty.channel.ChannelOption;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -26,8 +26,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -89,14 +94,14 @@ public class HttpProxyTest {
     }
 
     @Test
-    void getRequestDataTest(){
+    void getRequestDataTest() {
         mockWebServer.enqueue(new MockResponse().addHeader("Content-Type", "application/json")
                                                 .setBody(ccaeAsString));
 
-        AllCcaeDto allCcaeDto = httpProxy.getRequestData(url, AllCcaeDto.class).block();
+        Object data = httpProxy.getRequestData(url, Object.class).block();
 
-        assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", allCcaeDto.getAllCcae().get(0).getId());
-        assertEquals(2, allCcaeDto.getAllCcae().size());
+        assertThat(data).isNotNull();
+
     }
 
     @Test

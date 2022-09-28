@@ -1,8 +1,6 @@
-package com.businessassistantbcn.gencat.dto.input;
+package com.businessassistantbcn.gencat.dto.io;
 
 
-import com.businessassistantbcn.gencat.helper.CcaeDeserializer;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +16,6 @@ public class CcaeDto {
 
     private String id;
     private String name;
-    private String assetType;;
-
-
+    private CodeInfoDto codeInfoDto;;
 
 }
