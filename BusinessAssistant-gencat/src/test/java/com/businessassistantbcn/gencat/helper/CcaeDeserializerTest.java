@@ -34,6 +34,7 @@ public class CcaeDeserializerTest {
 
     private static final String JSON_FILENAME_CCAE_ERROR_PROPERTIES = "json/twoCcaeDataErrorProperties.json";
 
+    //randomDataForTesting.json ---> debe tener estructura idéntica a CCAE.json
     private static final String JSON_FILENAME_RANDOM_DATA_FOR_TESTING = "json/randomDataForTesting.json";
 
     private static String ccaeAsString;

@@ -17,6 +17,15 @@ public class CcaeDeserializer {
         CodeInfoDto codeInfoDto;
         List<CcaeDto> listCcae = new ArrayList<>();
 
+        //TODO
+
+        /**
+         * - Verificar que inputData no está vacío y no es nulo (¿uso de Optional?)
+         * - Verificamos existencia de campo data
+         * - Casting a ArrayList
+         * - etc
+         */
+
         if(data instanceof LinkedHashMap ) {
             LinkedHashMap inputData = (LinkedHashMap) data;
             ArrayList dataAdsArray = (ArrayList) inputData.get("data");
