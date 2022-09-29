@@ -77,7 +77,7 @@ services:
       consul-net:
         ipv4_address: 172.24.2.6
     ports:
-      - '7778:8762'
+      - '7778:8763'
     environment:
       - 'spring.data.mongodb.host=172.24.0.1'
       - 'spring.data.mongodb.port=27018'
