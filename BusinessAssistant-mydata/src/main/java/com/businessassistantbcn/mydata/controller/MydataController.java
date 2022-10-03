@@ -58,28 +58,22 @@ public class MydataController {
 	@GetMapping(value = "/test")
 	@Operation(summary = "Get test")
 	@ApiResponse(responseCode = "200", description = "OK")
-	public String test() throws ServiceUnavailableException, MalformedURLException {
+	public Mono<String> test() throws ServiceUnavailableException, MalformedURLException {
 
-		StringBuffer sb = new StringBuffer();
+		//All services available
+/*		StringBuffer sb = new StringBuffer();
 		discoveryClient.getServices().forEach( (s) -> {
 			sb.append(s + "\r\n");
-		});
-
+		});*/
 		Optional<URI> uri = discoveryClient.getInstances("businessassistant-usermanagement")
 				.stream()
 				.findAny()
-				.map( s -> {
-					sb.append(s.getUri());
-					return s.getUri();
-				});
+				.map( s -> s.getUri());
 
-		Mono<String> responseOtherMicro = httpProxy.getRequestData(uri.get().toURL(), String.class)
-						.flatMap( s -> {
-							sb.append(s);
-							return Mono.just(sb.toString());
-						} );
-
-		return sb.toString();
+		return httpProxy.getRequestData(uri
+						.map( s -> s.resolve("/businessassistantbcn/api/v1/usermanagement/test"))
+						.get().toURL(), String.class)
+						.flatMap( s -> Mono.just(s));
 	}
 
 	@PostMapping(value="/mysearches/{user_uuid}")
