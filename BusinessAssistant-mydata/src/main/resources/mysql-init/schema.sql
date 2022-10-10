@@ -1,3 +1,4 @@
+USE businessassistantbcndb;
 CREATE TABLE IF NOT EXISTS my_searches(
   search_uuid VARCHAR(36) NOT NULL,
   user_uuid VARCHAR(36) NOT NULL,
