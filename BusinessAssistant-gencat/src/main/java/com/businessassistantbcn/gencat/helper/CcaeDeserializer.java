@@ -11,8 +11,6 @@ import java.util.*;
 public class CcaeDeserializer {
 
     public List<CcaeDto> deserialize(Object data) {
-//        CcaeDto ccaeDto;
-//        CodeInfoDto codeInfoDto;
         List<CcaeDto> listCcae = new ArrayList<>();
 
         //TODO
@@ -23,30 +21,6 @@ public class CcaeDeserializer {
          * - Casting a ArrayList
          * - etc
          */
-
-//        if(data instanceof LinkedHashMap ) {
-//            LinkedHashMap inputData = (LinkedHashMap) data;
-//            ArrayList dataAdsArray = (ArrayList) inputData.get("data");
-//            if(dataAdsArray !=null){
-//                for (Object o : dataAdsArray) {
-//                    ArrayList element = (ArrayList) o;
-//                    codeInfoDto = new CodeInfoDto(
-//                            element.get(8).toString(), // Code ID
-//                            element.get(10).toString()); // Description
-//                    ccaeDto = new CcaeDto(
-//                            element.get(1).toString(),//'id' field
-//                            element.get(9).toString(),//'type'
-//                            codeInfoDto);//'Code information'
-//                    listCcae.add(ccaeDto);
-//                }
-//                return listCcae;
-//            }else {
-//                throw new IncorrectJsonFormatException("Field 'data' does not found");
-//            }
-//
-//        }else {
-//            throw new IncorrectJsonFormatException("The object must be a instance of LinkedHashMap");
-//        }
 
         LinkedHashMap inputData = Optional.ofNullable(data)
                 .filter(LinkedHashMap.class::isInstance)
