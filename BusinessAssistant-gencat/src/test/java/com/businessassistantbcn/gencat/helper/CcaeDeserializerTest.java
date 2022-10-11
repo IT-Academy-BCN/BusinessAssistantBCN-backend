@@ -39,7 +39,7 @@ public class CcaeDeserializerTest {
 
     private static String ccaeAsString;
 
-    private static String ccaeErrorProperiesAsString;
+    private static String ccaeErrorPropertiesAsString;
 
     private static String ccaeErrorDataAsString;
 
@@ -53,7 +53,7 @@ public class CcaeDeserializerTest {
 
         Path path1 = Paths.get(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE_ERROR_PROPERTIES).toURI());
 
-        ccaeErrorProperiesAsString = Files.readAllLines(path1, StandardCharsets.UTF_8).get(0);
+        ccaeErrorPropertiesAsString = Files.readAllLines(path1, StandardCharsets.UTF_8).get(0);
 
         Path path2 = Paths.get(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_RANDOM_DATA_FOR_TESTING).toURI());
 
@@ -74,6 +74,7 @@ public class CcaeDeserializerTest {
         //CcaeDto[] deserialize = ccaeDeserializer.deserialize(data);
 
         assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", ccaeDtos.get(0).getId());
+        assertEquals("00000000-0000-0000-2335-839767DDAEAB", ccaeDtos.get(1).getId());
         assertEquals(2, ccaeDtos.size());
 
         /*assertEquals("00000000-0000-0000-D7DC-CC770365D8FF", deserialize[0].getId());
@@ -84,11 +85,11 @@ public class CcaeDeserializerTest {
     @Test
     void getCcaeDtoInputFromDataWithoutDataProperty() throws JsonProcessingException {
 
-        Object data = mapper.readValue(ccaeErrorProperiesAsString, Object.class);
+        Object data = mapper.readValue(ccaeErrorPropertiesAsString, Object.class);
         IncorrectJsonFormatException exception = assertThrows(IncorrectJsonFormatException.class, () -> {
             ccaeDeserializer.deserialize(data);
         });
-        assertThat("Field 'data' does not found").isEqualTo(exception.getMessage());
+        assertThat(exception.getMessage()).isEqualTo("Field 'data' was not found");
     }
 
     @Test
@@ -98,8 +99,7 @@ public class CcaeDeserializerTest {
         IncorrectJsonFormatException exception = assertThrows(IncorrectJsonFormatException.class, () -> {
             ccaeDeserializer.deserialize(data);
         });
-        assertThat("The object must be a instance of LinkedHashMap").isEqualTo(exception.getMessage());
-
+        assertThat(exception.getMessage()).isEqualTo("The object must be an instance of LinkedHashMap");
     }
 
 }
