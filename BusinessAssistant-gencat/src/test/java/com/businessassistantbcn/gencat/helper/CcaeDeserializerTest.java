@@ -88,7 +88,7 @@ class CcaeDeserializerTest {
     }
 
     @Test
-    void getCcaeDtoInputFromData() throws JsonProcessingException {
+    void deserializeTest() throws JsonProcessingException {
 
         Object data = mapper.readValue(ccaeAsString, Object.class);
 
