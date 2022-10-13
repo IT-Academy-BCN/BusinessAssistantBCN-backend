@@ -1,6 +1,8 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.6.1'
+    id "jacoco"
+    id "org.sonarqube" version '3.3'
 }
 
 jar {
