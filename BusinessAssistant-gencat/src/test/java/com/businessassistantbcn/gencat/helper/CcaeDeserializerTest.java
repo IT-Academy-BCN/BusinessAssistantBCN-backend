@@ -3,11 +3,15 @@ package com.businessassistantbcn.gencat.helper;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.exception.ExpectedJSONFieldNotFoundException;
+import com.businessassistantbcn.gencat.helper.argumentprovider.CcaeDeserializerArgumentProvider;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -32,15 +36,7 @@ class CcaeDeserializerTest {
     private static CcaeDeserializer ccaeDeserializer;
 
     private static final String JSON_FILENAME_CCAE = "json/twoCcaeData.json";
-    private static final String JSON_FILENAME_CCAE_ERROR_PROPERTIES = "json/twoCcaeDataErrorProperties.json";
-    //randomDataForTesting.json ---> debe tener estructura idéntica a CCAE.json
-    private static final String JSON_FILENAME_RANDOM_DATA_FOR_TESTING = "json/randomDataForTesting.json";
-    private static final String JSON_FILENAME_CCAE_MISSING_FIELD = "json/twoCcaeDataMissingField.json";
-
     private static String ccaeAsString;
-    private static String ccaeErrorPropertiesAsString;
-    private static String ccaeErrorDataAsString;
-    private static String ccaeMissingFieldString;
 
     private static List<CcaeDto> responseDto;
 
@@ -49,15 +45,6 @@ class CcaeDeserializerTest {
 
         Path path = Paths.get(Objects.requireNonNull(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE)).toURI());
         ccaeAsString = Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
-
-        Path path1 = Paths.get(Objects.requireNonNull(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE_ERROR_PROPERTIES)).toURI());
-        ccaeErrorPropertiesAsString = Files.readAllLines(path1, StandardCharsets.UTF_8).get(0);
-
-        Path path2 = Paths.get(Objects.requireNonNull(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_RANDOM_DATA_FOR_TESTING)).toURI());
-        ccaeErrorDataAsString = Files.readAllLines(path2, StandardCharsets.UTF_8).get(0);
-
-        Path path3 = Paths.get(Objects.requireNonNull(CcaeDeserializerTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE_MISSING_FIELD)).toURI());
-        ccaeMissingFieldString = Files.readAllLines(path3, StandardCharsets.UTF_8).get(0);
 
         mapper = new ObjectMapper();
         ccaeDeserializer = new CcaeDeserializer();
@@ -98,33 +85,22 @@ class CcaeDeserializerTest {
         assertThat(ccaeDtos).usingRecursiveFieldByFieldElementComparator().containsExactlyElementsOf(responseDto);
     }
 
-    @Test
-    void getCcaeDtoInputFromDataWithoutDataProperty() throws JsonProcessingException {
+    @ParameterizedTest(name = "{index} => {1}")
+    @ArgumentsSource(CcaeDeserializerArgumentProvider.class)
+    void expectedJSONFieldNotFoundExceptionTest(String input, String errorMessage) throws JsonProcessingException {
 
-        Object data = mapper.readValue(ccaeErrorPropertiesAsString, Object.class);
+        Object data = mapper.readValue(input, Object.class);
 
         assertThatExceptionOfType(ExpectedJSONFieldNotFoundException.class)
                 .isThrownBy(() -> ccaeDeserializer.deserialize(data))
-                .withMessage("Field 'data' was not found");
+                .withMessage(errorMessage);
     }
 
     @Test
-    void getCcaeDtoInputFromDataPropertiesType() throws JsonProcessingException {
-
-        Object data = mapper.readValue(ccaeErrorDataAsString, Object.class);
+    void nullInputTest() {
 
         assertThatExceptionOfType(ExpectedJSONFieldNotFoundException.class)
-                .isThrownBy(() -> ccaeDeserializer.deserialize(data))
+                .isThrownBy(() -> ccaeDeserializer.deserialize(null))
                 .withMessage("The object must be an instance of LinkedHashMap");
-    }
-
-    @Test
-    void getCcaeDtoInputFromDataWithMissingFields() throws JsonProcessingException {
-
-        Object data = mapper.readValue(ccaeMissingFieldString, Object.class);
-
-        assertThatExceptionOfType(ExpectedJSONFieldNotFoundException.class)
-                .isThrownBy(() -> ccaeDeserializer.deserialize(data))
-                .withMessage("JSON field not found");
     }
 }

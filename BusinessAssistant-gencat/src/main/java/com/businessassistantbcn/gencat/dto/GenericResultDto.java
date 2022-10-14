@@ -14,7 +14,9 @@ public class GenericResultDto<T> {
 
     private T[] results;
 
-    public GenericResultDto() {}
+    public GenericResultDto() {
+        //Empty constructor
+    }
 
     public void setInfo(int offset, int limit, int count, T[] results) {
         this.offset = offset;
