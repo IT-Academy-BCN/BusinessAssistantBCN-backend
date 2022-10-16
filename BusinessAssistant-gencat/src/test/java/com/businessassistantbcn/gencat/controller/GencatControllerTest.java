@@ -4,11 +4,11 @@ import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
+import com.businessassistantbcn.gencat.exception.ControllerAdvisor;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
-import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.businessassistantbcn.gencat.service.CcaeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
-import com.businessassistantbcn.gencat.service.CcaeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +16,15 @@ import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurity
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.util.ResourceUtils;
 import reactor.core.publisher.Mono;
 
-import java.io.*;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = GencatController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
@@ -50,6 +42,9 @@ class GencatControllerTest {
 
     @MockBean
     private CcaeService ccaeService;
+
+    @MockBean
+    private ControllerAdvisor controllerAdvisor;
 
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/gencat";
     private static final String RES0 = "$.results[0].";
@@ -97,15 +92,15 @@ class GencatControllerTest {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)
-                .value(s -> s.toString(), equalTo("Hello from GenCat Controller!!!"));
+                .value(String::toString, equalTo("Hello from GenCat Controller!!!"));
     }
-
-
 
     @Test
     void getEconomicActivities() throws MalformedURLException {
+
         final String URI_TEST = "/ccae";
         when(ccaeService.getPage(0,-1)).thenReturn(Mono.just(getGenericResultDto()));
+
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
@@ -122,6 +117,7 @@ class GencatControllerTest {
     }
 
     private GenericResultDto<CcaeDto> getGenericResultDto() {
+
         GenericResultDto<CcaeDto> genericResultDto = new GenericResultDto<>();
         genericResultDto.setInfo(0, -1, responseDto.length, responseDto);
         return genericResultDto;

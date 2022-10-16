@@ -4,7 +4,6 @@ import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.exception.ExpectedJSONFieldNotFoundException;
 import com.businessassistantbcn.gencat.helper.argumentprovider.CcaeDeserializerArgumentProvider;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @SpringBootTest
 class CcaeDeserializerTest {
 
-    private  static ObjectMapper mapper;
+    private static ObjectMapper mapper;
     private static CcaeDeserializer ccaeDeserializer;
 
     private static final String JSON_FILENAME_CCAE = "json/twoCcaeData.json";

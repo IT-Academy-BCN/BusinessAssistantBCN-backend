@@ -43,7 +43,7 @@ public class CcaeService {
                     });
     }
 
-    @SuppressWarnings({"unused", "squid:S2629"})
+    @SuppressWarnings("unused")
     private Mono<GenericResultDto<CcaeDto>> logServerErrorCcaeDefaultPage(Throwable exception) {
         log.error("Gencat server is down");
         return this.getCcaeDefaultPage();

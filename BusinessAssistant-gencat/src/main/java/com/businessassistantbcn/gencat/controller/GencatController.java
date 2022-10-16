@@ -1,6 +1,7 @@
 package com.businessassistantbcn.gencat.controller;
 
-
+import com.businessassistantbcn.gencat.dto.GenericResultDto;
+import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.service.CcaeService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -28,8 +29,8 @@ public class GencatController {
     }
 
     @GetMapping("/ccae")
-    public Mono<?> getAllCcae(@RequestParam(required = false) String offset,
-                           @RequestParam(required = false)  String limit) throws MalformedURLException {
+    public Mono<GenericResultDto<CcaeDto>> getAllCcae(@RequestParam(required = false) String offset,
+                                                      @RequestParam(required = false) String limit) throws MalformedURLException {
         return ccaeService.getPage(getValidOffset(offset), getValidLimit(limit));
     }
 
@@ -47,6 +48,12 @@ public class GencatController {
         return Mono.just(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    //Per implementar
+    @GetMapping("/ccae/types")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public Mono getAllCcaeTypes() {
+        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    }
 
     private int getValidOffset(String offset)
     {
@@ -70,6 +77,4 @@ public class GencatController {
         }
         return Integer.parseInt(limit);
     }
-
-
 }
