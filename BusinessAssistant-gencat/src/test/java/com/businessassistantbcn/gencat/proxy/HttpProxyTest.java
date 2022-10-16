@@ -26,17 +26,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class HttpProxyTest {
+class HttpProxyTest {
 
     @Autowired
     private Environment env;
@@ -58,8 +55,7 @@ public class HttpProxyTest {
         mockWebServer = new MockWebServer();
         mockWebServer.start();
 
-        Path path = Paths.get(HttpProxyTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE).toURI());
-
+        Path path = Paths.get(Objects.requireNonNull(HttpProxyTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE)).toURI());
         ccaeAsString = Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
     }
 
@@ -72,12 +68,11 @@ public class HttpProxyTest {
     void initialize() throws MalformedURLException {
 
         url = new URL(String.format("http://localhost:%s", mockWebServer.getPort()));
-
     }
 
     @DisplayName("Timeout verification")
     @Test
-    public void timeoutTest() {
+    void timeoutTest() {
         HttpClient client1 = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1); // Absurd 1 ms connection timeout
         WebClient briefClient = httpProxy.client.mutate()
@@ -85,7 +80,8 @@ public class HttpProxyTest {
                 .build();
         Assertions.assertThrows(WebClientRequestException.class, () ->
                 briefClient.get()
-                        .uri(env.getProperty("ds_test"))
+                        //.uri(env.getProperty("ds_test"))
+                        .uri("https://swapi.py4e.com/api/vehicles/")
                         .exchangeToMono(response ->
                                 response.statusCode().equals(HttpStatus.OK) ?
                                         response.bodyToMono(CcaeDto.class) :
@@ -101,7 +97,6 @@ public class HttpProxyTest {
         Object data = httpProxy.getRequestData(url, Object.class).block();
 
         assertThat(data).isNotNull();
-
     }
 
     @Test
