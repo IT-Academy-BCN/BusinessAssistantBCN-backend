@@ -80,7 +80,6 @@ class HttpProxyTest {
                 .build();
         Assertions.assertThrows(WebClientRequestException.class, () ->
                 briefClient.get()
-                        //.uri(env.getProperty("ds_test"))
                         .uri("https://swapi.py4e.com/api/vehicles/")
                         .exchangeToMono(response ->
                                 response.statusCode().equals(HttpStatus.OK) ?
