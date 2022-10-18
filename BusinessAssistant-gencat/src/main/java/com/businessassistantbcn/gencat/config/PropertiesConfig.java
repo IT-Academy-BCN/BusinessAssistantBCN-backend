@@ -14,6 +14,8 @@ public class PropertiesConfig {
 
     private String ds_ccae;
 
+    private String ds_apitestcircuitbreakers;
+
     private Integer maxBytesInMemory;
 
     private String ds_economicActivities;
@@ -65,6 +67,14 @@ public class PropertiesConfig {
 
     public void setDs_ccae(String ds_ccae) {
         this.ds_ccae = ds_ccae;
+    }
+
+    public String getDs_apitestcircuitbreakers() {
+        return ds_apitestcircuitbreakers;
+    }
+
+    public void setDs_apitestcircuitbreakers(String ds_apitestcircuitbreakers) {
+        this.ds_apitestcircuitbreakers = ds_apitestcircuitbreakers;
     }
 
     public int getId() {

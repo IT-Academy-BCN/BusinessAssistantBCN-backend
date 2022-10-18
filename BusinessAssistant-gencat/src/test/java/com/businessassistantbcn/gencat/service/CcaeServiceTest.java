@@ -44,6 +44,7 @@ class CcaeServiceTest {
     private CcaeService ccaeService;
 
     private static final String CCAE_URL = "https://analisi.transparenciacatalunya.cat/api/views/get5-imi7/rows.json";
+    private static final String API_TEST_URL = "http://localhost:8760/flowers/getAll";
 
     private List<CcaeDto> allData;
     private CcaeDto[] responseDto;
@@ -103,7 +104,7 @@ class CcaeServiceTest {
     }
 
     @Test
-    void circuitBreakerTest() throws MalformedURLException {
+    void circuitBreakerConfigurationTest() throws MalformedURLException {
 
         when(config.getDs_ccae()).thenReturn(CCAE_URL);
         when(ccaeDeserializer.deserialize(any(Object.class))).thenReturn(allData);

@@ -2,12 +2,15 @@ package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
+import com.businessassistantbcn.gencat.dto.test.ClientFlowerDTO;
 import com.businessassistantbcn.gencat.service.CcaeService;
+import com.businessassistantbcn.gencat.service.CircuitBreakerTestService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
@@ -21,6 +24,9 @@ public class GencatController {
 
     @Autowired
     CcaeService ccaeService;
+
+    @Autowired
+    CircuitBreakerTestService proxyTestService;
 
     @GetMapping(value="/test")
     public String test() {
@@ -53,6 +59,12 @@ public class GencatController {
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     public Mono getAllCcaeTypes() {
         return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    @GetMapping("/clientFlowersGetAll")
+    public Mono<ClientFlowerDTO[]> getAllClientsFlower() throws MalformedURLException {
+
+        return proxyTestService.getAllClientsFlowerProxy();
     }
 
     private int getValidOffset(String offset)

@@ -1,5 +1,6 @@
 package apitest.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/flowers")
 public class Controller {
 
-    @GetMapping("/getAll")
+    @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getAll(){
         return "[{\"pk_flowerID\":1,\"flowerName\":\"Rosa\",\"flowerCountry\":\"Italy\",\"flowerType\":\"EU\"}," +
                 "{\"pk_flowerID\":2,\"flowerName\":\"Tulipán\",\"flowerCountry\":\"Spain\",\"flowerType\":\"EU\"}," +
