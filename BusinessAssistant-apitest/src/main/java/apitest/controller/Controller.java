@@ -5,6 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/flowers")
 public class Controller {
@@ -20,5 +28,10 @@ public class Controller {
                 "{\"pk_flowerID\":21,\"flowerName\":\"Jazmin\",\"flowerCountry\":\"Italy\",\"flowerType\":\"EU\"}]";
     }
 
+    @GetMapping(value = "/test", produces = "application/json; charset=UTF-8")
+    public String getGencatData() throws URISyntaxException, IOException {
 
+        Path path = Paths.get(Objects.requireNonNull(Controller.class.getClassLoader().getResource("ccaeValidData.json")).toURI());
+        return Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
+    }
 }

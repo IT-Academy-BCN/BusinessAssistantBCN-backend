@@ -47,6 +47,8 @@ dependencies {
 
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
+    //contract testing - pact
+    testImplementation 'au.com.dius.pact.provider:junit5:4.1.7'
 
 }
 
