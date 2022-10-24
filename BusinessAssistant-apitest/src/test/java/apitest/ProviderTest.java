@@ -19,6 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @PactFolder("src/test/resources")
 class ProviderTest {
 
+    //TODO: delete test classs
+
     @LocalServerPort
     private int port;
 

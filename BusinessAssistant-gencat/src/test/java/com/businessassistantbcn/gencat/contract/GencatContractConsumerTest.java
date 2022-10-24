@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(PactConsumerTestExt.class)
 @SpringBootTest
 @PactTestFor(providerName = "apitest-gencat-provider", port = "8760")
-class GencatContractTest {
+class GencatContractConsumerTest {
 
     @Autowired
     private CcaeService ccaeService;
@@ -38,7 +38,7 @@ class GencatContractTest {
     @Pact(provider = "apitest_gencat_provider", consumer = "gencat_CcaeService")
     public RequestResponsePact serverUp(PactDslWithProvider builder) throws URISyntaxException, IOException {
 
-        Path path = Paths.get(Objects.requireNonNull(GencatContractTest.class.getClassLoader().getResource("json/ccaeValidData.json")).toURI());
+        Path path = Paths.get(Objects.requireNonNull(GencatContractConsumerTest.class.getClassLoader().getResource("json/ccaeValidData.json")).toURI());
         String ccaeAsString = Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
 
         Map<String, String> headers = new HashMap<>();
