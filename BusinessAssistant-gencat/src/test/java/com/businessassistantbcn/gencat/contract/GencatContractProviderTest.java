@@ -88,6 +88,7 @@ class GencatContractProviderTest {
 
         when(httpProxy.getRequestData(any(URL.class), eq(Object.class))).thenReturn(Mono.just(data));
 
+        //TODO: can delete
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
@@ -111,6 +112,7 @@ class GencatContractProviderTest {
 
         when(httpProxy.getRequestData(any(URL.class), eq(Object.class))).thenReturn(Mono.error(new RuntimeException()));
 
+        //TODO: can delete
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
