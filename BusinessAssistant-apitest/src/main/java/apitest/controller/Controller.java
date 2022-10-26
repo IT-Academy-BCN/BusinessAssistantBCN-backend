@@ -14,10 +14,10 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/flowers")
+@RequestMapping("/test")
 public class Controller {
 
-    @GetMapping(value = "/getAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/getFlowers", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getAll(){
         return "[{\"pk_flowerID\":1,\"flowerName\":\"Rosa\",\"flowerCountry\":\"Italy\",\"flowerType\":\"EU\"}," +
                 "{\"pk_flowerID\":2,\"flowerName\":\"Tulipán\",\"flowerCountry\":\"Spain\",\"flowerType\":\"EU\"}," +
@@ -28,7 +28,7 @@ public class Controller {
                 "{\"pk_flowerID\":21,\"flowerName\":\"Jazmin\",\"flowerCountry\":\"Italy\",\"flowerType\":\"EU\"}]";
     }
 
-    @GetMapping(value = "/test", produces = "application/json; charset=UTF-8")
+    @GetMapping(value = "/ccae", produces = "application/json; charset=UTF-8")
     public String getGencatData() throws URISyntaxException, IOException {
 
         Path path = Paths.get(Objects.requireNonNull(Controller.class.getClassLoader().getResource("ccaeValidData.json")).toURI());

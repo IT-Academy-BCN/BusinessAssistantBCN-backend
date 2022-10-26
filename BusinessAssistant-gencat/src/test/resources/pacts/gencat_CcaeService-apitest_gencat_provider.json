@@ -7,25 +7,25 @@
   },
   "interactions": [
     {
-      "description": "Test interaction - Server down",
+      "description": "Test interaction - /ccae - Server down",
       "request": {
         "method": "GET",
-        "path": "/flowers/test"
+        "path": "/test/ccae"
       },
       "response": {
         "status": 500
       },
       "providerStates": [
         {
-          "name": "Server down"
+          "name": "Server down - /ccae"
         }
       ]
     },
     {
-      "description": "Test interaction - Server up",
+      "description": "Test interaction - /ccae - Server up",
       "request": {
         "method": "GET",
-        "path": "/flowers/test"
+        "path": "/test/ccae"
       },
       "response": {
         "status": 200,
@@ -14777,7 +14777,7 @@
       },
       "providerStates": [
         {
-          "name": "Server up"
+          "name": "Server up - /ccae"
         }
       ]
     }

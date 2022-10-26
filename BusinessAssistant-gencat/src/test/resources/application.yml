@@ -39,7 +39,7 @@ url:
   maxBytesInMemory: 30000000
   ds_test: https://swapi.py4e.com/api/vehicles/
   ds_economicActivities: https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json
-  ds_ccae: http://localhost:8760/flowers/test
+  ds_ccae: http://localhost:8760/test/ccae
   ds_apitestcircuitbreakers: http://localhost:8760/flowers/getAll
 
 logging:
