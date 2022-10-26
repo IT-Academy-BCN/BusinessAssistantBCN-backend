@@ -7,9 +7,6 @@ import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.core.model.annotations.PactFolder;
 import org.apache.http.entity.ContentType;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.io.IOException;
@@ -37,18 +35,14 @@ import java.util.Objects;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @PactTestFor(providerName = "apitest-gencat-provider", port = "8760")
 @PactFolder("src/test/resources/pacts")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class EndToEndContractTest {
 
-    private static WebTestClient webTestClient;
+    @Autowired
+    private WebTestClient webTestClient;
 
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/gencat";
     private static final String RES0 = "$.results[0].";
-
-    @BeforeAll
-    static void startWebClient() {
-        String baseUri = "http://localhost:" + "8762";
-        webTestClient = WebTestClient.bindToServer().baseUrl(baseUri).build();
-    }
 
     @Pact(provider = "apitest_gencat_provider", consumer = "gencat_CcaeService")
     public RequestResponsePact ccaeServerUp(PactDslWithProvider builder) throws URISyntaxException, IOException {
