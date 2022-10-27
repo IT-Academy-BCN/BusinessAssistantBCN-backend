@@ -7,7 +7,6 @@ import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.exception.ControllerAdvisor;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import com.businessassistantbcn.gencat.service.CcaeService;
-import com.businessassistantbcn.gencat.service.CircuitBreakerTestService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,9 +42,6 @@ class GencatControllerTest {
 
     @MockBean
     private CcaeService ccaeService;
-
-    @MockBean
-    private CircuitBreakerTestService circuitBreakerTestService;
 
     @MockBean
     private ControllerAdvisor controllerAdvisor;
