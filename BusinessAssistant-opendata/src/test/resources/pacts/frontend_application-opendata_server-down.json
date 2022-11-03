@@ -1,0 +1,44 @@
+{
+  "provider": {
+    "name": "opendata_server-down"
+  },
+  "consumer": {
+    "name": "frontend_application"
+  },
+  "interactions": [
+    {
+      "description": "/large-establishments - Server down",
+      "request": {
+        "method": "GET",
+        "path": "/businessassistantbcn/api/v1/opendata/large-establishments"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "offset": 0,
+          "limit": 0,
+          "count": 0,
+          "results": [
+
+          ]
+        }
+      },
+      "providerStates": [
+        {
+          "name": "Server down - /large-establishments"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.1.7"
+    }
+  }
+}
