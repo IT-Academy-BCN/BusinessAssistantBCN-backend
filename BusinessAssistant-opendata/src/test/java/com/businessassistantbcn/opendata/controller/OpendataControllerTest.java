@@ -8,7 +8,6 @@ import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEsta
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
-import com.businessassistantbcn.opendata.service.circuitbreakerstest.CircuitBreakersTestService;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
 import org.junit.jupiter.api.DisplayName;
@@ -26,9 +25,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
+
 import java.lang.reflect.*;
 import java.net.MalformedURLException;
 import java.util.List;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -58,10 +59,6 @@ public class OpendataControllerTest {
 	private CommercialGalleriesService commercialGalleriesService;
 	@MockBean
 	private EconomicActivitiesCensusService economicActivitiesCensusService;
-
-	@MockBean
-	CircuitBreakersTestService proxyTestService;
-
 
 	@DisplayName("Simple String response")
 	@Test

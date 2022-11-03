@@ -1,0 +1,281 @@
+package com.businessassistantbcn.opendata.contract;
+
+import au.com.dius.pact.consumer.MockServer;
+import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
+import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
+import au.com.dius.pact.consumer.junit5.PactTestFor;
+import au.com.dius.pact.core.model.RequestResponsePact;
+import au.com.dius.pact.core.model.annotations.Pact;
+import au.com.dius.pact.core.model.annotations.PactFolder;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.entity.ContentType;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@ExtendWith(PactConsumerTestExt.class)
+@PactTestFor(port = "8762")
+@PactFolder("src/test/resources/pacts")
+class FrontendPactGeneratorTest {
+
+    private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/opendata";
+
+    @Pact(provider = "large-establishments", consumer = "frontend_application")
+    public RequestResponsePact largeEstablishments(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/large-establishments", "");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishments")
+    void largeEstablishmentsTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/large-establishments");
+    }
+
+    @Pact(provider = "large-establishments", consumer = "frontend_application")
+    public RequestResponsePact largeEstablishmentsActivities(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/large-establishments", "/activities");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishmentsActivities")
+    void largeEstablishmentsActivitiesTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/large-establishments/activities");
+    }
+
+    @Pact(provider = "large-establishments", consumer = "frontend_application")
+    public RequestResponsePact largeEstablishmentsSpecificActivity(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/large-establishments", "/activity/107001");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishmentsSpecificActivity")
+    void largeEstablishmentsSpecificActivityTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/large-establishments/activity/107001");
+    }
+
+    @Pact(provider = "large-establishments", consumer = "frontend_application")
+    public RequestResponsePact largeEstablishmentsSpecificDistrict(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/large-establishments", "/district/2");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishmentsSpecificDistrict")
+    void largeEstablishmentsSpecificDistrictTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/large-establishments/district/2");
+    }
+
+    @Pact(provider = "big-malls", consumer = "frontend_application")
+    public RequestResponsePact bigMalls(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/big-malls", "");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "bigMalls")
+    void bigMallsTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/big-malls");
+    }
+
+    @Pact(provider = "big-malls", consumer = "frontend_application")
+    public RequestResponsePact bigMallsActivities(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/big-malls", "/activities");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "bigMallsActivities")
+    void bigMallsActivitiesTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/big-malls/activities");
+    }
+
+    @Pact(provider = "big-malls", consumer = "frontend_application")
+    public RequestResponsePact bigMallsSpecificActivity(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/big-malls", "/activity/32796754");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "bigMallsSpecificActivity")
+    void bigMallsSpecificActivityTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/big-malls/activity/32796754");
+    }
+
+    @Pact(provider = "big-malls", consumer = "frontend_application")
+    public RequestResponsePact bigMallsSpecificDistrict(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/big-malls", "/district/2");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "bigMallsSpecificDistrict")
+    void bigMallsSpecificDistrictTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/big-malls/district/2");
+    }
+
+    @Pact(provider = "commercial-galleries", consumer = "frontend_application")
+    public RequestResponsePact commercialGalleries(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/commercial-galleries", "");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "commercialGalleries")
+    void commercialGalleriesTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/commercial-galleries");
+    }
+
+    @Pact(provider = "commercial-galleries", consumer = "frontend_application")
+    public RequestResponsePact commercialGalleriesActivities(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/commercial-galleries", "/activities");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "commercialGalleriesActivities")
+    void commercialGalleriesActivitiesTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/commercial-galleries/activities");
+    }
+
+    @Pact(provider = "commercial-galleries", consumer = "frontend_application")
+    public RequestResponsePact commercialGalleriesSpecificActivity(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/commercial-galleries", "/activity/29810738");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "commercialGalleriesSpecificActivity")
+    void commercialGalleriesSpecificActivityTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/commercial-galleries/activity/29810738");
+    }
+
+    @Pact(provider = "commercial-galleries", consumer = "frontend_application")
+    public RequestResponsePact commercialGalleriesSpecificDistrict(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/commercial-galleries", "/district/2");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "commercialGalleriesSpecificDistrict")
+    void commercialGalleriesSpecificDistrictTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/commercial-galleries/district/2");
+    }
+
+    @Pact(provider = "municipal-markets", consumer = "frontend_application")
+    public RequestResponsePact municipalMarkets(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/municipal-markets", "");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "municipalMarkets")
+    void municipalMarketsTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/municipal-markets");
+    }
+
+    @Pact(provider = "market-fairs", consumer = "frontend_application")
+    public RequestResponsePact marketFairs(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/market-fairs", "");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "marketFairs")
+    void marketFairsTest(MockServer mockServer) throws IOException {
+
+        checkAndCreatePactFile(mockServer, "/market-fairs");
+    }
+
+    //TODO municipal markets and market fairs district endpoints (once implemented)
+
+    @Pact(provider = "opendata_server-down", consumer = "frontend_application")
+    public RequestResponsePact opendataAnyServerDown(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        //Could be any endpoint, mocks server down state
+        String endpointURL = "/large-establishments";
+        String bodyString = jsonLoader("json/response" + "/noData" + "Response.json");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json;charset=UTF-8");
+
+        return builder.given("Server down - " + endpointURL)
+                .uponReceiving(endpointURL + " - Server down")
+                .path(CONTROLLER_BASE_URL + endpointURL)
+                .method(HttpMethod.GET.name())
+                .willRespondWith()
+                .headers(headers)
+                .status(HttpStatus.OK.value()) //200
+                .body(bodyString, ContentType.APPLICATION_JSON.withCharset(StandardCharsets.UTF_8))
+                .toPact();
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "opendataAnyServerDown")
+    void serverDownTest(MockServer mockServer) throws IOException {
+
+        //Could be any endpoint, mocks server down state
+        checkAndCreatePactFile(mockServer, "/large-establishments");
+    }
+
+    private RequestResponsePact pactMaker(PactDslWithProvider builder, String endpointBaseURL, String endpointExtraURL) throws URISyntaxException, IOException {
+
+        String responseType = endpointExtraURL.equals("") ? "all" : endpointExtraURL.replaceAll("/", "");
+        String bodyString = jsonLoader("json/response" + endpointBaseURL + "/" + responseType + "Response.json");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json;charset=UTF-8");
+
+        return builder.given("Server up - " + endpointBaseURL + endpointExtraURL)
+                .uponReceiving(endpointBaseURL + endpointExtraURL + " - Server up")
+                .path(CONTROLLER_BASE_URL + endpointBaseURL + endpointExtraURL)
+                .method(HttpMethod.GET.name())
+                .willRespondWith()
+                .headers(headers)
+                .status(HttpStatus.OK.value()) //200
+                .body(bodyString, ContentType.APPLICATION_JSON.withCharset(StandardCharsets.UTF_8))
+                .toPact();
+    }
+
+    private void checkAndCreatePactFile(MockServer mockServer, String URI_TEST) throws IOException {
+
+        HttpResponse response = Request.Get(mockServer.getUrl() + CONTROLLER_BASE_URL + URI_TEST).execute().returnResponse();
+
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
+    }
+
+    private String jsonLoader(String resourceURI) throws URISyntaxException, IOException {
+
+        Path path = Paths.get(Objects.requireNonNull(EndToEndContractTest.class.getClassLoader().getResource(resourceURI)).toURI());
+        return Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
+    }
+}

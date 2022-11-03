@@ -1,0 +1,33 @@
+{
+  "provider": {
+    "name": "mock-server-down"
+  },
+  "consumer": {
+    "name": "opendata"
+  },
+  "interactions": [
+    {
+      "description": "Test interaction - Server down",
+      "request": {
+        "method": "GET",
+        "path": "/test/large-establishments"
+      },
+      "response": {
+        "status": 500
+      },
+      "providerStates": [
+        {
+          "name": "Server down"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.1.7"
+    }
+  }
+}

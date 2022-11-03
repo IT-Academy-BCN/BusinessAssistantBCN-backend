@@ -50,7 +50,7 @@ public class CcaeService {
     }
 
     private Mono<GenericResultDto<CcaeDto>> getCcaeDefaultPage() {
-        genericResultDto.setInfo(0, -1, 0, new CcaeDto[0]);
+        genericResultDto.setInfo(0, 0, 0, new CcaeDto[0]);
         return Mono.just(genericResultDto);
     }
 

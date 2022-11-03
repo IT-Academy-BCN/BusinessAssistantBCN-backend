@@ -110,7 +110,7 @@ class CcaeServiceTest {
         when(httpProxy.getRequestData(any(URL.class), eq(Object.class))).thenReturn(Mono.error(new RuntimeException()));
 
         GenericResultDto<CcaeDto> expected = new GenericResultDto<>();
-        expected.setInfo(0, -1, 0, new CcaeDto[0]);
+        expected.setInfo(0, 0, 0, new CcaeDto[0]);
 
         GenericResultDto<CcaeDto> actual = ccaeService.getPage(0, -1).block();
 

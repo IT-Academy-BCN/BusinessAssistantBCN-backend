@@ -1,0 +1,99 @@
+spring:
+  application:
+    name: businessassistant-opendata
+  jmx:
+    enabled: true
+  #Spring profiles available:
+  #   - test: disable circuits breakers for testing
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+      - dev
+
+
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui-custom.html"
+    operationsSorted: method
+  api-docs:
+    enable: true
+    path: "/api-docs"
+
+server:
+  port: 8762
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  security:
+    enabled: false
+
+url:
+  connection_timeout: 30000
+  maxBytesInMemory: 30000000
+  ds_apitestcircuitbreakers: http://localhost:8760/testCircuitBreaker/getAll
+  ds_test: https://swapi.py4e.com/api/vehicles/
+  ds_largeestablishments: http://localhost:8760/test/large-establishments
+  ds_commercialgalleries: http://localhost:8760/test/commercial-galleries
+  ds_bigmalls: http://localhost:8760/test/big-malls
+  ds_municipalmarkets: http://localhost:8760/test/municipal-markets
+  ds_marketfairs: http://localhost:8760/test/market-fairs
+  ds_economicactivitiescensus: https://opendata-ajuntament.barcelona.cat/data/dataset/671c46e9-5b85-4e63-8c97-088a2b907cd5/resource/7a3d5380-f79a-424e-be62-dd078efcb40a/download/2019_censcomercialbcn_class_act.json
+  ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
+  districts:
+    - "Ciutat Vella"
+    - "Eixample"
+    - "Sants-Montjuïc"
+    - "Les Corts"
+    - "Sarrià-Sant Gervasi"
+    - "Gràcia"
+    - "Horta-Guinardó"
+    - "Nou Barris"
+    - "Sant Andreu"
+    - "Sant Martí"
+
+security:
+  datasource:
+    secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
+    headerString: Authorization
+    authoritiesClaim: authorities
+    err: Auth Error, Token Unavailable
+---
+
+resilience4j.circuitbreaker:
+  instances:
+    babcn-circuitBreaker:
+      registerHealthIndicator: true
+      #Required before the circuit breaker can calculate the error rate or slow call rate
+      minimumNumberOfCalls: 1
+      #Window size: COUNT_BASED / TIME_BASED
+      slidingWindowType: COUNT_BASED
+      #Size of Window
+      slidingWindowSize: 10
+      # Failure percent (10.0f = 10%)
+      failureRateThreshold: 10.0f
+      #time before switching to half-open state
+      waitDurationInOpenState: 10s
+      #Rate slow call
+      #slowCallRateThreshold:
+      #Time in seconds beyond which a call is considered slow
+      #slowCallDurationThreshold:
+      permittedNumberOfCallsInHalfOpenState: 3
+      #Time staying in half-open state before switching back to open state
+      # (0 = infinitely until all the permittedNumberOfCallsInHalfOpenState() is complete)
+      #maxWaitDurationInHalfOpenState:
+
+
+logging:
+  level:
+    root: INFO
+    "[org.springframework]": ERROR
+    "[com.businessassistantbcn]": INFO
+  pattern:
+    # console: Spring's default
+    file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
+#  file:
+#    name: opendata.log

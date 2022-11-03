@@ -98,7 +98,7 @@ class GencatIntegrationTest {
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody()
                 .jsonPath("$.offset").isEqualTo(0)
-                .jsonPath("$.limit").isEqualTo(-1)
+                .jsonPath("$.limit").isEqualTo(0)
                 .jsonPath("$.count").isEqualTo(0)
                 .consumeWith(System.out::println);
     }

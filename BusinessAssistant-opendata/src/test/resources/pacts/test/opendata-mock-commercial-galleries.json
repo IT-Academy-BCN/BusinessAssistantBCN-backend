@@ -1,0 +1,1567 @@
+{
+  "provider": {
+    "name": "mock-commercial-galleries"
+  },
+  "consumer": {
+    "name": "opendata"
+  },
+  "interactions": [
+    {
+      "description": "Test interaction - /commercial-galleries - Server up",
+      "request": {
+        "method": "GET",
+        "path": "/test/commercial-galleries"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": [
+          {
+            "register_id": 92086025558,
+            "prefix": null,
+            "suffix": null,
+            "name": "Galeria Comercial Les Galeries Mald\u00E0",
+            "created": "1988-02-11T00:00:00+01:00",
+            "modified": "2022-09-17T04:35:18.088974+02:00",
+            "status": "published",
+            "status_name": "Publicat",
+            "core_type": "place",
+            "core_type_name": "Equipament",
+            "body": null,
+            "tickets_data": [
+
+            ],
+            "addresses": [
+              {
+                "place": null,
+                "district_name": "Ciutat Vella",
+                "district_id": "01",
+                "neighborhood_name": "el Barri G\u00F2tic",
+                "neighborhood_id": "02",
+                "address_name": "C Portaferrissa",
+                "address_id": "269301",
+                "block_id": null,
+                "start_street_number": 22,
+                "end_street_number": null,
+                "street_number_1": "22",
+                "street_number_2": null,
+                "stairs": null,
+                "level": "bxs",
+                "door": null,
+                "zip_code": "08002",
+                "province": "BARCELONA",
+                "town": "BARCELONA",
+                "country": "ESPANYA",
+                "comments": null,
+                "position": 0,
+                "main_address": true,
+                "road_name": null,
+                "road_id": null,
+                "roadtype_name": null,
+                "roadtype_id": null,
+                "location": {
+                  "type": "GeometryCollection",
+                  "geometries": [
+                    {
+                      "type": "Point",
+                      "coordinates": [
+                        430866.53602930007,
+                        4581671.702969264
+                      ]
+                    }
+                  ]
+                },
+                "related_entity": null,
+                "related_entity_data": null,
+                "hide_address": false
+              }
+            ],
+            "entity_types_data": [
+              {
+                "id": 102,
+                "name": "equipament"
+              },
+              {
+                "id": 100,
+                "name": "registre"
+              }
+            ],
+            "attribute_categories": [
+              {
+                "id": 2,
+                "name": "Informaci\u00F3 d'inter\u00E8s",
+                "attributes": [
+                  {
+                    "id": 100002,
+                    "name": "E-mail",
+                    "description": "E-mail",
+                    "category": 2,
+                    "type": "email",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 41646,
+                        "value": "info@galeriesmalda.cat",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": null,
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": "info@galeriesmalda.cat",
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 100002,
+                        "category_id": 2,
+                        "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                        "attribute_name": "E-mail",
+                        "attribute_type": "email",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": 100003,
+                    "name": "Web",
+                    "description": "Web",
+                    "category": 2,
+                    "type": "url",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 74764,
+                        "value": "http://www.galeriesmalda.cat",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": null,
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": "http://www.galeriesmalda.cat",
+                        "url_visible_value": "www.galeriesmalda.cat",
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 100003,
+                        "category_id": 2,
+                        "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                        "attribute_name": "Web",
+                        "attribute_type": "url",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "name": "Tel\u00E8fons",
+                "attributes": [
+                  {
+                    "id": 20001,
+                    "name": "Tel.",
+                    "description": "Tel.",
+                    "category": 4,
+                    "type": "char",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 165948,
+                        "value": "933 187 744",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": "933 187 744",
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 20001,
+                        "category_id": 4,
+                        "category_name": "Tel\u00E8fons",
+                        "attribute_name": "Tel.",
+                        "attribute_type": "char",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": 20027,
+                    "name": "Fax",
+                    "description": "Fax",
+                    "category": 4,
+                    "type": "char",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 167201,
+                        "value": "933 187 744",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": "933 187 744",
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 20027,
+                        "category_id": 4,
+                        "category_name": "Tel\u00E8fons",
+                        "attribute_name": "Fax",
+                        "attribute_type": "char",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "values": [
+              {
+                "id": 41646,
+                "value": "info@galeriesmalda.cat",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": null,
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": "info@galeriesmalda.cat",
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 100002,
+                "category_id": 2,
+                "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                "attribute_name": "E-mail",
+                "attribute_type": "email",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              },
+              {
+                "id": 74764,
+                "value": "http://www.galeriesmalda.cat",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": null,
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": "http://www.galeriesmalda.cat",
+                "url_visible_value": "www.galeriesmalda.cat",
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 100003,
+                "category_id": 2,
+                "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                "attribute_name": "Web",
+                "attribute_type": "url",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              },
+              {
+                "id": 165948,
+                "value": "933 187 744",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": "933 187 744",
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 20001,
+                "category_id": 4,
+                "category_name": "Tel\u00E8fons",
+                "attribute_name": "Tel.",
+                "attribute_type": "char",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              },
+              {
+                "id": 167201,
+                "value": "933 187 744",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": "933 187 744",
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 20027,
+                "category_id": 4,
+                "category_name": "Tel\u00E8fons",
+                "attribute_name": "Fax",
+                "attribute_type": "char",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              }
+            ],
+            "from_relationships": [
+
+            ],
+            "to_relationships": [
+
+            ],
+            "classifications_data": [
+              {
+                "id": 1008025,
+                "name": "Galeries comercials",
+                "full_path": "Tipologia EQ >> Activitats comercials gen\u00E8riques >> Galeries comercials",
+                "dependency_group": 3033964,
+                "parent_id": 1008,
+                "tree_id": 1,
+                "asia_id": "0000102008025",
+                "core_type": "place",
+                "level": 2
+              }
+            ],
+            "secondary_filters_data": [
+              {
+                "id": 56757317,
+                "name": "Galeries Comercials",
+                "full_path": "Directoris espec\u00EDfics >> Comer\u00E7 - Ciutat >> Galeries Comercials",
+                "dependency_group": 3033954,
+                "parent_id": 502001,
+                "tree_id": 502,
+                "asia_id": "0050202001003"
+              },
+              {
+                "id": 29970598,
+                "name": "Galeries comercials",
+                "full_path": "Equipaments >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 3033954,
+                "parent_id": 401007,
+                "tree_id": 401,
+                "asia_id": "0040102007003"
+              },
+              {
+                "id": 58731070,
+                "name": "Galeries comercials",
+                "full_path": "Planol BCN >> Mercats i centres comercials >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 20000003,
+                "parent_id": 57346752,
+                "tree_id": 651,
+                "asia_id": "0065103005000002"
+              },
+              {
+                "id": 26348755,
+                "name": "Galeries comercials",
+                "full_path": "Directoris >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 3033954,
+                "parent_id": 620007,
+                "tree_id": 620,
+                "asia_id": "0062002007003"
+              }
+            ],
+            "timetable": null,
+            "image_data": null,
+            "gallery_data": [
+
+            ],
+            "warnings": [
+
+            ],
+            "geo_epgs_25831": {
+              "x": 430866.53602930007,
+              "y": 4581671.702969264
+            },
+            "geo_epgs_23031": {
+              "x": 430961.089668895,
+              "y": 4581876.281305714
+            },
+            "geo_epgs_4326": {
+              "x": 41.38360172819359,
+              "y": 2.1731674800521206
+            },
+            "is_section_of_data": null,
+            "sections_data": [
+
+            ],
+            "start_date": null,
+            "end_date": null,
+            "estimated_dates": null,
+            "languages_data": null,
+            "type": null,
+            "type_name": null,
+            "period": null,
+            "period_name": null,
+            "event_status_name": null,
+            "event_status": null,
+            "ical": "BEGIN:VCALENDAR\r\nPRODID:ics.py - http://git.io/lLljaA\r\nVERSION:2.0\r\nEND:VCALENDAR"
+          },
+          {
+            "register_id": 92086036801,
+            "prefix": null,
+            "suffix": null,
+            "name": "Galeria Comercial Bulevard dels Antiquaris",
+            "created": "1991-09-18T00:00:00+02:00",
+            "modified": "2022-09-17T04:47:14.402800+02:00",
+            "status": "published",
+            "status_name": "Publicat",
+            "core_type": "place",
+            "core_type_name": "Equipament",
+            "body": null,
+            "tickets_data": [
+
+            ],
+            "addresses": [
+              {
+                "place": null,
+                "district_name": "Eixample",
+                "district_id": "02",
+                "neighborhood_name": "la Dreta de l'Eixample",
+                "neighborhood_id": "07",
+                "address_name": "Pg Gr\u00E0cia",
+                "address_id": "148307",
+                "block_id": null,
+                "start_street_number": 55,
+                "end_street_number": null,
+                "street_number_1": "55*57",
+                "street_number_2": null,
+                "stairs": null,
+                "level": "bxs",
+                "door": null,
+                "zip_code": "08007",
+                "province": "BARCELONA",
+                "town": "BARCELONA",
+                "country": "ESPANYA",
+                "comments": null,
+                "position": 0,
+                "main_address": true,
+                "road_name": null,
+                "road_id": null,
+                "roadtype_name": null,
+                "roadtype_id": null,
+                "location": {
+                  "type": "GeometryCollection",
+                  "geometries": [
+                    {
+                      "type": "Point",
+                      "coordinates": [
+                        430101.9362536643,
+                        4582677.01600246
+                      ]
+                    }
+                  ]
+                },
+                "related_entity": null,
+                "related_entity_data": null,
+                "hide_address": false
+              }
+            ],
+            "entity_types_data": [
+              {
+                "id": 102,
+                "name": "equipament"
+              },
+              {
+                "id": 100,
+                "name": "registre"
+              }
+            ],
+            "attribute_categories": [
+              {
+                "id": 2,
+                "name": "Informaci\u00F3 d'inter\u00E8s",
+                "attributes": [
+                  {
+                    "id": 100002,
+                    "name": "E-mail",
+                    "description": "E-mail",
+                    "category": 2,
+                    "type": "email",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 43328,
+                        "value": "info@bulevarddelsantiquaris.com",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": null,
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": "info@bulevarddelsantiquaris.com",
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 100002,
+                        "category_id": 2,
+                        "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                        "attribute_name": "E-mail",
+                        "attribute_type": "email",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": 100003,
+                    "name": "Web",
+                    "description": "Web",
+                    "category": 2,
+                    "type": "url",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 76801,
+                        "value": "http://www.bulevarddelsantiquaris.com",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": null,
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": "http://www.bulevarddelsantiquaris.com",
+                        "url_visible_value": "www.bulevarddelsantiquaris.com",
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 100003,
+                        "category_id": 2,
+                        "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                        "attribute_name": "Web",
+                        "attribute_type": "url",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": 4,
+                "name": "Tel\u00E8fons",
+                "attributes": [
+                  {
+                    "id": 20001,
+                    "name": "Tel.",
+                    "description": "Tel.",
+                    "category": 4,
+                    "type": "char",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 171441,
+                        "value": "932154499",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": "932154499",
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 20001,
+                        "category_id": 4,
+                        "category_name": "Tel\u00E8fons",
+                        "attribute_name": "Tel.",
+                        "attribute_type": "char",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": 20027,
+                    "name": "Fax",
+                    "description": "Fax",
+                    "category": 4,
+                    "type": "char",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 172104,
+                        "value": "932154499",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": "932154499",
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 20027,
+                        "category_id": 4,
+                        "category_name": "Tel\u00E8fons",
+                        "attribute_name": "Fax",
+                        "attribute_type": "char",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "values": [
+              {
+                "id": 43328,
+                "value": "info@bulevarddelsantiquaris.com",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": null,
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": "info@bulevarddelsantiquaris.com",
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 100002,
+                "category_id": 2,
+                "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                "attribute_name": "E-mail",
+                "attribute_type": "email",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              },
+              {
+                "id": 76801,
+                "value": "http://www.bulevarddelsantiquaris.com",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": null,
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": "http://www.bulevarddelsantiquaris.com",
+                "url_visible_value": "www.bulevarddelsantiquaris.com",
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 100003,
+                "category_id": 2,
+                "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                "attribute_name": "Web",
+                "attribute_type": "url",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              },
+              {
+                "id": 171441,
+                "value": "932154499",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": "932154499",
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 20001,
+                "category_id": 4,
+                "category_name": "Tel\u00E8fons",
+                "attribute_name": "Tel.",
+                "attribute_type": "char",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              },
+              {
+                "id": 172104,
+                "value": "932154499",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": "932154499",
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 20027,
+                "category_id": 4,
+                "category_name": "Tel\u00E8fons",
+                "attribute_name": "Fax",
+                "attribute_type": "char",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              }
+            ],
+            "from_relationships": [
+
+            ],
+            "to_relationships": [
+
+            ],
+            "classifications_data": [
+              {
+                "id": 1008025,
+                "name": "Galeries comercials",
+                "full_path": "Tipologia EQ >> Activitats comercials gen\u00E8riques >> Galeries comercials",
+                "dependency_group": 3033964,
+                "parent_id": 1008,
+                "tree_id": 1,
+                "asia_id": "0000102008025",
+                "core_type": "place",
+                "level": 2
+              },
+              {
+                "id": 1006051,
+                "name": "Galeries d'art",
+                "full_path": "Tipologia EQ >> Cultura, oci i espectacle >> Galeries d'art",
+                "dependency_group": 3033964,
+                "parent_id": 1006,
+                "tree_id": 1,
+                "asia_id": "0000102006051",
+                "core_type": "place",
+                "level": 2
+              },
+              {
+                "id": 29810738,
+                "name": "Antiguitats i brocanteries",
+                "full_path": "Especialitats EQ >> Cultura, art, arquitectura >> Antiguitats i brocanteries",
+                "dependency_group": 3033964,
+                "parent_id": 104018,
+                "tree_id": 104,
+                "asia_id": "0010402018019",
+                "core_type": "place",
+                "level": 2
+              }
+            ],
+            "secondary_filters_data": [
+              {
+                "id": 56757317,
+                "name": "Galeries Comercials",
+                "full_path": "Directoris espec\u00EDfics >> Comer\u00E7 - Ciutat >> Galeries Comercials",
+                "dependency_group": 3033954,
+                "parent_id": 502001,
+                "tree_id": 502,
+                "asia_id": "0050202001003"
+              },
+              {
+                "id": 15540162,
+                "name": "Galeries d'art",
+                "full_path": "Marques webs EQ (amb converssi\u00F3) >> Mapa Cultural i M\u00F2bil >> Espais d'exposicions >> Galeries d'art",
+                "dependency_group": 2267775,
+                "parent_id": 29550038,
+                "tree_id": 549,
+                "asia_id": "0054903001005000"
+              },
+              {
+                "id": 47243931,
+                "name": "09. Galeries d'art",
+                "full_path": "Arbre pral. Joventut  >> 02. Cultura >> 01. Centres culturals >> 09. Galeries d'art",
+                "dependency_group": 2598314,
+                "parent_id": 32550033,
+                "tree_id": 552,
+                "asia_id": "0055203001000009"
+              },
+              {
+                "id": 61553050,
+                "name": "Galeries Art",
+                "full_path": "BAC >> Equipaments Cultura i Oci >> Galeries Art",
+                "dependency_group": 2267775,
+                "parent_id": 581004,
+                "tree_id": 581,
+                "asia_id": "0058102004017"
+              },
+              {
+                "id": 62072759,
+                "name": "Galeries d'art",
+                "full_path": "Equipaments >> Cultura i lleure >> Espais d'exposicions >> Galeries d'art",
+                "dependency_group": 3033954,
+                "parent_id": 29967607,
+                "tree_id": 401,
+                "asia_id": "0040103004012002"
+              },
+              {
+                "id": 29970598,
+                "name": "Galeries comercials",
+                "full_path": "Equipaments >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 3033954,
+                "parent_id": 401007,
+                "tree_id": 401,
+                "asia_id": "0040102007003"
+              },
+              {
+                "id": 58731070,
+                "name": "Galeries comercials",
+                "full_path": "Planol BCN >> Mercats i centres comercials >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 20000003,
+                "parent_id": 57346752,
+                "tree_id": 651,
+                "asia_id": "0065103005000002"
+              },
+              {
+                "id": 2179247,
+                "name": "Galeries d'art",
+                "full_path": "Directoris >> Cultura i lleure >> Espais d'exposicions >> Galeries d'art",
+                "dependency_group": 3033954,
+                "parent_id": 26345764,
+                "tree_id": 620,
+                "asia_id": "0062003004012002"
+              },
+              {
+                "id": 26348755,
+                "name": "Galeries comercials",
+                "full_path": "Directoris >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 3033954,
+                "parent_id": 620007,
+                "tree_id": 620,
+                "asia_id": "0062002007003"
+              }
+            ],
+            "timetable": {
+              "id": 5649,
+              "html": "<table class=\"timetable-table\"><tr class=\"timetable-header\"><th class=\"weekdays\">Dies</th><th class=\"hours\">Hores</th></tr><tr><td class=\"timetable-day\" rowspan=1><div>de dilluns a divendres</div></td><td class=\"timetable-hour\" rowspan=1><div>de 10.30 a 13.30 h i<br>de 16.30 a 20.30 h</div></td></tr></table>",
+              "hide": false,
+              "alert": ""
+            },
+            "image_data": null,
+            "gallery_data": [
+
+            ],
+            "warnings": [
+
+            ],
+            "geo_epgs_25831": {
+              "x": 430101.9362536643,
+              "y": 4582677.01600246
+            },
+            "geo_epgs_23031": {
+              "x": 430196.48177644657,
+              "y": 4582881.5884010615
+            },
+            "geo_epgs_4326": {
+              "x": 41.39259018311431,
+              "y": 2.1639078381745587
+            },
+            "is_section_of_data": null,
+            "sections_data": [
+
+            ],
+            "start_date": null,
+            "end_date": null,
+            "estimated_dates": null,
+            "languages_data": null,
+            "type": null,
+            "type_name": null,
+            "period": null,
+            "period_name": null,
+            "event_status_name": null,
+            "event_status": null,
+            "ical": "BEGIN:VCALENDAR\r\nPRODID:ics.py - http://git.io/lLljaA\r\nVERSION:2.0\r\nEND:VCALENDAR"
+          },
+          {
+            "register_id": 92086021584,
+            "prefix": null,
+            "suffix": null,
+            "name": "Galeria Comercial Argentina Center",
+            "created": "1987-06-15T00:00:00+02:00",
+            "modified": "2022-09-17T04:32:20.774604+02:00",
+            "status": "published",
+            "status_name": "Publicat",
+            "core_type": "place",
+            "core_type_name": "Equipament",
+            "body": null,
+            "tickets_data": [
+
+            ],
+            "addresses": [
+              {
+                "place": null,
+                "district_name": "Gr\u00E0cia",
+                "district_id": "06",
+                "neighborhood_name": "Vallcarca i els Penitents",
+                "neighborhood_id": "28",
+                "address_name": "Av Rep\u00FAblica Argentina",
+                "address_id": "279600",
+                "block_id": null,
+                "start_street_number": 238,
+                "end_street_number": null,
+                "street_number_1": "238",
+                "street_number_2": null,
+                "stairs": null,
+                "level": "bxs",
+                "door": null,
+                "zip_code": "08023",
+                "province": "BARCELONA",
+                "town": "BARCELONA",
+                "country": "ESPANYA",
+                "comments": null,
+                "position": 0,
+                "main_address": true,
+                "road_name": null,
+                "road_id": null,
+                "roadtype_name": null,
+                "roadtype_id": null,
+                "location": {
+                  "type": "GeometryCollection",
+                  "geometries": [
+                    {
+                      "type": "Point",
+                      "coordinates": [
+                        428115.0350834559,
+                        4584925.298658831
+                      ]
+                    }
+                  ]
+                },
+                "related_entity": null,
+                "related_entity_data": null,
+                "hide_address": false
+              }
+            ],
+            "entity_types_data": [
+              {
+                "id": 102,
+                "name": "equipament"
+              },
+              {
+                "id": 100,
+                "name": "registre"
+              }
+            ],
+            "attribute_categories": [
+              {
+                "id": 4,
+                "name": "Tel\u00E8fons",
+                "attributes": [
+                  {
+                    "id": 20001,
+                    "name": "Tel.",
+                    "description": "Tel.",
+                    "category": 4,
+                    "type": "char",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 166494,
+                        "value": "932125529",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": "932125529",
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 20001,
+                        "category_id": 4,
+                        "category_name": "Tel\u00E8fons",
+                        "attribute_name": "Tel.",
+                        "attribute_type": "char",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "values": [
+              {
+                "id": 166494,
+                "value": "932125529",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": "932125529",
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 20001,
+                "category_id": 4,
+                "category_name": "Tel\u00E8fons",
+                "attribute_name": "Tel.",
+                "attribute_type": "char",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              }
+            ],
+            "from_relationships": [
+
+            ],
+            "to_relationships": [
+
+            ],
+            "classifications_data": [
+              {
+                "id": 1008025,
+                "name": "Galeries comercials",
+                "full_path": "Tipologia EQ >> Activitats comercials gen\u00E8riques >> Galeries comercials",
+                "dependency_group": 3033964,
+                "parent_id": 1008,
+                "tree_id": 1,
+                "asia_id": "0000102008025",
+                "core_type": "place",
+                "level": 2
+              }
+            ],
+            "secondary_filters_data": [
+              {
+                "id": 56757317,
+                "name": "Galeries Comercials",
+                "full_path": "Directoris espec\u00EDfics >> Comer\u00E7 - Ciutat >> Galeries Comercials",
+                "dependency_group": 3033954,
+                "parent_id": 502001,
+                "tree_id": 502,
+                "asia_id": "0050202001003"
+              },
+              {
+                "id": 29970598,
+                "name": "Galeries comercials",
+                "full_path": "Equipaments >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 3033954,
+                "parent_id": 401007,
+                "tree_id": 401,
+                "asia_id": "0040102007003"
+              },
+              {
+                "id": 58731070,
+                "name": "Galeries comercials",
+                "full_path": "Planol BCN >> Mercats i centres comercials >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 20000003,
+                "parent_id": 57346752,
+                "tree_id": 651,
+                "asia_id": "0065103005000002"
+              },
+              {
+                "id": 26348755,
+                "name": "Galeries comercials",
+                "full_path": "Directoris >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 3033954,
+                "parent_id": 620007,
+                "tree_id": 620,
+                "asia_id": "0062002007003"
+              }
+            ],
+            "timetable": null,
+            "image_data": null,
+            "gallery_data": [
+
+            ],
+            "warnings": [
+
+            ],
+            "geo_epgs_25831": {
+              "x": 428115.0350834559,
+              "y": 4584925.298658831
+            },
+            "geo_epgs_23031": {
+              "x": 428209.56243820494,
+              "y": 4585129.855564826
+            },
+            "geo_epgs_4326": {
+              "x": 41.41266440969524,
+              "y": 2.1398768811289672
+            },
+            "is_section_of_data": null,
+            "sections_data": [
+
+            ],
+            "start_date": null,
+            "end_date": null,
+            "estimated_dates": null,
+            "languages_data": null,
+            "type": null,
+            "type_name": null,
+            "period": null,
+            "period_name": null,
+            "event_status_name": null,
+            "event_status": null,
+            "ical": "BEGIN:VCALENDAR\r\nPRODID:ics.py - http://git.io/lLljaA\r\nVERSION:2.0\r\nEND:VCALENDAR"
+          },
+          {
+            "register_id": 92086028439,
+            "prefix": null,
+            "suffix": null,
+            "name": "Centre Comercial Encants Nous",
+            "created": "1988-10-31T00:00:00+01:00",
+            "modified": "2022-09-17T04:38:35.572506+02:00",
+            "status": "published",
+            "status_name": "Publicat",
+            "core_type": "place",
+            "core_type_name": "Equipament",
+            "body": null,
+            "tickets_data": [
+
+            ],
+            "addresses": [
+              {
+                "place": null,
+                "district_name": "Eixample",
+                "district_id": "02",
+                "neighborhood_name": "la Sagrada Fam\u00EDlia",
+                "neighborhood_id": "06",
+                "address_name": "C Dos de Maig",
+                "address_id": "105304",
+                "block_id": null,
+                "start_street_number": 225,
+                "end_street_number": null,
+                "street_number_1": "225*227",
+                "street_number_2": null,
+                "stairs": null,
+                "level": "bxs",
+                "door": null,
+                "zip_code": "08013",
+                "province": "BARCELONA",
+                "town": "BARCELONA",
+                "country": "ESPANYA",
+                "comments": null,
+                "position": 0,
+                "main_address": true,
+                "road_name": null,
+                "road_id": null,
+                "roadtype_name": null,
+                "roadtype_id": null,
+                "location": {
+                  "type": "GeometryCollection",
+                  "geometries": [
+                    {
+                      "type": "Point",
+                      "coordinates": [
+                        431679.24361304846,
+                        4584209.912372965
+                      ]
+                    }
+                  ]
+                },
+                "related_entity": null,
+                "related_entity_data": null,
+                "hide_address": false
+              }
+            ],
+            "entity_types_data": [
+              {
+                "id": 102,
+                "name": "equipament"
+              },
+              {
+                "id": 100,
+                "name": "registre"
+              }
+            ],
+            "attribute_categories": [
+              {
+                "id": 4,
+                "name": "Tel\u00E8fons",
+                "attributes": [
+                  {
+                    "id": 20001,
+                    "name": "Tel.",
+                    "description": "Tel.",
+                    "category": 4,
+                    "type": "char",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 168036,
+                        "value": "932451055",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": "932451055",
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 20001,
+                        "category_id": 4,
+                        "category_name": "Tel\u00E8fons",
+                        "attribute_name": "Tel.",
+                        "attribute_type": "char",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": 20027,
+                    "name": "Fax",
+                    "description": "Fax",
+                    "category": 4,
+                    "type": "char",
+                    "options": [
+
+                    ],
+                    "values": [
+                      {
+                        "id": 168394,
+                        "value": "932451055",
+                        "integer_value": null,
+                        "float_value": null,
+                        "char_value": "932451055",
+                        "text_value": null,
+                        "datetime_value": null,
+                        "option_value": null,
+                        "email_value": null,
+                        "phone_value": null,
+                        "url_value": null,
+                        "url_visible_value": null,
+                        "contact_person_value": null,
+                        "responsible_value": null,
+                        "icon_option_value": null,
+                        "outstanding": true,
+                        "description": "",
+                        "attribute": 20027,
+                        "category_id": 4,
+                        "category_name": "Tel\u00E8fons",
+                        "attribute_name": "Fax",
+                        "attribute_type": "char",
+                        "option_value_data": null,
+                        "icon_option_value_data": null,
+                        "responsible_title": null,
+                        "responsible_jobtitle": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "values": [
+              {
+                "id": 168036,
+                "value": "932451055",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": "932451055",
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 20001,
+                "category_id": 4,
+                "category_name": "Tel\u00E8fons",
+                "attribute_name": "Tel.",
+                "attribute_type": "char",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              },
+              {
+                "id": 168394,
+                "value": "932451055",
+                "integer_value": null,
+                "float_value": null,
+                "char_value": "932451055",
+                "text_value": null,
+                "datetime_value": null,
+                "option_value": null,
+                "email_value": null,
+                "phone_value": null,
+                "url_value": null,
+                "url_visible_value": null,
+                "contact_person_value": null,
+                "responsible_value": null,
+                "icon_option_value": null,
+                "outstanding": true,
+                "description": "",
+                "attribute": 20027,
+                "category_id": 4,
+                "category_name": "Tel\u00E8fons",
+                "attribute_name": "Fax",
+                "attribute_type": "char",
+                "option_value_data": null,
+                "icon_option_value_data": null,
+                "responsible_title": null,
+                "responsible_jobtitle": null
+              }
+            ],
+            "from_relationships": [
+
+            ],
+            "to_relationships": [
+
+            ],
+            "classifications_data": [
+              {
+                "id": 1008025,
+                "name": "Galeries comercials",
+                "full_path": "Tipologia EQ >> Activitats comercials gen\u00E8riques >> Galeries comercials",
+                "dependency_group": 3033964,
+                "parent_id": 1008,
+                "tree_id": 1,
+                "asia_id": "0000102008025",
+                "core_type": "place",
+                "level": 2
+              }
+            ],
+            "secondary_filters_data": [
+              {
+                "id": 56757317,
+                "name": "Galeries Comercials",
+                "full_path": "Directoris espec\u00EDfics >> Comer\u00E7 - Ciutat >> Galeries Comercials",
+                "dependency_group": 3033954,
+                "parent_id": 502001,
+                "tree_id": 502,
+                "asia_id": "0050202001003"
+              },
+              {
+                "id": 29970598,
+                "name": "Galeries comercials",
+                "full_path": "Equipaments >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 3033954,
+                "parent_id": 401007,
+                "tree_id": 401,
+                "asia_id": "0040102007003"
+              },
+              {
+                "id": 58731070,
+                "name": "Galeries comercials",
+                "full_path": "Planol BCN >> Mercats i centres comercials >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 20000003,
+                "parent_id": 57346752,
+                "tree_id": 651,
+                "asia_id": "0065103005000002"
+              },
+              {
+                "id": 26348755,
+                "name": "Galeries comercials",
+                "full_path": "Directoris >> Mercats i centres comercials >> Galeries comercials",
+                "dependency_group": 3033954,
+                "parent_id": 620007,
+                "tree_id": 620,
+                "asia_id": "0062002007003"
+              }
+            ],
+            "timetable": {
+              "id": 5248,
+              "html": "<table class=\"timetable-table\"><tr class=\"timetable-header\"><th class=\"weekdays\">Dies</th><th class=\"hours\">Hores</th></tr><tr><td class=\"timetable-day\" rowspan=1><div>De dilluns a dissabtes</div></td><td class=\"timetable-hour\" rowspan=1><div>de 09:00 h a 13:30 h i<BR>de 16:30 h a 20:00 h</div></td></tr></table>",
+              "hide": false,
+              "alert": ""
+            },
+            "image_data": null,
+            "gallery_data": [
+
+            ],
+            "warnings": [
+
+            ],
+            "geo_epgs_25831": {
+              "x": 431679.24361304846,
+              "y": 4584209.912372965
+            },
+            "geo_epgs_23031": {
+              "x": 431773.7770949512,
+              "y": 4584414.497601629
+            },
+            "geo_epgs_4326": {
+              "x": 41.4065320482933,
+              "y": 2.182600099720309
+            },
+            "is_section_of_data": null,
+            "sections_data": [
+
+            ],
+            "start_date": null,
+            "end_date": null,
+            "estimated_dates": null,
+            "languages_data": null,
+            "type": null,
+            "type_name": null,
+            "period": null,
+            "period_name": null,
+            "event_status_name": null,
+            "event_status": null,
+            "ical": "BEGIN:VCALENDAR\r\nPRODID:ics.py - http://git.io/lLljaA\r\nVERSION:2.0\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230109T090000Z\r\nDTEND:20230109T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7a5fd1c1-1608-4e13-805b-231671d83514@7a5f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230526T163000Z\r\nDTEND:20230526T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:de0eb2ea-8a32-4d0c-8f46-a21136b1252a@de0e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221224T163000Z\r\nDTEND:20221224T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8465608c-56f1-47f6-8d9c-4dd3b81122b1@8465.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230414T090000Z\r\nDTEND:20230414T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3d0593e6-56c7-4fe5-8b5e-f6d2de9b0080@3d05.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230605T090000Z\r\nDTEND:20230605T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f828862b-1a74-448d-8888-66fa992dea7e@f828.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230621T163000Z\r\nDTEND:20230621T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c0be1fb2-d496-4138-a247-8aff79977af2@c0be.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230417T090000Z\r\nDTEND:20230417T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d1f38e55-1943-4677-ae96-167fe7bee7cb@d1f3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221109T163000Z\r\nDTEND:20221109T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:17931ae5-d724-42b3-84fa-f74d5a5010e2@1793.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230211T090000Z\r\nDTEND:20230211T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d71d7616-5dbe-4ee3-a635-aca29bed49f8@d71d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221130T163000Z\r\nDTEND:20221130T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c167b591-0a4c-4fb8-b26c-e0483e0e647b@c167.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230927T090000Z\r\nDTEND:20230927T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:45e5a292-7109-44a6-ae07-513318160e43@45e5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221124T163000Z\r\nDTEND:20221124T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a5fb1923-dca3-426b-92a0-022b0e642ec9@a5fb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221115T090000Z\r\nDTEND:20221115T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1e94d914-46a5-4cf5-af93-f2290aac8522@1e94.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230130T163000Z\r\nDTEND:20230130T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:adda83dd-57be-4fef-b118-8721cdfcb512@adda.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221109T090000Z\r\nDTEND:20221109T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5f135b8a-b475-4afe-a85e-fa66dfb67a0b@5f13.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230207T163000Z\r\nDTEND:20230207T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6d35590c-2978-48bb-ba4e-8e1cbb400168@6d35.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230627T090000Z\r\nDTEND:20230627T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:161c85e9-cfa7-45cb-92f8-d1b671ca9317@161c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230809T090000Z\r\nDTEND:20230809T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2d157ec9-8456-4aef-81a7-09ec730640af@2d15.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230708T163000Z\r\nDTEND:20230708T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9788e13e-3e4c-49e5-88ee-be99c9596c08@9788.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221219T163000Z\r\nDTEND:20221219T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1d84c23b-96a6-4a88-8cdb-8dbc8085313d@1d84.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221210T090000Z\r\nDTEND:20221210T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d223606d-6a63-4861-a5f8-24596df5a47b@d223.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230331T090000Z\r\nDTEND:20230331T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:69be38d9-ceb7-4c87-9f64-dbb096dcc320@69be.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230608T090000Z\r\nDTEND:20230608T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0fbd88a0-e5c2-4716-8936-4309c08f28af@0fbd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230610T090000Z\r\nDTEND:20230610T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8a94f463-113f-460b-acd4-895b5b137c1d@8a94.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230308T090000Z\r\nDTEND:20230308T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5b2f2236-13f1-4f31-ba32-91feee6c9b44@5b2f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230719T090000Z\r\nDTEND:20230719T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6c34bf5a-0e1d-4f86-b224-f4972df7ff0c@6c34.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230106T090000Z\r\nDTEND:20230106T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:86704617-12d0-4b1b-85b0-d4ce8f0f94ab@8670.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230523T090000Z\r\nDTEND:20230523T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7758849d-5547-4bf8-8a6b-081e5393d01f@7758.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230211T163000Z\r\nDTEND:20230211T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:17838815-46e2-44f3-ab4f-e0a31bc04674@1783.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230218T163000Z\r\nDTEND:20230218T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a8b1c684-32b3-4896-8531-296c128788cd@a8b1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230602T090000Z\r\nDTEND:20230602T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b051c573-d303-452e-8f09-35e2e2944072@b051.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230729T090000Z\r\nDTEND:20230729T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e4c78009-0aea-4c51-922c-b9452a553c75@e4c7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231018T163000Z\r\nDTEND:20231018T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b4d883d5-c887-40b8-878b-ff23e3503be8@b4d8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230403T090000Z\r\nDTEND:20230403T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9b175769-96e4-4352-a0fa-e2add2e44948@9b17.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230717T090000Z\r\nDTEND:20230717T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9551c834-4b21-47bf-8d02-74f0399e447c@9551.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231012T163000Z\r\nDTEND:20231012T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:193a2881-47af-411a-ab23-f63d023e00f7@193a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231102T163000Z\r\nDTEND:20231102T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f53188f5-df06-490b-b5c3-f618771c6b73@f531.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221223T163000Z\r\nDTEND:20221223T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a9e41bb0-141f-4fcb-8a6a-cae3e37c805e@a9e4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231003T090000Z\r\nDTEND:20231003T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1672e1ee-6294-4241-8878-9401fd6015b4@1672.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231026T090000Z\r\nDTEND:20231026T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8ecf449b-2112-4e94-9b94-4667b71e5d4d@8ecf.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230204T163000Z\r\nDTEND:20230204T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cb90392a-78e3-4b83-b79d-b8bd23319d0c@cb90.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221102T090000Z\r\nDTEND:20221102T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f787d803-7659-4129-8aff-01821e09c19e@f787.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230915T090000Z\r\nDTEND:20230915T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:71a00a86-5b50-47f9-9636-3d9a26dca244@71a0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230808T163000Z\r\nDTEND:20230808T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e9abd887-7902-4a35-9b36-dd0d80a1e6cb@e9ab.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230819T090000Z\r\nDTEND:20230819T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:595d27cb-a269-4323-b693-d4adc18f87c1@595d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221224T090000Z\r\nDTEND:20221224T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:95f765cd-1208-4831-91bf-4e8d8acb648f@95f7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230531T163000Z\r\nDTEND:20230531T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d43c2054-2174-407c-a248-c4fb1eed33a1@d43c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230609T090000Z\r\nDTEND:20230609T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2701df3f-ce96-47c1-8f93-e2f480d6a1eb@2701.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230711T090000Z\r\nDTEND:20230711T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c3f2f487-caf5-4558-85f0-f2cd0847c4e2@c3f2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230111T163000Z\r\nDTEND:20230111T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:53a3166e-3959-4c34-b7bd-d8449d2053f1@53a3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230208T090000Z\r\nDTEND:20230208T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:48aea8c3-5bc6-49d5-b39a-8f9275e902f5@48ae.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230104T090000Z\r\nDTEND:20230104T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1a3ac52a-043c-4abb-b0fa-0625639069e3@1a3a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230112T090000Z\r\nDTEND:20230112T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b6e7ef10-6a3f-41b4-9695-baebc237649d@b6e7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230210T163000Z\r\nDTEND:20230210T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9754f127-d0e5-4fb6-abf1-34d95cd6aac3@9754.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230527T163000Z\r\nDTEND:20230527T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:06c9b3ea-1a5e-40e6-9fc6-6313a501d2f7@06c9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230710T163000Z\r\nDTEND:20230710T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5219b4de-1da9-40de-accd-385b1be7190e@5219.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230715T090000Z\r\nDTEND:20230715T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e76cf9eb-8db4-49ab-998e-d09f30a0a52f@e76c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230424T090000Z\r\nDTEND:20230424T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:274e3467-6b36-4966-b31c-af6520987863@274e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230907T163000Z\r\nDTEND:20230907T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7bc43126-28b4-405d-b351-efee887fe423@7bc4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221222T163000Z\r\nDTEND:20221222T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:25a5d6a7-aaad-41d4-b55d-f34facabf7d2@25a5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221212T090000Z\r\nDTEND:20221212T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8dbc8a7e-e68a-4763-b585-f60fb8347ece@8dbc.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230119T090000Z\r\nDTEND:20230119T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8427991b-c644-4e27-b4e7-c73659a3e41b@8427.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230706T090000Z\r\nDTEND:20230706T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:40342246-5004-4b86-8fe7-75cdc3cff31b@4034.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230304T090000Z\r\nDTEND:20230304T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7d838715-5ec9-41c1-8b6c-ede86b5a9ee4@7d83.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230516T090000Z\r\nDTEND:20230516T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:28e9ec43-ee8d-443e-b60e-130fddbbee81@28e9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221229T163000Z\r\nDTEND:20221229T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2ce59bcf-f33f-4f06-80e1-c360c2e353db@2ce5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221231T090000Z\r\nDTEND:20221231T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:36e90ccc-69af-43f6-8b80-1c76b09de226@36e9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221111T090000Z\r\nDTEND:20221111T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5f1370c6-5de0-4af6-8f76-c212ef1cffff@5f13.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231011T090000Z\r\nDTEND:20231011T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f73b908d-ca45-405f-9564-74daf48a70d4@f73b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230105T163000Z\r\nDTEND:20230105T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8756a1a3-b978-4c84-b486-a1e83d7e09f0@8756.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230407T163000Z\r\nDTEND:20230407T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9d8574f8-2a59-4dff-985e-bef47d3024d0@9d85.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230327T090000Z\r\nDTEND:20230327T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:de2799ad-948c-472f-99d1-64e1b26ffe23@de27.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230206T163000Z\r\nDTEND:20230206T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d2124415-d643-41ae-b2c1-ccff9ff70010@d212.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230915T163000Z\r\nDTEND:20230915T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2a982e2d-9872-4c9c-86c7-3e60263d8c7e@2a98.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230727T090000Z\r\nDTEND:20230727T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ca72fcb7-c934-43ce-a5bf-043531eb82ac@ca72.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230214T163000Z\r\nDTEND:20230214T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e768988f-30f2-44ef-b65c-a013a74f745d@e768.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221121T163000Z\r\nDTEND:20221121T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:844d8720-abd4-4144-9222-0cc140ffbaa3@844d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230329T163000Z\r\nDTEND:20230329T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:212b2893-1347-461b-8536-874a1f5d7ee0@212b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230617T163000Z\r\nDTEND:20230617T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cf6b2a99-26ca-497a-a2d8-1b88fe6db30a@cf6b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230303T163000Z\r\nDTEND:20230303T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2af5bf43-593e-4733-9ccc-5837e994299d@2af5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230424T163000Z\r\nDTEND:20230424T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8abb9aae-0e45-473f-936c-0478c7aefdf6@8abb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221226T163000Z\r\nDTEND:20221226T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:88795d7e-a5ee-40b1-b76a-995b5c552de3@8879.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230107T090000Z\r\nDTEND:20230107T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:690b1505-7b8b-4c89-b9c5-cc16a855651e@690b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231006T090000Z\r\nDTEND:20231006T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:18e56584-dbaf-41fa-8e7d-bbdeed830644@18e5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221228T090000Z\r\nDTEND:20221228T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:16549293-4dcf-49ce-adb4-103488bd5585@1654.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221208T163000Z\r\nDTEND:20221208T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:69486f03-e443-4f77-bbb2-4ec102d843bb@6948.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230413T090000Z\r\nDTEND:20230413T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7bea8cf2-cc69-42a1-8bcc-edba54495177@7bea.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230530T090000Z\r\nDTEND:20230530T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f86b6bc6-cecd-4758-b225-f763598c85ae@f86b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230907T090000Z\r\nDTEND:20230907T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2b925aa4-8cdd-4a4f-a765-4648dbeb965d@2b92.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230812T163000Z\r\nDTEND:20230812T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6ddce03f-0610-446b-b1fe-b9b13ac19770@6ddc.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231020T090000Z\r\nDTEND:20231020T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f9a9f5a2-87ff-49d0-92bb-357f906aac48@f9a9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221128T163000Z\r\nDTEND:20221128T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fd19b2a1-2388-445c-89ab-b948fe8cc6f1@fd19.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230811T163000Z\r\nDTEND:20230811T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:310c3b91-e6af-4e08-997b-ca4bc32713b4@310c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230227T090000Z\r\nDTEND:20230227T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c0c77c39-d4ea-4d60-8e23-ec41d9380f29@c0c7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230918T163000Z\r\nDTEND:20230918T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:516315da-ab03-4cbe-9941-618b6cb54598@5163.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230116T090000Z\r\nDTEND:20230116T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2774e1b8-f338-4659-80c7-617c27879f40@2774.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230914T090000Z\r\nDTEND:20230914T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:19b59db9-1131-4cea-b387-b5082302055f@19b5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230919T090000Z\r\nDTEND:20230919T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5269c495-2940-4c2e-95d3-21b018018771@5269.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230522T090000Z\r\nDTEND:20230522T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:077e05dd-d7fa-4666-b365-db2e7394f874@077e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230117T090000Z\r\nDTEND:20230117T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3ab39aa0-356a-4b07-aee0-71774f9056ce@3ab3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230220T090000Z\r\nDTEND:20230220T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:268d5caa-8998-4005-aca2-bc0e07962531@268d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230718T163000Z\r\nDTEND:20230718T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:37b5e017-1254-46dd-abaa-fdda002ef1cf@37b5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230121T090000Z\r\nDTEND:20230121T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d7583331-eac9-4d54-81a1-f4af3a5f5b7c@d758.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230114T090000Z\r\nDTEND:20230114T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7b68ff4a-67c1-48b1-ac41-781739db2332@7b68.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231021T090000Z\r\nDTEND:20231021T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:64aa5e37-0cbe-43d6-9629-2971f9c57bf4@64aa.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230519T090000Z\r\nDTEND:20230519T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:17784aa5-bd6c-407d-bdd3-5fdc26bb9d45@1778.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230425T090000Z\r\nDTEND:20230425T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:42348a68-4e57-4c27-8437-02dc0bb6d5f1@4234.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230925T090000Z\r\nDTEND:20230925T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2ba39d7e-7409-496a-97a9-2a277b8e3ba6@2ba3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230213T090000Z\r\nDTEND:20230213T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:27f386e7-4f17-4244-848e-e3ba11ab7066@27f3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221210T163000Z\r\nDTEND:20221210T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c00a1527-b9a0-47a8-adea-851fb0879193@c00a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231017T163000Z\r\nDTEND:20231017T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4246d235-e895-4647-8cd8-d8d7ac17845b@4246.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221105T163000Z\r\nDTEND:20221105T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1ce27fa3-db70-4a44-b4fa-adb662493697@1ce2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230929T090000Z\r\nDTEND:20230929T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f6fdce1b-464b-43dd-8288-94b0c8e8e896@f6fd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230525T090000Z\r\nDTEND:20230525T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b809aff2-04e4-433c-96a3-c4eaaa8cd0de@b809.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231024T163000Z\r\nDTEND:20231024T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1be9fad6-1183-42f8-84a2-b1e480416e7d@1be9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230908T163000Z\r\nDTEND:20230908T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2a7af0b4-b399-4355-906e-c31b63d82e7b@2a7a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230429T163000Z\r\nDTEND:20230429T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ae89feeb-748a-4c85-be15-3d1491776547@ae89.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231019T090000Z\r\nDTEND:20231019T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d63d0301-f986-4834-8d31-48e429bc38a5@d63d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230320T090000Z\r\nDTEND:20230320T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e0a84ced-f643-4127-8810-2a8f309673bf@e0a8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230203T163000Z\r\nDTEND:20230203T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5133ff08-4de5-49f2-9142-c17c3b1f8b4e@5133.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230404T163000Z\r\nDTEND:20230404T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6141e5b5-398a-4e63-83ce-2d4232430ba7@6141.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230911T090000Z\r\nDTEND:20230911T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9156194f-057d-488d-932f-0cf89630cc11@9156.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221209T163000Z\r\nDTEND:20221209T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0ab04620-80f6-4169-8829-0999c357366c@0ab0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230223T090000Z\r\nDTEND:20230223T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9f901dc1-9fbb-40c4-82b5-1f8ff6613f6f@9f90.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230829T163000Z\r\nDTEND:20230829T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fc2e158d-ff1a-43d9-aafb-7ef41e68afdd@fc2e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230427T090000Z\r\nDTEND:20230427T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8cc8ced7-17e3-4428-9d66-e71b8411f7a6@8cc8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231004T090000Z\r\nDTEND:20231004T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b7ec4629-70e7-4834-9654-f51734d53ae4@b7ec.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230823T163000Z\r\nDTEND:20230823T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:42721beb-cd9b-433a-878f-fecc0d203a5b@4272.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230111T090000Z\r\nDTEND:20230111T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:faa0287f-a3ee-465f-8052-b800856e1a53@faa0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230112T163000Z\r\nDTEND:20230112T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d0e1456d-7ae8-423a-b579-10aa0c731086@d0e1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230715T163000Z\r\nDTEND:20230715T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7399a1d8-a2da-43e9-8d7c-63ee44066018@7399.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230816T090000Z\r\nDTEND:20230816T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9b50cfdb-bb58-4764-b230-f9c0308b51ef@9b50.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230617T090000Z\r\nDTEND:20230617T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5e99d19c-1e12-4bff-bbfc-397463606ec2@5e99.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230812T090000Z\r\nDTEND:20230812T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:73fa5298-d39a-49c0-8cd9-915e88cf9701@73fa.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230822T090000Z\r\nDTEND:20230822T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fcc1b780-9198-4c90-85ea-c95c0ae4fdf0@fcc1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230128T090000Z\r\nDTEND:20230128T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f586b057-255f-4801-ab7d-9b812667cce7@f586.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230518T163000Z\r\nDTEND:20230518T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2a9f288f-0ffc-4e5c-b7b5-1b1477515712@2a9f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230728T163000Z\r\nDTEND:20230728T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4a423c95-8a2a-45c4-bf5e-39b62ed17459@4a42.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230228T163000Z\r\nDTEND:20230228T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:793ac967-1449-4cc7-a83f-c05541ed367e@793a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230315T163000Z\r\nDTEND:20230315T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:71ae514b-d888-4a0c-a01d-3d8c3bd9e9ab@71ae.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230426T163000Z\r\nDTEND:20230426T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:aa629bb0-3c29-4b51-bc0c-1b8f73702ef3@aa62.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230316T163000Z\r\nDTEND:20230316T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b499a6e5-5bf3-4098-91ab-886668b79f96@b499.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230616T090000Z\r\nDTEND:20230616T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:981fa00e-724e-42a1-afea-9c8f22b2cb0f@981f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230905T163000Z\r\nDTEND:20230905T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6c466d10-2f04-4524-81cc-a73684831dac@6c46.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231002T090000Z\r\nDTEND:20231002T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7f5d54d1-bcf0-4613-a5d7-0aff9f3d7d48@7f5d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230526T090000Z\r\nDTEND:20230526T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4d174fe5-9e91-4752-981b-8365a2cc7758@4d17.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230701T090000Z\r\nDTEND:20230701T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:46ef70be-efaa-461d-991e-facc39cf6a8e@46ef.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230403T163000Z\r\nDTEND:20230403T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d6ecdd86-1eff-425b-abd8-e967cac8b013@d6ec.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231002T163000Z\r\nDTEND:20231002T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0a7a5218-89b5-40c5-a767-b743fff09cd8@0a7a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230629T090000Z\r\nDTEND:20230629T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a22d5dd8-1537-434c-8827-fa25db10aedb@a22d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230109T163000Z\r\nDTEND:20230109T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:61a78c06-5c8a-4d15-9281-a3953773e9a9@61a7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230103T090000Z\r\nDTEND:20230103T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2be7f2bd-05de-4cc9-b426-94d596bb9a11@2be7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230728T090000Z\r\nDTEND:20230728T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:16f46a03-4146-4650-bea5-f8117b8a5633@16f4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230630T090000Z\r\nDTEND:20230630T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f91b8d64-d626-47b9-b0e2-a468529d4558@f91b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230314T090000Z\r\nDTEND:20230314T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cc2057b6-7aa1-4e18-8b4a-282fcf7b36fb@cc20.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230406T163000Z\r\nDTEND:20230406T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fd408163-d3b8-40bb-981d-ce07b2ddc9e7@fd40.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231027T090000Z\r\nDTEND:20231027T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:320bac03-9138-47f9-9d25-1a0f29d0a6ed@320b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230918T090000Z\r\nDTEND:20230918T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:431ae606-e88f-4d1f-a4f8-c6ee7d6015d7@431a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221118T163000Z\r\nDTEND:20221118T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:06daf724-c607-4184-8910-b93a8ec18883@06da.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230302T090000Z\r\nDTEND:20230302T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f7a25ed6-1c94-43b9-9519-4a644fc3f193@f7a2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230504T090000Z\r\nDTEND:20230504T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ab256a6c-1871-47f7-b9b7-8237b9e47e65@ab25.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221207T090000Z\r\nDTEND:20221207T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4ef21a50-330c-4f72-8a22-2e11a87592f6@4ef2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230606T163000Z\r\nDTEND:20230606T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:979c53a9-8cd2-46b3-a193-6915ce719725@979c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230904T163000Z\r\nDTEND:20230904T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a94b1de6-e74c-44c1-938e-b7915698a640@a94b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230928T090000Z\r\nDTEND:20230928T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:faf5e912-363c-49fb-8e2a-026d510547eb@faf5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231007T163000Z\r\nDTEND:20231007T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6931d55a-e341-48fa-840b-3acd7c711650@6931.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230926T090000Z\r\nDTEND:20230926T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:abed6be1-5783-4868-8687-1578a98df9ef@abed.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230404T090000Z\r\nDTEND:20230404T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:85210edd-a4d1-450f-be0c-c31303f5d0ba@8521.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230815T090000Z\r\nDTEND:20230815T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a757116d-c643-4af3-a100-2f8ac08a0e24@a757.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230329T090000Z\r\nDTEND:20230329T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2d0c7541-da82-4f37-9042-70277c00e3b8@2d0c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230510T163000Z\r\nDTEND:20230510T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ba9027d2-191f-4713-b3b3-c049585220e8@ba90.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230601T163000Z\r\nDTEND:20230601T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1ffc2179-1a07-4d13-ba9c-8ced0483852b@1ffc.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230921T163000Z\r\nDTEND:20230921T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ea88d33f-dd45-4615-87ae-d5e914d8cd74@ea88.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230828T090000Z\r\nDTEND:20230828T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8356e8ab-fdcf-4492-bcf2-749f71df85ca@8356.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230124T090000Z\r\nDTEND:20230124T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:87cdde04-260f-4fd1-adc0-f24dc255b517@87cd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221205T163000Z\r\nDTEND:20221205T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8f90298d-bcc5-49d2-b1b9-cd308d26ac74@8f90.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230810T163000Z\r\nDTEND:20230810T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:911f6b45-d43b-48eb-8a2a-d54745d559e2@911f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230517T163000Z\r\nDTEND:20230517T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:51615712-7771-4ffb-8ac2-a80d978b578c@5161.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230407T090000Z\r\nDTEND:20230407T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c6505b67-615b-4bf3-bfc2-d9c8c0fd0451@c650.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221215T090000Z\r\nDTEND:20221215T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b3dcd7e3-b4ab-42a8-86cc-8e6848690161@b3dc.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230927T163000Z\r\nDTEND:20230927T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:da1395fc-ef23-4231-9ed9-61f966e21051@da13.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231010T090000Z\r\nDTEND:20231010T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:48d3d736-e128-4100-a3e4-aba1c9cec471@48d3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230711T163000Z\r\nDTEND:20230711T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:162d520d-cfcd-4f11-9af4-da2c726964b3@162d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221107T090000Z\r\nDTEND:20221107T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:07beab49-6459-4ece-a7a7-e264e41aeea3@07be.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230308T163000Z\r\nDTEND:20230308T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:850770d7-430e-4c4d-8f6c-aa0568a95660@8507.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230721T163000Z\r\nDTEND:20230721T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d231e92c-b312-4c9f-bc8e-526464e2ec2d@d231.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221203T090000Z\r\nDTEND:20221203T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cdeda203-8035-4a8a-abdb-b786848a35f3@cded.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230215T090000Z\r\nDTEND:20230215T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5dbff1de-c2b4-4e5b-bb51-6f653cb618e9@5dbf.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230131T163000Z\r\nDTEND:20230131T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f3be8544-1048-45b4-b88e-611d2a313e92@f3be.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230206T090000Z\r\nDTEND:20230206T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ec09ff69-c909-4a39-a2a9-1b7336577202@ec09.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230328T163000Z\r\nDTEND:20230328T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9578c836-ddce-4de6-a2c6-6b39d810db61@9578.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221206T163000Z\r\nDTEND:20221206T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7654e0bd-a0ca-466b-af58-085b2c38bcea@7654.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230426T090000Z\r\nDTEND:20230426T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0177f153-6dff-49ee-bc3e-df225b9df4f3@0177.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231023T090000Z\r\nDTEND:20231023T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0d8181da-0c5e-4556-8037-142fbe553899@0d81.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230921T090000Z\r\nDTEND:20230921T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dd108c44-ec48-453b-baac-4629f16ab25b@dd10.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230501T163000Z\r\nDTEND:20230501T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ac27279d-6949-421b-ac57-e0b26522826c@ac27.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230318T090000Z\r\nDTEND:20230318T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e5f157a3-a40a-48f0-8331-3c3be7845e85@e5f1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230701T163000Z\r\nDTEND:20230701T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b44dd05d-64db-49df-88ee-c8dce725f81f@b44d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231031T090000Z\r\nDTEND:20231031T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b68ee62a-66c1-432e-8aa2-4eae766a5ee9@b68e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231013T163000Z\r\nDTEND:20231013T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bfd15e5c-2d0a-4d2c-a562-1266b5498de2@bfd1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230825T090000Z\r\nDTEND:20230825T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:41c6ce3d-cb50-47a0-8f88-16a2a1377aa3@41c6.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230522T163000Z\r\nDTEND:20230522T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3ca36734-edc8-4d3c-872c-2188adc562b4@3ca3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230814T163000Z\r\nDTEND:20230814T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ae9a5403-f0c5-4c13-ab8e-422ce5fcf9a8@ae9a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230412T090000Z\r\nDTEND:20230412T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2036d3f3-175a-4121-8f00-efad548936fd@2036.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221220T163000Z\r\nDTEND:20221220T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1f7b6ffc-2a83-4236-bd14-2ec5dad6f824@1f7b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230130T090000Z\r\nDTEND:20230130T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d52aecfc-0d82-401d-959e-9f374e568934@d52a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230222T163000Z\r\nDTEND:20230222T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:06b4716a-9965-47d3-a90d-ea06b8405f6a@06b4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230509T090000Z\r\nDTEND:20230509T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fc8b827b-f0bc-4486-a735-94f5804e31a7@fc8b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230722T090000Z\r\nDTEND:20230722T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ae2a77dd-1be6-4705-9809-59a4a49cb6a3@ae2a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230613T090000Z\r\nDTEND:20230613T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fd49ac6c-6303-4746-b5a3-49ca94e694a4@fd49.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230214T090000Z\r\nDTEND:20230214T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:04d8c4d5-270b-4a54-8e98-9d974b286cae@04d8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221126T090000Z\r\nDTEND:20221126T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:acc83579-c7d1-4b7e-b204-ac558cbb5e06@acc8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221117T163000Z\r\nDTEND:20221117T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:80206487-b17c-43c6-89c4-1640ed91af54@8020.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230704T163000Z\r\nDTEND:20230704T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:280fac33-51ca-44ab-9188-6f92b62891e1@280f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230302T163000Z\r\nDTEND:20230302T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:32ec5cd6-0c37-4c1d-a075-74fe980fc7f5@32ec.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230321T163000Z\r\nDTEND:20230321T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ff65c6ea-16da-40c7-9d64-ef13ce76985c@ff65.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230328T090000Z\r\nDTEND:20230328T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:91df0ad1-cfb6-43c7-b3d8-5b15990c25d6@91df.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230726T163000Z\r\nDTEND:20230726T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:607b8eae-d2a6-4798-be32-fb36489c7027@607b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230624T090000Z\r\nDTEND:20230624T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0be8b2c5-f055-448b-9352-f2a1a2b10e1a@0be8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230721T090000Z\r\nDTEND:20230721T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7dc9cc76-e1fa-4bc5-9cbc-cfaefd27fea2@7dc9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230805T090000Z\r\nDTEND:20230805T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:28337665-7bd1-41a0-adac-4bc1d838756a@2833.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230525T163000Z\r\nDTEND:20230525T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1abd1bcd-3985-412c-84b9-9fd27d36c583@1abd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221119T163000Z\r\nDTEND:20221119T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2670c4bb-7a01-4202-8615-60922d25dc2c@2670.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230620T090000Z\r\nDTEND:20230620T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c72595c1-0d56-409d-99ac-f81606cc194b@c725.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230713T090000Z\r\nDTEND:20230713T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:44e6b34f-16a4-40d9-96ed-bc41d4a22800@44e6.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221112T090000Z\r\nDTEND:20221112T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:93b06cbf-aab4-475f-980f-f687f598a88b@93b0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221217T090000Z\r\nDTEND:20221217T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:818f022b-b08d-433f-a369-57019a6c78c3@818f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230913T163000Z\r\nDTEND:20230913T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d6ce00bd-9934-423b-9c71-18f1b02f8f3b@d6ce.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230327T163000Z\r\nDTEND:20230327T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bae9270d-7980-4e12-acda-c3e8548c1ff2@bae9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230320T163000Z\r\nDTEND:20230320T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:313e5e09-8534-4359-8189-300f56cecadf@313e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221227T163000Z\r\nDTEND:20221227T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2b770323-28d5-4405-8fb7-dbce1161c102@2b77.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230506T163000Z\r\nDTEND:20230506T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ff8b3801-d3db-43a7-88b6-9c6246c004ca@ff8b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231005T163000Z\r\nDTEND:20231005T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bf88bb60-953f-4d1b-9f7e-0d8d6d701c6c@bf88.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221221T163000Z\r\nDTEND:20221221T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b4ff1b54-3cde-4869-9c9d-2a35070a2d42@b4ff.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230118T163000Z\r\nDTEND:20230118T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:401e0a89-5315-434b-a863-e2579b727de8@401e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221205T090000Z\r\nDTEND:20221205T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b8cbecae-c43f-4c8a-b039-985ee4b25edc@b8cb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230909T163000Z\r\nDTEND:20230909T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a701a9ef-c68c-47a6-9519-d474b1b9110c@a701.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221229T090000Z\r\nDTEND:20221229T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9842405c-7b1a-40e6-b431-c79d55a25c35@9842.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230620T163000Z\r\nDTEND:20230620T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:40797f64-7cf1-461b-86f0-bc98cea64405@4079.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230418T163000Z\r\nDTEND:20230418T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bafecdcb-3ae3-420b-9415-9a468482e9b6@bafe.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230831T090000Z\r\nDTEND:20230831T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d41e4cf1-d9ff-4597-9d75-c2c5dbff761d@d41e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231020T163000Z\r\nDTEND:20231020T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:54b56442-51e5-4731-9206-39be1691fe36@54b5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230209T163000Z\r\nDTEND:20230209T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1df889ed-6fa7-402e-8822-d8a628c8c0e3@1df8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230123T163000Z\r\nDTEND:20230123T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0d960321-d406-47a3-b384-dff6992f8961@0d96.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230309T090000Z\r\nDTEND:20230309T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d73f0b51-9056-4277-ad74-c16e8d64bdba@d73f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230616T163000Z\r\nDTEND:20230616T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d1f942d9-2b4c-428e-9ee8-4a4f66e49fb6@d1f9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221104T090000Z\r\nDTEND:20221104T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a8124860-52cc-4ecb-bce8-63580bf99b3c@a812.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230201T163000Z\r\nDTEND:20230201T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:60cddff8-cf22-4d4d-b301-9016660de114@60cd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230815T163000Z\r\nDTEND:20230815T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6dd20458-35ac-41bd-b1be-468a9ff687a3@6dd2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230411T163000Z\r\nDTEND:20230411T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7b13d5ce-3836-4748-a43c-eed89888e4ac@7b13.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221208T090000Z\r\nDTEND:20221208T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:45c6afca-c0c2-47db-98a2-943f73d5ad59@45c6.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230120T090000Z\r\nDTEND:20230120T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5a9be92e-9772-462e-a182-724d6afa662e@5a9b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230925T163000Z\r\nDTEND:20230925T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:30536281-f1aa-469d-89ee-3a9697caae4d@3053.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230113T090000Z\r\nDTEND:20230113T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e3286339-ad8b-4d3a-8e77-9c31b8b048df@e328.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230411T090000Z\r\nDTEND:20230411T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:46ce5d47-9f65-40e6-8106-9a1170ae6768@46ce.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230801T090000Z\r\nDTEND:20230801T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1c11ca8d-1224-42a1-be0f-bd42eb08a232@1c11.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221214T163000Z\r\nDTEND:20221214T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a4b0ced7-348f-4eb9-9b57-ff29547157e9@a4b0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221125T163000Z\r\nDTEND:20221125T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:931921cd-1989-4ff3-8509-9c0076782ff8@9319.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221209T090000Z\r\nDTEND:20221209T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:32b35297-8578-4dde-b440-5c7456a999fc@32b3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231019T163000Z\r\nDTEND:20231019T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:227ce358-ed14-443f-b19b-277112ff4e16@227c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230614T090000Z\r\nDTEND:20230614T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ef2f8652-5171-48ea-bf3a-f47fba12df4c@ef2f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221219T090000Z\r\nDTEND:20221219T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5ed76778-e337-43a4-ba42-a32f982bf24a@5ed7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230309T163000Z\r\nDTEND:20230309T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f4b5be3a-55e3-4988-986f-10a0f9030fee@f4b5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221119T090000Z\r\nDTEND:20221119T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:188ef4d4-62d0-4315-92f6-5997ec8c8e78@188e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230821T090000Z\r\nDTEND:20230821T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:708062ff-a2ca-4b41-9788-b33d08fe164b@7080.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230316T090000Z\r\nDTEND:20230316T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6c847299-fc6e-47ad-b5be-3c66f34e141c@6c84.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230824T090000Z\r\nDTEND:20230824T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:70b20e13-e6ae-45d6-b0ac-cfd1b9bf02d3@70b2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230415T090000Z\r\nDTEND:20230415T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7170f594-a02e-43bc-9dc5-1c0b2f7d97d7@7170.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230706T163000Z\r\nDTEND:20230706T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:41281335-f2f8-4775-a567-add0169da10c@4128.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230708T090000Z\r\nDTEND:20230708T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bedab3df-877d-45cc-b42d-e937e3bdfa2e@beda.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230107T163000Z\r\nDTEND:20230107T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ce8f3321-5c1f-4745-8f8e-379d01d8959c@ce8f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230508T090000Z\r\nDTEND:20230508T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8260cd70-b38b-4d2c-8b33-1f5871f4d063@8260.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230419T163000Z\r\nDTEND:20230419T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3ffb6f54-13be-4f56-87b8-2d15bbdc77d5@3ffb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231004T163000Z\r\nDTEND:20231004T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f2b6b262-c3cc-45c8-8c7b-0593ba524e68@f2b6.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221105T090000Z\r\nDTEND:20221105T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3c235b48-f03a-4821-b0ab-2bdbd7db1ef1@3c23.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230504T163000Z\r\nDTEND:20230504T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:31f62232-a5a5-421f-a9cf-11637812f2f7@31f6.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230619T163000Z\r\nDTEND:20230619T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:187a99e1-2972-4d05-a56a-15154203262b@187a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230831T163000Z\r\nDTEND:20230831T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:314bc5eb-a406-4274-9024-b69e6532968b@314b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230221T090000Z\r\nDTEND:20230221T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6c84c4ca-163c-49e6-9b24-5fe01598399f@6c84.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230808T090000Z\r\nDTEND:20230808T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d8d163f2-872c-4920-8002-03d9ef2c7216@d8d1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230207T090000Z\r\nDTEND:20230207T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e18173fe-0870-4c4f-aa67-1513d68594ea@e181.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230724T090000Z\r\nDTEND:20230724T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:08fc7500-a8f3-478b-a964-a887adbb2637@08fc.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221128T090000Z\r\nDTEND:20221128T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:16c63319-4fad-4eb7-9b13-eb259ec503aa@16c6.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221202T163000Z\r\nDTEND:20221202T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3fe2b7e2-99b7-42d8-9b77-9871fb72660f@3fe2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230413T163000Z\r\nDTEND:20230413T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2fce16e7-5c9c-4274-a236-eb5e2cee47eb@2fce.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230622T090000Z\r\nDTEND:20230622T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2f4c3209-005c-42be-964e-86fc817f9f57@2f4c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230518T090000Z\r\nDTEND:20230518T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:94ba9331-dda4-440b-9158-ba088b197134@94ba.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221104T163000Z\r\nDTEND:20221104T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ad197506-2b8b-41c4-91f6-e3bebccbb7d6@ad19.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230331T163000Z\r\nDTEND:20230331T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:865ffaf9-a71e-4b64-afc1-4dce67d66a18@865f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231018T090000Z\r\nDTEND:20231018T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b031fd8c-2710-4895-ae90-3e4642206403@b031.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221107T163000Z\r\nDTEND:20221107T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4dbda413-afc3-4a91-aa3b-df7fd3e7d6ea@4dbd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230216T163000Z\r\nDTEND:20230216T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:279e9642-5426-4673-85ec-b2732f938789@279e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230213T163000Z\r\nDTEND:20230213T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8099a5bf-bfc9-47ce-a165-2716593a334d@8099.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231017T090000Z\r\nDTEND:20231017T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:427fc16d-999e-4f72-be3c-c1662226adbd@427f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230225T163000Z\r\nDTEND:20230225T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:86f78342-82ac-44dd-9011-05bdba9843d0@86f7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230710T090000Z\r\nDTEND:20230710T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:df9481f9-70aa-4f57-b654-9990a73b6573@df94.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221202T090000Z\r\nDTEND:20221202T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:756010f5-0cfc-4b01-a2ea-d99021f7fb8e@7560.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230801T163000Z\r\nDTEND:20230801T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fc964e61-82b5-4237-878d-27c9d4cdc420@fc96.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230731T090000Z\r\nDTEND:20230731T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0162a28a-f9da-409e-9f2f-57cebd99773b@0162.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230330T090000Z\r\nDTEND:20230330T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:56b948e2-4dab-4ed5-96ae-6b06b68e5d44@56b9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230110T163000Z\r\nDTEND:20230110T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dd09ed1b-5372-4880-8b05-5dc18a64f4f2@dd09.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230102T090000Z\r\nDTEND:20230102T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8574ed59-369c-4b3f-9618-ad58b74f8f98@8574.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230124T163000Z\r\nDTEND:20230124T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e3a3202a-551b-41eb-8e00-798b4fa16857@e3a3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230513T163000Z\r\nDTEND:20230513T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6bf70046-de97-4bfd-b4fd-e80f69ef7ce9@6bf7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221114T163000Z\r\nDTEND:20221114T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7506efa7-61bb-4996-8ddf-f40a60d70120@7506.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230703T163000Z\r\nDTEND:20230703T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:36df89f7-9bd1-4172-9c72-210031ca1f15@36df.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231024T090000Z\r\nDTEND:20231024T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:849f1d1f-916b-4c74-b3ba-175871942969@849f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230103T163000Z\r\nDTEND:20230103T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7eb9a087-f2dc-4ffa-b31d-460c6b788c44@7eb9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230810T090000Z\r\nDTEND:20230810T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2d20ddb0-edfe-40ce-a420-e004e0411ef8@2d20.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230117T163000Z\r\nDTEND:20230117T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:19de9e60-77bb-4346-ac57-87f29db8b062@19de.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230908T090000Z\r\nDTEND:20230908T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:309eaecb-6a64-48af-9fcc-59998bfdc40b@309e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221228T163000Z\r\nDTEND:20221228T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9d683d3b-c73e-4ad9-8966-3487a1ee5b2f@9d68.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230311T090000Z\r\nDTEND:20230311T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1093c218-5c67-4e71-9656-0e0992156a4f@1093.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230503T163000Z\r\nDTEND:20230503T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:61117f9e-79f8-4d4b-a053-f327842a2124@6111.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230520T090000Z\r\nDTEND:20230520T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3a180740-16ca-435f-94af-46a55136155a@3a18.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230603T090000Z\r\nDTEND:20230603T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:74efd7ed-9ed7-4826-8794-c8dbba562ac0@74ef.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231009T090000Z\r\nDTEND:20231009T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:15a80ec7-68a1-4443-889e-85cf12eb1c04@15a8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230307T090000Z\r\nDTEND:20230307T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6dd045b8-5b2e-4f04-91d4-ad76b5f46470@6dd0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230220T163000Z\r\nDTEND:20230220T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2864494d-de27-42c1-a9b1-13574d12b333@2864.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231010T163000Z\r\nDTEND:20231010T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b4ffc1d8-85e0-4723-a30b-574ff38b1faa@b4ff.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230727T163000Z\r\nDTEND:20230727T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f517d171-e941-4049-89a3-6cf3cd1709bd@f517.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230126T090000Z\r\nDTEND:20230126T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:77893565-d82f-4aaf-b053-9c934bfcfcfb@7789.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231009T163000Z\r\nDTEND:20231009T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d06b2609-6126-4b0a-a1a6-cd851d281bb2@d06b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230321T090000Z\r\nDTEND:20230321T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:654be8cf-f887-4bb0-b29c-c98d65ef4423@654b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230408T163000Z\r\nDTEND:20230408T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:80972da5-b7ed-466e-82d3-6571dff92ef0@8097.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230215T163000Z\r\nDTEND:20230215T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cde7c802-ba83-422e-9173-78cb7bbd1783@cde7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221231T163000Z\r\nDTEND:20221231T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a9b569e8-918b-4327-9632-6d6019376243@a9b5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230210T090000Z\r\nDTEND:20230210T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e3e2892d-8df7-4a99-917d-4c61d32b6a02@e3e2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230920T090000Z\r\nDTEND:20230920T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2e2361e2-0e61-4798-b9f3-9b60098dac9a@2e23.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230113T163000Z\r\nDTEND:20230113T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:87b47c1d-0ff1-4bc1-a0be-2fb2a1de20f0@87b4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230325T090000Z\r\nDTEND:20230325T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f0cb4d94-e08e-461a-9887-62ac6438e031@f0cb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230127T163000Z\r\nDTEND:20230127T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:53f87880-157c-4bdc-a832-25230d645a13@53f8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230607T090000Z\r\nDTEND:20230607T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b802e345-e890-4da3-be17-d06e4abf80b1@b802.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230310T090000Z\r\nDTEND:20230310T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b625e7fd-f746-4633-8668-6d67402b0be1@b625.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230310T163000Z\r\nDTEND:20230310T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d0756a4a-0269-4c2d-8053-733e9c4c300e@d075.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230428T090000Z\r\nDTEND:20230428T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7cc3f7e5-2b85-47c7-aa3c-6c74e6733600@7cc3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230511T163000Z\r\nDTEND:20230511T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ce797a05-cefa-4f26-be10-e0712b334b28@ce79.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230330T163000Z\r\nDTEND:20230330T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:503e466a-bfaa-4abf-abe4-531a52e4b9b0@503e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221114T090000Z\r\nDTEND:20221114T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:aec8de58-fc0a-4b6f-abed-983f6398d998@aec8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230610T163000Z\r\nDTEND:20230610T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:620eb0db-00c7-4a57-879b-99629904d802@620e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230718T090000Z\r\nDTEND:20230718T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3c0a104e-a0e7-4eba-821a-8fb1bd52e7ea@3c0a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231026T163000Z\r\nDTEND:20231026T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1c34ed0f-6ba0-471b-b8bf-bf87b9b72054@1c34.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230509T163000Z\r\nDTEND:20230509T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a1371aa9-d1a1-4d07-8349-df773ea69e62@a137.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230805T163000Z\r\nDTEND:20230805T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0f7437c7-fe64-4c5e-908b-956648462ad0@0f74.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230324T163000Z\r\nDTEND:20230324T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:06df544a-1a22-44ad-b7a4-12cf9e97337b@06df.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231011T163000Z\r\nDTEND:20231011T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1b015a9e-92be-48f1-92b4-00774e3fd286@1b01.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231031T163000Z\r\nDTEND:20231031T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9d544c6c-a25c-44c6-b51a-6be050edde49@9d54.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230605T163000Z\r\nDTEND:20230605T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:80b91e32-879e-4f2c-b0b4-b53ff40baa31@80b9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221212T163000Z\r\nDTEND:20221212T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:605bb8df-a5ba-42b9-8716-656883ea6d01@605b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230906T163000Z\r\nDTEND:20230906T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:504a6511-320f-47b8-8d22-dde6ff299921@504a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230926T163000Z\r\nDTEND:20230926T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f4203dfc-0be8-4574-ba7d-e94d6d49f87c@f420.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221118T090000Z\r\nDTEND:20221118T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0f744d26-6f6e-4aa5-b518-7d1449ad41d6@0f74.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230502T090000Z\r\nDTEND:20230502T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0d658196-fe88-4449-800f-34896664e434@0d65.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230914T163000Z\r\nDTEND:20230914T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e605b0b4-634b-4625-98f8-7edf98d06982@e605.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230128T163000Z\r\nDTEND:20230128T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d5b8bb98-9e1c-4f90-b41e-e704cb47c8ac@d5b8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230131T090000Z\r\nDTEND:20230131T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8d9fed7b-f392-406a-ba1b-499fe5f231b7@8d9f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230807T163000Z\r\nDTEND:20230807T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:331b26f9-dd93-4ef1-83b3-5c5b67c85105@331b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230822T163000Z\r\nDTEND:20230822T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0f9fb463-a5e3-45a3-acda-a206b0179f81@0f9f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230529T163000Z\r\nDTEND:20230529T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e6bb3d1e-1a6b-4454-a13b-ef1666fe9c1f@e6bb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230119T163000Z\r\nDTEND:20230119T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:23d7f10b-1fc2-4b15-9f65-856bb85ec6eb@23d7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230629T163000Z\r\nDTEND:20230629T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bc9003c8-5eef-4adb-9f3b-cd3c6abf749d@bc90.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230301T090000Z\r\nDTEND:20230301T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5af95f9c-32d7-4920-b4d3-8943495c3e12@5af9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221216T090000Z\r\nDTEND:20221216T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0072b827-ed5f-4ca9-be32-f24c9db8f0ff@0072.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230719T163000Z\r\nDTEND:20230719T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c1539fc2-d26b-46c1-b463-b416d2c1ac79@c153.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230818T090000Z\r\nDTEND:20230818T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:989a8cdd-0eba-4de8-9867-01ad6212ee8d@989a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221207T163000Z\r\nDTEND:20221207T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1643ecc8-9026-4516-89ee-a43ff510cacd@1643.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230725T163000Z\r\nDTEND:20230725T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8b08f925-cde1-4c91-a4f7-f6052df348a0@8b08.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230901T090000Z\r\nDTEND:20230901T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d55ac471-ea58-465a-9390-fefac6539114@d55a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230626T163000Z\r\nDTEND:20230626T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3620c60e-1d0e-48b6-908d-19d9ed9d840f@3620.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221111T163000Z\r\nDTEND:20221111T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d215c060-590a-41a5-8c23-c5f46b837926@d215.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230412T163000Z\r\nDTEND:20230412T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b668e1ff-59c2-4ee3-b7a1-44e7c3801502@b668.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230216T090000Z\r\nDTEND:20230216T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1d92fcaa-1252-4354-8934-3b6a0b1543af@1d92.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231006T163000Z\r\nDTEND:20231006T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ed4da622-c1df-44d7-af59-c8ccbb3c4a92@ed4d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221220T090000Z\r\nDTEND:20221220T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4314b063-82b6-49a6-8b9d-343a37e10226@4314.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221213T163000Z\r\nDTEND:20221213T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3d5c8871-187a-45fc-9b43-1b45bbd08914@3d5c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221206T090000Z\r\nDTEND:20221206T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ad66675a-1580-4d9d-a1a8-32b44f12c2a5@ad66.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221112T163000Z\r\nDTEND:20221112T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:af8f6b5c-ee6d-42a9-966e-307a8e680e84@af8f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230429T090000Z\r\nDTEND:20230429T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:539a7e79-5e6b-4935-aefa-4ba876cd476d@539a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230714T090000Z\r\nDTEND:20230714T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:79a8ee71-216f-43ec-a6c6-016ab018c48d@79a8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221125T090000Z\r\nDTEND:20221125T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a82edd05-7905-461e-8f4d-193ad0016311@a82e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230510T090000Z\r\nDTEND:20230510T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:81d3f9a8-24b5-4d7d-95bd-0d0ed076cad5@81d3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230116T163000Z\r\nDTEND:20230116T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7ed0e7be-2ee7-4468-911b-5a9fda5561eb@7ed0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230325T163000Z\r\nDTEND:20230325T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:14ae234d-ab46-443d-b51a-f51ea9acbaad@14ae.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230406T090000Z\r\nDTEND:20230406T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5b9b3eb1-22d4-4e52-a7a9-ab0935dfc9d2@5b9b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230707T163000Z\r\nDTEND:20230707T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d7fb3456-408a-4036-b579-829402fa289c@d7fb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231028T090000Z\r\nDTEND:20231028T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9e76edc7-f8bb-4213-af1b-3d77ff29977c@9e76.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230322T090000Z\r\nDTEND:20230322T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1c9be46c-254f-444b-9363-c24baecee7d4@1c9b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230626T090000Z\r\nDTEND:20230626T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:32057472-11a4-4366-a057-42c3c6cf58b9@3205.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230725T090000Z\r\nDTEND:20230725T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ee716a4d-40da-421a-a1b6-d03f07197d95@ee71.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221122T163000Z\r\nDTEND:20221122T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e5db129b-c023-46ab-a26b-db37e30d53c2@e5db.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230717T163000Z\r\nDTEND:20230717T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6bb8308b-83e8-4ba3-a2e2-1dee37d2bf0c@6bb8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230515T163000Z\r\nDTEND:20230515T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:72dd38c5-c81b-4726-88bc-170807c281b2@72dd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230814T090000Z\r\nDTEND:20230814T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3827b064-39db-4891-9aa9-ce86625d69d4@3827.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230802T163000Z\r\nDTEND:20230802T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:55eb6c83-d5e2-44bf-87c0-75dc15446724@55eb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221227T090000Z\r\nDTEND:20221227T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6ca3e2a8-b2cb-4076-97e0-77c170dfd47e@6ca3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230106T163000Z\r\nDTEND:20230106T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:12fd1319-e2c7-4ace-b046-e87363469406@12fd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221121T090000Z\r\nDTEND:20221121T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bbc21c68-125a-4a1a-9c2a-12261d783507@bbc2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230520T163000Z\r\nDTEND:20230520T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3dbb4900-de00-40ea-a670-55ec837da128@3dbb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230811T090000Z\r\nDTEND:20230811T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a7656352-8c5b-401c-a149-b7eda591602d@a765.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230916T163000Z\r\nDTEND:20230916T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:49250954-fe1b-4974-b552-89b39cd1d7b0@4925.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230919T163000Z\r\nDTEND:20230919T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dae5540f-df7a-4fbe-9686-e4d078c72f41@dae5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230515T090000Z\r\nDTEND:20230515T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:284d24ab-fb1f-4f6e-b89b-fa2610749a85@284d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230703T090000Z\r\nDTEND:20230703T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dd02cc0a-0701-45cc-9364-fa46eb7e60e9@dd02.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230415T163000Z\r\nDTEND:20230415T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a14a6e52-bafa-4e10-83d8-c53e030d81de@a14a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230612T163000Z\r\nDTEND:20230612T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:76b2bd85-717f-4fde-bd9f-905ec8118824@76b2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221203T163000Z\r\nDTEND:20221203T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f7efbb3e-153d-4c3c-8051-0b5e5a1c2064@f7ef.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230512T163000Z\r\nDTEND:20230512T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1b05f26d-5339-42a3-8f60-8c75f6643d84@1b05.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230906T090000Z\r\nDTEND:20230906T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0c7bbf81-1143-4656-976c-3696d5b304b8@0c7b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231014T163000Z\r\nDTEND:20231014T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ee8e1429-2107-4349-930c-e60bcd76d6f5@ee8e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230405T163000Z\r\nDTEND:20230405T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5da3074c-fa6d-449d-a3e3-c5aebeacb781@5da3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230306T163000Z\r\nDTEND:20230306T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2f370d6e-c4b2-4f5a-b88d-21f38e87948b@2f37.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230928T163000Z\r\nDTEND:20230928T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:292fd67e-1ffe-418e-b084-f97a9be44e06@292f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230421T163000Z\r\nDTEND:20230421T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:380a9614-6c7b-4805-9e9b-b5a7ed04b75c@380a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230225T090000Z\r\nDTEND:20230225T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f65a57e9-3e76-4863-9dfa-4f219adb0ff4@f65a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221213T090000Z\r\nDTEND:20221213T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b867678c-eb50-489c-89a9-d241881d6f95@b867.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230527T090000Z\r\nDTEND:20230527T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:73260179-b2cd-427f-af31-050457ca6596@7326.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230817T163000Z\r\nDTEND:20230817T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5fdaaeb6-778f-4b28-a59b-95f1e9f505b7@5fda.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230304T163000Z\r\nDTEND:20230304T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bcbd8bdb-6fd1-44d9-9874-4eac6b7ef5fc@bcbd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221223T090000Z\r\nDTEND:20221223T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:32ce7c34-a2af-45ad-b401-101194645da4@32ce.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230829T090000Z\r\nDTEND:20230829T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ef85707b-6594-4151-a29b-3ac8a6ed61e1@ef85.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221123T090000Z\r\nDTEND:20221123T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a8924113-6956-4f54-9c71-7c48932c5572@a892.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221122T090000Z\r\nDTEND:20221122T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:25b4dbd9-ae4c-4e4a-b450-d40e5bb8bb09@25b4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231025T090000Z\r\nDTEND:20231025T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2dd0bf08-4bcb-4281-942a-fb89028a4408@2dd0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230202T090000Z\r\nDTEND:20230202T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6555adba-d341-46b5-8cc9-0ccf33644648@6555.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230922T163000Z\r\nDTEND:20230922T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a1e9aac9-88f9-4e38-9001-607fba9bae9d@a1e9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230313T163000Z\r\nDTEND:20230313T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fceaa182-9ddb-4f24-a365-420cf94a1960@fcea.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230317T090000Z\r\nDTEND:20230317T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:aaeec355-7203-4244-8671-25bd7f217f69@aaee.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230125T090000Z\r\nDTEND:20230125T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:abef26bb-a175-413a-bbbb-c4c2414cf0a7@abef.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221230T090000Z\r\nDTEND:20221230T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:66574bd5-1edb-4238-b735-57b3d53fd657@6657.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230825T163000Z\r\nDTEND:20230825T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4be1cc87-c720-404f-a0a3-2940f1caa154@4be1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230501T090000Z\r\nDTEND:20230501T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:216faebd-1b2b-412a-a72f-161bfcc327aa@216f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230731T163000Z\r\nDTEND:20230731T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5e8383f1-18c7-47e9-8af0-33a533674482@5e83.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230228T090000Z\r\nDTEND:20230228T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:34384312-cc3a-42f2-8a4e-9a1815f01527@3438.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221201T090000Z\r\nDTEND:20221201T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:833bb086-b751-4521-9973-d36a444ca258@833b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221108T090000Z\r\nDTEND:20221108T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e9db10c1-2b31-430d-afd1-c2ebefefc267@e9db.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230705T090000Z\r\nDTEND:20230705T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:38a7c912-b8a6-4234-8e98-ae8063695357@38a7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230830T163000Z\r\nDTEND:20230830T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ee8db206-8335-49f1-801e-0e9ef73f3922@ee8d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230912T090000Z\r\nDTEND:20230912T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4aa36ed9-cd47-4f79-bc80-ff6f2b7a3208@4aa3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231012T090000Z\r\nDTEND:20231012T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d49ddccc-1a72-48e5-887f-a0d3e88b8d75@d49d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230828T163000Z\r\nDTEND:20230828T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1d80d178-9646-444f-9094-94a1f3c96628@1d80.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231023T163000Z\r\nDTEND:20231023T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:aad7fe96-64aa-49d0-a31e-b20196ff4697@aad7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230606T090000Z\r\nDTEND:20230606T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6fc7c328-af89-40e2-b3fa-4914aa30b336@6fc7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221216T163000Z\r\nDTEND:20221216T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3427f98a-53b1-4244-9b6f-7159355fc8e1@3427.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230125T163000Z\r\nDTEND:20230125T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f0edb783-064a-407b-95ab-65a031e4b557@f0ed.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230530T163000Z\r\nDTEND:20230530T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:04177e3a-6854-4487-aedb-e97b884941b1@0417.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231003T163000Z\r\nDTEND:20231003T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5aa09283-f4fc-4953-a4d1-b07378588d05@5aa0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221103T090000Z\r\nDTEND:20221103T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b0ff6243-7128-4797-a095-d8d81ae999a5@b0ff.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230531T090000Z\r\nDTEND:20230531T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bac75fe8-6377-4d26-a272-3c46d2f24c88@bac7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230623T090000Z\r\nDTEND:20230623T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:aa19431a-fc5b-4ee0-a4ca-89763c84dae7@aa19.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230823T090000Z\r\nDTEND:20230823T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fee935de-2570-421a-a373-837a784e8447@fee9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230502T163000Z\r\nDTEND:20230502T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5e2f58bd-4616-4a47-a9c3-485e56943ddd@5e2f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221116T163000Z\r\nDTEND:20221116T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:610bd555-a14a-49f5-b645-60536007a57f@610b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230511T090000Z\r\nDTEND:20230511T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c7edc801-c31e-4846-8954-33f9d8703094@c7ed.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230324T090000Z\r\nDTEND:20230324T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fb516d10-df23-4fac-9f4f-cd8aaad269aa@fb51.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230802T090000Z\r\nDTEND:20230802T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:39531f8d-5aac-4261-ba3b-8318b9b8673b@3953.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230818T163000Z\r\nDTEND:20230818T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d6f29595-0251-4423-9f96-d35d4278c6db@d6f2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230517T090000Z\r\nDTEND:20230517T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8b47f90b-7e81-4b73-8cef-6bef12ab6106@8b47.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230809T163000Z\r\nDTEND:20230809T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:09891d0e-35c9-48a6-95e6-ab3e86668a56@0989.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230418T090000Z\r\nDTEND:20230418T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:47864b3a-e01b-4ca4-bb02-3c0f7dca3730@4786.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221221T090000Z\r\nDTEND:20221221T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:aa4c84b6-0783-4b99-b820-ded883c87dca@aa4c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230410T163000Z\r\nDTEND:20230410T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d10dcf23-9278-4d41-9bf6-cf46665c341b@d10d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230524T163000Z\r\nDTEND:20230524T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bb9f4aa5-159e-4419-8395-66b28e095cda@bb9f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230427T163000Z\r\nDTEND:20230427T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0e0dbadd-7277-4c3a-a698-e5681d078acf@0e0d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230821T163000Z\r\nDTEND:20230821T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e2898d16-ab36-4ed1-8c62-7e049e533d73@e289.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230720T090000Z\r\nDTEND:20230720T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b8b5d0ca-8384-4410-8e0e-97f0475b8e86@b8b5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231030T163000Z\r\nDTEND:20231030T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2550590a-a234-4824-88fb-1b79dc1f1f74@2550.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230726T090000Z\r\nDTEND:20230726T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c9b5b998-130c-45d2-bf75-c3eb396d626e@c9b5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231101T163000Z\r\nDTEND:20231101T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0502a499-98b2-4ce2-8547-26e914f7fd80@0502.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230902T090000Z\r\nDTEND:20230902T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0596be6e-5644-45d6-8d23-31db55146a16@0596.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230911T163000Z\r\nDTEND:20230911T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9d3aab43-977f-4af9-abd9-e0d7e19e24c2@9d3a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230126T163000Z\r\nDTEND:20230126T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cfd4c5ff-c987-4523-a01d-0d1d831332c7@cfd4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230420T090000Z\r\nDTEND:20230420T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f75f012a-0d39-441d-ba54-89bcf5d70858@f75f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221103T163000Z\r\nDTEND:20221103T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5a80a2f4-9938-4dfc-8f84-b7936e6f53ea@5a80.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230720T163000Z\r\nDTEND:20230720T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f86933ca-4c64-4dc7-8576-910a1fa11a51@f869.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230303T090000Z\r\nDTEND:20230303T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:23aea167-1544-42d3-9f9f-2e964d9ac223@23ae.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230104T163000Z\r\nDTEND:20230104T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2b8c01ee-3bee-4f14-9211-4998b6fce52f@2b8c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230317T163000Z\r\nDTEND:20230317T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:919abdfc-2063-4f8b-9f42-2822191ea29d@919a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230505T163000Z\r\nDTEND:20230505T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d6f96629-138c-4d81-83de-8f8a47ba91c3@d6f9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230512T090000Z\r\nDTEND:20230512T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0eeaa48b-8857-4a6c-a072-f8251a346b16@0eea.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230505T090000Z\r\nDTEND:20230505T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:98f3304b-9ba0-484e-9f67-79435781768b@98f3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230816T163000Z\r\nDTEND:20230816T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1ae542f2-1a9b-4e7f-9340-adc7b147e05a@1ae5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230621T090000Z\r\nDTEND:20230621T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dbb18118-ef6e-496d-a98b-e276e2d3e9e9@dbb1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230224T163000Z\r\nDTEND:20230224T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7fbb1ce7-edb5-4806-987e-23a3ff63aba8@7fbb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221117T090000Z\r\nDTEND:20221117T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f8d0c1cf-d106-4bd3-98b6-cf22dbd3b415@f8d0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230712T163000Z\r\nDTEND:20230712T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4f087171-f8f2-4cc0-be41-803a493ecd2d@4f08.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221115T163000Z\r\nDTEND:20221115T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:333e4f71-5de4-4325-bda3-85fb4aa9360f@333e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230803T090000Z\r\nDTEND:20230803T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:392200bc-d487-44d0-bc61-9f19d9969593@3922.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230209T090000Z\r\nDTEND:20230209T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:509febc1-1589-4880-ae12-fc206412384c@509f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231101T090000Z\r\nDTEND:20231101T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:eb666811-ba94-4b1a-a80c-9570f00f13c2@eb66.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230123T090000Z\r\nDTEND:20230123T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cd789bc3-3492-424d-b626-5272079650ef@cd78.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230222T090000Z\r\nDTEND:20230222T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:39a94acb-8ca7-4859-a1c1-cd61123b8e28@39a9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230615T090000Z\r\nDTEND:20230615T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:56e40d21-f360-4342-bab2-45d17d236e22@56e4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230121T163000Z\r\nDTEND:20230121T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cf2a1d04-7bcc-4583-9aff-5617fdb6765a@cf2a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230601T090000Z\r\nDTEND:20230601T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8c2b8ceb-856a-467a-a072-e3b5f3050e36@8c2b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230804T090000Z\r\nDTEND:20230804T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f315d623-9ea0-48cd-9837-3e48f99cd5b6@f315.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231005T090000Z\r\nDTEND:20231005T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a2eca488-8f3a-4688-a1a9-6391996e6ab8@a2ec.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230322T163000Z\r\nDTEND:20230322T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dfc9050b-69ac-4920-bde2-5f82cab8715a@dfc9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230201T090000Z\r\nDTEND:20230201T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fa5074a1-4cf8-4f55-9e1c-5edb9ccd08c1@fa50.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221222T090000Z\r\nDTEND:20221222T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:abd5a442-32c5-47e3-a05a-a6ded0e6e237@abd5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230315T090000Z\r\nDTEND:20230315T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:04d4d9c8-9b96-4be5-ae80-1d7c8c4f0905@04d4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230401T090000Z\r\nDTEND:20230401T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b3f92a6e-1db9-4cc9-9573-0157a2215e0a@b3f9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221214T090000Z\r\nDTEND:20221214T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:07e10483-aefe-413e-b95d-bdd3976f54fb@07e1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230523T163000Z\r\nDTEND:20230523T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:15d7c548-e0ab-4459-8c46-ca022a42d04c@15d7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230623T163000Z\r\nDTEND:20230623T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3f571efd-0822-4f48-9b8b-6bc06118f5a0@3f57.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230506T090000Z\r\nDTEND:20230506T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:31cee330-001d-4cbc-9c7d-7d8b970be67f@31ce.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231021T163000Z\r\nDTEND:20231021T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:28d10372-e0ea-4545-adca-3f714c02cfe4@28d1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230529T090000Z\r\nDTEND:20230529T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9cad1fac-8faa-4ddb-8155-d9a4dc676e86@9cad.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230628T163000Z\r\nDTEND:20230628T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:01b988fd-dbd7-43f3-b0b3-9d1533543379@01b9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221116T090000Z\r\nDTEND:20221116T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9dcd721b-ac2e-4aaf-b324-a9c3c63e1260@9dcd.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221217T163000Z\r\nDTEND:20221217T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d89dce31-44fd-4042-a89a-f41a4435cfa0@d89d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230110T090000Z\r\nDTEND:20230110T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bea38c4a-b56a-411c-80fd-7a7891f2e6cc@bea3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230401T163000Z\r\nDTEND:20230401T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:380298f6-c3c1-4443-b965-62d63d5e6ceb@3802.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231016T163000Z\r\nDTEND:20231016T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:624f4d88-a3eb-4f3c-9658-7bbdfab83add@624f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231007T090000Z\r\nDTEND:20231007T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f7b026c2-80e0-4223-ba11-685d7fd274c8@f7b0.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230301T163000Z\r\nDTEND:20230301T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:69258da2-9570-4020-80cd-2560a27c81ab@6925.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230323T163000Z\r\nDTEND:20230323T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0ee34354-a2bf-4903-ba45-be2c50f6d49d@0ee3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221108T163000Z\r\nDTEND:20221108T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a0195196-e1c8-4d87-904c-14c050ec67ca@a019.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230420T163000Z\r\nDTEND:20230420T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b84cae82-7a2b-46c5-9eb7-833f2a53d9eb@b84c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230704T090000Z\r\nDTEND:20230704T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6884c7c3-f2d1-44c1-b381-91a4f2facf56@6884.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230405T090000Z\r\nDTEND:20230405T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3c1ebe0f-592e-48c5-8926-e9cc10531570@3c1e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221129T163000Z\r\nDTEND:20221129T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:df01eb9f-a7d9-4c3d-90b8-5aa6e7d28fb2@df01.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230503T090000Z\r\nDTEND:20230503T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:27c70d27-ec3b-433c-9925-5186a5a43ee3@27c7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230920T163000Z\r\nDTEND:20230920T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:30d18f1a-94d1-4b1c-a980-af875768f743@30d1.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230202T163000Z\r\nDTEND:20230202T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ab94c17c-e96f-41ce-91bb-9ae1d8276bad@ab94.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231014T090000Z\r\nDTEND:20231014T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b830ddd5-9a7a-4d08-9694-77a0c83da764@b830.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231030T090000Z\r\nDTEND:20231030T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0b072c95-cd28-487c-a1dc-c016ea056acb@0b07.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230609T163000Z\r\nDTEND:20230609T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cfa8eaa3-6106-446b-8e62-a22031942aa0@cfa8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230223T163000Z\r\nDTEND:20230223T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dd5d6854-955e-4ad8-8831-475731869bba@dd5d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230729T163000Z\r\nDTEND:20230729T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:219d4ba4-1677-4e48-87ba-41150b305aa7@219d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221130T090000Z\r\nDTEND:20221130T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8bc50ca9-410a-483f-b227-99f6cae9682c@8bc5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230707T090000Z\r\nDTEND:20230707T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c79e08e6-98be-4fb4-a10b-fcf05468385b@c79e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221124T090000Z\r\nDTEND:20221124T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7d6e734c-3cfe-427a-80e2-c96439fb8347@7d6e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221201T163000Z\r\nDTEND:20221201T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9629b034-8005-4a1f-8995-2a60001632ad@9629.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230114T163000Z\r\nDTEND:20230114T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b7940140-b8d3-4fcd-8bbb-a623bc2d282b@b794.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230203T090000Z\r\nDTEND:20230203T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9b8a8078-e267-4b91-94f1-cf6e847c2e13@9b8a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230904T090000Z\r\nDTEND:20230904T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3a8315a5-8d26-4e08-a6c9-8a942ab1cb39@3a83.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230913T090000Z\r\nDTEND:20230913T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5bfeb7c1-baf7-4eab-893e-b48d8c700d79@5bfe.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230428T163000Z\r\nDTEND:20230428T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:290af08e-0c9e-42f4-a7fd-7368639bcc2e@290a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230516T163000Z\r\nDTEND:20230516T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d124ea46-e17b-4848-aa12-3e212651196a@d124.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230712T090000Z\r\nDTEND:20230712T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2874c415-2856-43d9-aa98-641df8645e7d@2874.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230624T163000Z\r\nDTEND:20230624T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2b09e3ea-ad10-462f-bd78-f734455f7fdc@2b09.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230916T090000Z\r\nDTEND:20230916T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b9df61d4-a489-4c6d-b84e-1b89cfbc4292@b9df.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230929T163000Z\r\nDTEND:20230929T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c78b982f-27f2-4df7-93dd-252526aa26e0@c78b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230912T163000Z\r\nDTEND:20230912T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f3a9304c-4a3d-4b22-a6b7-7d18ec36a742@f3a9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230311T163000Z\r\nDTEND:20230311T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9eb4faa6-e63b-4e8b-82e9-40ff2ad5a108@9eb4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230208T163000Z\r\nDTEND:20230208T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f39dd5ab-5502-4f09-9f71-493f49049c23@f39d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230425T163000Z\r\nDTEND:20230425T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ce6099a3-06da-40d7-84c0-57236e67a63d@ce60.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230608T163000Z\r\nDTEND:20230608T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b4951d86-e5b6-4c41-890c-eb958390aa84@b495.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221226T090000Z\r\nDTEND:20221226T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:98379b69-76f2-4d08-8dc3-5c7a8590b243@9837.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230318T163000Z\r\nDTEND:20230318T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3a413804-6d24-41fb-a05a-51acf1e06788@3a41.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230307T163000Z\r\nDTEND:20230307T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0b758666-ea37-439f-804a-be0afcee6ad6@0b75.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230724T163000Z\r\nDTEND:20230724T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:e9a8ad88-2b76-4564-8a57-905c86ec7b1a@e9a8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230923T090000Z\r\nDTEND:20230923T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d01cfbac-4c41-4914-bb77-aff46cd3dffb@d01c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230902T163000Z\r\nDTEND:20230902T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c1f228cc-d460-4d93-acb6-1861c3d51a34@c1f2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230824T163000Z\r\nDTEND:20230824T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4db23e7e-203b-41ab-b678-b9ee50ef7aad@4db2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230313T090000Z\r\nDTEND:20230313T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:19c9f0a0-6b68-48de-a3b0-5c18fd99ae47@19c9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230408T090000Z\r\nDTEND:20230408T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:432a25b0-a659-41f9-b526-425acf5ceb13@432a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230607T163000Z\r\nDTEND:20230607T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:12df3811-8a4a-42e4-93a2-3c8b5cb534d8@12df.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230603T163000Z\r\nDTEND:20230603T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2b750d1a-7fef-43b7-8fb4-b0e3938c7578@2b75.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230722T163000Z\r\nDTEND:20230722T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:47766fc2-be8a-45ea-93de-f3e9c2e38c18@4776.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230519T163000Z\r\nDTEND:20230519T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:d7968d8f-7a75-43e7-878c-09f169e411cb@d796.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230930T163000Z\r\nDTEND:20230930T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7bde9838-1354-49cd-956d-14fb35c21bc8@7bde.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230826T163000Z\r\nDTEND:20230826T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0de32019-ba54-4e6a-8cc7-c1af309109ec@0de3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231025T163000Z\r\nDTEND:20231025T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:3a7d4a5d-fa65-448c-bd9a-83290ae80832@3a7d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230713T163000Z\r\nDTEND:20230713T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:77df03e3-8e87-4211-acf8-4840d728c5a3@77df.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230127T090000Z\r\nDTEND:20230127T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:610e89d1-2d90-41f3-a2a0-fb381bdefe85@610e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221110T090000Z\r\nDTEND:20221110T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:634b8666-5f31-47d4-8d20-7eac8b67321e@634b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231102T090000Z\r\nDTEND:20231102T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:79c2824a-718c-4426-9408-8e8632003801@79c2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231027T163000Z\r\nDTEND:20231027T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:143c43d0-0e09-409b-988f-77b623def59c@143c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230118T090000Z\r\nDTEND:20230118T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:052e65f3-5327-4f5d-adc1-80e1d56f2a1b@052e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230410T090000Z\r\nDTEND:20230410T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6c259a01-ceb5-4ce9-b780-faf1f42cbef4@6c25.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230323T090000Z\r\nDTEND:20230323T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f04191d9-26c0-4775-a7ee-ee8971bed291@f041.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230217T163000Z\r\nDTEND:20230217T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0f77080c-a7d5-4ce2-8eba-dd4b802659dc@0f77.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230224T090000Z\r\nDTEND:20230224T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8769602a-038e-4b51-b059-849c7298885a@8769.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230619T090000Z\r\nDTEND:20230619T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:18256249-bcf2-4ad9-84e3-7a63d7b2095c@1825.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230922T090000Z\r\nDTEND:20230922T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:56f49d8c-c358-41ff-bdd3-827d9871cc4e@56f4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230804T163000Z\r\nDTEND:20230804T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cc39f810-dc35-4266-83d0-e735541cbee3@cc39.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230909T090000Z\r\nDTEND:20230909T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:926ec4bb-185c-4e53-809a-25277f9cf078@926e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230923T163000Z\r\nDTEND:20230923T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0be5ef01-a126-4e52-8df4-52de882da40d@0be5.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231028T163000Z\r\nDTEND:20231028T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:c77330f5-b7fa-4e2c-9ae7-69ebd5524ee8@c773.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221123T163000Z\r\nDTEND:20221123T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:341fef92-c440-4d82-801b-ec6de96efbae@341f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230218T090000Z\r\nDTEND:20230218T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6854dc1e-2a48-4ed5-8075-6c77ead23915@6854.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230314T163000Z\r\nDTEND:20230314T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:47b9e12d-c0b2-4e59-8e3b-27c9adf2d3b4@47b9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230714T163000Z\r\nDTEND:20230714T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:056c77bb-b573-4ba6-9bff-017d47d89bb3@056c.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230901T163000Z\r\nDTEND:20230901T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5a4357d5-7f96-409d-839c-a6bb098344a4@5a43.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230513T090000Z\r\nDTEND:20230513T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6cf45d4a-1eb2-4272-a516-4508cc1a9160@6cf4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230930T090000Z\r\nDTEND:20230930T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:31e6daa4-7976-44f9-91f0-975eae8a13c2@31e6.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230830T090000Z\r\nDTEND:20230830T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:15d3ca02-fcd5-4a94-81d5-bc1f62b0b2f1@15d3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230419T090000Z\r\nDTEND:20230419T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9a4717f7-3c07-4bdb-b974-c0b1661e38f2@9a47.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230422T163000Z\r\nDTEND:20230422T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7243b038-e401-4726-ad59-980471813bb2@7243.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230807T090000Z\r\nDTEND:20230807T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:cc383597-1f19-41a3-86d7-8d2263bd00b9@cc38.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230421T090000Z\r\nDTEND:20230421T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:4be4e9d7-59f4-4424-94f2-f3c105d87905@4be4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230217T090000Z\r\nDTEND:20230217T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:813fb7cf-d0af-4f14-8f04-d13c2d43bf7b@813f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230422T090000Z\r\nDTEND:20230422T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a4dee78a-99de-4570-bd8b-94662cfa07b2@a4de.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230306T090000Z\r\nDTEND:20230306T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0b8b1919-4f81-4e03-a8cd-60518a2c1741@0b8b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230905T090000Z\r\nDTEND:20230905T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b1eb54d2-aead-4355-97d7-8b7390c74f13@b1eb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230803T163000Z\r\nDTEND:20230803T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1eb4e7c3-5f2d-4d8f-991e-d84798304c2d@1eb4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230612T090000Z\r\nDTEND:20230612T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:7afc7425-4c55-4d5d-a47a-f5395a8b7f2f@7afc.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221126T163000Z\r\nDTEND:20221126T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:008b6fcf-3295-4cf4-b2f0-ca963aa412f4@008b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230602T163000Z\r\nDTEND:20230602T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:ca28d9c2-294d-4503-a17f-284d2deebcf0@ca28.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230819T163000Z\r\nDTEND:20230819T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:48d8ba7e-1dc0-4dfa-911e-ad20191c8d8f@48d8.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230221T163000Z\r\nDTEND:20230221T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:fb9e2b79-88ec-47e3-a21a-b8c448fb66d1@fb9e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230414T163000Z\r\nDTEND:20230414T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0c67a068-92d4-42b8-8403-d9934a54106c@0c67.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230630T163000Z\r\nDTEND:20230630T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a5ecb942-be2e-4ac7-b6af-aab8cbe024b3@a5ec.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231013T090000Z\r\nDTEND:20231013T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2e61d585-6a9e-4107-9b1e-63b9c7ece56f@2e61.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221230T163000Z\r\nDTEND:20221230T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:46016bd2-85cd-406d-908b-b5ec220432d9@4601.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230204T090000Z\r\nDTEND:20230204T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:bee3844a-8af3-4795-9ec1-f89007626e58@bee3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230705T163000Z\r\nDTEND:20230705T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:701d8b60-2cb5-4f4f-97bf-11a70418a331@701d.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230817T090000Z\r\nDTEND:20230817T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:f05feadb-4b5f-4e27-9413-49744971e095@f05f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230627T163000Z\r\nDTEND:20230627T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:be0af276-3af2-4df2-9db0-8faf27996518@be0a.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230614T163000Z\r\nDTEND:20230614T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8b4349dc-4bfe-41cc-8544-216c9baacba7@8b43.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221129T090000Z\r\nDTEND:20221129T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a18ec470-3554-467c-aabc-19c6379a695c@a18e.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221215T163000Z\r\nDTEND:20221215T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:35ea6a6e-4393-4bcd-981a-879fbe5fe6b1@35ea.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20231016T090000Z\r\nDTEND:20231016T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:8c781544-081b-4706-9789-f5437b6a0d47@8c78.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230227T163000Z\r\nDTEND:20230227T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2fb9649a-c7e0-4010-ab7e-1227eb332ea5@2fb9.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230120T163000Z\r\nDTEND:20230120T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:b2a49acf-705e-4b5b-9353-be664088a022@b2a4.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230417T163000Z\r\nDTEND:20230417T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:9ae787b8-637d-43dd-97ac-001f40f259e2@9ae7.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230628T090000Z\r\nDTEND:20230628T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:5b4b2942-753c-4ffb-8b9c-e7c59209e912@5b4b.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221110T163000Z\r\nDTEND:20221110T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:1ab3bdd0-ff50-44c1-82d3-b062c4bd80f5@1ab3.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230524T090000Z\r\nDTEND:20230524T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:a75f9a47-8720-47a3-be7c-d3d7101461c3@a75f.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230613T163000Z\r\nDTEND:20230613T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:759627f8-dfa0-4b14-a3ef-a55ac52a5d43@7596.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230102T163000Z\r\nDTEND:20230102T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:0c657254-3e9e-42d8-a893-ce18da60465a@0c65.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20221102T163000Z\r\nDTEND:20221102T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:efc25327-175a-4fc5-afbf-f501c41771bc@efc2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230622T163000Z\r\nDTEND:20230622T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dd60ef8e-2cac-4ac2-aab4-e583f044467d@dd60.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230826T090000Z\r\nDTEND:20230826T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:54913d12-5e49-4f35-b70c-518b19184d61@5491.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230615T163000Z\r\nDTEND:20230615T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:2bdbcaf2-40f4-466c-8c3b-59a59b776c2b@2bdb.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230508T163000Z\r\nDTEND:20230508T200000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:dfe2bf0c-1646-4170-a7db-4505d4cee8ec@dfe2.org\r\nEND:VEVENT\r\nBEGIN:VEVENT\r\nDTSTAMP:20221102T010543Z\r\nDTSTART:20230105T090000Z\r\nDTEND:20230105T133000Z\r\nSUMMARY:Centre Comercial Encants Nous\r\nTRANSP:OPAQUE\r\nUID:6a959a9b-3a35-4496-b146-404304035895@6a95.org\r\nEND:VEVENT\r\nEND:VCALENDAR"
+          }
+        ]
+      },
+      "providerStates": [
+        {
+          "name": "Server up - /commercial-galleries"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.1.7"
+    }
+  }
+}
