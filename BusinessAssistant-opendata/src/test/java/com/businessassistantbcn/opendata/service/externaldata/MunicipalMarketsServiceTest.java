@@ -3,7 +3,6 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
-import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -31,7 +30,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -43,7 +41,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @PropertySource("classpath:resilience4j-test.properties")
-public class MunicipalMarketsServiceTest {
+class MunicipalMarketsServiceTest {
 
     @MockBean
     private PropertiesConfig config;
@@ -87,6 +85,7 @@ public class MunicipalMarketsServiceTest {
         responseDto1.setEmail(twoMunicipalMarkets[0].getEmail());
         responseDto1.setAddresses(addressInfoDto1);
         responseDto[0] = responseDto1;
+
         MunicipalMarketsResponseDto responseDto2 = new MunicipalMarketsResponseDto();
         List<AddressInfoDto> addressInfoDto2 = new ArrayList<>();
         AddressInfoDto addressInfoDto21 = new AddressInfoDto();
@@ -100,7 +99,7 @@ public class MunicipalMarketsServiceTest {
     }
 
     @Test
-    void getPageTest() throws MalformedURLException, JsonProcessingException {
+    void getPageTest() throws MalformedURLException {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
         when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class)))
             .thenReturn(Mono.just(twoMunicipalMarkets));
@@ -110,10 +109,8 @@ public class MunicipalMarketsServiceTest {
 
         GenericResultDto<MunicipalMarketsResponseDto> actualResult = municipalMarketsService.getPage(0, -1).block();
         areOffsetLimitAndCountEqual(expectedResult, actualResult);
-        
-        /*assertEquals(Arrays.stream(expectedResult.getResults()).collect(Collectors.toList()).get(0).getActivity().getActivityId(),
-                Arrays.stream(actualResult.getResults()).collect(Collectors.toList()).get(0).getActivity().getActivityId());
-        assertEquals(expectedResult.getResults().length, actualResult.getResults().length);*/
+
+        assertEquals(expectedResult.getResults().length, actualResult.getResults().length);
 
 
         verify(config, times(1)).getDs_municipalmarkets();

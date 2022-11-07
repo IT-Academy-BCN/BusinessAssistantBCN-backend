@@ -1,7 +1,6 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
-import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
@@ -10,11 +9,12 @@ import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -34,21 +34,18 @@ public class MarketFairsService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private GenericResultDto<MarketFairsResponseDto> genericResultDto;
-	@Autowired
-	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
-
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMarketFairsDefaultPage")
-	public Mono<GenericResultDto<MarketFairsResponseDto>>getPage(int offset, int limit) throws MalformedURLException {
+	public Mono<GenericResultDto<MarketFairsResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
 		return httpProxy.getRequestData(new URL(config.getDs_marketfairs()), MarketFairsDto[].class)
 			.flatMap(dtos -> {
 				MarketFairsDto[] filterDto = Arrays.stream(dtos)
-						.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
+						.map(this::removeClassificationDataWithUsInternInFullPath)
 						.toArray(MarketFairsDto[]::new);
 
 				MarketFairsDto[] pagedDto = JsonHelper.filterDto(filterDto, offset, limit);
-				MarketFairsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(MarketFairsResponseDto[]::new);
-				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
+				MarketFairsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::convertToDto).toArray(MarketFairsResponseDto[]::new);
+				genericResultDto.setInfo(offset, limit, filterDto.length, responseDto);
 
 				return Mono.just(genericResultDto);
 			});
@@ -73,11 +70,13 @@ public class MarketFairsService {
 	    return responseDto;
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<MarketFairsResponseDto>> logServerErrorReturnMarketFairsDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
 		return this.getMarketFairsDefaultPage();
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<MarketFairsResponseDto>> logInternalErrorReturnMarketFairsDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getMarketFairsDefaultPage();

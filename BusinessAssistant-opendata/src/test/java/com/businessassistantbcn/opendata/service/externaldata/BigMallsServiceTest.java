@@ -3,10 +3,9 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
-import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
-import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -20,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
@@ -36,12 +34,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class BigMallsServiceTest {
+class BigMallsServiceTest {
 
     @MockBean
     private PropertiesConfig config;
@@ -102,6 +101,7 @@ public class BigMallsServiceTest {
         responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoBigMallsDto[0].getClassifications_data()));
         responseDto1.setAddresses(addressInfoDto1);
         responseDto[0] = responseDto1;
+
         BigMallsResponseDto responseDto2 = new BigMallsResponseDto();
         List<AddressInfoDto> addressInfoDto2 = new ArrayList<>();
         AddressInfoDto addressInfoDto21 = new AddressInfoDto();
@@ -229,7 +229,7 @@ public class BigMallsServiceTest {
 
         assertEquals(0, actualResult.getOffset());
         assertEquals(-1, actualResult.getLimit());
-        assertEquals(43326348, Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+        assertEquals(43326348, Arrays.stream(actualResult.getResults()).toList()
                 .get(0).getActivities().get(0).getActivityId());
 
     }
@@ -245,9 +245,27 @@ public class BigMallsServiceTest {
 
         assertEquals(0, actualResult.getOffset());
         assertEquals(-1, actualResult.getLimit());
-        assertEquals("02", Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+        assertEquals("02", Arrays.stream(actualResult.getResults()).toList()
                 .get(0).getAddresses().get(0).getDistrict_id());
     }
 
+    @Test
+    void getPageBySearchTest() throws MalformedURLException {
+        when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
+        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+                .thenReturn(Mono.just(twoBigMallsDto));
 
+        SearchDTO searchParams = new SearchDTO(new int[]{2}, new int[]{43326349});
+
+        GenericResultDto<BigMallsResponseDto> actualResult =
+                bigMallsService.getPageBySearch(0, -1, searchParams).block();
+
+        assertEquals(0, actualResult.getOffset());
+        assertEquals(-1, actualResult.getLimit());
+
+        assertEquals("02", Arrays.stream(actualResult.getResults()).toList()
+                .get(0).getAddresses().get(0).getDistrict_id());
+        assertEquals(43326349, Arrays.stream(actualResult.getResults()).toList()
+                .get(0).getActivities().get(0).getActivityId());
+    }
 }

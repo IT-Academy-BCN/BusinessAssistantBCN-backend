@@ -445,7 +445,7 @@
         "body": {
           "offset": 0,
           "limit": -1,
-          "count": 8,
+          "count": 44,
           "results": [
             {
               "name": "Novartis Farmac\u00E9utica S.A.",
@@ -750,7 +750,7 @@
         "body": {
           "offset": 0,
           "limit": -1,
-          "count": 18,
+          "count": 44,
           "results": [
             {
               "name": "Groupe Zannier Espanya",
@@ -3061,6 +3061,258 @@
       "providerStates": [
         {
           "name": "Server up - /large-establishments"
+        }
+      ]
+    },
+    {
+      "description": "/large-establishments/search - Server up",
+      "request": {
+        "method": "GET",
+        "path": "/businessassistantbcn/api/v1/opendata/large-establishments/search",
+        "body": {
+          "zones": [
+            2,
+            3
+          ],
+          "activities": [
+            107001
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "offset": 0,
+          "limit": -1,
+          "count": 44,
+          "results": [
+            {
+              "name": "Novartis Farmac\u00E9utica S.A.",
+              "web": "http://www.novartis.es",
+              "email": null,
+              "phone": null,
+              "activities": [
+                {
+                  "activityId": 1008031,
+                  "activityName": "Delegacions - oficines comercials"
+                },
+                {
+                  "activityId": 107001,
+                  "activityName": "Alimentaci\u00F3 i begudes"
+                }
+              ],
+              "addresses": [
+                {
+                  "street_name": "G.V. Corts Catalanes",
+                  "street_number": "764*766",
+                  "zip_code": "08013",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.398265671996796,
+                    "y": 2.1806962395622977
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Juv\u00E9 y Camps",
+              "web": null,
+              "email": "barcelona@juveycamps.com",
+              "phone": null,
+              "activities": [
+                {
+                  "activityId": 1008031,
+                  "activityName": "Delegacions - oficines comercials"
+                },
+                {
+                  "activityId": 107001,
+                  "activityName": "Alimentaci\u00F3 i begudes"
+                },
+                {
+                  "activityId": 29297312,
+                  "activityName": "Com.may.bebidas y tabaco"
+                }
+              ],
+              "addresses": [
+                {
+                  "street_name": "Londres",
+                  "street_number": "69",
+                  "zip_code": "08036",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.39220622654191,
+                    "y": 2.148873643096374
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Font Vella S.A.",
+              "web": "http://fontvellaencasa.es",
+              "email": "fontvellaencasa@danone.com",
+              "phone": null,
+              "activities": [
+                {
+                  "activityId": 1008031,
+                  "activityName": "Delegacions - oficines comercials"
+                },
+                {
+                  "activityId": 107001,
+                  "activityName": "Alimentaci\u00F3 i begudes"
+                },
+                {
+                  "activityId": 33899894,
+                  "activityName": "Prep. y envasado de aguas minerales"
+                }
+              ],
+              "addresses": [
+                {
+                  "street_name": "C Buenos Aires",
+                  "street_number": "21",
+                  "zip_code": "08029",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.391404959356514,
+                    "y": 2.1454595238420393
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Cerveza Mahou - San Miguel",
+              "web": "http://www.mahou-sanmiguel.com",
+              "email": null,
+              "phone": null,
+              "activities": [
+                {
+                  "activityId": 1008031,
+                  "activityName": "Delegacions - oficines comercials"
+                },
+                {
+                  "activityId": 107001,
+                  "activityName": "Alimentaci\u00F3 i begudes"
+                }
+              ],
+              "addresses": [
+                {
+                  "street_name": "C Comte d'Urgell",
+                  "street_number": "240",
+                  "zip_code": "08036",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.390354071410236,
+                    "y": 2.1479965089551216
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Grupo Vichy Catalan s.a.",
+              "web": "http://www.vichycatalan.com",
+              "email": "consumidor@pmg1881.com",
+              "phone": null,
+              "activities": [
+                {
+                  "activityId": 1008031,
+                  "activityName": "Delegacions - oficines comercials"
+                },
+                {
+                  "activityId": 107001,
+                  "activityName": "Alimentaci\u00F3 i begudes"
+                },
+                {
+                  "activityId": 29297312,
+                  "activityName": "Com.may.bebidas y tabaco"
+                }
+              ],
+              "addresses": [
+                {
+                  "street_name": "Roger de Ll\u00FAria",
+                  "street_number": "126",
+                  "zip_code": "08037",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.39797658391822,
+                    "y": 2.162677548124194
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Antiga F\u00E0brica Estrella Damm",
+              "web": "http://www.damm.es",
+              "email": null,
+              "phone": null,
+              "activities": [
+                {
+                  "activityId": 1008031,
+                  "activityName": "Delegacions - oficines comercials"
+                },
+                {
+                  "activityId": 107001,
+                  "activityName": "Alimentaci\u00F3 i begudes"
+                },
+                {
+                  "activityId": 53646332,
+                  "activityName": "Arquitectura industrial"
+                },
+                {
+                  "activityId": 148414580,
+                  "activityName": "Equipaments on es celebra la Merc\u00E8 2022 (per a la web)"
+                },
+                {
+                  "activityId": 29302315,
+                  "activityName": "Com.may.interindustrial excep. quimica"
+                },
+                {
+                  "activityId": 30699720,
+                  "activityName": "Alquiler de viviendas"
+                },
+                {
+                  "activityId": 102911,
+                  "activityName": "Explotacion electronica por terceros"
+                },
+                {
+                  "activityId": 28707728,
+                  "activityName": "Otros servicios independientes ncop"
+                },
+                {
+                  "activityId": 102908,
+                  "activityName": "Servicios financieros y contables"
+                },
+                {
+                  "activityId": 70308194,
+                  "activityName": "Fab. cerveza y malta de cerveza"
+                }
+              ],
+              "addresses": [
+                {
+                  "street_name": "Carrer del Rossell\u00F3",
+                  "street_number": "515",
+                  "zip_code": "08025",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.40912820969591,
+                    "y": 2.178180484218155
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "providerStates": [
+        {
+          "name": "Server up - /large-establishments/search"
         }
       ]
     }

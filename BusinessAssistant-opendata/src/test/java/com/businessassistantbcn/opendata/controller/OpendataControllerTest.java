@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.controller;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
@@ -19,10 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
@@ -353,6 +356,24 @@ public class OpendataControllerTest {
 	}
 
 	@Test
+	void getLargeEstablishmentBySearchTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/large-establishments/search";
+
+		SearchDTO searchDTO = new SearchDTO();
+
+		webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.bodyValue(searchDTO)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody();
+
+		verify(largeEstablishmentsService).getPageBySearch(0, -1, searchDTO);
+	}
+
+	@Test
 	public void getCommercialGalleriesByActivityTest() throws MalformedURLException {
 		final String URI_ONE_SEARCH = "/commercial-galleries/activity/12345";
 
@@ -385,6 +406,24 @@ public class OpendataControllerTest {
 	}
 
 	@Test
+	void getCommercialGalleriesBySearchTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/commercial-galleries/search";
+
+		SearchDTO searchDTO = new SearchDTO();
+
+		webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.bodyValue(searchDTO)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody();
+
+		verify(commercialGalleriesService).getPageBySearch(0, -1, searchDTO);
+	}
+
+	@Test
 	public void getBigMallsByActivityTest() throws MalformedURLException {
 		final String URI_ONE_SEARCH = "/big-malls/activity/12345";
 
@@ -414,5 +453,23 @@ public class OpendataControllerTest {
 				.jsonPath("district_id");
 
 		verify(bigMallsService).getPageByDistrict(0, -1, 1);
+	}
+
+	@Test
+	void getBigMallsBySearchTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/big-malls/search";
+
+		SearchDTO searchDTO = new SearchDTO();
+
+		webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.bodyValue(searchDTO)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody();
+
+		verify(bigMallsService).getPageBySearch(0, -1, searchDTO);
 	}
 }

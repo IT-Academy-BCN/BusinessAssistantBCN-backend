@@ -7,9 +7,15 @@ import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.core.model.annotations.PactFolder;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.http.HttpMethod;
@@ -32,7 +38,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @PactFolder("src/test/resources/pacts")
 class FrontendPactGeneratorTest {
 
+    private ObjectMapper mapper;
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/opendata";
+    private static SearchDTO searchParams;
 
     @Pact(provider = "large-establishments", consumer = "frontend_application")
     public RequestResponsePact largeEstablishments(PactDslWithProvider builder) throws URISyntaxException, IOException {
@@ -84,6 +92,21 @@ class FrontendPactGeneratorTest {
     void largeEstablishmentsSpecificDistrictTest(MockServer mockServer) throws IOException {
 
         checkAndCreatePactFile(mockServer, "/large-establishments/district/2");
+    }
+
+    @Pact(provider = "large-establishments", consumer = "frontend_application")
+    public RequestResponsePact largeEstablishmentsSpecificSearch(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        searchParams = new SearchDTO(new int[]{2, 3}, new int[]{107001});
+
+        return searchPactMaker(builder, "/large-establishments", "/search", searchParams);
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishmentsSpecificSearch")
+    void largeEstablishmentsSpecificSearchTest(MockServer mockServer) throws IOException {
+
+        checkAndCreateSearchPactFile(mockServer, "/large-establishments/search", searchParams);
     }
 
     @Pact(provider = "big-malls", consumer = "frontend_application")
@@ -266,11 +289,44 @@ class FrontendPactGeneratorTest {
                 .toPact();
     }
 
+    private RequestResponsePact searchPactMaker(PactDslWithProvider builder, String endpointBaseURL, String endpointExtraURL, SearchDTO searchParams) throws URISyntaxException, IOException {
+
+        String responseType = endpointExtraURL.equals("") ? "all" : endpointExtraURL.replaceAll("/", "");
+        String bodyString = jsonLoader("json/response" + endpointBaseURL + "/" + responseType + "Response.json");
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json;charset=UTF-8");
+
+        mapper = new ObjectMapper();
+
+        return builder.given("Server up - " + endpointBaseURL + endpointExtraURL)
+                .uponReceiving(endpointBaseURL + endpointExtraURL + " - Server up")
+                .path(CONTROLLER_BASE_URL + endpointBaseURL + endpointExtraURL)
+                .method(HttpMethod.GET.name())
+                .body(mapper.writeValueAsString(searchParams))
+                .willRespondWith()
+                .headers(headers)
+                .status(HttpStatus.OK.value()) //200
+                .body(bodyString, ContentType.APPLICATION_JSON.withCharset(StandardCharsets.UTF_8))
+                .toPact();
+    }
+
     private void checkAndCreatePactFile(MockServer mockServer, String URI_TEST) throws IOException {
 
         HttpResponse response = Request.Get(mockServer.getUrl() + CONTROLLER_BASE_URL + URI_TEST).execute().returnResponse();
 
         assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
+    }
+
+    private void checkAndCreateSearchPactFile(MockServer mockServer, String URI_TEST, SearchDTO searchParams) throws IOException {
+
+        HttpUriRequest request = RequestBuilder.create(HttpMethod.GET.name())
+                .setUri(mockServer.getUrl() + CONTROLLER_BASE_URL + URI_TEST)
+                .setEntity(new StringEntity(mapper.writeValueAsString(searchParams), ContentType.APPLICATION_JSON))
+                .build();
+        HttpResponse httpResponse = HttpClientBuilder.create().build().execute(request);
+
+        assertThat(httpResponse.getStatusLine().getStatusCode()).isEqualTo(200);
     }
 
     private String jsonLoader(String resourceURI) throws URISyntaxException, IOException {

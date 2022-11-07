@@ -3,6 +3,7 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
@@ -42,7 +43,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @PropertySource("classpath:resilience4j-test.properties")
-public class LargeEstablishmentsServiceTest {
+class LargeEstablishmentsServiceTest {
 
     @MockBean
     private PropertiesConfig config;
@@ -119,11 +120,10 @@ public class LargeEstablishmentsServiceTest {
 
         assertEquals(0, actualResult.getOffset());
         assertEquals(-1, actualResult.getLimit());
-        assertEquals(1, actualResult.getCount());
+        assertEquals(2, actualResult.getCount());
         assertEquals(
             "05",
-            Arrays.stream(actualResult.getResults())
-                .collect(Collectors.toList()).get(0).getAddresses().get(0).getDistrict_id()
+            Arrays.stream(actualResult.getResults()).toList().get(0).getAddresses().get(0).getDistrict_id()
         );
 
         verify(config, times(1)).getDs_largeestablishments();
@@ -144,14 +144,12 @@ public class LargeEstablishmentsServiceTest {
         assertEquals(-1, actualResult.getLimit());
         assertEquals(2, actualResult.getCount());
         assertEquals(
-            1008031,
-            Arrays.stream(actualResult.getResults())
-                    .collect(Collectors.toList()).get(0).getActivities().get(0).getActivityId()
+                1008031,
+                Arrays.stream(actualResult.getResults()).toList().get(0).getActivities().get(0).getActivityId()
         );
         assertEquals(
-            1008031,
-            Arrays.stream(actualResult.getResults())
-                    .collect(Collectors.toList()).get(1).getActivities().get(0).getActivityId()
+                1008031,
+                Arrays.stream(actualResult.getResults()).toList().get(1).getActivities().get(0).getActivityId()
         );
 
         verify(config, times(1)).getDs_largeestablishments();
@@ -160,20 +158,48 @@ public class LargeEstablishmentsServiceTest {
     }
 
     @Test
-    void getPageTest() throws MalformedURLException, JsonProcessingException {
+    void getPageBySearchTest() throws MalformedURLException {
+        when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
+        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+                .thenReturn(Mono.just(twoLargeEstablishmentsDto));
+
+        SearchDTO searchParams = new SearchDTO(new int[]{5}, new int[]{1008031});
+
+        GenericResultDto<LargeEstablishmentsResponseDto> actualResult =
+                largeEstablishmentsService.getPageBySearch(0, -1, searchParams).block();
+
+        assertEquals(0, actualResult.getOffset());
+        assertEquals(-1, actualResult.getLimit());
+        assertEquals(2, actualResult.getCount());
+        assertEquals(
+                1008031,
+                Arrays.stream(actualResult.getResults()).toList().get(0).getActivities().get(0).getActivityId()
+        );
+        assertEquals(
+                "05",
+                Arrays.stream(actualResult.getResults()).toList().get(0).getAddresses().get(0).getDistrict_id()
+        );
+
+        verify(config, times(1)).getDs_largeestablishments();
+        verify(httpProxy, times(1))
+                .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+    }
+
+    @Test
+    void getPageTest() throws MalformedURLException {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
         when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
-        GenericResultDto<LargeEstablishmentsResponseDto> expectedResult = new GenericResultDto<LargeEstablishmentsResponseDto>();
+        GenericResultDto<LargeEstablishmentsResponseDto> expectedResult = new GenericResultDto<>();
         expectedResult.setInfo(0, -1, twoLargeEstablishmentsDto.length, responseDto);
 
         GenericResultDto<LargeEstablishmentsResponseDto> actualResult =
             largeEstablishmentsService.getPage(0, -1).block();
         this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
         
-        assertEquals(Arrays.stream(expectedResult.getResults()).collect(Collectors.toList()).get(0).getActivities().size(),
-                Arrays.stream(actualResult.getResults()).collect(Collectors.toList()).get(0).getActivities().size());
+        assertEquals(Arrays.stream(expectedResult.getResults()).toList().get(0).getActivities().size(),
+                Arrays.stream(actualResult.getResults()).toList().get(0).getActivities().size());
         assertEquals(expectedResult.getResults().length, actualResult.getResults().length);
         
         verify(config, times(1)).getDs_largeestablishments();

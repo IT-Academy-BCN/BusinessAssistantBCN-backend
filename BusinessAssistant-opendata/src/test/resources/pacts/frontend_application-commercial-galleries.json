@@ -57,7 +57,7 @@
         "body": {
           "offset": 0,
           "limit": -1,
-          "count": 1,
+          "count": 4,
           "results": [
             {
               "name": "Galeria Comercial Bulevard dels Antiquaris",
@@ -248,7 +248,7 @@
         "body": {
           "offset": 0,
           "limit": -1,
-          "count": 2,
+          "count": 4,
           "results": [
             {
               "name": "Galeria Comercial Bulevard dels Antiquaris",

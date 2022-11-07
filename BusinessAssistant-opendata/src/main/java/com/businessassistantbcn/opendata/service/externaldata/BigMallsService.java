@@ -3,18 +3,20 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -43,14 +45,14 @@ public class BigMallsService {
 		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
 			.flatMap(dtos -> {
 				BigMallsDto[] filteredDto = Arrays.stream(dtos)
-						.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
+						.map(this::removeClassificationDataWithUsInternInFullPath)
 						.toArray(BigMallsDto[]::new);
 
 				BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 				
-				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(BigMallsResponseDto[]::new);
+				BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(BigMallsResponseDto[]::new);
 				
-				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
+				genericResultDto.setInfo(offset, limit, filteredDto.length, responseDto);
 				return Mono.just(genericResultDto);
 			});
 	}
@@ -72,11 +74,13 @@ public class BigMallsService {
 	    return responseDto;
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<BigMallsResponseDto>> logServerErrorReturnBigMallsDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
 		return this.getBigMallsDefaultPage();
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<BigMallsResponseDto>> logInternalErrorReturnBigMallsDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getBigMallsDefaultPage();
@@ -110,7 +114,7 @@ public class BigMallsService {
 	private List<ActivityInfoDto> getListWithoutInvalidFullPaths(BigMallsDto[] bigMallsDto) {
 		return Arrays.stream(bigMallsDto)
 			.flatMap(bigMallDto -> bigMallDto.getClassifications_data().stream())
-			.filter(classificationsDataDto -> this.isFullPathValid(classificationsDataDto))
+			.filter(this::isFullPathValid)
 			.map(classificationsDataDto -> new ActivityInfoDto(
 				classificationsDataDto.getId(),
 				this.getValidActivityName(classificationsDataDto))
@@ -136,34 +140,16 @@ public class BigMallsService {
 		return dto.getName() == null ? "" : dto.getName();
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<ActivityInfoDto>> logServerErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
 		return this.getActivitiesDefaultPage();
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<ActivityInfoDto>> logInternalErrorReturnActivitiesDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getActivitiesDefaultPage();
-	}
-
-	public GenericResultDto<BigMallsDto> getBigMallsByActivityDto(int[] activities, int offset, int limit) {
-		//lambda filter
-		return null;
-	}
-
-	public GenericResultDto<BigMallsDto> getBigMallsByDistrictDto(int[] districts, int offset, int limit) {
-		//lambda filter
-		return null;
-	}
-
-	public String getBigMallsByActivity(int[] activities, int offset, int limit) {
-		//JsonPath search
-		return null;
-	}
-
-	public String getBigMallsByDistrict(int[] districts, int offset, int limit) {
-		//JsonPath search
-		return null;
 	}
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorReturnActivitiesDefaultPage")
@@ -187,33 +173,57 @@ public class BigMallsService {
 				));
 	}
 
+	// Get paged results filtered by search parameters (zones and activities)
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnBigMallsDefaultPage")
+	public Mono<GenericResultDto<BigMallsResponseDto>> getPageBySearch(int offset, int limit, SearchDTO searchParams)
+			throws MalformedURLException {
+
+		Predicate<BigMallsDto> activityFilter;
+		if (searchParams.getActivities().length > 0) {
+			activityFilter = bigMallsDto ->
+					bigMallsDto.getClassifications_data()
+							.stream()
+							.anyMatch(classificationsDataDto ->
+									Arrays.stream(searchParams.getActivities())
+											.anyMatch(activityId -> activityId == classificationsDataDto.getId()));
+		} else {
+			activityFilter = bigMallsDto -> true;
+		}
+
+		Predicate<BigMallsDto> zoneFilter;
+		if (searchParams.getZones().length > 0) {
+			zoneFilter = bigMallsDto ->
+					bigMallsDto.getAddresses()
+							.stream()
+							.anyMatch(address ->
+									Arrays.stream(searchParams.getZones())
+											.anyMatch(zoneId -> zoneId == Integer.parseInt(address.getDistrict_id())));
+		} else {
+			zoneFilter = bigMallsDto -> true;
+		}
+
+		return getResultDto(offset, limit, activityFilter.and(zoneFilter));
+	}
+
 	private Mono<GenericResultDto<BigMallsResponseDto>> getResultDto(
 			int offset, int limit, Predicate<BigMallsDto> dtoFilter) throws MalformedURLException {
-		return 	httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
+		return httpProxy.getRequestData(new URL(config.getDs_bigmalls()), BigMallsDto[].class)
 				.flatMap(bigMallsDto -> {
-					BigMallsDto[] filteredDto = Arrays.stream(bigMallsDto)
+					BigMallsDto[] fullDto = Arrays.stream(bigMallsDto)
+							.map(this::removeClassificationDataWithUsInternInFullPath)
+							.toArray(BigMallsDto[]::new);
+
+					BigMallsDto[] filteredDto = Arrays.stream(fullDto)
 							.filter(dtoFilter)
-							.map(d -> this.removeClassificationDataWithUsInternInFullPath(d))
 							.toArray(BigMallsDto[]::new);
 
 					BigMallsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
 
-					BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> convertToDto(p)).toArray(BigMallsResponseDto[]::new);
+					BigMallsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(BigMallsResponseDto[]::new);
 
-					genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
+					genericResultDto.setInfo(offset, limit, fullDto.length, responseDto);
 					return Mono.just(genericResultDto);
 				});
 	}
-
-	private BigMallsResponseDto convertToDto(BigMallsDto bigMallsDto) {
-		BigMallsResponseDto responseDto = modelMapper.map(bigMallsDto, BigMallsResponseDto.class);
-		responseDto.setWeb(bigMallsDto.getValues().getUrl_value());
-		responseDto.setEmail(bigMallsDto.getValues().getEmail_value());
-		responseDto.setPhone(bigMallsDto.getValues().getPhone_value());
-		responseDto.setActivities(responseDto.mapClassificationDataListToActivityInfoList(bigMallsDto.getClassifications_data()));
-		responseDto.setAddresses(responseDto.mapAddressesToCorrectLocation(bigMallsDto.getAddresses(), bigMallsDto.getCoordinates()));
-		return responseDto;
-	}
-
 }
 

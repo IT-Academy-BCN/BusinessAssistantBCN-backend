@@ -1,5 +1,8 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.dto.GenericResultDto;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
+import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -38,15 +41,15 @@ public class OpendataController {
     //TODO remove once all endpoints are paginated
     private final boolean PAGINATION_ENABLED = true;
 
-    @GetMapping(value="/test")
+    @GetMapping(value = "/test")
     public String test() {
         log.info("** Saludos desde el logger **");
         return "Hello from BusinessAssistant Barcelona!!!";
     }
 
     //reactive
-    @GetMapping(value="/test-reactive")
-    public Mono<?> testReactive(){
+    @GetMapping(value = "/test-reactive")
+    public Mono<?> testReactive() {
         try {
             return testService.getTestData();
         } catch (MalformedURLException mue) {
@@ -57,7 +60,7 @@ public class OpendataController {
     @GetMapping("/large-establishments")
     public Mono<?> largeEstablishments(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
@@ -66,11 +69,11 @@ public class OpendataController {
     @GetMapping("/large-establishments/activities")
     public Mono<?> largeEstablishmentsActivities(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return largeEstablishmentsService.getLargeEstablishmentsActivities(
-            this.getValidOffset(offset), this.getValidLimit(limit)
+                this.getValidOffset(offset), this.getValidLimit(limit)
         );
     }
 
@@ -78,7 +81,7 @@ public class OpendataController {
     @GetMapping("/large-establishments/district/{district}")
     public Mono<?> largeEstablishmentsByDistrict(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @PathVariable("district") int district,
             @RequestParam Map<String, String> map
     ) throws MalformedURLException {
@@ -91,7 +94,7 @@ public class OpendataController {
     @GetMapping("/large-establishments/activity/{activity}")
     public Mono<?> largeEstablishmentsByActivity(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @PathVariable("activity") String activity,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -99,10 +102,21 @@ public class OpendataController {
                 .getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
     }
 
+    @GetMapping("/large-establishments/search")
+    public Mono<?> largeEstablishmentsSearch(
+            @RequestParam(required = false) String offset,
+            @RequestParam(required = false) String limit,
+            @RequestParam Map<String, String> map,
+            @RequestBody SearchDTO searchParams) throws MalformedURLException {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return largeEstablishmentsService.getPageBySearch(
+                this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
+    }
+
     @GetMapping("/commercial-galleries")
     public Mono<?> commercialGalleries(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return commercialGalleriesService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
@@ -111,18 +125,18 @@ public class OpendataController {
     @GetMapping("/commercial-galleries/activities")
     public Mono<?> commercialGalleriesAllActivities(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return commercialGalleriesService.getCommercialGalleriesActivities(
-            this.getValidOffset(offset), this.getValidLimit(limit)
+                this.getValidOffset(offset), this.getValidLimit(limit)
         );
     }
 
     @GetMapping("/commercial-galleries/district/{district}")
     public Mono<?> commercialGaleriesByDistrict(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @PathVariable("district") int district,
             @RequestParam Map<String, String> map
     ) throws MalformedURLException {
@@ -134,7 +148,7 @@ public class OpendataController {
     @GetMapping("/commercial-galleries/activity/{activity}")
     public Mono<?> commercialGalleriesByActivity(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @PathVariable("activity") String activity,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -142,11 +156,22 @@ public class OpendataController {
                 .getPageByActivity(this.getValidOffset(offset), this.getValidLimit(limit), activity);
     }
 
+    @GetMapping("/commercial-galleries/search")
+    public Mono<?> commercialGalleriesSearch(
+            @RequestParam(required = false) String offset,
+            @RequestParam(required = false) String limit,
+            @RequestParam Map<String, String> map,
+            @RequestBody SearchDTO searchParams) throws MalformedURLException {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return commercialGalleriesService.getPageBySearch(
+                this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
+    }
+
     //GET ?offset=0&limit=10
     @GetMapping("/big-malls")
     public Mono<?> bigMalls(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return bigMallsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
@@ -155,7 +180,7 @@ public class OpendataController {
     @GetMapping("/big-malls/activities")
     public Mono<?> bigMallsAllActivities(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return bigMallsService.getBigMallsActivities(this.getValidOffset(offset), this.getValidLimit(limit));
@@ -164,7 +189,7 @@ public class OpendataController {
     @GetMapping("/big-malls/activity/{activity}")
     public Mono<?> bigMallsByActivity(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @PathVariable("activity") String activity,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -175,7 +200,7 @@ public class OpendataController {
     @GetMapping("/big-malls/district/{district}")
     public Mono<?> bigMallsByDistrict(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @PathVariable("district") int district,
             @RequestParam Map<String, String> map
     ) throws MalformedURLException {
@@ -184,38 +209,40 @@ public class OpendataController {
                 .getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
     }
 
+    @GetMapping("/big-malls/search")
+    public Mono<?> bigMallsSearch(
+            @RequestParam(required = false) String offset,
+            @RequestParam(required = false) String limit,
+            @RequestParam Map<String, String> map,
+            @RequestBody SearchDTO searchParams) throws MalformedURLException {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+        return bigMallsService.getPageBySearch(
+                this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
+    }
+
     @GetMapping("/municipal-markets")
     public Mono<?> municipalMarkets(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return municipalMarketsService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
-    //GET ?offset=0&limit=10
     @GetMapping("/municipal-markets/district/{district}")
-    public String municipalMarketsByDistrict( //provisional return. (Mono<?>)
-                                              @RequestParam(required = false) String offset,
-                                              @RequestParam(required = false)  String limit,
-                                              @PathVariable("district") int district){ // It's int why BusinessAssistantBCN-frontend/blob/develop/src/app/models/common/zone.model.ts   it's  number
-
-        offset = offset == null ? "0": offset;
-        limit = limit == null ? "-1": limit;
-
-        try{
-            //CARE! waiting service
-            //return municipalMarketsService.getPageByDistrict(Integer.parseInt(offset), Integer.parseInt(limit), district);
-            return "CARE! waiting service municipalMarketsService.getPageByDistrict";
-        }catch (Exception mue){
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Resource not found", mue);
-        }
+    public Mono<GenericResultDto<MunicipalMarketsResponseDto>> municipalMarketsByDistrict(
+            @RequestParam(required = false) String offset,
+            @RequestParam(required = false) String limit,
+            @PathVariable("district") int district,
+            @RequestParam Map<String, String> map) throws MalformedURLException {
+        this.validateRequestParameters(map, this.PAGINATION_ENABLED);
+            return municipalMarketsService.getPageByDistrict(this.getValidOffset(offset), this.getValidLimit(limit), district);
     }
 
     @GetMapping("/market-fairs")
     public Mono<?> marketFairs(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map
     ) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
@@ -226,15 +253,14 @@ public class OpendataController {
     @GetMapping("/economic-activities-census")
     public Mono<?> economicActivitiesCensus(
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false)  String limit,
+            @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map
     ) throws MalformedURLException {
         this.validateRequestParameters(map, this.PAGINATION_ENABLED);
         return economicActivitiesCensusService.getPage(this.getValidOffset(offset), this.getValidLimit(limit));
     }
 
-    private void validateRequestParameters(Map<String, String> map, boolean paginationEnabled)
-    {
+    private void validateRequestParameters(Map<String, String> map, boolean paginationEnabled) {
         if (!paginationEnabled && !map.keySet().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -245,8 +271,7 @@ public class OpendataController {
         }
     }
 
-    private int getValidOffset(String offset)
-    {
+    private int getValidOffset(String offset) {
         if (offset == null || offset.isEmpty()) {
             return 0;
         }

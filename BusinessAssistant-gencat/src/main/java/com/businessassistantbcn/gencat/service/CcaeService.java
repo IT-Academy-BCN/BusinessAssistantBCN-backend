@@ -38,7 +38,7 @@ public class CcaeService {
         return getData()
                 .flatMap(ccaeDtos -> {
                         CcaeDto[] pageResult = JsonHelper.filterDto(ccaeDtos, offset, limit);
-                        genericResultDto.setInfo(offset, limit, pageResult.length, pageResult);
+                        genericResultDto.setInfo(offset, limit, ccaeDtos.length, pageResult);
                         return Mono.just(genericResultDto);
                     });
     }

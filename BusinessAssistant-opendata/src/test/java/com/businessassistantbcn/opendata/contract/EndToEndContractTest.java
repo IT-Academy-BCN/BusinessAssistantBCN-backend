@@ -6,6 +6,7 @@ import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.core.model.annotations.PactFolder;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
 import org.apache.http.entity.ContentType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -73,7 +75,7 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activityName").isEqualTo("Antiguitats i brocanteries");
 
         requestDataAndVerifyExactFirstElement("/commercial-galleries/activity/1006051")
-                .jsonPath("$.count").isEqualTo(1)
+                .jsonPath("$.count").isEqualTo(4)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Galeria Comercial Bulevard dels Antiquaris")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.bulevarddelsantiquaris.com")
@@ -85,7 +87,7 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Pg Gràcia");
 
         requestDataAndVerifyExactFirstElement("/commercial-galleries/district/2")
-                .jsonPath("$.count").isEqualTo(2)
+                .jsonPath("$.count").isEqualTo(4)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Galeria Comercial Bulevard dels Antiquaris")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.bulevarddelsantiquaris.com")
@@ -95,6 +97,30 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(1006051)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Pg Gràcia");
+
+        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{1006051});
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + "/commercial-galleries/search")
+                .bodyValue(searchDTO)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.offset").isEqualTo(0)
+                .jsonPath("$.limit").isEqualTo(-1)
+                .jsonPath("$.count").isEqualTo(4)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "name").isEqualTo("Galeria Comercial Bulevard dels Antiquaris")
+                .jsonPath(RES0 + "web").isEqualTo("http://www.bulevarddelsantiquaris.com")
+                .jsonPath(RES0 + "email").isEqualTo("info@bulevarddelsantiquaris.com")
+                .jsonPath(RES0 + "phone").isEmpty()
+                .jsonPath(RES0 + "activities").isArray()
+                .jsonPath(RES0 + "activities[1].activityId").isEqualTo(1006051)
+                .jsonPath(RES0 + "addresses").isArray()
+                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Pg Gràcia")
+                .jsonPath(RES0 + "addresses[0].district_id").isEqualTo("02");
     }
 
     @Pact(provider = "mock-big-malls", consumer = "opendata")
@@ -128,7 +154,7 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activityName").isEqualTo("Accessible per a persones amb discapacitat física");
 
         requestDataAndVerifyExactFirstElement("/big-malls/activity/107001")
-                .jsonPath("$.count").isEqualTo(1)
+                .jsonPath("$.count").isEqualTo(27)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Hipercor *Avinguda Meridiana")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.hipercor.es")
@@ -140,7 +166,7 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Av Meridiana");
 
         requestDataAndVerifyExactFirstElement("/big-malls/district/3")
-                .jsonPath("$.count").isEqualTo(2)
+                .jsonPath("$.count").isEqualTo(27)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Botiga Bauhaus *Passeig Zona Franca")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.bauhaus.es")
@@ -150,6 +176,30 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(32805726)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Passeig de la Zona Franca");
+
+        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{37810722});
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + "/big-malls/search")
+                .bodyValue(searchDTO)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.offset").isEqualTo(0)
+                .jsonPath("$.limit").isEqualTo(-1)
+                .jsonPath("$.count").isEqualTo(27)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "name").isEqualTo("Centre Comercial Arenas de Barcelona")
+                .jsonPath(RES0 + "web").isEqualTo("http://www.arenasdebarcelona.com")
+                .jsonPath(RES0 + "email").isEqualTo("arenas.informacion@arenasdebarcelona.com")
+                .jsonPath(RES0 + "phone").isEmpty()
+                .jsonPath(RES0 + "activities").isArray()
+                .jsonPath(RES0 + "activities[1].activityId").isEqualTo(37810722)
+                .jsonPath(RES0 + "addresses").isArray()
+                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("G.V. Corts Catalanes")
+                .jsonPath(RES0 + "addresses[0].district_id").isEqualTo("02");
     }
 
     @Pact(provider = "mock-large-establishments", consumer = "opendata")
@@ -183,7 +233,7 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activityName").isEqualTo("Alimentació i begudes");
 
         requestDataAndVerifyExactFirstElement("/large-establishments/activity/107007")
-                .jsonPath("$.count").isEqualTo(3)
+                .jsonPath("$.count").isEqualTo(44)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Oracle Ibérica")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.oracle.es")
@@ -195,7 +245,7 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Av Diagonal");
 
         requestDataAndVerifyExactFirstElement("/large-establishments/district/3")
-                .jsonPath("$.count").isEqualTo(4)
+                .jsonPath("$.count").isEqualTo(44)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Empresa Konica Minolta")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.konicaminolta.es")
@@ -205,6 +255,30 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(1026004)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Rbla Brasil");
+
+        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{107001});
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + "/large-establishments/search")
+                .bodyValue(searchDTO)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.offset").isEqualTo(0)
+                .jsonPath("$.limit").isEqualTo(-1)
+                .jsonPath("$.count").isEqualTo(44)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "name").isEqualTo("Novartis Farmacéutica S.A.")
+                .jsonPath(RES0 + "web").isEqualTo("http://www.novartis.es")
+                .jsonPath(RES0 + "email").isEmpty()
+                .jsonPath(RES0 + "phone").isEmpty()
+                .jsonPath(RES0 + "activities").isArray()
+                .jsonPath(RES0 + "activities[1].activityId").isEqualTo(107001)
+                .jsonPath(RES0 + "addresses").isArray()
+                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("G.V. Corts Catalanes")
+                .jsonPath(RES0 + "addresses[0].district_id").isEqualTo("02");
     }
 
     @Pact(provider = "mock-market-fairs", consumer = "opendata")
