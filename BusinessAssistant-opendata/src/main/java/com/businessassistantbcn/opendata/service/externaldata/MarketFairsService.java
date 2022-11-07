@@ -4,6 +4,7 @@ import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.ClassificationDataDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsSearchDto;
 import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -19,7 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 @Service
 public class MarketFairsService {
@@ -51,10 +52,59 @@ public class MarketFairsService {
 			});
 	}
 
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMarketFairsDefaultPage")
+	public Mono<GenericResultDto<MarketFairsResponseDto>> getPageByDistrict(int offset, int limit, int district)
+			throws MalformedURLException {
+		return getResultDto(offset, limit, dto ->
+				dto.getAddresses().stream().anyMatch(a ->
+						Integer.parseInt(a.getDistrict_id()) == district
+				));
+	}
+
+	// Get paged results filtered by search parameters (zones and activities)
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMarketFairsDefaultPage")
+	public Mono<GenericResultDto<MarketFairsResponseDto>> getPageBySearch(int offset, int limit, MarketFairsSearchDto searchParams)
+			throws MalformedURLException {
+
+		Predicate<MarketFairsDto> zoneFilter;
+		if (searchParams.getZones().length > 0) {
+			zoneFilter = marketFairsDto ->
+					marketFairsDto.getAddresses()
+							.stream()
+							.anyMatch(address ->
+									Arrays.stream(searchParams.getZones())
+											.anyMatch(zoneId -> zoneId == Integer.parseInt(address.getDistrict_id())));
+		} else {
+			zoneFilter = marketFairsDto -> true;
+		}
+
+		return getResultDto(offset, limit, zoneFilter);
+	}
+
+	private Mono<GenericResultDto<MarketFairsResponseDto>> getResultDto(
+			int offset, int limit, Predicate<MarketFairsDto> dtoFilter) throws MalformedURLException {
+		return httpProxy.getRequestData(new URL(config.getDs_marketfairs()), MarketFairsDto[].class)
+				.flatMap(marketFairsDto -> {
+					MarketFairsDto[] fullDto = Arrays.stream(marketFairsDto)
+							.toArray(MarketFairsDto[]::new);
+
+					MarketFairsDto[] filteredDto = Arrays.stream(fullDto)
+							.filter(dtoFilter)
+							.toArray(MarketFairsDto[]::new);
+
+					MarketFairsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
+
+					MarketFairsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::convertToDto).toArray(MarketFairsResponseDto[]::new);
+
+					genericResultDto.setInfo(offset, limit, fullDto.length, responseDto);
+					return Mono.just(genericResultDto);
+				});
+	}
+
 	private MarketFairsDto removeClassificationDataWithUsInternInFullPath(MarketFairsDto marketFairsDto){
 		List<ClassificationDataDto> cassData = marketFairsDto.getClassifications_data().stream()
 				.filter(d -> !d.getName().toUpperCase().contains("ÚS INTERN"))
-				.collect(Collectors.toList());
+				.toList();
 		marketFairsDto.setClassifications_data(cassData);
 		return marketFairsDto;
 	}
@@ -86,5 +136,4 @@ public class MarketFairsService {
 		genericResultDto.setInfo(0, 0, 0, new MarketFairsResponseDto[0]);
 		return Mono.just(genericResultDto);
 	}
-
 }

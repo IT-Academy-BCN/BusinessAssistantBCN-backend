@@ -316,6 +316,73 @@
           "name": "Server up - /commercial-galleries/district/2"
         }
       ]
+    },
+    {
+      "description": "/commercial-galleries/search - Server up",
+      "request": {
+        "method": "GET",
+        "path": "/businessassistantbcn/api/v1/opendata/commercial-galleries/search",
+        "body": {
+          "zones": [
+            2,
+            3
+          ],
+          "activities": [
+            1006051
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "offset": 0,
+          "limit": -1,
+          "count": 4,
+          "results": [
+            {
+              "name": "Galeria Comercial Bulevard dels Antiquaris",
+              "web": "http://www.bulevarddelsantiquaris.com",
+              "email": "info@bulevarddelsantiquaris.com",
+              "phone": null,
+              "activities": [
+                {
+                  "activityId": 1008025,
+                  "activityName": "Galeries comercials"
+                },
+                {
+                  "activityId": 1006051,
+                  "activityName": "Galeries d'art"
+                },
+                {
+                  "activityId": 29810738,
+                  "activityName": "Antiguitats i brocanteries"
+                }
+              ],
+              "addresses": [
+                {
+                  "street_name": "Pg Gr\u00E0cia",
+                  "street_number": "55*57",
+                  "zip_code": "08007",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.39259018311431,
+                    "y": 2.1639078381745587
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "providerStates": [
+        {
+          "name": "Server up - /commercial-galleries/search"
+        }
+      ]
     }
   ],
   "metadata": {

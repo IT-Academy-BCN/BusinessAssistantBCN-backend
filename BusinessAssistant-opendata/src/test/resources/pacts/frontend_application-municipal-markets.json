@@ -7,6 +7,236 @@
   },
   "interactions": [
     {
+      "description": "/municipal-markets/district/2 - Server up",
+      "request": {
+        "method": "GET",
+        "path": "/businessassistantbcn/api/v1/opendata/municipal-markets/district/2"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "offset": 0,
+          "limit": -1,
+          "count": 43,
+          "results": [
+            {
+              "name": "Mercat de La Concepci\u00F3",
+              "web": [
+                "https://www.facebook.com/MercatConcepcio",
+                "https://twitter.com/MercatConcepcio",
+                "http://www.barcelona.cat/mercats",
+                "http://www.laconcepcio.cat"
+              ],
+              "email": "mercatconcepcio@bcn.cat",
+              "phone": "934132314,934764870",
+              "addresses": [
+                {
+                  "street_name": "Carrer d'Arag\u00F3",
+                  "street_number": "311*LB",
+                  "zip_code": "08009",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.39556815947775,
+                    "y": 2.169071648271845
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat del Ninot",
+              "web": [
+                "http://www.ulabox.com",
+                "http://www.barcelona.cat/mercats",
+                "http://www.mercatdelninot.com",
+                "https://www.facebook.com/Mercat-del-Ninot-183575718328825/",
+                "https://twitter.com/mercatdelninot",
+                "https://www.instagram.com/mercatdelninot/"
+              ],
+              "email": "mercatninot@bcn.cat",
+              "phone": "934132322,934530360",
+              "addresses": [
+                {
+                  "street_name": "Carrer de Mallorca",
+                  "street_number": "133*157",
+                  "zip_code": "08036",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.38785716567696,
+                    "y": 2.1544122344047523
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat del Fort Pienc",
+              "web": [
+                "http://www.barcelona.cat/mercats"
+              ],
+              "email": "mercatfortpienc@bcn.cat",
+              "phone": "934132316",
+              "addresses": [
+                {
+                  "street_name": "Pl Fort Pienc",
+                  "street_number": "3",
+                  "zip_code": "08013",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.39577357186832,
+                    "y": 2.182541089615223
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat Dominical de Sant Antoni",
+              "web": [
+                "https://www.facebook.com/mercat.dominicalsantantoni",
+                "https://www.instagram.com/mercatdominicalsantantoni/",
+                "https://twitter.com/Santoni_dom",
+                "https://www.youtube.com/channel/UCZxB-MFvH6XWTwDWpHGDxuA",
+                "http://www.mercatdominicaldesantantoni.com",
+                "http://www.mercatdesantantoni.com"
+              ],
+              "email": "",
+              "phone": "934132300",
+              "addresses": [
+                {
+                  "street_name": "C Comte d'Urgell",
+                  "street_number": "1",
+                  "zip_code": "08011",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.37956821941282,
+                    "y": 2.161743115837759
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat de la Sagrada Fam\u00EDlia",
+              "web": [
+                "https://www.facebook.com/mercat.sagradafamilia",
+                "http://www.barcelona.cat/mercats"
+              ],
+              "email": "mercatsagradafamilia@bcn.cat",
+              "phone": "934132324,934562953",
+              "addresses": [
+                {
+                  "street_name": "Carrer de Padilla",
+                  "street_number": "255",
+                  "zip_code": "08013",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.40571844762519,
+                    "y": 2.177029420136341
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat de Sant Antoni",
+              "web": [
+                "https://www.facebook.com/mercatstantoni/",
+                "https://www.instagram.com/mercatstantoni/",
+                "https://twitter.com/mercatstantoni",
+                "http://www.barcelona.cat/mercats",
+                "http://www.mercatdesantantoni.com"
+              ],
+              "email": "mercatsantantoni@bcn.cat",
+              "phone": "934132300,934132301,934263521",
+              "addresses": [
+                {
+                  "street_name": "Carrer del Comte d'Urgell",
+                  "street_number": "1",
+                  "zip_code": "08011",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.37956821941282,
+                    "y": 2.161743115837759
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat Encants Barcelona - Fira de Bellcaire",
+              "web": [
+                "https://www.facebook.com/EncantsBarcelona",
+                "https://www.instagram.com/encantsbarcelona",
+                "https://twitter.com/EncantsBCN",
+                "https://www.youtube.com/user/encantsbcn",
+                "https://encantsbarcelona.com/"
+              ],
+              "email": "mercatbellcaire@mercatsbcn.cat",
+              "phone": "934132328,934132329",
+              "addresses": [
+                {
+                  "street_name": "Carrer de los Castillejos",
+                  "street_number": "158",
+                  "zip_code": "08013",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.401063548775554,
+                    "y": 2.1856692459565465
+                  }
+                },
+                {
+                  "street_name": "Avinguda Meridiana",
+                  "street_number": "69",
+                  "zip_code": "08018",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.401063548775554,
+                    "y": 2.1856692459565465
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat Encants de Sant Antoni",
+              "web": [
+                "https://www.facebook.com/encantssantantoni/",
+                "https://www.instagram.com/encantssantantoni/",
+                "https://twitter.com/EncantsStAntoni",
+                "http://www.barcelona.cat/mercats",
+                "http://www.mercatdesantantoni.com"
+              ],
+              "email": "",
+              "phone": "934132300",
+              "addresses": [
+                {
+                  "street_name": "C Comte d'Urgell",
+                  "street_number": "1",
+                  "zip_code": "08011",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.38130154687465,
+                    "y": 2.1634511872440987
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "providerStates": [
+        {
+          "name": "Server up - /municipal-markets/district/2"
+        }
+      ]
+    },
+    {
       "description": "/municipal-markets - Server up",
       "request": {
         "method": "GET",
@@ -1037,6 +1267,312 @@
       "providerStates": [
         {
           "name": "Server up - /municipal-markets"
+        }
+      ]
+    },
+    {
+      "description": "/municipal-markets/search - Server up",
+      "request": {
+        "method": "GET",
+        "path": "/businessassistantbcn/api/v1/opendata/municipal-markets/search",
+        "body": {
+          "zones": [
+            2,
+            3
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "offset": 0,
+          "limit": -1,
+          "count": 43,
+          "results": [
+            {
+              "name": "Mercat de La Concepci\u00F3",
+              "web": [
+                "https://www.facebook.com/MercatConcepcio",
+                "https://twitter.com/MercatConcepcio",
+                "http://www.barcelona.cat/mercats",
+                "http://www.laconcepcio.cat"
+              ],
+              "email": "mercatconcepcio@bcn.cat",
+              "phone": "934132314,934764870",
+              "addresses": [
+                {
+                  "street_name": "Carrer d'Arag\u00F3",
+                  "street_number": "311*LB",
+                  "zip_code": "08009",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.39556815947775,
+                    "y": 2.169071648271845
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat del Ninot",
+              "web": [
+                "http://www.ulabox.com",
+                "http://www.barcelona.cat/mercats",
+                "http://www.mercatdelninot.com",
+                "https://www.facebook.com/Mercat-del-Ninot-183575718328825/",
+                "https://twitter.com/mercatdelninot",
+                "https://www.instagram.com/mercatdelninot/"
+              ],
+              "email": "mercatninot@bcn.cat",
+              "phone": "934132322,934530360",
+              "addresses": [
+                {
+                  "street_name": "Carrer de Mallorca",
+                  "street_number": "133*157",
+                  "zip_code": "08036",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.38785716567696,
+                    "y": 2.1544122344047523
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat del Fort Pienc",
+              "web": [
+                "http://www.barcelona.cat/mercats"
+              ],
+              "email": "mercatfortpienc@bcn.cat",
+              "phone": "934132316",
+              "addresses": [
+                {
+                  "street_name": "Pl Fort Pienc",
+                  "street_number": "3",
+                  "zip_code": "08013",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.39577357186832,
+                    "y": 2.182541089615223
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat d'Hostafrancs",
+              "web": [
+                "https://www.facebook.com/MercatDHostafrancs",
+                "http://www.barcelona.cat/mercats"
+              ],
+              "email": "mercathostafrancs@bcn.cat",
+              "phone": "934132307",
+              "addresses": [
+                {
+                  "street_name": "Carrer de la Creu Coberta",
+                  "street_number": "93",
+                  "zip_code": "08014",
+                  "district_id": "03",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.37516234439833,
+                    "y": 2.143853943380838
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat de Sants",
+              "web": [
+                "https://www.facebook.com/mercatdesants",
+                "https://instagram.com/mercatdesants",
+                "https://twitter.com/SANTSMERCAT",
+                "http://www.ulabox.com",
+                "http://www.barcelona.cat/mercats",
+                "https://mercatdesants.cat/"
+              ],
+              "email": "mercatsants@bcn.cat",
+              "phone": "932694472,934132299",
+              "addresses": [
+                {
+                  "street_name": "C Sant Jordi",
+                  "street_number": "6",
+                  "zip_code": "08028",
+                  "district_id": "03",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.37474144032811,
+                    "y": 2.1337546284183255
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat de La Marina",
+              "web": [
+                "https://www.facebook.com/mercatdelamarina",
+                "http://www.barcelona.cat/mercats"
+              ],
+              "email": "mercatmarina@bcn.cat",
+              "phone": "934132308",
+              "addresses": [
+                {
+                  "street_name": "Passeig de la Zona Franca",
+                  "street_number": "178*180",
+                  "zip_code": "08038",
+                  "district_id": "03",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.36038025969584,
+                    "y": 2.1391929530213143
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat Dominical de Sant Antoni",
+              "web": [
+                "https://www.facebook.com/mercat.dominicalsantantoni",
+                "https://www.instagram.com/mercatdominicalsantantoni/",
+                "https://twitter.com/Santoni_dom",
+                "https://www.youtube.com/channel/UCZxB-MFvH6XWTwDWpHGDxuA",
+                "http://www.mercatdominicaldesantantoni.com",
+                "http://www.mercatdesantantoni.com"
+              ],
+              "email": "",
+              "phone": "934132300",
+              "addresses": [
+                {
+                  "street_name": "C Comte d'Urgell",
+                  "street_number": "1",
+                  "zip_code": "08011",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.37956821941282,
+                    "y": 2.161743115837759
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat de la Sagrada Fam\u00EDlia",
+              "web": [
+                "https://www.facebook.com/mercat.sagradafamilia",
+                "http://www.barcelona.cat/mercats"
+              ],
+              "email": "mercatsagradafamilia@bcn.cat",
+              "phone": "934132324,934562953",
+              "addresses": [
+                {
+                  "street_name": "Carrer de Padilla",
+                  "street_number": "255",
+                  "zip_code": "08013",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.40571844762519,
+                    "y": 2.177029420136341
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat de Sant Antoni",
+              "web": [
+                "https://www.facebook.com/mercatstantoni/",
+                "https://www.instagram.com/mercatstantoni/",
+                "https://twitter.com/mercatstantoni",
+                "http://www.barcelona.cat/mercats",
+                "http://www.mercatdesantantoni.com"
+              ],
+              "email": "mercatsantantoni@bcn.cat",
+              "phone": "934132300,934132301,934263521",
+              "addresses": [
+                {
+                  "street_name": "Carrer del Comte d'Urgell",
+                  "street_number": "1",
+                  "zip_code": "08011",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.37956821941282,
+                    "y": 2.161743115837759
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat Encants Barcelona - Fira de Bellcaire",
+              "web": [
+                "https://www.facebook.com/EncantsBarcelona",
+                "https://www.instagram.com/encantsbarcelona",
+                "https://twitter.com/EncantsBCN",
+                "https://www.youtube.com/user/encantsbcn",
+                "https://encantsbarcelona.com/"
+              ],
+              "email": "mercatbellcaire@mercatsbcn.cat",
+              "phone": "934132328,934132329",
+              "addresses": [
+                {
+                  "street_name": "Carrer de los Castillejos",
+                  "street_number": "158",
+                  "zip_code": "08013",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.401063548775554,
+                    "y": 2.1856692459565465
+                  }
+                },
+                {
+                  "street_name": "Avinguda Meridiana",
+                  "street_number": "69",
+                  "zip_code": "08018",
+                  "district_id": "02",
+                  "town": "Barcelona",
+                  "location": {
+                    "x": 41.401063548775554,
+                    "y": 2.1856692459565465
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Mercat Encants de Sant Antoni",
+              "web": [
+                "https://www.facebook.com/encantssantantoni/",
+                "https://www.instagram.com/encantssantantoni/",
+                "https://twitter.com/EncantsStAntoni",
+                "http://www.barcelona.cat/mercats",
+                "http://www.mercatdesantantoni.com"
+              ],
+              "email": "",
+              "phone": "934132300",
+              "addresses": [
+                {
+                  "street_name": "C Comte d'Urgell",
+                  "street_number": "1",
+                  "zip_code": "08011",
+                  "district_id": "02",
+                  "town": "BARCELONA",
+                  "location": {
+                    "x": 41.38130154687465,
+                    "y": 2.1634511872440987
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "providerStates": [
+        {
+          "name": "Server up - /municipal-markets/search"
         }
       ]
     }

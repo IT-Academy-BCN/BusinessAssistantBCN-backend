@@ -224,7 +224,7 @@ class CommercialGalleriesServiceTest {
 	}
 
 	@Test
-	void getPageByActivity() throws MalformedURLException {
+	void getPageByActivityTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
 		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
 				.thenReturn(Mono.just(twoCommercialGalleriesDto));
@@ -239,7 +239,7 @@ class CommercialGalleriesServiceTest {
 	}
 
 	@Test
-	void getPageByDistrict() throws MalformedURLException {
+	void getPageByDistrictTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
 		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
 				.thenReturn(Mono.just(twoCommercialGalleriesDto));
@@ -254,7 +254,7 @@ class CommercialGalleriesServiceTest {
 	}
 
 	@Test
-	void getPageBySearch() throws MalformedURLException {
+	void getPageBySearchTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
 		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
 				.thenReturn(Mono.just(twoCommercialGalleriesDto));

@@ -1,5 +1,7 @@
 package com.businessassistantbcn.opendata.contract;
 
+import au.com.dius.pact.consumer.MockServer;
+import au.com.dius.pact.consumer.dsl.PactDslJsonArray;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
@@ -7,6 +9,11 @@ import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import au.com.dius.pact.core.model.annotations.PactFolder;
 import com.businessassistantbcn.opendata.dto.input.SearchDTO;
+import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsSearchDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsSearchDTO;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.ContentType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,12 +26,12 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -67,12 +74,11 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[0].activityId").isEqualTo(1008025)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("C Portaferrissa");
+    }
 
-        requestDataAndVerifyExactFirstElement("/commercial-galleries/activities")
-                .jsonPath("$.count").isEqualTo(3)
-                .jsonPath("$.results").isArray()
-                .jsonPath(RES0 + "activityId").isEqualTo(29810738)
-                .jsonPath(RES0 + "activityName").isEqualTo("Antiguitats i brocanteries");
+    @Test
+    @PactTestFor(pactMethod = "commercialGalleries")
+    void commercialGalleriesActivityTest() {
 
         requestDataAndVerifyExactFirstElement("/commercial-galleries/activity/1006051")
                 .jsonPath("$.count").isEqualTo(4)
@@ -85,6 +91,22 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(1006051)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Pg Gràcia");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "commercialGalleries")
+    void commercialGalleriesActivitiesTest() {
+
+        requestDataAndVerifyExactFirstElement("/commercial-galleries/activities")
+                .jsonPath("$.count").isEqualTo(3)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "activityId").isEqualTo(29810738)
+                .jsonPath(RES0 + "activityName").isEqualTo("Antiguitats i brocanteries");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "commercialGalleries")
+    void commercialGalleriesDistrictTest() {
 
         requestDataAndVerifyExactFirstElement("/commercial-galleries/district/2")
                 .jsonPath("$.count").isEqualTo(4)
@@ -97,6 +119,11 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(1006051)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Pg Gràcia");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "commercialGalleries")
+    void commercialGalleriesSearchTest() {
 
         SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{1006051});
 
@@ -146,12 +173,22 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(37810722)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("G.V. Corts Catalanes");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "bigMalls")
+    void bigMallsActivitiesTest() {
 
         requestDataAndVerifyExactFirstElement("/big-malls/activities")
                 .jsonPath("$.count").isEqualTo(49)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "activityId").isEqualTo(105001)
                 .jsonPath(RES0 + "activityName").isEqualTo("Accessible per a persones amb discapacitat física");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "bigMalls")
+    void bigMallsActivityTest() {
 
         requestDataAndVerifyExactFirstElement("/big-malls/activity/107001")
                 .jsonPath("$.count").isEqualTo(27)
@@ -164,6 +201,11 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[0].activityId").isEqualTo(43326348)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Av Meridiana");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "bigMalls")
+    void bigMallsDistrictTest() {
 
         requestDataAndVerifyExactFirstElement("/big-malls/district/3")
                 .jsonPath("$.count").isEqualTo(27)
@@ -176,6 +218,11 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(32805726)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Passeig de la Zona Franca");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "bigMalls")
+    void bigMallsSearchTest() {
 
         SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{37810722});
 
@@ -225,12 +272,22 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[0].activityId").isEqualTo(1008031)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("C Mallorca");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishments")
+    void largeEstablishmentsActivitiesTest() {
 
         requestDataAndVerifyExactFirstElement("/large-establishments/activities")
                 .jsonPath("$.count").isEqualTo(100)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "activityId").isEqualTo(107001)
                 .jsonPath(RES0 + "activityName").isEqualTo("Alimentació i begudes");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishments")
+    void largeEstablishmentsActivityTest() {
 
         requestDataAndVerifyExactFirstElement("/large-establishments/activity/107007")
                 .jsonPath("$.count").isEqualTo(44)
@@ -243,6 +300,11 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(107007)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Av Diagonal");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishments")
+    void largeEstablishmentsDistrictTest() {
 
         requestDataAndVerifyExactFirstElement("/large-establishments/district/3")
                 .jsonPath("$.count").isEqualTo(44)
@@ -255,6 +317,11 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "activities[1].activityId").isEqualTo(1026004)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Rbla Brasil");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "largeEstablishments")
+    void largeEstablishmentsSearchTest() {
 
         SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{107001});
 
@@ -300,24 +367,50 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "web").isEqualTo("http://www.mercatdesantantoni.com")
                 .jsonPath(RES0 + "email").isEmpty()
                 .jsonPath(RES0 + "phone").isEmpty()
-                .jsonPath(RES0 + "activities").isArray()
-                .jsonPath(RES0 + "activities[1].activityId").isEqualTo(1011011)
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("C Comte d'Urgell");
+    }
 
-        //TODO once district endpoint implemented
+    @Test
+    @PactTestFor(pactMethod = "marketFairs")
+    void marketFairsDistrictTest() {
 
-//        requestDataAndVerifyExactFirstElement("/market-fairs/district/3")
-//                .jsonPath("$.count").isEqualTo(2)
-//                .jsonPath("$.results").isArray()
-//                .jsonPath(RES0 + "name").isEqualTo("Botiga Bauhaus *Passeig Zona Franca")
-//                .jsonPath(RES0 + "web").isEqualTo("http://www.bauhaus.es")
-//                .jsonPath(RES0 + "email").isEqualTo("barcelona@bauhaus.es")
-//                .jsonPath(RES0 + "phone").isEmpty()
-//                .jsonPath(RES0 + "activities").isArray()
-//                .jsonPath(RES0 + "activities[1].activityId").isEqualTo(32805726)
-//                .jsonPath(RES0 + "addresses").isArray()
-//                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Passeig de la Zona Franca");
+        requestDataAndVerifyExactFirstElement("/market-fairs/district/2")
+                .jsonPath("$.count").isEqualTo(41)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "name").isEqualTo("Mercat Encants de Sant Antoni")
+                .jsonPath(RES0 + "web").isEqualTo("http://www.mercatdesantantoni.com")
+                .jsonPath(RES0 + "email").isEmpty()
+                .jsonPath(RES0 + "phone").isEmpty()
+                .jsonPath(RES0 + "addresses").isArray()
+                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("C Comte d'Urgell");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "marketFairs")
+    void marketFairsSearchTest() {
+
+        MarketFairsSearchDto searchDTO = new MarketFairsSearchDto(new int[]{2, 3});
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + "/market-fairs/search")
+                .bodyValue(searchDTO)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.offset").isEqualTo(0)
+                .jsonPath("$.limit").isEqualTo(-1)
+                .jsonPath("$.count").isEqualTo(41)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "name").isEqualTo("Mercat Encants de Sant Antoni")
+                .jsonPath(RES0 + "web").isEqualTo("http://www.mercatdesantantoni.com")
+                .jsonPath(RES0 + "email").isEmpty()
+                .jsonPath(RES0 + "phone").isEmpty()
+                .jsonPath(RES0 + "addresses").isArray()
+                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("C Comte d'Urgell")
+                .jsonPath(RES0 + "addresses[0].district_id").isEqualTo("02");
     }
 
     @Pact(provider = "mock-municipal-markets", consumer = "opendata")
@@ -351,7 +444,7 @@ class EndToEndContractTest {
                 .jsonPath(ALLRES + "activities").doesNotHaveJsonPath()
                 .jsonPath(ALLRES + "addresses").isArray();
 
-        requestDataAndVerifyExactFirstElement("/municipal-markets")
+        requestDataAndVerifyExactFirstElement(endpointURL)
                 .jsonPath("$.count").isEqualTo(43)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Mercat del Guinardó")
@@ -361,20 +454,49 @@ class EndToEndContractTest {
                 .jsonPath(RES0 + "phone").isEqualTo("934132332")
                 .jsonPath(RES0 + "addresses").isArray()
                 .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("C Teodor Llorente");
+    }
 
-        //TODO once district endpoint implemented
+    @Test
+    @PactTestFor(pactMethod = "municipalMarkets")
+    void municipalMarketsDistrictTest() {
 
-//        requestDataAndVerifyExactFirstElement("/municipal-markets/district/3")
-//                .jsonPath("$.count").isEqualTo(2)
-//                .jsonPath("$.results").isArray()
-//                .jsonPath(RES0 + "name").isEqualTo("Botiga Bauhaus *Passeig Zona Franca")
-//                .jsonPath(RES0 + "web").isEqualTo("http://www.bauhaus.es")
-//                .jsonPath(RES0 + "email").isEqualTo("barcelona@bauhaus.es")
-//                .jsonPath(RES0 + "phone").isEmpty()
-//                .jsonPath(RES0 + "activities").isArray()
-//                .jsonPath(RES0 + "activities[1].activityId").isEqualTo(32805726)
-//                .jsonPath(RES0 + "addresses").isArray()
-//                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Passeig de la Zona Franca");
+        requestDataAndVerifyExactFirstElement("/municipal-markets/district/2")
+                .jsonPath("$.count").isEqualTo(43)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "name").isEqualTo("Mercat de La Concepció")
+                .jsonPath(RES0 + "web[0]").isEqualTo("https://www.facebook.com/MercatConcepcio")
+                .jsonPath(RES0 + "email").isEqualTo("mercatconcepcio@bcn.cat")
+                .jsonPath(RES0 + "phone").isEqualTo("934132314,934764870")
+                .jsonPath(RES0 + "addresses").isArray()
+                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Carrer d'Aragó")
+                .jsonPath(RES0 + "addresses[0].district_id").isEqualTo("02");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "municipalMarkets")
+    void municipalMarketsSearchTest() {
+
+        MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO(new int[]{2, 3});
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + "/municipal-markets/search")
+                .bodyValue(searchDTO)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.offset").isEqualTo(0)
+                .jsonPath("$.limit").isEqualTo(-1)
+                .jsonPath("$.count").isEqualTo(43)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "name").isEqualTo("Mercat de La Concepció")
+                .jsonPath(RES0 + "web[0]").isEqualTo("https://www.facebook.com/MercatConcepcio")
+                .jsonPath(RES0 + "email").isEqualTo("mercatconcepcio@bcn.cat")
+                .jsonPath(RES0 + "phone").isEqualTo("934132314,934764870")
+                .jsonPath(RES0 + "addresses").isArray()
+                .jsonPath(RES0 + "addresses[0].street_name").isEqualTo("Carrer d'Aragó")
+                .jsonPath(RES0 + "addresses[0].district_id").isEqualTo("02");
     }
 
     @Pact(provider = "mock-server-down", consumer = "opendata")
@@ -406,6 +528,41 @@ class EndToEndContractTest {
                 .jsonPath("$.limit").isEqualTo(0)
                 .jsonPath("$.count").isEqualTo(0)
                 .jsonPath("$.results").isEmpty();
+    }
+
+    @Pact(provider = "mock-economic-activities-census", consumer = "opendata")
+    public RequestResponsePact economicActivitiesCensus(PactDslWithProvider builder) throws URISyntaxException, IOException {
+
+        return pactMaker(builder, "/economic-activities-census");
+    }
+
+    @Test
+    @PactTestFor(pactMethod = "economicActivitiesCensus")
+    void economicActivitiesCensusTest() {
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + "/economic-activities-census")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.offset").isEqualTo(0)
+                .jsonPath("$.limit").isEqualTo(-1)
+                .jsonPath("$.count").isEqualTo(96)
+                .jsonPath("$.results").isArray()
+                .jsonPath(RES0 + "json_featuretype").isEqualTo("class_act")
+                .jsonPath(RES0 + "Codi_Activitat_2019").isEqualTo("1000000")
+                .jsonPath(RES0 + "Nom_Activitat").isEqualTo("Resta alimentació")
+                .jsonPath(RES0 + "Codi_Activitat_2016").isEqualTo("1000")
+                .jsonPath(RES0 + "Codi_Principal_Activitat").isEqualTo("1")
+                .jsonPath(RES0 + "Nom_Principal_Activitat").isEqualTo("Actiu")
+                .jsonPath(RES0 + "Codi_Sector_Activitat").isEqualTo("1")
+                .jsonPath(RES0 + "Nom_Sector_Activitat").isEqualTo("Comerç al detall")
+                .jsonPath(RES0 + "Codi_Grup_Activitat").isEqualTo("1")
+                .jsonPath(RES0 + "Nom_Grup_Activitat").isEqualTo("Quotidià alimentari")
+                .jsonPath(RES0 + "Comentari_Activitat").isEmpty()
+                .consumeWith(System.out::println);
     }
 
     private RequestResponsePact pactMaker(PactDslWithProvider builder, String endpointURL) throws URISyntaxException, IOException {

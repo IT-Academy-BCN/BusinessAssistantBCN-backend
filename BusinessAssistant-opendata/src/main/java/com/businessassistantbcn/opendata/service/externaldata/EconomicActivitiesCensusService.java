@@ -37,12 +37,14 @@ public class EconomicActivitiesCensusService {
 			});
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<EconomicActivitiesCensusDto>> logServerErrorReturnEconomicActivitiesCensusDefaultPage
 		(Throwable exception) {
 		log.error("Opendata is down");
 		return this.getEconomicActivitiesCensusDefaultPage();
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<EconomicActivitiesCensusDto>> logInternalErrorReturnEconomicActivitiesCensusDefaultPage
 		(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());

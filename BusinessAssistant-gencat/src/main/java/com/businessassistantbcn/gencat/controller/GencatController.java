@@ -2,7 +2,6 @@ package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
-import com.businessassistantbcn.gencat.dto.test.ClientFlowerDTO;
 import com.businessassistantbcn.gencat.service.CcaeService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;

@@ -231,11 +231,10 @@ class BigMallsServiceTest {
         assertEquals(-1, actualResult.getLimit());
         assertEquals(43326348, Arrays.stream(actualResult.getResults()).toList()
                 .get(0).getActivities().get(0).getActivityId());
-
     }
 
     @Test
-    void getPageByDistrict() throws MalformedURLException {
+    void getPageByDistrictTest() throws MalformedURLException {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
         when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.just(twoBigMallsDto));
