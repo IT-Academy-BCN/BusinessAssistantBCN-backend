@@ -1,6 +1,12 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.6.1'
+    id 'jacoco'
+}
+
+jacoco{
+    toolVersion = '0.8.8'
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 group 'com.businessassistantbcn'
@@ -41,4 +47,14 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 }
