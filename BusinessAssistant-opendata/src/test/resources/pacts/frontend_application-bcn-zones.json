@@ -1,0 +1,81 @@
+{
+  "provider": {
+    "name": "bcn-zones"
+  },
+  "consumer": {
+    "name": "frontend_application"
+  },
+  "interactions": [
+    {
+      "description": "/bcn-zones - Server up",
+      "request": {
+        "method": "GET",
+        "path": "/businessassistantbcn/api/v1/common/bcn-zones"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "count": 10,
+          "elements": [
+            {
+              "zoneName": "Ciutat Vella",
+              "idZone": 1
+            },
+            {
+              "zoneName": "Eixample",
+              "idZone": 2
+            },
+            {
+              "zoneName": "Sants-Montju\u00EFc",
+              "idZone": 3
+            },
+            {
+              "zoneName": "Les Corts",
+              "idZone": 4
+            },
+            {
+              "zoneName": "Sarri\u00E0-Sant Gervasi",
+              "idZone": 5
+            },
+            {
+              "zoneName": "Gr\u00E0cia",
+              "idZone": 6
+            },
+            {
+              "zoneName": "Horta-Guinard\u00F3",
+              "idZone": 7
+            },
+            {
+              "zoneName": "Nou Barris",
+              "idZone": 8
+            },
+            {
+              "zoneName": "Sant Andreu",
+              "idZone": 9
+            },
+            {
+              "zoneName": "Sant Mart\u00ED",
+              "idZone": 10
+            }
+          ]
+        }
+      },
+      "providerStates": [
+        {
+          "name": "Server up - /bcn-zones"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.1.7"
+    }
+  }
+}
