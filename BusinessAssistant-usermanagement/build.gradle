@@ -13,7 +13,7 @@ jar {
 }
 jacoco{
     toolVersion = '0.8.8'
-    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+    reportsDirectory = layout.buildDirectory.dir('jacocoXml')
 }
 
 group 'com.businessassistantbcn'
@@ -79,9 +79,14 @@ test {
 jacocoTestReport {
     dependsOn test
     reports {
-        xml.required = false
+        xml.required = true
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
 
+sonarqube {
+    properties {
+        property "sonar.jacoco.reportPaths", jacoco.reportsDirectory
+    }
+}
