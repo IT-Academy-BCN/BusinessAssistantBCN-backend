@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 public class MarketFairsService {
@@ -104,7 +105,7 @@ public class MarketFairsService {
 	private MarketFairsDto removeClassificationDataWithUsInternInFullPath(MarketFairsDto marketFairsDto){
 		List<ClassificationDataDto> cassData = marketFairsDto.getClassifications_data().stream()
 				.filter(d -> !d.getName().toUpperCase().contains("ÚS INTERN"))
-				.toList();
+				.collect(Collectors.toList());
 		marketFairsDto.setClassifications_data(cassData);
 		return marketFairsDto;
 	}
