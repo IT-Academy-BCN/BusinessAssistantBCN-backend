@@ -3,12 +3,16 @@ package com.businessassistantbcn.opendata.controller;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicActivitiesCensusDto;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
 import com.businessassistantbcn.opendata.dto.input.largeestablishments.LargeEstablishmentsDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsSearchDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsSearchDTO;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
-import com.businessassistantbcn.opendata.service.circuitbreakerstest.CircuitBreakersTestService;
 import com.businessassistantbcn.opendata.service.config.TestService;
 import com.businessassistantbcn.opendata.service.externaldata.*;
 import org.junit.jupiter.api.DisplayName;
@@ -20,22 +24,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
+
 import java.lang.reflect.*;
 import java.net.MalformedURLException;
 import java.util.List;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = OpendataController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
-public class OpendataControllerTest {
+class OpendataControllerTest {
 	
 	@Autowired
 	private WebTestClient webTestClient;
@@ -59,13 +66,9 @@ public class OpendataControllerTest {
 	@MockBean
 	private EconomicActivitiesCensusService economicActivitiesCensusService;
 
-	@MockBean
-	CircuitBreakersTestService proxyTestService;
-
-
 	@DisplayName("Simple String response")
 	@Test
-	public void testHello(){
+	void testHello(){
 		
 		final String URI_TEST = "/test";
 		
@@ -75,13 +78,13 @@ public class OpendataControllerTest {
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody(String.class)
-				.value(s -> s.toString(), equalTo("Hello from BusinessAssistant Barcelona!!!"));
+				.value(s -> s, equalTo("Hello from BusinessAssistant Barcelona!!!"));
 		
 	}
 	
 	@DisplayName("Reactive response -- Star Wars vehicles")
 	@Test
-	public void testReactive() { try {
+	void testReactive() { try {
 		
 		final String URI_TEST = "/test-reactive";
 		
@@ -133,6 +136,7 @@ public class OpendataControllerTest {
 	@DisplayName("Opendata response -- JSON elements of commercial centers")
 	//@ParameterizedTest(name = "{index} -> URL=''{0}''")
 	@MethodSource("argsProvider")
+	@SuppressWarnings("unused")
 	public <T> void JsonResponseTests1(String URI_TEST, Class<T> dtoClass, String stringDtoService) { try {
 
 		// Crear un DTO genérico…
@@ -217,22 +221,19 @@ public class OpendataControllerTest {
 
 	// Generador de argumentos para los ensayos del controlador con los centros económicos
 	private static Arguments[] argsProvider() {
-		
-		final Arguments[] args = {
+
+		return new Arguments[]{
 			Arguments.of("/big-malls", BigMallsDto.class, "bigMallsService"),
 			Arguments.of("/large-establishments", LargeEstablishmentsDto.class, "largeEstablishmentsService"),
 			Arguments.of("/market-fairs", MarketFairsDto.class, "marketFairsService"),
-//			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
-//			Arguments.of("/commercial-galleries", CommercialGalleriesDto.class, "commercialGalleriesService")
+			Arguments.of("/municipal-markets", MunicipalMarketsDto.class, "municipalMarketsService"),
+			Arguments.of("/commercial-galleries", CommercialGalleriesDto.class, "commercialGalleriesService")
 		};
-		
-		return args;
-		
 	}
 	
 	@DisplayName("Opendata response -- JSON elements of economic activity codes")
 	@Test
-	public void JsonResponseTests2() throws MalformedURLException {
+	void JsonResponseTests2() throws MalformedURLException {
 		
 		final String URI_TEST = "/economic-activities-census";
 		
@@ -278,7 +279,7 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getBigMallsActivitiesTest() throws MalformedURLException {
+	void getBigMallsActivitiesTest() throws MalformedURLException {
 		when(bigMallsService.getBigMallsActivities(0,-1)).thenReturn(Mono.just(this.getGenericResultDto()));
 		this.requestActivities("/big-malls/activities");
 		verify(bigMallsService).getBigMallsActivities(0,-1);
@@ -286,7 +287,7 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getCommercialGalleriesActivitiesTest() throws MalformedURLException {
+	void getCommercialGalleriesActivitiesTest() throws MalformedURLException {
 		when(commercialGalleriesService.getCommercialGalleriesActivities(0,-1))
 			.thenReturn(Mono.just(this.getGenericResultDto()));
 		this.requestActivities("/commercial-galleries/activities");
@@ -294,7 +295,7 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getLargeEstablishmentsActivitiesTest() throws MalformedURLException {
+	void getLargeEstablishmentsActivitiesTest() throws MalformedURLException {
 		when(largeEstablishmentsService.getLargeEstablishmentsActivities(0,-1))
 				.thenReturn(Mono.just(this.getGenericResultDto()));
 		this.requestActivities("/large-establishments/activities");
@@ -324,7 +325,7 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getLargeEstablishmentsByActivityTest() throws MalformedURLException {
+	void getLargeEstablishmentsByActivityTest() throws MalformedURLException {
 		final String URI_ONE_SEARCH = "/large-establishments/activity/1";
 
 		webTestClient.get()
@@ -340,7 +341,7 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getLargeEstablishmentsByDistrictTest() throws MalformedURLException {
+	void getLargeEstablishmentsByDistrictTest() throws MalformedURLException {
 		final String URI_ONE_SEARCH = "/large-establishments/district/1";
 
 		webTestClient.get()
@@ -356,7 +357,25 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getCommercialGalleriesByActivityTest() throws MalformedURLException {
+	void getLargeEstablishmentBySearchTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/large-establishments/search";
+
+		SearchDTO searchDTO = new SearchDTO();
+
+		webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.bodyValue(searchDTO)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody();
+
+		verify(largeEstablishmentsService).getPageBySearch(0, -1, searchDTO);
+	}
+
+	@Test
+	void getCommercialGalleriesByActivityTest() throws MalformedURLException {
 		final String URI_ONE_SEARCH = "/commercial-galleries/activity/12345";
 
 		webTestClient.get()
@@ -372,7 +391,7 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getCommercialGaleriesByDistrictTest() throws MalformedURLException {
+	void getCommercialGaleriesByDistrictTest() throws MalformedURLException {
 		final String URI_ONE_SEARCH = "/commercial-galleries/district/1";
 
 		webTestClient.get()
@@ -388,7 +407,25 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getBigMallsByActivityTest() throws MalformedURLException {
+	void getCommercialGalleriesBySearchTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/commercial-galleries/search";
+
+		SearchDTO searchDTO = new SearchDTO();
+
+		webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.bodyValue(searchDTO)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody();
+
+		verify(commercialGalleriesService).getPageBySearch(0, -1, searchDTO);
+	}
+
+	@Test
+	void getBigMallsByActivityTest() throws MalformedURLException {
 		final String URI_ONE_SEARCH = "/big-malls/activity/12345";
 
 		webTestClient.get()
@@ -404,7 +441,7 @@ public class OpendataControllerTest {
 	}
 
 	@Test
-	public void getBigMallsByDistrictTest() throws MalformedURLException {
+	void getBigMallsByDistrictTest() throws MalformedURLException {
 		final String URI_ONE_SEARCH = "/big-malls/district/1";
 
 		webTestClient.get()
@@ -417,5 +454,91 @@ public class OpendataControllerTest {
 				.jsonPath("district_id");
 
 		verify(bigMallsService).getPageByDistrict(0, -1, 1);
+	}
+
+	@Test
+	void getBigMallsBySearchTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/big-malls/search";
+
+		SearchDTO searchDTO = new SearchDTO();
+
+		webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.bodyValue(searchDTO)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody();
+
+		verify(bigMallsService).getPageBySearch(0, -1, searchDTO);
+	}
+
+	@Test
+	void getMunicipalMarketsByDistrictTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/municipal-markets/district/2";
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath("district_id");
+
+		verify(municipalMarketsService).getPageByDistrict(0, -1, 2);
+	}
+
+	@Test
+	void getMunicipalMarketsBySearchTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/municipal-markets/search";
+
+		MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO();
+
+		webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.bodyValue(searchDTO)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody();
+
+		verify(municipalMarketsService).getPageBySearch(0, -1, searchDTO);
+	}
+
+	@Test
+	void getMarketFairsByDistrictTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/market-fairs/district/2";
+
+		webTestClient.get()
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody()
+				.jsonPath("district_id");
+
+		verify(marketFairsService).getPageByDistrict(0, -1, 2);
+	}
+
+	@Test
+	void getMarketFairsBySearchTest() throws MalformedURLException {
+		final String URI_ONE_SEARCH = "/market-fairs/search";
+
+		MarketFairsSearchDto searchDTO = new MarketFairsSearchDto();
+
+		webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+				.bodyValue(searchDTO)
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectHeader().valueEquals("Content-Type", "application/json")
+				.expectBody();
+
+		verify(marketFairsService).getPageBySearch(0, -1, searchDTO);
 	}
 }

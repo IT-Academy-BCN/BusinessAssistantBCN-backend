@@ -2,7 +2,6 @@ package com.businessassistantbcn.opendata.proxy;
 
 import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
-import com.businessassistantbcn.opendata.service.externaldata.BigMallsServiceTest;
 import io.netty.channel.ChannelOption;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class HttpProxyTest {
+class HttpProxyTest {
 	
 	@Autowired
 	private Environment env;
@@ -51,7 +50,7 @@ public class HttpProxyTest {
 		mockWebServer.start();
 
 		bigMallsAsString = Files.readAllLines(
-				Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
+				Paths.get(HttpProxyTest.class.getClassLoader().getResource(JSON_FILENAME_BIG_MALLS).toURI()),
 				StandardCharsets.UTF_8
 		).get(0);
 	}

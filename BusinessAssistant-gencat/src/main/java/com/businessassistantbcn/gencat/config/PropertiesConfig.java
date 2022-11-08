@@ -14,9 +14,20 @@ public class PropertiesConfig {
 
     private String ds_ccae;
 
+    private String ds_apitestcircuitbreakers;
+
     private Integer maxBytesInMemory;
 
     private String ds_economicActivities;
+
+    private int id;
+
+    private int type;
+
+    private int idCode;
+
+    private int description;
+
 
     public int getMaxBytesInMemory() {
         return maxBytesInMemory;
@@ -56,5 +67,45 @@ public class PropertiesConfig {
 
     public void setDs_ccae(String ds_ccae) {
         this.ds_ccae = ds_ccae;
+    }
+
+    public String getDs_apitestcircuitbreakers() {
+        return ds_apitestcircuitbreakers;
+    }
+
+    public void setDs_apitestcircuitbreakers(String ds_apitestcircuitbreakers) {
+        this.ds_apitestcircuitbreakers = ds_apitestcircuitbreakers;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public int getIdCode() {
+        return idCode;
+    }
+
+    public int getDescription() {
+        return description;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setIdCode(int idCode) {
+        this.idCode = idCode;
+    }
+
+    public void setDescription(int description) {
+        this.description = description;
     }
 }

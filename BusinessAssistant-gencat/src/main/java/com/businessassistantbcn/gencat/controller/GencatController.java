@@ -1,6 +1,7 @@
 package com.businessassistantbcn.gencat.controller;
 
-
+import com.businessassistantbcn.gencat.dto.GenericResultDto;
+import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.service.CcaeService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
+
 import java.net.MalformedURLException;
 
 @RestController
@@ -28,9 +30,9 @@ public class GencatController {
     }
 
     @GetMapping("/ccae")
-    public Mono<?> getAllCcae(@RequestParam(required = false) String offset,
-                           @RequestParam(required = false)  String limit) throws MalformedURLException {
-        return ccaeService.getAllCcae(getValidOffset(offset), getValidLimit(limit));
+    public Mono<GenericResultDto<CcaeDto>> getAllCcae(@RequestParam(required = false) String offset,
+                                                      @RequestParam(required = false) String limit) throws MalformedURLException {
+        return ccaeService.getPage(getValidOffset(offset), getValidLimit(limit));
     }
 
     //se debe implementar
@@ -44,6 +46,13 @@ public class GencatController {
     @GetMapping("/ccae/type/{type_id}")
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     public Mono getEconomicActivityByType(@PathVariable("type_id") String type) {
+        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+    //Per implementar
+    @GetMapping("/ccae/types")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public Mono getAllCcaeTypes() {
         return Mono.just(HttpStatus.NOT_IMPLEMENTED);
     }
 
@@ -70,6 +79,4 @@ public class GencatController {
         }
         return Integer.parseInt(limit);
     }
-
-
 }

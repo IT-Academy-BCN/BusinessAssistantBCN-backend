@@ -1,22 +1,24 @@
 package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
-import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsSearchDTO;
 import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.function.Predicate;
 
 @Service
 public class MunicipalMarketsService {
@@ -31,8 +33,6 @@ public class MunicipalMarketsService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private GenericResultDto<MunicipalMarketsResponseDto> genericResultDto;
-	@Autowired
-	private GenericResultDto<ActivityInfoDto> genericActivityResultDto;
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMunicipalMarketsDefaultPage")
 	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
@@ -40,11 +40,59 @@ public class MunicipalMarketsService {
 			.flatMap(dtos -> {
 				MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 
-
-				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(p -> mapToResponseDto(p)).toArray(MunicipalMarketsResponseDto[]::new);
+				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(MunicipalMarketsResponseDto[]::new);
 				genericResultDto.setInfo(offset, limit, dtos.length, responseDto);
 				return Mono.just(genericResultDto);
 			});
+	}
+
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMunicipalMarketsDefaultPage")
+	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPageByDistrict(int offset, int limit, int district)
+			throws MalformedURLException {
+		return getResultDto(offset, limit, dto ->
+				dto.getAddresses().stream().anyMatch(a ->
+						Integer.parseInt(a.getDistrict_id()) == district
+				));
+	}
+
+	// Get paged results filtered by search parameters (zones and activities)
+	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMunicipalMarketsDefaultPage")
+	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPageBySearch(int offset, int limit, MunicipalMarketsSearchDTO searchParams)
+			throws MalformedURLException {
+
+		Predicate<MunicipalMarketsDto> zoneFilter;
+		if (searchParams.getZones().length > 0) {
+			zoneFilter = municipalMarketsDto ->
+					municipalMarketsDto.getAddresses()
+							.stream()
+							.anyMatch(address ->
+									Arrays.stream(searchParams.getZones())
+											.anyMatch(zoneId -> zoneId == Integer.parseInt(address.getDistrict_id())));
+		} else {
+			zoneFilter = municipalMarketsDto -> true;
+		}
+
+		return getResultDto(offset, limit, zoneFilter);
+	}
+
+	private Mono<GenericResultDto<MunicipalMarketsResponseDto>> getResultDto(
+			int offset, int limit, Predicate<MunicipalMarketsDto> dtoFilter) throws MalformedURLException {
+		return httpProxy.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
+				.flatMap(municipalMarketsDto -> {
+					MunicipalMarketsDto[] fullDto = Arrays.stream(municipalMarketsDto)
+							.toArray(MunicipalMarketsDto[]::new);
+
+					MunicipalMarketsDto[] filteredDto = Arrays.stream(fullDto)
+							.filter(dtoFilter)
+							.toArray(MunicipalMarketsDto[]::new);
+
+					MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(filteredDto, offset, limit);
+
+					MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(MunicipalMarketsResponseDto[]::new);
+
+					genericResultDto.setInfo(offset, limit, fullDto.length, responseDto);
+					return Mono.just(genericResultDto);
+				});
 	}
 
 	private MunicipalMarketsResponseDto mapToResponseDto(MunicipalMarketsDto municipalMarketsDto) {
@@ -57,11 +105,13 @@ public class MunicipalMarketsService {
 		return responseDto;
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<MunicipalMarketsResponseDto>> logServerErrorReturnMunicipalMarketsDefaultPage(Throwable exception) {
 		log.error("Opendata is down");
 		return this.getMunicipalMarketsDefaultPage();
 	}
 
+	@SuppressWarnings("unused")
 	private Mono<GenericResultDto<MunicipalMarketsResponseDto>> logInternalErrorReturnMunicipalMarketsDefaultPage(Throwable exception) {
 		log.error("BusinessAssistant error: "+exception.getMessage());
 		return this.getMunicipalMarketsDefaultPage();

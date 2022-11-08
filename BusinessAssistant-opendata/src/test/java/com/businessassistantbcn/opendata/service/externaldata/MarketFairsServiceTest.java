@@ -3,7 +3,11 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
+import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsSearchDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
+import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsSearchDTO;
 import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
+import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -29,6 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -40,7 +45,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @PropertySource("classpath:resilience4j-test.properties")
-public class MarketFairsServiceTest {
+class MarketFairsServiceTest {
 
     @MockBean
     private PropertiesConfig config;
@@ -92,6 +97,7 @@ public class MarketFairsServiceTest {
         responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoMarketFairsDto[0].getClassifications_data()));
         responseDto1.setAddresses(addressInfoDto1);
         responseDto[0] = responseDto1;
+
         MarketFairsResponseDto responseDto2 = new MarketFairsResponseDto();
         List<AddressInfoDto> addressInfoDto2 = new ArrayList<>();
         AddressInfoDto addressInfoDto21 = new AddressInfoDto();
@@ -120,7 +126,7 @@ public class MarketFairsServiceTest {
         when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
             .thenReturn(Mono.just(twoMarketFairsDto));
 
-        GenericResultDto<MarketFairsResponseDto> expectedResult = new GenericResultDto<MarketFairsResponseDto>();
+        GenericResultDto<MarketFairsResponseDto> expectedResult = new GenericResultDto<>();
         expectedResult.setInfo(0, -1, twoMarketFairsDto.length, responseDto);
 
         GenericResultDto<MarketFairsResponseDto> actualResult = marketFairsService.getPage(0, -1).block();
@@ -163,5 +169,38 @@ public class MarketFairsServiceTest {
         assertArrayEquals(expectedResult.getResults(), actualResult.getResults());
 
         verify(config, times(1)).getDs_marketfairs();
+    }
+
+    @Test
+    void getPageByDistrictTest() throws MalformedURLException {
+        when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
+        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+                .thenReturn(Mono.just(twoMarketFairsDto));
+
+        GenericResultDto<MarketFairsResponseDto> actualResult =
+                marketFairsService.getPageByDistrict(0, -1, 8).block();
+
+        assertEquals(0, actualResult.getOffset());
+        assertEquals(-1, actualResult.getLimit());
+        assertEquals("08", Arrays.stream(actualResult.getResults()).toList()
+                .get(0).getAddresses().get(0).getDistrict_id());
+    }
+
+    @Test
+    void getPageBySearchTest() throws MalformedURLException {
+        when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
+        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+                .thenReturn(Mono.just(twoMarketFairsDto));
+
+        MarketFairsSearchDto searchParams = new MarketFairsSearchDto(new int[]{8});
+
+        GenericResultDto<MarketFairsResponseDto> actualResult =
+                marketFairsService.getPageBySearch(0, -1, searchParams).block();
+
+        assertEquals(0, actualResult.getOffset());
+        assertEquals(-1, actualResult.getLimit());
+
+        assertEquals("08", Arrays.stream(actualResult.getResults()).toList()
+                .get(0).getAddresses().get(0).getDistrict_id());
     }
 }

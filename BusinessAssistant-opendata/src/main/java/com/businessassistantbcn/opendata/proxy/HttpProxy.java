@@ -45,6 +45,7 @@ public class HttpProxy {
         httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, config.getConnection_timeout())
                 .responseTimeout(Duration.ofMillis(config.getConnection_timeout()))
+                .compress(true)
                 .doOnConnected(conn ->
                         conn.addHandlerLast(new ReadTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS))
                                 .addHandlerLast(new WriteTimeoutHandler(config.getConnection_timeout(), TimeUnit.MILLISECONDS)));

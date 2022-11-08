@@ -1,5 +1,6 @@
 package com.businessassistantbcn.opendata.controller;
 
+import com.businessassistantbcn.opendata.dto.output.BcnZonesResponseDto;
 import com.businessassistantbcn.opendata.service.config.DataConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ public class CommonController {
     DataConfigService bcnZonesService;
 
     @GetMapping("/bcn-zones")
-    public Mono<?> bcnZones(){
+    public Mono<BcnZonesResponseDto> bcnZones(){
         return bcnZonesService.getBcnZones();
     }
 }

@@ -3,9 +3,8 @@ package com.businessassistantbcn.opendata.service.externaldata;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.ActivityInfoDto;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
+import com.businessassistantbcn.opendata.dto.input.SearchDTO;
 import com.businessassistantbcn.opendata.dto.input.commercialgalleries.CommercialGalleriesDto;
-import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.CommercialGalleriesResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
@@ -34,7 +33,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,7 +41,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @PropertySource("classpath:resilience4j-test.properties")
-public class CommercialGalleriesServiceTest {
+class CommercialGalleriesServiceTest {
 	
 
 	@MockBean
@@ -101,6 +99,7 @@ public class CommercialGalleriesServiceTest {
         responseDto1.setActivities(responseDto1.mapClassificationDataListToActivityInfoList(twoCommercialGalleriesDto[0].getClassifications_data()));
         responseDto1.setAddresses(addressInfoDto1);
         responseDto[0] = responseDto1;
+
         CommercialGalleriesResponseDto responseDto2 = new CommercialGalleriesResponseDto();
 		List<AddressInfoDto> addressInfoDto2 = new ArrayList<>();
 		AddressInfoDto addressInfoDto21 = new AddressInfoDto();
@@ -225,7 +224,7 @@ public class CommercialGalleriesServiceTest {
 	}
 
 	@Test
-	void getPageByActivity() throws MalformedURLException {
+	void getPageByActivityTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
 		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
 				.thenReturn(Mono.just(twoCommercialGalleriesDto));
@@ -235,12 +234,12 @@ public class CommercialGalleriesServiceTest {
 
 		assertEquals(0, actualResult.getOffset());
 		assertEquals(-1, actualResult.getLimit());
-		assertEquals(1008025, Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+		assertEquals(1008025, Arrays.stream(actualResult.getResults()).toList()
 				.get(0).getActivities().get(0).getActivityId());
 	}
 
 	@Test
-	void getPageByDistrict() throws MalformedURLException {
+	void getPageByDistrictTest() throws MalformedURLException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
 		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
 				.thenReturn(Mono.just(twoCommercialGalleriesDto));
@@ -250,8 +249,26 @@ public class CommercialGalleriesServiceTest {
 
 		assertEquals(0, actualResult.getOffset());
 		assertEquals(-1, actualResult.getLimit());
-		assertEquals("02", Arrays.stream(actualResult.getResults()).collect(Collectors.toList())
+		assertEquals("02", Arrays.stream(actualResult.getResults()).toList()
 				.get(0).getAddresses().get(0).getDistrict_id());
 	}
 
+	@Test
+	void getPageBySearchTest() throws MalformedURLException {
+		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
+		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+				.thenReturn(Mono.just(twoCommercialGalleriesDto));
+
+		SearchDTO searchParams = new SearchDTO(new int[]{2}, new int[]{});
+
+		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
+				commercialGalleriesService.getPageBySearch(0, -1, searchParams).block();
+
+		assertEquals(0, actualResult.getOffset());
+		assertEquals(-1, actualResult.getLimit());
+		assertEquals("02", Arrays.stream(actualResult.getResults()).toList()
+				.get(0).getAddresses().get(0).getDistrict_id());
+		assertEquals(1008025, Arrays.stream(actualResult.getResults()).toList()
+				.get(0).getActivities().get(0).getActivityId());
+	}
 }

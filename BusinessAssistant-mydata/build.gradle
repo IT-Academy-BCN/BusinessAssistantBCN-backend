@@ -4,6 +4,7 @@ plugins {
     
     // Allows to find mysql:mysql-connector-java
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'jacoco'
 }
 
 jar {
@@ -12,6 +13,10 @@ jar {
                 'Main-Class': 'com.businessassistantbcn.mydata.App'
         )
     }
+}
+jacoco{
+    toolVersion = '0.8.8'
+    reportsDirectory = layout.buildDirectory.dir('jacocoXml')
 }
 
 group 'com.businessassistantbcn'
@@ -74,4 +79,20 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.jacoco.reportPaths", jacoco.reportsDirectory
+    }
 }
