@@ -80,7 +80,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "55*57",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -118,7 +118,7 @@
           "count": 4,
           "results": [
             {
-              "name": "Galeria Comercial Les Galeries Mald\u00E0",
+              "name": "Galeria Comercial Les Galeries Maldà",
               "web": "http://www.galeriesmalda.cat",
               "email": "info@galeriesmalda.cat",
               "phone": null,
@@ -163,7 +163,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "55*57",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -188,7 +188,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Av Rep\u00FAblica Argentina",
+                  "street_name": "Av República Argentina",
                   "street_number": "238",
                   "zip_code": "08023",
                   "district_id": "06",
@@ -271,7 +271,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "55*57",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -363,7 +363,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "55*57",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -390,7 +390,7 @@
       "version": "3.0.0"
     },
     "pact-jvm": {
-      "version": "4.1.7"
+      "version": "4.0.10"
     }
   }
 }

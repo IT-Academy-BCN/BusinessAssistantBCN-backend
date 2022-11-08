@@ -24,11 +24,11 @@
           "results": [
             {
               "activityId": 105001,
-              "activityName": "Accessible per a persones amb discapacitat f\u00EDsica"
+              "activityName": "Accessible per a persones amb discapacitat física"
             },
             {
               "activityId": 107001,
-              "activityName": "Alimentaci\u00F3 i begudes"
+              "activityName": "Alimentació i begudes"
             },
             {
               "activityId": 30343758,
@@ -44,7 +44,7 @@
             },
             {
               "activityId": 29812727,
-              "activityName": "Angl\u00E8s"
+              "activityName": "Anglès"
             },
             {
               "activityId": 32807720,
@@ -108,7 +108,7 @@
             },
             {
               "activityId": 107005,
-              "activityName": "Electrodom\u00E8stics"
+              "activityName": "Electrodomèstics"
             },
             {
               "activityId": 32796760,
@@ -128,7 +128,7 @@
             },
             {
               "activityId": 29812725,
-              "activityName": "Franc\u00E8s"
+              "activityName": "Francès"
             },
             {
               "activityId": 43326349,
@@ -148,7 +148,7 @@
             },
             {
               "activityId": 107007,
-              "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+              "activityName": "Informàtica i telecomunicació"
             },
             {
               "activityId": 1006045,
@@ -164,11 +164,11 @@
             },
             {
               "activityId": 32799723,
-              "activityName": "Material inform\u00E0tic"
+              "activityName": "Material informàtic"
             },
             {
               "activityId": 32805726,
-              "activityName": "Material per a la construcci\u00F3"
+              "activityName": "Material per a la construcció"
             },
             {
               "activityId": 32804729,
@@ -180,7 +180,7 @@
             },
             {
               "activityId": 107012,
-              "activityName": "Moda i t\u00E8xtil"
+              "activityName": "Moda i tèxtil"
             },
             {
               "activityId": 66013073,
@@ -216,7 +216,7 @@
             },
             {
               "activityId": 29810770,
-              "activityName": "V\u00EDdeo"
+              "activityName": "Vídeo"
             }
           ]
         }
@@ -244,7 +244,7 @@
           "count": 27,
           "results": [
             {
-              "name": "Botiga FNAC *Gl\u00F2ries",
+              "name": "Botiga FNAC *Glòries",
               "web": "http://www.fnac.es",
               "email": "informacion.glories@es.fnac.com",
               "phone": null,
@@ -279,7 +279,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 },
                 {
                   "activityId": 32799720,
@@ -295,7 +295,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -336,7 +336,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 32796754,
@@ -344,7 +344,7 @@
                 },
                 {
                   "activityId": 107005,
-                  "activityName": "Electrodom\u00E8stics"
+                  "activityName": "Electrodomèstics"
                 },
                 {
                   "activityId": 32804729,
@@ -356,7 +356,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 32301311,
@@ -417,7 +417,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 },
                 {
                   "activityId": 32799720,
@@ -433,7 +433,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -441,11 +441,11 @@
                 },
                 {
                   "activityId": 29812727,
-                  "activityName": "Angl\u00E8s"
+                  "activityName": "Anglès"
                 },
                 {
                   "activityId": 29812725,
-                  "activityName": "Franc\u00E8s"
+                  "activityName": "Francès"
                 },
                 {
                   "activityId": 37798723,
@@ -527,7 +527,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Potos\u00ED",
+                  "street_name": "Pg Potosí",
                   "street_number": "2",
                   "zip_code": "08030",
                   "district_id": "09",
@@ -583,7 +583,7 @@
                 },
                 {
                   "activityId": 32799723,
-                  "activityName": "Material inform\u00E0tic"
+                  "activityName": "Material informàtic"
                 },
                 {
                   "activityId": 32799721,
@@ -656,7 +656,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 },
                 {
                   "activityId": 32799720,
@@ -672,7 +672,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -680,11 +680,11 @@
                 },
                 {
                   "activityId": 29812727,
-                  "activityName": "Angl\u00E8s"
+                  "activityName": "Anglès"
                 },
                 {
                   "activityId": 29812725,
-                  "activityName": "Franc\u00E8s"
+                  "activityName": "Francès"
                 },
                 {
                   "activityId": 37798723,
@@ -746,7 +746,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -775,7 +775,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 54391845,
@@ -801,7 +801,7 @@
               ]
             },
             {
-              "name": "Centre Comercial Westfield Gl\u00F2ries",
+              "name": "Centre Comercial Westfield Glòries",
               "web": "https://es.westfield.com/glories",
               "email": null,
               "phone": null,
@@ -812,7 +812,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 54391845,
@@ -854,7 +854,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Potos\u00ED",
+                  "street_name": "Pg Potosí",
                   "street_number": "2",
                   "zip_code": "08030",
                   "district_id": "09",
@@ -867,7 +867,7 @@
               ]
             },
             {
-              "name": "Centre Comercial El Corte Ingl\u00E9s *Avinguda Diagonal",
+              "name": "Centre Comercial El Corte Inglés *Avinguda Diagonal",
               "web": "http://www.elcorteingles.es",
               "email": "clientes@elcorteingles.es",
               "phone": null,
@@ -882,7 +882,7 @@
                 },
                 {
                   "activityId": 112001,
-                  "activityName": "Registres vinculats a TR\u00C0MITS ITACA"
+                  "activityName": "Registres vinculats a TRÀMITS ITACA"
                 },
                 {
                   "activityId": 37798723,
@@ -890,7 +890,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 34296307,
@@ -920,7 +920,7 @@
               ]
             },
             {
-              "name": "El Corte Ingl\u00E9s *Pla\u00E7a Catalunya",
+              "name": "El Corte Inglés *Plaça Catalunya",
               "web": "http://www.elcorteingles.es",
               "email": null,
               "phone": null,
@@ -935,7 +935,7 @@
                 },
                 {
                   "activityId": 112001,
-                  "activityName": "Registres vinculats a TR\u00C0MITS ITACA"
+                  "activityName": "Registres vinculats a TRÀMITS ITACA"
                 },
                 {
                   "activityId": 37798723,
@@ -943,7 +943,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 34296307,
@@ -994,7 +994,7 @@
               ]
             },
             {
-              "name": "Botiga FNAC *Gl\u00F2ries",
+              "name": "Botiga FNAC *Glòries",
               "web": "http://www.fnac.es",
               "email": "informacion.glories@es.fnac.com",
               "phone": null,
@@ -1029,7 +1029,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 },
                 {
                   "activityId": 32799720,
@@ -1045,7 +1045,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -1086,7 +1086,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -1160,7 +1160,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 32796754,
@@ -1168,7 +1168,7 @@
                 },
                 {
                   "activityId": 107005,
-                  "activityName": "Electrodom\u00E8stics"
+                  "activityName": "Electrodomèstics"
                 },
                 {
                   "activityId": 32804729,
@@ -1180,7 +1180,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 32301311,
@@ -1217,11 +1217,11 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 105001,
-                  "activityName": "Accessible per a persones amb discapacitat f\u00EDsica"
+                  "activityName": "Accessible per a persones amb discapacitat física"
                 },
                 {
                   "activityId": 54391845,
@@ -1247,7 +1247,7 @@
               ]
             },
             {
-              "name": "Servei Estaci\u00F3 *Arag\u00F3",
+              "name": "Servei Estació *Aragó",
               "web": "https://serveiestacio.com/ca/",
               "email": "info@serveiestacio.com",
               "phone": null,
@@ -1262,7 +1262,7 @@
                 },
                 {
                   "activityId": 105001,
-                  "activityName": "Accessible per a persones amb discapacitat f\u00EDsica"
+                  "activityName": "Accessible per a persones amb discapacitat física"
                 },
                 {
                   "activityId": 34296307,
@@ -1275,7 +1275,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C Arag\u00F3",
+                  "street_name": "C Aragó",
                   "street_number": "270",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -1299,12 +1299,12 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "Passeig de Potos\u00ED",
+                  "street_name": "Passeig de Potosí",
                   "street_number": "2",
                   "zip_code": "08030",
                   "district_id": "09",
@@ -1317,7 +1317,7 @@
               ]
             },
             {
-              "name": "Botiga Decathlon *Pla\u00E7a Vila de Madrid",
+              "name": "Botiga Decathlon *Plaça Vila de Madrid",
               "web": "http://www.decathlon.cat",
               "email": "escuchacliente@decathlon.com",
               "phone": null,
@@ -1357,7 +1357,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -1375,7 +1375,7 @@
               ]
             },
             {
-              "name": "El Corte Ingl\u00E9s *Avinguda Portal de l'\u00C0ngel",
+              "name": "El Corte Inglés *Avinguda Portal de l'Àngel",
               "web": "http://www.elcorteingles.es",
               "email": null,
               "phone": null,
@@ -1398,7 +1398,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 },
                 {
                   "activityId": 110158,
@@ -1410,7 +1410,7 @@
                 },
                 {
                   "activityId": 112001,
-                  "activityName": "Registres vinculats a TR\u00C0MITS ITACA"
+                  "activityName": "Registres vinculats a TRÀMITS ITACA"
                 },
                 {
                   "activityId": 37798723,
@@ -1418,7 +1418,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 34296307,
@@ -1427,7 +1427,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Av Portal de l'\u00C0ngel",
+                  "street_name": "Av Portal de l'Àngel",
                   "street_number": "19*21",
                   "zip_code": "08002",
                   "district_id": "01",
@@ -1451,7 +1451,7 @@
                 },
                 {
                   "activityId": 32805726,
-                  "activityName": "Material per a la construcci\u00F3"
+                  "activityName": "Material per a la construcció"
                 },
                 {
                   "activityId": 32805720,
@@ -1504,7 +1504,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -1557,7 +1557,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 },
                 {
                   "activityId": 32799720,
@@ -1573,7 +1573,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -1581,11 +1581,11 @@
                 },
                 {
                   "activityId": 29812727,
-                  "activityName": "Angl\u00E8s"
+                  "activityName": "Anglès"
                 },
                 {
                   "activityId": 29812725,
-                  "activityName": "Franc\u00E8s"
+                  "activityName": "Francès"
                 },
                 {
                   "activityId": 37798723,
@@ -1611,7 +1611,7 @@
               ]
             },
             {
-              "name": "Hipermercat Carrefour *Gl\u00F2ries",
+              "name": "Hipermercat Carrefour *Glòries",
               "web": "http://www.carrefour.es",
               "email": null,
               "phone": null,
@@ -1700,7 +1700,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Potos\u00ED",
+                  "street_name": "Pg Potosí",
                   "street_number": "2",
                   "zip_code": "08030",
                   "district_id": "09",
@@ -1732,7 +1732,7 @@
                 },
                 {
                   "activityId": 107012,
-                  "activityName": "Moda i t\u00E8xtil"
+                  "activityName": "Moda i tèxtil"
                 }
               ],
               "addresses": [
@@ -1793,7 +1793,7 @@
                 },
                 {
                   "activityId": 32799723,
-                  "activityName": "Material inform\u00E0tic"
+                  "activityName": "Material informàtic"
                 },
                 {
                   "activityId": 32799721,
@@ -1831,7 +1831,7 @@
               ]
             },
             {
-              "name": "El Corte Ingl\u00E9s *Can Drag\u00F3",
+              "name": "El Corte Inglés *Can Dragó",
               "web": "http://www.elcorteingles.es",
               "email": null,
               "phone": null,
@@ -1850,7 +1850,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -1868,7 +1868,7 @@
               ]
             },
             {
-              "name": "Centre Comercial Marem\u00E0gnum",
+              "name": "Centre Comercial Maremàgnum",
               "web": "http://www.maremagnum.es",
               "email": "maremagnum@maremagnum.es",
               "phone": null,
@@ -1879,7 +1879,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 119001,
@@ -1936,7 +1936,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 },
                 {
                   "activityId": 32799720,
@@ -1952,7 +1952,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -1960,11 +1960,11 @@
                 },
                 {
                   "activityId": 29812727,
-                  "activityName": "Angl\u00E8s"
+                  "activityName": "Anglès"
                 },
                 {
                   "activityId": 29812725,
-                  "activityName": "Franc\u00E8s"
+                  "activityName": "Francès"
                 },
                 {
                   "activityId": 37798723,
@@ -2026,7 +2026,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -2044,7 +2044,7 @@
               ]
             },
             {
-              "name": "El Corte Ingl\u00E9s *Pla\u00E7a Catalunya",
+              "name": "El Corte Inglés *Plaça Catalunya",
               "web": "http://www.elcorteingles.es",
               "email": null,
               "phone": null,
@@ -2059,7 +2059,7 @@
                 },
                 {
                   "activityId": 112001,
-                  "activityName": "Registres vinculats a TR\u00C0MITS ITACA"
+                  "activityName": "Registres vinculats a TRÀMITS ITACA"
                 },
                 {
                   "activityId": 37798723,
@@ -2067,7 +2067,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 34296307,
@@ -2104,7 +2104,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -2122,7 +2122,7 @@
               ]
             },
             {
-              "name": "Servei Estaci\u00F3 *Arag\u00F3",
+              "name": "Servei Estació *Aragó",
               "web": "https://serveiestacio.com/ca/",
               "email": "info@serveiestacio.com",
               "phone": null,
@@ -2137,7 +2137,7 @@
                 },
                 {
                   "activityId": 105001,
-                  "activityName": "Accessible per a persones amb discapacitat f\u00EDsica"
+                  "activityName": "Accessible per a persones amb discapacitat física"
                 },
                 {
                   "activityId": 34296307,
@@ -2150,7 +2150,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C Arag\u00F3",
+                  "street_name": "C Aragó",
                   "street_number": "270",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -2206,7 +2206,7 @@
                 },
                 {
                   "activityId": 32799723,
-                  "activityName": "Material inform\u00E0tic"
+                  "activityName": "Material informàtic"
                 },
                 {
                   "activityId": 32799721,
@@ -2279,7 +2279,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 },
                 {
                   "activityId": 32799720,
@@ -2295,7 +2295,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -2303,11 +2303,11 @@
                 },
                 {
                   "activityId": 29812727,
-                  "activityName": "Angl\u00E8s"
+                  "activityName": "Anglès"
                 },
                 {
                   "activityId": 29812725,
-                  "activityName": "Franc\u00E8s"
+                  "activityName": "Francès"
                 },
                 {
                   "activityId": 37798723,
@@ -2378,7 +2378,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -2396,7 +2396,7 @@
               ]
             },
             {
-              "name": "El Corte Ingl\u00E9s *Pla\u00E7a Catalunya",
+              "name": "El Corte Inglés *Plaça Catalunya",
               "web": "http://www.elcorteingles.es",
               "email": null,
               "phone": null,
@@ -2411,7 +2411,7 @@
                 },
                 {
                   "activityId": 112001,
-                  "activityName": "Registres vinculats a TR\u00C0MITS ITACA"
+                  "activityName": "Registres vinculats a TRÀMITS ITACA"
                 },
                 {
                   "activityId": 37798723,
@@ -2419,7 +2419,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 },
                 {
                   "activityId": 34296307,
@@ -2456,7 +2456,7 @@
                 },
                 {
                   "activityId": 37810722,
-                  "activityName": "TISU Recursos estrat\u00E8gics"
+                  "activityName": "TISU Recursos estratègics"
                 }
               ],
               "addresses": [
@@ -2488,7 +2488,7 @@
       "version": "3.0.0"
     },
     "pact-jvm": {
-      "version": "4.1.7"
+      "version": "4.0.10"
     }
   }
 }

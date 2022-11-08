@@ -23,7 +23,7 @@
           "count": 43,
           "results": [
             {
-              "name": "Mercat de La Concepci\u00F3",
+              "name": "Mercat de La Concepció",
               "web": [
                 "https://www.facebook.com/MercatConcepcio",
                 "https://twitter.com/MercatConcepcio",
@@ -34,7 +34,7 @@
               "phone": "934132314,934764870",
               "addresses": [
                 {
-                  "street_name": "Carrer d'Arag\u00F3",
+                  "street_name": "Carrer d'Aragó",
                   "street_number": "311*LB",
                   "zip_code": "08009",
                   "district_id": "02",
@@ -120,7 +120,7 @@
               ]
             },
             {
-              "name": "Mercat de la Sagrada Fam\u00EDlia",
+              "name": "Mercat de la Sagrada Família",
               "web": [
                 "https://www.facebook.com/mercat.sagradafamilia",
                 "http://www.barcelona.cat/mercats"
@@ -253,7 +253,7 @@
           "count": 43,
           "results": [
             {
-              "name": "Mercat del Guinard\u00F3",
+              "name": "Mercat del Guinardó",
               "web": [
                 "http://www.barcelona.cat/mercats"
               ],
@@ -320,7 +320,7 @@
               ]
             },
             {
-              "name": "Mercat de La Concepci\u00F3",
+              "name": "Mercat de La Concepció",
               "web": [
                 "https://www.facebook.com/MercatConcepcio",
                 "https://twitter.com/MercatConcepcio",
@@ -331,7 +331,7 @@
               "phone": "934132314,934764870",
               "addresses": [
                 {
-                  "street_name": "Carrer d'Arag\u00F3",
+                  "street_name": "Carrer d'Aragó",
                   "street_number": "311*LB",
                   "zip_code": "08009",
                   "district_id": "02",
@@ -381,7 +381,7 @@
               "phone": "934132298,933195740",
               "addresses": [
                 {
-                  "street_name": "Av Francesc Camb\u00F3",
+                  "street_name": "Av Francesc Cambó",
                   "street_number": "16",
                   "zip_code": "08003",
                   "district_id": "01",
@@ -425,7 +425,7 @@
               "phone": "934132342",
               "addresses": [
                 {
-                  "street_name": "Pla\u00E7a del Mercadal",
+                  "street_name": "Plaça del Mercadal",
                   "street_number": "41",
                   "zip_code": "08030",
                   "district_id": "09",
@@ -485,7 +485,7 @@
               ]
             },
             {
-              "name": "Mercat de Sarri\u00E0",
+              "name": "Mercat de Sarrià",
               "web": [
                 "https://www.instagram.com/mercatsarria",
                 "http://www.barcelona.cat/mercats",
@@ -542,7 +542,7 @@
               "phone": "933687946,934132323",
               "addresses": [
                 {
-                  "street_name": "Pla\u00E7a de la Llibertat",
+                  "street_name": "Plaça de la Llibertat",
                   "street_number": "27",
                   "zip_code": "08012",
                   "district_id": "06",
@@ -566,7 +566,7 @@
               "phone": "934132335,933589251",
               "addresses": [
                 {
-                  "street_name": "C Llobreg\u00F3s",
+                  "street_name": "C Llobregós",
                   "street_number": "149",
                   "zip_code": "08032",
                   "district_id": "07",
@@ -623,7 +623,7 @@
               ]
             },
             {
-              "name": "Mercat del Poblenou - Uni\u00F3",
+              "name": "Mercat del Poblenou - Unió",
               "web": [
                 "http://www.mercatpoblenou.com",
                 "http://www.barcelona.cat/mercats"
@@ -632,7 +632,7 @@
               "phone": "934132309",
               "addresses": [
                 {
-                  "street_name": "Pl Uni\u00F3",
+                  "street_name": "Pl Unió",
                   "street_number": "25",
                   "zip_code": "08005",
                   "district_id": "10",
@@ -645,11 +645,11 @@
               ]
             },
             {
-              "name": "Mercat de Proven\u00E7als",
+              "name": "Mercat de Provençals",
               "web": [
                 "https://www.facebook.com/mercatprovensals/",
                 "https://www.instagram.com/mercatprovensals",
-                "https://www.mercatproven\u00E7als.com/",
+                "https://www.mercatprovençals.com/",
                 "http://www.barcelona.cat/mercats"
               ],
               "email": "mercatprovensals@bcn.cat",
@@ -770,7 +770,7 @@
               "phone": "934132304",
               "addresses": [
                 {
-                  "street_name": "Pla\u00E7a del Poeta Bosc\u00E0",
+                  "street_name": "Plaça del Poeta Boscà",
                   "street_number": "1*2",
                   "zip_code": "08003",
                   "district_id": "01",
@@ -784,9 +784,7 @@
             },
             {
               "name": "Mercat de les Flors *Les Rambles",
-              "web": [
-
-              ],
+              "web": [],
               "email": "",
               "phone": "-",
               "addresses": [
@@ -840,7 +838,7 @@
               "phone": "934132341,696 731 950",
               "addresses": [
                 {
-                  "street_name": "Via Fav\u00E8ncia",
+                  "street_name": "Via Favència",
                   "street_number": "241",
                   "zip_code": "08042",
                   "district_id": "08",
@@ -853,7 +851,7 @@
               ]
             },
             {
-              "name": "Mercat de Sant Mart\u00ED",
+              "name": "Mercat de Sant Martí",
               "web": [
                 "https://www.facebook.com/mercatsantmartibcn",
                 "http://www.barcelona.cat/mercats"
@@ -862,7 +860,7 @@
               "phone": "934132297",
               "addresses": [
                 {
-                  "street_name": "Carrer de Puigcerd\u00E0",
+                  "street_name": "Carrer de Puigcerdà",
                   "street_number": "206*212",
                   "zip_code": "08020",
                   "district_id": "10",
@@ -875,7 +873,7 @@
               ]
             },
             {
-              "name": "Mercat del Bes\u00F2s",
+              "name": "Mercat del Besòs",
               "web": [
                 "http://www.barcelona.cat/mercats"
               ],
@@ -969,7 +967,7 @@
               ]
             },
             {
-              "name": "Mercat de La Merc\u00E8",
+              "name": "Mercat de La Mercè",
               "web": [
                 "https://www.facebook.com/mercatmerce/",
                 "https://www.instagram.com/mercatmerce",
@@ -1002,7 +1000,7 @@
               "phone": "934132333",
               "addresses": [
                 {
-                  "street_name": "C Sant Adri\u00E0",
+                  "street_name": "C Sant Adrià",
                   "street_number": "154*162",
                   "zip_code": "08030",
                   "district_id": "09",
@@ -1015,7 +1013,7 @@
               ]
             },
             {
-              "name": "Mercat de la Sagrada Fam\u00EDlia",
+              "name": "Mercat de la Sagrada Família",
               "web": [
                 "https://www.facebook.com/mercat.sagradafamilia",
                 "http://www.barcelona.cat/mercats"
@@ -1096,7 +1094,7 @@
               "phone": "934132317",
               "addresses": [
                 {
-                  "street_name": "Carrer de Santal\u00F3",
+                  "street_name": "Carrer de Santaló",
                   "street_number": "65",
                   "zip_code": "08021",
                   "district_id": "05",
@@ -1118,7 +1116,7 @@
               "phone": "934132327",
               "addresses": [
                 {
-                  "street_name": "Carrer dels Verg\u00F3s",
+                  "street_name": "Carrer dels Vergós",
                   "street_number": "2",
                   "zip_code": "08017",
                   "district_id": "05",
@@ -1241,7 +1239,7 @@
               ]
             },
             {
-              "name": "Mercat de N\u00FAria",
+              "name": "Mercat de Núria",
               "web": [
                 "https://ajuntament.barcelona.cat/mercats/ca/content/mercat-de-nuria-0"
               ],
@@ -1293,7 +1291,7 @@
           "count": 43,
           "results": [
             {
-              "name": "Mercat de La Concepci\u00F3",
+              "name": "Mercat de La Concepció",
               "web": [
                 "https://www.facebook.com/MercatConcepcio",
                 "https://twitter.com/MercatConcepcio",
@@ -1304,7 +1302,7 @@
               "phone": "934132314,934764870",
               "addresses": [
                 {
-                  "street_name": "Carrer d'Arag\u00F3",
+                  "street_name": "Carrer d'Aragó",
                   "street_number": "311*LB",
                   "zip_code": "08009",
                   "district_id": "02",
@@ -1460,7 +1458,7 @@
               ]
             },
             {
-              "name": "Mercat de la Sagrada Fam\u00EDlia",
+              "name": "Mercat de la Sagrada Família",
               "web": [
                 "https://www.facebook.com/mercat.sagradafamilia",
                 "http://www.barcelona.cat/mercats"
@@ -1582,7 +1580,7 @@
       "version": "3.0.0"
     },
     "pact-jvm": {
-      "version": "4.1.7"
+      "version": "4.0.10"
     }
   }
 }

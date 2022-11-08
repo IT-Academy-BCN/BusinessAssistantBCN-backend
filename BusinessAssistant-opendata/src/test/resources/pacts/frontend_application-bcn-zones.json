@@ -29,7 +29,7 @@
               "idZone": 2
             },
             {
-              "zoneName": "Sants-Montju\u00EFc",
+              "zoneName": "Sants-Montjuïc",
               "idZone": 3
             },
             {
@@ -37,15 +37,15 @@
               "idZone": 4
             },
             {
-              "zoneName": "Sarri\u00E0-Sant Gervasi",
+              "zoneName": "Sarrià-Sant Gervasi",
               "idZone": 5
             },
             {
-              "zoneName": "Gr\u00E0cia",
+              "zoneName": "Gràcia",
               "idZone": 6
             },
             {
-              "zoneName": "Horta-Guinard\u00F3",
+              "zoneName": "Horta-Guinardó",
               "idZone": 7
             },
             {
@@ -57,7 +57,7 @@
               "idZone": 9
             },
             {
-              "zoneName": "Sant Mart\u00ED",
+              "zoneName": "Sant Martí",
               "idZone": 10
             }
           ]
@@ -75,7 +75,7 @@
       "version": "3.0.0"
     },
     "pact-jvm": {
-      "version": "4.1.7"
+      "version": "4.0.10"
     }
   }
 }

@@ -22,7 +22,7 @@
             "register_id": 92086025558,
             "prefix": null,
             "suffix": null,
-            "name": "Galeria Comercial Les Galeries Mald\u00E0",
+            "name": "Galeria Comercial Les Galeries Maldà",
             "created": "1988-02-11T00:00:00+01:00",
             "modified": "2022-09-17T04:35:18.088974+02:00",
             "status": "published",
@@ -30,15 +30,13 @@
             "core_type": "place",
             "core_type_name": "Equipament",
             "body": null,
-            "tickets_data": [
-
-            ],
+            "tickets_data": [],
             "addresses": [
               {
                 "place": null,
                 "district_name": "Ciutat Vella",
                 "district_id": "01",
-                "neighborhood_name": "el Barri G\u00F2tic",
+                "neighborhood_name": "el Barri Gòtic",
                 "neighborhood_id": "02",
                 "address_name": "C Portaferrissa",
                 "address_id": "269301",
@@ -91,7 +89,7 @@
             "attribute_categories": [
               {
                 "id": 2,
-                "name": "Informaci\u00F3 d'inter\u00E8s",
+                "name": "Informació d'interès",
                 "attributes": [
                   {
                     "id": 100002,
@@ -99,9 +97,7 @@
                     "description": "E-mail",
                     "category": 2,
                     "type": "email",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 41646,
@@ -123,7 +119,7 @@
                         "description": "",
                         "attribute": 100002,
                         "category_id": 2,
-                        "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                        "category_name": "Informació d'interès",
                         "attribute_name": "E-mail",
                         "attribute_type": "email",
                         "option_value_data": null,
@@ -139,9 +135,7 @@
                     "description": "Web",
                     "category": 2,
                     "type": "url",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 74764,
@@ -163,7 +157,7 @@
                         "description": "",
                         "attribute": 100003,
                         "category_id": 2,
-                        "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                        "category_name": "Informació d'interès",
                         "attribute_name": "Web",
                         "attribute_type": "url",
                         "option_value_data": null,
@@ -177,7 +171,7 @@
               },
               {
                 "id": 4,
-                "name": "Tel\u00E8fons",
+                "name": "Telèfons",
                 "attributes": [
                   {
                     "id": 20001,
@@ -185,9 +179,7 @@
                     "description": "Tel.",
                     "category": 4,
                     "type": "char",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 165948,
@@ -209,7 +201,7 @@
                         "description": "",
                         "attribute": 20001,
                         "category_id": 4,
-                        "category_name": "Tel\u00E8fons",
+                        "category_name": "Telèfons",
                         "attribute_name": "Tel.",
                         "attribute_type": "char",
                         "option_value_data": null,
@@ -225,9 +217,7 @@
                     "description": "Fax",
                     "category": 4,
                     "type": "char",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 167201,
@@ -249,7 +239,7 @@
                         "description": "",
                         "attribute": 20027,
                         "category_id": 4,
-                        "category_name": "Tel\u00E8fons",
+                        "category_name": "Telèfons",
                         "attribute_name": "Fax",
                         "attribute_type": "char",
                         "option_value_data": null,
@@ -283,7 +273,7 @@
                 "description": "",
                 "attribute": 100002,
                 "category_id": 2,
-                "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                "category_name": "Informació d'interès",
                 "attribute_name": "E-mail",
                 "attribute_type": "email",
                 "option_value_data": null,
@@ -311,7 +301,7 @@
                 "description": "",
                 "attribute": 100003,
                 "category_id": 2,
-                "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                "category_name": "Informació d'interès",
                 "attribute_name": "Web",
                 "attribute_type": "url",
                 "option_value_data": null,
@@ -339,7 +329,7 @@
                 "description": "",
                 "attribute": 20001,
                 "category_id": 4,
-                "category_name": "Tel\u00E8fons",
+                "category_name": "Telèfons",
                 "attribute_name": "Tel.",
                 "attribute_type": "char",
                 "option_value_data": null,
@@ -367,7 +357,7 @@
                 "description": "",
                 "attribute": 20027,
                 "category_id": 4,
-                "category_name": "Tel\u00E8fons",
+                "category_name": "Telèfons",
                 "attribute_name": "Fax",
                 "attribute_type": "char",
                 "option_value_data": null,
@@ -376,17 +366,13 @@
                 "responsible_jobtitle": null
               }
             ],
-            "from_relationships": [
-
-            ],
-            "to_relationships": [
-
-            ],
+            "from_relationships": [],
+            "to_relationships": [],
             "classifications_data": [
               {
                 "id": 1008025,
                 "name": "Galeries comercials",
-                "full_path": "Tipologia EQ >> Activitats comercials gen\u00E8riques >> Galeries comercials",
+                "full_path": "Tipologia EQ >> Activitats comercials genèriques >> Galeries comercials",
                 "dependency_group": 3033964,
                 "parent_id": 1008,
                 "tree_id": 1,
@@ -399,7 +385,7 @@
               {
                 "id": 56757317,
                 "name": "Galeries Comercials",
-                "full_path": "Directoris espec\u00EDfics >> Comer\u00E7 - Ciutat >> Galeries Comercials",
+                "full_path": "Directoris específics >> Comerç - Ciutat >> Galeries Comercials",
                 "dependency_group": 3033954,
                 "parent_id": 502001,
                 "tree_id": 502,
@@ -435,12 +421,8 @@
             ],
             "timetable": null,
             "image_data": null,
-            "gallery_data": [
-
-            ],
-            "warnings": [
-
-            ],
+            "gallery_data": [],
+            "warnings": [],
             "geo_epgs_25831": {
               "x": 430866.53602930007,
               "y": 4581671.702969264
@@ -454,9 +436,7 @@
               "y": 2.1731674800521206
             },
             "is_section_of_data": null,
-            "sections_data": [
-
-            ],
+            "sections_data": [],
             "start_date": null,
             "end_date": null,
             "estimated_dates": null,
@@ -481,9 +461,7 @@
             "core_type": "place",
             "core_type_name": "Equipament",
             "body": null,
-            "tickets_data": [
-
-            ],
+            "tickets_data": [],
             "addresses": [
               {
                 "place": null,
@@ -491,7 +469,7 @@
                 "district_id": "02",
                 "neighborhood_name": "la Dreta de l'Eixample",
                 "neighborhood_id": "07",
-                "address_name": "Pg Gr\u00E0cia",
+                "address_name": "Pg Gràcia",
                 "address_id": "148307",
                 "block_id": null,
                 "start_street_number": 55,
@@ -542,7 +520,7 @@
             "attribute_categories": [
               {
                 "id": 2,
-                "name": "Informaci\u00F3 d'inter\u00E8s",
+                "name": "Informació d'interès",
                 "attributes": [
                   {
                     "id": 100002,
@@ -550,9 +528,7 @@
                     "description": "E-mail",
                     "category": 2,
                     "type": "email",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 43328,
@@ -574,7 +550,7 @@
                         "description": "",
                         "attribute": 100002,
                         "category_id": 2,
-                        "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                        "category_name": "Informació d'interès",
                         "attribute_name": "E-mail",
                         "attribute_type": "email",
                         "option_value_data": null,
@@ -590,9 +566,7 @@
                     "description": "Web",
                     "category": 2,
                     "type": "url",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 76801,
@@ -614,7 +588,7 @@
                         "description": "",
                         "attribute": 100003,
                         "category_id": 2,
-                        "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                        "category_name": "Informació d'interès",
                         "attribute_name": "Web",
                         "attribute_type": "url",
                         "option_value_data": null,
@@ -628,7 +602,7 @@
               },
               {
                 "id": 4,
-                "name": "Tel\u00E8fons",
+                "name": "Telèfons",
                 "attributes": [
                   {
                     "id": 20001,
@@ -636,9 +610,7 @@
                     "description": "Tel.",
                     "category": 4,
                     "type": "char",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 171441,
@@ -660,7 +632,7 @@
                         "description": "",
                         "attribute": 20001,
                         "category_id": 4,
-                        "category_name": "Tel\u00E8fons",
+                        "category_name": "Telèfons",
                         "attribute_name": "Tel.",
                         "attribute_type": "char",
                         "option_value_data": null,
@@ -676,9 +648,7 @@
                     "description": "Fax",
                     "category": 4,
                     "type": "char",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 172104,
@@ -700,7 +670,7 @@
                         "description": "",
                         "attribute": 20027,
                         "category_id": 4,
-                        "category_name": "Tel\u00E8fons",
+                        "category_name": "Telèfons",
                         "attribute_name": "Fax",
                         "attribute_type": "char",
                         "option_value_data": null,
@@ -734,7 +704,7 @@
                 "description": "",
                 "attribute": 100002,
                 "category_id": 2,
-                "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                "category_name": "Informació d'interès",
                 "attribute_name": "E-mail",
                 "attribute_type": "email",
                 "option_value_data": null,
@@ -762,7 +732,7 @@
                 "description": "",
                 "attribute": 100003,
                 "category_id": 2,
-                "category_name": "Informaci\u00F3 d'inter\u00E8s",
+                "category_name": "Informació d'interès",
                 "attribute_name": "Web",
                 "attribute_type": "url",
                 "option_value_data": null,
@@ -790,7 +760,7 @@
                 "description": "",
                 "attribute": 20001,
                 "category_id": 4,
-                "category_name": "Tel\u00E8fons",
+                "category_name": "Telèfons",
                 "attribute_name": "Tel.",
                 "attribute_type": "char",
                 "option_value_data": null,
@@ -818,7 +788,7 @@
                 "description": "",
                 "attribute": 20027,
                 "category_id": 4,
-                "category_name": "Tel\u00E8fons",
+                "category_name": "Telèfons",
                 "attribute_name": "Fax",
                 "attribute_type": "char",
                 "option_value_data": null,
@@ -827,17 +797,13 @@
                 "responsible_jobtitle": null
               }
             ],
-            "from_relationships": [
-
-            ],
-            "to_relationships": [
-
-            ],
+            "from_relationships": [],
+            "to_relationships": [],
             "classifications_data": [
               {
                 "id": 1008025,
                 "name": "Galeries comercials",
-                "full_path": "Tipologia EQ >> Activitats comercials gen\u00E8riques >> Galeries comercials",
+                "full_path": "Tipologia EQ >> Activitats comercials genèriques >> Galeries comercials",
                 "dependency_group": 3033964,
                 "parent_id": 1008,
                 "tree_id": 1,
@@ -872,7 +838,7 @@
               {
                 "id": 56757317,
                 "name": "Galeries Comercials",
-                "full_path": "Directoris espec\u00EDfics >> Comer\u00E7 - Ciutat >> Galeries Comercials",
+                "full_path": "Directoris específics >> Comerç - Ciutat >> Galeries Comercials",
                 "dependency_group": 3033954,
                 "parent_id": 502001,
                 "tree_id": 502,
@@ -881,7 +847,7 @@
               {
                 "id": 15540162,
                 "name": "Galeries d'art",
-                "full_path": "Marques webs EQ (amb converssi\u00F3) >> Mapa Cultural i M\u00F2bil >> Espais d'exposicions >> Galeries d'art",
+                "full_path": "Marques webs EQ (amb converssió) >> Mapa Cultural i Mòbil >> Espais d'exposicions >> Galeries d'art",
                 "dependency_group": 2267775,
                 "parent_id": 29550038,
                 "tree_id": 549,
@@ -958,12 +924,8 @@
               "alert": ""
             },
             "image_data": null,
-            "gallery_data": [
-
-            ],
-            "warnings": [
-
-            ],
+            "gallery_data": [],
+            "warnings": [],
             "geo_epgs_25831": {
               "x": 430101.9362536643,
               "y": 4582677.01600246
@@ -977,9 +939,7 @@
               "y": 2.1639078381745587
             },
             "is_section_of_data": null,
-            "sections_data": [
-
-            ],
+            "sections_data": [],
             "start_date": null,
             "end_date": null,
             "estimated_dates": null,
@@ -1004,17 +964,15 @@
             "core_type": "place",
             "core_type_name": "Equipament",
             "body": null,
-            "tickets_data": [
-
-            ],
+            "tickets_data": [],
             "addresses": [
               {
                 "place": null,
-                "district_name": "Gr\u00E0cia",
+                "district_name": "Gràcia",
                 "district_id": "06",
                 "neighborhood_name": "Vallcarca i els Penitents",
                 "neighborhood_id": "28",
-                "address_name": "Av Rep\u00FAblica Argentina",
+                "address_name": "Av República Argentina",
                 "address_id": "279600",
                 "block_id": null,
                 "start_street_number": 238,
@@ -1065,7 +1023,7 @@
             "attribute_categories": [
               {
                 "id": 4,
-                "name": "Tel\u00E8fons",
+                "name": "Telèfons",
                 "attributes": [
                   {
                     "id": 20001,
@@ -1073,9 +1031,7 @@
                     "description": "Tel.",
                     "category": 4,
                     "type": "char",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 166494,
@@ -1097,7 +1053,7 @@
                         "description": "",
                         "attribute": 20001,
                         "category_id": 4,
-                        "category_name": "Tel\u00E8fons",
+                        "category_name": "Telèfons",
                         "attribute_name": "Tel.",
                         "attribute_type": "char",
                         "option_value_data": null,
@@ -1131,7 +1087,7 @@
                 "description": "",
                 "attribute": 20001,
                 "category_id": 4,
-                "category_name": "Tel\u00E8fons",
+                "category_name": "Telèfons",
                 "attribute_name": "Tel.",
                 "attribute_type": "char",
                 "option_value_data": null,
@@ -1140,17 +1096,13 @@
                 "responsible_jobtitle": null
               }
             ],
-            "from_relationships": [
-
-            ],
-            "to_relationships": [
-
-            ],
+            "from_relationships": [],
+            "to_relationships": [],
             "classifications_data": [
               {
                 "id": 1008025,
                 "name": "Galeries comercials",
-                "full_path": "Tipologia EQ >> Activitats comercials gen\u00E8riques >> Galeries comercials",
+                "full_path": "Tipologia EQ >> Activitats comercials genèriques >> Galeries comercials",
                 "dependency_group": 3033964,
                 "parent_id": 1008,
                 "tree_id": 1,
@@ -1163,7 +1115,7 @@
               {
                 "id": 56757317,
                 "name": "Galeries Comercials",
-                "full_path": "Directoris espec\u00EDfics >> Comer\u00E7 - Ciutat >> Galeries Comercials",
+                "full_path": "Directoris específics >> Comerç - Ciutat >> Galeries Comercials",
                 "dependency_group": 3033954,
                 "parent_id": 502001,
                 "tree_id": 502,
@@ -1199,12 +1151,8 @@
             ],
             "timetable": null,
             "image_data": null,
-            "gallery_data": [
-
-            ],
-            "warnings": [
-
-            ],
+            "gallery_data": [],
+            "warnings": [],
             "geo_epgs_25831": {
               "x": 428115.0350834559,
               "y": 4584925.298658831
@@ -1218,9 +1166,7 @@
               "y": 2.1398768811289672
             },
             "is_section_of_data": null,
-            "sections_data": [
-
-            ],
+            "sections_data": [],
             "start_date": null,
             "end_date": null,
             "estimated_dates": null,
@@ -1245,15 +1191,13 @@
             "core_type": "place",
             "core_type_name": "Equipament",
             "body": null,
-            "tickets_data": [
-
-            ],
+            "tickets_data": [],
             "addresses": [
               {
                 "place": null,
                 "district_name": "Eixample",
                 "district_id": "02",
-                "neighborhood_name": "la Sagrada Fam\u00EDlia",
+                "neighborhood_name": "la Sagrada Família",
                 "neighborhood_id": "06",
                 "address_name": "C Dos de Maig",
                 "address_id": "105304",
@@ -1306,7 +1250,7 @@
             "attribute_categories": [
               {
                 "id": 4,
-                "name": "Tel\u00E8fons",
+                "name": "Telèfons",
                 "attributes": [
                   {
                     "id": 20001,
@@ -1314,9 +1258,7 @@
                     "description": "Tel.",
                     "category": 4,
                     "type": "char",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 168036,
@@ -1338,7 +1280,7 @@
                         "description": "",
                         "attribute": 20001,
                         "category_id": 4,
-                        "category_name": "Tel\u00E8fons",
+                        "category_name": "Telèfons",
                         "attribute_name": "Tel.",
                         "attribute_type": "char",
                         "option_value_data": null,
@@ -1354,9 +1296,7 @@
                     "description": "Fax",
                     "category": 4,
                     "type": "char",
-                    "options": [
-
-                    ],
+                    "options": [],
                     "values": [
                       {
                         "id": 168394,
@@ -1378,7 +1318,7 @@
                         "description": "",
                         "attribute": 20027,
                         "category_id": 4,
-                        "category_name": "Tel\u00E8fons",
+                        "category_name": "Telèfons",
                         "attribute_name": "Fax",
                         "attribute_type": "char",
                         "option_value_data": null,
@@ -1412,7 +1352,7 @@
                 "description": "",
                 "attribute": 20001,
                 "category_id": 4,
-                "category_name": "Tel\u00E8fons",
+                "category_name": "Telèfons",
                 "attribute_name": "Tel.",
                 "attribute_type": "char",
                 "option_value_data": null,
@@ -1440,7 +1380,7 @@
                 "description": "",
                 "attribute": 20027,
                 "category_id": 4,
-                "category_name": "Tel\u00E8fons",
+                "category_name": "Telèfons",
                 "attribute_name": "Fax",
                 "attribute_type": "char",
                 "option_value_data": null,
@@ -1449,17 +1389,13 @@
                 "responsible_jobtitle": null
               }
             ],
-            "from_relationships": [
-
-            ],
-            "to_relationships": [
-
-            ],
+            "from_relationships": [],
+            "to_relationships": [],
             "classifications_data": [
               {
                 "id": 1008025,
                 "name": "Galeries comercials",
-                "full_path": "Tipologia EQ >> Activitats comercials gen\u00E8riques >> Galeries comercials",
+                "full_path": "Tipologia EQ >> Activitats comercials genèriques >> Galeries comercials",
                 "dependency_group": 3033964,
                 "parent_id": 1008,
                 "tree_id": 1,
@@ -1472,7 +1408,7 @@
               {
                 "id": 56757317,
                 "name": "Galeries Comercials",
-                "full_path": "Directoris espec\u00EDfics >> Comer\u00E7 - Ciutat >> Galeries Comercials",
+                "full_path": "Directoris específics >> Comerç - Ciutat >> Galeries Comercials",
                 "dependency_group": 3033954,
                 "parent_id": 502001,
                 "tree_id": 502,
@@ -1513,12 +1449,8 @@
               "alert": ""
             },
             "image_data": null,
-            "gallery_data": [
-
-            ],
-            "warnings": [
-
-            ],
+            "gallery_data": [],
+            "warnings": [],
             "geo_epgs_25831": {
               "x": 431679.24361304846,
               "y": 4584209.912372965
@@ -1532,9 +1464,7 @@
               "y": 2.182600099720309
             },
             "is_section_of_data": null,
-            "sections_data": [
-
-            ],
+            "sections_data": [],
             "start_date": null,
             "end_date": null,
             "estimated_dates": null,
@@ -1561,7 +1491,7 @@
       "version": "3.0.0"
     },
     "pact-jvm": {
-      "version": "4.1.7"
+      "version": "4.0.10"
     }
   }
 }

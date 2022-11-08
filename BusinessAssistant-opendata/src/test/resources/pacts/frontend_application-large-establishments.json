@@ -24,7 +24,7 @@
           "results": [
             {
               "activityId": 107001,
-              "activityName": "Alimentaci\u00F3 i begudes"
+              "activityName": "Alimentació i begudes"
             },
             {
               "activityId": 30699720,
@@ -64,11 +64,11 @@
             },
             {
               "activityId": 32793722,
-              "activityName": "Caf\u00E8s"
+              "activityName": "Cafès"
             },
             {
               "activityId": 29817768,
-              "activityName": "Certificaci\u00F3 de productes o serveis"
+              "activityName": "Certificació de productes o serveis"
             },
             {
               "activityId": 29810744,
@@ -164,7 +164,7 @@
             },
             {
               "activityId": 50843509,
-              "activityName": "Distribu\u00EFdores: Cinema"
+              "activityName": "Distribuïdores: Cinema"
             },
             {
               "activityId": 29814720,
@@ -176,11 +176,11 @@
             },
             {
               "activityId": 107010,
-              "activityName": "Electr\u00F2nica, electricitat, il\u00B7luminaci\u00F3"
+              "activityName": "Electrònica, electricitat, il·luminació"
             },
             {
               "activityId": 50844509,
-              "activityName": "Empreses Exhibici\u00F3"
+              "activityName": "Empreses Exhibició"
             },
             {
               "activityId": 29803720,
@@ -188,11 +188,11 @@
             },
             {
               "activityId": 63006068,
-              "activityName": "Ense\u00F1anza form. profesional superior"
+              "activityName": "Enseñanza form. profesional superior"
             },
             {
               "activityId": 63006067,
-              "activityName": "Ense\u00F1anza formacion prof. no superior"
+              "activityName": "Enseñanza formacion prof. no superior"
             },
             {
               "activityId": 1010002,
@@ -232,7 +232,7 @@
             },
             {
               "activityId": 1008008,
-              "activityName": "Fabricaci\u00F3"
+              "activityName": "Fabricació"
             },
             {
               "activityId": 104021,
@@ -244,7 +244,7 @@
             },
             {
               "activityId": 1027003,
-              "activityName": "Immobili\u00E0ries"
+              "activityName": "Immobiliàries"
             },
             {
               "activityId": 104800,
@@ -252,7 +252,7 @@
             },
             {
               "activityId": 107007,
-              "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+              "activityName": "Informàtica i telecomunicació"
             },
             {
               "activityId": 72309188,
@@ -268,7 +268,7 @@
             },
             {
               "activityId": 29806739,
-              "activityName": "Matem\u00E0tiques"
+              "activityName": "Matemàtiques"
             },
             {
               "activityId": 32815721,
@@ -276,11 +276,11 @@
             },
             {
               "activityId": 32799723,
-              "activityName": "Material inform\u00E0tic"
+              "activityName": "Material informàtic"
             },
             {
               "activityId": 107012,
-              "activityName": "Moda i t\u00E8xtil"
+              "activityName": "Moda i tèxtil"
             },
             {
               "activityId": 32804730,
@@ -288,11 +288,11 @@
             },
             {
               "activityId": 32813731,
-              "activityName": "M\u00E0quines d'arts gr\u00E0fiques, fotocopiadores"
+              "activityName": "Màquines d'arts gràfiques, fotocopiadores"
             },
             {
               "activityId": 14104799,
-              "activityName": "M\u00E0quines de caf\u00E8"
+              "activityName": "Màquines de cafè"
             },
             {
               "activityId": 65058972,
@@ -308,7 +308,7 @@
             },
             {
               "activityId": 1026019,
-              "activityName": "Oficines t\u00E8cniques (d'empreses privades)"
+              "activityName": "Oficines tècniques (d'empreses privades)"
             },
             {
               "activityId": 104799,
@@ -336,11 +336,11 @@
             },
             {
               "activityId": 107011,
-              "activityName": "Perfumeria, cosm\u00E8tica, est\u00E8tica"
+              "activityName": "Perfumeria, cosmètica, estètica"
             },
             {
               "activityId": 104801,
-              "activityName": "Perif\u00E8rics"
+              "activityName": "Perifèrics"
             },
             {
               "activityId": 33899894,
@@ -352,7 +352,7 @@
             },
             {
               "activityId": 107019,
-              "activityName": "Productes qu\u00EDmics"
+              "activityName": "Productes químics"
             },
             {
               "activityId": 27701721,
@@ -380,11 +380,11 @@
             },
             {
               "activityId": 110008,
-              "activityName": "Servei de l\u00EDsing"
+              "activityName": "Servei de lísing"
             },
             {
               "activityId": 1008005,
-              "activityName": "Serveis d'Assist\u00E8ncia T\u00E8cnica"
+              "activityName": "Serveis d'Assistència Tècnica"
             },
             {
               "activityId": 102908,
@@ -400,7 +400,7 @@
             },
             {
               "activityId": 104025,
-              "activityName": "Treball, industria, comer\u00E7 i serveis"
+              "activityName": "Treball, industria, comerç i serveis"
             },
             {
               "activityId": 73308189,
@@ -412,15 +412,15 @@
             },
             {
               "activityId": 13194273,
-              "activityName": "Venda C\u00E0mera - Accessoris: Fotografia"
+              "activityName": "Venda Càmera - Accessoris: Fotografia"
             },
             {
               "activityId": 13194276,
-              "activityName": "Venda Pel.l\u00EDcula Verge"
+              "activityName": "Venda Pel.lícula Verge"
             },
             {
               "activityId": 29810770,
-              "activityName": "V\u00EDdeo"
+              "activityName": "Vídeo"
             }
           ]
         }
@@ -448,7 +448,7 @@
           "count": 44,
           "results": [
             {
-              "name": "Novartis Farmac\u00E9utica S.A.",
+              "name": "Novartis Farmacéutica S.A.",
               "web": "http://www.novartis.es",
               "email": null,
               "phone": null,
@@ -459,7 +459,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
@@ -477,7 +477,7 @@
               ]
             },
             {
-              "name": "Juv\u00E9 y Camps",
+              "name": "Juvé y Camps",
               "web": null,
               "email": "barcelona@juveycamps.com",
               "phone": null,
@@ -488,7 +488,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297312,
@@ -521,7 +521,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297307,
@@ -554,7 +554,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 33899894,
@@ -587,7 +587,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
@@ -605,7 +605,7 @@
               ]
             },
             {
-              "name": "Pompadour Ib\u00E9rica S.A.",
+              "name": "Pompadour Ibérica S.A.",
               "web": "http://www.pompadour.es",
               "email": null,
               "phone": null,
@@ -616,12 +616,12 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "C Sic\u00EDlia",
+                  "street_name": "C Sicília",
                   "street_number": "372*374",
                   "zip_code": "08025",
                   "district_id": "06",
@@ -645,7 +645,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297312,
@@ -654,7 +654,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Roger de Ll\u00FAria",
+                  "street_name": "Roger de Llúria",
                   "street_number": "126",
                   "zip_code": "08037",
                   "district_id": "02",
@@ -667,7 +667,7 @@
               ]
             },
             {
-              "name": "Antiga F\u00E0brica Estrella Damm",
+              "name": "Antiga Fàbrica Estrella Damm",
               "web": "http://www.damm.es",
               "email": null,
               "phone": null,
@@ -678,7 +678,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 53646332,
@@ -686,7 +686,7 @@
                 },
                 {
                   "activityId": 148414580,
-                  "activityName": "Equipaments on es celebra la Merc\u00E8 2022 (per a la web)"
+                  "activityName": "Equipaments on es celebra la Mercè 2022 (per a la web)"
                 },
                 {
                   "activityId": 29302315,
@@ -715,7 +715,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Carrer del Rossell\u00F3",
+                  "street_name": "Carrer del Rosselló",
                   "street_number": "515",
                   "zip_code": "08025",
                   "district_id": "02",
@@ -793,7 +793,7 @@
                 },
                 {
                   "activityId": 1026019,
-                  "activityName": "Oficines t\u00E8cniques (d'empreses privades)"
+                  "activityName": "Oficines tècniques (d'empreses privades)"
                 },
                 {
                   "activityId": 32804724,
@@ -806,7 +806,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C C\u00F2rsega",
+                  "street_name": "C Còrsega",
                   "street_number": "299",
                   "zip_code": "08008",
                   "district_id": "02",
@@ -830,11 +830,11 @@
                 },
                 {
                   "activityId": 32793722,
-                  "activityName": "Caf\u00E8s"
+                  "activityName": "Cafès"
                 },
                 {
                   "activityId": 14104799,
-                  "activityName": "M\u00E0quines de caf\u00E8"
+                  "activityName": "Màquines de cafè"
                 },
                 {
                   "activityId": 29297315,
@@ -843,7 +843,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "50",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -856,7 +856,7 @@
               ]
             },
             {
-              "name": "Empresa Grup Bala\u00F1\u00E0",
+              "name": "Empresa Grup Balañà",
               "web": "http://www.grupbalana.com",
               "email": "info@grupbalana.com",
               "phone": null,
@@ -879,16 +879,16 @@
                 },
                 {
                   "activityId": 50843509,
-                  "activityName": "Distribu\u00EFdores: Cinema"
+                  "activityName": "Distribuïdores: Cinema"
                 },
                 {
                   "activityId": 50844509,
-                  "activityName": "Empreses Exhibici\u00F3"
+                  "activityName": "Empreses Exhibició"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "C Proven\u00E7a",
+                  "street_name": "C Provença",
                   "street_number": "266",
                   "zip_code": "08008",
                   "district_id": "02",
@@ -901,7 +901,7 @@
               ]
             },
             {
-              "name": "Novartis Farmac\u00E9utica S.A.",
+              "name": "Novartis Farmacéutica S.A.",
               "web": "http://www.novartis.es",
               "email": null,
               "phone": null,
@@ -912,7 +912,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
@@ -930,7 +930,7 @@
               ]
             },
             {
-              "name": "Juv\u00E9 y Camps",
+              "name": "Juvé y Camps",
               "web": null,
               "email": "barcelona@juveycamps.com",
               "phone": null,
@@ -941,7 +941,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297312,
@@ -963,7 +963,7 @@
               ]
             },
             {
-              "name": "Fujifilm Espa\u00F1a S.A.",
+              "name": "Fujifilm España S.A.",
               "web": "http://www.fujifilm.eu/es/",
               "email": null,
               "phone": null,
@@ -978,7 +978,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -994,7 +994,7 @@
                 },
                 {
                   "activityId": 13194273,
-                  "activityName": "Venda C\u00E0mera - Accessoris: Fotografia"
+                  "activityName": "Venda Càmera - Accessoris: Fotografia"
                 },
                 {
                   "activityId": 13194275,
@@ -1002,12 +1002,12 @@
                 },
                 {
                   "activityId": 13194276,
-                  "activityName": "Venda Pel.l\u00EDcula Verge"
+                  "activityName": "Venda Pel.lícula Verge"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "C Arag\u00F3",
+                  "street_name": "C Aragó",
                   "street_number": "180",
                   "zip_code": "08011",
                   "district_id": "02",
@@ -1020,7 +1020,7 @@
               ]
             },
             {
-              "name": "Mattel Espa\u00F1a S.A.",
+              "name": "Mattel España S.A.",
               "web": null,
               "email": null,
               "phone": null,
@@ -1072,7 +1072,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 33899894,
@@ -1094,7 +1094,7 @@
               ]
             },
             {
-              "name": "Empresa Solvay Qu\u00EDmica",
+              "name": "Empresa Solvay Química",
               "web": "http://www.solvayquimica.es",
               "email": null,
               "phone": null,
@@ -1105,11 +1105,11 @@
                 },
                 {
                   "activityId": 1008008,
-                  "activityName": "Fabricaci\u00F3"
+                  "activityName": "Fabricació"
                 },
                 {
                   "activityId": 107019,
-                  "activityName": "Productes qu\u00EDmics"
+                  "activityName": "Productes químics"
                 },
                 {
                   "activityId": 29301312,
@@ -1118,7 +1118,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "21",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -1142,7 +1142,7 @@
                 },
                 {
                   "activityId": 107012,
-                  "activityName": "Moda i t\u00E8xtil"
+                  "activityName": "Moda i tèxtil"
                 },
                 {
                   "activityId": 29298309,
@@ -1179,7 +1179,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
@@ -1197,7 +1197,7 @@
               ]
             },
             {
-              "name": "Caf\u00E8s Novell",
+              "name": "Cafès Novell",
               "web": "http://www.cafesnovell.com",
               "email": "info@cafesnovell.com",
               "phone": null,
@@ -1208,7 +1208,7 @@
                 },
                 {
                   "activityId": 32793722,
-                  "activityName": "Caf\u00E8s"
+                  "activityName": "Cafès"
                 }
               ],
               "addresses": [
@@ -1270,7 +1270,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297312,
@@ -1279,7 +1279,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Roger de Ll\u00FAria",
+                  "street_name": "Roger de Llúria",
                   "street_number": "126",
                   "zip_code": "08037",
                   "district_id": "02",
@@ -1292,7 +1292,7 @@
               ]
             },
             {
-              "name": "Antiga F\u00E0brica Estrella Damm",
+              "name": "Antiga Fàbrica Estrella Damm",
               "web": "http://www.damm.es",
               "email": null,
               "phone": null,
@@ -1303,7 +1303,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 53646332,
@@ -1311,7 +1311,7 @@
                 },
                 {
                   "activityId": 148414580,
-                  "activityName": "Equipaments on es celebra la Merc\u00E8 2022 (per a la web)"
+                  "activityName": "Equipaments on es celebra la Mercè 2022 (per a la web)"
                 },
                 {
                   "activityId": 29302315,
@@ -1340,7 +1340,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Carrer del Rossell\u00F3",
+                  "street_name": "Carrer del Rosselló",
                   "street_number": "515",
                   "zip_code": "08025",
                   "district_id": "02",
@@ -1369,7 +1369,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "74",
                   "zip_code": "08008",
                   "district_id": "02",
@@ -1382,7 +1382,7 @@
               ]
             },
             {
-              "name": "Delegaci\u00F3 a Catalunya del Centro Espa\u00F1ol de Derechos Reprogr\u00E1ficos",
+              "name": "Delegació a Catalunya del Centro Español de Derechos Reprográficos",
               "web": "http://www.cedro.org",
               "email": "cedrocat@cedro.org",
               "phone": null,
@@ -1535,7 +1535,7 @@
               ]
             },
             {
-              "name": "El Corte Ingl\u00E9s, S.A.",
+              "name": "El Corte Inglés, S.A.",
               "web": "http://www.elcorteingles.es",
               "email": null,
               "phone": null,
@@ -1550,12 +1550,12 @@
                 },
                 {
                   "activityId": 63006067,
-                  "activityName": "Ense\u00F1anza formacion prof. no superior"
+                  "activityName": "Enseñanza formacion prof. no superior"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "C Bol\u00EDvia",
+                  "street_name": "C Bolívia",
                   "street_number": "234",
                   "zip_code": "08020",
                   "district_id": "10",
@@ -1568,7 +1568,7 @@
               ]
             },
             {
-              "name": "Oracle Ib\u00E9rica",
+              "name": "Oracle Ibérica",
               "web": "http://www.oracle.es",
               "email": null,
               "phone": null,
@@ -1579,7 +1579,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 }
               ],
               "addresses": [
@@ -1608,7 +1608,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -1620,7 +1620,7 @@
                 },
                 {
                   "activityId": 13194276,
-                  "activityName": "Venda Pel.l\u00EDcula Verge"
+                  "activityName": "Venda Pel.lícula Verge"
                 }
               ],
               "addresses": [
@@ -1649,7 +1649,7 @@
                 },
                 {
                   "activityId": 1026019,
-                  "activityName": "Oficines t\u00E8cniques (d'empreses privades)"
+                  "activityName": "Oficines tècniques (d'empreses privades)"
                 },
                 {
                   "activityId": 32804724,
@@ -1662,7 +1662,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C C\u00F2rsega",
+                  "street_name": "C Còrsega",
                   "street_number": "299",
                   "zip_code": "08008",
                   "district_id": "02",
@@ -1686,7 +1686,7 @@
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 }
               ],
               "addresses": [
@@ -1740,11 +1740,11 @@
                 },
                 {
                   "activityId": 32793722,
-                  "activityName": "Caf\u00E8s"
+                  "activityName": "Cafès"
                 },
                 {
                   "activityId": 14104799,
-                  "activityName": "M\u00E0quines de caf\u00E8"
+                  "activityName": "Màquines de cafè"
                 },
                 {
                   "activityId": 29297315,
@@ -1753,7 +1753,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "50",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -1777,7 +1777,7 @@
                 },
                 {
                   "activityId": 107011,
-                  "activityName": "Perfumeria, cosm\u00E8tica, est\u00E8tica"
+                  "activityName": "Perfumeria, cosmètica, estètica"
                 },
                 {
                   "activityId": 67006068,
@@ -1786,7 +1786,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C Berl\u00EDn",
+                  "street_name": "C Berlín",
                   "street_number": "39*41",
                   "zip_code": "08014",
                   "district_id": "04",
@@ -1799,7 +1799,7 @@
               ]
             },
             {
-              "name": "Asociaci\u00F3n Espa\u00F1ola de Normalizaci\u00F3n y Certificaci\u00F3n",
+              "name": "Asociación Española de Normalización y Certificación",
               "web": "http://www.aenor.cat",
               "email": "dct@aenor.es",
               "phone": null,
@@ -1814,7 +1814,7 @@
                 },
                 {
                   "activityId": 29817768,
-                  "activityName": "Certificaci\u00F3 de productes o serveis"
+                  "activityName": "Certificació de productes o serveis"
                 },
                 {
                   "activityId": 33304310,
@@ -1823,7 +1823,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C T\u00E0nger",
+                  "street_name": "C Tànger",
                   "street_number": "98",
                   "zip_code": "08018",
                   "district_id": "10",
@@ -1836,7 +1836,7 @@
               ]
             },
             {
-              "name": "Dell Espa\u00F1a",
+              "name": "Dell España",
               "web": "http://www.dell.es",
               "email": null,
               "phone": null,
@@ -1847,11 +1847,11 @@
                 },
                 {
                   "activityId": 1008005,
-                  "activityName": "Serveis d'Assist\u00E8ncia T\u00E8cnica"
+                  "activityName": "Serveis d'Assistència Tècnica"
                 },
                 {
                   "activityId": 107007,
-                  "activityName": "Inform\u00E0tica i telecomunicaci\u00F3"
+                  "activityName": "Informàtica i telecomunicació"
                 }
               ],
               "addresses": [
@@ -1896,12 +1896,12 @@
                 },
                 {
                   "activityId": 50844509,
-                  "activityName": "Empreses Exhibici\u00F3"
+                  "activityName": "Empreses Exhibició"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "C Rossell\u00F3 i Porcel",
+                  "street_name": "C Rosselló i Porcel",
                   "street_number": "21",
                   "zip_code": "08016",
                   "district_id": "08",
@@ -1914,7 +1914,7 @@
               ]
             },
             {
-              "name": "Empresa Grup Bala\u00F1\u00E0",
+              "name": "Empresa Grup Balañà",
               "web": "http://www.grupbalana.com",
               "email": "info@grupbalana.com",
               "phone": null,
@@ -1937,16 +1937,16 @@
                 },
                 {
                   "activityId": 50843509,
-                  "activityName": "Distribu\u00EFdores: Cinema"
+                  "activityName": "Distribuïdores: Cinema"
                 },
                 {
                   "activityId": 50844509,
-                  "activityName": "Empreses Exhibici\u00F3"
+                  "activityName": "Empreses Exhibició"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "C Proven\u00E7a",
+                  "street_name": "C Provença",
                   "street_number": "266",
                   "zip_code": "08008",
                   "district_id": "02",
@@ -1974,11 +1974,11 @@
                 },
                 {
                   "activityId": 32813731,
-                  "activityName": "M\u00E0quines d'arts gr\u00E0fiques, fotocopiadores"
+                  "activityName": "Màquines d'arts gràfiques, fotocopiadores"
                 },
                 {
                   "activityId": 110008,
-                  "activityName": "Servei de l\u00EDsing"
+                  "activityName": "Servei de lísing"
                 },
                 {
                   "activityId": 29300310,
@@ -2011,7 +2011,7 @@
                 },
                 {
                   "activityId": 32799723,
-                  "activityName": "Material inform\u00E0tic"
+                  "activityName": "Material informàtic"
                 },
                 {
                   "activityId": 29302314,
@@ -2031,7 +2031,7 @@
                 },
                 {
                   "activityId": 63006068,
-                  "activityName": "Ense\u00F1anza form. profesional superior"
+                  "activityName": "Enseñanza form. profesional superior"
                 }
               ],
               "addresses": [
@@ -2049,7 +2049,7 @@
               ]
             },
             {
-              "name": "Empresa Basf Espa\u00F1ola",
+              "name": "Empresa Basf Española",
               "web": "http://www.basf.com/es",
               "email": null,
               "phone": null,
@@ -2060,11 +2060,11 @@
                 },
                 {
                   "activityId": 107010,
-                  "activityName": "Electr\u00F2nica, electricitat, il\u00B7luminaci\u00F3"
+                  "activityName": "Electrònica, electricitat, il·luminació"
                 },
                 {
                   "activityId": 107019,
-                  "activityName": "Productes qu\u00EDmics"
+                  "activityName": "Productes químics"
                 },
                 {
                   "activityId": 72309188,
@@ -2077,7 +2077,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C Can R\u00E0bia",
+                  "street_name": "C Can Ràbia",
                   "street_number": "3*5",
                   "zip_code": "08017",
                   "district_id": "05",
@@ -2090,7 +2090,7 @@
               ]
             },
             {
-              "name": "Novartis Farmac\u00E9utica S.A.",
+              "name": "Novartis Farmacéutica S.A.",
               "web": "http://www.novartis.es",
               "email": null,
               "phone": null,
@@ -2101,7 +2101,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
@@ -2119,7 +2119,7 @@
               ]
             },
             {
-              "name": "Juv\u00E9 y Camps",
+              "name": "Juvé y Camps",
               "web": null,
               "email": "barcelona@juveycamps.com",
               "phone": null,
@@ -2130,7 +2130,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297312,
@@ -2152,7 +2152,7 @@
               ]
             },
             {
-              "name": "Kumon Institut d'Educaci\u00F3 d'Espanya",
+              "name": "Kumon Institut d'Educació d'Espanya",
               "web": "http://www.kumon.es",
               "email": "info@kumon.es",
               "phone": null,
@@ -2167,7 +2167,7 @@
                 },
                 {
                   "activityId": 29806739,
-                  "activityName": "Matem\u00E0tiques"
+                  "activityName": "Matemàtiques"
                 },
                 {
                   "activityId": 29803720,
@@ -2189,7 +2189,7 @@
               ]
             },
             {
-              "name": "Fujifilm Espa\u00F1a S.A.",
+              "name": "Fujifilm España S.A.",
               "web": "http://www.fujifilm.eu/es/",
               "email": null,
               "phone": null,
@@ -2204,7 +2204,7 @@
                 },
                 {
                   "activityId": 29810770,
-                  "activityName": "V\u00EDdeo"
+                  "activityName": "Vídeo"
                 },
                 {
                   "activityId": 104021,
@@ -2220,7 +2220,7 @@
                 },
                 {
                   "activityId": 13194273,
-                  "activityName": "Venda C\u00E0mera - Accessoris: Fotografia"
+                  "activityName": "Venda Càmera - Accessoris: Fotografia"
                 },
                 {
                   "activityId": 13194275,
@@ -2228,12 +2228,12 @@
                 },
                 {
                   "activityId": 13194276,
-                  "activityName": "Venda Pel.l\u00EDcula Verge"
+                  "activityName": "Venda Pel.lícula Verge"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "C Arag\u00F3",
+                  "street_name": "C Aragó",
                   "street_number": "180",
                   "zip_code": "08011",
                   "district_id": "02",
@@ -2257,7 +2257,7 @@
                 },
                 {
                   "activityId": 1027003,
-                  "activityName": "Immobili\u00E0ries"
+                  "activityName": "Immobiliàries"
                 },
                 {
                   "activityId": 67198241,
@@ -2302,7 +2302,7 @@
                 },
                 {
                   "activityId": 104801,
-                  "activityName": "Perif\u00E8rics"
+                  "activityName": "Perifèrics"
                 },
                 {
                   "activityId": 29300310,
@@ -2323,7 +2323,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C T\u00E0nger",
+                  "street_name": "C Tànger",
                   "street_number": "66",
                   "zip_code": "08018",
                   "district_id": "10",
@@ -2347,7 +2347,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297307,
@@ -2369,7 +2369,7 @@
               ]
             },
             {
-              "name": "Mattel Espa\u00F1a S.A.",
+              "name": "Mattel España S.A.",
               "web": null,
               "email": null,
               "phone": null,
@@ -2410,7 +2410,7 @@
               ]
             },
             {
-              "name": "Kenwood Espa\u00F1a",
+              "name": "Kenwood España",
               "web": "http://www.kenwoodworld.com/es-es",
               "email": null,
               "phone": null,
@@ -2443,7 +2443,7 @@
               ]
             },
             {
-              "name": "Red El\u00E9ctrica de Espa\u00F1a",
+              "name": "Red Eléctrica de España",
               "web": "http://www.ree.es",
               "email": null,
               "phone": null,
@@ -2462,7 +2462,7 @@
                 },
                 {
                   "activityId": 104025,
-                  "activityName": "Treball, industria, comer\u00E7 i serveis"
+                  "activityName": "Treball, industria, comerç i serveis"
                 }
               ],
               "addresses": [
@@ -2491,7 +2491,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 33899894,
@@ -2533,7 +2533,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Av Parc Log\u00EDstic",
+                  "street_name": "Av Parc Logístic",
                   "street_number": "2*10",
                   "zip_code": "08040",
                   "district_id": "03",
@@ -2546,7 +2546,7 @@
               ]
             },
             {
-              "name": "Empresa Solvay Qu\u00EDmica",
+              "name": "Empresa Solvay Química",
               "web": "http://www.solvayquimica.es",
               "email": null,
               "phone": null,
@@ -2557,11 +2557,11 @@
                 },
                 {
                   "activityId": 1008008,
-                  "activityName": "Fabricaci\u00F3"
+                  "activityName": "Fabricació"
                 },
                 {
                   "activityId": 107019,
-                  "activityName": "Productes qu\u00EDmics"
+                  "activityName": "Productes químics"
                 },
                 {
                   "activityId": 29301312,
@@ -2570,7 +2570,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "21",
                   "zip_code": "08007",
                   "district_id": "02",
@@ -2594,7 +2594,7 @@
                 },
                 {
                   "activityId": 107012,
-                  "activityName": "Moda i t\u00E8xtil"
+                  "activityName": "Moda i tèxtil"
                 },
                 {
                   "activityId": 29298309,
@@ -2631,7 +2631,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
@@ -2649,7 +2649,7 @@
               ]
             },
             {
-              "name": "Caf\u00E8s Novell",
+              "name": "Cafès Novell",
               "web": "http://www.cafesnovell.com",
               "email": "info@cafesnovell.com",
               "phone": null,
@@ -2660,7 +2660,7 @@
                 },
                 {
                   "activityId": 32793722,
-                  "activityName": "Caf\u00E8s"
+                  "activityName": "Cafès"
                 }
               ],
               "addresses": [
@@ -2711,7 +2711,7 @@
               ]
             },
             {
-              "name": "Henkel Ib\u00E9rica S.A.",
+              "name": "Henkel Ibérica S.A.",
               "web": "http://www.henkel.es",
               "email": null,
               "phone": null,
@@ -2726,7 +2726,7 @@
                 },
                 {
                   "activityId": 107019,
-                  "activityName": "Productes qu\u00EDmics"
+                  "activityName": "Productes químics"
                 },
                 {
                   "activityId": 40493481,
@@ -2809,7 +2809,7 @@
               ]
             },
             {
-              "name": "Compa\u00F1ia Roca Sanitario",
+              "name": "Compañia Roca Sanitario",
               "web": "http://www.roca.es",
               "email": "infosan@roca.net",
               "phone": null,
@@ -2846,7 +2846,7 @@
               ]
             },
             {
-              "name": "Pompadour Ib\u00E9rica S.A.",
+              "name": "Pompadour Ibérica S.A.",
               "web": "http://www.pompadour.es",
               "email": null,
               "phone": null,
@@ -2857,12 +2857,12 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
                 {
-                  "street_name": "C Sic\u00EDlia",
+                  "street_name": "C Sicília",
                   "street_number": "372*374",
                   "zip_code": "08025",
                   "district_id": "06",
@@ -2886,7 +2886,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297312,
@@ -2895,7 +2895,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Roger de Ll\u00FAria",
+                  "street_name": "Roger de Llúria",
                   "street_number": "126",
                   "zip_code": "08037",
                   "district_id": "02",
@@ -2908,7 +2908,7 @@
               ]
             },
             {
-              "name": "Antiga F\u00E0brica Estrella Damm",
+              "name": "Antiga Fàbrica Estrella Damm",
               "web": "http://www.damm.es",
               "email": null,
               "phone": null,
@@ -2919,7 +2919,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 53646332,
@@ -2927,7 +2927,7 @@
                 },
                 {
                   "activityId": 148414580,
-                  "activityName": "Equipaments on es celebra la Merc\u00E8 2022 (per a la web)"
+                  "activityName": "Equipaments on es celebra la Mercè 2022 (per a la web)"
                 },
                 {
                   "activityId": 29302315,
@@ -2956,7 +2956,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Carrer del Rossell\u00F3",
+                  "street_name": "Carrer del Rosselló",
                   "street_number": "515",
                   "zip_code": "08025",
                   "district_id": "02",
@@ -2985,7 +2985,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Pg Gr\u00E0cia",
+                  "street_name": "Pg Gràcia",
                   "street_number": "74",
                   "zip_code": "08008",
                   "district_id": "02",
@@ -2998,7 +2998,7 @@
               ]
             },
             {
-              "name": "Delegaci\u00F3 a Catalunya del Centro Espa\u00F1ol de Derechos Reprogr\u00E1ficos",
+              "name": "Delegació a Catalunya del Centro Español de Derechos Reprográficos",
               "web": "http://www.cedro.org",
               "email": "cedrocat@cedro.org",
               "phone": null,
@@ -3043,7 +3043,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "C Almog\u00E0vers",
+                  "street_name": "C Almogàvers",
                   "street_number": "119",
                   "zip_code": "08018",
                   "district_id": "10",
@@ -3090,7 +3090,7 @@
           "count": 44,
           "results": [
             {
-              "name": "Novartis Farmac\u00E9utica S.A.",
+              "name": "Novartis Farmacéutica S.A.",
               "web": "http://www.novartis.es",
               "email": null,
               "phone": null,
@@ -3101,7 +3101,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
@@ -3119,7 +3119,7 @@
               ]
             },
             {
-              "name": "Juv\u00E9 y Camps",
+              "name": "Juvé y Camps",
               "web": null,
               "email": "barcelona@juveycamps.com",
               "phone": null,
@@ -3130,7 +3130,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297312,
@@ -3163,7 +3163,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 33899894,
@@ -3196,7 +3196,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 }
               ],
               "addresses": [
@@ -3225,7 +3225,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 29297312,
@@ -3234,7 +3234,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Roger de Ll\u00FAria",
+                  "street_name": "Roger de Llúria",
                   "street_number": "126",
                   "zip_code": "08037",
                   "district_id": "02",
@@ -3247,7 +3247,7 @@
               ]
             },
             {
-              "name": "Antiga F\u00E0brica Estrella Damm",
+              "name": "Antiga Fàbrica Estrella Damm",
               "web": "http://www.damm.es",
               "email": null,
               "phone": null,
@@ -3258,7 +3258,7 @@
                 },
                 {
                   "activityId": 107001,
-                  "activityName": "Alimentaci\u00F3 i begudes"
+                  "activityName": "Alimentació i begudes"
                 },
                 {
                   "activityId": 53646332,
@@ -3266,7 +3266,7 @@
                 },
                 {
                   "activityId": 148414580,
-                  "activityName": "Equipaments on es celebra la Merc\u00E8 2022 (per a la web)"
+                  "activityName": "Equipaments on es celebra la Mercè 2022 (per a la web)"
                 },
                 {
                   "activityId": 29302315,
@@ -3295,7 +3295,7 @@
               ],
               "addresses": [
                 {
-                  "street_name": "Carrer del Rossell\u00F3",
+                  "street_name": "Carrer del Rosselló",
                   "street_number": "515",
                   "zip_code": "08025",
                   "district_id": "02",
@@ -3322,7 +3322,7 @@
       "version": "3.0.0"
     },
     "pact-jvm": {
-      "version": "4.1.7"
+      "version": "4.0.10"
     }
   }
 }
