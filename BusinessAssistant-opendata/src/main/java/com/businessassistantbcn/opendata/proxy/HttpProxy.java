@@ -66,7 +66,7 @@ public class HttpProxy {
 
     public <T> Mono<T> getRequestData(URL url, Class<T> clazz) {
         log.info("Proxy: Executing remote invocation to " + url.toString());
-        if (url.toString().startsWith("http:///")) {
+        if (url.toString().startsWith("http://api/")) {
             return Mono.just(jsonLoader(url.toString(), clazz));
         } else {
             WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
@@ -76,7 +76,7 @@ public class HttpProxy {
     }
 
     private <T> T jsonLoader(String resourceURI, Class<T> clazz) {
-        URL resourceURL = this.getClass().getClassLoader().getResource(resourceURI.replace("http:/", ""));
+        URL resourceURL = this.getClass().getClassLoader().getResource(resourceURI.replace("http://", ""));
         String fileString;
         try {
             fileString = Files.readAllLines(Path.of(Objects.requireNonNull(resourceURL).toURI()), StandardCharsets.UTF_8).get(0);
