@@ -67,7 +67,7 @@ class HttpProxyTest {
 	
 	@DisplayName("Timeout verification")
 	@Test
-	public void timeoutTest() {
+	void timeoutTest() {
 		HttpClient client1 = HttpClient.create()
 				.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1); // Absurd 1 ms connection timeout
 		WebClient briefClient = httpProxy.client.mutate()
@@ -84,7 +84,7 @@ class HttpProxyTest {
 	}
 
 	@Test
-	void getRequestDataTest() throws MalformedURLException {
+	void getRequestDataTest() {
 		mockWebServer.enqueue(new MockResponse().addHeader("Content-Type", "application/json").setBody(bigMallsAsString));
 		BigMallsDto[] bigMalls = httpProxy.getRequestData(url, BigMallsDto[].class).block();
 
@@ -93,10 +93,8 @@ class HttpProxyTest {
 	}
 
 	@Test
-	void getRequestDataServerIsDownTest() throws MalformedURLException {
+	void getRequestDataServerIsDownTest() {
 		mockWebServer.enqueue(new MockResponse().setResponseCode(500));
-		Mono<BigMallsDto[]> requestData = httpProxy.getRequestData(url, BigMallsDto[].class);
 		assertThrows(WebClientResponseException.class, () -> httpProxy.getRequestData(url, BigMallsDto[].class).block());
 	}
-
 }
