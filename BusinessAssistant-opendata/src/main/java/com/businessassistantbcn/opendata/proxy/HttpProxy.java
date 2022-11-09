@@ -9,6 +9,7 @@ import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.http.codec.ClientCodecConfigurer;
@@ -20,6 +21,7 @@ import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -63,15 +65,17 @@ public class HttpProxy {
     }
 
     public <T> Mono<T> getRequestData(URL url, Class<T> clazz) {
-//        WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
-//        WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
         log.info("Proxy: Executing remote invocation to " + url.toString());
-        //return bodySpec.retrieve().bodyToMono(clazz);
-        return Mono.just(jsonLoader(url.toString(), clazz));
+        if (url.toString().startsWith("http:///")) {
+            return Mono.just(jsonLoader(url.toString(), clazz));
+        } else {
+            WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
+            WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
+            return bodySpec.retrieve().bodyToMono(clazz);
+        }
     }
 
     private <T> T jsonLoader(String resourceURI, Class<T> clazz) {
-
         URL resourceURL = this.getClass().getClassLoader().getResource(resourceURI.replace("http:/", ""));
         String fileString;
         try {
