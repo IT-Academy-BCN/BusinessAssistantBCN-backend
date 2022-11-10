@@ -92,10 +92,11 @@ class HttpProxyTest {
 
 	@Test
 	void getRequestDataBackupTest() {
-		uri = URI.create("backup/opendata/shouldReturnBigMalls");
+		uri = URI.create("../backup/opendata/big-mallsData.json");
 		BigMallsDto[] bigMalls = httpProxy.getRequestData(uri, BigMallsDto[].class).block();
 
-		assertNull(bigMalls);
+		assertNotNull(bigMalls);
+		assertEquals(27, bigMalls.length);
 	}
 
 	@Test

@@ -83,12 +83,12 @@ url:
     maxBytesInMemory: 30000000
     ds_apitestcircuitbreakers: http://localhost:8760/testCircuitBreaker/getAll
     ds_test: https://swapi.py4e.com/api/vehicles/
-    ds_largeestablishments: http://api/large-establishmentsData.json
-    ds_commercialgalleries: http://api/commercial-galleriesData.json
+    ds_largeestablishments: backup/opendata/large-establishmentsData.json
+    ds_commercialgalleries: backup/opendata/commercial-galleriesData.json
     ds_bigmalls: backup/opendata/big-mallsData.json
-    ds_municipalmarkets: http://api/municipal-marketsData.json
-    ds_marketfairs: http://api/market-fairsData.json
-    ds_economicactivitiescensus: http://api/economic-activities-censusData.json
+    ds_municipalmarkets: backup/opendata/municipal-marketsData.json
+    ds_marketfairs: backup/opendata/market-fairsData.json
+    ds_economicactivitiescensus: backup/opendata/economic-activities-censusData.json
     ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
     districts:
       - "Ciutat Vella"

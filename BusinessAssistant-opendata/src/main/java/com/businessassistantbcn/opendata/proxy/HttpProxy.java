@@ -74,20 +74,21 @@ public class HttpProxy {
             WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
             WebClient.RequestBodySpec bodySpec = uriSpec.uri(uri);
             return bodySpec.retrieve().bodyToMono(clazz);
-        } else if (uri.toString().startsWith("backup/opendata/")){
-            log.info("Proxy: Executing local invocation to " + uri);
-            Optional<T> result = jsonLoader(uri, clazz);
-            return result.map(Mono::just).orElseGet(Mono::empty);
         } else {
-            log.error("Invalid resource URI: " + uri);
-            return Mono.empty();
+            if (uri.toString().contains("backup/opendata/")) {
+                log.info("Proxy: Executing local invocation to " + uri);
+                Optional<T> result = jsonLoader(uri, clazz);
+                return result.map(Mono::just).orElseGet(Mono::empty);
+            } else {
+                log.error("Invalid resource URI: " + uri);
+                return Mono.empty();
+            }
         }
     }
 
     private <T> Optional<T> jsonLoader(URI uri, Class<T> clazz) {
 
         String absolutePath = new File(uri.toString()).getAbsolutePath();
-
         String fileString;
         try {
             fileString = Files.readAllLines(Path.of(absolutePath), StandardCharsets.UTF_8).get(0);
@@ -99,4 +100,3 @@ public class HttpProxy {
         }
     }
 }
-
