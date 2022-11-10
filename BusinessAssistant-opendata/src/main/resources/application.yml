@@ -77,7 +77,9 @@ logging:
 ---
 
 spring:
-  profiles: dev
+  config:
+    activate:
+      on-profile: dev
 url:
     connection_timeout: 30000
     maxBytesInMemory: 30000000
@@ -105,7 +107,9 @@ url:
 ---
 
 spring:
-  profiles: pro
+  config:
+    activate:
+      on-profile: pro
 url:
   connection_timeout: 30000
   maxBytesInMemory: 30000000

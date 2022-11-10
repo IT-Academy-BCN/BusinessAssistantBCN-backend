@@ -75,6 +75,11 @@ public class HttpProxy {
             WebClient.RequestBodySpec bodySpec = uriSpec.uri(uri);
             return bodySpec.retrieve().bodyToMono(clazz);
         } else {
+            /*  TODO - Es necesario:
+                  * eliminar la referencia absoluta a la ruta (backup/opendata)
+                  * Efectuar ping o validación de alcance de IP de FileSystem
+                  * Conectar a FS Samba
+             */
             if (uri.toString().contains("backup/opendata/")) {
                 log.info("Proxy: Executing local invocation to " + uri);
                 Optional<T> result = jsonLoader(uri, clazz);
