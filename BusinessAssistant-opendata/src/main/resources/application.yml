@@ -31,43 +31,12 @@ management:
   security:
     enabled: false
 
-url:
-  connection_timeout: 30000
-  maxBytesInMemory: 30000000
-  ds_apitestcircuitbreakers: http://localhost:8760/testCircuitBreaker/getAll
-  ds_test: https://swapi.py4e.com/api/vehicles/
-#  ds_largeestablishments: https://estatics-nasia.dtibcn.cat/nasia-pro/media/opendatabcn-mercats-centrescomercials-grans-establiments-js.148414845.json
-#  ds_commercialgalleries: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_galeries-comercials-js.json
-#  ds_bigmalls: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json
-#  ds_municipalmarkets: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_mercats-municipals-js.json
-#  ds_marketfairs: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_mercats-fires-al-carrer-js.json
-#  ds_economicactivitiescensus: https://opendata-ajuntament.barcelona.cat/data/dataset/671c46e9-5b85-4e63-8c97-088a2b907cd5/resource/7a3d5380-f79a-424e-be62-dd078efcb40a/download/2019_censcomercialbcn_class_act.json
-#  ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
-  ds_largeestablishments: http://api/large-establishmentsData.json
-  ds_commercialgalleries: http://api/commercial-galleriesData.json
-  ds_bigmalls: http://api/big-mallsData.json
-  ds_municipalmarkets: http://api/municipal-marketsData.json
-  ds_marketfairs: http://api/market-fairsData.json
-  ds_economicactivitiescensus: http://api/economic-activities-censusData.json
-  ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
-  districts:
-    - "Ciutat Vella"
-    - "Eixample"
-    - "Sants-Montjuïc"
-    - "Les Corts"
-    - "Sarrià-Sant Gervasi"
-    - "Gràcia"
-    - "Horta-Guinardó"
-    - "Nou Barris"
-    - "Sant Andreu"
-    - "Sant Martí"
-
 security:
   datasource:
     secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
     headerString: Authorization
     authoritiesClaim: authorities
-    err: Auth Error, Token Unavailable 
+    err: Auth Error, Token Unavailable
 ---
 
 resilience4j.circuitbreaker:
@@ -96,7 +65,7 @@ resilience4j.circuitbreaker:
 
 logging:
   level:
-    root: INFO  
+    root: INFO
     "[org.springframework]": ERROR
     "[com.businessassistantbcn]": INFO
   pattern:
@@ -104,3 +73,59 @@ logging:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: opendata.log
+
+---
+
+spring:
+  profiles: dev
+url:
+    connection_timeout: 30000
+    maxBytesInMemory: 30000000
+    ds_apitestcircuitbreakers: http://localhost:8760/testCircuitBreaker/getAll
+    ds_test: https://swapi.py4e.com/api/vehicles/
+    ds_largeestablishments: http://api/large-establishmentsData.json
+    ds_commercialgalleries: http://api/commercial-galleriesData.json
+    ds_bigmalls: backup/opendata/big-mallsData.json
+    ds_municipalmarkets: http://api/municipal-marketsData.json
+    ds_marketfairs: http://api/market-fairsData.json
+    ds_economicactivitiescensus: http://api/economic-activities-censusData.json
+    ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
+    districts:
+      - "Ciutat Vella"
+      - "Eixample"
+      - "Sants-Montjuïc"
+      - "Les Corts"
+      - "Sarrià-Sant Gervasi"
+      - "Gràcia"
+      - "Horta-Guinardó"
+      - "Nou Barris"
+      - "Sant Andreu"
+      - "Sant Martí"
+
+---
+
+spring:
+  profiles: pro
+url:
+  connection_timeout: 30000
+  maxBytesInMemory: 30000000
+  ds_apitestcircuitbreakers: http://localhost:8760/testCircuitBreaker/getAll
+  ds_test: https://swapi.py4e.com/api/vehicles/
+  ds_largeestablishments: https://estatics-nasia.dtibcn.cat/nasia-pro/media/opendatabcn-mercats-centrescomercials-grans-establiments-js.148414845.json
+  ds_commercialgalleries: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_galeries-comercials-js.json
+  ds_bigmalls: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_grans-centres-comercials-js.json
+  ds_municipalmarkets: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_mercats-municipals-js.json
+  ds_marketfairs: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_mercats-fires-al-carrer-js.json
+  ds_economicactivitiescensus: https://opendata-ajuntament.barcelona.cat/data/dataset/671c46e9-5b85-4e63-8c97-088a2b907cd5/resource/7a3d5380-f79a-424e-be62-dd078efcb40a/download/2019_censcomercialbcn_class_act.json
+  ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
+  districts:
+    - "Ciutat Vella"
+    - "Eixample"
+    - "Sants-Montjuïc"
+    - "Les Corts"
+    - "Sarrià-Sant Gervasi"
+    - "Gràcia"
+    - "Horta-Guinardó"
+    - "Nou Barris"
+    - "Sant Andreu"
+    - "Sant Martí"

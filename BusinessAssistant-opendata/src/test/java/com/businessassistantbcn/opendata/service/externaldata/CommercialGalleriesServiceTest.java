@@ -24,9 +24,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -123,9 +122,9 @@ class CommercialGalleriesServiceTest {
 	}
 
 	@Test
-	void getPageTest() throws MalformedURLException, JsonProcessingException {
+	void getPageTest() throws JsonProcessingException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class)))
 			.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
 		GenericResultDto<CommercialGalleriesResponseDto> expectedResult = new GenericResultDto<CommercialGalleriesResponseDto>();
@@ -138,32 +137,32 @@ class CommercialGalleriesServiceTest {
 			mapper.writeValueAsString(actualResult.getResults()));
 
 		verify(config, times(1)).getDs_commercialgalleries();
-		verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+		verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class));
 	}
 
 	@Test
-	void getPageReturnsCommercialGalleriesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+	void getPageReturnsCommercialGalleriesDefaultPageWhenInternalErrorTest() {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class))).thenReturn(Mono.error(new RuntimeException()));
 		this.returnsCommercialGalleriesDefaultPage(commercialGalleriesService.getPage(0, -1).block());
 		verify(httpProxy, times(1))
-			.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+			.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class));
 	}
 
 	@Test
-	void getPageReturnsCommercialGalleriesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+	void getPageReturnsCommercialGalleriesDefaultPageWhenServerIsDownTest() {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class)))
 			.thenReturn(Mono.error(new Exception()));
 		this.returnsCommercialGalleriesDefaultPage(commercialGalleriesService.getPage(0, -1).block());
 		verify(httpProxy, times(1))
-			.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+			.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class));
 	}
 
 	@Test
-	void getCommercialGalleriesActivitiesTest() throws MalformedURLException, JsonProcessingException {
+	void getCommercialGalleriesActivitiesTest() throws JsonProcessingException {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class)))
 			.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
 		GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
@@ -177,24 +176,24 @@ class CommercialGalleriesServiceTest {
 
 		verify(config, times(1)).getDs_commercialgalleries();
 		verify(httpProxy, times(1))
-			.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+			.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class));
 	}
 
 	@Test
-	void getCommercialGalleriesActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+	void getCommercialGalleriesActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class))).thenReturn(Mono.error(new RuntimeException()));
 		this.returnsActivitiesDefaultPage(commercialGalleriesService.getCommercialGalleriesActivities(0, -1).block());
-		verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+		verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class));
 	}
 
 	@Test
-	void getCommercialGalleriesActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+	void getCommercialGalleriesActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class)))
 			.thenReturn(Mono.error(new RuntimeException()));
 		this.returnsActivitiesDefaultPage(commercialGalleriesService.getCommercialGalleriesActivities(0, -1).block());
-		verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class));
+		verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class));
 	}
 
 	private void areOffsetLimitAndCountEqual(GenericResultDto<?> expected, GenericResultDto<?> actual) {
@@ -224,9 +223,9 @@ class CommercialGalleriesServiceTest {
 	}
 
 	@Test
-	void getPageByActivityTest() throws MalformedURLException {
+	void getPageByActivityTest() {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class)))
 				.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
 		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
@@ -239,9 +238,9 @@ class CommercialGalleriesServiceTest {
 	}
 
 	@Test
-	void getPageByDistrictTest() throws MalformedURLException {
+	void getPageByDistrictTest() {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class)))
 				.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
 		GenericResultDto<CommercialGalleriesResponseDto> actualResult =
@@ -254,9 +253,9 @@ class CommercialGalleriesServiceTest {
 	}
 
 	@Test
-	void getPageBySearchTest() throws MalformedURLException {
+	void getPageBySearchTest() {
 		when(config.getDs_commercialgalleries()).thenReturn(urlCommercialGalleries);
-		when(httpProxy.getRequestData(any(URL.class), eq(CommercialGalleriesDto[].class)))
+		when(httpProxy.getRequestData(any(URI.class), eq(CommercialGalleriesDto[].class)))
 				.thenReturn(Mono.just(twoCommercialGalleriesDto));
 
 		SearchDTO searchParams = new SearchDTO(new int[]{2}, new int[]{});

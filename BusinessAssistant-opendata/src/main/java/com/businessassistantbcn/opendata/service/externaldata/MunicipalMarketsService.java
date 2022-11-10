@@ -15,8 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
@@ -35,20 +34,19 @@ public class MunicipalMarketsService {
 	private GenericResultDto<MunicipalMarketsResponseDto> genericResultDto;
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMunicipalMarketsDefaultPage")
-	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
-		return httpProxy.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
+	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPage(int offset, int limit) {
+		return httpProxy.getRequestData(URI.create(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
 			.flatMap(dtos -> {
 				MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 
 				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(MunicipalMarketsResponseDto[]::new);
 				genericResultDto.setInfo(offset, limit, dtos.length, responseDto);
 				return Mono.just(genericResultDto);
-			});
+			}).switchIfEmpty(getMunicipalMarketsDefaultPage());
 	}
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMunicipalMarketsDefaultPage")
-	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPageByDistrict(int offset, int limit, int district)
-			throws MalformedURLException {
+	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPageByDistrict(int offset, int limit, int district) {
 		return getResultDto(offset, limit, dto ->
 				dto.getAddresses().stream().anyMatch(a ->
 						Integer.parseInt(a.getDistrict_id()) == district
@@ -57,8 +55,7 @@ public class MunicipalMarketsService {
 
 	// Get paged results filtered by search parameters (zones and activities)
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnMunicipalMarketsDefaultPage")
-	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPageBySearch(int offset, int limit, MunicipalMarketsSearchDTO searchParams)
-			throws MalformedURLException {
+	public Mono<GenericResultDto<MunicipalMarketsResponseDto>> getPageBySearch(int offset, int limit, MunicipalMarketsSearchDTO searchParams) {
 
 		Predicate<MunicipalMarketsDto> zoneFilter;
 		if (searchParams.getZones().length > 0) {
@@ -76,8 +73,8 @@ public class MunicipalMarketsService {
 	}
 
 	private Mono<GenericResultDto<MunicipalMarketsResponseDto>> getResultDto(
-			int offset, int limit, Predicate<MunicipalMarketsDto> dtoFilter) throws MalformedURLException {
-		return httpProxy.getRequestData(new URL(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
+			int offset, int limit, Predicate<MunicipalMarketsDto> dtoFilter) {
+		return httpProxy.getRequestData(URI.create(config.getDs_municipalmarkets()), MunicipalMarketsDto[].class)
 				.flatMap(municipalMarketsDto -> {
 					MunicipalMarketsDto[] fullDto = Arrays.stream(municipalMarketsDto)
 							.toArray(MunicipalMarketsDto[]::new);
@@ -92,7 +89,7 @@ public class MunicipalMarketsService {
 
 					genericResultDto.setInfo(offset, limit, fullDto.length, responseDto);
 					return Mono.just(genericResultDto);
-				});
+				}).switchIfEmpty(getMunicipalMarketsDefaultPage());
 	}
 
 	private MunicipalMarketsResponseDto mapToResponseDto(MunicipalMarketsDto municipalMarketsDto) {

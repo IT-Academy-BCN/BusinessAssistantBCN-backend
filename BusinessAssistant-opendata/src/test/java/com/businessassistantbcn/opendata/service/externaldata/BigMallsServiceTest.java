@@ -23,9 +23,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -124,9 +123,9 @@ class BigMallsServiceTest {
     }
 
     @Test
-    void getPageTest() throws MalformedURLException, JsonProcessingException {
+    void getPageTest() throws JsonProcessingException {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
         GenericResultDto<BigMallsResponseDto> expectedResult = new GenericResultDto<BigMallsResponseDto>();
         expectedResult.setInfo(0, -1, twoBigMallsDto.length, responseDto);
@@ -137,30 +136,30 @@ class BigMallsServiceTest {
                 mapper.writeValueAsString(actualResult.getResults()));
 
         verify(config, times(1)).getDs_bigmalls();
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(BigMallsDto[].class));
     }
 
     @Test
-    void getPageReturnsBigMallsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+    void getPageReturnsBigMallsDefaultPageWhenInternalErrorTest() {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(BigMallsDto[].class));
     }
 
     @Test
-    void getPageReturnsBigMallsDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+    void getPageReturnsBigMallsDefaultPageWhenServerIsDownTest() {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.error(new RuntimeException()));
         this.returnsBigMallsDefaultPage(bigMallsService.getPage(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(BigMallsDto[].class));
     }
 
     @Test
-    void getBigMallsActivitiesTest() throws MalformedURLException, JsonProcessingException {
+    void getBigMallsActivitiesTest() throws JsonProcessingException {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class))).thenReturn(Mono.just(twoBigMallsDto));
 
         GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
         expectedResult.setInfo(0, -1, activities.length, activities);
@@ -171,24 +170,24 @@ class BigMallsServiceTest {
                 mapper.writeValueAsString(actualResult.getResults()));
 
         verify(config, times(1)).getDs_bigmalls();
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(BigMallsDto[].class));
     }
 
     @Test
-    void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+    void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(BigMallsDto[].class));
     }
 
     @Test
-    void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+    void getBigMallsActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.error(new RuntimeException()));
         this.returnsActivitiesDefaultPage(bigMallsService.getBigMallsActivities(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(BigMallsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(BigMallsDto[].class));
     }
 
     private void areOffsetLimitAndCountEqual(GenericResultDto<?> expected, GenericResultDto<?> actual) {
@@ -198,7 +197,7 @@ class BigMallsServiceTest {
     }
 
     private void returnsBigMallsDefaultPage(GenericResultDto<BigMallsResponseDto> actualResult) {
-        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<BigMallsDto>();
+        GenericResultDto<BigMallsDto> expectedResult = new GenericResultDto<>();
         expectedResult.setInfo(0, 0, 0, new BigMallsDto[0]);
 
         this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
@@ -208,7 +207,7 @@ class BigMallsServiceTest {
     }
 
     private void returnsActivitiesDefaultPage(GenericResultDto<ActivityInfoDto> actualResult) {
-        GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
+        GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<>();
         expectedResult.setInfo(0, 0, 0, new ActivityInfoDto[0]);
 
         this.areOffsetLimitAndCountEqual(expectedResult, actualResult);
@@ -218,9 +217,9 @@ class BigMallsServiceTest {
     }
 
     @Test
-    void getPageByActivity() throws MalformedURLException {
+    void getPageByActivity() {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.just(twoBigMallsDto));
 
         GenericResultDto<BigMallsResponseDto> actualResult =
@@ -233,9 +232,9 @@ class BigMallsServiceTest {
     }
 
     @Test
-    void getPageByDistrictTest() throws MalformedURLException {
+    void getPageByDistrictTest() {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.just(twoBigMallsDto));
 
         GenericResultDto<BigMallsResponseDto> actualResult =
@@ -248,9 +247,9 @@ class BigMallsServiceTest {
     }
 
     @Test
-    void getPageBySearchTest() throws MalformedURLException {
+    void getPageBySearchTest() {
         when(config.getDs_bigmalls()).thenReturn(URL_BIG_MALLS);
-        when(httpProxy.getRequestData(any(URL.class), eq(BigMallsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(BigMallsDto[].class)))
                 .thenReturn(Mono.just(twoBigMallsDto));
 
         SearchDTO searchParams = new SearchDTO(new int[]{2}, new int[]{43326349});

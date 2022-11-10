@@ -19,9 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -35,7 +34,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @PropertySource("classpath:resilience4j-test.properties")
-public class EconomicActivitiesCensusServiceTest {
+class EconomicActivitiesCensusServiceTest {
 
     @MockBean
     private PropertiesConfig config;
@@ -70,9 +69,9 @@ public class EconomicActivitiesCensusServiceTest {
     }
 
     @Test
-    void getPageTest() throws MalformedURLException, JsonProcessingException {
+    void getPageTest() throws JsonProcessingException {
         when(config.getDs_economicactivitiescensus()).thenReturn(urlEconomicActivitiesCensus);
-        when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(EconomicActivitiesCensusDto[].class)))
             .thenReturn(Mono.just(twoEconomicActivitiesCensus));
 
         GenericResultDto<EconomicActivitiesCensusDto> expectedResult =
@@ -87,24 +86,24 @@ public class EconomicActivitiesCensusServiceTest {
 
         verify(config, times(1)).getDs_economicactivitiescensus();
         verify(httpProxy, times(1))
-            .getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
+            .getRequestData(any(URI.class), eq(EconomicActivitiesCensusDto[].class));
     }
 
     @Test
-    void getPageReturnsEconomicActivitiesCensusDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+    void getPageReturnsEconomicActivitiesCensusDefaultPageWhenInternalErrorTest() {
         when(config.getDs_economicactivitiescensus()).thenReturn(urlEconomicActivitiesCensus);
-        when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+        when(httpProxy.getRequestData(any(URI.class), eq(EconomicActivitiesCensusDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsEconomicActivitiesCensusDefaultPage(economicActivitiesCensusService.getPage(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(EconomicActivitiesCensusDto[].class));
     }
 
     @Test
-    void getPageReturnsEconomicActivitiesCensusDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+    void getPageReturnsEconomicActivitiesCensusDefaultPageWhenServerIsDownTest() {
         when(config.getDs_economicactivitiescensus()).thenReturn(urlEconomicActivitiesCensus);
-        when(httpProxy.getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(EconomicActivitiesCensusDto[].class)))
             .thenReturn(Mono.error(new RuntimeException()));
         this.returnsEconomicActivitiesCensusDefaultPage(economicActivitiesCensusService.getPage(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(EconomicActivitiesCensusDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(EconomicActivitiesCensusDto[].class));
     }
 
     private void areOffsetLimitAndCountEqual(GenericResultDto<?> expected, GenericResultDto<?> actual) {

@@ -22,7 +22,5 @@ public class DataConfigService {
             }
         BcnZonesResponseDto response = new BcnZonesResponseDto(zones.length, zones);
         return Mono.just(response);
-
     }
-
 }

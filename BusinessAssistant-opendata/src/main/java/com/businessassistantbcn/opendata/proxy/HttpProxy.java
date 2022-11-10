@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +21,14 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -64,26 +64,38 @@ public class HttpProxy {
         clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonDecoder(mapper, MediaType.TEXT_PLAIN));
     }
 
-    public <T> Mono<T> getRequestData(URL url, Class<T> clazz) {
-        log.info("Proxy: Executing remote invocation to " + url.toString());
-        if (url.toString().startsWith("http://api/")) {
-            return Mono.just(jsonLoader(url.toString(), clazz));
-        } else {
+    public <T> Mono<T> getRequestData(URI uri, Class<T> clazz) {
+
+        //Checks if given uri is a valid URL, including localhost
+        UrlValidator validator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+
+        if (validator.isValid(uri.toString())) {
+            log.info("Proxy: Executing remote invocation to " + uri);
             WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
-            WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));
+            WebClient.RequestBodySpec bodySpec = uriSpec.uri(uri);
             return bodySpec.retrieve().bodyToMono(clazz);
+        } else if (uri.toString().startsWith("backup/opendata/")){
+            log.info("Proxy: Executing local invocation to " + uri);
+            Optional<T> result = jsonLoader(uri, clazz);
+            return result.map(Mono::just).orElseGet(Mono::empty);
+        } else {
+            log.error("Invalid resource URI: " + uri);
+            return Mono.empty();
         }
     }
 
-    private <T> T jsonLoader(String resourceURI, Class<T> clazz) {
-        URL resourceURL = this.getClass().getClassLoader().getResource(resourceURI.replace("http://", ""));
+    private <T> Optional<T> jsonLoader(URI uri, Class<T> clazz) {
+
+        String absolutePath = new File(uri.toString()).getAbsolutePath();
+
         String fileString;
         try {
-            fileString = Files.readAllLines(Path.of(Objects.requireNonNull(resourceURL).toURI()), StandardCharsets.UTF_8).get(0);
+            fileString = Files.readAllLines(Path.of(absolutePath), StandardCharsets.UTF_8).get(0);
             ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            return mapper.readValue(fileString, clazz);
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
+            return Optional.of(mapper.readValue(fileString, clazz));
+        } catch (IOException e) {
+            log.error("IOError: not able to find file " + uri);
+            return Optional.empty();
         }
     }
 }

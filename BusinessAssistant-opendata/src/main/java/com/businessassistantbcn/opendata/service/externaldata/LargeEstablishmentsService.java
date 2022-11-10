@@ -11,14 +11,13 @@ import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -42,14 +41,13 @@ public class LargeEstablishmentsService {
 
     // Get paged results
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnLargeEstablishmentsDefaultPage")
-    public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPage(int offset, int limit) throws MalformedURLException {
+    public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPage(int offset, int limit) {
         return getResultDto(offset, limit, dto -> true);
     }
 
     // Get paged results filtered by district
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnLargeEstablishmentsDefaultPage")
-    public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPageByDistrict(int offset, int limit, int district)
-            throws MalformedURLException {
+    public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPageByDistrict(int offset, int limit, int district) {
         return getResultDto(offset, limit, dto ->
                 dto.getAddresses().stream()
                         .anyMatch(a -> Integer.parseInt(a.getDistrict_id()) == district
@@ -58,8 +56,7 @@ public class LargeEstablishmentsService {
 
     // Get paged results filtered by activity
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnLargeEstablishmentsDefaultPage")
-    public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPageByActivity(int offset, int limit, String activityId)
-            throws MalformedURLException {
+    public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPageByActivity(int offset, int limit, String activityId) {
 
         Predicate<LargeEstablishmentsDto> dtoFilter = largeEstablishmentsDto ->
                 largeEstablishmentsDto.getClassifications_data()
@@ -71,8 +68,7 @@ public class LargeEstablishmentsService {
 
     // Get paged results filtered by search parameters (zones and activities)
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnLargeEstablishmentsDefaultPage")
-    public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPageBySearch(int offset, int limit, SearchDTO searchParams)
-            throws MalformedURLException {
+    public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getPageBySearch(int offset, int limit, SearchDTO searchParams) {
 
         Predicate<LargeEstablishmentsDto> activityFilter;
         if (searchParams.getActivities().length > 0) {
@@ -101,8 +97,8 @@ public class LargeEstablishmentsService {
     }
 
     private Mono<GenericResultDto<LargeEstablishmentsResponseDto>> getResultDto(
-            int offset, int limit, Predicate<LargeEstablishmentsDto> dtoFilter) throws MalformedURLException {
-        return httpProxy.getRequestData(new URL(config.getDs_largeestablishments()), LargeEstablishmentsDto[].class)
+            int offset, int limit, Predicate<LargeEstablishmentsDto> dtoFilter) {
+        return httpProxy.getRequestData(URI.create(config.getDs_largeestablishments()), LargeEstablishmentsDto[].class)
                 .flatMap(largeEstablishmentsDto -> {
                     LargeEstablishmentsDto[] fullDto = Arrays.stream(largeEstablishmentsDto)
                             .map(this::removeClassificationDataWithMarquesAndUsInternInFullPath)
@@ -118,7 +114,7 @@ public class LargeEstablishmentsService {
 
                     genericResultDto.setInfo(offset, limit, fullDto.length, responseDto);
                     return Mono.just(genericResultDto);
-                });
+                }).switchIfEmpty(getLargeEstablishmentsDefaultPage());
     }
 
     private LargeEstablishmentsDto removeClassificationDataWithMarquesAndUsInternInFullPath(LargeEstablishmentsDto largeEstablishmentDto) {
@@ -158,9 +154,8 @@ public class LargeEstablishmentsService {
     }
 
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnActivitiesDefaultPage")
-    public Mono<GenericResultDto<ActivityInfoDto>> getLargeEstablishmentsActivities(int offset, int limit)
-            throws MalformedURLException {
-        return httpProxy.getRequestData(new URL(config.getDs_largeestablishments()), LargeEstablishmentsDto[].class)
+    public Mono<GenericResultDto<ActivityInfoDto>> getLargeEstablishmentsActivities(int offset, int limit) {
+        return httpProxy.getRequestData(URI.create(config.getDs_largeestablishments()), LargeEstablishmentsDto[].class)
                 .flatMap(largeEstablishmentDto -> {
                     List<ActivityInfoDto> listFullPathFiltered = this.getListWithoutInvalidFullPaths(largeEstablishmentDto);
                     List<ActivityInfoDto> listActivityInfoDto = this.getListWithoutRepeatedNames(listFullPathFiltered);
@@ -170,7 +165,7 @@ public class LargeEstablishmentsService {
                     ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
                     genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
                     return Mono.just(genericActivityResultDto);
-                });
+                }).switchIfEmpty(getActivitiesDefaultPage());
     }
 
     private Mono<GenericResultDto<ActivityInfoDto>> getActivitiesDefaultPage() {
