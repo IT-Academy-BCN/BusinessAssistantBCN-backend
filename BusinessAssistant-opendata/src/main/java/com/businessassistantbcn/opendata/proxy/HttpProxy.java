@@ -16,6 +16,7 @@ import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.http.codec.ClientCodecConfigurer;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -23,11 +24,15 @@ import reactor.netty.http.client.HttpClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -80,7 +85,7 @@ public class HttpProxy {
                   * Efectuar ping o validación de alcance de IP de FileSystem
                   * Conectar a FS Samba
              */
-            if (uri.toString().contains("backup/opendata/")) {
+            if (uri.toString().contains("api/")) {
                 log.info("Proxy: Executing local invocation to " + uri);
                 Optional<T> result = jsonLoader(uri, clazz);
                 return result.map(Mono::just).orElseGet(Mono::empty);
@@ -93,12 +98,10 @@ public class HttpProxy {
 
     private <T> Optional<T> jsonLoader(URI uri, Class<T> clazz) {
 
-        String absolutePath = new File(uri.toString()).getAbsolutePath();
-        String fileString;
-        try {
-            fileString = Files.readAllLines(Path.of(absolutePath), StandardCharsets.UTF_8).get(0);
+        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(uri.toString())) {
+            String contentString = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
             ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            return Optional.of(mapper.readValue(fileString, clazz));
+            return Optional.of(mapper.readValue(contentString, clazz));
         } catch (IOException e) {
             log.error("IOError: not able to find file " + uri);
             return Optional.empty();
