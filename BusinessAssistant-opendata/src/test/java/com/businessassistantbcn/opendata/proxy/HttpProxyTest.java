@@ -100,6 +100,13 @@ class HttpProxyTest {
 	}
 
 	@Test
+	void getRequestDataWrongFileNameTest() {
+		uri = URI.create("api/wrong.json");
+		BigMallsDto[] bigMalls = httpProxy.getRequestData(uri, BigMallsDto[].class).block();
+
+		assertNull(bigMalls);
+	}
+	@Test
 	void getRequestDataVoidTest() {
 		uri = URI.create("some/wrong/uri");
 		BigMallsDto[] bigMalls = httpProxy.getRequestData(uri, BigMallsDto[].class).block();
