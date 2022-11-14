@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjdk-alpine:17.0.1
+FROM bellsoft/liberica-openjdk-alpine:17.0.5
 # RUN apk add -U consul
 # ./consul agent -data-dir=/tmp/consul -join=172.17.0.2 -bind=172.17.0.3 -client=172.17.0.3
 ADD ["build/libs/BusinessAssistant-opendata-1.0-SNAPSHOT.jar", "/opt/BusinessAssistant-opendata/"]

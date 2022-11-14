@@ -1,57 +1,57 @@
 version: '3.7'
 
 services:
-  consul-server1:
-    image: consul:1.12.2
-    container_name: consul-server1
-    restart: always
-    #networks:
-    #  - consul-net
-    ports:
-      - '8500:8500'
-      - '8600:8600/tcp'
-      - '8600:8600/udp'
-    command:
-      - 'agent'
+#  consul-server1:
+#    image: consul:1.12.2
+#    container_name: consul-server1
+#    restart: always
+#    #networks:
+#    #  - consul-net
+#    ports:
+#      - '8500:8500'
+#      - '8600:8600/tcp'
+#      - '8600:8600/udp'
+#    command:
+#      - 'agent'
 
-  businessassistantbcn-mydata:
-    image: babcn:mydata-v1.0-SNAPSHOT
-    container_name: mydata-v1.0-SNAPSHOT
-    restart: 'no'
-    ports:
-     - '7779:8763'
-  # environment:
-  #   - 'JAVA_OPTS=-Xms128m -Xmx512m -server'
-  # logging:
-  #   driver: 'json-file'
-  #   options:
-  #     max-size: '100k'
-  #     max-file: '10'
-
-  businessassistantbcn-mysql:
-    container_name: mysql-businessassistantbcn
-    image: mysql:8.0
-    #command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    ports:
-      - '3306:3306'
-    environment:
-      MYSQL_ROOT_PASSWORD: kIFQRsP8BRpODROvy5
-      #MYSQL_ALLOW_EMPTY_PASSWORD: true
-      MYSQL_DATABASE: businessassistantbcndb
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ
-    volumes:
-        - ./BusinessAssistant-mydata/src/main/resources/scripts-mysql:/home/scripts/
-        - businessassistantbcn_db_data:/var/lib/mysql
-        - businessassistantbcn_db_log:/var/log/mysql
+#  businessassistantbcn-mydata:
+#    image: babcn:mydata-v1.0-SNAPSHOT
+#    container_name: mydata-v1.0-SNAPSHOT
+#    restart: 'no'
+#    ports:
+#     - '7779:8763'
+#  # environment:
+#  #   - 'JAVA_OPTS=-Xms128m -Xmx512m -server'
+#  # logging:
+#  #   driver: 'json-file'
+#  #   options:
+#  #     max-size: '100k'
+#  #     max-file: '10'
+#
+#  businessassistantbcn-mysql:
+#    container_name: mysql-businessassistantbcn
+#    image: mysql:8.0
+#    #command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    ports:
+#      - '3306:3306'
+#    environment:
+#      MYSQL_ROOT_PASSWORD: kIFQRsP8BRpODROvy5
+#      #MYSQL_ALLOW_EMPTY_PASSWORD: true
+#      MYSQL_DATABASE: businessassistantbcndb
+#      MYSQL_USER: admin
+#      MYSQL_PASSWORD: Sb13TU7hw1oCbSIJ
+#    volumes:
+#        - ./BusinessAssistant-mydata/src/main/resources/scripts-mysql:/home/scripts/
+#        - businessassistantbcn_db_data:/var/lib/mysql
+#        - businessassistantbcn_db_log:/var/log/mysql
 
   businessassistantbcn-opendata:
     image: babcn:opendata-v1.0-SNAPSHOT
     container_name: opendata-v1.0-SNAPSHOT
     restart: 'always'
-    networks:
-      - consul-net
+#    networks:
+#      - consul-net
     ports:
       - '7777:8762'
     #environment:
@@ -62,51 +62,60 @@ services:
        #     max-size: '100k'
       #     max-file: '10'
 
-  businessassistantbcn-usermanagement:
-    image: babcn:usermanagement-v1.0-SNAPSHOT
-    container_name: usermanagement-v1.0-SNAPSHOT
-    restart: 'no'
+  businessassistantbcn-login:
+    image: babcn:login-v1.0-SNAPSHOT
+    container_name: login-v1.0-SNAPSHOT
+    restart: 'always'
+#    networks:
+#      - consul-net
     ports:
-      - '7778:8763'
-        #environment:
-        #   - 'JAVA_OPTS=-Xms128m -Xmx512m -server'
-        # logging:
-        #   driver: 'json-file'
-        #   options:
-      #     max-size: '100k'
-      #     max-file: '10'
+      - '7779:8761'
 
-  businessassistantbcn-mongodb:
-    container_name: mongodb-businessassistantbcn
-    image: mongo:5.0.9
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin_businessassistantbcn
-      MONGO_INITDB_ROOT_PASSWORD: UhWQQYFVBx95W7
-      MONGO_INITDB_DATABASE: babcn-users
-    ports:
-      - 27017:27017
-    volumes:
-      - businessassistantbcn_mongodb_data:/var/lib/mongodb
-      - ./BusinessAssistant-usermanagement/src/main/resources/mongodb-init:/docker-entrypoint-initdb.d
-      - ./BusinessAssistant-usermanagement/src/main/resources/mongodb-test-data:/tmp/data/
+#  businessassistantbcn-usermanagement:
+#    image: babcn:usermanagement-v1.0-SNAPSHOT
+#    container_name: usermanagement-v1.0-SNAPSHOT
+#    restart: 'no'
+#    ports:
+#      - '7778:8763'
+#        #environment:
+#        #   - 'JAVA_OPTS=-Xms128m -Xmx512m -server'
+#        # logging:
+#        #   driver: 'json-file'
+#        #   options:
+#      #     max-size: '100k'
+#      #     max-file: '10'
+#
+#  businessassistantbcn-mongodb:
+#    container_name: mongodb-businessassistantbcn
+#    image: mongo:5.0.9
+#    restart: always
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: admin_businessassistantbcn
+#      MONGO_INITDB_ROOT_PASSWORD: UhWQQYFVBx95W7
+#      MONGO_INITDB_DATABASE: babcn-users
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - businessassistantbcn_mongodb_data:/var/lib/mongodb
+#      - ./BusinessAssistant-usermanagement/src/main/resources/mongodb-init:/docker-entrypoint-initdb.d
+#      - ./BusinessAssistant-usermanagement/src/main/resources/mongodb-test-data:/tmp/data/
 
-  portainer:
-    container_name: portainer-babcn
-    image: portainer/portainer
-    ports:
-      - '9500:9000'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-
-volumes:
-    businessassistantbcn_db_data:
-    businessassistantbcn_db_log:
-    businessassistantbcn_mongodb_data:
-    portainer_data:
-
-networks:
-  consul-net:
-    driver:
-      bridge
+#  portainer:
+#    container_name: portainer-babcn
+#    image: portainer/portainer
+#    ports:
+#      - '9500:9000'
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - portainer_data:/data
+#
+#volumes:
+#    businessassistantbcn_db_data:
+#    businessassistantbcn_db_log:
+#    businessassistantbcn_mongodb_data:
+#    portainer_data:
+#
+#networks:
+#  consul-net:
+#    driver:
+#      bridge
