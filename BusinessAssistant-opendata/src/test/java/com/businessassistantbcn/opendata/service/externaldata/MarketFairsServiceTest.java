@@ -4,10 +4,7 @@ import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsSearchDto;
-import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
-import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsSearchDTO;
 import com.businessassistantbcn.opendata.dto.output.MarketFairsResponseDto;
-import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
@@ -26,9 +23,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -121,9 +117,9 @@ class MarketFairsServiceTest {
     }
 
     @Test
-    void getPageTest() throws MalformedURLException, JsonProcessingException {
+    void getPageTest() throws JsonProcessingException {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(MarketFairsDto[].class)))
             .thenReturn(Mono.just(twoMarketFairsDto));
 
         GenericResultDto<MarketFairsResponseDto> expectedResult = new GenericResultDto<>();
@@ -135,24 +131,24 @@ class MarketFairsServiceTest {
             mapper.writeValueAsString(actualResult.getResults()));
 
         verify(config, times(1)).getDs_marketfairs();
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(MarketFairsDto[].class));
     }
 
     @Test
-    void getPageReturnsMarketFairsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+    void getPageReturnsMarketFairsDefaultPageWhenInternalErrorTest() {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+        when(httpProxy.getRequestData(any(URI.class), eq(MarketFairsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsMarketFairsDefaultPage(marketFairsService.getPage(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(MarketFairsDto[].class));
     }
 
     @Test
-    void getPageReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+    void getPageReturnsActivitiesDefaultPageWhenServerIsDownTest() {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(MarketFairsDto[].class)))
                 .thenReturn(Mono.error(new RuntimeException()));
         this.returnsMarketFairsDefaultPage(marketFairsService.getPage(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MarketFairsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(MarketFairsDto[].class));
     }
 
     private void areOffsetLimitAndCountEqual(GenericResultDto<?> expected, GenericResultDto<?> actual) {
@@ -172,9 +168,9 @@ class MarketFairsServiceTest {
     }
 
     @Test
-    void getPageByDistrictTest() throws MalformedURLException {
+    void getPageByDistrictTest() {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(MarketFairsDto[].class)))
                 .thenReturn(Mono.just(twoMarketFairsDto));
 
         GenericResultDto<MarketFairsResponseDto> actualResult =
@@ -187,9 +183,9 @@ class MarketFairsServiceTest {
     }
 
     @Test
-    void getPageBySearchTest() throws MalformedURLException {
+    void getPageBySearchTest() {
         when(config.getDs_marketfairs()).thenReturn(urlMarketFairs);
-        when(httpProxy.getRequestData(any(URL.class), eq(MarketFairsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(MarketFairsDto[].class)))
                 .thenReturn(Mono.just(twoMarketFairsDto));
 
         MarketFairsSearchDto searchParams = new MarketFairsSearchDto(new int[]{8});

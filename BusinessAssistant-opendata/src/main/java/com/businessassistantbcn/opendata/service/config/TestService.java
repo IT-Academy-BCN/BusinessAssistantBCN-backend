@@ -2,13 +2,12 @@ package com.businessassistantbcn.opendata.service.config;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
 
 @Service
 public class TestService {
@@ -19,8 +18,8 @@ public class TestService {
     @Autowired
     HttpProxy httpProxy;
 
-    public Mono<StarWarsVehiclesResultDto> getTestData() throws MalformedURLException{
-           return httpProxy.getRequestData(new URL(config.getDs_test()), StarWarsVehiclesResultDto.class);
+    public Mono<StarWarsVehiclesResultDto> getTestData() {
+           return httpProxy.getRequestData(URI.create(config.getDs_test()), StarWarsVehiclesResultDto.class);
     }
 
 }

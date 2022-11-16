@@ -5,6 +5,7 @@ import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import io.netty.channel.ChannelOption;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import org.junit.Ignore;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,14 @@ import reactor.netty.http.client.HttpClient;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -41,6 +42,7 @@ class HttpProxyTest {
 
 	public static MockWebServer mockWebServer;
 	private URL url;
+	private URI uri;
 	private static final String JSON_FILENAME_BIG_MALLS = "json/twoBigMallsForTesting.json";
 	private static String bigMallsAsString;
 
@@ -55,11 +57,6 @@ class HttpProxyTest {
 		).get(0);
 	}
 
-	@BeforeEach
-	void initialize() throws MalformedURLException {
-		this.url = new URL(String.format("http://localhost:%s", mockWebServer.getPort()));
-	}
-
 	@AfterAll
 	static void tearDown() throws IOException {
 		mockWebServer.shutdown();
@@ -67,7 +64,7 @@ class HttpProxyTest {
 	
 	@DisplayName("Timeout verification")
 	@Test
-	public void timeoutTest() {
+	void timeoutTest() {
 		HttpClient client1 = HttpClient.create()
 				.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 1); // Absurd 1 ms connection timeout
 		WebClient briefClient = httpProxy.client.mutate()
@@ -84,19 +81,36 @@ class HttpProxyTest {
 	}
 
 	@Test
-	void getRequestDataTest() throws MalformedURLException {
+	void getRequestDataURLTest() throws MalformedURLException, URISyntaxException {
 		mockWebServer.enqueue(new MockResponse().addHeader("Content-Type", "application/json").setBody(bigMallsAsString));
-		BigMallsDto[] bigMalls = httpProxy.getRequestData(url, BigMallsDto[].class).block();
+		url = new URL(String.format("http://localhost:%s", mockWebServer.getPort()));
+		BigMallsDto[] bigMalls = httpProxy.getRequestData(url.toURI(), BigMallsDto[].class).block();
 
 		assertEquals(2, bigMalls.length);
 		assertEquals(43326349, bigMalls[0].getClassifications_data().get(0).getId());
 	}
 
 	@Test
-	void getRequestDataServerIsDownTest() throws MalformedURLException {
-		mockWebServer.enqueue(new MockResponse().setResponseCode(500));
-		Mono<BigMallsDto[]> requestData = httpProxy.getRequestData(url, BigMallsDto[].class);
-		assertThrows(WebClientResponseException.class, () -> httpProxy.getRequestData(url, BigMallsDto[].class).block());
+	void getRequestDataBackupTest() {
+		uri = URI.create("../backup/opendata/big-mallsData.json");
+		BigMallsDto[] bigMalls = httpProxy.getRequestData(uri, BigMallsDto[].class).block();
+
+		assertNotNull(bigMalls);
+		assertEquals(27, bigMalls.length);
 	}
 
+	@Test
+	void getRequestDataVoidTest() {
+		uri = URI.create("some/wrong/uri");
+		BigMallsDto[] bigMalls = httpProxy.getRequestData(uri, BigMallsDto[].class).block();
+
+		assertNull(bigMalls);
+	}
+
+	@Test
+	void getRequestDataServerIsDownTest() throws MalformedURLException {
+		mockWebServer.enqueue(new MockResponse().setResponseCode(500));
+		url = new URL(String.format("http://localhost:%s", mockWebServer.getPort()));
+		assertThrows(WebClientResponseException.class, () -> httpProxy.getRequestData(url.toURI(), BigMallsDto[].class).block());
+	}
 }

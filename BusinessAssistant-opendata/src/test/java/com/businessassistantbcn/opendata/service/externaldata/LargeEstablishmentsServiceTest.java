@@ -23,16 +23,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -110,9 +108,9 @@ class LargeEstablishmentsServiceTest {
     }
 
     @Test
-    void getPageByDistrictTest() throws MalformedURLException {
+    void getPageByDistrictTest() {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
         GenericResultDto<LargeEstablishmentsResponseDto> actualResult =
@@ -128,13 +126,13 @@ class LargeEstablishmentsServiceTest {
 
         verify(config, times(1)).getDs_largeestablishments();
         verify(httpProxy, times(1))
-            .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+            .getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
-    void getPageByActivityTest() throws MalformedURLException {
+    void getPageByActivityTest() {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
         GenericResultDto<LargeEstablishmentsResponseDto> actualResult =
@@ -154,13 +152,13 @@ class LargeEstablishmentsServiceTest {
 
         verify(config, times(1)).getDs_largeestablishments();
         verify(httpProxy, times(1))
-                .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+                .getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
-    void getPageBySearchTest() throws MalformedURLException {
+    void getPageBySearchTest() {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class)))
                 .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
         SearchDTO searchParams = new SearchDTO(new int[]{5}, new int[]{1008031});
@@ -182,13 +180,13 @@ class LargeEstablishmentsServiceTest {
 
         verify(config, times(1)).getDs_largeestablishments();
         verify(httpProxy, times(1))
-                .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+                .getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
-    void getPageTest() throws MalformedURLException {
+    void getPageTest() {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
         GenericResultDto<LargeEstablishmentsResponseDto> expectedResult = new GenericResultDto<>();
@@ -204,32 +202,32 @@ class LargeEstablishmentsServiceTest {
         
         verify(config, times(1)).getDs_largeestablishments();
         verify(httpProxy, times(1))
-            .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+            .getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
-    void getPageReturnsLargeEstablishmentsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+    void getPageReturnsLargeEstablishmentsDefaultPageWhenInternalErrorTest() {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsLargeEstablishmentsDefaultPage(largeEstablishmentsService.getPage(0, -1).block());
         verify(httpProxy, times(1))
-            .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+            .getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
-    void getPageReturnsLargeEstablishmentsDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+    void getPageReturnsLargeEstablishmentsDefaultPageWhenServerIsDownTest() {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class)))
                 .thenReturn(Mono.error(new RuntimeException()));
         this.returnsLargeEstablishmentsDefaultPage(largeEstablishmentsService.getPage(0, -1).block());
         verify(httpProxy, times(1))
-            .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+            .getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
-    void getLargeEstablishmentsActivitiesTest() throws MalformedURLException, JsonProcessingException {
+    void getLargeEstablishmentsActivitiesTest() throws JsonProcessingException {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.just(twoLargeEstablishmentsDto));
 
         GenericResultDto<ActivityInfoDto> expectedResult = new GenericResultDto<ActivityInfoDto>();
@@ -243,25 +241,25 @@ class LargeEstablishmentsServiceTest {
 
         verify(config, times(1)).getDs_largeestablishments();
         verify(httpProxy, times(1))
-            .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+            .getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
-    void getLargeEstablishmentsActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+    void getLargeEstablishmentsActivitiesReturnsActivitiesDefaultPageWhenInternalErrorTest() {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsActivitiesDefaultPage(largeEstablishmentsService.getLargeEstablishmentsActivities(0, -1).block());
         verify(httpProxy, times(1))
-            .getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+            .getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     @Test
-    void getLargeEstablishmentsActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+    void getLargeEstablishmentsActivitiesReturnsActivitiesDefaultPageWhenServerIsDownTest() {
         when(config.getDs_largeestablishments()).thenReturn(urlLargeEstablishments);
-        when(httpProxy.getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class)))
             .thenReturn(Mono.error(new RuntimeException()));
         this.returnsActivitiesDefaultPage(largeEstablishmentsService.getLargeEstablishmentsActivities(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(LargeEstablishmentsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(LargeEstablishmentsDto[].class));
     }
 
     private void areOffsetLimitAndCountEqual(GenericResultDto<?> expected, GenericResultDto<?> actual) {

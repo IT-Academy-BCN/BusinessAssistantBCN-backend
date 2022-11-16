@@ -2,11 +2,8 @@ package com.businessassistantbcn.opendata.service.externaldata;
 
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.GenericResultDto;
-import com.businessassistantbcn.opendata.dto.input.SearchDTO;
-import com.businessassistantbcn.opendata.dto.input.bigmalls.BigMallsDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsSearchDTO;
-import com.businessassistantbcn.opendata.dto.output.BigMallsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.MunicipalMarketsResponseDto;
 import com.businessassistantbcn.opendata.dto.output.data.AddressInfoDto;
 import com.businessassistantbcn.opendata.dto.output.data.CoordinateInfoDto;
@@ -26,16 +23,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -122,9 +117,9 @@ class MunicipalMarketsServiceTest {
     }
 
     @Test
-    void getPageTest() throws MalformedURLException, JsonProcessingException {
+    void getPageTest() throws JsonProcessingException {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
-        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(MunicipalMarketsDto[].class)))
             .thenReturn(Mono.just(twoMunicipalMarkets));
 
         GenericResultDto<MunicipalMarketsResponseDto> expectedResult = new GenericResultDto<>();
@@ -138,24 +133,24 @@ class MunicipalMarketsServiceTest {
                 mapper.writeValueAsString(actualResult.getResults()));
 
         verify(config, times(1)).getDs_municipalmarkets();
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(MunicipalMarketsDto[].class));
     }
 
     @Test
-    void getPageReturnsMunicipalMarketsDefaultPageWhenInternalErrorTest() throws MalformedURLException {
+    void getPageReturnsMunicipalMarketsDefaultPageWhenInternalErrorTest() {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
-        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
+        when(httpProxy.getRequestData(any(URI.class), eq(MunicipalMarketsDto[].class))).thenReturn(Mono.error(new RuntimeException()));
         this.returnsMunicipalMarketDefaultPage(municipalMarketsService.getPage(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(MunicipalMarketsDto[].class));
     }
 
     @Test
-    void getPageReturnsMunicipalMarketsDefaultPageWhenServerIsDownTest() throws MalformedURLException {
+    void getPageReturnsMunicipalMarketsDefaultPageWhenServerIsDownTest() {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
-        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(MunicipalMarketsDto[].class)))
                 .thenReturn(Mono.error(new RuntimeException()));
         this.returnsMunicipalMarketDefaultPage(municipalMarketsService.getPage(0, -1).block());
-        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class));
+        verify(httpProxy, times(1)).getRequestData(any(URI.class), eq(MunicipalMarketsDto[].class));
     }
 
     private void areOffsetLimitAndCountEqual(GenericResultDto<?> expected, GenericResultDto<?> actual) {
@@ -175,9 +170,9 @@ class MunicipalMarketsServiceTest {
     }
 
     @Test
-    void getPageByDistrict() throws MalformedURLException {
+    void getPageByDistrict() {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
-        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(MunicipalMarketsDto[].class)))
                 .thenReturn(Mono.just(twoMunicipalMarkets));
 
         GenericResultDto<MunicipalMarketsResponseDto> actualResult =
@@ -190,9 +185,9 @@ class MunicipalMarketsServiceTest {
     }
 
     @Test
-    void getPageBySearchTest() throws MalformedURLException {
+    void getPageBySearchTest() {
         when(config.getDs_municipalmarkets()).thenReturn(urlMunicipalMarkets);
-        when(httpProxy.getRequestData(any(URL.class), eq(MunicipalMarketsDto[].class)))
+        when(httpProxy.getRequestData(any(URI.class), eq(MunicipalMarketsDto[].class)))
                 .thenReturn(Mono.just(twoMunicipalMarkets));
 
         MunicipalMarketsSearchDTO searchParams = new MunicipalMarketsSearchDTO(new int[]{2});

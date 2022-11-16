@@ -78,6 +78,9 @@ dependencies {
 
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
 
+    //apache commons validation
+    implementation 'commons-validator:commons-validator:1.7'
+
     //contract testing - pact
     testImplementation 'au.com.dius:pact-jvm-consumer-junit5:4.0.10'
     testImplementation 'au.com.dius:pact-jvm-consumer-junit:4.0.10'

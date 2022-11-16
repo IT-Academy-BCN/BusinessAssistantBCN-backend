@@ -6,13 +6,13 @@ import com.businessassistantbcn.opendata.dto.economicactivitiescensus.EconomicAc
 import com.businessassistantbcn.opendata.helper.JsonHelper;
 import com.businessassistantbcn.opendata.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+import java.net.URI;
 
 @Service
 public class EconomicActivitiesCensusService {
@@ -27,14 +27,14 @@ public class EconomicActivitiesCensusService {
 	private GenericResultDto<EconomicActivitiesCensusDto> genericResultDto;
 
 	@CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logInternalErrorReturnEconomicActivitiesCensusDefaultPage")
-	public Mono<GenericResultDto<EconomicActivitiesCensusDto>>getPage(int offset, int limit) throws MalformedURLException {
+	public Mono<GenericResultDto<EconomicActivitiesCensusDto>>getPage(int offset, int limit) {
 		return httpProxy
-			.getRequestData(new URL(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class)
+			.getRequestData(URI.create(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class)
 			.flatMap(dtos -> {
 				EconomicActivitiesCensusDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
 				return Mono.just(genericResultDto);
-			});
+			}).switchIfEmpty(getEconomicActivitiesCensusDefaultPage());
 	}
 
 	@SuppressWarnings("unused")
