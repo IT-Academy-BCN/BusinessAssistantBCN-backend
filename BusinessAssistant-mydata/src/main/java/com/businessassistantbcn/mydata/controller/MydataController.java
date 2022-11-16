@@ -4,7 +4,7 @@ import com.businessassistantbcn.mydata.proxy.HttpProxy;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
+//import org.springframework.cloud.client.discovery.DiscoveryClient;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
@@ -43,11 +43,11 @@ public class MydataController {
 	@Autowired
 	UserSearchesService userService;
 
-	@Autowired
-	private DiscoveryClient discoveryClient;
+//	@Autowired
+//	private DiscoveryClient discoveryClient;
 
-	@Autowired
-	private HttpProxy httpProxy;
+//	@Autowired
+//	private HttpProxy httpProxy;
 
 	public MydataController(UserSearchesService userService) {
 		this.userService = userService;
@@ -58,22 +58,24 @@ public class MydataController {
 	@GetMapping(value = "/test")
 	@Operation(summary = "Get test")
 	@ApiResponse(responseCode = "200", description = "OK")
-	public Mono<String> test() throws ServiceUnavailableException, MalformedURLException {
+	//public Mono<String> test() throws ServiceUnavailableException, MalformedURLException {
+	public String test() throws ServiceUnavailableException, MalformedURLException {
 
-		//All services available
-/*		StringBuffer sb = new StringBuffer();
-		discoveryClient.getServices().forEach( (s) -> {
-			sb.append(s + "\r\n");
-		});*/
-		Optional<URI> uri = discoveryClient.getInstances("businessassistant-usermanagement")
-				.stream()
-				.findAny()
-				.map( s -> s.getUri());
-
-		return httpProxy.getRequestData(uri
-						.map( s -> s.resolve("/businessassistantbcn/api/v1/usermanagement/test"))
-						.get().toURL(), String.class)
-						.flatMap( s -> Mono.just(s));
+//		//All services available
+///*		StringBuffer sb = new StringBuffer();
+//		discoveryClient.getServices().forEach( (s) -> {
+//			sb.append(s + "\r\n");
+//		});*/
+//		Optional<URI> uri = discoveryClient.getInstances("businessassistant-usermanagement")
+//				.stream()
+//				.findAny()
+//				.map( s -> s.getUri());
+//
+//		return httpProxy.getRequestData(uri
+//						.map( s -> s.resolve("/businessassistantbcn/api/v1/usermanagement/test"))
+//						.get().toURL(), String.class)
+//						.flatMap( s -> Mono.just(s));
+		return "Hello from BusinessAssistant MyData!!!";
 	}
 
 	@PostMapping(value="/mysearches/{user_uuid}")
