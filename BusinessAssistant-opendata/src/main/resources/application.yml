@@ -9,7 +9,7 @@ spring:
   #   - pro: enable JWT security
   profiles:
     active:
-    - pro
+    - dev
 
 
 springdoc:
@@ -79,7 +79,7 @@ logging:
 spring:
   config:
     activate:
-      on-profile: pro
+      on-profile: dev
 url:
     connection_timeout: 30000
     maxBytesInMemory: 30000000
