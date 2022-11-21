@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -104,7 +105,7 @@ public class OpendataController {
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map,
-            @RequestBody SearchDTO searchParams) {
+            @Valid @RequestBody SearchDTO searchParams) {
         this.validateRequestParameters(map);
         return largeEstablishmentsService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
@@ -158,7 +159,7 @@ public class OpendataController {
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map,
-            @RequestBody SearchDTO searchParams) {
+            @Valid @RequestBody SearchDTO searchParams) {
         this.validateRequestParameters(map);
         return commercialGalleriesService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
@@ -211,7 +212,7 @@ public class OpendataController {
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map,
-            @RequestBody SearchDTO searchParams) {
+            @Valid @RequestBody SearchDTO searchParams) {
         this.validateRequestParameters(map);
         return bigMallsService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
@@ -241,7 +242,7 @@ public class OpendataController {
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map,
-            @RequestBody MunicipalMarketsSearchDTO searchParams) {
+            @Valid @RequestBody MunicipalMarketsSearchDTO searchParams) {
         this.validateRequestParameters(map);
         return municipalMarketsService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
@@ -272,7 +273,7 @@ public class OpendataController {
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
             @RequestParam Map<String, String> map,
-            @RequestBody MarketFairsSearchDto searchParams) {
+            @Valid @RequestBody MarketFairsSearchDto searchParams) {
         this.validateRequestParameters(map);
         return marketFairsService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);

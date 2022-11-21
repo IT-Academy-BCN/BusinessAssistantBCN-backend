@@ -359,7 +359,7 @@ class OpendataControllerTest {
     void getLargeEstablishmentBySearchTest() {
         final String URI_ONE_SEARCH = "/large-establishments/search";
 
-        SearchDTO searchDTO = new SearchDTO();
+        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{107001});
 
         webTestClient.method(HttpMethod.GET)
                 .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
@@ -409,7 +409,7 @@ class OpendataControllerTest {
     void getCommercialGalleriesBySearchTest() {
         final String URI_ONE_SEARCH = "/commercial-galleries/search";
 
-        SearchDTO searchDTO = new SearchDTO();
+        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{1006051});
 
         webTestClient.method(HttpMethod.GET)
                 .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
@@ -459,7 +459,7 @@ class OpendataControllerTest {
     void getBigMallsBySearchTest() {
         final String URI_ONE_SEARCH = "/big-malls/search";
 
-        SearchDTO searchDTO = new SearchDTO();
+        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{37810722});
 
         webTestClient.method(HttpMethod.GET)
                 .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
@@ -493,7 +493,7 @@ class OpendataControllerTest {
     void getMunicipalMarketsBySearchTest() {
         final String URI_ONE_SEARCH = "/municipal-markets/search";
 
-        MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO();
+        MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO(new int[]{2, 3});
 
         webTestClient.method(HttpMethod.GET)
                 .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
@@ -527,7 +527,7 @@ class OpendataControllerTest {
     void getMarketFairsBySearchTest() {
         final String URI_ONE_SEARCH = "/market-fairs/search";
 
-        MarketFairsSearchDto searchDTO = new MarketFairsSearchDto();
+        MarketFairsSearchDto searchDTO = new MarketFairsSearchDto(new int[]{2, 3});
 
         webTestClient.method(HttpMethod.GET)
                 .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
@@ -539,5 +539,19 @@ class OpendataControllerTest {
                 .expectBody();
 
         verify(marketFairsService).getPageBySearch(0, -1, searchDTO);
+    }
+
+    @Test
+    void wrongSearchParamsTest() {
+        final String URI_ONE_SEARCH = "/market-fairs/search";
+
+        MarketFairsSearchDto searchDTO = new MarketFairsSearchDto();
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+                .bodyValue(searchDTO)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isBadRequest();
     }
 }
