@@ -18,8 +18,10 @@ import com.businessassistantbcn.opendata.service.externaldata.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -542,10 +544,38 @@ class OpendataControllerTest {
     }
 
     @Test
-    void wrongSearchParamsTest() {
+    void wrongMarketFairsSearchParamsTest() {
         final String URI_ONE_SEARCH = "/market-fairs/search";
 
         MarketFairsSearchDto searchDTO = new MarketFairsSearchDto();
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+                .bodyValue(searchDTO)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+    @Test
+    void wrongMunicipalMarketsSearchParamsTest() {
+        final String URI_ONE_SEARCH = "/municipal-markets/search";
+
+        MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO();
+
+        webTestClient.method(HttpMethod.GET)
+                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+                .bodyValue(searchDTO)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isBadRequest();
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"/commercial-galleries/search", "/big-malls/search", "/large-establishments/search"})
+    void wrongSearchParamsTest(String URI_ONE_SEARCH) {
+
+        SearchDTO searchDTO = new SearchDTO();
 
         webTestClient.method(HttpMethod.GET)
                 .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
