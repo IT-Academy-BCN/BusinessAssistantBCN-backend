@@ -50,8 +50,8 @@ services:
     #command: "agent"
 
   businessassistantbcn-opendata:
-    image: babcn:opendata-v1.0-SNAPSHOT
-    container_name: opendata-v1.0-SNAPSHOT
+    image: 'babcn:opendata-${OPENDATA_TAG}'
+    container_name: 'opendata-${OPENDATA_TAG}'
     restart: always
     networks:
       consul-net:
@@ -101,14 +101,18 @@ services:
       - 'spring.datasource.password=Sb13TU7hw1oCbSIJ'
 
   businessassistantbcn-login:
-    image: babcn:login-v1.0-SNAPSHOT
-    container_name: login-v1.0-SNAPSHOT
+    image: 'babcn:login-${LOGIN_TAG}'
+    container_name: 'login-${LOGIN_TAG}'
     restart: always
     networks:
       consul-net:
         ipv4_address: 172.24.2.8
     ports:
       - '${LOGIN_CONTAINER_PORT}:8761'
+    environment:
+      - 'security.datasource.secret=${LOGIN_JWT_SIGNING_KEY}'
+      - 'security.testuser.password=${LOGIN_SECURITY_TESTUSER_PASSWORD}'
+      - 'security.superuser.password=${LOGIN_SECURITY_TESTUSER_PASSWORD}'
 
 
   businessassistantbcn-mongodb:
