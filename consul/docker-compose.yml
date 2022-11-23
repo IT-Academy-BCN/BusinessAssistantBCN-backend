@@ -58,6 +58,8 @@ services:
         ipv4_address: 172.24.2.4
     ports:
       - '${OPENDATA_CONTAINER_PORT}:8762'
+    environment:
+      - 'security.datasource.secret=${LOGIN_JWT_SIGNING_KEY}'
 
   businessassistantbcn-gencat:
     image: babcn:gencat-v1.0-SNAPSHOT
