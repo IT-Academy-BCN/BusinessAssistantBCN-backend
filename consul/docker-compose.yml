@@ -50,7 +50,7 @@ services:
     #command: "agent"
 
   businessassistantbcn-opendata:
-    image: 'babcn:opendata-${OPENDATA_TAG}'
+    image: 'itacademybcn/businessassistant-bcn:opendata-${OPENDATA_TAG}'
     container_name: 'opendata-${OPENDATA_TAG}'
     restart: always
     networks:
@@ -103,7 +103,7 @@ services:
       - 'spring.datasource.password=Sb13TU7hw1oCbSIJ'
 
   businessassistantbcn-login:
-    image: 'babcn:login-${LOGIN_TAG}'
+    image: 'itacademybcn/businessassistant-bcn:login-${LOGIN_TAG}'
     container_name: 'login-${LOGIN_TAG}'
     restart: always
     networks:
