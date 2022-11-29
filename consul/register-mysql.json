@@ -1,0 +1,24 @@
+{
+  "Node": "babcn-mysql",
+  "Address": "172.24.2.10",
+  "NodeMeta": {
+    "external-node": "true",
+    "external-probe": "true"
+  },
+  "Service": {
+    "ID": "businessassistant-mysql",
+    "Service": "businessassistant-mysql",
+    "Port": 3307
+  },
+  "Checks": [
+    {
+      "Name": "Serf Health Status",
+      "status": "passing",
+      "Definition": {
+        "script": "mysqladmin ping --host=172.24.2.10 --port=3307 --user=admin --password=Sb13TU7hw1oCbSIJ",
+        "interval": "30s"
+      }
+    }
+  ]
+}
+

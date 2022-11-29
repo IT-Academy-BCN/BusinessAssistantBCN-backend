@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 public class PropertiesConfig {
 
     private Integer connection_timeout;//millis
+
+    private String ds_apitestcircuitbreakers;
     private String ds_test;
     private String ds_largeestablishments;
     private String ds_commercialgalleries;
@@ -107,5 +109,13 @@ public class PropertiesConfig {
 
     public void setDistricts(String[] districts) {
         this.districts = districts;
+    }
+
+    public String getDs_apitestcircuitbreakers() {
+        return ds_apitestcircuitbreakers;
+    }
+
+    public void setDs_apitestcircuitbreakers(String ds_apitestcircuitbreakers) {
+        this.ds_apitestcircuitbreakers = ds_apitestcircuitbreakers;
     }
 }

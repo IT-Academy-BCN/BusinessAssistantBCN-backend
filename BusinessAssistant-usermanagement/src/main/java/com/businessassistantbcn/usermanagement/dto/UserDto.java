@@ -51,7 +51,7 @@ public class UserDto {
 
     @JsonSetter("role")
 	public void setRoles(List<String> role) {
-		this.roles = roles;
+		this.roles = role;
 	}
 
 }

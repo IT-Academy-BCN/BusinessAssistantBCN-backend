@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.6.1'
+    id 'jacoco'
 }
 
 jar {
@@ -9,6 +10,10 @@ jar {
                 'Main-Class': 'com.businessassistantbcn.opendata.App'
         )
     }
+}
+jacoco{
+    toolVersion = '0.8.8'
+    reportsDirectory = layout.buildDirectory.dir('jacocoXml')
 }
 
 group 'com.businessassistantbcn'
@@ -30,11 +35,18 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-resilience4j', version: '2.1.0'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.6.3'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.1'
 
-   // implementation 'org.springframework.cloud:spring-cloud-starter-consul-config:3.1.0'
-    //WARNING: comentar la siguiente línea si NO está habilitado Consul (para evitar el self-registry)
-    //implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.0'
-    //implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.1.0'
+    //Circuit Breakers
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-reactor-resilience4j', version: '2.1.3'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    //WARNING: comentar las siguientes líneas si NO está habilitado Consul (para evitar el self-registry)
+//    implementation 'org.springframework.cloud:spring-cloud-starter-consul-config:3.1.1'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.1'
+//    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.1.1'
+    // ####
+
     implementation 'org.springframework.boot:spring-boot-starter-actuator:2.6.1'
     implementation group: 'org.springframework', name: 'spring-context', version: '5.3.15'
     implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.15'
@@ -67,6 +79,15 @@ dependencies {
 
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
 
+    //apache commons validation
+    implementation 'commons-validator:commons-validator:1.7'
+
+    //contract testing - pact
+    testImplementation 'au.com.dius:pact-jvm-consumer-junit5:4.0.10'
+    testImplementation 'au.com.dius:pact-jvm-consumer-junit:4.0.10'
+    testImplementation 'au.com.dius:pact-jvm-provider-junit5:4.0.10'
+    testImplementation 'org.springframework.boot:spring-boot-starter-jetty:2.6.1'
+    testImplementation 'org.eclipse.jetty:jetty-bom:9.4.49.v20220914'
 
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
@@ -78,4 +99,20 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.jacoco.reportPaths", jacoco.reportsDirectory
+    }
 }

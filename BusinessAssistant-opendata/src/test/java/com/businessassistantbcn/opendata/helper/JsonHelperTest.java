@@ -1,14 +1,11 @@
 package com.businessassistantbcn.opendata.helper;
 
-import com.businessassistantbcn.opendata.service.externaldata.BigMallsServiceTest;
 import com.fasterxml.jackson.databind.JsonNode;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonHelperTest {
 
@@ -31,7 +29,7 @@ public class JsonHelperTest {
     @BeforeAll
     public static void initialize() throws URISyntaxException, IOException{
         JSON_TEST_FILE = Files.readAllLines(
-                Paths.get(BigMallsServiceTest.class.getClassLoader().getResource(JSON_FILENAME).toURI()),
+                Paths.get(JsonHelperTest.class.getClassLoader().getResource(JSON_FILENAME).toURI()),
                 StandardCharsets.UTF_8
         ).get(0);
     }

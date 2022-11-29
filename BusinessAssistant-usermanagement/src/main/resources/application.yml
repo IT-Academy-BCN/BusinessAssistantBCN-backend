@@ -3,25 +3,19 @@ spring:
     name: businessassistant-usermanagement
   jmx:
     enabled: true
-  cloud:
-    consul:
-      host: 172.17.0.3
-      port: 8500
-      discovery:
-        port: 8762
-        prefer-ip-address: true
-        healthCheckPath: /health
   data:
     mongodb:
-      host: localhost
-      port: 27017
+      host: 172.24.2.9
+      port: 27018
+      username: admin_businessassistantbcn
+      password: UhWQQYFVBx95W7
       database: babcn-users
   #Spring profiles available:
   #   - dev: disable security
   #   - pro: enable JWT security
   profiles:
     active:
-    - pro        
+      - dev
 
 springdoc:
   swagger-ui:

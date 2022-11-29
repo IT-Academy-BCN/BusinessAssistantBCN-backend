@@ -3,12 +3,9 @@ package com.businessassistantbcn.opendata.service.config;
 import com.businessassistantbcn.opendata.config.PropertiesConfig;
 import com.businessassistantbcn.opendata.dto.input.bcnzones.BcnZonesDto;
 import com.businessassistantbcn.opendata.dto.output.BcnZonesResponseDto;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-
-import java.sql.Array;
 
 @Service
 public class DataConfigService {
@@ -25,7 +22,5 @@ public class DataConfigService {
             }
         BcnZonesResponseDto response = new BcnZonesResponseDto(zones.length, zones);
         return Mono.just(response);
-
     }
-
 }
