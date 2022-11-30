@@ -50,7 +50,7 @@ services:
     #command: "agent"
 
   businessassistantbcn-opendata:
-    image: 'itacademybcn/businessassistant-bcn:opendata-${OPENDATA_TAG}'
+    image: '${REGISTRY_NAME}:opendata-${OPENDATA_TAG}'
     container_name: 'opendata-${OPENDATA_TAG}'
     restart: always
     networks:
