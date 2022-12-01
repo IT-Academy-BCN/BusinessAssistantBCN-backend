@@ -4,4 +4,4 @@
 ./gradlew :BusinessAssistant-opendata:build
 
 cd BusinessAssistant-opendata
-docker build -t=babcn:opendata-v1.0.2-SNAPSHOT .
+docker build -t=itacademybcn/businessassistant-bcn:opendata-v1.0.2-BETA .

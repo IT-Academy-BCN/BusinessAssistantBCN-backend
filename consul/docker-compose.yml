@@ -38,14 +38,14 @@ services:
         ipv4_address: 172.24.2.2
     command: "agent -bootstrap-expect=3"
 
-  #consul-client-mongodb:
-    # image: consul:1.12.3
-    #container_name: consul-client-mongodb
-    #restart: always
+      #consul-client-mongodb:
+      # image: consul:1.12.3
+      #container_name: consul-client-mongodb
+      #restart: always
       #volumes:
-    #- ./consul-client-mongodb.json:/consul/config/client.json:ro
-      #networks:
-      #consul-net:
+      #- ./consul-client-mongodb.json:/consul/config/client.json:ro
+    #networks:
+    #consul-net:
     # ipv4_address: 172.24.2.3
     #command: "agent"
 
