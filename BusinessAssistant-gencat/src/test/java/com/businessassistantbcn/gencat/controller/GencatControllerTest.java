@@ -21,10 +21,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+
 import java.net.MalformedURLException;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = GencatController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
@@ -125,13 +127,18 @@ class GencatControllerTest {
 
     //Una vez implementado correctamente el método, el test se debe adecuar
     @Test
-    void getEconomicActivityById() {
-        final String URI_TEST = "/ccae/1";
+    void getEconomicActivityById() throws MalformedURLException {
+        final String URI_TEST = "/ccae/A";
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("idCcae");
+
+        verify(ccaeService).getPageByCcaeId(0, -1, "A");
     }
 
     //Una vez implementado correctamente el método, el test se debe adecuar
