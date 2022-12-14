@@ -35,7 +35,6 @@ public class GencatController {
         return ccaeService.getPage(getValidOffset(offset), getValidLimit(limit));
     }
 
-    //se debe implementar
     @GetMapping("/ccae/{ccae_id}")
     //@ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     public Mono <GenericResultDto<CcaeDto>> getPageByCcaeId(@RequestParam(required = false) String offset,

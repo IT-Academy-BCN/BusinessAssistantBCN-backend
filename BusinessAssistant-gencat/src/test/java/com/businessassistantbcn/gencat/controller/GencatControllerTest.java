@@ -125,7 +125,7 @@ class GencatControllerTest {
         return genericResultDto;
     }
 
-    //Una vez implementado correctamente el método, el test se debe adecuar
+
     @Test
     void getEconomicActivityById() throws MalformedURLException {
         final String URI_TEST = "/ccae/A";
