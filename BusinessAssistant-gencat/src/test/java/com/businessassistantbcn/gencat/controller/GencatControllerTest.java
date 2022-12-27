@@ -125,13 +125,17 @@ class GencatControllerTest {
 
     //Una vez implementado correctamente el método, el test se debe adecuar
     @Test
-    void getEconomicActivityById() {
-        final String URI_TEST = "/ccae/1";
+    void getEconomicActivityById() throws MalformedURLException {
+        final String URI_TEST = "/ccae/A";
+        when(ccaeService.getPageByCcaeId(0,-1, "A")).thenReturn(Mono.just(getGenericResultDto()));
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("idCcae");
     }
 
     //Una vez implementado correctamente el método, el test se debe adecuar

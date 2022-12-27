@@ -43,6 +43,12 @@ public class CcaeService {
                     });
     }
 
+    @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorCcaeDefaultPage")
+    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId) throws MalformedURLException {
+
+        return this.getCcaeDefaultPage();
+    }
+
     @SuppressWarnings("unused")
     private Mono<GenericResultDto<CcaeDto>> logServerErrorCcaeDefaultPage(Throwable exception) {
         log.error("Gencat server is down");
