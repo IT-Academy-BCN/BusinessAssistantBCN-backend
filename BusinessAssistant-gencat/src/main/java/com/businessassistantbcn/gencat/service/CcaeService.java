@@ -44,7 +44,7 @@ public class CcaeService {
     }
 
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorCcaeDefaultPage")
-    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId) throws MalformedURLException {
+    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId) {
 
         return this.getCcaeDefaultPage();
     }
