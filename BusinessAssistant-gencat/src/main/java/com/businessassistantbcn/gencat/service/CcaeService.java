@@ -43,6 +43,25 @@ public class CcaeService {
                     });
     }
 
+    @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorCcaeDefaultPage")
+    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId) throws MalformedURLException {
+
+        return getData()
+                .flatMap(ccaeDtos-> {
+
+                    CcaeDto[] ccaeDto=new CcaeDto[1];
+
+                    for (int i=0;i<ccaeDtos.length;i++){
+                        if(ccaeDtos[i].getCode().getIdCcae().equals(ccaeId)){
+                            ccaeDto[0]=ccaeDtos[i];
+                        };}
+                    CcaeDto[] pageResult = JsonHelper.filterDto(ccaeDto, offset, limit);
+                    genericResultDto.setInfo(offset, limit, ccaeDtos.length, pageResult);
+
+                    return Mono.just(genericResultDto);
+                });
+    }
+
     @SuppressWarnings("unused")
     private Mono<GenericResultDto<CcaeDto>> logServerErrorCcaeDefaultPage(Throwable exception) {
         log.error("Gencat server is down");

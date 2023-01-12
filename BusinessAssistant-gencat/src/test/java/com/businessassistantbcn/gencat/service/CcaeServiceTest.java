@@ -103,6 +103,28 @@ class CcaeServiceTest {
     }
 
     @Test
+    void getPageByCcaeIdTest() throws MalformedURLException {
+
+        when(config.getDs_ccae()).thenReturn(CCAE_URL);
+        when(ccaeDeserializer.deserialize(any(Object.class))).thenReturn(allData);
+        when(httpProxy.getRequestData(any(URL.class), eq(Object.class))).thenReturn(Mono.just(responseDto));
+
+        Mono<GenericResultDto<CcaeDto>> ccaeResponseDto = ccaeService.getPageByCcaeId(0, -1, "A");
+
+        StepVerifier.create(ccaeResponseDto)
+                .expectNextMatches(ccaeResponseDtos ->
+                        ccaeResponseDtos.getResults()[0].getId().equalsIgnoreCase(responseDto[0].getId()) &&
+                                ccaeResponseDtos.getResults().length == 1 &&
+                                ccaeResponseDtos.getOffset() == 0 &&
+                                ccaeResponseDtos.getLimit() == -1)
+                .expectComplete()
+                .verify();
+
+        verify(config, times(1)).getDs_ccae();
+        verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(Object.class));
+    }
+
+    @Test
     void circuitBreakerConfigurationTest() throws MalformedURLException {
 
         when(config.getDs_ccae()).thenReturn(CCAE_URL);
