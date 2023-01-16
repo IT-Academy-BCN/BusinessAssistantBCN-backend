@@ -54,10 +54,12 @@ class GencatControllerTest {
     private static Object[] economicActivities;
 
     private CcaeDto[] responseDto;
+    private CcaeDto[] responseDtoById;
 
     @BeforeEach
     void setUp() {
         responseDto = new CcaeDto[2];
+        responseDtoById = new CcaeDto[1];
 
         CcaeDto ccaeDto1 = new CcaeDto();
         String id1 = "00000000-0000-0000-D7DC-CC770365D8FF";
@@ -69,6 +71,7 @@ class GencatControllerTest {
         ccaeDto1.setType(type1);
         ccaeDto1.setCode(codeInfoDto1);
         responseDto[0] = ccaeDto1;
+        responseDtoById[0]=ccaeDto1;
 
         CcaeDto ccaeDto2 = new CcaeDto();
         String id2 = "00000000-0000-0000-2335-839767DDAEAB";
@@ -123,15 +126,33 @@ class GencatControllerTest {
         return genericResultDto;
     }
 
+    private GenericResultDto<CcaeDto> getGenericResultDtoById(){
+
+        GenericResultDto<CcaeDto> genericResultDto = new GenericResultDto<>();
+        genericResultDto.setInfo(0, -1, responseDtoById.length, responseDtoById);
+        return genericResultDto;
+    }
+
     //Una vez implementado correctamente el método, el test se debe adecuar
     @Test
     void getEconomicActivityById() {
-        final String URI_TEST = "/ccae/1";
+        final String URI_TEST = "/ccae/A";
+        when(ccaeService.getPageByCcaeId(0,-1, "A")).thenReturn(Mono.just(getGenericResultDtoById()));
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.count").isEqualTo(1)
+                .jsonPath("$.offset").isEqualTo(0)
+                .jsonPath("$.limit").isEqualTo(-1)
+                .jsonPath(RES0 + "id").isEqualTo("00000000-0000-0000-D7DC-CC770365D8FF")
+                .jsonPath(RES0 + "type").isEqualTo("Secció")
+                .jsonPath(RES0 + "code.idCcae").isEqualTo("A")
+                .consumeWith(System.out::println)
+                .jsonPath("idCcae");
     }
 
     //Una vez implementado correctamente el método, el test se debe adecuar
