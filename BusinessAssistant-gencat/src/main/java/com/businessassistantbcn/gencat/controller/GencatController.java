@@ -37,9 +37,11 @@ public class GencatController {
 
     //se debe implementar
     @GetMapping("/ccae/{ccae_id}")
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Mono getEconomicActivityById(@PathVariable("ccae_id") String ccaeId) {
-        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    //@ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public Mono <GenericResultDto<CcaeDto>> getEconomicActivityById(@RequestParam(required = false) String offset,
+                                                                    @RequestParam(required = false) String limit,
+                                                                    @PathVariable("ccae_id") String ccaeId) throws MalformedURLException {
+        return ccaeService.getPageByCcaeId(getValidOffset(offset), getValidLimit(limit), ccaeId);
     }
 
     //se debe implementar
