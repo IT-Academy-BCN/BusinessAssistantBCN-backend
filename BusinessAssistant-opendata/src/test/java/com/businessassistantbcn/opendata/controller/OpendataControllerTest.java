@@ -11,6 +11,7 @@ import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsDto;
 import com.businessassistantbcn.opendata.dto.input.marketfairs.MarketFairsSearchDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsDto;
 import com.businessassistantbcn.opendata.dto.input.municipalmarkets.MunicipalMarketsSearchDTO;
+import com.businessassistantbcn.opendata.dto.output.LargeEstablishmentsResponseDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehicleDto;
 import com.businessassistantbcn.opendata.dto.test.StarWarsVehiclesResultDto;
 import com.businessassistantbcn.opendata.service.config.TestService;
@@ -361,16 +362,23 @@ class OpendataControllerTest {
     void getLargeEstablishmentBySearchTest() {
         final String URI_ONE_SEARCH = "/large-establishments/search";
 
-        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{107001});
+        SearchDTO searchDTO = new SearchDTO(new int[]{2}, new int[]{13194276, 30699720});
+        GenericResultDto<LargeEstablishmentsResponseDto> genericResultDto = new GenericResultDto<>();
 
-        webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
-                .bodyValue(searchDTO)
+        // Petición de prueba a la página web solicitando datos concretos; parámetros 'offset', 'limit', 'zones' y 'activities'
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+//						.queryParam("offset", 0)
+//						.queryParam("limit", -1)
+                        .queryParam("zones", 2)
+                        .queryParam("activities", 13194276, 30699720)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().valueEquals("Content-Type", "application/json")
-                .expectBody();
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("zones");
 
         verify(largeEstablishmentsService).getPageBySearch(0, -1, searchDTO);
     }
@@ -413,14 +421,22 @@ class OpendataControllerTest {
 
         SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{1006051});
 
-        webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
-                .bodyValue(searchDTO)
+       // when(commercialGalleriesService.getPageBySearch(0, -1, searchDTO).thenReturn(Mono.just(this.getGenericResultDto())));
+
+        // Petición de prueba a la página web solicitando datos concretos; parámetros 'offset', 'limit', 'zones' y 'activities'
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+//						.queryParam("offset", 0)
+//						.queryParam("limit", -1)
+                        .queryParam("zones", 2, 3)
+                        .queryParam("activities", 1006051)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().valueEquals("Content-Type", "application/json")
-                .expectBody();
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("zones");
 
         verify(commercialGalleriesService).getPageBySearch(0, -1, searchDTO);
     }
@@ -463,14 +479,20 @@ class OpendataControllerTest {
 
         SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{37810722});
 
-        webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
-                .bodyValue(searchDTO)
+        // Petición de prueba a la página web solicitando datos concretos; parámetros 'offset', 'limit', 'zones' y 'activities'
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+//						.queryParam("offset", 0)
+//						.queryParam("limit", -1)
+                        .queryParam("zones", 2, 3)
+                        .queryParam("activities", 37810722)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().valueEquals("Content-Type", "application/json")
-                .expectBody();
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("zones");
 
         verify(bigMallsService).getPageBySearch(0, -1, searchDTO);
     }
@@ -497,14 +519,19 @@ class OpendataControllerTest {
 
         MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO(new int[]{2, 3});
 
-        webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
-                .bodyValue(searchDTO)
+        // Petición de prueba a la página web solicitando datos concretos; parámetros 'offset', 'limit', 'zones' y 'activities'
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+//						.queryParam("offset", 0)
+//						.queryParam("limit", -1)
+                        .queryParam("zones", 2, 3)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().valueEquals("Content-Type", "application/json")
-                .expectBody();
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("zones");
 
         verify(municipalMarketsService).getPageBySearch(0, -1, searchDTO);
     }
@@ -529,29 +556,36 @@ class OpendataControllerTest {
     void getMarketFairsBySearchTest() {
         final String URI_ONE_SEARCH = "/market-fairs/search";
 
-        MarketFairsSearchDto searchDTO = new MarketFairsSearchDto(new int[]{2, 3});
+        MarketFairsSearchDto searchDTO = new MarketFairsSearchDto(new int[]{5});
 
-        webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
-                .bodyValue(searchDTO)
+        // Petición de prueba a la página web solicitando datos concretos; parámetros 'offset', 'limit' y 'zones'
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+//						.queryParam("offset", 0)
+//						.queryParam("limit", -1)
+                        .queryParam("zones", 5)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectHeader().valueEquals("Content-Type", "application/json")
-                .expectBody();
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("zones");
 
-        verify(marketFairsService).getPageBySearch(0, -1, searchDTO);
+       verify(marketFairsService).getPageBySearch(0, -1, searchDTO);
     }
 
     @Test
     void wrongMarketFairsSearchParamsTest() {
         final String URI_ONE_SEARCH = "/market-fairs/search";
 
-        MarketFairsSearchDto searchDTO = new MarketFairsSearchDto();
-
-        webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
-                .bodyValue(searchDTO)
+        // Petición de prueba a la página web solicitando datos concretos sin poner parámetros 'offset', 'limit' y 'zones' para verificar BadRequest
+        webTestClient.get()
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
+//						.queryParam("offset", 0)
+//						.queryParam("limit", -1)
+//                        .queryParam("zones", 5)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isBadRequest();
@@ -561,11 +595,9 @@ class OpendataControllerTest {
     void wrongMunicipalMarketsSearchParamsTest() {
         final String URI_ONE_SEARCH = "/municipal-markets/search";
 
-        MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO();
-
+        // Petición de prueba a la página web solicitando datos concretos sin poner parámetros 'offset', 'limit' y 'zones' para verificar BadRequest
         webTestClient.method(HttpMethod.GET)
                 .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
-                .bodyValue(searchDTO)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isBadRequest();
@@ -575,11 +607,9 @@ class OpendataControllerTest {
     @ValueSource(strings = {"/commercial-galleries/search", "/big-malls/search", "/large-establishments/search"})
     void wrongSearchParamsTest(String URI_ONE_SEARCH) {
 
-        SearchDTO searchDTO = new SearchDTO();
-
+        // Petición de prueba a la página web solicitando datos concretos sin poner parámetros 'offset', 'limit' y 'zones' para verificar BadRequest
         webTestClient.method(HttpMethod.GET)
                 .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH)
-                .bodyValue(searchDTO)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isBadRequest();

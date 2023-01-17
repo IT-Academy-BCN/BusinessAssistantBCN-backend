@@ -59,7 +59,7 @@ class GencatControllerTest {
     @BeforeEach
     void setUp() {
         responseDto = new CcaeDto[2];
-        responseDtoById=new CcaeDto[1];
+        responseDtoById = new CcaeDto[1];
 
         CcaeDto ccaeDto1 = new CcaeDto();
         String id1 = "00000000-0000-0000-D7DC-CC770365D8FF";
@@ -71,6 +71,7 @@ class GencatControllerTest {
         ccaeDto1.setType(type1);
         ccaeDto1.setCode(codeInfoDto1);
         responseDto[0] = ccaeDto1;
+        responseDtoById[0]=ccaeDto1;
 
 
         CcaeDto ccaeDto2 = new CcaeDto();
@@ -128,9 +129,18 @@ class GencatControllerTest {
         return genericResultDto;
     }
 
+    private GenericResultDto<CcaeDto> getGenericResultDtoById(){
+
+        GenericResultDto<CcaeDto> genericResultDto = new GenericResultDto<>();
+        genericResultDto.setInfo(0, -1, responseDtoById.length, responseDtoById);
+        return genericResultDto;
+    }
+
     //Una vez implementado correctamente el método, el test se debe adecuar
     @Test
-    void getEconomicActivityById() throws MalformedURLException {
+
+    void getEconomicActivityById() {
+
         final String URI_TEST = "/ccae/A";
         when(ccaeService.getPageByCcaeId(0,-1, "A")).thenReturn(Mono.just(getGenericResultDtoById()));
         webTestClient.get()
@@ -145,15 +155,9 @@ class GencatControllerTest {
                 .jsonPath("$.limit").isEqualTo(-1)
                 .jsonPath(RES0 + "id").isEqualTo("00000000-0000-0000-D7DC-CC770365D8FF")
                 .jsonPath(RES0 + "type").isEqualTo("Secció")
+                .jsonPath(RES0 + "code.idCcae").isEqualTo("A")
                 .consumeWith(System.out::println)
                 .jsonPath("idCcae");
-    }
-
-    private GenericResultDto<CcaeDto> getGenericResultDtoById() {
-
-        GenericResultDto<CcaeDto> genericResultDto = new GenericResultDto<>();
-        genericResultDto.setInfo(0, -1, responseDtoById.length, responseDtoById);
-        return genericResultDto;
     }
 
     //Una vez implementado correctamente el método, el test se debe adecuar
@@ -178,5 +182,4 @@ class GencatControllerTest {
                 .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
 
     }
-
 }
