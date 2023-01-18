@@ -58,7 +58,12 @@ public class GencatController {
         return Mono.just(HttpStatus.NOT_IMPLEMENTED);
     }
 
-
+    @GetMapping("/businessassistantbcn/api/v1/gencat/raisc/year/{year-YYYY}")
+    public Mono getRaiscByYear(@RequestParam(required = false) String offset,
+                               @RequestParam(required = false) String limit,
+                               @PathVariable("year") String year){
+        return raiscService.getPageByRaiscYear(getValidOffset(offset), getValidLimit(limit), year);
+    }
     private int getValidOffset(String offset)
     {
         if (offset == null || offset.isEmpty()) {
