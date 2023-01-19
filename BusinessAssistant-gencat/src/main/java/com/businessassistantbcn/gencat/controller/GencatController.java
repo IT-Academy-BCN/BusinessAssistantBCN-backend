@@ -7,12 +7,14 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping(value = "/businessassistantbcn/api/v1/gencat")
@@ -22,6 +24,9 @@ public class GencatController {
 
     @Autowired
     CcaeService ccaeService;
+
+    @Autowired
+    RaiscService raiscService;
 
     @GetMapping(value="/test")
     public String test() {
@@ -58,10 +63,10 @@ public class GencatController {
         return Mono.just(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    @GetMapping("/businessassistantbcn/api/v1/gencat/raisc/year/{year-YYYY}")
+    @GetMapping("/raisc/year/{year-YYYY}")
     public Mono getRaiscByYear(@RequestParam(required = false) String offset,
                                @RequestParam(required = false) String limit,
-                               @PathVariable("year") String year){
+                               @PathVariable("year-YYYY") @DateTimeFormat(pattern = "yyyy") LocalDate year) throws MalformedURLException{
         return raiscService.getPageByRaiscYear(getValidOffset(offset), getValidLimit(limit), year);
     }
     private int getValidOffset(String offset)

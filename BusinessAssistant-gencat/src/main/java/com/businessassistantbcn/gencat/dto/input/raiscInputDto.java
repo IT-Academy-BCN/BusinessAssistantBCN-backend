@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
         "sector_eco_afectat",*/"origen_del_finan_ament_codi",/*"origen_del_finan_ament","import_finan_ament_sec_pub","import_finan_ament_ue","import_total_convocat_ria","data_inici_presentaci_sol","data_fi_presentaci_sol",*/"data_fi_termini_presentaci_sol_licitud","hora_fi_presentaci_sol_licituds",
         /*"seu_electr_nica",*/"data_fi_de_termini_de","ajut_d_estat","codi_ajut_estat_mecanisme","ajut_estat_mecanisme","codi_ajut_estat_reglament_ue","ajut_estat_reglament_ue","ajut_estat_referencia_ue","codi_ajut_estat","ajut_estat_objectius_del_1",
         "codi_impacte_de_genere","impacte_de_g_nere","codei_publicitat_de_les_concessions","publicitat_de_les_concessions","etiqueta",/*"objecte_de_la_convocat_ria",*/"administraci_codi","administraci_", "departament_o_entitat_local_d_adscripci_codi","departament_o_entitat_local_d_adscripci_"})
+
 public class raiscInputDto {
 
     private String idRaisc;
