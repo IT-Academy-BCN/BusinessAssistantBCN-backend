@@ -3,6 +3,7 @@ package com.businessassistantbcn.gencat.controller;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.service.CcaeService;
+import com.businessassistantbcn.gencat.service.RaiscService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

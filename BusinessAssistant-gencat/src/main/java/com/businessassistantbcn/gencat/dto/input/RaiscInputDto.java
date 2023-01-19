@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
         /*"seu_electr_nica",*/"data_fi_de_termini_de","ajut_d_estat","codi_ajut_estat_mecanisme","ajut_estat_mecanisme","codi_ajut_estat_reglament_ue","ajut_estat_reglament_ue","ajut_estat_referencia_ue","codi_ajut_estat","ajut_estat_objectius_del_1",
         "codi_impacte_de_genere","impacte_de_g_nere","codei_publicitat_de_les_concessions","publicitat_de_les_concessions","etiqueta",/*"objecte_de_la_convocat_ria",*/"administraci_codi","administraci_", "departament_o_entitat_local_d_adscripci_codi","departament_o_entitat_local_d_adscripci_"})
 
-public class raiscInputDto {
+public class RaiscInputDto {
 
     private String idRaisc;
     private String entity;
