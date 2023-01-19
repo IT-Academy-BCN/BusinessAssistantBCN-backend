@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 
 @Service
 public class CcaeService {
@@ -44,9 +45,18 @@ public class CcaeService {
     }
 
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorCcaeDefaultPage")
-    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId) {
+    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId)  throws MalformedURLException {
 
-        return this.getCcaeDefaultPage();
+        return getData()
+                .flatMap(ccaeDtos-> {
+                    CcaeDto[] pageResult = JsonHelper.filterDto(
+                        Arrays.stream(ccaeDtos)
+                                .filter(ccaeDto -> ccaeDto.getCode().getIdCcae().equals(ccaeId))
+                                .toArray(CcaeDto[]::new), offset, limit);
+
+                        genericResultDto.setInfo(offset, limit, pageResult.length, pageResult);
+                    return Mono.just(genericResultDto);
+                });
     }
 
     @SuppressWarnings("unused")

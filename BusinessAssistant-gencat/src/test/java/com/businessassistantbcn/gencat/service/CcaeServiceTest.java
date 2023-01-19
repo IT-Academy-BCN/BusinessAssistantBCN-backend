@@ -118,7 +118,7 @@ class CcaeServiceTest {
                                 ccaeResponseDtos.getOffset() == 0 &&
                                 ccaeResponseDtos.getLimit() == -1)
                 .expectComplete()
-                .verify();
+                        .verify();
 
         verify(config, times(1)).getDs_ccae();
         verify(httpProxy, times(1)).getRequestData(any(URL.class), eq(Object.class));

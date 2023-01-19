@@ -139,7 +139,7 @@ class GencatControllerTest {
     //Una vez implementado correctamente el método, el test se debe adecuar
     @Test
 
-    void getEconomicActivityById() {
+    void getEconomicActivityById() throws MalformedURLException {
 
         final String URI_TEST = "/ccae/A";
         when(ccaeService.getPageByCcaeId(0,-1, "A")).thenReturn(Mono.just(getGenericResultDtoById()));
@@ -156,8 +156,7 @@ class GencatControllerTest {
                 .jsonPath(RES0 + "id").isEqualTo("00000000-0000-0000-D7DC-CC770365D8FF")
                 .jsonPath(RES0 + "type").isEqualTo("Secció")
                 .jsonPath(RES0 + "code.idCcae").isEqualTo("A")
-                .consumeWith(System.out::println)
-                .jsonPath("idCcae");
+                .consumeWith(System.out::println);
     }
 
     //Una vez implementado correctamente el método, el test se debe adecuar
