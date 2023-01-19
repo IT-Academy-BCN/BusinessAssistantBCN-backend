@@ -1,19 +1,17 @@
 package com.businessassistantbcn.gencat.dto.output;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 
 @Component
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({})
 
 public class RaiscResponseDto {
 
@@ -25,7 +23,7 @@ public class RaiscResponseDto {
     //13
     private String raiscType;
     //14
-    private Date anyo;
+    private String anyo;
     //15
     private String titleCA;
     //16
@@ -51,15 +49,15 @@ public class RaiscResponseDto {
     //42
     private String origin;
     //43
-    private Double maxBudgetPublish;
+    private String maxBudgetPublish;
     //44
-    private Double maxBudgetUE;
+    private String maxBudgetUE;
     //45
-    private Double maxBudge;
+    private String maxBudge;
     //46
-    private Date startDate;
+    private String startDate;
     //47
-    private Date endDate;
+    private String endDate;
     //50
     private String urlRequest;
     //65
