@@ -4,9 +4,11 @@ import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
+import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.exception.ControllerAdvisor;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import com.businessassistantbcn.gencat.service.CcaeService;
+import com.businessassistantbcn.gencat.service.RaiscService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,6 +46,9 @@ class GencatControllerTest {
     private CcaeService ccaeService;
 
     @MockBean
+    private RaiscService raiscService;
+
+    @MockBean
     private ControllerAdvisor controllerAdvisor;
 
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/gencat";
@@ -55,11 +60,13 @@ class GencatControllerTest {
 
     private CcaeDto[] responseDto;
     private CcaeDto[] responseDtoById;
+    private RaiscResponseDto[] raiscResponseDto;
 
     @BeforeEach
     void setUp() {
         responseDto = new CcaeDto[2];
         responseDtoById = new CcaeDto[1];
+        raiscResponseDto = new RaiscResponseDto[1];
 
         CcaeDto ccaeDto1 = new CcaeDto();
         String id1 = "00000000-0000-0000-D7DC-CC770365D8FF";
@@ -83,6 +90,32 @@ class GencatControllerTest {
         ccaeDto2.setType(type2);
         ccaeDto2.setCode(codeInfoDto2);
         responseDto[1] = ccaeDto2;
+
+        RaiscResponseDto raiscResponseDto1 = new RaiscResponseDto();
+        raiscResponseDto1.setIdRaisc("00000000-0000-0000-3BDF-CA7CD820BDD5");
+        raiscResponseDto1.setEntity("AGÈNCIA DE GESTIÓ D'AJUTS UNIVERSITARIS I DE RECERCA (AGAUR)");
+        raiscResponseDto1.setRaiscType("Subvenció amb concurrència");
+        raiscResponseDto1.setAnyo("2022");
+        raiscResponseDto1.setTitleCA("Ajuts a les associacions d'estudiantat universitari per al curs 2022-2023 (AEU)");
+        raiscResponseDto1.setTitleES("Ayudas a las asociaciones de estudiantado universitario para el curso 2022-2023 (AEU)");
+        raiscResponseDto1.setBasesCA("https://dogc.gencat.cat/ca/document-del-dogc/?documentId=908267");
+        raiscResponseDto1.setBasesES("https://dogc.gencat.cat/es/document-del-dogc/index.html?documentId=908267");
+        raiscResponseDto1.setSubventionType("Subvenció i lliurament dinerari sense contraprest.");
+        raiscResponseDto1.setIdRegion("ES51");
+        raiscResponseDto1.setRegion("CATALUNYA");
+        raiscResponseDto1.setIdScope("10");
+        raiscResponseDto1.setScope("Educació");
+        raiscResponseDto1.setIdSector("85.4");
+        raiscResponseDto1.setSector("Educació postsecundària");
+        raiscResponseDto1.setOrigin("Pressupostos Generals de les Comunitats Autònomes");
+        raiscResponseDto1.setMaxBudgetPublish("26636.4");
+        raiscResponseDto1.setMaxBudgetUE("0");
+        raiscResponseDto1.setMaxBudge("26636.4");
+        raiscResponseDto1.setStartDate("Des de l’endemà de la publicació en el diari oficial de la convocatòria inicial");
+        raiscResponseDto1.setEndDate("03/11/2022");
+        raiscResponseDto1.setUrlRequest("null");
+        raiscResponseDto1.setDescription("Ajuts a les associacions d'estudiantat universitari per al curs 2022-2023 (AEU)");
+        raiscResponseDto[0] = raiscResponseDto1;
     }
 
     @Test
@@ -176,6 +209,32 @@ class GencatControllerTest {
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
 
+    }
+
+    @Test
+    void getRaiscByYearTest(){
+        final String URI_TEST = "/raisc/year/2022";
+        when(raiscService.getPageByRaiscYear(0,-1, "2022")).thenReturn(Mono.just(getGenericResultDtoRaiscByYear()));
+        webTestClient.get()
+                .uri(CONTROLLER_BASE_URL + URI_TEST)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.count").isEqualTo(1)
+                .jsonPath("$.offset").isEqualTo(1)
+                .jsonPath("$.limit").isEqualTo(1)
+                .jsonPath(RES0 + "anyo").isEqualTo("2022")
+                .consumeWith(System.out::println)
+                .jsonPath("year");
+    }
+
+    private GenericResultDto<RaiscResponseDto> getGenericResultDtoRaiscByYear(){
+
+        GenericResultDto<RaiscResponseDto> genericResultDto = new GenericResultDto<>();
+        genericResultDto.setInfo(1, 1, raiscResponseDto.length, raiscResponseDto);
+        return genericResultDto;
     }
 
 }
