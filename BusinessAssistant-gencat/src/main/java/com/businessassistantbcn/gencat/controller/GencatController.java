@@ -2,17 +2,22 @@ package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
+import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.service.CcaeService;
+import com.businessassistantbcn.gencat.service.RaiscService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
+
+
 
 @RestController
 @RequestMapping(value = "/businessassistantbcn/api/v1/gencat")
@@ -22,6 +27,9 @@ public class GencatController {
 
     @Autowired
     CcaeService ccaeService;
+
+    @Autowired
+    RaiscService raiscService;
 
     @GetMapping(value="/test")
     public String test() {
@@ -58,8 +66,14 @@ public class GencatController {
         return Mono.just(HttpStatus.NOT_IMPLEMENTED);
     }
 
+    @GetMapping("/raisc/year/{year_YYYY}")
+    public Mono<GenericResultDto<RaiscResponseDto>> getRaiscByYear(@RequestParam(required = false) String offset,
+                                                                   @RequestParam(required = false) String limit,
+                                                                   @PathVariable("year_YYYY") String year) throws MalformedURLException{
 
-    private int getValidOffset(String offset)
+    	return raiscService.getPageByRaiscYear(getValidOffset(offset), getValidLimit(limit), getValidYear(year));
+    }
+    private int getValidOffset(String offset)	
     {
         if (offset == null || offset.isEmpty()) {
             return 0;
@@ -80,5 +94,12 @@ public class GencatController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
         return Integer.parseInt(limit);
+    }
+
+    private String getValidYear(String year){
+        if (!NumberUtils.isDigits(year) || year.length()!=4){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+            return year;
     }
 }
