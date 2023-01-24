@@ -5,17 +5,17 @@ spring:
     enabled: true
   data:
     mongodb:
-      host: 172.24.2.9
-      port: 27018
-      username: admin_businessassistantbcn
-      password: UhWQQYFVBx95W7
+      host: localhost #172.24.2.9
+      port: 27017 #27018
+      #username: admin_businessassistantbcn
+      #password: UhWQQYFVBx95W7
       database: babcn-users
   #Spring profiles available:
   #   - dev: disable security
   #   - pro: enable JWT security
   profiles:
     active:
-      - dev
+      - dev #pro
 
 springdoc:
   swagger-ui:
