@@ -7,6 +7,7 @@ db.createUser({
             db: 'babcn-users',
         },
     ],
+    latest_acces : '111111111111' //'System.currentTimeMillis()'
 });
 
 db.createCollection("users");
