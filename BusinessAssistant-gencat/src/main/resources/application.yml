@@ -41,6 +41,13 @@ url:
   ds_economicActivities: https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json
   ds_ccae: https://analisi.transparenciacatalunya.cat/api/views/get5-imi7/rows.json
   ds_apitestcircuitbreakers: http://localhost:8760/test/getFlowers
+  types:
+    [
+      { idType: 1, type: "Seccio" },
+      { idType: 2, type: "Divisio" },
+      { idType: 3, type: "Grup" },
+      { idType: 4, type: "Classe" }
+    ]
 
 logging:
   level:
