@@ -17,7 +17,6 @@ public class UserManagementService implements IUserManagementService {
 
     @Autowired
     UserManagementRepository userRepository;
-
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
 
     private boolean existByEmail(UserEmailDto userEmailDto){
