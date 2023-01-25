@@ -43,6 +43,7 @@ url:
   ds_marketfairs: http://localhost:8760/test/market-fairs
   ds_economicactivitiescensus: http://localhost:8760/test/economic-activities-census
   ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
+barcelona:
   districts:
     - "Ciutat Vella"
     - "Eixample"

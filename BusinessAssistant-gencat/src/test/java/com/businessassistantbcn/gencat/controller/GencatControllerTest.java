@@ -2,6 +2,7 @@ package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
+import com.businessassistantbcn.gencat.dto.TypesDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
@@ -24,6 +25,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
@@ -199,16 +202,35 @@ class GencatControllerTest {
                 .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    //Una vez implementado correctamente el método, el test se debe adecuar
     @Test
-    void getEconomicActivitiesTypes() {
+    void getEconomicActivitiesTypes() throws MalformedURLException {
         final String URI_TEST = "/ccae/types";
+        when(ccaeService.getTypes()).thenReturn(Mono.just(getGenericResultDtoTypes()));
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$[0].idType").isEqualTo(1)
+                .jsonPath("$[0].type").isEqualTo("Seccio")
+                .jsonPath("$[1].idType").isEqualTo(2)
+                .jsonPath("$[1].type").isEqualTo("Divisio")
+                .jsonPath("$[2].idType").isEqualTo(3)
+                .jsonPath("$[2].type").isEqualTo("Grup")
+                .jsonPath("$[3].idType").isEqualTo(4)
+                .jsonPath("$[3].type").isEqualTo("Classe")
+                .consumeWith(System.out::println);
 
+    }
+    private List<TypesDto.Type> getGenericResultDtoTypes() {
+        List<TypesDto.Type> types = new ArrayList<>();
+        types.add(new TypesDto.Type(1, "Seccio"));
+        types.add(new TypesDto.Type(2, "Divisio"));
+        types.add(new TypesDto.Type(3, "Grup"));
+        types.add(new TypesDto.Type(4, "Classe"));
+        return types;
     }
 
     @Test
@@ -236,5 +258,6 @@ class GencatControllerTest {
         genericResultDto.setInfo(1, 1, raiscResponseDto.length, raiscResponseDto);
         return genericResultDto;
     }
+
 
 }
