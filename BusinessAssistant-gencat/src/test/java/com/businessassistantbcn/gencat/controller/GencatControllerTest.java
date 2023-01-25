@@ -2,6 +2,7 @@ package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
+import com.businessassistantbcn.gencat.dto.TypesDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
@@ -207,7 +208,15 @@ class GencatControllerTest {
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBodyList(TypesDto.Type.class)
+                .hasSize(4)
+                .contains(new TypesDto.Type(1, "Section"))
+                .contains(new TypesDto.Type(2, "Division"))
+                .contains(new TypesDto.Type(3, "Group"))
+                .contains(new TypesDto.Type(4, "Class"))
+                .consumeWith(System.out::println);
 
     }
 

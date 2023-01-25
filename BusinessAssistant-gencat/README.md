@@ -4,6 +4,8 @@
 ### Endpoints disponibles
 
 - http<nolink>://localhost:8762/businessassistantbcn/api/v1/gencat/test
+- http<nolink>://localhost:8762/businessassistantbcn/api/v1/gencat/ccae/types
+
 
 ##### Spring Boot Actuator
 
