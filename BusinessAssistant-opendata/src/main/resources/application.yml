@@ -92,17 +92,18 @@ url:
     ds_marketfairs: api/market-fairsData.json
     ds_economicactivitiescensus: api/economic-activities-censusData.json
     ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
-    districts:
-      - "Ciutat Vella"
-      - "Eixample"
-      - "Sants-Montjuïc"
-      - "Les Corts"
-      - "Sarrià-Sant Gervasi"
-      - "Gràcia"
-      - "Horta-Guinardó"
-      - "Nou Barris"
-      - "Sant Andreu"
-      - "Sant Martí"
+barcelona:
+  districts:
+    - "Ciutat Vella"
+    - "Eixample"
+    - "Sants-Montjuïc"
+    - "Les Corts"
+    - "Sarrià-Sant Gervasi"
+    - "Gràcia"
+    - "Horta-Guinardó"
+    - "Nou Barris"
+    - "Sant Andreu"
+    - "Sant Martí"
 
 ---
 
@@ -122,6 +123,7 @@ url:
   ds_marketfairs: http://www.bcn.cat/tercerlloc/files/mercats-centrescomercials/opendatabcn_mercats-centrescomercials_mercats-fires-al-carrer-js.json
   ds_economicactivitiescensus: https://opendata-ajuntament.barcelona.cat/data/dataset/671c46e9-5b85-4e63-8c97-088a2b907cd5/resource/7a3d5380-f79a-424e-be62-dd078efcb40a/download/2019_censcomercialbcn_class_act.json
   ds_economicactivitiesgroundfloor: https://opendata-ajuntament.barcelona.cat/data/dataset/62fb990e-4cc3-457a-aea1-497604e15659/resource/495c434e-b005-416e-b760-dc79f56dff3a/download/2019_censcomercialbcn_detall.geojson
+barcelona:
   districts:
     - "Ciutat Vella"
     - "Eixample"

@@ -2,6 +2,7 @@ package com.businessassistantbcn.gencat.service;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
+import com.businessassistantbcn.gencat.dto.TypesDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.helper.CcaeDeserializer;
 import com.businessassistantbcn.gencat.helper.JsonHelper;
@@ -15,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 @Service
 public class CcaeService {
@@ -28,6 +30,8 @@ public class CcaeService {
 
     @Autowired
     private GenericResultDto<CcaeDto> genericResultDto;
+    @Autowired
+    private TypesDto typesProperties;
 
     @Autowired
     private CcaeDeserializer ccaeDeserializer;
@@ -68,4 +72,8 @@ public class CcaeService {
                     return Mono.just(codes);
                 });
     }
+    public Mono<List<TypesDto.Type>>  getTypes() throws MalformedURLException {
+
+        return Mono.just(typesProperties.getTypes());
+    };
 }
