@@ -1,5 +1,7 @@
 package com.businessassistantbcn.gencat.controller;
 
+import com.businessassistantbcn.gencat.config.PropertiesConfig;
+import com.businessassistantbcn.gencat.config.TestConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
@@ -31,8 +33,23 @@ public class GencatController {
     @Autowired
     RaiscService raiscService;
 
+    @Autowired
+    TestConfig testConfig;
+
     @GetMapping(value="/test")
     public String test() {
+
+        System.out.println(testConfig.getCcae().get(0).getType());
+        System.out.println(testConfig.getCcae().get(0).getDescription());
+        System.out.println(testConfig.getCcae().get(1).getType());
+        System.out.println(testConfig.getCcae().get(1).getDescription());
+        System.out.println(testConfig.getCcae().get(2).getType());
+        System.out.println(testConfig.getCcae().get(2).getDescription());
+        System.out.println(testConfig.getCcae().get(3).getType());
+        System.out.println(testConfig.getCcae().get(3).getDescription());
+
+
+
         log.info("** Saludos desde el logger **");
         return "Hello from GenCat Controller!!!";
     }
