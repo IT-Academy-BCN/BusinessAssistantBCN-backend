@@ -2,7 +2,7 @@ package com.businessassistantbcn.gencat.service;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
-import com.businessassistantbcn.gencat.dto.TypesDto;
+import com.businessassistantbcn.gencat.config.TypesConfig;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.helper.CcaeDeserializer;
 import com.businessassistantbcn.gencat.helper.JsonHelper;
@@ -35,7 +35,7 @@ public class CcaeService {
     private CcaeDeserializer ccaeDeserializer;
 
     @Autowired
-    private TypesDto typesProperties;
+    private TypesConfig typesProperties;
 
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorCcaeDefaultPage")
     public Mono<GenericResultDto<CcaeDto>> getPage(int offset, int limit) throws MalformedURLException {
@@ -73,7 +73,7 @@ public class CcaeService {
                     return Mono.just(codes);
                 });
     }
-    public Mono<List<TypesDto.Type>>  getTypes() throws MalformedURLException {
+    public Mono<List<TypesConfig.Type>>  getTypes() throws MalformedURLException {
 
         return Mono.just(typesProperties.getTypes());
     }

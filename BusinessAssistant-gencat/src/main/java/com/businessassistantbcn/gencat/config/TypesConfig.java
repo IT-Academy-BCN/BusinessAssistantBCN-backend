@@ -1,4 +1,4 @@
-package com.businessassistantbcn.gencat.dto;
+package com.businessassistantbcn.gencat.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ConfigurationProperties(prefix = "ccae")
-public class TypesDto {
+public class TypesConfig {
     private List<Type> types;
     @Data
     @NoArgsConstructor

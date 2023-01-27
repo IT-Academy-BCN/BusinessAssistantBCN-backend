@@ -1,7 +1,7 @@
 package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
-import com.businessassistantbcn.gencat.dto.TypesDto;
+import com.businessassistantbcn.gencat.config.TypesConfig;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.service.CcaeService;
@@ -62,7 +62,7 @@ public class GencatController {
     }
 
     @GetMapping("/ccae/types")
-    public Mono<List<TypesDto.Type>> getAllCcaeTypes() throws JsonProcessingException, MalformedURLException {
+    public Mono<List<TypesConfig.Type>> getAllCcaeTypes() throws JsonProcessingException, MalformedURLException {
         return ccaeService.getTypes();
     }
 

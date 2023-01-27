@@ -2,7 +2,7 @@ package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
-import com.businessassistantbcn.gencat.dto.TypesDto;
+import com.businessassistantbcn.gencat.config.TypesConfig;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
@@ -224,12 +224,12 @@ class GencatControllerTest {
                 .consumeWith(System.out::println);
 
     }
-    private List<TypesDto.Type> getGenericResultDtoTypes() {
-        List<TypesDto.Type> types = new ArrayList<>();
-        types.add(new TypesDto.Type(1, "Seccio"));
-        types.add(new TypesDto.Type(2, "Divisio"));
-        types.add(new TypesDto.Type(3, "Grup"));
-        types.add(new TypesDto.Type(4, "Classe"));
+    private List<TypesConfig.Type> getGenericResultDtoTypes() {
+        List<TypesConfig.Type> types = new ArrayList<>();
+        types.add(new TypesConfig.Type(1, "Seccio"));
+        types.add(new TypesConfig.Type(2, "Divisio"));
+        types.add(new TypesConfig.Type(3, "Grup"));
+        types.add(new TypesConfig.Type(4, "Classe"));
         return types;
     }
 
