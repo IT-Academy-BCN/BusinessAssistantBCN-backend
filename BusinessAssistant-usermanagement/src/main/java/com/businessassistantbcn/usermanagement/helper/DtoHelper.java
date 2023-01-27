@@ -45,10 +45,11 @@ public class DtoHelper {
 
 		BeanUtils.copyProperties(userEmailDto, user);
 
-		//User role and UUID given to all new users.
+		//User role, UUID and latestAcces given to all new users.
 		user.setUuid(UUID.randomUUID().toString());
 		roles.add(Role.USER);
 		user.setRoles(roles);
+		user.setLatestAccess(System.currentTimeMillis());
 
 		return user;
 	}
