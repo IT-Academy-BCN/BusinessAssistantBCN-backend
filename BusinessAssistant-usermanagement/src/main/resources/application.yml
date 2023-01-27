@@ -51,3 +51,6 @@ logging:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: opendata.log
+limitUsers:
+  enabled : true #false
+  maxUsers: 6 #200
