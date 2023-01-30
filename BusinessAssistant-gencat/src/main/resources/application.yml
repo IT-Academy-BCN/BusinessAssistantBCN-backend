@@ -8,7 +8,7 @@ spring:
   #   - pro: enable JWT security
   profiles:
     active:
-    - dev 
+    - dev
     
 security:
   datasource:
@@ -26,8 +26,6 @@ ccae:
     description: Grup
   - type: 4
     description: Classe
-
-
 
 springdoc:
   swagger-ui:
