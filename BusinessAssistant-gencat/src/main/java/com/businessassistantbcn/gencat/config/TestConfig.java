@@ -1,5 +1,6 @@
 package com.businessassistantbcn.gencat.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -15,12 +16,12 @@ public class TestConfig {
     private List<CcaeItem> ccae = new ArrayList<>();
     private Datatest datatest = new Datatest();
 
+
         public static class Datatest {
             private String secret;
             private String headerString;
             private String authoritiesClaim;
             private String err;
-
             public String getSecret() {return secret; }
             public void setSecret(String secret) { this.secret = secret;}
             public String getHeaderString() { return headerString; }
@@ -46,5 +47,19 @@ public class TestConfig {
     }
     public Datatest getDatatest() {
         return datatest;
+    }
+
+
+    ///************************
+
+    @Value("${security.datasource.secret}")
+    private String secret;
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }

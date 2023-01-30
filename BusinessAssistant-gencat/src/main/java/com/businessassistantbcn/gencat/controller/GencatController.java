@@ -51,6 +51,8 @@ public class GencatController {
         System.out.println(testConfig.getDatatest().getSecret());
         System.out.println(testConfig.getDatatest().getHeaderString());
 
+        System.out.println("***********"+testConfig.getSecret());
+
 
 
 
