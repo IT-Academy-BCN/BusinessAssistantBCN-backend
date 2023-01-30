@@ -13,6 +13,23 @@ import java.util.List;
 public class TestConfig {
 
     private List<CcaeItem> ccae = new ArrayList<>();
+    private Datatest datatest = new Datatest();
+
+        public static class Datatest {
+            private String secret;
+            private String headerString;
+            private String authoritiesClaim;
+            private String err;
+
+            public String getSecret() {return secret; }
+            public void setSecret(String secret) { this.secret = secret;}
+            public String getHeaderString() { return headerString; }
+            public void setHeaderString(String headerString) { this.headerString = headerString; }
+            public String getAuthoritiesClaim() { return authoritiesClaim; }
+            public void setAuthoritiesClaim(String authoritiesClaim) { this.authoritiesClaim = authoritiesClaim; }
+            public String getErr() {return err;}
+            public void setErr(String err) { this.err = err; }
+        }
 
     public static class CcaeItem{
         private String type;
@@ -26,5 +43,8 @@ public class TestConfig {
 
     public List<CcaeItem> getCcae() {
         return ccae;
+    }
+    public Datatest getDatatest() {
+        return datatest;
     }
 }

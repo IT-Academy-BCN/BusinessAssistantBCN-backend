@@ -48,6 +48,10 @@ public class GencatController {
         System.out.println(testConfig.getCcae().get(3).getType());
         System.out.println(testConfig.getCcae().get(3).getDescription());
 
+        System.out.println(testConfig.getDatatest().getSecret());
+        System.out.println(testConfig.getDatatest().getHeaderString());
+
+
 
 
         log.info("** Saludos desde el logger **");

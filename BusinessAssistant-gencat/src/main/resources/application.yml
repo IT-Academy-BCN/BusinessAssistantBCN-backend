@@ -17,6 +17,14 @@ security:
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable 
 
+datatest:
+  secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
+  headerString: Authorization
+  authoritiesClaim: authorities
+  err: Auth Error, Token Unavailable
+
+
+
 ccae:
   - type: 1
     description: Secció

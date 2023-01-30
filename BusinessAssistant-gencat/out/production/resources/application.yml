@@ -17,11 +17,17 @@ security:
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable 
 
-# OJO bug afecta a Swagger
-#springfox:
-#  documentation:
-#    auto-startup: false
-#Se usa springdoc-openapi para documentar la api
+ccae:
+  - type: 1
+    description: Secció
+  - type: 2
+    description: Divisió
+  - type: 3
+    description: Grup
+  - type: 4
+    description: Classe
+
+
 
 springdoc:
   swagger-ui:
@@ -46,7 +52,7 @@ url:
   ds_test: https://swapi.py4e.com/api/vehicles/
   ds_economicActivities: https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json
   ds_ccae: https://analisi.transparenciacatalunya.cat/api/views/get5-imi7/rows.json
-
+  ds_apitestcircuitbreakers: http://localhost:8760/test/getFlowers
 
 logging:
   level:
@@ -58,3 +64,26 @@ logging:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: gencat.log
+
+resilience4j.circuitbreaker:
+  instances:
+    babcn-circuitBreaker:
+      registerHealthIndicator: true
+      #Required before the circuit breaker can calculate the error rate or slow call rate
+      minimumNumberOfCalls: 1
+      #Window size: COUNT_BASED / TIME_BASED
+      slidingWindowType: COUNT_BASED
+      #Size of Window
+      slidingWindowSize: 10
+      # Failure percent (10.0f = 10%)
+      failureRateThreshold: 10.0f
+      #time before switching to half-open state
+      waitDurationInOpenState: 10s
+      #Rate slow call
+      #slowCallRateThreshold:
+      #Time in seconds beyond which a call is considered slow
+      #slowCallDurationThreshold:
+      permittedNumberOfCallsInHalfOpenState: 3
+      #Time staying in half-open state before switching back to open state
+      # (0 = infinitely until all the permittedNumberOfCallsInHalfOpenState() is complete)
+      #maxWaitDurationInHalfOpenState:
