@@ -2,11 +2,13 @@ package com.businessassistantbcn.gencat.controller;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.config.TestConfig;
+import com.businessassistantbcn.gencat.config.TypesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.service.CcaeService;
 import com.businessassistantbcn.gencat.service.RaiscService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
-
+import java.util.List;
 
 
 @RestController
@@ -78,9 +80,8 @@ public class GencatController {
 
     //Per implementar
     @GetMapping("/ccae/types")
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public Mono getAllCcaeTypes() {
-        return Mono.just(HttpStatus.NOT_IMPLEMENTED);
+    public Mono<List<TypesConfig.Type>> getAllCcaeTypes() throws JsonProcessingException, MalformedURLException {
+        return ccaeService.getTypes();
     }
 
     @GetMapping("/raisc/year/{year_YYYY}")
