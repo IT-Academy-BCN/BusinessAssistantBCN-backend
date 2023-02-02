@@ -55,7 +55,6 @@ public class IntegrationTest {
 
     @Autowired
     private WebTestClient webTestClient;
-    @MockBean//Generando Mock los test funcionan corrctamente, pero no debería aparecer la anotación
     @Autowired
     UserManagementService userManagementService;
 
