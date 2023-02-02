@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,10 +44,12 @@ public class UserManagementServiceTest {
         List<Role> roles = new ArrayList<>();
         String uuid = UUID.randomUUID().toString();
         roles.add(Role.USER);
+        ObjectId id = new ObjectId("63cfbcb31fa50abde8288a07");
         String email = "user@user.es";
         String password = "12345";
+        long latestAccess = 1111111111;
 
-        user = new User(uuid, email, password, roles);
+        user = new User(id, uuid, email, password, roles, latestAccess);
         userEmailDto = new UserEmailDto(email, password);
         userUuidDto = new UserUuidDto(uuid);
 
