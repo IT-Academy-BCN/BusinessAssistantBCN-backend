@@ -1,5 +1,7 @@
 package com.businessassistantbcn.usermanagement.service;
 
+import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
+import com.businessassistantbcn.usermanagement.dto.LimitDbErrorDto;
 import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,8 @@ public class UserManagementService implements IUserManagementService {
 
     @Autowired
     UserManagementRepository userRepository;
+    @Autowired
+    PropertiesConfig propertiesConfig;
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
 
     private boolean existByEmail(UserEmailDto userEmailDto){
@@ -40,13 +44,35 @@ public class UserManagementService implements IUserManagementService {
         Mono<UserDto> response;
 
         if(existByEmail(userEmailDto)){
+            User userSetLatestAccess = userRepository.findByEmail(userEmailDto.getEmail()).block();
+            latestAccess(userSetLatestAccess);
             response = Mono.empty();
         }else {
+            if(limitUsersDb()){
             userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
             response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto))
                                     .map(DtoHelper::convertToDto);
+            }else {
+                Mono<?> responseErr = Mono.just(new LimitDbErrorDto(propertiesConfig.getError()));
+                response = (Mono<UserDto>) responseErr;
+            }
         }
         return response;
+    }
+
+    private void latestAccess(User user){
+        user.setLatestAccess(System.currentTimeMillis());
+        userRepository.save(user).block();
+    }
+    private boolean limitUsersDb(){
+        boolean result = true;
+        if(propertiesConfig.getEnabled()){
+            Long sizeDb = userRepository.count().block();
+            if(sizeDb >= propertiesConfig.getMaxUsers()) {
+                result = false;
+            }
+        }
+        return result;
     }
 
     @Override
@@ -59,6 +85,8 @@ public class UserManagementService implements IUserManagementService {
         if(user.blockOptional().isEmpty()){
             response = Mono.empty();
         }else{
+            User userSetLatestAccess = userRepository.findByUuid(userUuidDto.getUuid()).block();
+            latestAccess(userSetLatestAccess);
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
@@ -73,6 +101,8 @@ public class UserManagementService implements IUserManagementService {
         if(user.blockOptional().isEmpty()){
             response = Mono.empty();
         }else{
+            User userSetLatestAccess = userRepository.findByEmail(userEmailDto.getEmail()).block();
+            latestAccess(userSetLatestAccess);
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
