@@ -5,10 +5,10 @@ spring:
     enabled: true
   data:
     mongodb:
-      host: localhost #172.24.2.9
-      port: 27017 #27018
-      #username: admin_businessassistantbcn
-      #password: UhWQQYFVBx95W7
+      host: 172.24.2.9
+      port: 27018
+      username: admin_businessassistantbcn
+      password: UhWQQYFVBx95W7
       database: babcn-users
   #Spring profiles available:
   #   - dev: disable security
@@ -51,6 +51,7 @@ logging:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: opendata.log
-limitUsers:
-  enabled : true #false
-  maxUsers: 6 #200
+limitDb:
+  enabled: true #false
+  maxUsers: 200
+  err: No hay capacidad para almacenar más usuarios
