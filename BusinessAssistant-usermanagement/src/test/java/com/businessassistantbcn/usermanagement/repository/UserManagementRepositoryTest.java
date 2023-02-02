@@ -1,6 +1,7 @@
 package com.businessassistantbcn.usermanagement.repository;
 
 import com.businessassistantbcn.usermanagement.document.User;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.reactivestreams.Publisher;
@@ -23,13 +24,14 @@ public class UserManagementRepositoryTest {
     @Autowired
     UserManagementRepository userRepository;
 
-
+    ObjectId id1 = new ObjectId("63d9666bbdf0196d2c766fa0");
+    ObjectId id2 = new ObjectId("63d9666bbdf0196d2c766fb1");
     String uuid_1 = "26977eee-89f8-11ec-a8a3-0242ac120002";
     String uuid_2 = "26977eee-89f8-11ec-a8a3-0242ac120003";
     String email_1 = "user1@mail.com";
     String email_2 = "user2@mail.com";
-    User user1 = new User(uuid_1,email_1,"abc123",null);
-    User user2 = new User(uuid_2,email_2,"abc123",null);
+    User user1 = new User(id1, uuid_1,email_1,"abc123",null, System.currentTimeMillis());
+    User user2 = new User(id2, uuid_2,email_2,"abc123",null, System.currentTimeMillis());
 
 
 /*
