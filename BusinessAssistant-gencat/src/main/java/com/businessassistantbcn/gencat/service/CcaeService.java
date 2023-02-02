@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 @Service
 public class CcaeService {
@@ -67,5 +68,9 @@ public class CcaeService {
                     CcaeDto[] codes = ccaeDeserializer.deserialize(ccaeDto).toArray(CcaeDto[]::new);
                     return Mono.just(codes);
                 });
+    }
+
+      public Mono<List<PropertiesConfig.CcaeItem>> getTypes() throws MalformedURLException {
+        return Mono.just(config.getCcae());
     }
 }
