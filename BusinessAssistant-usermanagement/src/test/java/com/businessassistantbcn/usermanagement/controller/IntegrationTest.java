@@ -32,6 +32,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -54,7 +55,7 @@ public class IntegrationTest {
 
     @Autowired
     private WebTestClient webTestClient;
-
+    @MockBean//Generando Mock los test funcionan corrctamente, pero no debería aparecer la anotación
     @Autowired
     UserManagementService userManagementService;
 
@@ -68,11 +69,11 @@ public class IntegrationTest {
     @BeforeEach
     void setUp(){
 
-/*        userEmailDto.setEmail("pp@gmail.com");
+        userEmailDto.setEmail("pp@gmail.com");
         userEmailDto.setPassword("wwdd98e");
 
-        userUuidDto.setUuid(UUID. randomUUID().toString());
-        userUuidDto.setPassword("123456");*/
+        //userUuidDto.setUuid(UUID. randomUUID().toString());
+        //userUuidDto.setPassword("123456");
     }
 
 
@@ -107,6 +108,22 @@ public class IntegrationTest {
                 .expectBody()
                 .equals(Mono.just(userDto));*/
 
+    }
+    @Test
+    @DisplayName("Test response add user")
+    void addUsersTest(){
+        final String URI_TEST = "/user";
+        when(userManagementService.addUser(userEmailDto)).thenReturn(Mono.just(userDto));
+        webTestClient.post()
+                .uri(CONTROLLER_BASE_URL + URI_TEST)
+                //.accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(userEmailDto)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .equals(Mono.just(userDto));
     }
 
 }
