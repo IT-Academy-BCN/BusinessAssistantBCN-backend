@@ -30,6 +30,17 @@ public class UserSearchesService {
 	@Autowired
 	UserSearchesRepository userSearchesRepo;
 
+    @Autowired
+    MyDataRepository myDataRepo;
+
+
+    public String getTest(){
+        return myDataRepo.getMyData();
+    }
+
+
+
+
 	public UserSearchesService(UserSearchesRepository userSearchesRepo) {
 		this.userSearchesRepo = userSearchesRepo;
 	}

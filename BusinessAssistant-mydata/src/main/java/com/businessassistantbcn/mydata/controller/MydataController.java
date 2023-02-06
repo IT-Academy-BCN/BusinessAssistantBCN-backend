@@ -75,7 +75,11 @@ public class MydataController {
 //						.map( s -> s.resolve("/businessassistantbcn/api/v1/usermanagement/test"))
 //						.get().toURL(), String.class)
 //						.flatMap( s -> Mono.just(s));
-		return "Hello from BusinessAssistant MyData!!!";
+
+
+        return userService.getTest();
+
+		//return "Hello from BusinessAssistant MyData!!!";
 	}
 
 	@PostMapping(value="/mysearches/{user_uuid}")
