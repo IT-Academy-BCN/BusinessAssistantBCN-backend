@@ -28,7 +28,7 @@ import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.dto.SearchResultsDto;
 import com.businessassistantbcn.mydata.entity.UserSearch;
 import com.businessassistantbcn.mydata.helper.JsonHelper;
-import com.businessassistantbcn.mydata.repository.UserSearchesRepository;
+import com.businessassistantbcn.mydata.repository.IUserSearchesRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -43,7 +43,7 @@ class UserSearchesServiceTest {
 	private UserSearchesService userSearchesService;
 	
 	@Mock
-	private UserSearchesRepository userSearchesRepoMock;
+	private IUserSearchesRepository userSearchesRepoMock;
 	
 	@Mock
 	private ObjectMapper mapper = new ObjectMapper();

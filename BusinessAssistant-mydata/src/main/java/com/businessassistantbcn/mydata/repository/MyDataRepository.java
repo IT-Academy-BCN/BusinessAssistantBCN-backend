@@ -13,7 +13,7 @@ import java.util.List;
 public class MyDataRepository implements IMyDataRepository {
 
     @Autowired
-    private UserSearchesRepository userSearchesRepository;
+    private IUserSearchesRepository userSearchesRepository;
 
     public String getMyData() {
 
