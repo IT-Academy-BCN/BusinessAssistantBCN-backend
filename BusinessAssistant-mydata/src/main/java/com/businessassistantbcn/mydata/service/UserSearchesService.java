@@ -34,11 +34,6 @@ public class UserSearchesService {
     MyDataRepository myDataRepo;
 
 
-    public String getTest(){
-        return myDataRepo.getMyData();
-    }
-
-
 
 
 	public UserSearchesService(UserSearchesRepository userSearchesRepo) {
