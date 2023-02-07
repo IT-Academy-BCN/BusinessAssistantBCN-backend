@@ -1,37 +1,19 @@
 package com.businessassistantbcn.usermanagement.controller;
 
+import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
 import com.businessassistantbcn.usermanagement.config.TestConfig;
 import com.businessassistantbcn.usermanagement.dto.UserDto;
 import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
 import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
-import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DBObject;
-import com.mongodb.client.MongoClients;
-import de.flapdoodle.embed.mongo.MongodExecutable;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.ImmutableMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongodConfig;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.runtime.Network;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
@@ -39,9 +21,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -49,7 +28,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = UserManagementController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
 @TestPropertySource(locations = "classpath:persistence-test.properties")
-@Import(TestConfig.class)
+@Import({TestConfig.class, PropertiesConfig.class})
 public class IntegrationTest {
 
 
@@ -115,7 +94,7 @@ public class IntegrationTest {
         when(userManagementService.addUser(userEmailDto)).thenReturn(Mono.just(userDto));
         webTestClient.post()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
-                //.accept(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(userEmailDto)
                 .exchange()
