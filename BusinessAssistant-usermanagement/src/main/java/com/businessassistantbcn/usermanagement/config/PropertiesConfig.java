@@ -23,10 +23,10 @@ public class PropertiesConfig {
 	private String err;
 
 	//limitDb properties
-	@Value("${limit-db.enabled}")
+	@Value("${limitdb.enabled}")
 	private Boolean enabled;
-	@Value("${limit-db.max-users}")
-	private Integer maxUsers;
-	@Value("${limit-db.err}")
+	@Value("${limitdb.maxusers}")
+	private Integer maxusers;
+	@Value("${limitdb.err}")
 	private String error;
 }

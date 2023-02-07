@@ -22,6 +22,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -36,6 +37,8 @@ public class IntegrationTest {
     private WebTestClient webTestClient;
     @Autowired
     UserManagementService userManagementService;
+    @Autowired
+    PropertiesConfig propertiesConfig;
 
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/usermanagement";
 
@@ -90,6 +93,7 @@ public class IntegrationTest {
     @Test
     @DisplayName("Test response add user")
     void addUsersTest(){
+        System.out.println(propertiesConfig.getMaxusers());
         final String URI_TEST = "/user";
         when(userManagementService.addUser(userEmailDto)).thenReturn(Mono.just(userDto));
         webTestClient.post()
@@ -102,6 +106,10 @@ public class IntegrationTest {
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody()
                 .equals(Mono.just(userDto));
+    }
+    @Test
+    public void simpleTest(){
+        assertEquals(userManagementService.getTest(),"No hay capacidad para almacenar más usuarios");
     }
 
 }

@@ -51,7 +51,7 @@ logging:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: opendata.log
-limitDb:
+limitdb:
   enabled: true #false
-  maxUsers: 200
+  maxusers: 200
   err: No hay capacidad para almacenar más usuarios

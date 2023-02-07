@@ -68,7 +68,7 @@ public class UserManagementService implements IUserManagementService {
         boolean result = true;
         if(propertiesConfig.getEnabled()){
             Long sizeDb = userRepository.count().block();
-            if(sizeDb >= propertiesConfig.getMaxUsers()) {
+            if(sizeDb >= propertiesConfig.getMaxusers()) {
                 result = false;
             }
         }
@@ -106,5 +106,9 @@ public class UserManagementService implements IUserManagementService {
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
+    }
+
+    public String getTest(){
+        return propertiesConfig.getError();
     }
 }
