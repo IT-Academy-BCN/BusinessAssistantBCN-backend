@@ -24,6 +24,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
@@ -199,17 +201,6 @@ class GencatControllerTest {
                 .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    //Una vez implementado correctamente el método, el test se debe adecuar
-    @Test
-    void getEconomicActivitiesTypes() {
-        final String URI_TEST = "/ccae/types";
-        webTestClient.get()
-                .uri(CONTROLLER_BASE_URL + URI_TEST)
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isEqualTo(HttpStatus.NOT_IMPLEMENTED);
-
-    }
 
     @Test
     void getRaiscByYearTest(){
@@ -236,5 +227,37 @@ class GencatControllerTest {
         genericResultDto.setInfo(1, 1, raiscResponseDto.length, raiscResponseDto);
         return genericResultDto;
     }
+
+    @Test
+    void getEconomicActivitiesTypes() throws MalformedURLException {
+        final String URI_TEST = "/ccae/types";
+        when(ccaeService.getTypes()).thenReturn(Mono.just(getGenericResultDtoTypes()));
+        webTestClient.get()
+                .uri(CONTROLLER_BASE_URL + URI_TEST)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBodyList(PropertiesConfig.CcaeItem.class)
+                .hasSize(4)
+                .contains(new PropertiesConfig.CcaeItem("1", "Secció"))
+                .contains(new PropertiesConfig.CcaeItem("2", "Divisió"))
+                .contains(new PropertiesConfig.CcaeItem("3", "Grup"))
+                .contains(new PropertiesConfig.CcaeItem("4", "Classe"))
+                .consumeWith(System.out::println);
+
+    }
+
+    private List<PropertiesConfig.CcaeItem> getGenericResultDtoTypes() {
+        return Arrays.asList(
+                new PropertiesConfig.CcaeItem("1", "Secció"),
+                new PropertiesConfig.CcaeItem("2", "Divisió"),
+                new PropertiesConfig.CcaeItem("3", "Grup"),
+                new PropertiesConfig.CcaeItem("4", "Classe")
+        );
+    }
+
+
+
 
 }
