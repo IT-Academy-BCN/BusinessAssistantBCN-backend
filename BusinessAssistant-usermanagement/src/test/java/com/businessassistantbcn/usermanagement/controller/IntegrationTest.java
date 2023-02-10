@@ -32,7 +32,6 @@ import static org.mockito.Mockito.when;
 @Import({TestConfig.class, PropertiesConfig.class})
 public class IntegrationTest {
 
-
     @Autowired
     private WebTestClient webTestClient;
     @Autowired
