@@ -2,7 +2,10 @@
 
 ### User Management
 
+#### Ejecución de tests Unitarios y de Integración  (Uso de TestContainer)
 
+- Es necesario tener docker instalado y con una imagen MongoDB en el repository local, y arrancado para la ejecución
+- La ejecución de UserManagementRepositoryTest y de UserManagementIntegrationTest
 
 #### Mongodb database para gestión de usuarios
 
