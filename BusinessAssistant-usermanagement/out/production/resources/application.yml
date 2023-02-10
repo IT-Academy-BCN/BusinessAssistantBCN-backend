@@ -5,15 +5,7 @@ spring:
     enabled: true
   data:
     mongodb:
-<<<<<<< HEAD
-      host: 172.24.2.9
-      port: 27018
-      username: admin_businessassistantbcn
-      password: UhWQQYFVBx95W7
-      database: babcn-users
-=======
       uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@localhost:27017/babcn-users
->>>>>>> develop
   #Spring profiles available:
   #   - dev: disable security
   #   - pro: enable JWT security

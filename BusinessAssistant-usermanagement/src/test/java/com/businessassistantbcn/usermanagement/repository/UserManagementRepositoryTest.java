@@ -1,16 +1,9 @@
 package com.businessassistantbcn.usermanagement.repository;
 
 import com.businessassistantbcn.usermanagement.document.User;
-<<<<<<< HEAD
-import org.bson.types.ObjectId;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.reactivestreams.Publisher;
-=======
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.*;
->>>>>>> develop
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration;
@@ -49,37 +42,16 @@ public class UserManagementRepositoryTest {
         System.out.println("container url: {}" + container.getReplicaSetUrl("babcn-users"));
         System.out.println("container host/port: {}/{}" + container.getHost() + " - " + container.getFirstMappedPort());
 
-<<<<<<< HEAD
-    ObjectId id1 = new ObjectId("63d9666bbdf0196d2c766fa0");
-    ObjectId id2 = new ObjectId("63d9666bbdf0196d2c766fb1");
-=======
         registry.add("spring.data.mongodb.uri", () -> container.getReplicaSetUrl("babcn-users"));
     }
 
     @Autowired
     private UserManagementRepository userRepository;
 
->>>>>>> develop
     String uuid_1 = "26977eee-89f8-11ec-a8a3-0242ac120002";
     String uuid_2 = "26977eee-89f8-11ec-a8a3-0242ac120003";
     String email_1 = "user1@mail.com";
     String email_2 = "user2@mail.com";
-<<<<<<< HEAD
-    User user1 = new User(id1, uuid_1,email_1,"abc123",null, System.currentTimeMillis());
-    User user2 = new User(id2, uuid_2,email_2,"abc123",null, System.currentTimeMillis());
-
-
-/*
-    @Test
-    public void ping(){
-        userRepository.save(user1);
-
-        userRepository.existsByEmail(email_1);
-
-        userRepository.findByUuid(uuid_1);
-//Véase https://dzone.com/articles/spring-boot-with-embedded-mongodb
-=======
->>>>>>> develop
 
 
     @BeforeEach
