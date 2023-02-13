@@ -8,7 +8,7 @@ import com.businessassistantbcn.mydata.entity.UserSearch;
 
 @Repository
 @Transactional
-public interface UserSearchesRepository extends JpaRepository<UserSearch, String>{
+public interface IUserSearchesRepository extends JpaRepository<UserSearch, String>{
 	
 	public boolean existsBySearchUuid(String searchUuid);
 	public boolean existsByUserUuid(String userUuid);
