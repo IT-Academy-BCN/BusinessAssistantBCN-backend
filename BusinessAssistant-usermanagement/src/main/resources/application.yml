@@ -1,11 +1,15 @@
 spring:
   application:
     name: businessassistant-usermanagement
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   jmx:
     enabled: true
   data:
     mongodb:
-      uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@localhost:27017/babcn-users
+      uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@localhost:27017/babcn-users # local
+      #uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@0.0.0.0:27018/babcn-users # docker
   #Spring profiles available:
   #   - dev: disable security
   #   - pro: enable JWT security
