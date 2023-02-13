@@ -1,5 +1,8 @@
 package com.businessassistantbcn.gencat.config;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -46,6 +49,10 @@ public class PropertiesConfig {
     public String getAuthoritiesClaim() {return authoritiesClaim;}
     public String getErr() {return err;}
     public List<CcaeItem> getCcae() { return ccae; }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class CcaeItem{
         private String type;
         private String description;
