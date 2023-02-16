@@ -1,7 +1,7 @@
 #!/bin/sh
 #  Start parameters:
 #  1.-fileConfig
-#
+#  Example: ./make_Docker_image.sh ../conf/.env.dev
 
 # Init variables
 fileConfig=$1;

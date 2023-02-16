@@ -157,9 +157,9 @@ services:
       consul-net:
         ipv4_address: 172.24.2.10
 
-  businessassistantbcn-nginx: #docker run --name some-nginx -d -p 80:80 nginx
+  businessassistantbcn-nginx: #docker run -it -p 80:80 babcn:nginx-frontend2-v1.0.0-SNAPSHOT
     container_name: nginx-businessassistantbcn
-    image: '${REGISTRY_NAME}:nginx-businessassistantbcn-${NGINX_FRONTEND_TAG}'
+    image: '${REGISTRY_NAME}:nginx-frontend2-${NGINX_FRONTEND_TAG}'
     restart: always
     ports:
       - '${NGINX_CONTAINER_PORT}:80'
