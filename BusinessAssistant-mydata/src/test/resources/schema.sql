@@ -9,15 +9,15 @@ CREATE TABLE IF NOT EXISTS my_searches(
  );
 
 
-CREATE TABLE IF NOT EXISTS user_test (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    enabled BOOLEAN NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS authorities (
-    username VARCHAR(50) NOT NULL,
-    authority VARCHAR(50) NOT NULL,
-    CONSTRAINT fk_authorities_users FOREIGN KEY(username) REFERENCES user_test(username)
-);
+--CREATE TABLE IF NOT EXISTS user_test (
+--    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+--    username VARCHAR(255) NOT NULL UNIQUE,
+--    password VARCHAR(255) NOT NULL,
+--    enabled BOOLEAN NOT NULL
+--);
+--
+--CREATE TABLE IF NOT EXISTS authorities (
+--    username VARCHAR(50) NOT NULL,
+--    authority VARCHAR(50) NOT NULL,
+--    CONSTRAINT fk_authorities_users FOREIGN KEY(username) REFERENCES user_test(username)
+--);
