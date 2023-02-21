@@ -9,7 +9,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,9 +29,9 @@ import java.util.HashMap;
 @Transactional(propagation = Propagation.NOT_SUPPORTED)
 //CAUTION: For uses with real database
 //@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-public class UserSearchesRepositoryTest {
+public class IUserSearchesRepositoryTest {
 	@Autowired
-	private UserSearchesRepository userSearchesRepository;
+	private IUserSearchesRepository IUserSearchesRepository;
 	
     @Autowired
     private TestEntityManager entityManager;
@@ -62,54 +61,60 @@ public class UserSearchesRepositoryTest {
     
 	@Test
 	void test() {
-		System.out.println(userSearchesRepository.findAll().toString());
+		System.out.println(IUserSearchesRepository.findAll().toString());
 
-		assertNotNull(userSearchesRepository);
+		assertNotNull(IUserSearchesRepository);
 		assertNotNull(entityManager);
 		assertNotNull(dataSource);
     }
 	
 	@Test
 	void whenSaved_thenFindsByUserUuid() {
-	  userSearchesRepository.save(search);
-	  assertThat(userSearchesRepository.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0")).isNotNull();
+	  IUserSearchesRepository.save(search);
+	  assertThat(IUserSearchesRepository.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0")).isNotNull();
 	}
 
 	@Test
 	void whenSaved_thenSearchUuidIsCreated() {
-		userSearchesRepository.save(search);
-		assertThat(userSearchesRepository.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0").get(0).getSearchUuid()).isNotNull();
+		IUserSearchesRepository.save(search);
+		assertThat(IUserSearchesRepository.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0").get(0).getSearchUuid()).isNotNull();
 	}
 
 	@Test
 	void whenSearchExists_thenReturnsTrue() {
-		assertTrue(userSearchesRepository.existsBySearchUuid(searchUuidFromTestDb));
+		assertTrue(IUserSearchesRepository.existsBySearchUuid(searchUuidFromTestDb));
 	}
 	
 	@Test
 	void whenSearchDoesNotExist_thenReturnsFalse() {
-		assertFalse(userSearchesRepository.existsBySearchUuid(searchUuidNotIntTestDb));
+		assertFalse(IUserSearchesRepository.existsBySearchUuid(searchUuidNotIntTestDb));
 	}
 	
 	@Test
 	void whenFindByExistingUserUuid_thenReturnsSearch() {
-		assertThat(userSearchesRepository.findByUserUuid(userUuidFromTestDb)).isNotEmpty();
-		assertThat(userSearchesRepository.findByUserUuid(userUuidFromTestDb).get(0).getSearchUuid()).isEqualTo(searchUuidFromTestDb);
+		assertThat(IUserSearchesRepository.findByUserUuid(userUuidFromTestDb)).isNotEmpty();
+		assertThat(IUserSearchesRepository.findByUserUuid(userUuidFromTestDb).get(0).getSearchUuid()).isEqualTo(searchUuidFromTestDb);
 	}
 	
 	@Test
 	void whenFindByNonExistingUserUuid_thenReturnsEmptyList() {
-		assertThat(userSearchesRepository.findByUserUuid(userUuidNotInTestDb)).isEmpty();
+		assertThat(IUserSearchesRepository.findByUserUuid(userUuidNotInTestDb)).isEmpty();
 	}
 	
 	@Test
 	void whenFindByExistingSearchUuid_thenReturnsSearch() {
-		assertThat(userSearchesRepository.findBySearchUuid(searchUuidFromTestDb)).isNotEmpty();
-		assertThat(userSearchesRepository.findBySearchUuid(searchUuidFromTestDb).get(0).getUserUuid()).isEqualTo(userUuidFromTestDb);
+		assertThat(IUserSearchesRepository.findBySearchUuid(searchUuidFromTestDb)).isNotEmpty();
+		assertThat(IUserSearchesRepository.findBySearchUuid(searchUuidFromTestDb).get(0).getUserUuid()).isEqualTo(userUuidFromTestDb);
 	}
 	
 	@Test
 	void whenFindByNonExistingSearchUuid_thenReturnsEmptyList() {
-		assertThat(userSearchesRepository.findByUserUuid(searchUuidNotIntTestDb)).isEmpty();
+		assertThat(IUserSearchesRepository.findByUserUuid(searchUuidNotIntTestDb)).isEmpty();
+	}
+
+	@Test
+	void findOneBySearchUuid_thenReturnThisSearch(){
+		UserSearch found = IUserSearchesRepository.findOneBySearchUuid(searchUuidFromTestDb);
+		assertThat(found.getSearchUuid()).isEqualTo(searchUuidFromTestDb);
 	}
 }

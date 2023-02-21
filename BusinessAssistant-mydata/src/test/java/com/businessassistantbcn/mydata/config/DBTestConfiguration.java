@@ -1,9 +1,12 @@
 package com.businessassistantbcn.mydata.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -12,9 +15,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
+
+
 @Configuration
-@EnableJpaRepositories(basePackages = "com.businessassistantbcn.mydata.repository")
+@EnableJpaRepositories(basePackages = {"com.businessassistantbcn.mydata.repository"})
 @EntityScan(basePackages = "com.businessassistantbcn.mydata.entity")
+@ComponentScan(basePackages = {"com.businessassistantbcn.mydata.service",
+        "com.businessassistantbcn.mydata.config"})
+// security package?
 @PropertySource("classpath:application-test.properties")
 @EnableTransactionManagement
 public class DBTestConfiguration {

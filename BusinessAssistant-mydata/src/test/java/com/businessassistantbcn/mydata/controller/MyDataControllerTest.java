@@ -186,6 +186,24 @@ class MyDataControllerTest {
 
 		verify(userService).getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0", "44c5c069-e907-45a9-8d49-2042044c56e0");
 	}
+
+	@Test
+	public void deleteSeardeleteUserSearchBySearchUuidchTest() {
+
+		final String URI_DELETE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
+
+		when(userService.deleteUserSearchBySearchUuid("44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Mono.empty());
+
+		webTestClient.delete()
+				.uri(CONTROLLER_BASE_URL + URI_DELETE_SEARCH, "44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0")
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isNoContent()
+				.expectBody()
+				.isEmpty();
+
+		verify(userService).deleteUserSearchBySearchUuid("44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0");
+	}
 }
 
 
