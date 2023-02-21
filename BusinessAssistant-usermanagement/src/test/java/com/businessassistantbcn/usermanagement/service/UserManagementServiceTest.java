@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
 import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +34,8 @@ public class UserManagementServiceTest {
 
     @Mock
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
+    @Mock
+    PropertiesConfig propertiesConfig;
 
     @InjectMocks
     UserManagementService service;
