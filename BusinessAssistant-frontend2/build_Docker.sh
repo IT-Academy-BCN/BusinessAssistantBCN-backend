@@ -1,11 +1,12 @@
 #!/bin/sh
 #  Start parameters:
 #  1.-fileConfig
-#
+#  Example: ./build_Docker.sh ../conf/.env.dev
 
 # Init variables
 fileConfig=$1;
 now="$(date +'%d-%m-%Y %H:%M:%S:%3N')"
+base_dir=`pwd`
 
 # Load environment variables
 if [ -f "$fileConfig" ]
@@ -43,4 +44,7 @@ cd ${FRONTEND_PROJECT_DIR}
 
 git checkout ${GIT_BRANCH}
 ng build --configuration production
+cp -r dist ${base_dir}
+sleep 5
+cd ${base_dir}
 docker build -t=${REGISTRY_NAME}:nginx-frontend2-${NGINX_FRONTEND_TAG} .

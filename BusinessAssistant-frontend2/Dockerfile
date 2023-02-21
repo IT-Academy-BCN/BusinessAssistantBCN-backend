@@ -1,3 +1,6 @@
 FROM nginx:latest
-ADD ["../../../WebStorm_projects/IT-Academy/BusinessAssistantBCN-frontend2/dist/BusinessAssistantBCN-frontend2", "/opt/BusinessAssistantBCN-frontend2/"]
+#ARG FRONTEND_DIR_PATH
+#RUN echo "Dockerfile FRONTEND_DIR_PATH: $FRONTEND_DIR_PATH"
+#ADD  $FRONTEND_DIR_PATH/dist/BusinessAssistantBCN-frontend2 "/opt/BusinessAssistantBCN-frontend2/"
+ADD ./dist/BusinessAssistantBCN-frontend2 "/opt/BusinessAssistantBCN-frontend2/"
 EXPOSE 80
