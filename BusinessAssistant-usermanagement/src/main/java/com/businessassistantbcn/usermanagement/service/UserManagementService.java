@@ -23,7 +23,9 @@ public class UserManagementService implements IUserManagementService {
     PropertiesConfig propertiesConfig;
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
 
-    private boolean existByEmail(UserEmailDto userEmailDto){
+/*
+        //TODO - PENDIENTE LIMPIAR (kk)
+        private boolean existByEmail(UserEmailDto userEmailDto){
 
         Optional<Boolean> aBoolean = userRepository.existsByEmail(userEmailDto.getEmail()).blockOptional();
 
@@ -37,7 +39,7 @@ public class UserManagementService implements IUserManagementService {
 
         return result;
 
-    }
+    }*/
 
     /**
      * Añade un usuario a la base de datos. Funcionamiento:
@@ -51,9 +53,29 @@ public class UserManagementService implements IUserManagementService {
 
     public Mono<UserDto> addUser(UserEmailDto userEmailDto) {
 
-        Mono<UserDto> response;
+        Mono<UserDto> response = Mono.empty();
 
-        if(limitUsersDb()){ //límite no excedido
+        if(limitUsersDb()){
+            userRepository.findByEmail(userEmailDto.getEmail()).map(user -> {
+                if(user != null) {
+                    //usuario existe, actualizamos
+                    user.setLatestAccess(System.currentTimeMillis());
+                    return userRepository.save(user);
+                } else { //usuario no existe, lo creamos y devolvemos el usuario creado
+                    userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
+                    return userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);
+                }
+            }).subscribe();
+
+        }else {//número máximo de usuarios excedido
+            Mono<?> responseErr = Mono.just(new LimitDbErrorDto(propertiesConfig.getError()));
+            response = (Mono<UserDto>) responseErr;
+        }
+        return response;
+
+
+
+/*        if(limitUsersDb()){ //límite no excedido
             //buscamos si existe el usuario
             //si existe, seteamos el último acceso y devolvemos empty
             if(existByEmail(userEmailDto)){
@@ -69,7 +91,7 @@ public class UserManagementService implements IUserManagementService {
             Mono<?> responseErr = Mono.just(new LimitDbErrorDto(propertiesConfig.getError()));
             response = (Mono<UserDto>) responseErr;
         }
-        return response;
+        return response;*/
     }
 
     private void latestAccess(User user){

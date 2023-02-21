@@ -1,3 +1,4 @@
+//mongo localhost:27017/babcn-users mongo-init.js
 db.createUser({
     user: 'admin_businessassistantbcn',
     pwd: 'UhWQQYFVBx95W7',
@@ -6,8 +7,7 @@ db.createUser({
             role: 'dbOwner',
             db: 'babcn-users',
         },
-    ],
-    latest_access : 11111111111, //System.currentTimeMillis()
+    ]
 });
 
 db.createCollection("users");

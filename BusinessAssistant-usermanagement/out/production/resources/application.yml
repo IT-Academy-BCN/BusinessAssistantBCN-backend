@@ -8,14 +8,8 @@ spring:
     enabled: true
   data:
     mongodb:
-      #uri: mongodb://localhost:27017/babcn-users
-      uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@localhost:27017/babcn-users
-      #host: 172.24.2.9
-      #host: localhost
-      #port: 27017
-      #username:
-      #password:
-      #database:
+      uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@localhost:27017/babcn-users # local
+      #uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@0.0.0.0:27018/babcn-users # docker
   #Spring profiles available:
   #   - dev: disable security
   #   - pro: enable JWT security
