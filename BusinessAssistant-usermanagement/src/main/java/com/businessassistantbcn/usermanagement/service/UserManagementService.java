@@ -39,23 +39,35 @@ public class UserManagementService implements IUserManagementService {
 
     }
 
+    /**
+     * Añade un usuario a la base de datos. Funcionamiento:
+     * 1. Comprueba si el número máximo de usuarios está excedido
+     * 2. Comprueba si el usuario existe
+     * 3. Si el usuario existe, actualiza el último acceso y devuelve empty
+     * 4. Si el usuario no existe, lo crea y devuelve el usuario creado
+     * @param userEmailDto
+     * @return
+     */
+
     public Mono<UserDto> addUser(UserEmailDto userEmailDto) {
 
         Mono<UserDto> response;
 
-        if(existByEmail(userEmailDto)){
-            User userSetLatestAccess = userRepository.findByEmail(userEmailDto.getEmail()).block();
-            latestAccess(userSetLatestAccess);
-            response = Mono.empty();
-        }else {
-            if(limitUsersDb()){
+        if(limitUsersDb()){ //límite no excedido
+            //buscamos si existe el usuario
+            //si existe, seteamos el último acceso y devolvemos empty
+            if(existByEmail(userEmailDto)){
+                User userSetLatestAccess = userRepository.findByEmail(userEmailDto.getEmail()).block();
+                latestAccess(userSetLatestAccess);
+                response = Mono.empty();
+            } else {//si no existe, lo creamos y devolvemos el usuario creado
             userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
             response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto))
-                                    .map(DtoHelper::convertToDto);
-            }else {
-                Mono<?> responseErr = Mono.just(new LimitDbErrorDto(propertiesConfig.getError()));
-                response = (Mono<UserDto>) responseErr;
+                    .map(DtoHelper::convertToDto);
             }
+        }else {//número máximo de usuarios excedido
+            Mono<?> responseErr = Mono.just(new LimitDbErrorDto(propertiesConfig.getError()));
+            response = (Mono<UserDto>) responseErr;
         }
         return response;
     }
@@ -64,6 +76,7 @@ public class UserManagementService implements IUserManagementService {
         user.setLatestAccess(System.currentTimeMillis());
         userRepository.save(user).block();
     }
+    //false si excede el máximo de usuarios
     private boolean limitUsersDb(){
         boolean result = true;
         if(propertiesConfig.getEnabled()){
