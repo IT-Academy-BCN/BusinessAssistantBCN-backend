@@ -4,5 +4,6 @@ VALUES
 ('9591899E-2ED1-146E-43E8-35095DCB9726', 'DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57', '2022-4-2', 'searchname2', 'searchdetail2','[{"name": "Fujifilm España S.A.", "web": "http://www.fujifilm.eu/es/", "email": null, "phone": null, "activities": [ { "id": 1008031, "name": "Delegacions - oficines comercials"}, {"id": 31798950, "name": "Fujifilm"}, {"id": 29810744,"name": "Cinema"}],"addresses": [{"street_name": "C Aragó", "number": "180", "zip_code": "08011", "district_id": "02", "town": "BARCELONA", "location": {"x": 429620.0300793953, "y": 4581997.003537545}}]}]'),
 ('0602900D-3DE2-257D-54D9-46106EDC0837', 'DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57', '2022-5-1', 'searchname3', 'searchdetail3','[{"name": "IBM Client Center Barcelona", "web": "http://www.ibm.com/es", "email": null, "phone": null, "activities": [ { "id": 1008031, "name": "Delegacions - oficines comercials"}, {"id": 31801736, "name": "Ibm"}, {"id": 32799723,"name": "Material informàtic"}],"addresses": [{"street_name": "Av Diagonal", "number": "571", "zip_code": "08029", "district_id": "04", "town": "BARCELONA", "location": {"x": 427675.4938963018, "y": 4582393.626257071}}]}]');
 
-INSERT INTO user_test (username, password, enabled) VALUES ('sa', 'sa', true);
-INSERT INTO authorities (username, authority) VALUES ('sa', 'ROLE_ADMIN');
+--pruebas login de usuario simulado, para autorizar endpoints en MyDataControllerIT con perfil pro. necesario?
+--INSERT INTO user_test (username, password, enabled) VALUES ('userTest', 'userTest', true);
+--INSERT INTO authorities (username, authority) VALUES ('userTest', 'ROLE_ADMIN');
