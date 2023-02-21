@@ -216,8 +216,6 @@ public class UserSearchesService {
 			.filter(Objects::nonNull)
 			.flatMap(userSearchExists -> {
 
-				//revisar soliciutdes a base de datos
-
 				if ((!userSearchesRepo.existsBySearchUuid(search_uuid)) || (!userSearchesRepo.existsByUserUuid(user_uuid))) {
 					log.info("Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist");
 					return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
