@@ -112,7 +112,7 @@ class UserSearchesServiceTest {
 		Mono<?> savedSearch = userSearchesService.saveSearch(requestDto, "44c5c069-e907-45a9-8d49-2042044c56e0");
 
 		assertThat(savedSearch.block().toString().equals(responseDto.toString()));
-		assertEquals(requestDto.getSearchName(), ((Mono<SaveSearchResponseDto)savedSearch.block()).getSearchName());
+		assertEquals(requestDto.getSearchName(), ((Mono<SaveSearchResponseDto>)savedSearch).block().getSearchName());
 	}
 
 	@Test
@@ -125,7 +125,7 @@ class UserSearchesServiceTest {
 			searchList.add(search);
 		}
 
-		when(userSearchesRepoMock.findByUserUuid(search.getUserUuid())).thenReturn(searchList);
+		when(userSearchesRepoMock.findByUserUuid(search.getUserUuid())).thenReturn(Optional.of(searchList));
 
 		when(propertiesConfig.getLimitValue()).thenReturn(LIMIT_SEARCHES_VALUE);
 		when(propertiesConfig.getIsLimitEnabled()).thenReturn(IS_LIMIT_ENABLED);
