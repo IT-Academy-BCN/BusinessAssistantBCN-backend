@@ -78,7 +78,7 @@ public class IUserSearchesRepositoryTest {
 	@Test
 	void whenSaved_thenSearchUuidIsCreated() {
 		IUserSearchesRepository.save(search);
-		assertThat(IUserSearchesRepository.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0").get(0).getSearchUuid()).isNotNull();
+		assertThat(IUserSearchesRepository.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0").get().get(0).getSearchUuid()).isNotNull();
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class IUserSearchesRepositoryTest {
 	@Test
 	void whenFindByExistingUserUuid_thenReturnsSearch() {
 		assertThat(IUserSearchesRepository.findByUserUuid(userUuidFromTestDb)).isNotEmpty();
-		assertThat(IUserSearchesRepository.findByUserUuid(userUuidFromTestDb).get(0).getSearchUuid()).isEqualTo(searchUuidFromTestDb);
+		assertThat(IUserSearchesRepository.findByUserUuid(userUuidFromTestDb).get().get(0).getSearchUuid()).isEqualTo(searchUuidFromTestDb);
 	}
 	
 	@Test

@@ -194,33 +194,9 @@ public class UserSearchesService {
     }
 
     public boolean checkLimitExceededUserSearches(String user_uuid) {
-        Optional<List<UserSearch>> users = userSearchesRepo.findByUserUuid(user_uuid);
-        return users.isPresent() && propertiesConfig.getIsLimitEnabled() && users.get().size() >= propertiesConfig.getLimitValue();
+        Optional<List<UserSearch>> usersList = userSearchesRepo.findByUserUuid(user_uuid);
+        return usersList.isPresent() && propertiesConfig.getIsLimitEnabled() && usersList.get().size() >= propertiesConfig.getLimitValue();
     }
-
-/*		boolean excededLimit = false;
-
-		if (allUserSearches.isEmpty()) {
-			log.info("User with UUID="+user_uuid+" does not have any searches");
-			return excededLimit;
-		}
-
-		int totalUserSearches = allUserSearches.size();
-		int limit = propertiesConfig.getLimitValue();
-
-		if (totalUserSearches >= limit) {
-
-			Map<String,Object> details = new HashMap<>();
-			details.put("Message", propertiesConfig.getErrorMessage());
-			details.put("Limit", limit);
-			details.put("User", user_uuid);
-			details.put("Timestamp", new Date());
-			details.forEach((k,v) -> log.info(k +": " + v));
-
-			excededLimit = true;
-		}
-		return excededLimit;
-	}*/
 
     public Mono<Void> deleteUserSearchBySearchUuid(String user_uuid, String search_uuid) {
 
