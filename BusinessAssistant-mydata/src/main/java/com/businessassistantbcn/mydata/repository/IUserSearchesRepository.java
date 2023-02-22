@@ -19,6 +19,6 @@ public interface IUserSearchesRepository extends JpaRepository<UserSearch, Strin
 	public List<UserSearch> findBySearchUuid(String searchUuid);
 	public List<UserSearch> findByUserUuid(String userUuid);
 
-	UserSearch findOneBySearchUuid(String searchUuid);
+	Optional<UserSearch> findOneBySearchUuid(String searchUuid);
 
 } 

@@ -194,21 +194,21 @@ class UserSearchesServiceTest {
 
 		when(userSearchesRepoMock.existsBySearchUuid(search.getSearchUuid())).thenReturn((true));
 		when(userSearchesRepoMock.existsByUserUuid(search.getUserUuid())).thenReturn((true));
-		when(userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid())).thenReturn((search));
+		when(userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid())).thenReturn(Optional.ofNullable((search)));
 
-		UserSearch searchToDelete = userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid());
+		Optional<UserSearch> searchToDelete = userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid());
 		assertNotNull(searchToDelete);
-		assertEquals("33b4c069-e907-45a9-8d49-2042044c56e0", searchToDelete.getSearchUuid());
+		assertEquals("33b4c069-e907-45a9-8d49-2042044c56e0", searchToDelete.get().getSearchUuid());
 
-		Mono<Void> monoEmpty = userSearchesService.deleteUserSearchBySearchUuid(searchToDelete.getUserUuid(), searchToDelete.getSearchUuid());
+		Mono<Void> monoEmpty = userSearchesService.deleteUserSearchBySearchUuid(searchToDelete.get().getUserUuid(), searchToDelete.get().getSearchUuid());
 		monoEmpty.block(); //para que bloquee el flujo asincrono y se complete la operación de eliminación de la bdd
 
 		when(userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid())).thenReturn((null));
 
-		UserSearch searchDeleted = userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid());
+		Optional<UserSearch> searchDeleted = userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid());
 		assertNull(searchDeleted);
 
-		verify(userSearchesRepoMock, times(1)).deleteById(searchToDelete.getSearchUuid());
+		verify(userSearchesRepoMock, times(1)).deleteById(searchToDelete.get().getSearchUuid());
 	}
 
 	@Test
@@ -216,18 +216,18 @@ class UserSearchesServiceTest {
 
 		when(userSearchesRepoMock.existsBySearchUuid(search.getSearchUuid())).thenReturn((true));
 		when(userSearchesRepoMock.existsByUserUuid("UserUuidNotExists")).thenReturn((false));
-		when(userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid())).thenReturn((search));
+		when(userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid())).thenReturn(Optional.ofNullable((search)));
 
-		UserSearch searchToBeDeleted = userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid());
+		Optional<UserSearch> searchToBeDeleted = userSearchesRepoMock.findOneBySearchUuid(search.getSearchUuid());
 		assertNotNull(searchToBeDeleted);
-		assertEquals("33b4c069-e907-45a9-8d49-2042044c56e0", searchToBeDeleted.getSearchUuid());
+		assertEquals("33b4c069-e907-45a9-8d49-2042044c56e0", searchToBeDeleted.get().getSearchUuid());
 
 		assertThrows(ResponseStatusException.class, () -> {
-			userSearchesService.deleteUserSearchBySearchUuid("UserUuidNotExists", searchToBeDeleted.getSearchUuid()).block();
+			userSearchesService.deleteUserSearchBySearchUuid("UserUuidNotExists", searchToBeDeleted.get().getSearchUuid()).block();
 		});
 
 		verify(userSearchesRepoMock, times(1)).existsByUserUuid("UserUuidNotExists");
-		verify(userSearchesRepoMock, never()).deleteById(searchToBeDeleted.getSearchUuid());
+		verify(userSearchesRepoMock, never()).deleteById(searchToBeDeleted.get().getSearchUuid());
 	}
 
 	@Test
@@ -239,8 +239,8 @@ class UserSearchesServiceTest {
 		boolean userUuidExists = userSearchesRepoMock.existsByUserUuid(search.getUserUuid());
 		assertTrue(userUuidExists);
 
-		UserSearch searchToBeDeleted = userSearchesRepoMock.findOneBySearchUuid("SearchUuidNotExists");
-		assertNull(searchToBeDeleted);
+		Optional<UserSearch> searchToBeDeleted = userSearchesRepoMock.findOneBySearchUuid("SearchUuidNotExists");
+		assertTrue(searchToBeDeleted.isEmpty());
 
 		assertThrows(ResponseStatusException.class, () -> {
 			userSearchesService.deleteUserSearchBySearchUuid(search.getUserUuid(),"SearchUuidNotExists").block();
@@ -265,22 +265,22 @@ class UserSearchesServiceTest {
 		when(userSearchesRepoMock.existsBySearchUuid(userSearch2.getSearchUuid())).thenReturn((true));
 		when(userSearchesRepoMock.existsByUserUuid(userSearch1.getUserUuid())).thenReturn((true));
 
-		when(userSearchesRepoMock.findOneBySearchUuid(userSearch1.getSearchUuid())).thenReturn((userSearch1));
-		when(userSearchesRepoMock.findOneBySearchUuid(userSearch2.getSearchUuid())).thenReturn((userSearch2));
+		when(userSearchesRepoMock.findOneBySearchUuid(userSearch1.getSearchUuid())).thenReturn(Optional.of((userSearch1)));
+		when(userSearchesRepoMock.findOneBySearchUuid(userSearch2.getSearchUuid())).thenReturn(Optional.of((userSearch2)));
 
-		UserSearch searchFromUser1 = userSearchesRepoMock.findOneBySearchUuid(userSearch1.getSearchUuid());
+		Optional<UserSearch> searchFromUser1 = userSearchesRepoMock.findOneBySearchUuid(userSearch1.getSearchUuid());
 		assertNotNull(searchFromUser1);
 
-		UserSearch searchFromUser2 = userSearchesRepoMock.findOneBySearchUuid(userSearch2.getSearchUuid());
+		Optional<UserSearch> searchFromUser2 = userSearchesRepoMock.findOneBySearchUuid(userSearch2.getSearchUuid());
 		assertNotNull(searchFromUser2);
 
 		assertThrows(ResponseStatusException.class, () -> {
 			userSearchesService.deleteUserSearchBySearchUuid("userUuid1", "searchUuid2").block();
 		});
 
-		UserSearch searchFromUser2NotDeleted = userSearchesRepoMock.findOneBySearchUuid(userSearch2.getSearchUuid());
+		Optional<UserSearch> searchFromUser2NotDeleted = userSearchesRepoMock.findOneBySearchUuid(userSearch2.getSearchUuid());
 		assertNotNull(searchFromUser2NotDeleted);
-		assertEquals("searchUuid2", searchFromUser2NotDeleted.getSearchUuid());
+		assertEquals("searchUuid2", searchFromUser2NotDeleted.get().getSearchUuid());
 
 		verify(userSearchesRepoMock, never()).deleteById(userSearch2.getSearchUuid());
 	}

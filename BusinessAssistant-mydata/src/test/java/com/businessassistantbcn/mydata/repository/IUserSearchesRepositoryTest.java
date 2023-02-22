@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 //@ContextConfiguration(classes = { DBTestConfiguration.class })
@@ -114,7 +115,7 @@ public class IUserSearchesRepositoryTest {
 
 	@Test
 	void findOneBySearchUuid_thenReturnThisSearch(){
-		UserSearch found = IUserSearchesRepository.findOneBySearchUuid(searchUuidFromTestDb);
-		assertThat(found.getSearchUuid()).isEqualTo(searchUuidFromTestDb);
+		Optional<UserSearch> userSearchFound = IUserSearchesRepository.findOneBySearchUuid(searchUuidFromTestDb);
+		assertThat(userSearchFound.get().getSearchUuid()).isEqualTo(searchUuidFromTestDb);
 	}
 }

@@ -213,28 +213,26 @@ public class UserSearchesService {
 	public Mono<Void> deleteUserSearchBySearchUuid(String user_uuid, String search_uuid) {
 
 		return Mono.just(search_uuid)
-			.filter(Objects::nonNull)
-			.flatMap(userSearchExists -> {
+				.flatMap((searchExists -> {
 
-				if ((!userSearchesRepo.existsBySearchUuid(search_uuid)) || (!userSearchesRepo.existsByUserUuid(user_uuid))) {
-					log.info("Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist");
-					return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
-							"Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist"));
-				}
-				return Mono.just(userSearchExists);
-			})
-			.flatMap(searchToDelete -> {
+					if ((!userSearchesRepo.existsBySearchUuid(search_uuid)) || (!userSearchesRepo.existsByUserUuid(user_uuid))) {
+						log.info("Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist");
+						return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
+								"Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist"));
+					}
 
-				UserSearch userSearchToDelete = userSearchesRepo.findOneBySearchUuid(searchToDelete);
+					Optional<UserSearch> userSearchToDelete = userSearchesRepo.findOneBySearchUuid(search_uuid);
 
-				if (!userSearchToDelete.getUserUuid().equals(user_uuid)) {
-					log.info("User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
-					return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST,
-							"User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid));
-				}
-				userSearchesRepo.deleteById(userSearchToDelete.getSearchUuid());
-				log.info("Search with UUID= " + search_uuid + " has been deleted");
-				return Mono.empty();
-			});
+					userSearchToDelete.filter(userSearch -> userSearch.getUserUuid().equals(user_uuid))
+							.orElseThrow(() -> {
+								log.info("User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
+								return new ResponseStatusException(HttpStatus.BAD_REQUEST,
+										"User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
+							});
+
+					userSearchesRepo.deleteById(userSearchToDelete.get().getSearchUuid());
+					log.info("Search with UUID= " + search_uuid + " has been deleted");
+					return Mono.empty();
+				}));
 	}
 }
