@@ -29,35 +29,46 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class UserSearchesService {
-	private static final Logger log = LoggerFactory.getLogger(UserSearchesService.class);
-	
-	@Autowired
-	IUserSearchesRepository userSearchesRepo;
+    private static final Logger log = LoggerFactory.getLogger(UserSearchesService.class);
 
-	@Autowired
-	PropertiesConfig propertiesConfig;
+    @Autowired
+    IUserSearchesRepository userSearchesRepo;
+
+    @Autowired
+    PropertiesConfig propertiesConfig;
 
 //    @Autowired
 //    MyDataRepository myDataRepo;
 
-	public UserSearchesService() {
-	}
+    public UserSearchesService() {
+    }
 
 
-	public UserSearchesService(IUserSearchesRepository userSearchesRepo, PropertiesConfig propertiesConfig) {
-		this.propertiesConfig = propertiesConfig;
-		this.userSearchesRepo = userSearchesRepo;
-	}
+    public UserSearchesService(IUserSearchesRepository userSearchesRepo, PropertiesConfig propertiesConfig) {
+        this.propertiesConfig = propertiesConfig;
+        this.userSearchesRepo = userSearchesRepo;
+    }
 
-	public Mono<SaveSearchResponseDto> saveSearch(SaveSearchRequestDto searchToSave, String user_uuid) {
+    public Mono<?> saveSearch(SaveSearchRequestDto searchToSave, String user_uuid) {
 
-		UserSearch search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
+        if (!checkLimitExceededUserSearches(user_uuid)) {
+//guardado
+        } else { //retorno de error
 
+        }
+
+
+        return null;
+
+
+/*
 		boolean isLimitExceded = false;
 
 		if (propertiesConfig.getIsLimitEnabled()){
 			isLimitExceded = checkLimitUserSearches(user_uuid);
 		}
+
+		UserSearch search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
 
 		if(!isLimitExceded){
 
@@ -69,124 +80,125 @@ public class UserSearchesService {
 					,HttpStatus.OK
 					,new Date()));
 			return (Mono<SaveSearchResponseDto>) monoErrorResponse;
-		}
-	}
-	
-	public Mono<GenericSearchesResultDto<JsonNode>> getAllUserSearches(String user_uuid, int offset, int limit) {
+		}*/
+    }
 
-		List<JsonNode> allUserSearches = getAllSearchesFromUserUuid(user_uuid);
-		for(JsonNode searchNode : allUserSearches) {
-			        ObjectNode object = (ObjectNode) searchNode;
-			        object.remove("searchResult");
-		}
-		
-		JsonNode[] pageFilteredResults = filterJsonNodeResultsPagination(mapListToJsonNodeArray(allUserSearches), offset, limit);
-		
-		GenericSearchesResultDto<JsonNode> result = createUserSearchesResultDto(pageFilteredResults, offset, limit);
-		
-		return Mono.just(result);
-	}
-	
-	private JsonNode[] filterJsonNodeResultsPagination(JsonNode[] allResults, int offset, int limit) {
-		JsonNode[] toReturn = null;
-		if (offset > allResults.length - 1)
-			toReturn = Arrays.copyOfRange(allResults, 0, 0); 
-		// if limit == -1 it means that we should get all Data
-		else if (limit == -1)
-			toReturn = Arrays.copyOfRange(allResults,offset,allResults.length);
-		else {
-			// If the ending point is out of bounce, we set the ending point in the last
-			// point of the array +1
-			int end = offset + limit; // the ending index +1
-			if (end > allResults.length)
-				end = allResults.length;
-			// Makes the subarray. The end point is excluded thats why we do +1.
-			toReturn = Arrays.copyOfRange(allResults,offset,end);
-		}
-		return toReturn;
-	}
-	
-	private JsonNode[] mapListToJsonNodeArray(List<JsonNode> pageFilteredResults) {
-		JsonNode[] resultsForDto = {};
-		if (pageFilteredResults.size() > 0) {
-			resultsForDto = new JsonNode[pageFilteredResults.size()];
-			pageFilteredResults.toArray(resultsForDto);
-		}
-		return resultsForDto;
-	}
-	
-	
-	private GenericSearchesResultDto<JsonNode> createUserSearchesResultDto(JsonNode[] pageFilteredResults,int offset, int limit){
-		GenericSearchesResultDto<JsonNode> result = new GenericSearchesResultDto<JsonNode>();
-		result.setOffset(offset);
-		result.setLimit(limit);
-		if(pageFilteredResults!=null) {
-			result.setCount(pageFilteredResults.length);
-			result.setResults(pageFilteredResults);
-		}else {
-			result.setCount(0);
-			JsonNode[] resultsForDto = new JsonNode[1];
-			JsonNode results = JsonHelper.deserializeStringToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
-			resultsForDto[0]=results;
-			result.setResults(resultsForDto);
-		}
-		return result;
-	}
-	
-	public Mono<SearchResultsDto> getSearchResults(String search_uuid, String user_uuid){
-		SearchResultsDto result = null;
-		if (!userSearchesRepo.findById(search_uuid).isPresent()) {
-			result = createSearchResultsDto(null);
-			log.info("No Search found with UUID="+search_uuid);
-		} else if (!userSearchesRepo.findById(search_uuid).get().getUserUuid().equals(user_uuid)) {
-			result = createSearchResultsDto(null);
-			log.info("User with UUID="+user_uuid+"does not have a search with UUID="+search_uuid);
-		}else {
-			UserSearch search = userSearchesRepo.findById(search_uuid).get();
+    public Mono<GenericSearchesResultDto<JsonNode>> getAllUserSearches(String user_uuid, int offset, int limit) {
 
-			JsonNode searchResult = search.getSearchResult();
-			
-			result = createSearchResultsDto(mapJsonNodeToList(searchResult));
-		}
-		return Mono.just(result);
-	}
-	
-	private SearchResultsDto createSearchResultsDto(List<JsonNode> searchResults){
-		SearchResultsDto result = new SearchResultsDto();
-		if(searchResults!=null) {
-			result.setResults(mapListToJsonNodeArray(searchResults));
-		}else {
-			JsonNode[] resultsForDto = new JsonNode[1];
-			
-			JsonNode results = JsonHelper.deserializeStringToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
-			resultsForDto[0]=results;
-			
-			result.setResults(resultsForDto);
-		}
-		
-		return result;
-	}
-	
-	private List<JsonNode> mapJsonNodeToList(JsonNode searchResult){
-		List<JsonNode> allResults = new ArrayList<JsonNode>();
-		for (int i = 0; i < searchResult.size(); i++) {
-			allResults.add(searchResult.get(i));
-		}
-		return allResults;
-	}
+        List<JsonNode> allUserSearches = getAllSearchesFromUserUuid(user_uuid);
+        for(JsonNode searchNode : allUserSearches) {
+            ObjectNode object = (ObjectNode) searchNode;
+            object.remove("searchResult");
+        }
 
-	private List<JsonNode> getAllSearchesFromUserUuid(String user_uuid){
-		return userSearchesRepo.findByUserUuid(user_uuid).stream()
-				.map(search -> JsonHelper.entityToJsonString(search))
-				.map(string -> JsonHelper.deserializeStringToJsonNode(string))
-				.collect(Collectors.toList());
-	}
+        JsonNode[] pageFilteredResults = filterJsonNodeResultsPagination(mapListToJsonNodeArray(allUserSearches), offset, limit);
 
-	public boolean checkLimitUserSearches(String user_uuid) {
+        GenericSearchesResultDto<JsonNode> result = createUserSearchesResultDto(pageFilteredResults, offset, limit);
 
-		List<UserSearch> allUserSearches = userSearchesRepo.findByUserUuid(user_uuid);
+        return Mono.just(result);
+    }
 
-		boolean excededLimit = false;
+    private JsonNode[] filterJsonNodeResultsPagination(JsonNode[] allResults, int offset, int limit) {
+        JsonNode[] toReturn = null;
+        if (offset > allResults.length - 1)
+            toReturn = Arrays.copyOfRange(allResults, 0, 0);
+            // if limit == -1 it means that we should get all Data
+        else if (limit == -1)
+            toReturn = Arrays.copyOfRange(allResults,offset,allResults.length);
+        else {
+            // If the ending point is out of bounce, we set the ending point in the last
+            // point of the array +1
+            int end = offset + limit; // the ending index +1
+            if (end > allResults.length)
+                end = allResults.length;
+            // Makes the subarray. The end point is excluded thats why we do +1.
+            toReturn = Arrays.copyOfRange(allResults,offset,end);
+        }
+        return toReturn;
+    }
+
+    private JsonNode[] mapListToJsonNodeArray(List<JsonNode> pageFilteredResults) {
+        JsonNode[] resultsForDto = {};
+        if (pageFilteredResults.size() > 0) {
+            resultsForDto = new JsonNode[pageFilteredResults.size()];
+            pageFilteredResults.toArray(resultsForDto);
+        }
+        return resultsForDto;
+    }
+
+
+    private GenericSearchesResultDto<JsonNode> createUserSearchesResultDto(JsonNode[] pageFilteredResults,int offset, int limit){
+        GenericSearchesResultDto<JsonNode> result = new GenericSearchesResultDto<JsonNode>();
+        result.setOffset(offset);
+        result.setLimit(limit);
+        if(pageFilteredResults!=null) {
+            result.setCount(pageFilteredResults.length);
+            result.setResults(pageFilteredResults);
+        }else {
+            result.setCount(0);
+            JsonNode[] resultsForDto = new JsonNode[1];
+            JsonNode results = JsonHelper.deserializeStringToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
+            resultsForDto[0]=results;
+            result.setResults(resultsForDto);
+        }
+        return result;
+    }
+
+    public Mono<SearchResultsDto> getSearchResults(String search_uuid, String user_uuid){
+        SearchResultsDto result = null;
+        if (!userSearchesRepo.findById(search_uuid).isPresent()) {
+            result = createSearchResultsDto(null);
+            log.info("No Search found with UUID="+search_uuid);
+        } else if (!userSearchesRepo.findById(search_uuid).get().getUserUuid().equals(user_uuid)) {
+            result = createSearchResultsDto(null);
+            log.info("User with UUID="+user_uuid+"does not have a search with UUID="+search_uuid);
+        }else {
+            UserSearch search = userSearchesRepo.findById(search_uuid).get();
+
+            JsonNode searchResult = search.getSearchResult();
+
+            result = createSearchResultsDto(mapJsonNodeToList(searchResult));
+        }
+        return Mono.just(result);
+    }
+
+    private SearchResultsDto createSearchResultsDto(List<JsonNode> searchResults){
+        SearchResultsDto result = new SearchResultsDto();
+        if(searchResults!=null) {
+            result.setResults(mapListToJsonNodeArray(searchResults));
+        }else {
+            JsonNode[] resultsForDto = new JsonNode[1];
+
+            JsonNode results = JsonHelper.deserializeStringToJsonNode("{\"NOT FOUND\":\"The required search does not exist\"}");
+            resultsForDto[0]=results;
+
+            result.setResults(resultsForDto);
+        }
+
+        return result;
+    }
+
+    private List<JsonNode> mapJsonNodeToList(JsonNode searchResult){
+        List<JsonNode> allResults = new ArrayList<JsonNode>();
+        for (int i = 0; i < searchResult.size(); i++) {
+            allResults.add(searchResult.get(i));
+        }
+        return allResults;
+    }
+
+    private List<JsonNode> getAllSearchesFromUserUuid(String user_uuid){
+        return userSearchesRepo.findByUserUuid(user_uuid).stream()
+                .map(search -> JsonHelper.entityToJsonString(search))
+                .map(string -> JsonHelper.deserializeStringToJsonNode(string))
+                .collect(Collectors.toList());
+    }
+
+    public boolean checkLimitExceededUserSearches(String user_uuid) {
+        Optional<List<UserSearch>> users = userSearchesRepo.findByUserUuid(user_uuid);
+        return users.isPresent() && propertiesConfig.getIsLimitEnabled() && users.get().size() >= propertiesConfig.getLimitValue();
+    }
+
+/*		boolean excededLimit = false;
 
 		if (allUserSearches.isEmpty()) {
 			log.info("User with UUID="+user_uuid+" does not have any searches");
@@ -208,31 +220,31 @@ public class UserSearchesService {
 			excededLimit = true;
 		}
 		return excededLimit;
-	}
+	}*/
 
-	public Mono<Void> deleteUserSearchBySearchUuid(String user_uuid, String search_uuid) {
+    public Mono<Void> deleteUserSearchBySearchUuid(String user_uuid, String search_uuid) {
 
-		return Mono.just(search_uuid)
-				.flatMap((searchExists -> {
+        return Mono.just(search_uuid)
+                .flatMap((searchExists -> {
 
-					if ((!userSearchesRepo.existsBySearchUuid(search_uuid)) || (!userSearchesRepo.existsByUserUuid(user_uuid))) {
-						log.info("Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist");
-						return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
-								"Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist"));
-					}
+                    if ((!userSearchesRepo.existsBySearchUuid(search_uuid)) || (!userSearchesRepo.existsByUserUuid(user_uuid))) {
+                        log.info("Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist");
+                        return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist"));
+                    }
 
-					Optional<UserSearch> userSearchToDelete = userSearchesRepo.findOneBySearchUuid(search_uuid);
+                    Optional<UserSearch> userSearchToDelete = userSearchesRepo.findOneBySearchUuid(search_uuid);
 
-					userSearchToDelete.filter(userSearch -> userSearch.getUserUuid().equals(user_uuid))
-							.orElseThrow(() -> {
-								log.info("User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
-								return new ResponseStatusException(HttpStatus.BAD_REQUEST,
-										"User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
-							});
+                    userSearchToDelete.filter(userSearch -> userSearch.getUserUuid().equals(user_uuid))
+                            .orElseThrow(() -> {
+                                log.info("User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
+                                return new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                                        "User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
+                            });
 
-					userSearchesRepo.deleteById(userSearchToDelete.get().getSearchUuid());
-					log.info("Search with UUID= " + search_uuid + " has been deleted");
-					return Mono.empty();
-				}));
-	}
+                    userSearchesRepo.deleteById(userSearchToDelete.get().getSearchUuid());
+                    log.info("Search with UUID= " + search_uuid + " has been deleted");
+                    return Mono.empty();
+                }));
+    }
 }

@@ -109,10 +109,10 @@ class UserSearchesServiceTest {
 
 		when(userSearchesRepoMock.save(any())).thenReturn(search);
 		
-		Mono<SaveSearchResponseDto> savedSearch = userSearchesService.saveSearch(requestDto, "44c5c069-e907-45a9-8d49-2042044c56e0");
+		Mono<?> savedSearch = userSearchesService.saveSearch(requestDto, "44c5c069-e907-45a9-8d49-2042044c56e0");
 
 		assertThat(savedSearch.block().toString().equals(responseDto.toString()));
-		assertEquals(requestDto.getSearchName(), savedSearch.block().getSearchName());
+		assertEquals(requestDto.getSearchName(), ((Mono<SaveSearchResponseDto)savedSearch.block()).getSearchName());
 	}
 
 	@Test
@@ -131,7 +131,7 @@ class UserSearchesServiceTest {
 		when(propertiesConfig.getIsLimitEnabled()).thenReturn(IS_LIMIT_ENABLED);
 		when(propertiesConfig.getErrorMessage()).thenReturn(LIMIT_SEARCHES_MESSAGE);
 
-		boolean limitExceded = userSearchesService.checkLimitUserSearches(search.getUserUuid());
+		boolean limitExceded = userSearchesService.checkLimitExceededUserSearches(search.getUserUuid());
 		assertTrue(limitExceded);
 
 		Mono<ErrorDetailsResponse> errorDetailsResponseMono = userSearchesService.saveSearch(requestDto, search.getUserUuid())
@@ -164,7 +164,7 @@ class UserSearchesServiceTest {
 		genericDto.setLimit(-1);
 		genericDto.setResults(results);
 		
-		when(userSearchesRepoMock.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0")).thenReturn(searchList);
+		//when(userSearchesRepoMock.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0")).thenReturn(searchList);
 	
 		Mono<GenericSearchesResultDto<JsonNode>> allUserSearches = userSearchesService.getAllUserSearches("44c5c069-e907-45a9-8d49-2042044c56e0", 0, -1);
 		
