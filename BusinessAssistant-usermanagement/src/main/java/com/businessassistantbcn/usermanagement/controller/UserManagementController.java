@@ -64,7 +64,7 @@ public class UserManagementController {
             @ApiResponse(responseCode = "400", description = "Bad Request"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
             @ApiResponse(responseCode = "503", description = "Service Unavailable") })
-    public Mono<UserDto> addUser(@RequestBody UserEmailDto userEmailDto){
+    public Mono<?> addUser(@RequestBody UserEmailDto userEmailDto){
         return userManagementService.addUser(userEmailDto);
     }
 

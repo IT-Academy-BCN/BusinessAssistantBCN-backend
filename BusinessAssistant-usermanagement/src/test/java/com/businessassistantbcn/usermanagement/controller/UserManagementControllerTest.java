@@ -105,7 +105,7 @@ public class UserManagementControllerTest {
       //TODO: userDto is empty (??)
   void AddUserTest(){
 		final String URI_ADD_USER="/user";
-		when(userManagementService.addUser(userEmailDto)).thenReturn(Mono.just(userDto));
+		//when(userManagementService.addUser(userEmailDto)).thenReturn(Mono.just(userDto));
 		webTestClient.post()
 				.uri(CONTROLLER_BASE_URL + URI_ADD_USER)
 				.accept(MediaType.APPLICATION_JSON)

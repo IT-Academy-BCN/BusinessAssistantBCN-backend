@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter@Setter
 @AllArgsConstructor
 @ToString
-public class LimitDbErrorDto {
+public class ErrorDto {
 
     private String message;
 }

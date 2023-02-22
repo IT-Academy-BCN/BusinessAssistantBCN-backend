@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 
 public interface IUserManagementService {
 
-    Mono<UserDto> addUser(UserEmailDto userEmailDto);
+    Mono<?> addUser(UserEmailDto userEmailDto);
 
     Mono<UserDto> getUserByUuid(UserUuidDto userUuidDto);
 

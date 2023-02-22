@@ -1,7 +1,7 @@
 package com.businessassistantbcn.usermanagement.service;
 
 import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
-import com.businessassistantbcn.usermanagement.dto.LimitDbErrorDto;
+import com.businessassistantbcn.usermanagement.dto.ErrorDto;
 import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,24 +23,6 @@ public class UserManagementService implements IUserManagementService {
     PropertiesConfig propertiesConfig;
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
 
-/*
-        //TODO - PENDIENTE LIMPIAR (kk)
-        private boolean existByEmail(UserEmailDto userEmailDto){
-
-        Optional<Boolean> aBoolean = userRepository.existsByEmail(userEmailDto.getEmail()).blockOptional();
-
-        boolean result;
-
-        if (aBoolean.isPresent()){
-            result = aBoolean.get();
-        } else {
-            result = true;
-        }
-
-        return result;
-
-    }*/
-
     /**
      * Añade un usuario a la base de datos. Funcionamiento:
      * 1. Comprueba si el número máximo de usuarios está excedido
@@ -51,63 +33,33 @@ public class UserManagementService implements IUserManagementService {
      * @return
      */
 
-    public Mono<UserDto> addUser(UserEmailDto userEmailDto) {
+    public Mono<?> addUser(UserEmailDto userEmailDto) {
 
-        Mono<UserDto> response = Mono.empty();
+        Mono<?> response;
 
-        if(limitUsersDb()){
-            userRepository.findByEmail(userEmailDto.getEmail()).map(user -> {
-                if(user != null) {
-                    //usuario existe, actualizamos
-                    user.setLatestAccess(System.currentTimeMillis());
-                    return userRepository.save(user);
-                } else { //usuario no existe, lo creamos y devolvemos el usuario creado
-                    userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
-                    return userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);
-                }
-            }).subscribe();
-
-        }else {//número máximo de usuarios excedido
-            Mono<?> responseErr = Mono.just(new LimitDbErrorDto(propertiesConfig.getError()));
-            response = (Mono<UserDto>) responseErr;
-        }
-        return response;
-
-
-
-/*        if(limitUsersDb()){ //límite no excedido
-            //buscamos si existe el usuario
-            //si existe, seteamos el último acceso y devolvemos empty
-            if(existByEmail(userEmailDto)){
-                User userSetLatestAccess = userRepository.findByEmail(userEmailDto.getEmail()).block();
-                latestAccess(userSetLatestAccess);
-                response = Mono.empty();
-            } else {//si no existe, lo creamos y devolvemos el usuario creado
-            userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
-            response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto))
-                    .map(DtoHelper::convertToDto);
+        if(!limitUsersDbExceeded()){
+            Optional<User> user = userRepository.findByEmail(userEmailDto.getEmail()).blockOptional();
+            if(!user.isEmpty()){
+                setLatestAccess(user.get());
+                User userSaved = userRepository.save(user.get()).block();
+                response = Mono.just(DtoHelper.convertToDto(userSaved));
+            } else{
+                userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
+                response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);
             }
         }else {//número máximo de usuarios excedido
-            Mono<?> responseErr = Mono.just(new LimitDbErrorDto(propertiesConfig.getError()));
-            response = (Mono<UserDto>) responseErr;
+            response = Mono.just(new ErrorDto(propertiesConfig.getError()));
         }
-        return response;*/
+        return response;
     }
 
-    private void latestAccess(User user){
+    private void setLatestAccess(User user){
         user.setLatestAccess(System.currentTimeMillis());
         userRepository.save(user).block();
     }
-    //false si excede el máximo de usuarios
-    private boolean limitUsersDb(){
-        boolean result = true;
-        if(propertiesConfig.getEnabled()){
-            Long sizeDb = userRepository.count().block();
-            if(sizeDb >= propertiesConfig.getMaxusers()) {
-                result = false;
-            }
-        }
-        return result;
+
+    private boolean limitUsersDbExceeded(){
+        return propertiesConfig.getEnabled() && (userRepository.count().block() >= propertiesConfig.getMaxusers());
     }
 
     @Override
@@ -121,7 +73,7 @@ public class UserManagementService implements IUserManagementService {
             response = Mono.empty();
         }else{
             User userSetLatestAccess = userRepository.findByUuid(userUuidDto.getUuid()).block();
-            latestAccess(userSetLatestAccess);
+            setLatestAccess(userSetLatestAccess);
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
@@ -137,7 +89,7 @@ public class UserManagementService implements IUserManagementService {
             response = Mono.empty();
         }else{
             User userSetLatestAccess = userRepository.findByEmail(userEmailDto.getEmail()).block();
-            latestAccess(userSetLatestAccess);
+            setLatestAccess(userSetLatestAccess);
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
