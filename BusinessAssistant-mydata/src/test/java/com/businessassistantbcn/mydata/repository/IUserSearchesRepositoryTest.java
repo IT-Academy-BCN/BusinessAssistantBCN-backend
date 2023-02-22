@@ -12,17 +12,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
 
 import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 
 @ExtendWith(SpringExtension.class)
 //@ContextConfiguration(classes = { DBTestConfiguration.class })
@@ -78,7 +75,8 @@ public class IUserSearchesRepositoryTest {
 	@Test
 	void whenSaved_thenSearchUuidIsCreated() {
 		IUserSearchesRepository.save(search);
-		assertThat(IUserSearchesRepository.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0").get().get(0).getSearchUuid()).isNotNull();
+		assertThat(IUserSearchesRepository.findByUserUuid("44c5c069-e907-45a9-8d49-2042044c56e0")
+				.orElseGet(Collections::emptyList).get(0).getSearchUuid()).isNotNull();
 	}
 
 	@Test
@@ -93,13 +91,14 @@ public class IUserSearchesRepositoryTest {
 	
 	@Test
 	void whenFindByExistingUserUuid_thenReturnsSearch() {
-		assertThat(IUserSearchesRepository.findByUserUuid(userUuidFromTestDb)).isNotEmpty();
-		assertThat(IUserSearchesRepository.findByUserUuid(userUuidFromTestDb).get().get(0).getSearchUuid()).isEqualTo(searchUuidFromTestDb);
+		List<UserSearch> searchList = IUserSearchesRepository.findByUserUuid(userUuidFromTestDb).orElseGet(Collections::emptyList);
+		assertThat(searchList).isNotEmpty();
+		assertThat(searchList.get(0).getSearchUuid()).isEqualTo(searchUuidFromTestDb);
 	}
 	
 	@Test
 	void whenFindByNonExistingUserUuid_thenReturnsEmptyList() {
-		assertThat(IUserSearchesRepository.findByUserUuid(userUuidNotInTestDb)).isEmpty();
+		assertThat(IUserSearchesRepository.findByUserUuid(userUuidNotInTestDb).orElseGet(Collections::emptyList)).isEmpty();
 	}
 	
 	@Test
@@ -110,12 +109,12 @@ public class IUserSearchesRepositoryTest {
 	
 	@Test
 	void whenFindByNonExistingSearchUuid_thenReturnsEmptyList() {
-		assertThat(IUserSearchesRepository.findByUserUuid(searchUuidNotIntTestDb)).isEmpty();
+		assertThat(IUserSearchesRepository.findByUserUuid(searchUuidNotIntTestDb).orElseGet(Collections::emptyList)).isEmpty();
 	}
 
 	@Test
 	void findOneBySearchUuid_thenReturnThisSearch(){
 		Optional<UserSearch> userSearchFound = IUserSearchesRepository.findOneBySearchUuid(searchUuidFromTestDb);
-		assertThat(userSearchFound.get().getSearchUuid()).isEqualTo(searchUuidFromTestDb);
+		assertThat(userSearchFound.orElseThrow().getSearchUuid()).isEqualTo(searchUuidFromTestDb);
 	}
 }

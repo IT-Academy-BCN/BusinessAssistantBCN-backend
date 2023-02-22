@@ -51,36 +51,18 @@ public class UserSearchesService {
 
     public Mono<?> saveSearch(SaveSearchRequestDto searchToSave, String user_uuid) {
 
+        //faltaría alguna validación?
+
         if (!checkLimitExceededUserSearches(user_uuid)) {
-//guardado
-        } else { //retorno de error
+            UserSearch search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
+            UserSearch savedSearch = userSearchesRepo.save(search);
+            return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
 
+        } else {
+            return Mono.just(new ErrorDetailsResponse("User " + user_uuid + " " + propertiesConfig.getErrorMessage()
+                    , HttpStatus.OK
+                    , new Date()));
         }
-
-
-        return null;
-
-
-/*
-		boolean isLimitExceded = false;
-
-		if (propertiesConfig.getIsLimitEnabled()){
-			isLimitExceded = checkLimitUserSearches(user_uuid);
-		}
-
-		UserSearch search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
-
-		if(!isLimitExceded){
-
-			UserSearch savedSearch = userSearchesRepo.save(search);
-			return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
-
-		} else {
-			Mono<?> monoErrorResponse = Mono.just(new ErrorDetailsResponse("User " + user_uuid + " " + propertiesConfig.getErrorMessage()
-					,HttpStatus.OK
-					,new Date()));
-			return (Mono<SaveSearchResponseDto>) monoErrorResponse;
-		}*/
     }
 
     public Mono<GenericSearchesResultDto<JsonNode>> getAllUserSearches(String user_uuid, int offset, int limit) {
