@@ -188,7 +188,7 @@ class MyDataControllerTest {
 	}
 
 	@Test
-	public void deleteSeardeleteUserSearchBySearchUuidchTest() {
+	public void deleteUsearSearchBySearchUuidTest() {
 
 		final String URI_DELETE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
 
@@ -198,7 +198,7 @@ class MyDataControllerTest {
 				.uri(CONTROLLER_BASE_URL + URI_DELETE_SEARCH, "44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0")
 				.accept(MediaType.APPLICATION_JSON)
 				.exchange()
-				.expectStatus().isNoContent()
+				.expectStatus().isOk()
 				.expectBody()
 				.isEmpty();
 

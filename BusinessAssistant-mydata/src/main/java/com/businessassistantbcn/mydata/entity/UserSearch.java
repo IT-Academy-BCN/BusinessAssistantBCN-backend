@@ -1,6 +1,7 @@
 package com.businessassistantbcn.mydata.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -45,5 +46,11 @@ public class UserSearch {
 	@Convert(converter = JsonHelper.class)
 	@Column(name = "search_result", nullable = true)
 	private JsonNode searchResult;
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof UserSearch that)) return false;
+		return Objects.equals(searchUuid, that.searchUuid) && Objects.equals(userUuid, that.userUuid) && Objects.equals(searchDate, that.searchDate) && Objects.equals(searchName, that.searchName) && Objects.equals(searchDetail, that.searchDetail) && Objects.equals(searchResult, that.searchResult);
+	}
 }

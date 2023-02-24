@@ -1,4 +1,4 @@
-package com.businessassistantbcn.mydata.handleError;
+package com.businessassistantbcn.mydata.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -6,19 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 
 import java.util.Date;
-import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-public class ErrorDetailsResponse{
+public class DetailsResponseDTO {
 
     @Value("${user.searchLimit.errorMessage}")
     private String errorMessage;
-    private HttpStatus httpStatus;
     private Date timestamp;
 
 }

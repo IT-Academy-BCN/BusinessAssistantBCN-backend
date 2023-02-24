@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Mono;
 
 import javax.sql.DataSource;
 
@@ -113,8 +112,24 @@ public class IUserSearchesRepositoryTest {
 	}
 
 	@Test
-	void findOneBySearchUuid_thenReturnThisSearch(){
+	void whenFindOneBySearchUuid_thenReturnThisSearch(){
 		Optional<UserSearch> userSearchFound = IUserSearchesRepository.findOneBySearchUuid(searchUuidFromTestDb);
-		assertThat(userSearchFound.orElseThrow().getSearchUuid()).isEqualTo(searchUuidFromTestDb);
+		assertThat(userSearchFound.orElseThrow().getSearchUuid()).isEqualTo("8480788D-1FE0-035D-32D7-24984EBA8615");
 	}
+
+	@Test
+	void whenfindOneBySearchUuidAndUserUuid_thenReturnThisSearch(){
+		Optional<UserSearch> userSearchFound = IUserSearchesRepository.findOneBySearchUuidAndUserUuid(searchUuidFromTestDb, userUuidFromTestDb);
+
+		assertThat(userSearchFound).isPresent();
+		assertThat(userSearchFound.get().getUserUuid()).isEqualTo("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57");
+		assertThat(userSearchFound.get().getSearchUuid()).isEqualTo("8480788D-1FE0-035D-32D7-24984EBA8615");
+	}
+	@Test
+	void whenfindOneBySearchUuidAndUserUuidNoExists_thenReturnEmpty(){
+		Optional<UserSearch> userSearchFound = IUserSearchesRepository.findOneBySearchUuidAndUserUuid(searchUuidNotIntTestDb, userUuidNotInTestDb);
+		assertThat(userSearchFound).isEmpty();
+		assertNotNull(userSearchFound);
+	}
+
 }

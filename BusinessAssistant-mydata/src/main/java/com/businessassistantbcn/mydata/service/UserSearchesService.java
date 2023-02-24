@@ -4,15 +4,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.businessassistantbcn.mydata.config.PropertiesConfig;
-import com.businessassistantbcn.mydata.handleError.ErrorDetailsResponse;
+import com.businessassistantbcn.mydata.dto.DetailsResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
-import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.dto.SearchResultsDto;
 import com.businessassistantbcn.mydata.entity.UserSearch;
 import com.businessassistantbcn.mydata.helper.DtoHelper;
@@ -23,8 +20,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.function.ServerResponse;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -51,17 +46,19 @@ public class UserSearchesService {
 
     public Mono<?> saveSearch(SaveSearchRequestDto searchToSave, String user_uuid) {
 
-        //faltaría alguna validación?
-
         if (!checkLimitExceededUserSearches(user_uuid)) {
             UserSearch search = DtoHelper.mapSaveSearchRequestDtoToSearch(searchToSave, user_uuid);
             UserSearch savedSearch = userSearchesRepo.save(search);
             return Mono.just(DtoHelper.mapSearchToSaveSearchResponseDto(savedSearch));
 
         } else {
-            return Mono.just(new ErrorDetailsResponse("User " + user_uuid + " " + propertiesConfig.getErrorMessage()
-                    , HttpStatus.OK
-                    , new Date()));
+            Map<String,Object> details = new HashMap<>();
+            details.put("Message", propertiesConfig.getErrorMessage());
+            details.put("User", user_uuid);
+            details.forEach((k,v) -> log.info(k +": " + v));
+
+            return Mono.just(new DetailsResponseDTO("User " + user_uuid + " " + propertiesConfig.getErrorMessage() , new Date()));
+
         }
     }
 
@@ -169,7 +166,9 @@ public class UserSearchesService {
     }
 
     private List<JsonNode> getAllSearchesFromUserUuid(String user_uuid){
-        return userSearchesRepo.findByUserUuid(user_uuid).stream()
+        return userSearchesRepo.findByUserUuid(user_uuid)
+                .orElseGet(Collections::emptyList)
+                .stream()
                 .map(search -> JsonHelper.entityToJsonString(search))
                 .map(string -> JsonHelper.deserializeStringToJsonNode(string))
                 .collect(Collectors.toList());
@@ -180,29 +179,17 @@ public class UserSearchesService {
         return usersList.isPresent() && propertiesConfig.getIsLimitEnabled() && usersList.get().size() >= propertiesConfig.getLimitValue();
     }
 
-    public Mono<Void> deleteUserSearchBySearchUuid(String user_uuid, String search_uuid) {
+    public Mono<?> deleteUserSearchBySearchUuid(String user_uuid, String search_uuid) {
 
-        return Mono.just(search_uuid)
-                .flatMap((searchExists -> {
-
-                    if ((!userSearchesRepo.existsBySearchUuid(search_uuid)) || (!userSearchesRepo.existsByUserUuid(user_uuid))) {
+        return Mono.just(userSearchesRepo.findOneBySearchUuidAndUserUuid(search_uuid, user_uuid))
+                .flatMap(userSearchToDelete -> {
+                    if (userSearchToDelete.isEmpty()) {
                         log.info("Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist");
-                        return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist"));
+                        return Mono.just(new DetailsResponseDTO("Search with UUID= " + search_uuid + " or User with UUID= " + user_uuid + " does not exist", new Date()));
                     }
-
-                    Optional<UserSearch> userSearchToDelete = userSearchesRepo.findOneBySearchUuid(search_uuid);
-
-                    userSearchToDelete.filter(userSearch -> userSearch.getUserUuid().equals(user_uuid))
-                            .orElseThrow(() -> {
-                                log.info("User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
-                                return new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                                        "User with UUID= " + user_uuid + " does not have a search with UUID= " + search_uuid);
-                            });
-
                     userSearchesRepo.deleteById(userSearchToDelete.get().getSearchUuid());
                     log.info("Search with UUID= " + search_uuid + " has been deleted");
                     return Mono.empty();
-                }));
+                });
     }
 }

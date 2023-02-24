@@ -147,12 +147,12 @@ public class MydataController {
 			@ApiResponse(responseCode = "200", description = "OK"),
 			@ApiResponse(responseCode = "404", description = "Not Found"),
 			@ApiResponse(responseCode = "503", description = "Service Unavailable"),})
-	public Mono<ResponseEntity<Void>> deleteSearchFromUser(
+	public Mono<?> deleteSearchFromUser(
 			@PathVariable("user_uuid") String user_uuid,
 			@PathVariable("search_uuid") String search_uuid) {
 
-		Mono<Void> searchDeleted = userService.deleteUserSearchBySearchUuid(user_uuid, search_uuid);
-		return searchDeleted.then(Mono.just(ResponseEntity.noContent().build()));
+		return userService.deleteUserSearchBySearchUuid(user_uuid, search_uuid);
+
 	}
 
 

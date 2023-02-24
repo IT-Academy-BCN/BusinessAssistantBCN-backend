@@ -17,10 +17,9 @@ public interface IUserSearchesRepository extends JpaRepository<UserSearch, Strin
 	
 	boolean existsBySearchUuid(String searchUuid);
 	boolean existsByUserUuid(String userUuid);
-	
 	List<UserSearch> findBySearchUuid(String searchUuid);
 	Optional<List<UserSearch>> findByUserUuid(String userUuid);
-
 	Optional<UserSearch> findOneBySearchUuid(String searchUuid);
+	Optional<UserSearch> findOneBySearchUuidAndUserUuid(String searchUuid, String userUuid);
 
 } 
