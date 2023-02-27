@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
 
 import com.businessassistantbcn.usermanagement.document.User;
 
 
-import com.businessassistantbcn.usermanagement.dto.UserDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserDto;
 import com.businessassistantbcn.usermanagement.document.Role;
 
 public class DtoHelper {
@@ -35,6 +34,7 @@ public class DtoHelper {
 		BeanUtils.copyProperties(user, userDto);
 		stringRoles = convertToUserDtoRoles(user.getRoles());
 		userDto.setRoles(stringRoles);
+		userDto.setPassword(user.getPassword());
 
 		return userDto;
 	}
