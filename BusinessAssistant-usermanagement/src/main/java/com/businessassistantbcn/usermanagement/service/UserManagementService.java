@@ -1,15 +1,15 @@
 package com.businessassistantbcn.usermanagement.service;
 
 import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
-import com.businessassistantbcn.usermanagement.dto.ErrorDto;
-import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
+import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import com.businessassistantbcn.usermanagement.document.User;
-import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.UserDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserDto;
 import com.businessassistantbcn.usermanagement.helper.DtoHelper;
 import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
 import java.util.Optional;
@@ -29,6 +29,7 @@ public class UserManagementService implements IUserManagementService {
      * 2. Comprueba si el usuario existe
      * 3. Si el usuario existe, actualiza el último acceso y devuelve empty
      * 4. Si el usuario no existe, lo crea y devuelve el usuario creado
+     *
      * @param userEmailDto
      * @return
      */
@@ -37,28 +38,28 @@ public class UserManagementService implements IUserManagementService {
 
         Mono<?> response;
 
-        if(!limitUsersDbExceeded()){
+        if (!limitUsersDbExceeded()) {
             Optional<User> user = userRepository.findByEmail(userEmailDto.getEmail()).blockOptional();
-            if(!user.isEmpty()){
+            if (!user.isEmpty()) {
                 setLatestAccess(user.get());
-                User userSaved = userRepository.save(user.get()).block();
-                response = Mono.just(DtoHelper.convertToDto(userSaved));
-            } else{
+                /*User userSaved = */userRepository.save(user.get()).block();
+                response = Mono.empty(); //Mono.just(DtoHelper.convertToDto(userSaved));
+            } else {
                 userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
                 response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);
             }
-        }else {//número máximo de usuarios excedido
+        } else {//número máximo de usuarios excedido
             response = Mono.just(new ErrorDto(propertiesConfig.getError()));
         }
         return response;
     }
 
-    private void setLatestAccess(User user){
+    public void setLatestAccess(User user) {
         user.setLatestAccess(System.currentTimeMillis());
         userRepository.save(user).block();
     }
 
-    private boolean limitUsersDbExceeded(){
+    public boolean limitUsersDbExceeded() {
         return propertiesConfig.getEnabled() && (userRepository.count().block() >= propertiesConfig.getMaxusers());
     }
 
@@ -69,11 +70,10 @@ public class UserManagementService implements IUserManagementService {
 
         Mono<UserDto> response;
 
-        if(user.blockOptional().isEmpty()){
+        if (user.blockOptional().isEmpty()) {
             response = Mono.empty();
-        }else{
-            User userSetLatestAccess = userRepository.findByUuid(userUuidDto.getUuid()).block();
-            setLatestAccess(userSetLatestAccess);
+        } else {
+            setLatestAccess(user.block());
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
@@ -83,19 +83,15 @@ public class UserManagementService implements IUserManagementService {
     public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
 
         Mono<User> user = userRepository.findByEmail(userEmailDto.getEmail());
+
         Mono<UserDto> response;
 
-        if(user.blockOptional().isEmpty()){
+        if (user.blockOptional().isEmpty()) {
             response = Mono.empty();
-        }else{
-            User userSetLatestAccess = userRepository.findByEmail(userEmailDto.getEmail()).block();
-            setLatestAccess(userSetLatestAccess);
+        } else {
+            setLatestAccess(user.block());
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
-    }
-
-    public String getTest(){
-        return propertiesConfig.getError();
     }
 }
