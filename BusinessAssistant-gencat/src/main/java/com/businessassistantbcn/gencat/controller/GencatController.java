@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
@@ -106,4 +107,21 @@ public class GencatController {
         }
             return year;
     }
+    /*
+    [
+        {
+                "idScope": "1",
+                "scope": "xxxxx"
+        }
+]
+Diferentes finalidades o ambitos (scopes) de las RAISC
+https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json
+     */
+    @GetMapping("/raisc/scopes")
+    public Mono<List<RaiscResponseDto>> getRaiscScopes() throws IOException {
+
+        return raiscService.parseJsonFromUrl();
+
+    }
+
 }

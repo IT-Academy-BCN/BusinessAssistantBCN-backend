@@ -7,14 +7,21 @@ import com.businessassistantbcn.gencat.helper.CcaeDeserializer;
 import com.businessassistantbcn.gencat.helper.JsonHelper;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,10 +45,10 @@ public class CcaeService {
 
         return getData()
                 .flatMap(ccaeDtos -> {
-                        CcaeDto[] pageResult = JsonHelper.filterDto(ccaeDtos, offset, limit);
-                        genericResultDto.setInfo(offset, limit, ccaeDtos.length, pageResult);
-                        return Mono.just(genericResultDto);
-                    });
+                    CcaeDto[] pageResult = JsonHelper.filterDto(ccaeDtos, offset, limit);
+                    genericResultDto.setInfo(offset, limit, ccaeDtos.length, pageResult);
+                    return Mono.just(genericResultDto);
+                });
     }
 
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorCcaeDefaultPage")
@@ -70,7 +77,9 @@ public class CcaeService {
                 });
     }
 
-      public Mono<List<PropertiesConfig.CcaeItem>> getTypes() throws MalformedURLException {
+    public Mono<List<PropertiesConfig.CcaeItem>> getTypes() throws MalformedURLException {
         return Mono.just(config.getCcae());
     }
+
+
 }

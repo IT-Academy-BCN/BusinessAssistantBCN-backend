@@ -15,6 +15,11 @@ import org.springframework.stereotype.Component;
 
 public class RaiscResponseDto {
 
+    public RaiscResponseDto(String idScope, String scope) {
+        this.idScope = idScope;
+        this.scope = scope;
+    }
+
     //ENDPOINTS
     //1
     private String idRaisc;
