@@ -1,19 +1,13 @@
 package com.businessassistantbcn.usermanagement.controller;
 
-import com.businessassistantbcn.usermanagement.dto.UserDto;
-import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Map;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
