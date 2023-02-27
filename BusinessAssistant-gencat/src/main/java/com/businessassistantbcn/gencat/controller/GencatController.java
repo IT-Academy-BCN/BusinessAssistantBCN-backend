@@ -121,7 +121,7 @@ https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json
     @GetMapping("/raisc/scopes")
     public Mono<List<ScopeDto>> getRaiscScopes() throws IOException {
 
-        return raiscService.parseJsonFromUrl();
+        return raiscService.getScopes();
 
     }
 

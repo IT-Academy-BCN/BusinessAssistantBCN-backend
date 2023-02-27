@@ -5,6 +5,7 @@ import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
+import com.businessassistantbcn.gencat.dto.output.ScopeDto;
 import com.businessassistantbcn.gencat.exception.ControllerAdvisor;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import com.businessassistantbcn.gencat.service.CcaeService;
@@ -17,17 +18,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -80,7 +87,7 @@ class GencatControllerTest {
         ccaeDto1.setType(type1);
         ccaeDto1.setCode(codeInfoDto1);
         responseDto[0] = ccaeDto1;
-        responseDtoById[0]=ccaeDto1;
+        responseDtoById[0] = ccaeDto1;
 
         CcaeDto ccaeDto2 = new CcaeDto();
         String id2 = "00000000-0000-0000-2335-839767DDAEAB";
@@ -137,7 +144,7 @@ class GencatControllerTest {
     void getEconomicActivities() throws MalformedURLException {
 
         final String URI_TEST = "/ccae";
-        when(ccaeService.getPage(0,-1)).thenReturn(Mono.just(getGenericResultDto()));
+        when(ccaeService.getPage(0, -1)).thenReturn(Mono.just(getGenericResultDto()));
 
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
@@ -161,7 +168,7 @@ class GencatControllerTest {
         return genericResultDto;
     }
 
-    private GenericResultDto<CcaeDto> getGenericResultDtoById(){
+    private GenericResultDto<CcaeDto> getGenericResultDtoById() {
 
         GenericResultDto<CcaeDto> genericResultDto = new GenericResultDto<>();
         genericResultDto.setInfo(0, -1, responseDtoById.length, responseDtoById);
@@ -172,7 +179,7 @@ class GencatControllerTest {
     @Test
     void getEconomicActivityById() {
         final String URI_TEST = "/ccae/A";
-        when(ccaeService.getPageByCcaeId(0,-1, "A")).thenReturn(Mono.just(getGenericResultDtoById()));
+        when(ccaeService.getPageByCcaeId(0, -1, "A")).thenReturn(Mono.just(getGenericResultDtoById()));
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
@@ -203,9 +210,9 @@ class GencatControllerTest {
 
 
     @Test
-    void getRaiscByYearTest(){
+    void getRaiscByYearTest() {
         final String URI_TEST = "/raisc/year/2022";
-        when(raiscService.getPageByRaiscYear(0,-1, "2022")).thenReturn(Mono.just(getGenericResultDtoRaiscByYear()));
+        when(raiscService.getPageByRaiscYear(0, -1, "2022")).thenReturn(Mono.just(getGenericResultDtoRaiscByYear()));
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
@@ -221,7 +228,7 @@ class GencatControllerTest {
                 .jsonPath("year");
     }
 
-    private GenericResultDto<RaiscResponseDto> getGenericResultDtoRaiscByYear(){
+    private GenericResultDto<RaiscResponseDto> getGenericResultDtoRaiscByYear() {
 
         GenericResultDto<RaiscResponseDto> genericResultDto = new GenericResultDto<>();
         genericResultDto.setInfo(1, 1, raiscResponseDto.length, raiscResponseDto);
@@ -257,7 +264,22 @@ class GencatControllerTest {
         );
     }
 
+    @Test
+    public void testGetScopes() throws IOException {
+        final String URI_TEST = "/raisc/scopes";
 
-
-
+        webTestClient.get()
+                .uri(CONTROLLER_BASE_URL + URI_TEST)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBodyList(ScopeDto.class);
+    }
 }
+
+
+
+
+
+
+
