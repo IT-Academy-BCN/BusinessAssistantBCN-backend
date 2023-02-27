@@ -77,9 +77,9 @@ public class MydataController {
 //						.flatMap( s -> Mono.just(s));
 
 
-        return userService.getTest();
+        //return userService.getTest();
 
-		//return "Hello from BusinessAssistant MyData!!!";
+		return "Hello from BusinessAssistant MyData!!!";
 	}
 
 	@PostMapping(value="/mysearches/{user_uuid}")
