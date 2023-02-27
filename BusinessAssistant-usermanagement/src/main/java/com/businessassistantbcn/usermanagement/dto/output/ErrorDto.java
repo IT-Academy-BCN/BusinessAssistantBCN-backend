@@ -1,4 +1,4 @@
-package com.businessassistantbcn.usermanagement.dto;
+package com.businessassistantbcn.usermanagement.dto.output;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
