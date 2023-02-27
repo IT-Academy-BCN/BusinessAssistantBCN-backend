@@ -1,26 +1,14 @@
 package com.businessassistantbcn.usermanagement.integration;
 
-import com.businessassistantbcn.usermanagement.controller.UserManagementController;
-import com.businessassistantbcn.usermanagement.dto.UserDto;
-import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
-import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
-import com.businessassistantbcn.usermanagement.service.UserManagementService;
-import org.junit.jupiter.api.BeforeEach;
+import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -33,10 +21,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
-import java.util.UUID;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
