@@ -68,4 +68,6 @@ public class RaiscResponseDto {
     //65
     private String description;
 
+
+
 }

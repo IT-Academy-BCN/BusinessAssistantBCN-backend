@@ -38,9 +38,9 @@ public class RaiscService {
         return Mono.just(genericResultDto);
     }
 
-    public Mono<List<RaiscResponseDto>> parseJsonFromUrl() throws IOException {
+    public Mono<List<ScopeDto>> parseJsonFromUrl() throws IOException {
         String url = "https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json";
-        List<RaiscResponseDto> scopes = new ArrayList<>();
+        List<ScopeDto> scopes = new ArrayList<>();
 
         HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
         con.setRequestMethod("GET");
@@ -60,7 +60,7 @@ public class RaiscService {
             JSONArray row = data.getJSONArray(i);
             String idScope = row.getString(0);
             String scope = row.getString(1);
-            scopes.add(new RaiscResponseDto(idScope, scope));
+            scopes.add(new ScopeDto(idScope, scope));
         }
 
         return Mono.just(scopes);
