@@ -54,4 +54,4 @@ logging:
 limitdb:
   enabled: true #false
   maxusers: 200
-  err: No hay capacidad para almacenar más usuarios
+  err: Users limit on database
