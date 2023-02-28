@@ -42,8 +42,8 @@ public class UserManagementService implements IUserManagementService {
             Optional<User> user = userRepository.findByEmail(userEmailDto.getEmail()).blockOptional();
             if (!user.isEmpty()) {
                 setLatestAccess(user.get());
-                /*User userSaved = */userRepository.save(user.get()).block();
-                response = Mono.empty(); //Mono.just(DtoHelper.convertToDto(userSaved));
+                userRepository.save(user.get()).block();
+                response = Mono.empty();
             } else {
                 userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
                 response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);

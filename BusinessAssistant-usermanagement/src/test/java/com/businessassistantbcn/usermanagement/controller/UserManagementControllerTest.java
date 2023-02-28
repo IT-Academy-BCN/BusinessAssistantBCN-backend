@@ -104,11 +104,9 @@ public class UserManagementControllerTest {
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()
-
 				.equals(Mono.just(userDto));
   }
 
-	
   @Test
       //TODO: userDto is empty (??)
   void AddUserTest(){
@@ -123,6 +121,4 @@ public class UserManagementControllerTest {
 				.expectBody()
 				.equals(Mono.just(userDto));
 	}
-
-
 }

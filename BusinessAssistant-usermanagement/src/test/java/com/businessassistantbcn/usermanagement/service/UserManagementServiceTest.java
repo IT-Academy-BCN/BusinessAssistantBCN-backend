@@ -68,7 +68,8 @@ public class UserManagementServiceTest {
 
         Mono<UserDto> result = (Mono<UserDto>) service.addUser(userEmailDto);
 
-        StepVerifier.create(result)/*.consumeNextWith(userDto->{assertEquals(/*userEmailDto.getEmail()|||"user@user.es", userDto.getEmail()|||user.getEmail()|||);})*/.verifyComplete();
+        StepVerifier.create(result)
+                .verifyComplete();
     }
 
     @Test
@@ -80,7 +81,11 @@ public class UserManagementServiceTest {
 
         Mono<UserDto> result = (Mono<UserDto>) service.addUser(userEmailDto);
 
-        StepVerifier.create(result).consumeNextWith(userDto->{assertEquals("cb5f0578-6574-4e9a-977d-fca06c7cb67b", userDto.getUuid()/*user.getUuid()*/);}).verifyComplete();
+        StepVerifier.create(result)
+                .consumeNextWith(userDto->{
+                    assertEquals("cb5f0578-6574-4e9a-977d-fca06c7cb67b"/*user.getUuid()*/, userDto.getUuid());
+                })
+                .verifyComplete();
     }
 
     @Test
@@ -91,7 +96,11 @@ public class UserManagementServiceTest {
 
         Mono<ErrorDto> result = (Mono<ErrorDto>) service.addUser(userEmailDto);
 
-        StepVerifier.create(result).consumeNextWith(errorDto->{assertEquals("Users limit on database", errorDto.getMessage()/*,propertiesConfig.getErr()*/);}).verifyComplete();
+        StepVerifier.create(result)
+                .consumeNextWith(errorDto->{
+                    assertEquals("Users limit on database"/*,propertiesConfig.getErr()*/, errorDto.getMessage());
+                })
+                .verifyComplete();
     }
 
     @Test
