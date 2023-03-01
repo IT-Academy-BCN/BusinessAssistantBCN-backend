@@ -1,6 +1,7 @@
 package com.businessassistantbcn.usermanagement.integration;
 
 import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -63,22 +64,35 @@ public class UserManagementIntegrationTest {
                 .value(s -> s.toString(), equalTo("Hello from BusinessAssistant User!!!"));
     }
 
-
     @Test
-    @DisplayName("Test integration add user")
-    void addUserByUuidTest() {
+    void addUserTest(){
         final String URI_ADD_USER = "/user";
-        UserEmailDto userEmailDto = new UserEmailDto("pp@gmail.com", "wwdd98e");
+        UserEmailDto userEmailDto1 = new UserEmailDto("user@user.com", "user");
+        ErrorDto errorDto = new ErrorDto("Users limit on database");
+        for(int i = 0; i < 200; i++){
+            UserEmailDto userEmailDto = new UserEmailDto("user"+i+"@gmail.com", "user"+i);
+            webTestClient.post()
+                    .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .body(Mono.just(userEmailDto), UserEmailDto.class)
+                    .exchange()
+                    .expectStatus().isOk()
+                    .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                    .expectBody()
+                    .jsonPath("$.email").isEqualTo("user"+i+"@gmail.com")
+                    .equals(Mono.just(userEmailDto).block());
+        }
 
         webTestClient.post()
                 .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(userEmailDto), UserEmailDto.class)
+                .body(Mono.just(userEmailDto1), UserEmailDto.class)
                 .exchange()
                 .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody()
-                .equals(Mono.just(userEmailDto).block());
-
+                .jsonPath("$.message").isEqualTo("Users limit on database")
+                .equals(Mono.just(errorDto).block());
     }
 
 }
