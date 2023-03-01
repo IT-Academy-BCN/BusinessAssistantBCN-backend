@@ -119,11 +119,13 @@ class EndToEndContractTest {
     @PactTestFor(pactMethod = "commercialGalleries")
     void commercialGalleriesSearchTest() {
 
-        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{1006051});
+       // SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{1006051});
 
         webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + "/commercial-galleries/search")
-                .bodyValue(searchDTO)
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + "/commercial-galleries/search")
+                        .queryParam("zones", 2,3)
+                        .queryParam("activities", 1006051)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK)
@@ -218,11 +220,13 @@ class EndToEndContractTest {
     @PactTestFor(pactMethod = "bigMalls")
     void bigMallsSearchTest() {
 
-        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{37810722});
+        //SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{37810722});
 
         webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + "/big-malls/search")
-                .bodyValue(searchDTO)
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + "/big-malls/search")
+                        .queryParam("zones", 2,3)
+                        .queryParam("activities", 37810722)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK)
@@ -317,11 +321,13 @@ class EndToEndContractTest {
     @PactTestFor(pactMethod = "largeEstablishments")
     void largeEstablishmentsSearchTest() {
 
-        SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{107001});
+        //SearchDTO searchDTO = new SearchDTO(new int[]{2, 3}, new int[]{107001});
 
         webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + "/large-establishments/search")
-                .bodyValue(searchDTO)
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + "/large-establishments/search")
+                        .queryParam("zones", 2,3)
+                        .queryParam("activities", 107001)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK)
@@ -384,11 +390,12 @@ class EndToEndContractTest {
     @PactTestFor(pactMethod = "marketFairs")
     void marketFairsSearchTest() {
 
-        MarketFairsSearchDto searchDTO = new MarketFairsSearchDto(new int[]{2, 3});
+        //MarketFairsSearchDto searchDTO = new MarketFairsSearchDto(new int[]{2, 3});
 
         webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + "/market-fairs/search")
-                .bodyValue(searchDTO)
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + "/market-fairs/search")
+                        .queryParam("zones", 2,3)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK)
@@ -470,11 +477,12 @@ class EndToEndContractTest {
     @PactTestFor(pactMethod = "municipalMarkets")
     void municipalMarketsSearchTest() {
 
-        MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO(new int[]{2, 3});
+        //MunicipalMarketsSearchDTO searchDTO = new MunicipalMarketsSearchDTO(new int[]{2, 3});
 
         webTestClient.method(HttpMethod.GET)
-                .uri(CONTROLLER_BASE_URL + "/municipal-markets/search")
-                .bodyValue(searchDTO)
+                .uri(uriBuilder -> uriBuilder.path(CONTROLLER_BASE_URL + "/municipal-markets/search")
+                        .queryParam("zones", 2,3)
+                        .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.OK)

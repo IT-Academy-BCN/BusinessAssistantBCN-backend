@@ -95,7 +95,12 @@ public class OpendataController {
     public Mono<GenericResultDto<LargeEstablishmentsResponseDto>> largeEstablishmentsSearch(
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
-            @Valid @RequestBody SearchDTO searchParams) {
+            @Valid @RequestParam int[] zones,
+            @Valid @RequestParam int[] activities) {
+
+        SearchDTO searchParams = new SearchDTO();
+        searchParams.setZones(zones);
+        searchParams.setActivities(activities);
         return largeEstablishmentsService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
     }
@@ -138,7 +143,12 @@ public class OpendataController {
     public Mono<GenericResultDto<CommercialGalleriesResponseDto>> commercialGalleriesSearch(
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
-            @Valid @RequestBody SearchDTO searchParams) {
+            @Valid @RequestParam int[] zones,
+            @Valid @RequestParam int[] activities) {
+
+        SearchDTO searchParams = new SearchDTO();
+        searchParams.setZones(zones);
+        searchParams.setActivities(activities);
         return commercialGalleriesService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
     }
@@ -180,7 +190,12 @@ public class OpendataController {
     public Mono<GenericResultDto<BigMallsResponseDto>> bigMallsSearch(
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
-            @Valid @RequestBody SearchDTO searchParams) {
+            @Valid @RequestParam int[] zones,
+            @Valid @RequestParam int[] activities) {
+
+        SearchDTO searchParams = new SearchDTO();
+        searchParams.setZones(zones);
+        searchParams.setActivities(activities);
         return bigMallsService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
     }
@@ -204,7 +219,10 @@ public class OpendataController {
     public Mono<GenericResultDto<MunicipalMarketsResponseDto>> municipalMarketsSearch(
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
-            @Valid @RequestBody MunicipalMarketsSearchDTO searchParams) {
+            @Valid @RequestParam int [] zones) {
+
+        MunicipalMarketsSearchDTO searchParams= new MunicipalMarketsSearchDTO();
+        searchParams.setZones(zones);
         return municipalMarketsService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
     }
@@ -229,7 +247,10 @@ public class OpendataController {
     public Mono<GenericResultDto<MarketFairsResponseDto>> marketFairsSearch(
             @RequestParam(required = false) String offset,
             @RequestParam(required = false) String limit,
-            @Valid @RequestBody MarketFairsSearchDto searchParams) {
+            @Valid @RequestParam int [] zones) {
+
+        MarketFairsSearchDto searchParams=new MarketFairsSearchDto();
+        searchParams.setZones(zones);
         return marketFairsService.getPageBySearch(
                 this.getValidOffset(offset), this.getValidLimit(limit), searchParams);
     }

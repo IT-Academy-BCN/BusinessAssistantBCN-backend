@@ -28,6 +28,7 @@ import java.util.UUID;
 @WebFluxTest(controllers = UserManagementController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
 public class UserManagementControllerTest {
 
+
 	@Autowired
 	private WebTestClient webTestClient;
 
@@ -66,6 +67,7 @@ public class UserManagementControllerTest {
 
 	@Test
 	@DisplayName("Test response get user")
+    //TODO: userDto is empty (??)
 	void testGetUserByUuidResponse(){
 		final String URI_GET_USER = "/user/uuid";
 		when(userManagementService.getUserByUuid(userUuidDto)).thenReturn(Mono.just(userDto));
@@ -82,6 +84,7 @@ public class UserManagementControllerTest {
 	@Test
 
 	@DisplayName("Test response get user")
+        //TODO: userDto is empty (??)
 	void testGetUserByMailResponse(){
 		final String URI_GET_USER = "/user/email";
 		when(userManagementService.getUserByEmail(userEmailDto)).thenReturn(Mono.just(userDto));
@@ -99,6 +102,7 @@ public class UserManagementControllerTest {
 
 	
   @Test
+      //TODO: userDto is empty (??)
   void AddUserTest(){
 		final String URI_ADD_USER="/user";
 		when(userManagementService.addUser(userEmailDto)).thenReturn(Mono.just(userDto));
@@ -111,5 +115,6 @@ public class UserManagementControllerTest {
 				.expectBody()
 				.equals(Mono.just(userDto));
 	}
-  
+
+
 }

@@ -1,5 +1,6 @@
 package com.businessassistantbcn.gencat.security;
 
+import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import com.businessassistantbcn.gencat.config.SecurityPropertiesConfig;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private SecurityPropertiesConfig config;
+    private PropertiesConfig config;
 
     private final String TOKEN_PREFIX = "Bearer ";
 

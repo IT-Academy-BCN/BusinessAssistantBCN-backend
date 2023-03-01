@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 @Service
 public class CcaeService {
@@ -43,6 +44,12 @@ public class CcaeService {
                     });
     }
 
+    @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorCcaeDefaultPage")
+    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId) {
+
+        return this.getCcaeDefaultPage();
+    }
+
     @SuppressWarnings("unused")
     private Mono<GenericResultDto<CcaeDto>> logServerErrorCcaeDefaultPage(Throwable exception) {
         log.error("Gencat server is down");
@@ -61,5 +68,9 @@ public class CcaeService {
                     CcaeDto[] codes = ccaeDeserializer.deserialize(ccaeDto).toArray(CcaeDto[]::new);
                     return Mono.just(codes);
                 });
+    }
+
+      public Mono<List<PropertiesConfig.CcaeItem>> getTypes() throws MalformedURLException {
+        return Mono.just(config.getCcae());
     }
 }

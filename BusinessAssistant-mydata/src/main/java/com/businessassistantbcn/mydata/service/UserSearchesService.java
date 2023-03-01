@@ -28,9 +28,20 @@ public class UserSearchesService {
 	private static final Logger log = LoggerFactory.getLogger(UserSearchesService.class);
 	
 	@Autowired
-	UserSearchesRepository userSearchesRepo;
+    IUserSearchesRepository userSearchesRepo;
 
-	public UserSearchesService(UserSearchesRepository userSearchesRepo) {
+    @Autowired
+    MyDataRepository myDataRepo;
+
+
+    public String getTest(){
+        return myDataRepo.getMyData();
+    }
+
+
+
+
+	public UserSearchesService(IUserSearchesRepository userSearchesRepo) {
 		this.userSearchesRepo = userSearchesRepo;
 	}
 

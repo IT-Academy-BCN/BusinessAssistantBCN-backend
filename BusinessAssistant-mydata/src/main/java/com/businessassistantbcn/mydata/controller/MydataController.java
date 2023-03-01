@@ -75,6 +75,10 @@ public class MydataController {
 //						.map( s -> s.resolve("/businessassistantbcn/api/v1/usermanagement/test"))
 //						.get().toURL(), String.class)
 //						.flatMap( s -> Mono.just(s));
+
+
+        //return userService.getTest();
+
 		return "Hello from BusinessAssistant MyData!!!";
 	}
 

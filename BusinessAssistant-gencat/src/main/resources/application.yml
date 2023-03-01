@@ -8,7 +8,7 @@ spring:
   #   - pro: enable JWT security
   profiles:
     active:
-    - dev 
+    - dev
     
 security:
   datasource:
@@ -16,6 +16,16 @@ security:
     headerString: Authorization
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable 
+
+ccae:
+  - type: 1
+    description: Secció
+  - type: 2
+    description: Divisió
+  - type: 3
+    description: Grup
+  - type: 4
+    description: Classe
 
 springdoc:
   swagger-ui:
