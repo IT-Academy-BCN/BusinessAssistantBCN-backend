@@ -1,26 +1,15 @@
 package com.businessassistantbcn.usermanagement.integration;
 
-import com.businessassistantbcn.usermanagement.controller.UserManagementController;
-import com.businessassistantbcn.usermanagement.dto.UserDto;
-import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
-import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
-import com.businessassistantbcn.usermanagement.service.UserManagementService;
-import org.junit.jupiter.api.BeforeEach;
+import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -33,10 +22,8 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
-import java.util.UUID;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -77,22 +64,37 @@ public class UserManagementIntegrationTest {
                 .value(s -> s.toString(), equalTo("Hello from BusinessAssistant User!!!"));
     }
 
-
     @Test
-    @DisplayName("Test integration add user")
-    void addUserByUuidTest() {
+    @DisplayName("Integration test add user")
+    void addUserTest(){
         final String URI_ADD_USER = "/user";
-        UserEmailDto userEmailDto = new UserEmailDto("pp@gmail.com", "wwdd98e");
+        UserEmailDto userEmailDto1 = new UserEmailDto("user@user.com", "user");
+        ErrorDto errorDto = new ErrorDto("Users limit on database");
+        //Bucle for con 200 peticiones post(), para simular y obtener resultado de las peticiones y el exceso de usuarios en base de datos
+        for(int i = 0; i < 200 ; i++){ //Límite de usuarios en base de datos, extraido de la propiedad maxusers del application.yml
+            UserEmailDto userEmailDto = new UserEmailDto("user"+i+"@gmail.com", "user"+i);
+            webTestClient.post()
+                    .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .body(Mono.just(userEmailDto), UserEmailDto.class)
+                    .exchange()
+                    .expectStatus().isOk()
+                    .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                    .expectBody()
+                    .jsonPath("$.email").isEqualTo("user"+i+"@gmail.com")
+                    .equals(Mono.just(userEmailDto).block());
+        }
 
         webTestClient.post()
                 .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(userEmailDto), UserEmailDto.class)
+                .body(Mono.just(userEmailDto1), UserEmailDto.class)
                 .exchange()
                 .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody()
-                .equals(Mono.just(userEmailDto).block());
-
+                .jsonPath("$.message").isEqualTo("Users limit on database")
+                .equals(Mono.just(errorDto).block());
     }
 
 }

@@ -1,4 +1,4 @@
-package com.businessassistantbcn.usermanagement.dto;
+package com.businessassistantbcn.usermanagement.dto.input;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
