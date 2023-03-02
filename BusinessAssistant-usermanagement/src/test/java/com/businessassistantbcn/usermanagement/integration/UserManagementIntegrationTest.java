@@ -65,11 +65,13 @@ public class UserManagementIntegrationTest {
     }
 
     @Test
+    @DisplayName("Integration test add user")
     void addUserTest(){
         final String URI_ADD_USER = "/user";
         UserEmailDto userEmailDto1 = new UserEmailDto("user@user.com", "user");
         ErrorDto errorDto = new ErrorDto("Users limit on database");
-        for(int i = 0; i < 200; i++){
+        //Bucle for con 200 peticiones post(), para simular y obtener resultado de las peticiones y el exceso de usuarios en base de datos
+        for(int i = 0; i < 200 ; i++){ //Límite de usuarios en base de datos, extraido de la propiedad maxusers del application.yml
             UserEmailDto userEmailDto = new UserEmailDto("user"+i+"@gmail.com", "user"+i);
             webTestClient.post()
                     .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
