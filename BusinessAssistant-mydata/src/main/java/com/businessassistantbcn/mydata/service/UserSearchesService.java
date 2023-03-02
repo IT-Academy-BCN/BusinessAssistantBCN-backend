@@ -58,7 +58,6 @@ public class UserSearchesService {
             details.forEach((k,v) -> log.info(k +": " + v));
 
             return Mono.just(new DetailsResponseDTO("User " + user_uuid + " " + propertiesConfig.getErrorMessage() , new Date()));
-
         }
     }
 
@@ -158,7 +157,7 @@ public class UserSearchesService {
     }
 
     private List<JsonNode> mapJsonNodeToList(JsonNode searchResult){
-        List<JsonNode> allResults = new ArrayList<JsonNode>();
+        List<JsonNode> allResults = new ArrayList<>();
         for (int i = 0; i < searchResult.size(); i++) {
             allResults.add(searchResult.get(i));
         }

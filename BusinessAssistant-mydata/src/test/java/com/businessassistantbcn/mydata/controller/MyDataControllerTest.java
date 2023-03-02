@@ -188,7 +188,7 @@ class MyDataControllerTest {
 	}
 
 	@Test
-	public void deleteUsearSearchBySearchUuidTest() {
+	void deleteUserSearchBySearchUuidTest() {
 
 		final String URI_DELETE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
 

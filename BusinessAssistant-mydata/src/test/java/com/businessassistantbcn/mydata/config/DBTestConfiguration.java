@@ -22,7 +22,6 @@ import javax.sql.DataSource;
 @EntityScan(basePackages = "com.businessassistantbcn.mydata.entity")
 @ComponentScan(basePackages = {"com.businessassistantbcn.mydata.service",
         "com.businessassistantbcn.mydata.config"})
-// security package?
 @PropertySource("classpath:application-test.properties")
 @EnableTransactionManagement
 public class DBTestConfiguration {
@@ -36,7 +35,7 @@ public class DBTestConfiguration {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName(env.getProperty("spring.datasource.driverClassName"));
         dataSourceBuilder.url(env.getProperty("spring.datasource.url"));
-        dataSourceBuilder.username(env.getProperty("spring.datasource.user"));
+        dataSourceBuilder.username(env.getProperty("spring.datasource.username"));
         dataSourceBuilder.password(env.getProperty("spring.datasource.password"));
         return dataSourceBuilder.build();
     }

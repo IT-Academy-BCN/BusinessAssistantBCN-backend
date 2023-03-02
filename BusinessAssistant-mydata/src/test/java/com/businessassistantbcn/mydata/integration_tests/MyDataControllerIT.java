@@ -3,46 +3,35 @@ package com.businessassistantbcn.mydata.integration_tests;
 import com.businessassistantbcn.mydata.config.DBTestConfiguration;
 import com.businessassistantbcn.mydata.config.PropertiesConfig;
 //import com.businessassistantbcn.mydata.config.WebSecurityTestConfig;
-import com.businessassistantbcn.mydata.controller.MydataController;
+import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
+import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.entity.UserSearch;
 import com.businessassistantbcn.mydata.repository.IUserSearchesRepository;
 //import com.businessassistantbcn.mydata.repository.MyDataRepository;
 import com.businessassistantbcn.mydata.service.UserSearchesService;
-import com.fasterxml.jackson.databind.JsonNode;
-import org.assertj.core.api.Assertions;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.sql.init.SqlInitializationAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-//import org.h2.engine.User;
-//import org.springframework.security.test.context.support.WithMockUser;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import reactor.core.publisher.Mono;
 
 import javax.sql.DataSource;
-import java.util.Base64;
-import java.util.Collections;
+import java.util.*;
 import java.util.logging.Logger;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("dev")
 @ExtendWith(SpringExtension.class)
@@ -50,11 +39,8 @@ import java.util.logging.Logger;
 @TestPropertySource(locations = "classpath:application-test.properties")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @Import({DBTestConfiguration.class})
+@Testcontainers
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-//@EnableAutoConfiguration(exclude={SqlInitializationAutoConfiguration.class})
-//@AutoConfigureMockMvc
-//@ContextConfiguration(classes = {WebSecurityTestConfig.class})
-//@Sql({ "classpath:schema.sql", "classpath:data.sql" })
 class MyDataControllerIT {
 
     Logger logger = Logger.getLogger(MyDataControllerIT.class.getName());
@@ -71,60 +57,47 @@ class MyDataControllerIT {
     @Autowired
     private IUserSearchesRepository userSearchesRepository;
 
-    @LocalServerPort
-    private int port;
-
-    @Value("${spring.datasource.username}")
-    private String username;
-
-    @Value("${spring.datasource.password}")
-    private String password;
-
     @Autowired
     private DataSource dataSource;
 
+    private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/mydata";
+    private final String USER_UUID_PATH = "/mysearches/{user_uuid}";
+    private final String USER_UUID = "DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57";
 
-    private JsonNode[] results;
+    private SaveSearchRequestDto requestDto = new SaveSearchRequestDto();
+    private SaveSearchResponseDto responseDto = new SaveSearchResponseDto();
+    private ObjectMapper mapper = new ObjectMapper();
 
-    private String getBasicAuthHeader(String username, String password) {
-        String auth = username + ":" + password;
-        String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes());
-        String headerValue = "Basic " + encodedAuth;
-        return headerValue;
+
+    @Container
+    static MySQLContainer mySQLContainer = new MySQLContainer()
+            .withDatabaseName("businessassistantbcndb")
+            .withUsername("admin")
+            .withPassword("Sb13TU7hw1oCbSIJ");
+
+    @BeforeEach
+    public void beforeEach() {
+        mySQLContainer.start();
+    }
+
+    @AfterEach
+    public void afterEach() {
+        mySQLContainer.stop();
     }
 
 
-//    @BeforeAll
-//    void setUp() throws Exception {
-//
-//        User userLogin = new User(username, password, Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN")));
-//        dataSource.getConnection().createStatement().execute("CREATE USER IF NOT EXISTS " + username + " PASSWORD '" + password + "' ADMIN");
-//
-//
-//    }
+    @BeforeAll
+    void setUp(){
 
+        HashMap<String, String> searchResult = new HashMap<>();
+        searchResult.put("name", "Groupe Zannier Espanya");
+        searchResult.put("web", "http://www.kidilizgroup.com");
 
-    @Test
-    void testCredentials(){
-
-        Assertions.assertThat(password).isEqualTo("sa");
-
-        String headerValue = getBasicAuthHeader(username, password);
-        logger.info("HEADER VALUE: " + headerValue);
+        requestDto.setSearchName("newSearchName");
+        requestDto.setSearchDetail("newSearchDetail");
+        requestDto.setSearchResult(mapper.valueToTree(searchResult));
 
     }
-
-
-    //TEST DUMMY
-//    @Test
-//    void test() {
-//
-//        webTestClient.get().uri("/api/mydata").header(HttpHeaders.AUTHORIZATION, getBasicAuthHeader(username, password))
-//                .exchange().expectStatus().isOk();
-//
-//    }
-
-
 
     @Test
     @Order(1)
@@ -132,44 +105,93 @@ class MyDataControllerIT {
     void testSaveUserSearch() {
 
         webTestClient.post()
-                .uri("/businessassistantbcn/api/v1/mydata/mysearches/{user_uuid}", "DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57")
-//                .header(HttpHeaders.AUTHORIZATION,getBasicAuthHeader(username,password))
+                .uri(CONTROLLER_BASE_URL + USER_UUID_PATH, USER_UUID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue("{\n" +
-                        "    \"searchName\": \"Vivamus Incorporated\",\n" +
-                        "    \"searchDetail\": \"Testing\",\n" +
-                        "    \"searchResult\": {\n" +
-                        "        \"name\": \"Integration test\",\n" +
-                        "        \"web\": \"http://www.testing.com\"\n" +
-                        "    }\n" +
-                        "}")
+                .body(Mono.just(requestDto),SaveSearchRequestDto.class)
                 .exchange()
-                .expectStatus().isOk();
+                .expectStatus().isOk()
+                .expectBody(UserSearch.class)
+                .consumeWith(response -> {
+                    UserSearch newUserSearch = response.getResponseBody();
+                    assertNotNull(newUserSearch);
+                    userSearchesRepository.findOneBySearchUuid(newUserSearch.getSearchUuid())
+                        .ifPresent(userSearch -> {
+                            assertEquals(newUserSearch.getSearchUuid(), userSearch.getSearchUuid());
+                            assertEquals("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57", userSearch.getUserUuid());
+                            assertEquals("newSearchName", userSearch.getSearchName());
+                            assertEquals("newSearchDetail", userSearch.getSearchDetail());
+                        });
+                });
     }
 
     @Test
     @Order(2)
-//    @WithUserDetails(value= "sa", userDetailsServiceBeanName = "userDetailsService")
-    void testGetAllSearchesByUser() {
+    void testGetSearchByUserUuid() {
 
         webTestClient.get()
-                .uri("/businessassistantbcn/api/v1/mydata/mysearches/{user_uuid}", "DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57")
+                .uri(CONTROLLER_BASE_URL + USER_UUID_PATH, USER_UUID)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBodyList(UserSearch.class);
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.results").isArray()
+                .jsonPath("$.results[3].searchUuid").isNotEmpty()
+                .jsonPath("$.results[3].userUuid").isEqualTo("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57")
+                .jsonPath("$.results[3].searchDetail").isEqualTo("newSearchDetail")
+                .jsonPath("$.results[3].searchName").isEqualTo("newSearchName");
+
     }
 
     @Test
     @Order(3)
     void testGetSearchesResults() {
+
+        final String URI_ONE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
+
         webTestClient.get()
-                .uri("businessassistantbcn/api/v1/mydata/mysearches/{user_uuid}/search/{search_uuid}", "DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57", "9591899E-2ED1-146E-43E8-35095DCB9726")
+                .uri(CONTROLLER_BASE_URL + URI_ONE_SEARCH, USER_UUID, "0602900D-3DE2-257D-54D9-46106EDC0837")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().valueEquals("Content-type, application/json")
+                .expectBody()
+                .jsonPath("$.results[2].name[2]", ("IBM Client Center Barcelona"));
+    }
+
+    @Test
+    @Order(4)
+    void deleteUserSearchBySearchUuidTest(){
+
+        final String URI_DELETE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
+
+        webTestClient.delete()
+                .uri(CONTROLLER_BASE_URL + URI_DELETE_SEARCH, USER_UUID, "0602900D-3DE2-257D-54D9-46106EDC0837")
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("results")
-                .isArray();
+                .consumeWith(response -> {
+                    UserSearch userSearchDeleted = userSearchesRepository.findOneBySearchUuid("0602900D-3DE2-257D-54D9-46106EDC0837")
+                            .orElse(null);
+                    assertNull(userSearchDeleted);
+                });
     }
 
+    @Test
+    @Order(5)
+    void testSaveUserSearch_WhenExceedsLimit(){
+
+        for (int i = 0; i < propertiesConfig.getLimitValue(); i++) {
+
+            testSaveUserSearch();
+
+            if (i == propertiesConfig.getLimitValue()){
+                assertNull(responseDto);
+            } else {
+                assertNotNull(responseDto);
+            }
+        }
+    }
 
 }
