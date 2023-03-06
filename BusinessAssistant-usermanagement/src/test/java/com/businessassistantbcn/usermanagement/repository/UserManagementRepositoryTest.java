@@ -1,21 +1,11 @@
 package com.businessassistantbcn.usermanagement.repository;
 
 import com.businessassistantbcn.usermanagement.document.User;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
-import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.domain.ReactiveAuditorAware;
-import org.springframework.data.mongodb.config.EnableReactiveMongoAuditing;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MongoDBContainer;
@@ -48,17 +38,21 @@ public class UserManagementRepositoryTest {
     @Autowired
     private UserManagementRepository userRepository;
 
+    ObjectId id1 = new ObjectId("63cfbcb31fa50abde8288a08");
+    ObjectId id2 = new ObjectId("63cfbcb31fa50abde8288a09");
+
     String uuid_1 = "26977eee-89f8-11ec-a8a3-0242ac120002";
     String uuid_2 = "26977eee-89f8-11ec-a8a3-0242ac120003";
     String email_1 = "user1@mail.com";
     String email_2 = "user2@mail.com";
+    Long latestAcces = System.currentTimeMillis();
 
 
     @BeforeEach
     public void setUp(){
         userRepository.deleteAll().block();
-        User user1 = new User(uuid_1, email_1, "abc123", null);
-        User user2 = new User(uuid_2, email_2, "abc123", null);
+        User user1 = new User(id1, uuid_1, email_1, "abc123", null,latestAcces);
+        User user2 = new User(id2, uuid_2, email_2, "abc123", null, latestAcces);
         userRepository.saveAll(Flux.just(user1, user2)).blockLast();
     }
 
