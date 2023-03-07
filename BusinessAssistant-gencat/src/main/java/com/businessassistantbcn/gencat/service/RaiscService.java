@@ -48,14 +48,14 @@ public class RaiscService {
         return Mono.just(genericResultDto);
     }
 
-    public Mono<GenericResultDto<RaiscResponseDto>> getScopes(int offset, int limit) throws IOException {
+    public Mono<GenericResultDto<ScopeDto>> getScopes(int offset, int limit) throws IOException {
         return getScopesByPage(offset, limit);
     }
 
 
-    private Mono<GenericResultDto<RaiscResponseDto>> getScopesByPage(int offset, int limit) throws IOException {
+    private Mono<GenericResultDto<ScopeDto>> getScopesByPage(int offset, int limit) throws IOException {
         String urlStr = environment.getProperty("url.ds_scopes");
-        List<RaiscResponseDto> scopes = new ArrayList<>();
+        List<ScopeDto> scopes = new ArrayList<>();
 
         HttpURLConnection con = (HttpURLConnection) new URL(urlStr).openConnection();
         con.setRequestMethod("GET");
@@ -75,10 +75,9 @@ public class RaiscService {
             JSONArray row = data.getJSONArray(i);
             String idScope = row.getString(35);
             String scope = row.getString(36);
-            scopes.add(new RaiscResponseDto(idScope, scope));
+            scopes.add(new ScopeDto(idScope, scope));
         }
 
-        //  return Mono.just(scopes);
         return Mono.just(new GenericResultDto<>(offset, limit, scopes.size(), scopes));
     }
 

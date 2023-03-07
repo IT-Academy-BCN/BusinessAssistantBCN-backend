@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -29,12 +30,16 @@ import reactor.test.StepVerifier;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -42,6 +47,8 @@ import static org.mockito.Mockito.when;
 class GencatControllerTest {
     @Autowired
     private WebTestClient webTestClient;
+    @InjectMocks
+    private GencatController gencatController;
 
     @MockBean
     @Autowired
@@ -263,18 +270,28 @@ class GencatControllerTest {
                 new PropertiesConfig.CcaeItem("4", "Classe")
         );
     }
-
     @Test
     public void testGetScopes() throws IOException {
-        final String URI_TEST = "/raisc/scopes";
-
+        // Set up the mock response from the service
+        final String URI_TEST = "/ccae/scopes";
+        GenericResultDto<ScopeDto> resultDto = new GenericResultDto<>();
+        resultDto.setInfo(Collections.singletonList(new ScopeDto("10", "EducaciÃ³")));
+        when(raiscService.getScopes(0, 1)).thenReturn(Mono.just(resultDto));
+        // esta mal la creacion de GenericResultDto
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isOk()
+                .expectStatus().isEqualTo(HttpStatus.OK)
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBodyList(ScopeDto.class);
+                .expectBodyList(ScopeDto.class)
+                .hasSize(1)
+                .contains(new ScopeDto("10", "EducaciÃ³"))
+                .consumeWith(System.out::println);
     }
+
+
+
 }
 
 
