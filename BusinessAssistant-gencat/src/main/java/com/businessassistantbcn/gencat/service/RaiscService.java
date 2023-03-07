@@ -17,8 +17,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +52,13 @@ public class RaiscService {
 
 
     private Mono<GenericResultDto<ScopeDto>> getScopesByPage(int offset, int limit) throws IOException {
-        String urlStr = environment.getProperty("url.ds_scopes");
+        if(limit == -1){
+            limit = 100;
+            offset= 0;
+        }
+        String urlStr = environment.getProperty("url.ds_scopes") + "?limit=" + limit + "&offset=" + offset;
         List<ScopeDto> scopes = new ArrayList<>();
-
+        int count = 0;
         HttpURLConnection con = (HttpURLConnection) new URL(urlStr).openConnection();
         con.setRequestMethod("GET");
 
@@ -71,17 +73,28 @@ public class RaiscService {
 
         JSONObject json = new JSONObject(content.toString());
         JSONArray data = json.getJSONArray("data");
-        for (int i = 0; i < data.length(); i++) {
-            JSONArray row = data.getJSONArray(i);
-            String idScope = row.getString(35);
-            String scope = row.getString(36);
-            scopes.add(new ScopeDto(idScope, scope));
-        }
 
-        return Mono.just(new GenericResultDto<>(offset, limit, scopes.size(), scopes));
+        for (int i = 0; i < limit; i++) {
+            if(offset != 0){
+                offset--;
+            }else {
+                JSONArray row = data.getJSONArray(i);
+                String idScope = row.getString(35);
+                String scope = row.getString(36);
+                scopes.add(new ScopeDto(idScope, scope));
+                count++;
+            }
+        }
+        ScopeDto[] resultArray = scopes.toArray(new ScopeDto[0]);
+        GenericResultDto<ScopeDto> genericResultDto = new GenericResultDto<>(offset, limit, count, resultArray);
+
+        return Mono.just(genericResultDto);
     }
 
+
 }
+
+
 
 
 

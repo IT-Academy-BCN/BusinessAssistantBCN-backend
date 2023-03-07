@@ -1,0 +1,407 @@
+{
+  "offset": 0,
+  "limit": 100,
+  "count": 100,
+  "results": [
+    {
+      "idScope": "10",
+      "scope": "EducaciÃ³"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "12",
+      "scope": "Agricultura, Pesca i AlimentaciÃ³"
+    },
+    {
+      "idScope": "19",
+      "scope": "CooperaciÃ³ internacional per al desenvolupament i cultural"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "13",
+      "scope": "IndÃºstria i Energia"
+    },
+    {
+      "idScope": "13",
+      "scope": "IndÃºstria i Energia"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "08",
+      "scope": "AccÃ©s a l'habitatge i foment de l'edificaciÃ³"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "18",
+      "scope": "Altres actuacions de carÃ cter econÃ²mic"
+    },
+    {
+      "idScope": "18",
+      "scope": "Altres actuacions de carÃ cter econÃ²mic"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "18",
+      "scope": "Altres actuacions de carÃ cter econÃ²mic"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "18",
+      "scope": "Altres actuacions de carÃ cter econÃ²mic"
+    },
+    {
+      "idScope": "16",
+      "scope": "Infraestructures"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "18",
+      "scope": "Altres actuacions de carÃ cter econÃ²mic"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "08",
+      "scope": "AccÃ©s a l'habitatge i foment de l'edificaciÃ³"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "18",
+      "scope": "Altres actuacions de carÃ cter econÃ²mic"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "14",
+      "scope": "ComerÃ§, Turisme i Pimes"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "14",
+      "scope": "ComerÃ§, Turisme i Pimes"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "12",
+      "scope": "Agricultura, Pesca i AlimentaciÃ³"
+    },
+    {
+      "idScope": "12",
+      "scope": "Agricultura, Pesca i AlimentaciÃ³"
+    },
+    {
+      "idScope": "18",
+      "scope": "Altres actuacions de carÃ cter econÃ²mic"
+    },
+    {
+      "idScope": "12",
+      "scope": "Agricultura, Pesca i AlimentaciÃ³"
+    },
+    {
+      "idScope": "06",
+      "scope": "Foment de l'OcupaciÃ³"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "06",
+      "scope": "Foment de l'OcupaciÃ³"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "04",
+      "scope": "Altres Prestacions econÃ²miques"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "19",
+      "scope": "CooperaciÃ³ internacional per al desenvolupament i cultural"
+    },
+    {
+      "idScope": "19",
+      "scope": "CooperaciÃ³ internacional per al desenvolupament i cultural"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "11",
+      "scope": "Cultura"
+    },
+    {
+      "idScope": "06",
+      "scope": "Foment de l'OcupaciÃ³"
+    },
+    {
+      "idScope": "18",
+      "scope": "Altres actuacions de carÃ cter econÃ²mic"
+    },
+    {
+      "idScope": "04",
+      "scope": "Altres Prestacions econÃ²miques"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "05",
+      "scope": "Serveis Socials i PromociÃ³ Social"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "10",
+      "scope": "EducaciÃ³"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    },
+    {
+      "idScope": "01",
+      "scope": "JustÃ­cia"
+    }
+  ]
+}

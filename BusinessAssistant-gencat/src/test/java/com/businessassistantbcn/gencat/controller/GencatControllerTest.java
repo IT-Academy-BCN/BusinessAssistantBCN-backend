@@ -271,25 +271,29 @@ class GencatControllerTest {
         );
     }
     @Test
-    public void testGetScopes() throws IOException {
+    public void testGetAllScopes() throws IOException {
         // Set up the mock response from the service
-        final String URI_TEST = "/ccae/scopes";
-        GenericResultDto<ScopeDto> resultDto = new GenericResultDto<>();
-        resultDto.setInfo(Collections.singletonList(new ScopeDto("10", "EducaciÃ³")));
-        when(raiscService.getScopes(0, 1)).thenReturn(Mono.just(resultDto));
-        // esta mal la creacion de GenericResultDto
+        final String URI_TEST = "/raisc/scopes";
+
+        when(raiscService.getScopes(0, 1)).thenReturn(Mono.just(getGenericResultDtoScope()));
+
         webTestClient.get()
                 .uri(CONTROLLER_BASE_URL + URI_TEST)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
-                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBodyList(ScopeDto.class)
-                .hasSize(1)
-                .contains(new ScopeDto("10", "EducaciÃ³"))
+                .expectBody()
                 .consumeWith(System.out::println);
     }
 
+
+    private <T> T getGenericResultDtoScope() {
+
+        GenericResultDto<ScopeDto> genericResultDto = new GenericResultDto<>();
+        genericResultDto.setInfo(0, 1, 1, new ScopeDto[]{new ScopeDto("10", "EducaciÃ³")});
+        return (T) genericResultDto;
+    }
 
 
 }

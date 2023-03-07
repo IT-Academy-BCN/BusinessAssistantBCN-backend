@@ -18,19 +18,15 @@ public class GenericResultDto<T> {
 
     private T[] results;
 
-    private List<ScopeDto> resultsList;
-
     public GenericResultDto() {
-        //Empty constructor
     }
 
-    public GenericResultDto(int offset, int limit, int count, List<ScopeDto> results) {
+    public GenericResultDto(int offset, int limit, int count, ScopeDto[] resultArray) {
         this.offset = offset;
         this.limit = limit;
         this.count = count;
-        this.resultsList = results;
+        this.results = (T[]) resultArray;
     }
-
 
     public void setInfo(int offset, int limit, int count, T[] results) {
         this.offset = offset;
@@ -39,7 +35,4 @@ public class GenericResultDto<T> {
         this.results = results;
     }
 
-    public <T> void setInfo(List<T> singletonList) {
-
-    }
 }
