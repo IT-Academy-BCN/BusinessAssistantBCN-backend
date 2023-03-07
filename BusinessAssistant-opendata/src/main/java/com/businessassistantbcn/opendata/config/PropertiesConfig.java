@@ -1,27 +1,51 @@
 package com.businessassistantbcn.opendata.config;
 
+import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties("url")
+@ConfigurationProperties()
 public class PropertiesConfig {
-
+    @Value("${url.connection_timeout}")
     private Integer connection_timeout;//millis
-
-    private String ds_apitestcircuitbreakers;
-    private String ds_test;
-    private String ds_largeestablishments;
-    private String ds_commercialgalleries;
-    private String ds_bigmalls;
-    private String ds_municipalmarkets;
-    private String ds_marketfairs;
-    private String ds_economicactivitiescensus;
-    private String ds_economicactivitiesgroundfloor;
+    @Value("${url.maxBytesInMemory}")
     private Integer maxBytesInMemory;
-    private String[] districts;
+    @Value("${url.ds_apitestcircuitbreakers}")
+    private String ds_apitestcircuitbreakers;
+    @Value("${url.ds_test}")
+    private String ds_test;
+    @Value("${url.ds_largeestablishments}")
+    private String ds_largeestablishments;
+    @Value("${url.ds_commercialgalleries}")
+    private String ds_commercialgalleries;
+    @Value("${url.ds_bigmalls}")
+    private String ds_bigmalls;
+    @Value("${url.ds_municipalmarkets}")
+    private String ds_municipalmarkets;
+    @Value("${url.ds_marketfairs}")
+    private String ds_marketfairs;
+    @Value("${url.ds_economicactivitiescensus}")
+    private String ds_economicactivitiescensus;
+    @Value("${url.ds_economicactivitiesgroundfloor}")
+    private String ds_economicactivitiesgroundfloor;
+    @Value("${security.datasource.secret}")
+    private String secret;
+    @Value("${security.datasource.headerString}")
+    private String headerString;
+    @Value("${security.datasource.authoritiesClaim}")
+    private String authoritiesClaim;
+    @Value("${security.datasource.err}")
+    private String err;
+    @Value("${districts}")
+    private List<DistrictItem> districts;
 
     public int getMaxBytesInMemory() {
         return maxBytesInMemory;
@@ -103,12 +127,8 @@ public class PropertiesConfig {
         this.ds_economicactivitiesgroundfloor = ds_economicactivitiesgroundfloor;
     }
 
-    public String[] getDistricts() {
+    public List<DistrictItem> getDistricts() {
         return districts;
-    }
-
-    public void setDistricts(String[] districts) {
-        this.districts = districts;
     }
 
     public String getDs_apitestcircuitbreakers() {
@@ -117,5 +137,13 @@ public class PropertiesConfig {
 
     public void setDs_apitestcircuitbreakers(String ds_apitestcircuitbreakers) {
         this.ds_apitestcircuitbreakers = ds_apitestcircuitbreakers;
+    }
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter @Setter
+    public static class DistrictItem{
+        private int number;
+        private String description;
     }
 }

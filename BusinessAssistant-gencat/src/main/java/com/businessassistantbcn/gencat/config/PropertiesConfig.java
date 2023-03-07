@@ -36,6 +36,7 @@ public class PropertiesConfig {
     private String authoritiesClaim;
     @Value("${security.datasource.err}")
     private String err;
+    @Value("${ccae}")
     private List<CcaeItem> ccae = new ArrayList<>();
 
     public int getMaxBytesInMemory() {return maxBytesInMemory;}

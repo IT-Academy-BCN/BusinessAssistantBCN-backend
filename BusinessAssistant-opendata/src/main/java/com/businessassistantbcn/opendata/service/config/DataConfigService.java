@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Service
 public class DataConfigService {
 
@@ -14,11 +16,11 @@ public class DataConfigService {
     private PropertiesConfig config;
 
     public Mono<BcnZonesResponseDto> getBcnZones(){
-        String[] districts = config.getDistricts();
+        List<PropertiesConfig.DistrictItem> districts = config.getDistricts();
 
-        BcnZonesDto[] zones = new BcnZonesDto[districts.length];
-        for(int i = 1; i <= districts.length; i++ ){
-            zones[i-1] = new BcnZonesDto(i,districts[i-1]);
+        BcnZonesDto[] zones = new BcnZonesDto[districts.size()];
+        for(int i = 0; i < districts.size(); i++ ){
+            zones[i] = new BcnZonesDto(districts.get(i).getNumber(),districts.get(i).getDescription());
             }
         BcnZonesResponseDto response = new BcnZonesResponseDto(zones.length, zones);
         return Mono.just(response);
