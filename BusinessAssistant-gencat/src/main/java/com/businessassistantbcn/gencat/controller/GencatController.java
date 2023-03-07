@@ -4,7 +4,6 @@ import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
-import com.businessassistantbcn.gencat.dto.output.ScopeDto;
 import com.businessassistantbcn.gencat.service.CcaeService;
 import com.businessassistantbcn.gencat.service.RaiscService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -79,7 +78,7 @@ public class GencatController {
 
     	return raiscService.getPageByRaiscYear(getValidOffset(offset), getValidLimit(limit), getValidYear(year));
     }
-    private int getValidOffset(String offset)	
+    private int getValidOffset(String offset)
     {
         if (offset == null || offset.isEmpty()) {
             return 0;
@@ -119,10 +118,17 @@ Diferentes finalidades o ambitos (scopes) de las RAISC
 https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json
      */
     @GetMapping("/raisc/scopes")
-    public Mono<List<ScopeDto>> getRaiscScopes() throws IOException {
+    public Mono<GenericResultDto<RaiscResponseDto>> getScopes(@RequestParam(required = false) String offset,
+                                                    @RequestParam(required = false) String limit
+                                                                  ) throws IOException {
 
-        return raiscService.getScopes();
+        return raiscService.getScopes(getValidOffset(offset), getValidLimit(limit));
 
     }
-
+//    @GetMapping("/raisc/scopes")
+//    public Mono<List<ScopeDto>> getRaiscScopes() throws IOException {
+//
+//        return raiscService.getScopes();
+//
+//    }
 }

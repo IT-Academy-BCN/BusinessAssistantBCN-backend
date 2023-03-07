@@ -1,12 +1,14 @@
 package com.businessassistantbcn.gencat.proxy;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
+import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -21,6 +23,7 @@ import reactor.netty.http.client.HttpClient;
 import java.net.URI;
 import java.net.URL;
 import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -51,7 +54,7 @@ public class HttpProxy {
         clientCodecConfigurer.defaultCodecs().maxInMemorySize(config.getMaxBytesInMemory());
         clientCodecConfigurer.customCodecs().registerWithDefaultConfig(new Jackson2JsonEncoder(mapper, MediaType.TEXT_PLAIN));
     }
-
+    // Pide data a una url y la devuelve en un Mono, indicas la class que quieres que te devuelva
     public <T> Mono<T> getRequestData(URL url, Class<T> clazz){
         WebClient.UriSpec<WebClient.RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
         WebClient.RequestBodySpec bodySpec = uriSpec.uri(URI.create(url.toString()));

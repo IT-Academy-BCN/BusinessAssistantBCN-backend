@@ -68,6 +68,10 @@ public class RaiscResponseDto {
     //65
     private String description;
 
-
-
+    public String toString2() {
+        return '{'+ '\'' +
+                "idScope='" + idScope + '\'' +
+                ", scope='" + scope + '\'' +
+                '}';
+    }
 }
