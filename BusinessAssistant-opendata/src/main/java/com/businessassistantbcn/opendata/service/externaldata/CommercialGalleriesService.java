@@ -53,7 +53,7 @@ public class CommercialGalleriesService {
 
                     CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(CommercialGalleriesResponseDto[]::new);
 
-                    genericResultDto.setInfo(offset, limit, filteredDto.length, responseDto);
+                    genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
                     return Mono.just(genericResultDto);
                 }).switchIfEmpty(getCommercialGalleriesDefaultPage());
     }
@@ -106,7 +106,7 @@ public class CommercialGalleriesService {
                             listActivityInfoDto.toArray(new ActivityInfoDto[listActivityInfoDto.size()]);
 
                     ActivityInfoDto[] pagedDto = JsonHelper.filterDto(activityInfoDto, offset, limit);
-                    genericActivityResultDto.setInfo(offset, limit, activityInfoDto.length, pagedDto);
+                    genericActivityResultDto.setInfo(offset, limit, pagedDto.length, pagedDto);
                     return Mono.just(genericActivityResultDto);
                 }).switchIfEmpty(getActivitiesDefaultPage());
     }
@@ -223,7 +223,7 @@ public class CommercialGalleriesService {
 
                     CommercialGalleriesResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(CommercialGalleriesResponseDto[]::new);
 
-                    genericResultDto.setInfo(offset, limit, fullDto.length, responseDto);
+                    genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
                     return Mono.just(genericResultDto);
                 }).switchIfEmpty(getCommercialGalleriesDefaultPage());
     }
