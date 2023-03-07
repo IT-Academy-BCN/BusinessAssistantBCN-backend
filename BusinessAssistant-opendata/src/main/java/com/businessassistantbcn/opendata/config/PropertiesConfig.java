@@ -44,7 +44,6 @@ public class PropertiesConfig {
     private String authoritiesClaim;
     @Value("${security.datasource.err}")
     private String err;
-    @Value("${districts}")
     private List<DistrictItem> districts;
 
     public int getMaxBytesInMemory() {
