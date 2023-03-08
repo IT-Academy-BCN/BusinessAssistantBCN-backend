@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties("security.datasource")
+@ConfigurationProperties()
 @Getter @Setter
 public class PropertiesConfig {
 
