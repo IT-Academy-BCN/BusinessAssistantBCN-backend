@@ -46,7 +46,7 @@ public class MarketFairsService {
 
                     MarketFairsDto[] pagedDto = JsonHelper.filterDto(filterDto, offset, limit);
                     MarketFairsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::convertToDto).toArray(MarketFairsResponseDto[]::new);
-                    genericResultDto.setInfo(offset, limit, filterDto.length, responseDto);
+                    genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 
                     return Mono.just(genericResultDto);
                 }).switchIfEmpty(getMarketFairsDefaultPage());
@@ -94,7 +94,7 @@ public class MarketFairsService {
 
                     MarketFairsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::convertToDto).toArray(MarketFairsResponseDto[]::new);
 
-                    genericResultDto.setInfo(offset, limit, fullDto.length, responseDto);
+                    genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
                     return Mono.just(genericResultDto);
                 }).switchIfEmpty(getMarketFairsDefaultPage());
     }

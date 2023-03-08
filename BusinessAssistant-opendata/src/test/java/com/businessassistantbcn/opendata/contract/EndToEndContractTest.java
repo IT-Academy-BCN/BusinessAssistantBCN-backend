@@ -75,7 +75,7 @@ class EndToEndContractTest {
     void commercialGalleriesActivityTest() {
 
         requestDataAndVerifyExactFirstElement("/commercial-galleries/activity/1006051")
-                .jsonPath("$.count").isEqualTo(4)
+                .jsonPath("$.count").isEqualTo(1)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Galeria Comercial Bulevard dels Antiquaris")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.bulevarddelsantiquaris.com")
@@ -103,7 +103,7 @@ class EndToEndContractTest {
     void commercialGalleriesDistrictTest() {
 
         requestDataAndVerifyExactFirstElement("/commercial-galleries/district/2")
-                .jsonPath("$.count").isEqualTo(4)
+                .jsonPath("$.count").isEqualTo(2)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Galeria Comercial Bulevard dels Antiquaris")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.bulevarddelsantiquaris.com")
@@ -133,7 +133,7 @@ class EndToEndContractTest {
                 .expectBody()
                 .jsonPath("$.offset").isEqualTo(0)
                 .jsonPath("$.limit").isEqualTo(-1)
-                .jsonPath("$.count").isEqualTo(4)
+                .jsonPath("$.count").isEqualTo(1)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Galeria Comercial Bulevard dels Antiquaris")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.bulevarddelsantiquaris.com")
@@ -187,7 +187,7 @@ class EndToEndContractTest {
     void bigMallsActivityTest() {
 
         requestDataAndVerifyExactFirstElement("/big-malls/activity/107001")
-                .jsonPath("$.count").isEqualTo(27)
+                .jsonPath("$.count").isEqualTo(1)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Hipercor *Avinguda Meridiana")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.hipercor.es")
@@ -204,7 +204,7 @@ class EndToEndContractTest {
     void bigMallsDistrictTest() {
 
         requestDataAndVerifyExactFirstElement("/big-malls/district/3")
-                .jsonPath("$.count").isEqualTo(27)
+                .jsonPath("$.count").isEqualTo(2)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Botiga Bauhaus *Passeig Zona Franca")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.bauhaus.es")
@@ -234,7 +234,7 @@ class EndToEndContractTest {
                 .expectBody()
                 .jsonPath("$.offset").isEqualTo(0)
                 .jsonPath("$.limit").isEqualTo(-1)
-                .jsonPath("$.count").isEqualTo(27)
+                .jsonPath("$.count").isEqualTo(3)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Centre Comercial Arenas de Barcelona")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.arenasdebarcelona.com")
@@ -288,7 +288,7 @@ class EndToEndContractTest {
     void largeEstablishmentsActivityTest() {
 
         requestDataAndVerifyExactFirstElement("/large-establishments/activity/107007")
-                .jsonPath("$.count").isEqualTo(44)
+                .jsonPath("$.count").isEqualTo(3)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Oracle Ibérica")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.oracle.es")
@@ -305,7 +305,7 @@ class EndToEndContractTest {
     void largeEstablishmentsDistrictTest() {
 
         requestDataAndVerifyExactFirstElement("/large-establishments/district/3")
-                .jsonPath("$.count").isEqualTo(44)
+                .jsonPath("$.count").isEqualTo(4)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Empresa Konica Minolta")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.konicaminolta.es")
@@ -335,7 +335,7 @@ class EndToEndContractTest {
                 .expectBody()
                 .jsonPath("$.offset").isEqualTo(0)
                 .jsonPath("$.limit").isEqualTo(-1)
-                .jsonPath("$.count").isEqualTo(44)
+                .jsonPath("$.count").isEqualTo(6)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Novartis Farmacéutica S.A.")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.novartis.es")
@@ -376,7 +376,7 @@ class EndToEndContractTest {
     void marketFairsDistrictTest() {
 
         requestDataAndVerifyExactFirstElement("/market-fairs/district/2")
-                .jsonPath("$.count").isEqualTo(41)
+                .jsonPath("$.count").isEqualTo(5)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Mercat Encants de Sant Antoni")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.mercatdesantantoni.com")
@@ -403,7 +403,7 @@ class EndToEndContractTest {
                 .expectBody()
                 .jsonPath("$.offset").isEqualTo(0)
                 .jsonPath("$.limit").isEqualTo(-1)
-                .jsonPath("$.count").isEqualTo(41)
+                .jsonPath("$.count").isEqualTo(7)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Mercat Encants de Sant Antoni")
                 .jsonPath(RES0 + "web").isEqualTo("http://www.mercatdesantantoni.com")
@@ -462,7 +462,7 @@ class EndToEndContractTest {
     void municipalMarketsDistrictTest() {
 
         requestDataAndVerifyExactFirstElement("/municipal-markets/district/2")
-                .jsonPath("$.count").isEqualTo(43)
+                .jsonPath("$.count").isEqualTo(8)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Mercat de La Concepció")
                 .jsonPath(RES0 + "web[0]").isEqualTo("https://www.facebook.com/MercatConcepcio")
@@ -490,7 +490,7 @@ class EndToEndContractTest {
                 .expectBody()
                 .jsonPath("$.offset").isEqualTo(0)
                 .jsonPath("$.limit").isEqualTo(-1)
-                .jsonPath("$.count").isEqualTo(43)
+                .jsonPath("$.count").isEqualTo(11)
                 .jsonPath("$.results").isArray()
                 .jsonPath(RES0 + "name").isEqualTo("Mercat de La Concepció")
                 .jsonPath(RES0 + "web[0]").isEqualTo("https://www.facebook.com/MercatConcepcio")
