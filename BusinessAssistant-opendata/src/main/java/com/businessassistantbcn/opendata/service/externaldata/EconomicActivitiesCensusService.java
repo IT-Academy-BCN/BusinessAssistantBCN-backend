@@ -32,7 +32,7 @@ public class EconomicActivitiesCensusService {
 			.getRequestData(URI.create(config.getDs_economicactivitiescensus()), EconomicActivitiesCensusDto[].class)
 			.flatMap(dtos -> {
 				EconomicActivitiesCensusDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
-				genericResultDto.setInfo(offset, limit, dtos.length, pagedDto);
+				genericResultDto.setInfo(offset, limit, pagedDto.length, pagedDto);
 				return Mono.just(genericResultDto);
 			}).switchIfEmpty(getEconomicActivitiesCensusDefaultPage());
 	}

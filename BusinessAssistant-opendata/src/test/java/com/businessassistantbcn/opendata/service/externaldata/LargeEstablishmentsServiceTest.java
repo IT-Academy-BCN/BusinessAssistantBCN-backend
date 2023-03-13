@@ -118,7 +118,7 @@ class LargeEstablishmentsServiceTest {
 
         assertEquals(0, actualResult.getOffset());
         assertEquals(-1, actualResult.getLimit());
-        assertEquals(2, actualResult.getCount());
+        assertEquals(1, actualResult.getCount());
         assertEquals(
             "05",
             Arrays.stream(actualResult.getResults()).toList().get(0).getAddresses().get(0).getDistrict_id()
@@ -168,7 +168,7 @@ class LargeEstablishmentsServiceTest {
 
         assertEquals(0, actualResult.getOffset());
         assertEquals(-1, actualResult.getLimit());
-        assertEquals(2, actualResult.getCount());
+        assertEquals(1, actualResult.getCount());
         assertEquals(
                 1008031,
                 Arrays.stream(actualResult.getResults()).toList().get(0).getActivities().get(0).getActivityId()

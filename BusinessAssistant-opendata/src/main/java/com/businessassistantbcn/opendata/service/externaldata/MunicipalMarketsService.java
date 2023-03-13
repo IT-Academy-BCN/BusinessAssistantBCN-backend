@@ -40,7 +40,7 @@ public class MunicipalMarketsService {
 				MunicipalMarketsDto[] pagedDto = JsonHelper.filterDto(dtos, offset, limit);
 
 				MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(MunicipalMarketsResponseDto[]::new);
-				genericResultDto.setInfo(offset, limit, dtos.length, responseDto);
+				genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 				return Mono.just(genericResultDto);
 			}).switchIfEmpty(getMunicipalMarketsDefaultPage());
 	}
@@ -87,7 +87,7 @@ public class MunicipalMarketsService {
 
 					MunicipalMarketsResponseDto[] responseDto = Arrays.stream(pagedDto).map(this::mapToResponseDto).toArray(MunicipalMarketsResponseDto[]::new);
 
-					genericResultDto.setInfo(offset, limit, fullDto.length, responseDto);
+					genericResultDto.setInfo(offset, limit, responseDto.length, responseDto);
 					return Mono.just(genericResultDto);
 				}).switchIfEmpty(getMunicipalMarketsDefaultPage());
 	}

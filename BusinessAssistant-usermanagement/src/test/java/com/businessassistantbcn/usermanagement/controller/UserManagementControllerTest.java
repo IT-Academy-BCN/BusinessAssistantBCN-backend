@@ -1,11 +1,12 @@
 package com.businessassistantbcn.usermanagement.controller;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import com.businessassistantbcn.usermanagement.dto.UserDto;
-import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
@@ -50,6 +53,12 @@ public class UserManagementControllerTest {
 		userEmailDto.setPassword("wwdd98e");
 
 		userUuidDto.setUuid(UUID. randomUUID().toString());
+
+		userDto.setEmail("user@user.es");
+		userDto.setUuid("cb5f0578-6574-4e9a-977d-fca06c7cb67b");
+		List<String> roles = new ArrayList<String>();
+		roles.add("USER");
+		userDto.setRoles(roles);
 	}
 	
 	@Test
@@ -67,7 +76,6 @@ public class UserManagementControllerTest {
 
 	@Test
 	@DisplayName("Test response get user")
-    //TODO: userDto is empty (??)
 	void testGetUserByUuidResponse(){
 		final String URI_GET_USER = "/user/uuid";
 		when(userManagementService.getUserByUuid(userUuidDto)).thenReturn(Mono.just(userDto));
@@ -77,14 +85,11 @@ public class UserManagementControllerTest {
 				.body(Mono.just(userUuidDto), UserEmailDto.class)
 				.exchange()
 				.expectStatus().isOk()
-				.expectBody()
 				.equals(Mono.just(userDto));
 	}
 
 	@Test
-
 	@DisplayName("Test response get user")
-        //TODO: userDto is empty (??)
 	void testGetUserByMailResponse(){
 		final String URI_GET_USER = "/user/email";
 		when(userManagementService.getUserByEmail(userEmailDto)).thenReturn(Mono.just(userDto));
@@ -96,16 +101,13 @@ public class UserManagementControllerTest {
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()
-
 				.equals(Mono.just(userDto));
   }
 
-	
   @Test
-      //TODO: userDto is empty (??)
   void AddUserTest(){
 		final String URI_ADD_USER="/user";
-		when(userManagementService.addUser(userEmailDto)).thenReturn(Mono.just(userDto));
+		when(userManagementService.addUser(userEmailDto)).thenAnswer(x->(Mono.just(userDto)));
 		webTestClient.post()
 				.uri(CONTROLLER_BASE_URL + URI_ADD_USER)
 				.accept(MediaType.APPLICATION_JSON)
@@ -115,6 +117,4 @@ public class UserManagementControllerTest {
 				.expectBody()
 				.equals(Mono.just(userDto));
 	}
-
-
 }

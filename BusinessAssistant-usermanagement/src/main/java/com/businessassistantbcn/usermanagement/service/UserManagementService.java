@@ -1,13 +1,15 @@
 package com.businessassistantbcn.usermanagement.service;
 
-import com.businessassistantbcn.usermanagement.dto.UserUuidDto;
+import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
+import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import com.businessassistantbcn.usermanagement.document.User;
-import com.businessassistantbcn.usermanagement.dto.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.UserDto;
+import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserDto;
 import com.businessassistantbcn.usermanagement.helper.DtoHelper;
 import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
 import java.util.Optional;
@@ -17,37 +19,48 @@ public class UserManagementService implements IUserManagementService {
 
     @Autowired
     UserManagementRepository userRepository;
-
+    @Autowired
+    PropertiesConfig propertiesConfig;
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
 
-    private boolean existByEmail(UserEmailDto userEmailDto){
+    /**
+     * Añade un usuario a la base de datos. Funcionamiento:
+     * 1. Comprueba si el número máximo de usuarios está excedido
+     * 2. Comprueba si el usuario existe
+     * 3. Si el usuario existe, actualiza el último acceso y devuelve empty
+     * 4. Si el usuario no existe, lo crea y devuelve el usuario creado
+     *
+     * @param userEmailDto
+     * @return
+     */
 
-        Optional<Boolean> aBoolean = userRepository.existsByEmail(userEmailDto.getEmail()).blockOptional();
+    public Mono<?> addUser(UserEmailDto userEmailDto) {
 
-        boolean result;
+        Mono<?> response;
 
-        if (aBoolean.isPresent()){
-            result = aBoolean.get();
-        } else {
-            result = true;
-        }
-
-        return result;
-
-    }
-
-    public Mono<UserDto> addUser(UserEmailDto userEmailDto) {
-
-        Mono<UserDto> response;
-
-        if(existByEmail(userEmailDto)){
-            response = Mono.empty();
-        }else {
-            userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
-            response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto))
-                                    .map(DtoHelper::convertToDto);
+        if (!limitUsersDbExceeded()) {
+            Optional<User> user = userRepository.findByEmail(userEmailDto.getEmail()).blockOptional();
+            if (!user.isEmpty()) {
+                setLatestAccess(user.get());
+                userRepository.save(user.get()).block();
+                response = Mono.empty();
+            } else {
+                userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
+                response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);
+            }
+        } else {//número máximo de usuarios excedido
+            response = Mono.just(new ErrorDto(propertiesConfig.getError()));
         }
         return response;
+    }
+
+    public void setLatestAccess(User user) {
+        user.setLatestAccess(System.currentTimeMillis());
+        userRepository.save(user).block();
+    }
+
+    public boolean limitUsersDbExceeded() {
+        return propertiesConfig.getEnabled() && (userRepository.count().block() >= propertiesConfig.getMaxusers());
     }
 
     @Override
@@ -57,9 +70,10 @@ public class UserManagementService implements IUserManagementService {
 
         Mono<UserDto> response;
 
-        if(user.blockOptional().isEmpty()){
+        if (user.blockOptional().isEmpty()) {
             response = Mono.empty();
-        }else{
+        } else {
+            setLatestAccess(user.block());
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
@@ -69,11 +83,13 @@ public class UserManagementService implements IUserManagementService {
     public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
 
         Mono<User> user = userRepository.findByEmail(userEmailDto.getEmail());
+
         Mono<UserDto> response;
 
-        if(user.blockOptional().isEmpty()){
+        if (user.blockOptional().isEmpty()) {
             response = Mono.empty();
-        }else{
+        } else {
+            setLatestAccess(user.block());
             response = user.map(DtoHelper::convertToDto);
         }
         return response;
