@@ -4,6 +4,7 @@ import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
+import com.businessassistantbcn.gencat.dto.output.ResponseScopeDto;
 import com.businessassistantbcn.gencat.service.CcaeService;
 import com.businessassistantbcn.gencat.service.RaiscService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -105,5 +106,13 @@ public class GencatController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
             return year;
+    }
+    @GetMapping("/raisc/scopes")
+    public Mono<List<ResponseScopeDto>> getScopes(@RequestParam(required = false) String offset,
+                                                   @RequestParam(required = false) String limit
+    ) throws MalformedURLException {
+
+        return raiscService.getScopes(this.getValidOffset(offset), this.getValidLimit(limit));
+
     }
 }

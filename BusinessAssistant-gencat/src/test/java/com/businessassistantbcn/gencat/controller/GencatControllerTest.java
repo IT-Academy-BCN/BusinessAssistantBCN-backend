@@ -5,6 +5,7 @@ import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
+import com.businessassistantbcn.gencat.dto.output.ResponseScopeDto;
 import com.businessassistantbcn.gencat.exception.ControllerAdvisor;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import com.businessassistantbcn.gencat.service.CcaeService;
@@ -23,7 +24,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -256,6 +259,31 @@ class GencatControllerTest {
                 new PropertiesConfig.CcaeItem("4", "Classe")
         );
     }
+
+    @Test
+    public void testScopes() throws IOException {
+        // Set up the mock response from the service
+        final String URI_TEST = "/raisc/scopes";
+
+        when(raiscService.getScopes(0, 1)).thenReturn(getGenericResultDtoScope());
+
+        webTestClient.get()
+                .uri(CONTROLLER_BASE_URL + URI_TEST)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .consumeWith(System.out::println);
+    }
+
+
+    private <T> T getGenericResultDtoScope() {
+        List<ResponseScopeDto> responseScopeDtos = new ArrayList<>();
+        responseScopeDtos.add(new ResponseScopeDto("10", "EducaciÃ³"));
+        return (T) Mono.just(responseScopeDtos);
+    }
+
 
 
 
