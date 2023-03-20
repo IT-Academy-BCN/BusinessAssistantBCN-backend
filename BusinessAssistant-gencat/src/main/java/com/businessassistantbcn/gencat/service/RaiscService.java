@@ -32,7 +32,6 @@ public class RaiscService {
     @Autowired
     HttpProxy httpProxy;
 
-    private static final Logger log = LoggerFactory.getLogger(RaiscService.class);
 
 
     public Mono<GenericResultDto<RaiscResponseDto>> getPageByRaiscYear(int offset, int limit, String year) {
@@ -44,19 +43,22 @@ public class RaiscService {
         return Mono.just(genericResultDto);
     }
     public Mono<List<ResponseScopeDto>> getScopes(int offset, int limit) throws MalformedURLException {
-        if(limit == -1){
-            limit = 5;
-        }
-
         // Hacer un GET a la URL que se encuentra en el application.yml
         Mono<String> response =  httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class);
         // Extraer ResponseScopeDto de toda la data de un Flux.
         // .skip para saltar la data del offset y .take para limitar los resultados
-        return response.map(content -> extractScopes(content))
-                .flatMapMany(Flux::fromIterable)
-                .skip(offset)
-                .take(limit)
-                .collectList();
+        try {
+            return response.map(content -> extractScopes(content))
+                    .flatMapMany(Flux::fromIterable)
+                    .skip(offset)
+                    .take(limit)
+                    .collectList();
+        }catch (IllegalArgumentException e){
+            List<ResponseScopeDto> responses = new ArrayList<>();
+            responses.add(new ResponseScopeDto("Introduce un valor offset y limit válido"
+                    , "offset must be more or equal 0"));
+            return Mono.just(responses);
+        }
     }
 
     private static List<ResponseScopeDto> extractScopes(String content) {
@@ -66,7 +68,8 @@ public class RaiscService {
         JSONArray data = json.getJSONArray("data");
         for (int i = 0; i < data.length(); i++) {
             JSONArray row = data.getJSONArray(i);
-            // En este caso sé que es el 35 y 36 porque lo pone en RaiscResponseDto que sería la data entera
+            // En este caso sé que es el 35 y 36 porque lo pone en RaiscResponseDto
+            // que sería la data entera
             String idScope = row.getString(35);
             String scope = row.getString(36);
             scopes.add(new ResponseScopeDto(idScope, scope));
