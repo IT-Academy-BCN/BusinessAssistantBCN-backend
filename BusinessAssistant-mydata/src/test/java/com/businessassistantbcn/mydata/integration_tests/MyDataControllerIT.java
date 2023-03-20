@@ -7,14 +7,12 @@ import com.businessassistantbcn.mydata.dto.SaveSearchRequestDto;
 import com.businessassistantbcn.mydata.dto.SaveSearchResponseDto;
 import com.businessassistantbcn.mydata.entity.UserSearch;
 import com.businessassistantbcn.mydata.repository.IUserSearchesRepository;
-//import com.businessassistantbcn.mydata.repository.MyDataRepository;
 import com.businessassistantbcn.mydata.service.UserSearchesService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
@@ -29,7 +27,6 @@ import reactor.core.publisher.Mono;
 
 import javax.sql.DataSource;
 import java.util.*;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,13 +34,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.properties")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 @Import({DBTestConfiguration.class})
 @Testcontainers
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MyDataControllerIT {
-
-    Logger logger = Logger.getLogger(MyDataControllerIT.class.getName());
 
     @Autowired
     private WebTestClient webTestClient;
@@ -71,9 +65,9 @@ class MyDataControllerIT {
 
     @Container
     static MySQLContainer mySQLContainer = new MySQLContainer()
-            .withDatabaseName("businessassistantbcndb")
+            .withDatabaseName("businessassistantbcndbTest")
             .withUsername("admin")
-            .withPassword("Sb13TU7hw1oCbSIJ");
+            .withPassword("admin");
 
     @BeforeEach
     public void beforeEach() {
@@ -101,7 +95,6 @@ class MyDataControllerIT {
 
     @Test
     @Order(1)
-//    @WithUserDetails(value= "sa", userDetailsServiceBeanName = "userDetailsService")
     void testSaveUserSearch() {
 
         webTestClient.post()
