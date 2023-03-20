@@ -37,12 +37,13 @@ public class HttpSecurityConfig {
     public static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Autowired
-        private SecurityPropertiesConfig config;
+        private PropertiesConfig config;
         @Autowired
         private JwtAuthenticationFilter jwtFilter;
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.csrf().disable();
+            http.headers().xssProtection().and().contentSecurityPolicy("script-src 'self'");
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
             http.authorizeRequests().anyRequest().authenticated();

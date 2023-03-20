@@ -6,21 +6,10 @@ import com.businessassistantbcn.login.config.TestUserConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.dto.UserDto;
 import com.businessassistantbcn.login.proxy.HttpProxy;
-
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.crypto.spec.SecretKeySpec;
-
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,25 +21,34 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import reactor.core.publisher.Mono;
+
+import javax.crypto.spec.SecretKeySpec;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class LoginService implements AuthenticationProvider {
-	
+
 	@Autowired
 	private SecurityConfig config;
-	
+
 	@Autowired
 	private HttpProxy httpProxy;
-	
-	@Autowired
-	public LoginService(SuperUserConfig su, TestUserConfig tu) {
-		superUser = new UserDto(su.getEmail(), su.getRoles());
-		testUser = new UserDto(tu.getEmail(), tu.getRoles());
-		testUserA = new AuthenticationRequest(tu.getEmail(), tu.getPassword());
+
+	private final UserDto superUser;
+	private final UserDto testUser;
+	private UserDto userFound;
+	private final AuthenticationRequest testUserA;
+	private final AuthenticationRequest superUserA;
+
+	public LoginService(SuperUserConfig superUserConfig, TestUserConfig testUserConfig) {
+		superUser = new UserDto(superUserConfig.getEmail(), superUserConfig.getRoles());
+		superUserA = new AuthenticationRequest(superUserConfig.getEmail(), superUserConfig.getPassword());
+		testUser = new UserDto(testUserConfig.getEmail(), testUserConfig.getRoles());
+		testUserA = new AuthenticationRequest(testUserConfig.getEmail(), testUserConfig.getPassword());
 	}
-	
+
 	// JSON Web Token generator
 	public String generateToken(UserDto userDetails) {
 		Map<String, Object> claims = new HashMap<>();
@@ -76,28 +74,24 @@ public class LoginService implements AuthenticationProvider {
 	private List<GrantedAuthority> conversionStringAuthorities(List<String> roles) {
 		return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 	}
-	
-	private final UserDto superUser, testUser;
-	private final AuthenticationRequest testUserA;
-	
-// TODO **** Provisional response with testUser ****
+
+	// TODO **** DISABLE following code once the secured endpoint in 'usermanagement' is established ****
 	public Mono<UserDto> loadUser(AuthenticationRequest request) {
 		return request.equals(testUserA)
 				? Mono.just(testUser)
 				: Mono.error(new UsernameNotFoundException("Unknown user \'" + testUserA.getEmail()  + "\'"));
 	}
-	
+
 	// Database liaison
-// TODO **** Enable the following code once the secured endpoint in 'usermanagement' is established ****
-//	public Mono<UserDto> loadUser(AuthenticationRequest request) { try {
-//		String jwt = generateToken(superUser);
-//		
-//		return httpProxy.getRequestData(new URL(config.getUserManagementUrl()), jwt, request, UserDto.class);
-//	} catch(MalformedURLException e) {
-//		return Mono.error(e);
-//	} }
-	
-	private UserDto userFound;
+ // TODO **** Enable the following code once the secured endpoint in 'usermanagement' is established ****
+//	public Mono<UserDto> loadUser(AuthenticationRequest request) {
+//		try {
+//			String jwt = generateToken(superUser);
+//			return httpProxy.getRequestData(new URL(config.getUserManagementUrl()), jwt, request, UserDto.class);
+//		} catch(MalformedURLException e) {
+//			return Mono.error(e);
+//		}
+//	}
 	
 	// Authentication provider
 	@Override
@@ -107,8 +101,8 @@ public class LoginService implements AuthenticationProvider {
 	}
 	
 	public Authentication authenticate(AuthenticationRequest request) throws AuthenticationException {
-		Optional<String> username = Optional.ofNullable((String)request.getEmail());
-		Optional<String> password = Optional.ofNullable((String)request.getPassword());
+		Optional<String> username = Optional.ofNullable(request.getEmail());
+		Optional<String> password = Optional.ofNullable(request.getPassword());
 		
 		if(credentialsMissing(username, password) || !credentialsValid(request))
 			throw new BadCredentialsException("Invalid credentials");
@@ -118,7 +112,7 @@ public class LoginService implements AuthenticationProvider {
 	}
 	
 	private boolean credentialsMissing(Optional<String> username, Optional<String> password) {
-		return !username.isPresent() || !password.isPresent();
+		return username.isEmpty() || password.isEmpty();
 	}
 	
 	private boolean credentialsValid(AuthenticationRequest request) { // Request to DB

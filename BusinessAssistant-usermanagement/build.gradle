@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.6.1'
+    id 'jacoco'
 }
 
 jar {
@@ -9,6 +10,10 @@ jar {
                 'Main-Class': 'com.businessassistantbcn.usermanagement.App'
         )
     }
+}
+jacoco{
+    toolVersion = '0.8.8'
+    reportsDirectory = layout.buildDirectory.dir('jacocoXml')
 }
 
 group 'com.businessassistantbcn'
@@ -32,40 +37,69 @@ dependencies {
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-circuitbreaker-resilience4j', version: '2.1.0'
     implementation group: 'org.springframework', name: 'spring-context', version: '5.3.13'
     implementation group: 'org.springframework', name: 'spring-orm', version: '5.3.13'
-    implementation group: 'com.h2database', name: 'h2', version: '2.0.202'
-
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.5.6'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2', 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+    //WARNING: comentar las siguientes líneas si NO está habilitado Consul (para evitar el self-registry)
+//    implementation 'org.springframework.cloud:spring-cloud-starter-consul-config:3.1.1'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery:3.1.1'
+//    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-bootstrap', version: '3.1.1'
+    //
 
     // JAX-B dependencies for JDK 9+
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.2'
     implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.3'
-
     //dependencies for Swagger
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.8'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-data-rest', version: '1.6.8'
-
-
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
     testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.1.0'
-    testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.13'
+    //testImplementation group: 'org.springframework', name: 'spring-test', version: '5.3.13'
     testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.6.1'
-    testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.3.1'
     testImplementation group: 'io.projectreactor', name: 'reactor-test', version: '3.1.0.RELEASE'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
-
+    testImplementation group: 'org.testcontainers', name: 'mongodb', version: '1.17.6'
+    testImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.17.6'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
-
 
 }
 
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+// JaCoCo configuration: https://docs.gradle.org/current/userguide/jacoco_plugin.html
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.7
+            }
+        }
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.jacoco.reportPaths", jacoco.reportsDirectory
+    }
 }

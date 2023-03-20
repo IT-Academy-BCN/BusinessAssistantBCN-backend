@@ -25,7 +25,7 @@ public class GeometryDto {
     private CoordinateDto coordinateDto;
 
     @JsonGetter("coordinates")
-    public com.businessassistantbcn.opendata.dto.input.bigmalls.CoordinateDto getCoordinates() {
+    public CoordinateDto getCoordinates() {
 
         coordinateDto = new CoordinateDto();
         if(coordinates.size()>1){

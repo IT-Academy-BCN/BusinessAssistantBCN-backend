@@ -35,9 +35,11 @@ test-output/
 dist/
 logs/
 node_modules/
+coverage/
 cmake-build-debug/
 tmp
 tmp/
+out/
 .metadata/
 .plugins/
 .settings/
@@ -45,6 +47,7 @@ tmp/
 .svn/
 .iml/
 .idea/
+.angular/
 .gradle/
 *.classpath
 *.project

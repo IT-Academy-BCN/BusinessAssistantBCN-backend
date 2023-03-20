@@ -3,11 +3,12 @@ package com.businessassistantbcn.login.controller;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.dto.AuthenticationResponse;
 import com.businessassistantbcn.login.service.LoginService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,18 +26,28 @@ public class LoginController {
 		
 		return "Hello from BusinessAssistant Barcelona!!!";
 	}
+
+	@PostMapping("/test-post")
+	public String testPost() {
+		log.info("** Saludos desde el logger --- POST**");
+
+		return "Hello from BusinessAssistant Barcelona --- POST!!!";
+	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> createAuthenticationToken(
-			@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	@PreAuthorize("hasAuthority('SUPERUSER')")
+	public ResponseEntity<AuthenticationResponse> createAuthenticationToken(
+			@RequestBody AuthenticationRequest authenticationRequest) {
 		try {
 			loginService.authenticate(authenticationRequest);
+			String jwt = loginService.generateToken();
+			return new ResponseEntity<>(new AuthenticationResponse(jwt), HttpStatus.OK);
 		} catch(BadCredentialsException e) {
-			throw new Exception("Incorrect username or password", e);
+			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		}
-		String jwt = loginService.generateToken();
+
 		
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+
 	}
 	
 }

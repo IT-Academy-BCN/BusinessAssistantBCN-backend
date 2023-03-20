@@ -1,12 +1,19 @@
 package com.businessassistantbcn.mydata.controller;
 
+import com.businessassistantbcn.mydata.proxy.HttpProxy;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+//import org.springframework.cloud.client.discovery.DiscoveryClient;
 import reactor.core.publisher.Mono;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import javax.naming.ServiceUnavailableException;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.math.NumberUtils;
@@ -36,6 +43,12 @@ public class MydataController {
 	@Autowired
 	UserSearchesService userService;
 
+//	@Autowired
+//	private DiscoveryClient discoveryClient;
+
+//	@Autowired
+//	private HttpProxy httpProxy;
+
 	public MydataController(UserSearchesService userService) {
 		this.userService = userService;
 	}
@@ -45,35 +58,55 @@ public class MydataController {
 	@GetMapping(value = "/test")
 	@Operation(summary = "Get test")
 	@ApiResponse(responseCode = "200", description = "OK")
-	public String test() {
+	//public Mono<String> test() throws ServiceUnavailableException, MalformedURLException {
+	public String test() throws ServiceUnavailableException, MalformedURLException {
+
+//		//All services available
+///*		StringBuffer sb = new StringBuffer();
+//		discoveryClient.getServices().forEach( (s) -> {
+//			sb.append(s + "\r\n");
+//		});*/
+//		Optional<URI> uri = discoveryClient.getInstances("businessassistant-usermanagement")
+//				.stream()
+//				.findAny()
+//				.map( s -> s.getUri());
+//
+//		return httpProxy.getRequestData(uri
+//						.map( s -> s.resolve("/businessassistantbcn/api/v1/usermanagement/test"))
+//						.get().toURL(), String.class)
+//						.flatMap( s -> Mono.just(s));
+
+
+        //return userService.getTest();
+
 		return "Hello from BusinessAssistant MyData!!!";
 	}
 
 	@PostMapping(value="/mysearches/{user_uuid}")
-    @Operation(summary = "Save user search")
-    @ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
-    	@ApiResponse(responseCode = "400", description = "Bad Request"),
-		@ApiResponse(responseCode = "404", description = "Not Found"),
-		@ApiResponse(responseCode = "503", description = "Service Unavailable") })
-    public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @Valid @RequestBody SaveSearchRequestDto searchToSave) {
-    	return userService.saveSearch(searchToSave, user_uuid);
-    }
-   
+	@Operation(summary = "Save user search")
+	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "400", description = "Bad Request"),
+			@ApiResponse(responseCode = "404", description = "Not Found"),
+			@ApiResponse(responseCode = "503", description = "Service Unavailable") })
+	public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @Valid @RequestBody SaveSearchRequestDto searchToSave) {
+		return userService.saveSearch(searchToSave, user_uuid);
+	}
+
 	@GetMapping("/mysearches/{user_uuid}")
 	@Operation(summary = "Get searches  SET 0 LIMIT 0")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
-					@ApiResponse(responseCode = "404", description = "Not Found"),
-					@ApiResponse(responseCode = "503", description = "Service Unavailable") })
+			@ApiResponse(responseCode = "404", description = "Not Found"),
+			@ApiResponse(responseCode = "503", description = "Service Unavailable") })
 	public Mono<GenericSearchesResultDto<JsonNode>> getAllSearchesByUser(
 			@RequestParam(required = false) String offset,
 			@RequestParam(required = false) String limit,
-			@PathVariable("user_uuid") String user_uuid, 
+			@PathVariable("user_uuid") String user_uuid,
 			@RequestParam Map<String, String> map) {
 		this.validateRequestParameters(map, this.PAGINATION_ENABLED);
 
 		return userService.getAllUserSearches(user_uuid, getValidOffset(offset), getValidLimit(limit));
 	}
-	
+
 	private void validateRequestParameters(Map<String, String> map, boolean paginationEnabled) {
 		if (!paginationEnabled && !map.keySet().isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -109,14 +142,14 @@ public class MydataController {
 
 	@GetMapping("/mysearches/{user_uuid}/search/{search_uuid}")
 	@ApiResponses({ @ApiResponse(responseCode = "200", description = "OK"),
-					@ApiResponse(responseCode = "404", description = "Not Found"),
-					@ApiResponse(responseCode = "503", description = "Service Unavailable"), })
+			@ApiResponse(responseCode = "404", description = "Not Found"),
+			@ApiResponse(responseCode = "503", description = "Service Unavailable"), })
 	public Mono<SearchResultsDto> getOneSearchResults(
-			@PathVariable("user_uuid") String user_uuid, 
+			@PathVariable("user_uuid") String user_uuid,
 			@PathVariable("search_uuid") String search_uuid) {
-		
-		return userService.getSearchResults(search_uuid, user_uuid); 
+
+		return userService.getSearchResults(search_uuid, user_uuid);
 	}
 
-	
+
 }

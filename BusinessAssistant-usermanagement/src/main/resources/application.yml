@@ -1,27 +1,21 @@
 spring:
   application:
     name: businessassistant-usermanagement
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   jmx:
     enabled: true
-  cloud:
-    consul:
-      host: 172.17.0.3
-      port: 8500
-      discovery:
-        port: 8762
-        prefer-ip-address: true
-        healthCheckPath: /health
   data:
     mongodb:
-      host: localhost
-      port: 27017
-      database: babcn-users
+      uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@localhost:27017/babcn-users # local
+      #uri: mongodb://admin_businessassistantbcn:UhWQQYFVBx95W7@0.0.0.0:27018/babcn-users # docker
   #Spring profiles available:
   #   - dev: disable security
   #   - pro: enable JWT security
   profiles:
     active:
-    - pro        
+      - dev #pro
 
 springdoc:
   swagger-ui:
@@ -57,3 +51,7 @@ logging:
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: opendata.log
+limitdb:
+  enabled: true #false
+  maxusers: 200
+  err: Users limit on database

@@ -3,6 +3,12 @@ spring:
     name: businessassistant-login
   jmx:
     enabled: true
+  #Spring profiles available:
+  #   - dev: disable security
+  #   - pro: enable JWT security
+  profiles:
+    active:
+      - dev
 
 springdoc:
   swagger-ui:
@@ -26,18 +32,21 @@ security:
     signUpUrl: /businessassistantbcn/api/v1/login
     secret: SgVkYp3s6v9y$B&E)H+MbQeThWmZq4t7
     # Mind the trailing white space below!
-    tokenPrefix: Bearer 
-    # 10 hours, expressed in milliseconds
-    expiresIn: 36_000_000
+    tokenPrefix: Bearer
+    # 20 minutes, expressed in milliseconds
+    expiresIn: 1_200_000
     authoritiesClaim: authorities
     err: Auth Error, Token Unavailable
     userManagementUrl: http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user
+    # Api token con información de SuperUser:
+    # apiToken: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InVlYmVybWVuc2NoQHphcmF0aHVzdHJhLmNvbSIsInBhc3N3b3JkIjoibEpVIUxVQk9xYTdrIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJVU0VSIl0sImlhdCI6MTY1MzQ2ODk3MH0.n0B3xGZBR6fAT1qpONHkmbJd4YRGccxdEuIjhHOJlJE
   testuser:
     email: jvicente@gmail.com
     password: 56589pp05s
     roles: [ADMIN]
   superuser:
     email: uebermensch@zarathustra.com
+    password: lJU!LUBOqa7k
     roles: [SUPERUSER]
 
 url:
@@ -50,7 +59,7 @@ logging:
     "[org.springframework]": ERROR
     "[com.businessassistantbcn]": INFO
   pattern:
-  # console: Spring's default
+    # console: Spring's default
     file: "%date %5level %-40.40logger{39} [%thread] %msg%n"
 #  file:
 #    name: login.log
