@@ -23,7 +23,6 @@ Ali Ojeda - https://github.com/yalipct
 Vanesa Rafols - https://github.com/Van-2010
 Jordi Borràs - https://github.com/xordiet
 Maria Angelini - https://github.com/magaangel
-Pilar Moreno - https://github.com/pilar-am
 Quique Sánchez Suárez - https://github.com/quiquelowbeat
 Luis Gámez - https://github.com/LuisEGamez
 Ernest Company Vallet - https://github.com/ErnestCV
@@ -32,3 +31,4 @@ Pepe Ramos - https://github.com/jramma
 Gerard Gurgui - https://github.com/GerardGurgui
 Alejandro Fernández - https://github.com/AlejandroFernandezVidal
 Joan Marc Pedro - https://github.com/JoanMarcPC
+Pilar Moreno - https://github.com/pilar-am
