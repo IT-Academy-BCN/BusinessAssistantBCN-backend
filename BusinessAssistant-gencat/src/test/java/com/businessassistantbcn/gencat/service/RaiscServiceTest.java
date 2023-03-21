@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -37,37 +39,36 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class RaiscServiceTest {
 
-    @MockBean
+    @Mock
     private HttpProxy httpProxy;
 
-    @MockBean
+    @Mock
     private PropertiesConfig config;
+
     @Autowired
     @InjectMocks
     private RaiscService raiscService;
-//    private static ObjectMapper mapper;
 
-//    private static final String JSON_ALL_RAISC_SCOPE_DATA = "json/allRaiscData.json";
-//    private static String raiscResponseDtosAllData;
+    private static ObjectMapper mapper;
 
-//    @BeforeAll
-//    static void beforeAll() throws URISyntaxException, IOException {
-//        String allDataAsString = Files.readAllLines(Paths.get(String.class
-//                .getClassLoader().getResource(JSON_ALL_RAISC_SCOPE_DATA).toURI()), StandardCharsets.UTF_8).get(0);
-//        mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        raiscResponseDtosAllData = mapper.readValue(allDataAsString, String.class);
-//    }
+    private static final String JSON_ALL_RAISC_SCOPE_DATA = "json/allRaiscData.json";
+    private static String raiscResponseDtosAllData;
+
+    @BeforeAll
+    static void beforeAll() throws URISyntaxException, IOException {
+        MockitoAnnotations.openMocks(RaiscServiceTest.class);
+        String allDataAsString = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(JSON_ALL_RAISC_SCOPE_DATA).toURI()), StandardCharsets.UTF_8).get(0);
+        mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        raiscResponseDtosAllData = allDataAsString;
+    }
+
     @Test
     void getScopesTest() throws MalformedURLException {
-
         when(config.getDs_scopes()).thenReturn("https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json");
-
-
-       // when(httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class)).thenReturn(Mono.just(raiscResponseDtosAllData));
-       when(raiscService.getScopes(0,1)).thenReturn(getGenericResultDtoScope());
-
-
+        when(httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class)).thenReturn(Mono.just(raiscResponseDtosAllData));
+     //   when(raiscService.getScopes(anyInt(), anyInt())).thenReturn(getGenericResultDtoScope());
     }
+
     private <T> T getGenericResultDtoScope() {
         List<ResponseScopeDto> responseScopeDtos = new ArrayList<>();
         responseScopeDtos.add(new ResponseScopeDto("10", "EducaciÃ³"));
@@ -75,3 +76,4 @@ public class RaiscServiceTest {
     }
 
 }
+
