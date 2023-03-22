@@ -33,7 +33,7 @@ public class PropertiesConfig {
     private String ds_economicactivitiescensus;
     @Value("${url.ds_economicactivitiesgroundfloor}")
     private String ds_economicactivitiesgroundfloor;
-    @Value("#{'${url.districts:}'.split(',')}")
+    @Value("#{'${districts:}'.split(',')}")
     private String[] districts;
 
     //Properties with beginning "security.datasource"
