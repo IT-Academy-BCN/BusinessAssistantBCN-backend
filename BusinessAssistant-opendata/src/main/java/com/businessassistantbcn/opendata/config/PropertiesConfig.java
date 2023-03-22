@@ -1,34 +1,74 @@
 package com.businessassistantbcn.opendata.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties
-@ConfigurationProperties("url")
+@ConfigurationProperties
 public class PropertiesConfig {
 
+    //Properties with beginning "url"
+    @Value("${url.connection_timeout}")
     private Integer connection_timeout;//millis
-
-    private String ds_apitestcircuitbreakers;
-    private String ds_test;
-    private String ds_largeestablishments;
-    private String ds_commercialgalleries;
-    private String ds_bigmalls;
-    private String ds_municipalmarkets;
-    private String ds_marketfairs;
-    private String ds_economicactivitiescensus;
-    private String ds_economicactivitiesgroundfloor;
+    @Value("${url.maxBytesInMemory}")
     private Integer maxBytesInMemory;
+    @Value("${url.ds_apitestcircuitbreakers}")
+    private String ds_apitestcircuitbreakers;
+    @Value("${url.ds_test}")
+    private String ds_test;
+    @Value("${url.ds_largeestablishments}")
+    private String ds_largeestablishments;
+    @Value("${url.ds_commercialgalleries}")
+    private String ds_commercialgalleries;
+    @Value("${url.ds_bigmalls}")
+    private String ds_bigmalls;
+    @Value("${url.ds_municipalmarkets}")
+    private String ds_municipalmarkets;
+    @Value("${url.ds_marketfairs}")
+    private String ds_marketfairs;
+    @Value("${url.ds_economicactivitiescensus}")
+    private String ds_economicactivitiescensus;
+    @Value("${url.ds_economicactivitiesgroundfloor}")
+    private String ds_economicactivitiesgroundfloor;
+    @Value("#{'${districts:}'.split(',')}")
     private String[] districts;
 
-    public int getMaxBytesInMemory() {
-        return maxBytesInMemory;
-    }
+    //Properties with beginning "security.datasource"
+    @Value("${security.datasource.secret}")
+    private String secret;
+    @Value("${security.datasource.headerString}")
+    private String headerString;
+    @Value("${security.datasource.authoritiesClaim}")
+    private String authoritiesClaim;
+    @Value("${security.datasource.err}")
+    private String err;
 
-    public void setMaxBytesInMemory(String maxBytesInMemory) {
-        this.maxBytesInMemory = Integer.parseInt(maxBytesInMemory);
+    public String getSecret() {
+        return secret;
+    }
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+    public String getHeaderString() {
+        return headerString;
+    }
+    public void setHeaderString(String headerString) {
+        this.headerString = headerString;
+    }
+    public String getAuthoritiesClaim() {
+        return authoritiesClaim;
+    }
+    public void setAuthoritiesClaim(String authoritiesClaim) {
+        this.authoritiesClaim = authoritiesClaim;
+    }
+    public String getErr() {
+        return err;
+    }
+    public void setErr(String err) {
+        this.err = err;
     }
 
     public Integer getConnection_timeout() {
@@ -37,6 +77,14 @@ public class PropertiesConfig {
 
     public void setConnection_timeout(String connection_timeout) {
         this.connection_timeout = Integer.parseInt(connection_timeout);
+    }
+
+    public int getMaxBytesInMemory() {
+        return maxBytesInMemory;
+    }
+
+    public void setMaxBytesInMemory(String maxBytesInMemory) {
+        this.maxBytesInMemory = Integer.parseInt(maxBytesInMemory);
     }
 
     public String getDs_test() {
