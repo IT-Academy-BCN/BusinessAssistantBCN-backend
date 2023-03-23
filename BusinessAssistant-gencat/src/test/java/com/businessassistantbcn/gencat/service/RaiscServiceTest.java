@@ -66,14 +66,9 @@ public class RaiscServiceTest {
     void getScopesTest() throws MalformedURLException {
         when(config.getDs_scopes()).thenReturn("https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json");
         when(httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class)).thenReturn(Mono.just(raiscResponseDtosAllData));
-     //   when(raiscService.getScopes(anyInt(), anyInt())).thenReturn(getGenericResultDtoScope());
+
     }
 
-    private <T> T getGenericResultDtoScope() {
-        List<ResponseScopeDto> responseScopeDtos = new ArrayList<>();
-        responseScopeDtos.add(new ResponseScopeDto("10", "EducaciÃ³"));
-        return (T) Mono.just(responseScopeDtos);
-    }
 
 }
 

@@ -34,8 +34,6 @@ public class RaiscService {
     @Autowired
     HttpProxy httpProxy;
 
-
-
     public Mono<GenericResultDto<RaiscResponseDto>> getPageByRaiscYear(int offset, int limit, String year) {
         return getRaiscDefaultPage();
     }
@@ -55,6 +53,7 @@ public class RaiscService {
                 .collectList()
                 .map(scopes -> JsonHelper.filterDto(scopes.toArray(new ResponseScopeDto[scopes.size()]), offset, limit))
                 .flatMapMany(Flux::fromArray)
+                .distinct()
                 .collectList();
     }
 
