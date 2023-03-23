@@ -50,10 +50,10 @@ public class RaiscService {
         return response
                 .map(content -> extractScopes(content))
                 .flatMapMany(Flux::fromIterable)
+                .distinct()
                 .collectList()
                 .map(scopes -> JsonHelper.filterDto(scopes.toArray(new ResponseScopeDto[scopes.size()]), offset, limit))
                 .flatMapMany(Flux::fromArray)
-                .distinct()
                 .collectList();
     }
 
