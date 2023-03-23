@@ -2,8 +2,10 @@ package com.businessassistantbcn.gencat.service;
 
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
+import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.dto.output.ResponseScopeDto;
+import com.businessassistantbcn.gencat.helper.JsonHelper;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,18 +49,13 @@ public class RaiscService {
         Mono<String> response =  httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class);
         // Extraer ResponseScopeDto de toda la data de un Flux.
         // .skip para saltar la data del offset y .take para limitar los resultados
-        try {
-            return response.map(content -> extractScopes(content))
-                    .flatMapMany(Flux::fromIterable)
-                    .skip(offset)
-                    .take(limit)
-                    .collectList();
-        }catch (IllegalArgumentException e){
-            List<ResponseScopeDto> responses = new ArrayList<>();
-            responses.add(new ResponseScopeDto("Introduce un valor offset y limit válido"
-                    , "offset must be more or equal 0"));
-            return Mono.just(responses);
-        }
+        return response
+                .map(content -> extractScopes(content))
+                .flatMapMany(Flux::fromIterable)
+                .collectList()
+                .map(scopes -> JsonHelper.filterDto(scopes.toArray(new ResponseScopeDto[scopes.size()]), offset, limit))
+                .flatMapMany(Flux::fromArray)
+                .collectList();
     }
 
     private static List<ResponseScopeDto> extractScopes(String content) {
