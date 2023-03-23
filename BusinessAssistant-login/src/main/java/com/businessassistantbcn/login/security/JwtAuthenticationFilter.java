@@ -1,6 +1,6 @@
 package com.businessassistantbcn.login.security;
 
-import com.businessassistantbcn.login.config.SecurityConfig;
+import com.businessassistantbcn.login.config.PropertiesConfig;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private SecurityConfig config;
+	private PropertiesConfig config;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,

@@ -1,8 +1,6 @@
 package com.businessassistantbcn.login.service;
 
-import com.businessassistantbcn.login.config.SecurityConfig;
-import com.businessassistantbcn.login.config.SuperUserConfig;
-import com.businessassistantbcn.login.config.TestUserConfig;
+import com.businessassistantbcn.login.config.PropertiesConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.dto.UserDto;
 import com.businessassistantbcn.login.proxy.HttpProxy;
@@ -21,20 +19,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class LoginServiceTest {
 
     @Autowired
-    SecurityConfig config;
+    PropertiesConfig config;
 
     @Autowired
     HttpProxy httpProxy;
 
-    @Autowired
-    TestUserConfig testUserConfig;
-
-    @Autowired
-    SuperUserConfig superUserConfig;
 
     @Autowired
     @InjectMocks
-    private LoginService loginService = new LoginService(new SuperUserConfig(), new TestUserConfig());
+    private LoginService loginService = new LoginService(new PropertiesConfig(), new PropertiesConfig());
 
     AuthenticationRequest authenticationRequestTest;
     AuthenticationRequest authenticationRequest;
@@ -45,11 +38,11 @@ class LoginServiceTest {
     void setUp(){
         // MockitoAnnotations.openMocks(this);
 
-        authenticationRequestTest = new AuthenticationRequest(testUserConfig.getEmail(), testUserConfig.getPassword());
-        testUser = new UserDto(testUserConfig.getEmail(), testUserConfig.getRoles());
+        authenticationRequestTest = new AuthenticationRequest(config.getEmailTest(), config.getPasswordTest());
+        testUser = new UserDto(config.getEmailTest(), config.getRolesTest());
         // Created suyperUser for testing when userManagement service is ready and connected to login.
-        superUser = new UserDto(superUserConfig.getEmail(), superUserConfig.getRoles());
-        authenticationRequest = new AuthenticationRequest(superUserConfig.getEmail(), superUserConfig.getPassword());
+        superUser = new UserDto(config.getEmail(), config.getRoles());
+        authenticationRequest = new AuthenticationRequest(config.getEmail(), config.getPassword());
 
     }
 

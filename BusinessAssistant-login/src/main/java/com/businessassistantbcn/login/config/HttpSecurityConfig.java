@@ -37,7 +37,7 @@ public class HttpSecurityConfig {
     public static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Autowired
-        private SecurityConfig config;
+        private PropertiesConfig config;
 
         @Autowired
         private JwtAuthenticationFilter jwtFilter;

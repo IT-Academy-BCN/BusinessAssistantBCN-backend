@@ -1,6 +1,6 @@
 package com.businessassistantbcn.login.proxy;
 
-import com.businessassistantbcn.login.config.ProxyConfig;
+import com.businessassistantbcn.login.config.PropertiesConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -34,7 +34,7 @@ public class HttpProxy {
 	public WebClient webClient;
 	
 	@Autowired
-	public HttpProxy(ProxyConfig config) {
+	public HttpProxy(PropertiesConfig config) {
 		
 		httpClient = HttpClient.create()
 			.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, config.getConnection_timeout())

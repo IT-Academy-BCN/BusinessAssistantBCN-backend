@@ -1,8 +1,6 @@
 package com.businessassistantbcn.login.service;
 
-import com.businessassistantbcn.login.config.SecurityConfig;
-import com.businessassistantbcn.login.config.SuperUserConfig;
-import com.businessassistantbcn.login.config.TestUserConfig;
+import com.businessassistantbcn.login.config.PropertiesConfig;
 import com.businessassistantbcn.login.dto.AuthenticationRequest;
 import com.businessassistantbcn.login.dto.UserDto;
 import com.businessassistantbcn.login.proxy.HttpProxy;
@@ -31,7 +29,7 @@ import java.util.stream.Collectors;
 public class LoginService implements AuthenticationProvider {
 
 	@Autowired
-	private SecurityConfig config;
+	private PropertiesConfig config;
 
 	@Autowired
 	private HttpProxy httpProxy;
@@ -42,11 +40,11 @@ public class LoginService implements AuthenticationProvider {
 	private final AuthenticationRequest testUserA;
 	private final AuthenticationRequest superUserA;
 
-	public LoginService(SuperUserConfig superUserConfig, TestUserConfig testUserConfig) {
+	public LoginService(PropertiesConfig superUserConfig, PropertiesConfig testUserConfig) {
 		superUser = new UserDto(superUserConfig.getEmail(), superUserConfig.getRoles());
 		superUserA = new AuthenticationRequest(superUserConfig.getEmail(), superUserConfig.getPassword());
-		testUser = new UserDto(testUserConfig.getEmail(), testUserConfig.getRoles());
-		testUserA = new AuthenticationRequest(testUserConfig.getEmail(), testUserConfig.getPassword());
+		testUser = new UserDto(testUserConfig.getEmailTest(), testUserConfig.getRolesTest());
+		testUserA = new AuthenticationRequest(testUserConfig.getEmailTest(), testUserConfig.getPasswordTest());
 	}
 
 	// JSON Web Token generator
