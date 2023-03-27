@@ -48,6 +48,7 @@ class GencatIntegrationTest {
 
     private static ObjectMapper mapper;
 
+    /*
     @BeforeEach
     void setUp() throws IOException, URISyntaxException {
 
@@ -55,10 +56,10 @@ class GencatIntegrationTest {
         ccaeAsString = Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
 
         mapper = new ObjectMapper();
-    }
+    }*/
 
     @Test
-    void ccaeTest() throws IOException {
+    void ccaeTest() throws IOException, URISyntaxException{
 
         final String URI_TEST = "/ccae";
 
@@ -81,10 +82,15 @@ class GencatIntegrationTest {
                 .jsonPath(RES0 + "code.idCcae").isEqualTo("A")
                 .jsonPath(RES0 + "code.description").isEqualTo("Agricultura, ramaderia, silvicultura i pesca")
                 .consumeWith(System.out::println);
+
+        Path path = Paths.get(Objects.requireNonNull(GencatIntegrationTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE)).toURI());
+        ccaeAsString = Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
+
+        mapper = new ObjectMapper();
     }
 
     @Test
-    void ccaeServerErrorTest() {
+    void ccaeServerErrorTest() throws IOException, URISyntaxException {
 
         final String URI_TEST = "/ccae";
 
@@ -101,5 +107,10 @@ class GencatIntegrationTest {
                 .jsonPath("$.limit").isEqualTo(0)
                 .jsonPath("$.count").isEqualTo(0)
                 .consumeWith(System.out::println);
+
+        Path path = Paths.get(Objects.requireNonNull(GencatIntegrationTest.class.getClassLoader().getResource(JSON_FILENAME_CCAE)).toURI());
+        ccaeAsString = Files.readAllLines(path, StandardCharsets.UTF_8).get(0);
+
+        mapper = new ObjectMapper();
     }
 }

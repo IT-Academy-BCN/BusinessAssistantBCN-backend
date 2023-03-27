@@ -7,12 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 class LoginControllerTest {
+
+    @Autowired
+    private WebTestClient webTestClient;
 
     @Mock
     LoginService loginService;
@@ -24,6 +31,8 @@ class LoginControllerTest {
     String testPost;
     AuthenticationRequest authenticationRequest;
     AuthenticationRequest badAuthenticationRequest;
+
+    private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1";
 
     @BeforeEach
     void setUp(){
@@ -39,6 +48,7 @@ class LoginControllerTest {
         assertEquals(loginController.test(), test);
     }
 
+ 
     @Test
     void testingTestPostMethod() {
         assertEquals(loginController.testPost(), testPost);

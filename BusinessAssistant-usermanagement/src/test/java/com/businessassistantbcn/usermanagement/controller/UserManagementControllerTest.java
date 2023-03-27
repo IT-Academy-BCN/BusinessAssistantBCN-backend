@@ -72,6 +72,7 @@ public class UserManagementControllerTest {
 				.expectStatus().isOk()
 				.expectBody(String.class)
 				.value(s -> s.toString(), equalTo("Hello from BusinessAssistant User!!!"));
+
 	}
 
 	@Test
