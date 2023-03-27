@@ -41,6 +41,8 @@ url:
   ds_economicActivities: https://analisi.transparenciacatalunya.cat/resource/get5-imi7.json
   ds_ccae: http://localhost:8760/test/ccae
   ds_apitestcircuitbreakers: http://localhost:8760/flowers/getAll
+  ds_scopes: https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json
+
 
 logging:
   level:
