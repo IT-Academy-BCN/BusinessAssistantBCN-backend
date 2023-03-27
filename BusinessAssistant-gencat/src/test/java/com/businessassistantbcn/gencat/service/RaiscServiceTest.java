@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,8 +30,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -52,7 +58,9 @@ public class RaiscServiceTest {
     private static ObjectMapper mapper;
 
     private static final String JSON_ALL_RAISC_SCOPE_DATA = "json/allRaiscData.json";
+
     private static String raiscResponseDtosAllData;
+
 
     @BeforeAll
     static void beforeAll() throws URISyntaxException, IOException {
@@ -66,8 +74,17 @@ public class RaiscServiceTest {
     void getScopesTest() throws MalformedURLException {
         when(config.getDs_scopes()).thenReturn("https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json");
         when(httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class)).thenReturn(Mono.just(raiscResponseDtosAllData));
+        List<ResponseScopeDto> scopes = raiscService.getScopes(0, 5).block();
 
+        assertNotNull(scopes);
+        assertEquals(5, scopes.size());
+        assertEquals("Justícia", scopes.get(0).getScope());
+        assertEquals("Educació", scopes.get(1).getScope());
+        assertEquals("Cooperació internacional per al desenvolupament i cultural", scopes.get(2).getScope());
+        assertEquals("Indústria i Energia", scopes.get(3).getScope());
+        assertEquals("Cultura", scopes.get(4).getScope());
     }
+
 
 
 }
