@@ -3,6 +3,7 @@ package com.businessassistantbcn.usermanagement.config;
 import com.businessassistantbcn.usermanagement.security.JwtAuthenticationFilter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,6 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,5 +61,12 @@ public class HttpSecurityConfig {
 				}
 			});
 		}
+	}
+	//Controlar doble slash en peticiones a endpoints en ambos perfiles.
+	@Bean
+	public static HttpFirewall getHttpFirewall() {
+		StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
+		strictHttpFirewall.setAllowUrlEncodedDoubleSlash(true);
+		return strictHttpFirewall;
 	}
 }
