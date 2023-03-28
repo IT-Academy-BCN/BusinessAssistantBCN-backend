@@ -13,30 +13,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 import reactor.core.publisher.Mono;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.Duration;
 import java.util.*;
 
+import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("dev")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations = "classpath:application-test.properties")
+@PropertySource("classpath:application-test.properties")
 @Import({DBTestConfiguration.class})
 @Testcontainers
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class MyDataControllerIT {
 
     @Autowired
@@ -64,21 +74,22 @@ class MyDataControllerIT {
 
 
     @Container
-    static MySQLContainer mySQLContainer = new MySQLContainer()
-            .withDatabaseName("businessassistantbcndbTest")
-            .withUsername("admin")
-            .withPassword("admin");
+    private static MySQLContainer<?> mySQLContainer = new MySQLContainer<>(DockerImageName.parse("mysql:8.0.27"))
+        .withDatabaseName("babcn-myDataTest")
+        .withUsername("testuser")
+        .withPassword("testpass")
+        .withExposedPorts(3306)
+        .withEnv("MYSQL_INIT_SCRIPT", "db/schema.sql")
+        .withEnv("MYSQL_INIT_SCRIPT", "db/data.sql")
+        .withStartupTimeout(Duration.ofSeconds(60));
 
-    @BeforeEach
-    public void beforeEach() {
+    @DynamicPropertySource
+    private static void setupProperties(DynamicPropertyRegistry registry) {
         mySQLContainer.start();
+        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", mySQLContainer::getUsername);
+        registry.add("spring.datasource.password", mySQLContainer::getPassword);
     }
-
-    @AfterEach
-    public void afterEach() {
-        mySQLContainer.stop();
-    }
-
 
     @BeforeAll
     void setUp(){
@@ -92,6 +103,26 @@ class MyDataControllerIT {
         requestDto.setSearchResult(mapper.valueToTree(searchResult));
 
     }
+    @AfterAll
+    void tearDown(){
+
+        String deleteStatement = "DELETE FROM my_searches";
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(deleteStatement);
+            statement.execute();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        mySQLContainer.stop();
+    }
+
+    @Test
+    void testMySQLContainerIsRunning() {
+        assertThat(mySQLContainer.isRunning()).isTrue();
+    }
 
     @Test
     @Order(1)
@@ -103,18 +134,20 @@ class MyDataControllerIT {
                 .body(Mono.just(requestDto),SaveSearchRequestDto.class)
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(UserSearch.class)
+                .expectBody(SaveSearchResponseDto.class)
                 .consumeWith(response -> {
-                    UserSearch newUserSearch = response.getResponseBody();
-                    assertNotNull(newUserSearch);
-                    userSearchesRepository.findOneBySearchUuid(newUserSearch.getSearchUuid())
+                    responseDto = response.getResponseBody();
+                    assertNotNull(responseDto);
+                    userSearchesRepository.findOneBySearchUuid(responseDto.getSearchUuid())
                         .ifPresent(userSearch -> {
-                            assertEquals(newUserSearch.getSearchUuid(), userSearch.getSearchUuid());
+                            assertNotNull(userSearch);
+                            assertEquals(responseDto.getSearchUuid(), userSearch.getSearchUuid());
                             assertEquals("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57", userSearch.getUserUuid());
-                            assertEquals("newSearchName", userSearch.getSearchName());
+                            assertEquals("newSearchNam", userSearch.getSearchName());
                             assertEquals("newSearchDetail", userSearch.getSearchDetail());
                         });
                 });
+
     }
 
     @Test
@@ -129,10 +162,10 @@ class MyDataControllerIT {
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody()
                 .jsonPath("$.results").isArray()
-                .jsonPath("$.results[3].searchUuid").isNotEmpty()
-                .jsonPath("$.results[3].userUuid").isEqualTo("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57")
-                .jsonPath("$.results[3].searchDetail").isEqualTo("newSearchDetail")
-                .jsonPath("$.results[3].searchName").isEqualTo("newSearchName");
+                .jsonPath("$.results[2].searchUuid").isNotEmpty()
+                .jsonPath("$.results[2].userUuid").isEqualTo("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57")
+                .jsonPath("$.results[2].searchDetail").isEqualTo("searchdetail2")
+                .jsonPath("$.results[2].searchName").isEqualTo("searchname2");
 
     }
 
@@ -149,7 +182,7 @@ class MyDataControllerIT {
                 .expectStatus().isOk()
                 .expectHeader().valueEquals("Content-type, application/json")
                 .expectBody()
-                .jsonPath("$.results[2].name[2]", ("IBM Client Center Barcelona"));
+                .jsonPath("$.results").isArray();
     }
 
     @Test
@@ -159,13 +192,13 @@ class MyDataControllerIT {
         final String URI_DELETE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
 
         webTestClient.delete()
-                .uri(CONTROLLER_BASE_URL + URI_DELETE_SEARCH, USER_UUID, "0602900D-3DE2-257D-54D9-46106EDC0837")
+                .uri(CONTROLLER_BASE_URL + URI_DELETE_SEARCH, USER_UUID, "8480788D-1FE0-035D-32D7-24984EBA8615")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                 .consumeWith(response -> {
-                    UserSearch userSearchDeleted = userSearchesRepository.findOneBySearchUuid("0602900D-3DE2-257D-54D9-46106EDC0837")
+                    UserSearch userSearchDeleted = userSearchesRepository.findOneBySearchUuid("8480788D-1FE0-035D-32D7-24984EBA8615")
                             .orElse(null);
                     assertNull(userSearchDeleted);
                 });

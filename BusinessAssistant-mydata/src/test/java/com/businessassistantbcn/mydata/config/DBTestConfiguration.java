@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
-
-
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.businessassistantbcn.mydata.repository"})
 @EntityScan(basePackages = "com.businessassistantbcn.mydata.entity")
@@ -37,4 +35,5 @@ public class DBTestConfiguration {
         dataSourceBuilder.password(env.getProperty("spring.datasource.password"));
         return dataSourceBuilder.build();
     }
+
 }
