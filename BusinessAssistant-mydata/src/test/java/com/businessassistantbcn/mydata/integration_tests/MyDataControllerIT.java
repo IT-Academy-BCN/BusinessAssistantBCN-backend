@@ -143,7 +143,7 @@ class MyDataControllerIT {
                             assertNotNull(userSearch);
                             assertEquals(responseDto.getSearchUuid(), userSearch.getSearchUuid());
                             assertEquals("DB3C2A2A-D36E-38C7-8A0C-1B2D3CF2BE57", userSearch.getUserUuid());
-                            assertEquals("newSearchNam", userSearch.getSearchName());
+                            assertEquals("newSearchName", userSearch.getSearchName());
                             assertEquals("newSearchDetail", userSearch.getSearchDetail());
                         });
                 });
