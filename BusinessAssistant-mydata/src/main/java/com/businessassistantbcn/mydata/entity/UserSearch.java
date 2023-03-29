@@ -1,6 +1,7 @@
 package com.businessassistantbcn.mydata.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -45,5 +46,5 @@ public class UserSearch {
 	@Convert(converter = JsonHelper.class)
 	@Column(name = "search_result", nullable = true)
 	private JsonNode searchResult;
-	
+
 }

@@ -1,17 +1,15 @@
 package com.businessassistantbcn.mydata.controller;
 
-import com.businessassistantbcn.mydata.proxy.HttpProxy;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 //import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.naming.ServiceUnavailableException;
 import javax.validation.Valid;
@@ -20,13 +18,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.businessassistantbcn.mydata.dto.GenericSearchesResultDto;
@@ -77,7 +68,7 @@ public class MydataController {
 //						.flatMap( s -> Mono.just(s));
 
 
-        //return userService.getTest();
+//        return userService.getTest();
 
 		return "Hello from BusinessAssistant MyData!!!";
 	}
@@ -88,7 +79,7 @@ public class MydataController {
 			@ApiResponse(responseCode = "400", description = "Bad Request"),
 			@ApiResponse(responseCode = "404", description = "Not Found"),
 			@ApiResponse(responseCode = "503", description = "Service Unavailable") })
-	public Mono<SaveSearchResponseDto> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @Valid @RequestBody SaveSearchRequestDto searchToSave) {
+	public Mono<?> saveSearch(@PathVariable(value="user_uuid") String user_uuid, @Valid @RequestBody SaveSearchRequestDto searchToSave) {
 		return userService.saveSearch(searchToSave, user_uuid);
 	}
 
@@ -149,6 +140,19 @@ public class MydataController {
 			@PathVariable("search_uuid") String search_uuid) {
 
 		return userService.getSearchResults(search_uuid, user_uuid);
+	}
+
+	@DeleteMapping("/mysearches/{user_uuid}/search/{search_uuid}")
+	@ApiResponses({@ApiResponse(responseCode = "204", description = "No Content"),
+			@ApiResponse(responseCode = "200", description = "OK"),
+			@ApiResponse(responseCode = "404", description = "Not Found"),
+			@ApiResponse(responseCode = "503", description = "Service Unavailable"),})
+	public Mono<?> deleteSearchFromUser(
+			@PathVariable("user_uuid") String user_uuid,
+			@PathVariable("search_uuid") String search_uuid) {
+
+		return userService.deleteUserSearchBySearchUuid(user_uuid, search_uuid);
+
 	}
 
 

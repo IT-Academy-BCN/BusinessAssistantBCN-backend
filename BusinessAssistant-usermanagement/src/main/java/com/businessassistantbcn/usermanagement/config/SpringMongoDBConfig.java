@@ -28,5 +28,4 @@ public class SpringMongoDBConfig {
         mappingConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
         return mappingConverter;
     }
-
 }

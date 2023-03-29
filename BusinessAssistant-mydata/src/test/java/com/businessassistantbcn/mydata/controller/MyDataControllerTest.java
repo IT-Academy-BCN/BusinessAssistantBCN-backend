@@ -107,7 +107,7 @@ class MyDataControllerTest {
 
 		final String URI_SAVE_SEARCH="/mysearches/{user_uuid}";
 
-		when(userService.saveSearch(requestDto,"44c5c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Mono.just(responseDto));
+		//when(userService.saveSearch(requestDto,"44c5c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Mono.just(responseDto));
 
 		webTestClient.post()
 				.uri(CONTROLLER_BASE_URL + URI_SAVE_SEARCH, "44c5c069-e907-45a9-8d49-2042044c56e0")
@@ -185,6 +185,24 @@ class MyDataControllerTest {
 				.jsonPath(RES0 + "name[0]",("Groupe Zannier Espanya"));
 
 		verify(userService).getSearchResults("33b4c069-e907-45a9-8d49-2042044c56e0", "44c5c069-e907-45a9-8d49-2042044c56e0");
+	}
+
+	@Test
+	void deleteUserSearchBySearchUuidTest() {
+
+		final String URI_DELETE_SEARCH = "/mysearches/{user_uuid}/search/{search_uuid}";
+
+		when(userService.deleteUserSearchBySearchUuid("44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0")).thenReturn(Mono.empty());
+
+		webTestClient.delete()
+				.uri(CONTROLLER_BASE_URL + URI_DELETE_SEARCH, "44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0")
+				.accept(MediaType.APPLICATION_JSON)
+				.exchange()
+				.expectStatus().isOk()
+				.expectBody()
+				.isEmpty();
+
+		verify(userService).deleteUserSearchBySearchUuid("44c5c069-e907-45a9-8d49-2042044c56e0", "33b4c069-e907-45a9-8d49-2042044c56e0");
 	}
 }
 

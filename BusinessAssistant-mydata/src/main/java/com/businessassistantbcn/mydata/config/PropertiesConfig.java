@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties
 @Getter @Setter
 public class PropertiesConfig {
+
+	//Security Datasource
 	@Value("${security.datasource.secret}")
 	private String secret;
 	@Value("${security.datasource.headerString}")
@@ -20,5 +22,13 @@ public class PropertiesConfig {
 	private String authoritiesClaim;
 	@Value("${security.datasource.err}")
 	private String err;
+
+	//Search limit for user
+	@Value("${user.searchLimit.limitValue}")
+	private Integer limitValue;
+	@Value("${user.searchLimit.isLimitEnabled}")
+	private Boolean isLimitEnabled;
+	@Value("${user.searchLimit.errorMessage}")
+	private String errorMessage;
 	
 }
