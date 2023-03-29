@@ -45,13 +45,15 @@ public class PropertiesConfig {
     @Value("#{'${security.superuser.roles:}'.split(',')}")
     private List<String> roles;
 
-    //TestUserConfig
-    @Value("${security.testuser.email}")
-    private String emailTest;
-    @Value("${security.testuser.password}")
-    private String passwordTest;
-    @Value("#{'${security.testuser.roles:}'.split(',')}")
-    private List<String> rolesTest;
 
+    //TestUserConfig
+    //@Value("${security.testuser.email}")
+   // private String emailTest;
+    //@Value("${security.testuser.password}")
+    //private String passwordTest;
+    //@Value("#{'${security.testuser.roles:}'.split(',')}")
+    //private List<String> rolesTest;
 
 }
+
+

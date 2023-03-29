@@ -24,10 +24,9 @@ class LoginServiceTest {
     @Autowired
     HttpProxy httpProxy;
 
-
     @Autowired
     @InjectMocks
-    private LoginService loginService = new LoginService(new PropertiesConfig(), new PropertiesConfig());
+    private LoginService loginService = new LoginService(new PropertiesConfig());
 
     AuthenticationRequest authenticationRequestTest;
     AuthenticationRequest authenticationRequest;
@@ -38,35 +37,33 @@ class LoginServiceTest {
     void setUp(){
         // MockitoAnnotations.openMocks(this);
 
-        authenticationRequestTest = new AuthenticationRequest(config.getEmailTest(), config.getPasswordTest());
-        testUser = new UserDto(config.getEmailTest(), config.getRolesTest());
-        // Created suyperUser for testing when userManagement service is ready and connected to login.
+        // Created superUser for testing when userManagement service is ready and connected to login.
         superUser = new UserDto(config.getEmail(), config.getRoles());
         authenticationRequest = new AuthenticationRequest(config.getEmail(), config.getPassword());
-
     }
 
     @Test
     void generateToken() {
-        loginService.authenticate(authenticationRequestTest);
+        loginService.authenticate(authenticationRequest);
         assertNotNull(loginService.generateToken());
     }
 
+
+    //We expect a BadCredentialsException
     @Test
     void invalidCredentialsShouldThrowException() {
-        AuthenticationRequest badAuthenticationRequest = new AuthenticationRequest("jvicente2@gmail.com", "56589pp05s");
+        AuthenticationRequest badAuthenticationRequest = new AuthenticationRequest("ueberch@zarathustra.com", "lJU!LUBOqa7k");
         assertThrows(BadCredentialsException.class, () -> loginService.authenticate(badAuthenticationRequest));
     }
 
     @Test
     void loadUser() {
-        loginService.authenticate(authenticationRequestTest);
-        assertEquals(loginService.loadUser(authenticationRequestTest).toString(), Mono.just(testUser).toString());
+        loginService.authenticate(authenticationRequest);
+        assertEquals(loginService.loadUser(authenticationRequest).toString(), Mono.just(superUser).toString());
     }
 
     @Test
     void testAuthenticateWithAuthenticationRequest(){
-        assertNotNull(loginService.authenticate(authenticationRequestTest));
+        assertNotNull(loginService.authenticate(authenticationRequest));
     }
-
 }

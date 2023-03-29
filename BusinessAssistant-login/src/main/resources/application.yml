@@ -40,14 +40,15 @@ security:
     userManagementUrl: http://localhost:8763/businessassistantbcn/api/v1/usermanagement/user
     # Api token con información de SuperUser:
     # apiToken: eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InVlYmVybWVuc2NoQHphcmF0aHVzdHJhLmNvbSIsInBhc3N3b3JkIjoibEpVIUxVQk9xYTdrIiwiYXV0aG9yaXRpZXMiOlsiU1VQRVJVU0VSIl0sImlhdCI6MTY1MzQ2ODk3MH0.n0B3xGZBR6fAT1qpONHkmbJd4YRGccxdEuIjhHOJlJE
-  testuser:
-    email: jvicente@gmail.com
-    password: 56589pp05s
-    roles: [ADMIN]
+  #testuser:
+  #  email: jvicente@gmail.com
+  #  password: 56589pp05s
+  #  roles: "ADMIN"
   superuser:
     email: uebermensch@zarathustra.com
     password: lJU!LUBOqa7k
-    roles: [SUPERUSER]
+    #roles: [SUPERUSER]
+    roles: "SUPERUSER"
 
 url:
   # 30 seconds, expressed in milliseconds

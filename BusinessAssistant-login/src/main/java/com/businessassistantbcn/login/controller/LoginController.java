@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +34,11 @@ public class LoginController {
 
 		return "Hello from BusinessAssistant Barcelona --- POST!!!";
 	}
-	
+
 	@PostMapping("/login")
 	@PreAuthorize("hasAuthority('SUPERUSER')")
 	public ResponseEntity<AuthenticationResponse> createAuthenticationToken(
-			@RequestBody AuthenticationRequest authenticationRequest) {
+		@RequestBody AuthenticationRequest authenticationRequest) {
 		try {
 			loginService.authenticate(authenticationRequest);
 			String jwt = loginService.generateToken();
@@ -45,9 +46,8 @@ public class LoginController {
 		} catch(BadCredentialsException e) {
 			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		}
-
-		
-
 	}
-	
+
+
+
 }
