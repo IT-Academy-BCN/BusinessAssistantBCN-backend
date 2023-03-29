@@ -77,10 +77,11 @@ public class RaiscServiceTest {
         List<ResponseScopeDto> scopes = raiscService.getScopes(0, 5).block();
 
         assertNotNull(scopes);
+
         assertEquals(5, scopes.size());
         assertEquals("Justícia", scopes.get(0).getScope());
-        assertEquals("Educació", scopes.get(1).getScope());
-        assertEquals("Cooperació internacional per al desenvolupament i cultural", scopes.get(2).getScope());
+        assertEquals("Cooperació internacional per al desenvolupament i cultural", scopes.get(1).getScope());
+        assertEquals("Educació", scopes.get(2).getScope());
         assertEquals("Indústria i Energia", scopes.get(3).getScope());
         assertEquals("Cultura", scopes.get(4).getScope());
     }
