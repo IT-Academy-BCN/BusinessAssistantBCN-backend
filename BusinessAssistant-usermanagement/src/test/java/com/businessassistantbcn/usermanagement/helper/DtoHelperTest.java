@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.businessassistantbcn.usermanagement.dto.input.SingupDto;
+import com.businessassistantbcn.usermanagement.dto.SingUpRequest;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,19 +14,18 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.businessassistantbcn.usermanagement.document.Role;
 import com.businessassistantbcn.usermanagement.document.User;
 
-import com.businessassistantbcn.usermanagement.dto.output.UserDto;
+import com.businessassistantbcn.usermanagement.dto.UserDto;
 
 @ExtendWith(SpringExtension.class)
 public class DtoHelperTest {
 
     User user;
     UserDto userDto;
-    SingupDto singupDto;
     List<Role> roles;
     List<String> rolesString;
 
     @Test
-    public void test_convertToUser() {
+    public void convertToUserTest() {
         rolesString = new ArrayList<String>();
         rolesString.add("ADMIN");
         rolesString.add("USER");
@@ -59,14 +58,9 @@ public class DtoHelperTest {
 
 
     @Test
-    public void test_convertToUserFromEmailDto() {
-        rolesString = new ArrayList<String>();
-        rolesString.add("ADMIN");
-        rolesString.add("USER");
-        singupDto = new SingupDto("user@Dto.es", "1234");
-
-        user = DtoHelper.convertToUserFromEmailDto(singupDto);
-
+    public void convertToUserFromSingupTest() {
+        SingUpRequest singup = new UserDto(null,"user@Dto.es",null, "1234");
+        user = DtoHelper.convertToUserFromSingup(singup);
         assertEquals("user@Dto.es", user.getEmail());
         assertEquals("1234", user.getPassword());
         assertNotNull(user.getUuid());

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.businessassistantbcn.usermanagement.dto.input.SingupDto;
+import com.businessassistantbcn.usermanagement.dto.SingUpRequest;
 import org.springframework.beans.BeanUtils;
 
 import com.businessassistantbcn.usermanagement.document.User;
 
 
-import com.businessassistantbcn.usermanagement.dto.output.UserDto;
+import com.businessassistantbcn.usermanagement.dto.UserDto;
 import com.businessassistantbcn.usermanagement.document.Role;
 
 public class DtoHelper {
@@ -39,11 +39,11 @@ public class DtoHelper {
 		return userDto;
 	}
 
-	public static User convertToUserFromEmailDto (SingupDto singupDto) {
+	public static User convertToUserFromSingup(SingUpRequest singup) {
 		User user = new User();
 		List<Role> roles = new ArrayList();
 
-		BeanUtils.copyProperties(singupDto, user);
+		BeanUtils.copyProperties(singup, user);
 
 		//User role, UUID and latestAcces given to all new users.
 		user.setUuid(UUID.randomUUID().toString());

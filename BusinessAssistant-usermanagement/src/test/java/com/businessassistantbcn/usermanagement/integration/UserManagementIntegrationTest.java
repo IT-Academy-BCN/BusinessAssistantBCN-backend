@@ -1,7 +1,8 @@
 package com.businessassistantbcn.usermanagement.integration;
 
-import com.businessassistantbcn.usermanagement.dto.input.SingupDto;
+import com.businessassistantbcn.usermanagement.dto.SingUpRequest;
 import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
+import com.businessassistantbcn.usermanagement.dto.UserDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -68,27 +69,28 @@ public class UserManagementIntegrationTest {
     @DisplayName("Integration test add user")
     void addUserTest(){
         final String URI_ADD_USER = "/user";
-        SingupDto singupDto1 = new SingupDto("user@user.com", "user");
+        SingUpRequest singup = null;
         ErrorDto errorDto = new ErrorDto("Users limit on database");
         //Bucle for con 200 peticiones post(), para simular y obtener resultado de las peticiones y el exceso de usuarios en base de datos
         for(int i = 0; i < 200 ; i++){ //Límite de usuarios en base de datos, extraido de la propiedad maxusers del application.yml
-            SingupDto singupDto = new SingupDto("user"+i+"@gmail.com", "user"+i);
+            singup = new UserDto(null,"user"+i+"@gmail.com", null, "user"+i);
             webTestClient.post()
                     .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
                     .accept(MediaType.APPLICATION_JSON)
-                    .body(Mono.just(singupDto), SingupDto.class)
+                    .body(Mono.just(singup), UserDto.class)
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON)
                     .expectBody()
                     .jsonPath("$.email").isEqualTo("user"+i+"@gmail.com")
-                    .equals(Mono.just(singupDto).block());
+                    .equals(Mono.just(singup).block());
         }
 
+        singup = new UserDto(null,"user@user.com", null, "user");
         webTestClient.post()
                 .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(singupDto1), SingupDto.class)
+                .body(Mono.just(singup), UserDto.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)

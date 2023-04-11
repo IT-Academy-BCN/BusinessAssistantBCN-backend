@@ -4,13 +4,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
 import com.businessassistantbcn.usermanagement.dto.EmailOnly;
 import com.businessassistantbcn.usermanagement.dto.IdOnly;
+import com.businessassistantbcn.usermanagement.dto.SingUpRequest;
 import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.businessassistantbcn.usermanagement.document.Role;
 import com.businessassistantbcn.usermanagement.document.User;
-import com.businessassistantbcn.usermanagement.dto.output.UserDto;
-import com.businessassistantbcn.usermanagement.dto.input.SingupDto;
+import com.businessassistantbcn.usermanagement.dto.UserDto;
 import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -44,7 +43,11 @@ public class UserManagementServiceTest {
     UserManagementService service;
 
     User user;
-    SingupDto singupDto;
+
+    SingUpRequest singup;
+    IdOnly idOnly;
+
+    EmailOnly emailOnly;
 
 
     @BeforeEach
@@ -57,60 +60,59 @@ public class UserManagementServiceTest {
         String password = "12345";
         long latestAccess = 1111111111;
 
+        singup = new UserDto(null, email, null, password);
+        idOnly = new UserDto(uuid, null, null, null);
+        emailOnly = new UserDto(null, email, null, null);
         user = new User(id, uuid, email, password, roles, latestAccess);
-        singupDto = new SingupDto(email, password);
 
     }
 
     @Test
-    public void test_addExistUser(){
+    public void addNewUserTest(){
         when(service.limitUsersDbExceeded()).thenReturn(false);
-        when(repository.findByEmail(singupDto.getEmail())).thenReturn(Mono.just(user));
-        when(repository.save(any(User.class)/*user*/)).thenReturn(Mono.empty());
-
-        Mono<UserDto> result = (Mono<UserDto>) service.addUser(singupDto);
-
-        StepVerifier.create(result)
-                .verifyComplete();
-    }
-
-    @Test
-    public void test_addNewUser(){
-        when(service.limitUsersDbExceeded()).thenReturn(false);
-        when(repository.findByEmail(singupDto.getEmail())).thenReturn(Mono.empty());
+        when(repository.findByEmail(singup.getEmail())).thenReturn(Mono.empty());
         when(repository.save(any(User.class)/*user*/)).thenReturn(Mono.just(user));
         //when(encoder.encode(userEmailDto.getPassword())).thenReturn("passwordEncoded");
 
-        Mono<UserDto> result = (Mono<UserDto>) service.addUser(singupDto);
+        Mono<UserDto> userPublisher = (Mono<UserDto>) service.addUser(singup);
 
-        StepVerifier.create(result)
-                .consumeNextWith(userDto->{
-                    assertEquals("cb5f0578-6574-4e9a-977d-fca06c7cb67b"/*user.getUuid()*/, userDto.getUuid());
+        StepVerifier.create(userPublisher)
+                .consumeNextWith(user->{
+                    assertEquals("cb5f0578-6574-4e9a-977d-fca06c7cb67b"/*user.getUuid()*/, user.getUuid());
                 })
                 .verifyComplete();
     }
 
     @Test
-    public void test_addUserLimitDbExceeded(){
+    public void addUserLimitDbExceededTest(){
         when(service.limitUsersDbExceeded()).thenReturn(true);
         when(repository.count()).thenReturn(Mono.just(201L));
         when(propertiesConfig.getError()).thenReturn("Users limit on database");
 
-        Mono<ErrorDto> result = (Mono<ErrorDto>) service.addUser(singupDto);
+        Mono<ErrorDto> errorPublisher = (Mono<ErrorDto>) service.addUser(singup);
 
-        StepVerifier.create(result)
-                .consumeNextWith(errorDto->{
-                    assertEquals("Users limit on database"/*,propertiesConfig.getErr()*/, errorDto.getMessage());
+        StepVerifier.create(errorPublisher)
+                .consumeNextWith(error->{
+                    assertEquals("Users limit on database"/*,propertiesConfig.getErr()*/, error.getMessage());
                 })
+                .verifyComplete();
+    }
+
+    @Test
+    public void singupEmailExistTest(){
+        when(service.limitUsersDbExceeded()).thenReturn(false);
+        when(repository.findByEmail(singup.getEmail())).thenReturn(Mono.just(user));
+        when(repository.save(any(User.class)/*user*/)).thenReturn(Mono.empty()); //when save the latest access
+
+        Mono<UserDto> userResponseDto = (Mono<UserDto>)service.addUser(singup);
+
+        StepVerifier.create(userResponseDto)
                 .verifyComplete();
     }
 
     @Test
     public void getUserByIdTest() {
-        String idRequired = UUID.randomUUID().toString();
-        IdOnly idOnly = new UserDto(idRequired,null,null,null);
-        user.setUuid(idRequired);
-
+        String idRequired = idOnly.getUuid();
         when(repository.findByUuid(idRequired)).thenReturn(Mono.just(user));
         when(repository.save(user)).thenReturn(Mono.just(user));
 
@@ -122,8 +124,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void getUserByUuidNotExistTest() {
-        String idRequired = UUID.randomUUID().toString();
-        IdOnly idOnly = new UserDto(idRequired, null, null, null);
+        String idRequired = idOnly.getUuid();
 
         when(repository.findByUuid(idRequired)).thenReturn(Mono.empty());
 
@@ -135,9 +136,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void getUserByEmailTest() {
-        String emailRequired = "user@user.es";
-        EmailOnly emailOnly = new UserDto(null,emailRequired,null,null);
-        user.setEmail(emailRequired);
+        String emailRequired = emailOnly.getEmail();
 
         when(repository.findByEmail(emailOnly.getEmail())).thenReturn(Mono.just(user));
         when(repository.save(user)).thenReturn(Mono.just(user));
@@ -150,9 +149,8 @@ public class UserManagementServiceTest {
     }
 
     @Test
-    public void test_getUserByEmailNotExist() {
-        String emailRequired = "user@user.es";
-        EmailOnly emailOnly = new UserDto(null,emailRequired,null,null);
+    public void getUserByEmailNotExistTest() {
+        String emailRequired = emailOnly.getEmail();
 
         when(repository.findByEmail(emailRequired)).thenReturn(Mono.empty());
 
