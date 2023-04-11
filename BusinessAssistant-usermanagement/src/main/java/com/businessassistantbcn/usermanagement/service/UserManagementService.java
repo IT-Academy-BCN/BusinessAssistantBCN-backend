@@ -1,6 +1,7 @@
 package com.businessassistantbcn.usermanagement.service;
 
 import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
+import com.businessassistantbcn.usermanagement.dto.EmailOnly;
 import com.businessassistantbcn.usermanagement.dto.IdOnly;
 import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import com.businessassistantbcn.usermanagement.document.User;
-import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.input.SingupDto;
 import com.businessassistantbcn.usermanagement.dto.output.UserDto;
 import com.businessassistantbcn.usermanagement.helper.DtoHelper;
 import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
@@ -30,23 +31,23 @@ public class UserManagementService implements IUserManagementService {
      * 3. Si el usuario existe, actualiza el último acceso y devuelve empty
      * 4. Si el usuario no existe, lo crea y devuelve el usuario creado
      *
-     * @param userEmailDto
+     * @param singupDto
      * @return
      */
 
-    public Mono<?> addUser(UserEmailDto userEmailDto) {
+    public Mono<?> addUser(SingupDto singupDto) {
 
         Mono<?> response;
 
         if (!limitUsersDbExceeded()) {
-            Optional<User> user = userRepository.findByEmail(userEmailDto.getEmail()).blockOptional();
+            Optional<User> user = userRepository.findByEmail(singupDto.getEmail()).blockOptional();
             if (!user.isEmpty()) {
                 setLatestAccess(user.get());
                 userRepository.save(user.get()).block();
                 response = Mono.empty();
             } else {
-                userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
-                response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);
+                singupDto.setPassword(encoder.encode(singupDto.getPassword()));
+                response = userRepository.save(DtoHelper.convertToUserFromEmailDto(singupDto)).map(DtoHelper::convertToDto);
             }
         } else {//número máximo de usuarios excedido
             response = Mono.just(new ErrorDto(propertiesConfig.getError()));
@@ -80,9 +81,10 @@ public class UserManagementService implements IUserManagementService {
 
     }
 
-    public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
+    @Override
+    public Mono<UserDto> getUserByEmail(EmailOnly emailOnly) {
 
-        Mono<User> user = userRepository.findByEmail(userEmailDto.getEmail());
+        Mono<User> user = userRepository.findByEmail(emailOnly.getEmail());
 
         Mono<UserDto> response;
 

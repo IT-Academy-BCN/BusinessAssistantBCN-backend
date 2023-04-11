@@ -1,6 +1,6 @@
 package com.businessassistantbcn.usermanagement.integration;
 
-import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.input.SingupDto;
 import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -68,27 +68,27 @@ public class UserManagementIntegrationTest {
     @DisplayName("Integration test add user")
     void addUserTest(){
         final String URI_ADD_USER = "/user";
-        UserEmailDto userEmailDto1 = new UserEmailDto("user@user.com", "user");
+        SingupDto singupDto1 = new SingupDto("user@user.com", "user");
         ErrorDto errorDto = new ErrorDto("Users limit on database");
         //Bucle for con 200 peticiones post(), para simular y obtener resultado de las peticiones y el exceso de usuarios en base de datos
         for(int i = 0; i < 200 ; i++){ //Límite de usuarios en base de datos, extraido de la propiedad maxusers del application.yml
-            UserEmailDto userEmailDto = new UserEmailDto("user"+i+"@gmail.com", "user"+i);
+            SingupDto singupDto = new SingupDto("user"+i+"@gmail.com", "user"+i);
             webTestClient.post()
                     .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
                     .accept(MediaType.APPLICATION_JSON)
-                    .body(Mono.just(userEmailDto), UserEmailDto.class)
+                    .body(Mono.just(singupDto), SingupDto.class)
                     .exchange()
                     .expectStatus().isOk()
                     .expectHeader().contentType(MediaType.APPLICATION_JSON)
                     .expectBody()
                     .jsonPath("$.email").isEqualTo("user"+i+"@gmail.com")
-                    .equals(Mono.just(userEmailDto).block());
+                    .equals(Mono.just(singupDto).block());
         }
 
         webTestClient.post()
                 .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(userEmailDto1), UserEmailDto.class)
+                .body(Mono.just(singupDto1), SingupDto.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)

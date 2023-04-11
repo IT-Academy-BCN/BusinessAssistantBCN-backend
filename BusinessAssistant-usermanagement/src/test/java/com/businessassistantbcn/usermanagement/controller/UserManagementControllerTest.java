@@ -4,8 +4,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+import com.businessassistantbcn.usermanagement.dto.EmailOnly;
+import com.businessassistantbcn.usermanagement.dto.IdOnly;
 import com.businessassistantbcn.usermanagement.dto.output.UserDto;
-import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.input.SingupDto;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,16 +41,16 @@ public class UserManagementControllerTest {
 	
 	private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/usermanagement";
 
-	UserEmailDto userEmailDto = new UserEmailDto();
-
 	UserDto userDto = new UserDto();
+
+	SingupDto singupDto = new SingupDto();
 
 	@BeforeEach
 	void setUp(){
 		MockitoAnnotations.openMocks(this);
 
-		userEmailDto.setEmail("pp@gmail.com");
-		userEmailDto.setPassword("wwdd98e");
+		singupDto.setEmail("pp@gmail.com");
+		singupDto.setPassword("wwdd98e");
 
 		userDto.setEmail("user@user.es");
 		userDto.setUuid("cb5f0578-6574-4e9a-977d-fca06c7cb67b");
@@ -75,12 +77,14 @@ public class UserManagementControllerTest {
 	@DisplayName("Test response get user")
 	void getUserByIdTest(){
 		final String URI_GET_USER = "/user/uuid";
-		com.businessassistantbcn.usermanagement.dto.IdOnly idOnly = userDto;
+		String idExpexted = UUID.randomUUID().toString();
+		IdOnly idOnly =  new UserDto(idExpexted,null,null,null);
+		userDto.setUuid(idExpexted);
 		when(userManagementService.getUserById(idOnly)).thenReturn(Mono.just(userDto));
 		webTestClient.method(HttpMethod.GET)
 				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
 				.accept(MediaType.APPLICATION_JSON)
-				.body(Mono.just(idOnly), UserEmailDto.class)
+				.body(Mono.just(idOnly), UserDto.class)
 				.exchange()
 				.expectStatus().isOk()
 				.equals(Mono.just(userDto));
@@ -88,14 +92,16 @@ public class UserManagementControllerTest {
 
 	@Test
 	@DisplayName("Test response get user")
-	void testGetUserByMailResponse(){
+	void getUserByEmailTest(){
 		final String URI_GET_USER = "/user/email";
-		when(userManagementService.getUserByEmail(userEmailDto)).thenReturn(Mono.just(userDto));
+		String emailExpected = "pp@gmail.com";
+		EmailOnly emailOnly =  new UserDto(null,emailExpected,null,null);
+		userDto.setEmail(emailExpected);
+		when(userManagementService.getUserByEmail(emailOnly)).thenReturn(Mono.just(userDto));
 		webTestClient.method(HttpMethod.GET)
-
 				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
 				.accept(MediaType.APPLICATION_JSON)
-				.body(Mono.just(userEmailDto), UserEmailDto.class)
+				.body(Mono.just(emailOnly), UserDto.class)
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()
@@ -105,11 +111,11 @@ public class UserManagementControllerTest {
   @Test
   void AddUserTest(){
 		final String URI_ADD_USER="/user";
-		when(userManagementService.addUser(userEmailDto)).thenAnswer(x->(Mono.just(userDto)));
+		when(userManagementService.addUser(singupDto)).thenAnswer(x->(Mono.just(userDto)));
 		webTestClient.post()
 				.uri(CONTROLLER_BASE_URL + URI_ADD_USER)
 				.accept(MediaType.APPLICATION_JSON)
-				.body(Mono.just(userEmailDto), UserEmailDto.class)
+				.body(Mono.just(singupDto), SingupDto.class)
 				.exchange()
 				.expectStatus().isOk()
 				.expectBody()

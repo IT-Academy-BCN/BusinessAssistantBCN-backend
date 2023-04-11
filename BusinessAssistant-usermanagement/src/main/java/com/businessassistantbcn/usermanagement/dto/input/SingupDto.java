@@ -3,15 +3,15 @@ package com.businessassistantbcn.usermanagement.dto.input;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class UserEmailDto {
+public class SingupDto {
 
     private String email;
 
     private String password;
 
-    public UserEmailDto() {}
+    public SingupDto() {}
 
-    public UserEmailDto(String email, String password) {
+    public SingupDto(String email, String password) {
         super();
         this.email = email;
         this.password = password;

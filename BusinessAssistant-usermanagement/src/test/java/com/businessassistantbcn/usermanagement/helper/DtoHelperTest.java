@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.input.SingupDto;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,7 @@ public class DtoHelperTest {
 
     User user;
     UserDto userDto;
-    UserEmailDto userEmailDto;
+    SingupDto singupDto;
     List<Role> roles;
     List<String> rolesString;
 
@@ -63,9 +63,9 @@ public class DtoHelperTest {
         rolesString = new ArrayList<String>();
         rolesString.add("ADMIN");
         rolesString.add("USER");
-        userEmailDto = new UserEmailDto("user@Dto.es", "1234");
+        singupDto = new SingupDto("user@Dto.es", "1234");
 
-        user = DtoHelper.convertToUserFromEmailDto(userEmailDto);
+        user = DtoHelper.convertToUserFromEmailDto(singupDto);
 
         assertEquals("user@Dto.es", user.getEmail());
         assertEquals("1234", user.getPassword());
