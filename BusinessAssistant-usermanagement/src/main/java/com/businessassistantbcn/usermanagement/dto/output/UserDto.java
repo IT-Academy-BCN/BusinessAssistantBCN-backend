@@ -1,10 +1,11 @@
 package com.businessassistantbcn.usermanagement.dto.output;
 import java.util.List;
 
+import com.businessassistantbcn.usermanagement.dto.IdOnly;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class UserDto {
+public class UserDto implements IdOnly {
 	
     
     private String uuid;
