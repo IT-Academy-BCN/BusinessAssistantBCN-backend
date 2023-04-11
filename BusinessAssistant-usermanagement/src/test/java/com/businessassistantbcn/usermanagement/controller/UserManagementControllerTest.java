@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import com.businessassistantbcn.usermanagement.dto.output.UserDto;
 import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,7 +41,6 @@ public class UserManagementControllerTest {
 
 	UserEmailDto userEmailDto = new UserEmailDto();
 
-	UserUuidDto userUuidDto = new UserUuidDto();
 	UserDto userDto = new UserDto();
 
 	@BeforeEach
@@ -51,8 +49,6 @@ public class UserManagementControllerTest {
 
 		userEmailDto.setEmail("pp@gmail.com");
 		userEmailDto.setPassword("wwdd98e");
-
-		userUuidDto.setUuid(UUID. randomUUID().toString());
 
 		userDto.setEmail("user@user.es");
 		userDto.setUuid("cb5f0578-6574-4e9a-977d-fca06c7cb67b");
@@ -77,13 +73,14 @@ public class UserManagementControllerTest {
 
 	@Test
 	@DisplayName("Test response get user")
-	void testGetUserByUuidResponse(){
+	void getUserByIdTest(){
 		final String URI_GET_USER = "/user/uuid";
-		when(userManagementService.getUserByUuid(userUuidDto)).thenReturn(Mono.just(userDto));
+		com.businessassistantbcn.usermanagement.dto.IdOnly idOnly = userDto;
+		when(userManagementService.getUserById(idOnly)).thenReturn(Mono.just(userDto));
 		webTestClient.method(HttpMethod.GET)
 				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
 				.accept(MediaType.APPLICATION_JSON)
-				.body(Mono.just(userUuidDto), UserEmailDto.class)
+				.body(Mono.just(idOnly), UserEmailDto.class)
 				.exchange()
 				.expectStatus().isOk()
 				.equals(Mono.just(userDto));

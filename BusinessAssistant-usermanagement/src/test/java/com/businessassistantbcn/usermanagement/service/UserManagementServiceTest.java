@@ -1,14 +1,17 @@
 package com.businessassistantbcn.usermanagement.service;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.notNull;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
+import com.businessassistantbcn.usermanagement.dto.IdOnly;
 import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
-import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +45,7 @@ public class UserManagementServiceTest {
 
     User user;
     UserEmailDto userEmailDto;
-    UserUuidDto userUuidDto;
+
 
     @BeforeEach
     void setUp() {
@@ -56,7 +59,6 @@ public class UserManagementServiceTest {
 
         user = new User(id, uuid, email, password, roles, latestAccess);
         userEmailDto = new UserEmailDto(email, password);
-        userUuidDto = new UserUuidDto(uuid);
 
     }
 
@@ -104,25 +106,31 @@ public class UserManagementServiceTest {
     }
 
     @Test
-    public void test_getUserByUuid() {
-        when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(user));
+    public void getUserByIdTest() {
+        String idRequired = UUID.randomUUID().toString();
+        IdOnly idOnly = new UserDto(idRequired,null,null,null);
+        user.setUuid(idRequired);
+
+        when(repository.findByUuid(idRequired)).thenReturn(Mono.just(user));
         when(repository.save(user)).thenReturn(Mono.just(user));
 
-        Mono<UserDto> user = service.getUserByUuid(userUuidDto);
-
+        Mono<UserDto> user = service.getUserById(idOnly);
         StepVerifier.create(user)
                 .consumeNextWith(userDto -> {
-                    assertEquals(userDto.getUuid(), userUuidDto.getUuid());
+                    assertEquals(idRequired,userDto.getUuid());
                 })
                 .verifyComplete();
     }
 
     @Test
-    public void test_getUserByUuidNotExist() {
-        when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.empty());
+    public void getUserByUuidNotExistTest() {
+        String idRequired = UUID.randomUUID().toString();
+        IdOnly idOnly = new UserDto(idRequired,null,null,null);
+        user.setUuid(idRequired);
 
-        Mono<UserDto> user1 = service.getUserByUuid(userUuidDto);
+        when(repository.findByUuid(idRequired)).thenReturn(Mono.empty());
 
+        Mono<UserDto> user1 = service.getUserById(idOnly);
         StepVerifier.create(user1)
                 .verifyComplete();
     }

@@ -1,8 +1,8 @@
 package com.businessassistantbcn.usermanagement.service;
 
 import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
+import com.businessassistantbcn.usermanagement.dto.IdOnly;
 import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
-import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -64,9 +64,9 @@ public class UserManagementService implements IUserManagementService {
     }
 
     @Override
-    public Mono<UserDto> getUserByUuid(UserUuidDto userUuidDto) {
+    public Mono<UserDto> getUserById(IdOnly idOnly) {
 
-        Mono<User> user = userRepository.findByUuid(userUuidDto.getUuid());
+        Mono<User> user = userRepository.findByUuid(idOnly.getUuid());
 
         Mono<UserDto> response;
 
