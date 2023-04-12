@@ -70,7 +70,7 @@ public class UserManagementServiceTest {
     @Test
     public void addNewUserTest(){
         when(service.limitUsersDbExceeded()).thenReturn(false);
-        when(repository.findByEmail(singup.getEmail())).thenReturn(Mono.empty());
+        when(repository.findByEmail(singup.getUserEmail())).thenReturn(Mono.empty());
         when(repository.save(any(User.class)/*user*/)).thenReturn(Mono.just(user));
         //when(encoder.encode(userEmailDto.getPassword())).thenReturn("passwordEncoded");
 
@@ -78,7 +78,7 @@ public class UserManagementServiceTest {
 
         StepVerifier.create(userPublisher)
                 .consumeNextWith(user->{
-                    assertEquals("cb5f0578-6574-4e9a-977d-fca06c7cb67b"/*user.getUuid()*/, user.getUuid());
+                    assertEquals("cb5f0578-6574-4e9a-977d-fca06c7cb67b"/*user.getUuid()*/, user.getUserId());
                 })
                 .verifyComplete();
     }
@@ -101,7 +101,7 @@ public class UserManagementServiceTest {
     @Test
     public void singupEmailExistTest(){
         when(service.limitUsersDbExceeded()).thenReturn(false);
-        when(repository.findByEmail(singup.getEmail())).thenReturn(Mono.just(user));
+        when(repository.findByEmail(singup.getUserEmail())).thenReturn(Mono.just(user));
         when(repository.save(any(User.class)/*user*/)).thenReturn(Mono.empty()); //when save the latest access
 
         Mono<UserDto> userResponseDto = (Mono<UserDto>)service.addUser(singup);
@@ -112,19 +112,19 @@ public class UserManagementServiceTest {
 
     @Test
     public void getUserByIdTest() {
-        String idRequired = idOnly.getUuid();
+        String idRequired = idOnly.getUserId();
         when(repository.findByUuid(idRequired)).thenReturn(Mono.just(user));
         when(repository.save(user)).thenReturn(Mono.just(user));
 
         Mono<UserDto> userPublisher = service.getUserById(idOnly);
         StepVerifier.create(userPublisher)
-                .assertNext(user -> assertEquals(idRequired,user.getUuid()))
+                .assertNext(user -> assertEquals(idRequired,user.getUserId()))
                 .verifyComplete();
     }
 
     @Test
     public void getUserByUuidNotExistTest() {
-        String idRequired = idOnly.getUuid();
+        String idRequired = idOnly.getUserId();
 
         when(repository.findByUuid(idRequired)).thenReturn(Mono.empty());
 
@@ -136,21 +136,21 @@ public class UserManagementServiceTest {
 
     @Test
     public void getUserByEmailTest() {
-        String emailRequired = emailOnly.getEmail();
+        String emailRequired = emailOnly.getUserEmail();
 
-        when(repository.findByEmail(emailOnly.getEmail())).thenReturn(Mono.just(user));
+        when(repository.findByEmail(emailOnly.getUserEmail())).thenReturn(Mono.just(user));
         when(repository.save(user)).thenReturn(Mono.just(user));
 
         Mono<UserDto> userPublisher = service.getUserByEmail(emailOnly);
 
         StepVerifier.create(userPublisher)
-                .assertNext(user -> assertEquals(emailRequired,user.getEmail()))
+                .assertNext(user -> assertEquals(emailRequired,user.getUserEmail()))
                 .verifyComplete();
     }
 
     @Test
     public void getUserByEmailNotExistTest() {
-        String emailRequired = emailOnly.getEmail();
+        String emailRequired = emailOnly.getUserEmail();
 
         when(repository.findByEmail(emailRequired)).thenReturn(Mono.empty());
 

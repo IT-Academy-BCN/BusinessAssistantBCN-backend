@@ -8,6 +8,7 @@ import com.businessassistantbcn.usermanagement.dto.EmailOnly;
 import com.businessassistantbcn.usermanagement.dto.IdOnly;
 import com.businessassistantbcn.usermanagement.dto.SingUpRequest;
 import com.businessassistantbcn.usermanagement.dto.UserDto;
+import com.businessassistantbcn.usermanagement.service.IUserManagementService;
 import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +36,7 @@ public class UserManagementControllerTest {
 	private WebTestClient webTestClient;
 
 	@MockBean
-	UserManagementService userManagementService;
+	IUserManagementService userManagementService;
 	
 	private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/usermanagement";
 
@@ -67,7 +68,7 @@ public class UserManagementControllerTest {
 	@DisplayName("Test response get user")
 	void getUserByIdTest(){
 		final String URI_GET_USER = "/user/uuid";
-		String idExpexted = userDto.getUuid();
+		String idExpexted = userDto.getUserId();
 		IdOnly idOnly =  new UserDto(idExpexted,null,null,null);
 		when(userManagementService.getUserById(idOnly)).thenReturn(Mono.just(userDto));
 		webTestClient.method(HttpMethod.GET)
@@ -83,7 +84,7 @@ public class UserManagementControllerTest {
 	@DisplayName("Test response get user")
 	void getUserByEmailTest(){
 		final String URI_GET_USER = "/user/email";
-		String emailExpected = userDto.getEmail();
+		String emailExpected = userDto.getUserEmail();
 		EmailOnly emailOnly =  new UserDto(null,emailExpected,null,null);
 		when(userManagementService.getUserByEmail(emailOnly)).thenReturn(Mono.just(userDto));
 		webTestClient.method(HttpMethod.GET)
@@ -99,8 +100,8 @@ public class UserManagementControllerTest {
   @Test
   void addUserTest(){
 		final String URI_ADD_USER="/user";
-	  	String emailExpected = userDto.getEmail();
-	  	SingUpRequest singup = new UserDto(null,emailExpected,null,userDto.getPassword());
+	  	String emailExpected = userDto.getUserEmail();
+	  	SingUpRequest singup = new UserDto(null,emailExpected,null,userDto.getUserPassword());
 		when(userManagementService.addUser(singup)).thenAnswer(x->(Mono.just(userDto)));
 		webTestClient.post()
 				.uri(CONTROLLER_BASE_URL + URI_ADD_USER)

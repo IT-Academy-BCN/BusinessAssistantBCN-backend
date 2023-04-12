@@ -1,7 +1,7 @@
 package com.businessassistantbcn.usermanagement.dto;
 
 public interface SingUpRequest extends EmailOnly{
-    String getPassword();
+    String getUserPassword();
 
-    void setPassword(String password); 
+    void encodePassword();
 }
