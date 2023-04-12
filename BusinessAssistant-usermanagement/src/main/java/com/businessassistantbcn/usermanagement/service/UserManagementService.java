@@ -75,7 +75,7 @@ public class UserManagementService implements IUserManagementService {
 
     private Mono<GenericResultDto<UserResponse>> doIsFoundLogic(Mono<User> user){
         if(user.blockOptional().isPresent()){
-            saveLatestAccess(user.block());
+            saveLatestAccess(user.blockOptional().get());
             return user.map(DtoHelper::convertUserToGenericUserResponse);
         }else {
             return Mono.empty();
