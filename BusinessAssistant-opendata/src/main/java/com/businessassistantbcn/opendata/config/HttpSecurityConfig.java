@@ -14,8 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 import com.businessassistantbcn.opendata.security.JwtAuthenticationFilter;
-import org.springframework.security.web.firewall.HttpFirewall;
-import org.springframework.security.web.firewall.StrictHttpFirewall;
+import org.springframework.security.web.firewall.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,10 +64,20 @@ public class HttpSecurityConfig {
     }
 
     //Controlar doble slash en peticiones a endpoints en ambos perfiles.
-    @Bean
+   /* @Bean
     public static HttpFirewall getHttpFirewall() {
         StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
-        strictHttpFirewall.setAllowUrlEncodedDoubleSlash(true);
+        //strictHttpFirewall.setAllowUrlEncodedDoubleSlash(true);
+        strictHttpFirewall.setAllowUrlEncodedDoubleSlash(false);
         return strictHttpFirewall;
+    }*/
+
+    //Doble slash produce un error 400
+    @Bean
+    RequestRejectedHandler requestRejectedHandler() {
+        // sends an error response with a configurable status code (default is 400 BAD_REQUEST)
+        // we can pass a different value in the constructor
+        return new HttpStatusRequestRejectedHandler();
     }
+
 }
