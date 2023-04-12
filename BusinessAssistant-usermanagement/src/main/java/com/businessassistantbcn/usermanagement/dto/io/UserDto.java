@@ -7,12 +7,10 @@ import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+@Builder
 @Getter
 @Setter
 @ToString
@@ -30,13 +28,6 @@ public class UserDto implements IdOnly, SingUpRequest, UserResponse {
 
 	@JsonProperty(value = "user_password",access = JsonProperty.Access.WRITE_ONLY)
 	private String userPassword;
-    
-    public UserDto() {}
 
-	public UserDto(String id, String email, List<String> roles, String password) {
-		this.userId = id;
-		this.userEmail = email;
-		this.userRoles = roles;
-		this.userPassword = password;
-	}
+	//no constructor till is needed, use builder instead
 }

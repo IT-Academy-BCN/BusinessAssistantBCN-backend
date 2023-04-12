@@ -140,7 +140,7 @@ public class UserManagementIntegrationTest {
         });
     }
 
-    private WebTestClient.BodySpec<GenericResultDto, ?>
+    public static WebTestClient.BodySpec<GenericResultDto, ?>
         assertGenericResponseWithOneResult(WebTestClient.ResponseSpec responseSpec){
 
         return responseSpec.expectStatus().isOk()
@@ -148,6 +148,7 @@ public class UserManagementIntegrationTest {
                 .expectBody(GenericResultDto.class)
                 .value(Assertions::assertNotNull)
                 .value( genericResultDto -> {
+                    //System.out.println(genericResultDto);
                     assertTrue(1 == genericResultDto.getCount());
                     assertTrue(1 == genericResultDto.getResults().length);
                 });

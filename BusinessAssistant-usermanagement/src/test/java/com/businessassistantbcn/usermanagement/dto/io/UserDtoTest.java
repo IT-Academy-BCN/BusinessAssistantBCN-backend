@@ -47,10 +47,12 @@ public class UserDtoTest {
 
     @BeforeEach
     void setUp() {
-        user = new UserDto(UUID.randomUUID().toString(),
-                "user@user.com",
-                List.of(Role.USER.toString(),Role.ADMIN.toString()),
-                "whatever");
+        user = UserDto.builder()
+                .userId(UUID.randomUUID().toString())
+                .userEmail("user@user.es")
+                .userRoles(List.of(Role.USER.toString(),Role.ADMIN.toString()))
+                .userPassword("wwdd98e")
+                .build();
     }
 
     @Test

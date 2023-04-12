@@ -1,5 +1,6 @@
 package com.businessassistantbcn.usermanagement.controller;
 
+import static com.businessassistantbcn.usermanagement.integration.UserManagementIntegrationTest.assertGenericResponseWithOneResult;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -22,21 +23,24 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = UserManagementController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
+@PropertySource("classpath:test.properties")
 public class UserManagementControllerTest {
 
 	@Autowired
@@ -47,21 +51,38 @@ public class UserManagementControllerTest {
 	
 	private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/usermanagement";
 
-	UserDto userDto = new UserDto();
+	final String USER_URI = "/user";
 
-	private final String idField = "user_uuid";
-	private final String emailField = "user_email";
+	final String USER_ID_URI = "/user/uuid";
 
-	private final String passwordField = "user_password";
+	final String USER_EMAIL_URI = "/user/email";
 
-	private final String roleField = "user_role";
+	private UserDto userDto;
+
+	@Value("${test.json.uuidField}")
+	private String uuidfield;
+
+	@Value("${test.json.emailField}")
+	private String emailField;
+
+	@Value("${test.json.roleField}")
+	private String roleField;
+
+	@Value("${test.json.passwordField}")
+	private String passwordField;
+
+
 
 
 	@BeforeEach
 	void setUp(){
 		MockitoAnnotations.openMocks(this);
-		userDto = new UserDto("cb5f0578-6574-4e9a-977d-fca06c7cb67b","user@user.es",
-				List.of("USER"),"wwdd98e");
+		userDto = UserDto.builder()
+				.userId(UUID.randomUUID().toString())
+				.userEmail("user@user.es")
+				.userRoles(List.of("USER"))
+				.userPassword("wwdd98e")
+				.build();
 	}
 	
 	@Test
@@ -78,129 +99,125 @@ public class UserManagementControllerTest {
 
 	}
 
+
+
+
+
+	private WebTestClient.BodySpec<GenericResultDto, ?> assertRoleUserAndPasswordNotIncluded
+			(WebTestClient.BodySpec<GenericResultDto, ?> bodySpec){
+		return bodySpec.value(genericResultDto -> {
+			Map<Object,Object> userDetails =
+					(Map<Object, Object>) genericResultDto.getResults()[0];
+			assertNull(userDetails.get(passwordField));
+			List<String> roles = (List<String>) userDetails.get(roleField);
+			//System.out.println(roles);
+			assertTrue(roles.size()==1);
+			assertEquals(Role.USER.toString(), roles.get(0));
+		});
+	}
+
 	@Test
 	@DisplayName("Test response get user by id")
 	void getUserByIdTest(){
-		final String URI_GET_USER = "/user/uuid";
-		String idExpexted = userDto.getUserId();
-		String body = "{" +
-				"\""+idField +"\":\""+idExpexted+"\"" +
-				"}";
+		GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userDto);
+		when(userManagementService.getUserById(any(IdOnly.class))).thenReturn(Mono.just(genericResult));
 
-		IdOnly idOnly =  new UserDto(idExpexted,null,null,null);
-		UserResponse userResponse = userDto;
-		GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userResponse);
-		when(userManagementService.getUserById(idOnly)).thenReturn(Mono.just(genericResult));
-		webTestClient.method(HttpMethod.GET)
-				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
-				.bodyValue(body)
-				.exchange()
-				.expectStatus().isOk()
-				.expectHeader().contentType(MediaType.APPLICATION_JSON)
-				.expectBody(GenericResultDto.class)
-				.value(Assertions::assertNotNull)
+		String body = initJsonOnlyId();
+		WebTestClient.ResponseSpec responseSpec = doGetRequest(USER_ID_URI,body);
+		WebTestClient.BodySpec<GenericResultDto, ?> bodySpec =
+				assertGenericResponseWithOneResult(responseSpec)
 				.value( genericResultDto -> {
-					Assertions.assertEquals(1, genericResultDto.getCount());
-					assertNotNull(genericResultDto.getResults());
-					Assertions.assertEquals(1 , genericResultDto.getResults().length);
 					Map<Object,Object> userDetails =
 							(Map<Object, Object>) genericResultDto.getResults()[0];
 					//System.out.println(userDetails);
 					assertTrue(userDetails.size() == 3);
-					assertEquals(idExpexted,userDetails.get(idField));
-					assertNull(userDetails.get(passwordField));
+					assertEquals(userDto.getUserId(),userDetails.get(uuidfield));
 					assertNotNull(userDetails.get(emailField));
-					List<String> roles = (List<String>) userDetails.get(roleField);
-					//System.out.println(roles);
-					assertTrue(roles.size()==1);
-					assertEquals(Role.USER.toString(), roles.get(0));
 				});
+		assertRoleUserAndPasswordNotIncluded(bodySpec);
+	}
+
+	private String initJsonOnlyId(){
+		return "{" +
+				"\""+uuidfield +"\":\""+userDto.getUserId()+"\"" +
+				"}";
+	}
+
+	private WebTestClient.ResponseSpec doGetRequest(String uri, String jsonBodyRequest){
+		return webTestClient.method(HttpMethod.GET)
+				.uri(CONTROLLER_BASE_URL + uri)
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
+				.bodyValue(jsonBodyRequest)
+				.exchange();
 	}
 
 	@Test
 	@DisplayName("Test response get user by email")
 	void getUserByEmailTest(){
-		final String URI_GET_USER = "/user/email";
-		String emailExpected = userDto.getUserEmail();
-		String body = "{" +
-				"\""+emailField +"\":\""+emailExpected+"\"" +
-				"}";
+		GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userDto);
+		when(userManagementService.getUserByEmail(any(EmailOnly.class))).thenReturn(Mono.just(genericResult));
 
-		EmailOnly emailOnly =  new UserDto(null,emailExpected,null,null);
-		UserResponse userResponse = userDto;
-		GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userResponse);
-		when(userManagementService.getUserByEmail(emailOnly)).thenReturn(Mono.just(genericResult));
-		webTestClient.method(HttpMethod.GET)
-				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
-				.accept(MediaType.APPLICATION_JSON)
-				.contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
-				.bodyValue(body)
-				.exchange()
-				.expectStatus().isOk()
-				.expectHeader().contentType(MediaType.APPLICATION_JSON)
-				.expectBody(GenericResultDto.class)
-				.value(Assertions::assertNotNull)
-				.value( genericResultDto -> {
-					Assertions.assertEquals(1, genericResultDto.getCount());
-					assertNotNull(genericResultDto.getResults());
-					Assertions.assertEquals(1 , genericResultDto.getResults().length);
-					//results field is generic -> returns an array of objects
-					//each element is Map instance
-					Map<Object,Object> userDetails =
-							(Map<Object, Object>) genericResultDto.getResults()[0];
-					//System.out.println(userDetails);
-					assertTrue(userDetails.size() == 3);
-					assertNotNull(userDetails.get(idField));
-					assertNull(userDetails.get(passwordField));
-					assertEquals(emailExpected, userDetails.get(emailField));
-					List<String> roles = (List<String>) userDetails.get(roleField);
-					//System.out.println(roles);
-					assertTrue(roles.size()==1);
-					assertEquals(Role.USER.toString(), roles.get(0));
-				});
-  }
+		String body = initJsonOnlyEmail();
+		WebTestClient.ResponseSpec responseSpec = doGetRequest(USER_EMAIL_URI,body);
+		WebTestClient.BodySpec<GenericResultDto, ?> bodySpec =
+				assertGenericResponseWithOneResult(responseSpec)
+						.value( genericResultDto -> {
+							Map<Object,Object> userDetails =
+									(Map<Object, Object>) genericResultDto.getResults()[0];
+							//System.out.println(userDetails);
+							assertTrue(userDetails.size() == 3);
+							assertNotNull(userDetails.get(uuidfield));
+							assertEquals(userDto.getUserEmail(), userDetails.get(emailField));
+						});
+		assertRoleUserAndPasswordNotIncluded(bodySpec);
+  	}
+
+	private String initJsonOnlyEmail(){
+		return "{" +
+				"\""+emailField +"\":\""+userDto.getUserEmail()+"\"" +
+				"}";
+	}
+
 
   @Test
   @DisplayName("Test response add new user")
   void addUserTest(){
-		final String URI_ADD_USER="/user";
-		String emailExpected = userDto.getUserEmail();
-		String password = userDto.getUserPassword();
-	  	String body = "{" +
-			  "\""+emailField+"\":\""+emailExpected+"\"," +
-			  "\""+passwordField +"\":\""+password+"\"" +
-			  "}";
-		UserResponse userResponse = userDto;
-	  	GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userResponse);
-	  	when(userManagementService.addUser(any(SingUpRequest.class))).thenReturn(Mono.just(genericResult));
-	  	webTestClient.method(HttpMethod.POST)
-			  .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
-			  .accept(MediaType.APPLICATION_JSON)
-			  .contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
-			  .bodyValue(body)
-			  .exchange()
-			  .expectStatus().isOk()
-			  .expectHeader().contentType(MediaType.APPLICATION_JSON)
-			  .expectBody(GenericResultDto.class)
-			  .value(Assertions::assertNotNull)
-			  .value( genericResultDto -> {
-				  Assertions.assertEquals(1, genericResultDto.getCount());
-				  Assertions.assertEquals(1 , genericResultDto.getResults().length);
-				  //results field is generic -> returns an array of objects
-				  //each element is Map instance
-				  Map<Object,Object> userDetails =
-						  (Map<Object, Object>) genericResultDto.getResults()[0];
-				  //System.out.println(userDetails);
-				  assertTrue(userDetails.size() == 3);
-				  assertNotNull(userDetails.get(idField));
-				  assertNull(userDetails.get(passwordField));
-				  assertEquals(emailExpected, userDetails.get(emailField));
-				  List<String> roles = (List<String>) userDetails.get(roleField);
-				  //System.out.println(roles);
-				  assertTrue(roles.size()==1);
-				  assertEquals(Role.USER.toString(), roles.get(0));
-			  });
+	  GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userDto);
+	  when(userManagementService.addUser(any(SingUpRequest.class))).thenReturn(Mono.just(genericResult));
+
+	  WebTestClient.ResponseSpec responseSpec = doSingup(userDto.getUserEmail(), userDto.getUserPassword());
+	  WebTestClient.BodySpec<GenericResultDto, ?> bodySpec =
+			  assertGenericResponseWithOneResult(responseSpec)
+					  .value( genericResultDto -> {
+						  Map<Object,Object> userDetails =
+								  (Map<Object, Object>) genericResultDto.getResults()[0];
+						  //System.out.println(userDetails);
+						  assertTrue(userDetails.size() == 3);
+						  assertNotNull(userDetails.get(uuidfield));
+						  assertEquals(userDto.getUserEmail(), userDetails.get(emailField));
+					  });
+	  assertRoleUserAndPasswordNotIncluded(bodySpec);
+	}
+
+	private WebTestClient.ResponseSpec doSingup(String emailExpected, String password){
+		String body =initSingupJsonBody(emailExpected,password);
+		return postSingup(body);
+	}
+
+	private String initSingupJsonBody(String email, String password){
+		return "{" +
+				"\""+emailField+"\":\""+email+"\"," +
+				"\""+passwordField +"\":\""+password+"\"" +
+				"}";
+	}
+
+	private WebTestClient.ResponseSpec postSingup(String jsonSingup){
+		return webTestClient.post()
+				.uri(CONTROLLER_BASE_URL + USER_URI)
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
+				.bodyValue(jsonSingup)
+				.exchange();
 	}
 }

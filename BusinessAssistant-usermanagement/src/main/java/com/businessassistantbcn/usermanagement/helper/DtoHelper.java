@@ -17,12 +17,12 @@ import com.businessassistantbcn.usermanagement.document.Role;
 public class DtoHelper {
 
 	public static UserDto convertUserToUserDto(User user) {
-		UserDto userDto = new UserDto();
-		userDto.setUserId(user.getUuid());
-		userDto.setUserEmail(user.getEmail());
-		userDto.setUserRoles(convertToUserDtoRoles(user.getRoles()));
-		userDto.setUserPassword(user.getPassword()); //WARNING: for storage. NEVER serialized
-		return userDto;
+		return UserDto.builder()
+				.userId(user.getUuid())
+				.userEmail(user.getEmail())
+				.userRoles(convertToUserDtoRoles(user.getRoles()))
+				.userPassword(user.getPassword()) //WARNING: for storage. NEVER serialized
+				.build();
 	}
 
 	public static GenericResultDto<UserResponse> convertUserToGenericUserResponse(User user){

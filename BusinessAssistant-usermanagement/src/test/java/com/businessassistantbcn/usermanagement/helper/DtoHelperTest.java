@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
 import com.businessassistantbcn.usermanagement.dto.input.SingUpRequest;
@@ -71,10 +72,15 @@ public class DtoHelperTest {
 
     @Test
     public void convertSingupToUserTest() {
-        SingUpRequest singup = new UserDto(null,"user@Dto.es",null, "1234");
+        String email = "user@user.es";
+        String password = "wwdd98e";
+        SingUpRequest singup = UserDto.builder()
+                .userEmail(email)
+                .userPassword(password)
+                .build();
         user = DtoHelper.convertSingupToUser(singup);
-        assertEquals("user@Dto.es", user.getEmail());
-        assertEquals("1234", user.getPassword());
+        assertEquals(email, user.getEmail());
+        assertEquals(password, user.getPassword());
         assertNotNull(user.getUuid());
     }
 
@@ -83,10 +89,14 @@ public class DtoHelperTest {
         rolesString = new ArrayList<String>();
         rolesString.add("USER");
         rolesString.add("ADMIN");
-        UserDto userDto = new UserDto("7e10fe51-772e-441f-874d-1c03dee79ad9",
-                "user@Dto.es", rolesString, "12345");
+        UserDto userDto = UserDto.builder()
+                .userId("7e10fe51-772e-441f-874d-1c03dee79ad9")
+                .userEmail("user@dto.es")
+                .userRoles(rolesString)
+                .userPassword("12345")
+                .build();
         User user = new User(new ObjectId("63d9666bbdf0196d2c766fa0"),"7e10fe51-772e-441f-874d-1c03dee79ad9",
-                "user@Dto.es", "1234", null, System.currentTimeMillis());
+                "user@dto.es", "1234", null, System.currentTimeMillis());
 
         roles = new ArrayList<Role>();
         roles.add(Role.USER);
