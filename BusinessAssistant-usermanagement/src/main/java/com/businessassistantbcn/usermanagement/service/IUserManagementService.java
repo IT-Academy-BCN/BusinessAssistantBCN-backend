@@ -1,7 +1,10 @@
 package com.businessassistantbcn.usermanagement.service;
 
-import com.businessassistantbcn.usermanagement.dto.*;
-
+import com.businessassistantbcn.usermanagement.dto.input.EmailOnly;
+import com.businessassistantbcn.usermanagement.dto.input.IdOnly;
+import com.businessassistantbcn.usermanagement.dto.input.SingUpRequest;
+import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
 import reactor.core.publisher.Mono;
 
 public interface IUserManagementService {

@@ -1,13 +1,15 @@
 package com.businessassistantbcn.usermanagement.integration;
 
-import com.businessassistantbcn.usermanagement.dto.SingUpRequest;
-import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
-import com.businessassistantbcn.usermanagement.dto.UserDto;
+import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
+import com.businessassistantbcn.usermanagement.document.Role;
+import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,16 +22,18 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import reactor.core.publisher.Mono;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@PropertySource("classpath:persistence-test.properties")
+@PropertySource("classpath:test.properties")
 @Testcontainers
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public class UserManagementIntegrationTest {
@@ -37,12 +41,30 @@ public class UserManagementIntegrationTest {
     @Autowired
     private WebTestClient webTestClient;
 
+    @Value("${test.json.uuidField}")
+    private String uuidfield;
+
+    @Value("${test.json.emailField}")
+    private String emailField;
+
+    @Value("${test.json.roleField}")
+    private String roleField;
+
+    @Value("${test.json.passwordField}")
+    private String passwordField;
+
     private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/usermanagement";
 
     //TODO - DEBUG trace: 'Failed to close the response', see https://github.com/testcontainers/testcontainers-java/issues/6420
     @Container
     static MongoDBContainer container = new MongoDBContainer("mongo")
             .withStartupTimeout(Duration.ofSeconds(60));
+
+    @Autowired
+    PropertiesConfig config;
+
+    //@Autowired
+    //UserManagementRepository repo; //if is needed for check initial user registered
 
     @DynamicPropertySource
     static void initMongoProperties(DynamicPropertyRegistry registry) {
@@ -67,36 +89,81 @@ public class UserManagementIntegrationTest {
 
     @Test
     @DisplayName("Integration test add user")
-    void addUserTest(){
-        final String URI_ADD_USER = "/user";
-        SingUpRequest singup = null;
-        ErrorDto errorDto = new ErrorDto("Users limit on database");
-        //Bucle for con 200 peticiones post(), para simular y obtener resultado de las peticiones y el exceso de usuarios en base de datos
-        for(int i = 0; i < 200 ; i++){ //Límite de usuarios en base de datos, extraido de la propiedad maxusers del application.yml
-            singup = new UserDto(null,"user"+i+"@gmail.com", null, "user"+i);
-            webTestClient.post()
-                    .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .body(Mono.just(singup), UserDto.class)
-                    .exchange()
-                    .expectStatus().isOk()
-                    .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                    .expectBody()
-                    .jsonPath("$.email").isEqualTo("user"+i+"@gmail.com")
-                    .equals(Mono.just(singup).block());
+    void addUsersTest(){
+        int maxUsers = config.getMaxusers();
+        String email = "user@gmail.com";
+        String password = "whatever";
+        assertSuccessSingupCheckingEmail(email,doSingup(email,password));
+        for(int i = 1; i < maxUsers ; i++){ //assert max users is reached
+            //System.out.println(i);
+            doSingup(i+email,password);
         }
+        assertLimitDBReached(doSingup(email, password));
+    }
 
-        singup = new UserDto(null,"user@user.com", null, "user");
-        webTestClient.post()
+    private WebTestClient.ResponseSpec doSingup(String emailExpected, String password){
+        String body =initSingupJsonBody(emailExpected,password);
+        return postSingup(body);
+    }
+
+    private String initSingupJsonBody(String email, String password){
+        return "{" +
+                "\""+emailField+"\":\""+email+"\"," +
+                "\""+passwordField +"\":\""+password+"\"" +
+                "}";
+    }
+
+    private WebTestClient.ResponseSpec postSingup(String jsonSingup){
+        final String URI_ADD_USER = "/user";
+        return webTestClient.post()
                 .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
                 .accept(MediaType.APPLICATION_JSON)
-                .body(Mono.just(singup), UserDto.class)
-                .exchange()
-                .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody()
-                .jsonPath("$.message").isEqualTo("Users limit on database")
-                .equals(Mono.just(errorDto).block());
+                .contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
+                .bodyValue(jsonSingup)
+                .exchange();
     }
+
+    private void assertSuccessSingupCheckingEmail(String emailExpected, WebTestClient.ResponseSpec responseSpec){
+        WebTestClient.BodySpec<GenericResultDto, ?> body = assertGenericResponseWithOneResult(responseSpec);
+        String expectedRole = Role.USER.toString();
+        body.value( genericResultDto -> {
+            Map<Object,Object> userDetails =
+                    (Map<Object, Object>) genericResultDto.getResults()[0];
+            assertTrue(userDetails.size() == 3);
+            assertNotNull(userDetails.get(uuidfield));
+            assertEquals(emailExpected, userDetails.get(emailField));
+            assertNull(userDetails.get(passwordField));
+            List<String> roles = (List<String>) userDetails.get(roleField);
+            //System.out.println(roles);
+            assertTrue(roles.size() == 1);
+            assertEquals(expectedRole, roles.get(0));
+        });
+    }
+
+    private WebTestClient.BodySpec<GenericResultDto, ?>
+        assertGenericResponseWithOneResult(WebTestClient.ResponseSpec responseSpec){
+
+        return responseSpec.expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody(GenericResultDto.class)
+                .value(Assertions::assertNotNull)
+                .value( genericResultDto -> {
+                    assertTrue(1 == genericResultDto.getCount());
+                    assertTrue(1 == genericResultDto.getResults().length);
+                });
+    }
+
+    private void assertLimitDBReached(WebTestClient.ResponseSpec responseSpec){
+        WebTestClient.BodySpec<GenericResultDto, ?> body =
+                assertGenericResponseWithOneResult(responseSpec);
+        body.value(genericResultDto -> {
+            Map<Object,Object> error =
+                    (Map<Object, Object>) genericResultDto.getResults()[0];
+            assertEquals(1, error.size());
+            assertEquals(config.getErrorLimitDb(), error.get("errorMessage"));
+        });
+    }
+
+
 
 }

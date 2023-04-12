@@ -8,5 +8,5 @@ import lombok.*;
 @EqualsAndHashCode
 public class ErrorDto {
 
-    private String message;
+    private String errorMessage;
 }

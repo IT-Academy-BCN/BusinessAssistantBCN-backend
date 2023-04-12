@@ -17,7 +17,7 @@ import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-@PropertySource("classpath:persistence-test.properties")
+@PropertySource("classpath:test.properties")
 @DataMongoTest
 @Testcontainers
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)

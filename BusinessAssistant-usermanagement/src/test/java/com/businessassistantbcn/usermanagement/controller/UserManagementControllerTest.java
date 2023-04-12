@@ -1,15 +1,21 @@
 package com.businessassistantbcn.usermanagement.controller;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.businessassistantbcn.usermanagement.dto.EmailOnly;
-import com.businessassistantbcn.usermanagement.dto.IdOnly;
-import com.businessassistantbcn.usermanagement.dto.SingUpRequest;
-import com.businessassistantbcn.usermanagement.dto.UserDto;
+import com.businessassistantbcn.usermanagement.document.Role;
+import com.businessassistantbcn.usermanagement.dto.input.EmailOnly;
+import com.businessassistantbcn.usermanagement.dto.input.IdOnly;
+import com.businessassistantbcn.usermanagement.dto.input.SingUpRequest;
+import com.businessassistantbcn.usermanagement.dto.io.UserDto;
+import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
 import com.businessassistantbcn.usermanagement.service.IUserManagementService;
-import com.businessassistantbcn.usermanagement.service.UserManagementService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,14 +29,15 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = UserManagementController.class, excludeAutoConfiguration = {ReactiveSecurityAutoConfiguration.class})
 public class UserManagementControllerTest {
-
 
 	@Autowired
 	private WebTestClient webTestClient;
@@ -41,6 +48,13 @@ public class UserManagementControllerTest {
 	private final String CONTROLLER_BASE_URL = "/businessassistantbcn/api/v1/usermanagement";
 
 	UserDto userDto = new UserDto();
+
+	private final String idField = "user_uuid";
+	private final String emailField = "user_email";
+
+	private final String passwordField = "user_password";
+
+	private final String roleField = "user_role";
 
 
 	@BeforeEach
@@ -65,51 +79,128 @@ public class UserManagementControllerTest {
 	}
 
 	@Test
-	@DisplayName("Test response get user")
+	@DisplayName("Test response get user by id")
 	void getUserByIdTest(){
 		final String URI_GET_USER = "/user/uuid";
 		String idExpexted = userDto.getUserId();
+		String body = "{" +
+				"\""+idField +"\":\""+idExpexted+"\"" +
+				"}";
+
 		IdOnly idOnly =  new UserDto(idExpexted,null,null,null);
-		when(userManagementService.getUserById(idOnly)).thenReturn(Mono.just(userDto));
+		UserResponse userResponse = userDto;
+		GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userResponse);
+		when(userManagementService.getUserById(idOnly)).thenReturn(Mono.just(genericResult));
 		webTestClient.method(HttpMethod.GET)
 				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
 				.accept(MediaType.APPLICATION_JSON)
-				.body(Mono.just(idOnly), UserDto.class)
+				.contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
+				.bodyValue(body)
 				.exchange()
 				.expectStatus().isOk()
-				.equals(Mono.just(userDto));
+				.expectHeader().contentType(MediaType.APPLICATION_JSON)
+				.expectBody(GenericResultDto.class)
+				.value(Assertions::assertNotNull)
+				.value( genericResultDto -> {
+					Assertions.assertEquals(1, genericResultDto.getCount());
+					assertNotNull(genericResultDto.getResults());
+					Assertions.assertEquals(1 , genericResultDto.getResults().length);
+					Map<Object,Object> userDetails =
+							(Map<Object, Object>) genericResultDto.getResults()[0];
+					//System.out.println(userDetails);
+					assertTrue(userDetails.size() == 3);
+					assertEquals(idExpexted,userDetails.get(idField));
+					assertNull(userDetails.get(passwordField));
+					assertNotNull(userDetails.get(emailField));
+					List<String> roles = (List<String>) userDetails.get(roleField);
+					//System.out.println(roles);
+					assertTrue(roles.size()==1);
+					assertEquals(Role.USER.toString(), roles.get(0));
+				});
 	}
 
 	@Test
-	@DisplayName("Test response get user")
+	@DisplayName("Test response get user by email")
 	void getUserByEmailTest(){
 		final String URI_GET_USER = "/user/email";
 		String emailExpected = userDto.getUserEmail();
+		String body = "{" +
+				"\""+emailField +"\":\""+emailExpected+"\"" +
+				"}";
+
 		EmailOnly emailOnly =  new UserDto(null,emailExpected,null,null);
-		when(userManagementService.getUserByEmail(emailOnly)).thenReturn(Mono.just(userDto));
+		UserResponse userResponse = userDto;
+		GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userResponse);
+		when(userManagementService.getUserByEmail(emailOnly)).thenReturn(Mono.just(genericResult));
 		webTestClient.method(HttpMethod.GET)
 				.uri(CONTROLLER_BASE_URL + URI_GET_USER)
 				.accept(MediaType.APPLICATION_JSON)
-				.body(Mono.just(emailOnly), UserDto.class)
+				.contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
+				.bodyValue(body)
 				.exchange()
 				.expectStatus().isOk()
-				.expectBody()
-				.equals(Mono.just(userDto));
+				.expectHeader().contentType(MediaType.APPLICATION_JSON)
+				.expectBody(GenericResultDto.class)
+				.value(Assertions::assertNotNull)
+				.value( genericResultDto -> {
+					Assertions.assertEquals(1, genericResultDto.getCount());
+					assertNotNull(genericResultDto.getResults());
+					Assertions.assertEquals(1 , genericResultDto.getResults().length);
+					//results field is generic -> returns an array of objects
+					//each element is Map instance
+					Map<Object,Object> userDetails =
+							(Map<Object, Object>) genericResultDto.getResults()[0];
+					//System.out.println(userDetails);
+					assertTrue(userDetails.size() == 3);
+					assertNotNull(userDetails.get(idField));
+					assertNull(userDetails.get(passwordField));
+					assertEquals(emailExpected, userDetails.get(emailField));
+					List<String> roles = (List<String>) userDetails.get(roleField);
+					//System.out.println(roles);
+					assertTrue(roles.size()==1);
+					assertEquals(Role.USER.toString(), roles.get(0));
+				});
   }
 
   @Test
+  @DisplayName("Test response add new user")
   void addUserTest(){
 		final String URI_ADD_USER="/user";
-	  	String emailExpected = userDto.getUserEmail();
-	  	SingUpRequest singup = new UserDto(null,emailExpected,null,userDto.getUserPassword());
-		when(userManagementService.addUser(singup)).thenAnswer(x->(Mono.just(userDto)));
-		webTestClient.post()
-				.uri(CONTROLLER_BASE_URL + URI_ADD_USER)
-				.accept(MediaType.APPLICATION_JSON)
-				.body(Mono.just(singup), UserDto.class)
-				.exchange()
-				.expectStatus().isOk()
-				.expectBody()
-				.equals(Mono.just(userDto));
+		String emailExpected = userDto.getUserEmail();
+		String password = userDto.getUserPassword();
+	  	String body = "{" +
+			  "\""+emailField+"\":\""+emailExpected+"\"," +
+			  "\""+passwordField +"\":\""+password+"\"" +
+			  "}";
+		UserResponse userResponse = userDto;
+	  	GenericResultDto<UserResponse> genericResult = new GenericResultDto<>(userResponse);
+	  	when(userManagementService.addUser(any(SingUpRequest.class))).thenReturn(Mono.just(genericResult));
+	  	webTestClient.method(HttpMethod.POST)
+			  .uri(CONTROLLER_BASE_URL + URI_ADD_USER)
+			  .accept(MediaType.APPLICATION_JSON)
+			  .contentType(MediaType.APPLICATION_JSON) //if json String as body instead an instance of X.class
+			  .bodyValue(body)
+			  .exchange()
+			  .expectStatus().isOk()
+			  .expectHeader().contentType(MediaType.APPLICATION_JSON)
+			  .expectBody(GenericResultDto.class)
+			  .value(Assertions::assertNotNull)
+			  .value( genericResultDto -> {
+				  Assertions.assertEquals(1, genericResultDto.getCount());
+				  Assertions.assertEquals(1 , genericResultDto.getResults().length);
+				  //results field is generic -> returns an array of objects
+				  //each element is Map instance
+				  Map<Object,Object> userDetails =
+						  (Map<Object, Object>) genericResultDto.getResults()[0];
+				  //System.out.println(userDetails);
+				  assertTrue(userDetails.size() == 3);
+				  assertNotNull(userDetails.get(idField));
+				  assertNull(userDetails.get(passwordField));
+				  assertEquals(emailExpected, userDetails.get(emailField));
+				  List<String> roles = (List<String>) userDetails.get(roleField);
+				  //System.out.println(roles);
+				  assertTrue(roles.size()==1);
+				  assertEquals(Role.USER.toString(), roles.get(0));
+			  });
 	}
 }

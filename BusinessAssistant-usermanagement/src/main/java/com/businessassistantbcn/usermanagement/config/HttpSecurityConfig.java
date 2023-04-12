@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.security.web.firewall.HttpFirewall;
@@ -57,7 +59,7 @@ public class HttpSecurityConfig {
 				public void commence(HttpServletRequest request, HttpServletResponse response,
 						AuthenticationException authException) throws IOException {
 					response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-					response.getWriter().print(config.getErr());
+					response.getWriter().print(config.getErrorTokenUnvailables());
 				}
 			});
 		}
@@ -68,5 +70,10 @@ public class HttpSecurityConfig {
 		StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
 		strictHttpFirewall.setAllowUrlEncodedDoubleSlash(true);
 		return strictHttpFirewall;
+	}
+
+	@Bean
+	public PasswordEncoder encoder(){
+		return new BCryptPasswordEncoder(12); // Strength set as 12;
 	}
 }

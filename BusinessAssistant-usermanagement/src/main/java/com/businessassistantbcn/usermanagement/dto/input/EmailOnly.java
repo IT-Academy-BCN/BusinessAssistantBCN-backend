@@ -1,4 +1,4 @@
-package com.businessassistantbcn.usermanagement.dto;
+package com.businessassistantbcn.usermanagement.dto.input;
 
 public interface EmailOnly {
     String getUserEmail();

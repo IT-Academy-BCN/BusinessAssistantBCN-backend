@@ -1,10 +1,9 @@
 package com.businessassistantbcn.usermanagement.controller;
 
-import com.businessassistantbcn.usermanagement.dto.GenericResultDto;
-import com.businessassistantbcn.usermanagement.dto.UserDto;
-import com.businessassistantbcn.usermanagement.dto.UserResponse;
+import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
+import com.businessassistantbcn.usermanagement.dto.io.UserDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
 import com.businessassistantbcn.usermanagement.service.IUserManagementService;
-import com.businessassistantbcn.usermanagement.service.UserManagementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

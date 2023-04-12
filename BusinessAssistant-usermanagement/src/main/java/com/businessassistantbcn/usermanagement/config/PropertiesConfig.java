@@ -20,7 +20,7 @@ public class PropertiesConfig {
 	@Value("${security.datasource.authoritiesClaim}")
 	private String authoritiesClaim;
 	@Value("${security.datasource.err}")
-	private String err;
+	private String errorTokenUnvailables;
 
 	//limitDb properties
 	@Value("${limitdb.enabled}")
@@ -28,5 +28,5 @@ public class PropertiesConfig {
 	@Value("${limitdb.maxusers}")
 	private Integer maxusers;
 	@Value("${limitdb.err}")
-	private String error;
+	private String errorLimitDb;
 }
