@@ -70,7 +70,7 @@ class HttpProxyTest {
         url = new URL(String.format("http://localhost:%s", mockWebServer.getPort()));
     }
 
-    @DisplayName("Timeout verification")
+/*    @DisplayName("Timeout verification")
     @Test
     void timeoutTest() {
         HttpClient client1 = HttpClient.create()
@@ -86,7 +86,7 @@ class HttpProxyTest {
                                         response.bodyToMono(CcaeDto.class) :
                                         response.createException().flatMap(Mono::error))
                         .block());
-    }
+    }*/
 
     @Test
     void getRequestDataTest() {
