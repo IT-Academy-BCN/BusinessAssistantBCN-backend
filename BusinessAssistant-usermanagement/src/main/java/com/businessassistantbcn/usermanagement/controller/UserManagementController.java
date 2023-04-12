@@ -24,6 +24,7 @@ public class UserManagementController {
     }
 
 
+
     @GetMapping("/user/email")
     //@PreAuthorize("hasAuthority('SUPERUSER')") // Comentar en modo dev
     @Operation(summary = "get user")

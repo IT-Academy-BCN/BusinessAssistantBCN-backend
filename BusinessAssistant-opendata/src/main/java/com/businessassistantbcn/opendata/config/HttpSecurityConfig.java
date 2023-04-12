@@ -68,7 +68,7 @@ public class HttpSecurityConfig {
     @Bean
     public static HttpFirewall getHttpFirewall() {
         StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
-        strictHttpFirewall.setAllowUrlEncodedDoubleSlash(true);
+        strictHttpFirewall.setAllowUrlEncodedDoubleSlash(false);
         return strictHttpFirewall;
     }
 }
