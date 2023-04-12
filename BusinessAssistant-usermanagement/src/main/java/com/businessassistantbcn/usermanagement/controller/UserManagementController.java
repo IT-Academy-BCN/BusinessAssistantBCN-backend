@@ -22,6 +22,7 @@ public class UserManagementController {
     public String test() {
         return "Hello from BusinessAssistant User!!!";
     }
+    
 
 
     @GetMapping("/user/email")
