@@ -63,15 +63,6 @@ public class HttpSecurityConfig {
         }
     }
 
-    //Controlar doble slash en peticiones a endpoints en ambos perfiles.
-   /* @Bean
-    public static HttpFirewall getHttpFirewall() {
-        StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
-        //strictHttpFirewall.setAllowUrlEncodedDoubleSlash(true);
-        strictHttpFirewall.setAllowUrlEncodedDoubleSlash(false);
-        return strictHttpFirewall;
-    }*/
-
     //Doble slash produce un error 400
     @Bean
     RequestRejectedHandler requestRejectedHandler() {
