@@ -1,15 +1,8 @@
 package com.businessassistantbcn.usermanagement.dto.output;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
-import org.yaml.snakeyaml.util.ArrayUtils;
-
-import java.util.List;
 
 @Getter
-@ToString
-@EqualsAndHashCode
 public class GenericResultDto<T>{
     private int offset;
     private int limit;

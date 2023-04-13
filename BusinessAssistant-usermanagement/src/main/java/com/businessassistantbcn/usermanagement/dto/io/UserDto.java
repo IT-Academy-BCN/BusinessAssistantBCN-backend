@@ -4,17 +4,12 @@ import java.util.List;
 import com.businessassistantbcn.usermanagement.dto.input.IdOnly;
 import com.businessassistantbcn.usermanagement.dto.input.SingUpRequest;
 import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Builder
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 public class UserDto implements IdOnly, SingUpRequest, UserResponse {
 
 	@JsonProperty(value = "user_uuid")
