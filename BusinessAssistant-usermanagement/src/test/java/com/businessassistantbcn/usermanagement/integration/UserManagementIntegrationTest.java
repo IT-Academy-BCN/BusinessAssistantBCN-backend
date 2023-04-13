@@ -129,13 +129,13 @@ public class UserManagementIntegrationTest {
         body.value( genericResultDto -> {
             Map<Object,Object> userDetails =
                     (Map<Object, Object>) genericResultDto.getResults()[0];
-            assertTrue(userDetails.size() == 3);
+            assertEquals(3, userDetails.size());
             assertNotNull(userDetails.get(uuidfield));
             assertEquals(emailExpected, userDetails.get(emailField));
             assertNull(userDetails.get(passwordField));
             List<String> roles = (List<String>) userDetails.get(roleField);
             //System.out.println(roles);
-            assertTrue(roles.size() == 1);
+            assertEquals(1,roles.size());
             assertEquals(expectedRole, roles.get(0));
         });
     }
@@ -149,8 +149,8 @@ public class UserManagementIntegrationTest {
                 .value(Assertions::assertNotNull)
                 .value( genericResultDto -> {
                     //System.out.println(genericResultDto);
-                    assertTrue(1 == genericResultDto.getCount());
-                    assertTrue(1 == genericResultDto.getResults().length);
+                    assertEquals(1, genericResultDto.getCount());
+                    assertEquals(1, genericResultDto.getResults().length);
                 });
     }
 

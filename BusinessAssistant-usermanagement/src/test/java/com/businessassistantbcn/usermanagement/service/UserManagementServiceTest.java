@@ -86,7 +86,7 @@ public class UserManagementServiceTest {
     }
 
     @Test
-    public void addNewUserTest(){
+    void addNewUserTest(){
         mockNumUsersAllowed(1);
         mockFindByEmailResponse(Mono.empty());
         mockSaveResponse(Mono.just(user));
@@ -105,7 +105,7 @@ public class UserManagementServiceTest {
     }
 
     @Test
-    public void singupEmailExistTest(){
+    void singupEmailExistTest(){
         mockNumUsersAllowed(1);
         mockFindByEmailResponse(Mono.just(user));
         mockSaveResponse(Mono.just(user));
@@ -114,7 +114,7 @@ public class UserManagementServiceTest {
     }
 
     @Test
-    public void addUserLimitDbExceededTest(){
+    void addUserLimitDbExceededTest(){
         mockNumUsersAllowed(0);
         mockFindByEmailResponse(Mono.empty());
         mockSaveResponse(Mono.just(user));
@@ -139,7 +139,7 @@ public class UserManagementServiceTest {
 
 
     @Test
-    public void getUserByIdTest() {
+    void getUserByIdTest() {
         mockFoundByIdlResponse(Mono.just(user));
         mockSaveResponse(Mono.just(user));
 
@@ -156,7 +156,7 @@ public class UserManagementServiceTest {
     }
 
     @Test
-    public void getUserByUuidNotExistTest() {
+    void getUserByUuidNotExistTest() {
         mockFoundByIdlResponse(Mono.empty());
         mockSaveResponse(Mono.empty());
         assertCompletedEmpty(doFindById());
@@ -168,7 +168,7 @@ public class UserManagementServiceTest {
     }
 
     @Test
-    public void getUserByEmailTest() {
+    void getUserByEmailTest() {
         mockSaveResponse(Mono.just(user));
         mockFindByEmailResponse(Mono.just(user));
 
@@ -185,7 +185,7 @@ public class UserManagementServiceTest {
     }
 
     @Test
-    public void getUserByEmailNotExistTest() {
+    void getUserByEmailNotExistTest() {
         mockSaveResponse(Mono.empty());
         mockFindByEmailResponse(Mono.empty());
         assertCompletedEmpty(doFindByEmail());

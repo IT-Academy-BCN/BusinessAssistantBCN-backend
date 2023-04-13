@@ -111,7 +111,7 @@ public class UserManagementControllerTest {
 			assertNull(userDetails.get(passwordField));
 			List<String> roles = (List<String>) userDetails.get(roleField);
 			//System.out.println(roles);
-			assertTrue(roles.size()==1);
+			assertEquals(1, roles.size());
 			assertEquals(Role.USER.toString(), roles.get(0));
 		});
 	}
@@ -130,7 +130,7 @@ public class UserManagementControllerTest {
 					Map<Object,Object> userDetails =
 							(Map<Object, Object>) genericResultDto.getResults()[0];
 					//System.out.println(userDetails);
-					assertTrue(userDetails.size() == 3);
+					assertEquals(3, userDetails.size());
 					assertEquals(userDto.getUserId(),userDetails.get(uuidfield));
 					assertNotNull(userDetails.get(emailField));
 				});
@@ -166,7 +166,7 @@ public class UserManagementControllerTest {
 							Map<Object,Object> userDetails =
 									(Map<Object, Object>) genericResultDto.getResults()[0];
 							//System.out.println(userDetails);
-							assertTrue(userDetails.size() == 3);
+							assertEquals(3, userDetails.size());
 							assertNotNull(userDetails.get(uuidfield));
 							assertEquals(userDto.getUserEmail(), userDetails.get(emailField));
 						});
@@ -193,7 +193,7 @@ public class UserManagementControllerTest {
 						  Map<Object,Object> userDetails =
 								  (Map<Object, Object>) genericResultDto.getResults()[0];
 						  //System.out.println(userDetails);
-						  assertTrue(userDetails.size() == 3);
+						  assertEquals(3, userDetails.size());
 						  assertNotNull(userDetails.get(uuidfield));
 						  assertEquals(userDto.getUserEmail(), userDetails.get(emailField));
 					  });

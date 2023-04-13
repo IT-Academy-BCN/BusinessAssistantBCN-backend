@@ -74,6 +74,6 @@ public class HttpSecurityConfig {
 
 	@Bean
 	public PasswordEncoder encoder(){
-		return new BCryptPasswordEncoder(12); // Strength set as 12;
+		return new BCryptPasswordEncoder(12);
 	}
 }

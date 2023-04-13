@@ -20,7 +20,7 @@ import com.businessassistantbcn.usermanagement.document.User;
 import com.businessassistantbcn.usermanagement.dto.io.UserDto;
 
 @ExtendWith(SpringExtension.class)
-public class DtoHelperTest {
+class DtoHelperTest {
 
     User user;
     UserDto userDto;
@@ -28,7 +28,7 @@ public class DtoHelperTest {
     List<String> rolesString;
 
     @Test
-    public void convertUserToUserDtoTest() {
+    void convertUserToUserDtoTest() {
         roles = new ArrayList<>();
 
         roles.add(Role.ADMIN);
@@ -48,7 +48,7 @@ public class DtoHelperTest {
     }
 
     @Test
-    public void convertUserToGenericUserResponseTest(){
+    void convertUserToGenericUserResponseTest(){
         roles = new ArrayList<>();
 
         roles.add(Role.ADMIN);
@@ -71,7 +71,7 @@ public class DtoHelperTest {
 
 
     @Test
-    public void convertSingupToUserTest() {
+    void convertSingupToUserTest() {
         String email = "user@user.es";
         String password = "wwdd98e";
         SingUpRequest singup = UserDto.builder()
@@ -85,7 +85,7 @@ public class DtoHelperTest {
     }
 
     @Test
-    public void test_convertToUserRoles() {
+    void test_convertToUserRoles() {
         rolesString = new ArrayList<String>();
         rolesString.add("USER");
         rolesString.add("ADMIN");
@@ -106,7 +106,7 @@ public class DtoHelperTest {
     }
 
     @Test
-    public void test_convertToUserDtoRoles() {
+    void test_convertToUserDtoRoles() {
         roles = new ArrayList<Role>();
         roles.add(Role.USER);
         roles.add(Role.ADMIN);

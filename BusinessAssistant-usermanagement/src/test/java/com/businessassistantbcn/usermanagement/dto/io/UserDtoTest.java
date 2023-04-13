@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @PropertySource("classpath:test.properties")
 @Log4j2
-public class UserDtoTest {
+class UserDtoTest {
 
     @Value("${test.json.uuidField}")
     private String uuidfield;
