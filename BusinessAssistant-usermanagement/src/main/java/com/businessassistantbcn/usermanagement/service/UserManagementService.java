@@ -44,7 +44,7 @@ public class UserManagementService implements IUserManagementService {
                 String errorMsg = "already exist other user whit email: "+singup.getUserEmail();
                 response = Mono.just(new GenericResultDto<>(new ErrorDto(errorMsg)));
             }
-        } else {//número máximo de usuarios excedido
+        } else {
             response = Mono.just(new GenericResultDto<>(new ErrorDto(propertiesConfig.getErrorLimitDb())));
         }
         return response;
@@ -52,15 +52,18 @@ public class UserManagementService implements IUserManagementService {
 
     private boolean isSaveNewUserAllowed() {
         if(propertiesConfig.getEnabled()){
-            return propertiesConfig.getMaxusers() > userRepository.count().block();
+            return userRepository.count()
+                    .blockOptional()
+                    .filter(count -> propertiesConfig.getMaxusers() > count)
+                    .isPresent();
         }else {
-            return true; //max limit disabled
+            return true;
         }
     }
 
-    private void saveLatestAccess(User user) {
+    private User saveLatestAccess(User user) {
         user.setLatestAccess(System.currentTimeMillis());
-        userRepository.save(user).block();
+        return userRepository.save(user).block();
     }
 
     @Override
@@ -73,10 +76,11 @@ public class UserManagementService implements IUserManagementService {
         return doIsFoundLogic(userRepository.findByEmail(emailOnly.getUserEmail()));
     }
 
-    private Mono<GenericResultDto<UserResponse>> doIsFoundLogic(Mono<User> user){
-        if(user.blockOptional().isPresent()){
-            saveLatestAccess(user.blockOptional().get());
-            return user.map(DtoHelper::convertUserToGenericUserResponse);
+    private Mono<GenericResultDto<UserResponse>> doIsFoundLogic(Mono<User> userMono){
+        Optional<User> userOptional = userMono.blockOptional();
+        if(userOptional.isPresent()){
+            User user = saveLatestAccess(userOptional.get());
+            return Mono.just(DtoHelper.convertUserToGenericUserResponse(user));
         }else {
             return Mono.empty();
         }
