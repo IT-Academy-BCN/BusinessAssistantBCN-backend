@@ -66,6 +66,7 @@ class GencatControllerTest {
     private CcaeDto[] responseDto;
     private CcaeDto[] responseDtoById;
     private RaiscResponseDto[] raiscResponseDto;
+    private ResponseScopeDto[] responseScopeDto;
 
     @BeforeEach
     void setUp() {
@@ -228,7 +229,34 @@ class GencatControllerTest {
 
         GenericResultDto<RaiscResponseDto> genericResultDto = new GenericResultDto<>();
         genericResultDto.setInfo(1, 1, raiscResponseDto.length, raiscResponseDto);
+
         return genericResultDto;
+    }
+
+    //Método duplicado para que al llamarlo sea descriptivo
+    private GenericResultDto<RaiscResponseDto> getGenericResultDtoRaiscByIdScope(){
+
+        GenericResultDto<RaiscResponseDto> genericResultDto = new GenericResultDto<>();
+        genericResultDto.setInfo(1, 1, raiscResponseDto.length, raiscResponseDto);
+        return genericResultDto;
+    }
+    @Test
+    void getRaiscByIdScopeTest(){
+        final String URI_TEST = "/raisc/scope/10";
+        when(raiscService.getPageRaiscByScope(0,-1,"10")).thenReturn(Mono.just(getGenericResultDtoRaiscByIdScope()));
+        webTestClient.get()
+                .uri(CONTROLLER_BASE_URL + URI_TEST)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.OK)
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.count").isEqualTo(1)
+                .jsonPath("$.offset").isEqualTo(1)
+                .jsonPath("$.limit").isEqualTo(1)
+                .jsonPath(RES0 + "idScope").isEqualTo("10")
+                .consumeWith(System.out::println)
+                .jsonPath("idScope");
     }
 
     @Test

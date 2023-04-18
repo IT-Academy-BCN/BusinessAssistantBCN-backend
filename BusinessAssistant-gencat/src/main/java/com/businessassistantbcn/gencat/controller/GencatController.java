@@ -78,6 +78,16 @@ public class GencatController {
 
     	return raiscService.getPageByRaiscYear(getValidOffset(offset), getValidLimit(limit), getValidYear(year));
     }
+
+    //Filter according to id of scope
+    @GetMapping("/raisc/scope/{scope_Id}")
+    public Mono<GenericResultDto<RaiscResponseDto>> getRaiscByIdScope(@RequestParam(required = false) String offset,
+                                                                    @RequestParam(required = false) String limit,
+                                                                    @PathVariable("scope_Id") String idScope) throws MalformedURLException{
+
+        return raiscService.getPageRaiscByScope(getValidOffset(offset), getValidLimit(limit), idScope);
+    }
+
     private int getValidOffset(String offset)	
     {
         if (offset == null || offset.isEmpty()) {
