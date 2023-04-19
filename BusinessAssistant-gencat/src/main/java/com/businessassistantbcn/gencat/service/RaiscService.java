@@ -1,16 +1,14 @@
 package com.businessassistantbcn.gencat.service;
 
+import com.businessassistantbcn.gencat.adapters.DataSourceAdapter;
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
-import com.businessassistantbcn.gencat.dto.io.CcaeDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.dto.output.ResponseScopeDto;
 import com.businessassistantbcn.gencat.helper.JsonHelper;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -20,9 +18,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Service
 public class RaiscService {
+
+    @Autowired
+    private DataSourceAdapter dataAdapter;
+
     @Autowired
     private GenericResultDto<RaiscResponseDto> genericResultDto;
     @Autowired
@@ -71,5 +74,57 @@ public class RaiscService {
             scopes.add(new ResponseScopeDto(idScope, scope));
         }
         return scopes;
+    }
+
+    //TODO: on error(propagated by adapter) map to Mono<GenericResult<ErrorDto>> ?
+    // Or CircuitBreaker?
+    public Mono<GenericResultDto<RaiscResponseDto>> getPageRaiscByScope(int offset, int limit, String idScope) {
+        Flux<RaiscResponseDto> raiscFlux = dataAdapter.findAllRaisc();
+        Predicate<RaiscResponseDto> filter = raisc -> raisc.getIdScope().equals(idScope);
+        raiscFlux = doPage(raiscFlux, filter  , offset, limit);
+        return mapToGenericResult(raiscFlux, offset, limit);
+    }
+
+    private Flux<RaiscResponseDto> doPage(Flux<RaiscResponseDto> raiscFlux,
+                                          Predicate<RaiscResponseDto> raiscFilter,
+                                          int offset,
+                                          int limit){
+        raiscFlux = doFilter(raiscFlux, raiscFilter);
+        raiscFlux = excludeOffset(raiscFlux, offset);
+        raiscFlux = excludeOutOfLimit(raiscFlux, limit);
+        return raiscFlux;
+    }
+
+    private Flux<RaiscResponseDto> doFilter(Flux<RaiscResponseDto> raiscFlux, Predicate<RaiscResponseDto> raiscFilter) {
+        return raiscFlux
+                .filter(raiscFilter)
+                //to exlude raisc/announcement in case data adapter provides a duplicated raisc response
+                .distinct();
+    }
+
+    private Flux<RaiscResponseDto> excludeOffset(Flux<RaiscResponseDto> raiscFlux, int offset) {
+        if(offset > 0){
+            return raiscFlux.skip(offset);
+        }else {
+            return raiscFlux;
+        }
+    }
+
+    private Flux<RaiscResponseDto> excludeOutOfLimit(Flux<RaiscResponseDto> raiscFlux, int limit) {
+        if(limit >= 0){
+            return raiscFlux.take(limit);
+        }else{
+            return raiscFlux;
+        }
+    }
+
+    private Mono<GenericResultDto<RaiscResponseDto>> mapToGenericResult(Flux<RaiscResponseDto> raiscFlux, int offset, int limit) {
+        return raiscFlux
+                .collectList() //Mono<List<RaiscResponseDto>>
+                .map(raiscResponses -> {
+                    GenericResultDto<RaiscResponseDto> genricRaiscResponse = new GenericResultDto<>();
+                    genricRaiscResponse.setInfo(offset, limit, raiscResponses.size(), raiscResponses.toArray(RaiscResponseDto[]::new));
+                    return genricRaiscResponse;
+                });
     }
 }
