@@ -3,6 +3,7 @@ package com.businessassistantbcn.gencat.service;
 import com.businessassistantbcn.gencat.adapters.DataSourceAdapter;
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
+import com.businessassistantbcn.gencat.dto.output.ErrorDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.dto.output.ResponseScopeDto;
 import com.businessassistantbcn.gencat.helper.JsonHelper;
@@ -76,13 +77,11 @@ public class RaiscService {
         return scopes;
     }
 
-    //TODO: on error(propagated by adapter) map to Mono<GenericResult<ErrorDto>> ?
-    // Or CircuitBreaker?
-    public Mono<GenericResultDto<RaiscResponseDto>> getPageRaiscByScope(int offset, int limit, String idScope) {
+    public Mono<GenericResultDto<Object>> getPageRaiscByScope(int offset, int limit, String idScope) {
         Flux<RaiscResponseDto> raiscFlux = dataAdapter.findAllRaisc();
         Predicate<RaiscResponseDto> filter = raisc -> raisc.getIdScope().equals(idScope);
         raiscFlux = doPage(raiscFlux, filter  , offset, limit);
-        return mapToGenericResult(raiscFlux, offset, limit);
+        return mapToGenericUnkown(raiscFlux, offset, limit);
     }
 
     private Flux<RaiscResponseDto> doPage(Flux<RaiscResponseDto> raiscFlux,
@@ -118,13 +117,27 @@ public class RaiscService {
         }
     }
 
-    private Mono<GenericResultDto<RaiscResponseDto>> mapToGenericResult(Flux<RaiscResponseDto> raiscFlux, int offset, int limit) {
+    private Mono<GenericResultDto<Object>> mapToGenericUnkown(Flux<RaiscResponseDto> raiscFlux, int offset, int limit) {
+        Mono<GenericResultDto<Object>> expectedResponse = mapToGenericResult(raiscFlux, offset, limit);
+        return ifErrorMap(expectedResponse);
+    }
+
+    private Mono<GenericResultDto<Object>> mapToGenericResult(Flux<RaiscResponseDto> raiscFlux, int offset, int limit) {
         return raiscFlux
                 .collectList() //Mono<List<RaiscResponseDto>>
                 .map(raiscResponses -> {
-                    GenericResultDto<RaiscResponseDto> genricRaiscResponse = new GenericResultDto<>();
+                    GenericResultDto<Object> genricRaiscResponse = new GenericResultDto<>();
                     genricRaiscResponse.setInfo(offset, limit, raiscResponses.size(), raiscResponses.toArray(RaiscResponseDto[]::new));
                     return genricRaiscResponse;
                 });
+    }
+
+    private Mono<GenericResultDto<Object>> ifErrorMap(Mono<GenericResultDto<Object>> expectedResponse) {
+        return expectedResponse.onErrorResume(error -> {
+            ErrorDto[] errorsDto = new ErrorDto[]{new ErrorDto(error.getMessage())};
+            GenericResultDto<Object> errorResult = new GenericResultDto<>();
+            errorResult.withErrors(errorsDto);
+            return Mono.just(errorResult);
+        });
     }
 }
