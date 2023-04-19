@@ -17,14 +17,13 @@ public class ResourcesUtils {
         this.resource = resource;
     }
 
-    /*
-            When a file is injected into an attribute and stored as a Resource:
-                example:
-                @Value("classpath:json/allRaiscData.json")
-                private Resource allGencatData;
-
-             Then this method allows parse it to String.
-             */
+    /**
+     * Parses a Resource to an equivalent String
+     * Obs: Resource can be injected in client. Example:
+     *      @Value("classpath:json/allRaiscData.json")
+     *      private Resource allGencatData;
+     * @return the rsource as String
+     */
     public String asString() {
         try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
             return FileCopyUtils.copyToString(reader);
