@@ -40,6 +40,7 @@ public class RaiscService {
 
     private Mono<GenericResultDto<RaiscResponseDto>> getRaiscDefaultPage() {
         genericResultDto.setInfo(0, 0, 0, new RaiscResponseDto[0]);
+        System.out.println(genericResultDto);
         return Mono.just(genericResultDto);
     }
 

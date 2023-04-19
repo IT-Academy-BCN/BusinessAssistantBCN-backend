@@ -55,6 +55,9 @@ public class RaiscServiceTest {
     @InjectMocks
     private RaiscService raiscService;
 
+
+    private static GenericResultDto<RaiscResponseDto> defaultPage;
+
     private static ObjectMapper mapper;
 
     private static final String JSON_ALL_RAISC_SCOPE_DATA = "json/allRaiscData.json";
@@ -68,6 +71,7 @@ public class RaiscServiceTest {
         String allDataAsString = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(JSON_ALL_RAISC_SCOPE_DATA).toURI()), StandardCharsets.UTF_8).get(0);
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         raiscResponseDtosAllData = allDataAsString;
+
     }
 
     @Test
@@ -86,7 +90,15 @@ public class RaiscServiceTest {
         assertEquals("Cultura", scopes.get(4).getScope());
     }
 
+    @Test
+    void getPageRaiscByScopeTest() throws MalformedURLException{
+        GenericResultDto<RaiscResponseDto> raiscByScope = raiscService.getPageRaiscByScope(0,0,"10").block();
 
+        assertEquals(0, raiscByScope.getOffset());
+        assertEquals(0, raiscByScope.getLimit());
+        assertEquals(0, raiscByScope.getCount());
+
+    }
 
 }
 

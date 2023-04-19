@@ -44,7 +44,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	@PreAuthorize("hasAuthority('SUPERUSER')")
+	//@PreAuthorize("hasAuthority('SUPERUSER')")
 	public ResponseEntity<AuthenticationResponse> createAuthenticationToken(
 		@RequestBody AuthenticationRequest authenticationRequest) {
 		try {
