@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class GencatDataAdapterIT {
+class GencatDataAdapterIT {
 
     @Autowired
     private DataSourceAdapter adapter;

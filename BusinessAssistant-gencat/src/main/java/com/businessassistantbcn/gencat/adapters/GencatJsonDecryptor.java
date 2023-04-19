@@ -16,7 +16,7 @@ public abstract class GencatJsonDecryptor {
 
     protected final JsonDeserializerUtils jsonUtils;
 
-    public GencatJsonDecryptor(ObjectMapper mapper) {
+    protected GencatJsonDecryptor(ObjectMapper mapper) {
         this.mapper = mapper;
         jsonUtils = new JsonDeserializerUtils(mapper);
     }

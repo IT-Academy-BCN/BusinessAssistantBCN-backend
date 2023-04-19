@@ -43,7 +43,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class RaiscServiceTest {
+class RaiscServiceTest {
 
     @Autowired
     @InjectMocks

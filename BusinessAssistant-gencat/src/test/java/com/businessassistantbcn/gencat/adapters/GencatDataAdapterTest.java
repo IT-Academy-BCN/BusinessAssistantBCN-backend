@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class GencatDataAdapterTest {
+class GencatDataAdapterTest {
 
     @Autowired
     private GencatDataAdapter adapter;

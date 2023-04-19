@@ -19,9 +19,9 @@ public class JsonDeserializerUtils {
         this.mapper = mapper;
     }
 
-    public JsonNode getNodeByName(String data_field) throws JsonProcessingException {
-        Assert.notNull(data_field, "Field name can't be null");
-        return mapper.readTree(json).get(data_field);
+    public JsonNode getNodeByName(String fieldName) throws JsonProcessingException {
+        Assert.notNull(fieldName, "Field name can't be null");
+        return mapper.readTree(json).get(fieldName);
     }
 
     public String[] parseNonNullNodeArrayToStringArray(JsonNode arrayNode) throws IOException {
