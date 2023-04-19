@@ -78,6 +78,16 @@ public class GencatController {
 
     	return raiscService.getPageByRaiscYear(getValidOffset(offset), getValidLimit(limit), getValidYear(year));
     }
+
+    //GenericResult type can be RaiscResponseDto or ErrorDto
+    @GetMapping("/raisc/scope/{scope_Id}")
+    public Mono<GenericResultDto<Object>> getRaiscByIdScope(@RequestParam(required = false) String offset,
+                                                                    @RequestParam(required = false) String limit,
+                                                                    @PathVariable("scope_Id") String idScope){
+
+        return raiscService.getPageRaiscByScope(getValidOffset(offset), getValidLimit(limit), idScope);
+    }
+
     private int getValidOffset(String offset)	
     {
         if (offset == null || offset.isEmpty()) {

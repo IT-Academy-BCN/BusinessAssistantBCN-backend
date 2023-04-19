@@ -42,10 +42,12 @@ public class RaiscService {
         return getRaiscDefaultPage();
     }
 
+    //Return default page, para probar si funciona endpoint
     private Mono<GenericResultDto<RaiscResponseDto>> getRaiscDefaultPage() {
         genericResultDto.setInfo(0, 0, 0, new RaiscResponseDto[0]);
         return Mono.just(genericResultDto);
     }
+
     public Mono<List<ResponseScopeDto>> getScopes(int offset, int limit) throws MalformedURLException {
         // Hacer un GET a la URL que se encuentra en el application.yml
         Mono<String> response =  httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class);
@@ -76,6 +78,7 @@ public class RaiscService {
         }
         return scopes;
     }
+
 
     public Mono<GenericResultDto<Object>> getPageRaiscByScope(int offset, int limit, String idScope) {
         Flux<RaiscResponseDto> raiscFlux = dataAdapter.findAllRaisc();

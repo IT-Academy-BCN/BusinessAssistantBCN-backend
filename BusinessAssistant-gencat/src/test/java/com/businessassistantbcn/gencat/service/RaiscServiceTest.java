@@ -71,6 +71,7 @@ public class RaiscServiceTest {
         String allDataAsString = Files.readAllLines(Paths.get(ClassLoader.getSystemResource(JSON_ALL_RAISC_SCOPE_DATA).toURI()), StandardCharsets.UTF_8).get(0);
         mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         raiscResponseDtosAllData = allDataAsString;
+
     }
 
     @Test
@@ -89,6 +90,7 @@ public class RaiscServiceTest {
         assertEquals("Cultura", scopes.get(4).getScope());
     }
 
+
     @DisplayName("Parametrized test for find pageable raisc by scope id")
     @ParameterizedTest
     @MethodSource("provideArgsForPageableRaisc")
@@ -96,7 +98,6 @@ public class RaiscServiceTest {
         ResponseScopeDto criteria = new ResponseScopeDto("10","Educació");
         Flux<RaiscResponseDto> source = Flux.fromIterable(initDataSourceMixingScope(sourceSize, criteria));
         when(dataAdapter.findAllRaisc()).thenReturn(source);
-
 
         int totalTargetInSource = sourceSize/2;
         int resultSize = getResultSize(totalTargetInSource, offset, limit);
