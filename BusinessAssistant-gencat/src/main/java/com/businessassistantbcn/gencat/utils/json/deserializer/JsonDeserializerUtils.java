@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.util.Assert;
 
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
 
 public class JsonDeserializerUtils {
