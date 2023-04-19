@@ -14,21 +14,8 @@ public class JsonDeserializerUtils {
 
     private ObjectMapper mapper;
 
-    public JsonDeserializerUtils(@NotNull String json) {
-        Assert.notNull(json, "json to deserialize must be not null");
-        this.json = json;
-        mapper = new ObjectMapper();
-    }
-
     public JsonDeserializerUtils(ObjectMapper mapper) {
         Assert.notNull(mapper, "provided ObjectMapper must be not null");
-        this.mapper = mapper;
-    }
-
-    public JsonDeserializerUtils(@NotNull String json, @NotNull ObjectMapper mapper) {
-        Assert.notNull(json, "json to deserialize must be not null");
-        Assert.notNull(mapper, "provided ObjectMapper must be not null");
-        this.json = json;
         this.mapper = mapper;
     }
 
