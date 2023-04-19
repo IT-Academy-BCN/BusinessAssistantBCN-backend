@@ -70,4 +70,9 @@ public class RaiscResponseDto {
         RaiscResponseDto that = (RaiscResponseDto) o;
         return Objects.equals(getIdRaisc(), that.getIdRaisc()) && Objects.equals(getEntity(), that.getEntity()) && Objects.equals(getRaiscType(), that.getRaiscType()) && Objects.equals(getAnyo(), that.getAnyo()) && Objects.equals(getTitleCA(), that.getTitleCA()) && Objects.equals(getTitleES(), that.getTitleES()) && Objects.equals(getBasesCA(), that.getBasesCA()) && Objects.equals(getBasesES(), that.getBasesES()) && Objects.equals(getSubventionType(), that.getSubventionType()) && Objects.equals(getIdRegion(), that.getIdRegion()) && Objects.equals(getRegion(), that.getRegion()) && Objects.equals(getIdScope(), that.getIdScope()) && Objects.equals(getScope(), that.getScope()) && Objects.equals(getIdSector(), that.getIdSector()) && Objects.equals(getSector(), that.getSector()) && Objects.equals(getOrigin(), that.getOrigin()) && Objects.equals(getMaxBudgetPublish(), that.getMaxBudgetPublish()) && Objects.equals(getMaxBudgetUE(), that.getMaxBudgetUE()) && Objects.equals(getMaxBudge(), that.getMaxBudge()) && Objects.equals(getStartDate(), that.getStartDate()) && Objects.equals(getEndDate(), that.getEndDate()) && Objects.equals(getUrlRequest(), that.getUrlRequest()) && Objects.equals(getDescription(), that.getDescription());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getIdRaisc(), getEntity(), getRaiscType(), getAnyo(), getTitleCA(), getTitleES(), getBasesCA(), getBasesES(), getSubventionType(), getIdRegion(), getRegion(), getIdScope(), getScope(), getIdSector(), getSector(), getOrigin(), getMaxBudgetPublish(), getMaxBudgetUE(), getMaxBudge(), getStartDate(), getEndDate(), getUrlRequest(), getDescription());
+    }
 }
