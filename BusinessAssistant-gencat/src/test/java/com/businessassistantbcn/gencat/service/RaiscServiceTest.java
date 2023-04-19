@@ -3,6 +3,7 @@ package com.businessassistantbcn.gencat.service;
 import com.businessassistantbcn.gencat.adapters.DataSourceAdapter;
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
+import com.businessassistantbcn.gencat.dto.output.ErrorDto;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.dto.output.ResponseScopeDto;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
@@ -37,8 +38,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -101,7 +101,7 @@ public class RaiscServiceTest {
         int totalTargetInSource = sourceSize/2;
         int resultSize = getResultSize(totalTargetInSource, offset, limit);
 
-        Mono<GenericResultDto<RaiscResponseDto>> raiscResults =
+        Mono<GenericResultDto<Object>> raiscResults =
                 raiscService.getPageRaiscByScope(offset, limit, criteria.getIdScope());
 
         StepVerifier.create(raiscResults)
@@ -111,8 +111,10 @@ public class RaiscServiceTest {
                     assertEquals(resultSize, genericResult.getCount());
                     assertEquals(resultSize, genericResult.getResults().length);
                     for(int i= 0; i<genericResult.getCount(); i++){
-                        assertEquals(criteria.getIdScope(), genericResult.getResults()[i].getIdScope());
-                        assertEquals(criteria.getScope(), genericResult.getResults()[i].getScope());
+                        assertInstanceOf(RaiscResponseDto.class, genericResult.getResults()[i]);
+                        RaiscResponseDto raiscResponseDto = (RaiscResponseDto) genericResult.getResults()[i];
+                        assertEquals(criteria.getIdScope(), raiscResponseDto.getIdScope());
+                        assertEquals(criteria.getScope(), raiscResponseDto.getScope());
                     }
                 })
                 .verifyComplete();
@@ -177,6 +179,30 @@ public class RaiscServiceTest {
     }
 
 
+    @Test
+    @DisplayName("Error propagated from data adapter maped into GenericResponse Test")
+    void mappingErrorPorpagatedTest(){
+        String msg = "any error message propagated";
+        when(dataAdapter.findAllRaisc()).thenReturn(Flux.error(new Exception(msg)));
+
+        Mono<GenericResultDto<Object>> raiscResults =
+                raiscService.getPageRaiscByScope(0, -1, "10");
+
+        int offsetWhenError = 0;
+        int limitWhenError = 0;
+
+        StepVerifier.create(raiscResults)
+                .assertNext(genericResult -> {
+                    assertEquals(offsetWhenError, genericResult.getOffset());
+                    assertEquals(limitWhenError, genericResult.getLimit());
+                    assertEquals(1, genericResult.getCount());
+                    assertEquals(1, genericResult.getResults().length);
+                    assertInstanceOf(ErrorDto.class, genericResult.getResults()[0]);
+                    ErrorDto errorDto = (ErrorDto) genericResult.getResults()[0];
+                    assertEquals(msg, errorDto.getMessage());
+                })
+                .verifyComplete();
+    }
 
 }
 
