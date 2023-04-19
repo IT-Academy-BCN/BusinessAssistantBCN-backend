@@ -25,7 +25,7 @@ public class GenericResultDto<T> {
         this.results = results;
     }
 
-    public void withErrors(T[] errorObjects){
+    public void setErrors(T[] errorObjects){
         offset = 0;
         limit = 0;
         count = errorObjects.length;

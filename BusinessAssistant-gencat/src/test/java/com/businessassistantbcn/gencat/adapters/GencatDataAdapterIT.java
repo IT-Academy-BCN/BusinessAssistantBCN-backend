@@ -1,6 +1,7 @@
 package com.businessassistantbcn.gencat.adapters;
 
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
+import com.businessassistantbcn.gencat.service.DataSourceAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

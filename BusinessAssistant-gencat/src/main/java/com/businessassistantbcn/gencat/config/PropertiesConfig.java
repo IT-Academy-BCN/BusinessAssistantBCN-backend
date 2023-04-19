@@ -36,8 +36,14 @@ public class PropertiesConfig {
     private String authoritiesClaim;
     @Value("${security.datasource.err}")
     private String err;
-    @Value("${url.ds_scopes}")
-    private String ds_scopes;
+    @Value("${url.ds_raisc}")
+    private String dsRaisc;
+    @Value("${url.error.url_malformed}")
+    private String errorUrlStored;
+    @Value("${url.error.empty_json}")
+    private String errorEmptyJson;
+    @Value("${url.error.json_updated}")
+    private String errorJsonChange;
     private List<CcaeItem> ccae = new ArrayList<>();
 
     public int getMaxBytesInMemory() {return maxBytesInMemory;}
@@ -45,13 +51,26 @@ public class PropertiesConfig {
     public String getDs_ccae() {return ds_ccae;}
     public String getDs_apitestcircuitbreakers() { return ds_apitestcircuitbreakers; }
     public String getDs_test() { return ds_test; }
-    public String getDs_scopes() { return ds_scopes; }
+    public String getDsRaisc() { return dsRaisc; }
 
     public String getDs_economicActivities() { return ds_economicActivities;}
     public String getSecret() {return secret; }
     public String getHeaderString() {return headerString; }
     public String getAuthoritiesClaim() {return authoritiesClaim;}
     public String getErr() {return err;}
+
+    public String getErrorUrlStored() {
+        return errorUrlStored;
+    }
+
+    public String getErrorEmptyJson() {
+        return errorEmptyJson;
+    }
+
+    public String getErrorJsonChange() {
+        return errorJsonChange;
+    }
+
     public List<CcaeItem> getCcae() { return ccae; }
 
     @Data

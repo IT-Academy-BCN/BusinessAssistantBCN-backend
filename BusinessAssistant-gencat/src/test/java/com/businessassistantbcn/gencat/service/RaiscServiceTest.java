@@ -1,6 +1,5 @@
 package com.businessassistantbcn.gencat.service;
 
-import com.businessassistantbcn.gencat.adapters.DataSourceAdapter;
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.output.ErrorDto;
@@ -76,8 +75,8 @@ class RaiscServiceTest {
 
     @Test
     void getScopesTest() throws MalformedURLException {
-        when(config.getDs_scopes()).thenReturn("https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json");
-        when(httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class)).thenReturn(Mono.just(raiscResponseDtosAllData));
+        when(config.getDsRaisc()).thenReturn("https://analisi.transparenciacatalunya.cat/api/views/khxn-nv6a/rows.json");
+        when(httpProxy.getRequestData(new URL(config.getDsRaisc()), String.class)).thenReturn(Mono.just(raiscResponseDtosAllData));
         List<ResponseScopeDto> scopes = raiscService.getScopes(0, 5).block();
 
         assertNotNull(scopes);
@@ -181,8 +180,8 @@ class RaiscServiceTest {
 
 
     @Test
-    @DisplayName("Error propagated from data adapter maped into GenericResponse Test")
-    void mappingErrorPorpagatedTest(){
+    @DisplayName("Error propagated from data adapter mapped into GenericResponse Test")
+    void mappingErrorPropagatedTest(){
         String msg = "any error message propagated";
         when(dataAdapter.findAllRaisc()).thenReturn(Flux.error(new Exception(msg)));
 

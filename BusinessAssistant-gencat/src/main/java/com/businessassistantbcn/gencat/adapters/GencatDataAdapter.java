@@ -3,6 +3,7 @@ package com.businessassistantbcn.gencat.adapters;
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
+import com.businessassistantbcn.gencat.service.DataSourceAdapter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,7 +16,7 @@ import java.net.URL;
 import java.util.List;
 
 @Repository
-public class GencatDataAdapter extends GencatJsonDecryptor implements DataSourceAdapter {
+public class GencatDataAdapter extends GencatJsonMapper implements DataSourceAdapter {
 
     private final HttpProxy proxy;
 
@@ -34,11 +35,11 @@ public class GencatDataAdapter extends GencatJsonDecryptor implements DataSource
         try {
             url = obtainUrl();
         } catch (MalformedURLException e) {
-            return Flux.error(new RuntimeException("URL in config malformed")); //low probability
+            return Flux.error(new RuntimeException(config.getErrorUrlStored())); //low probability
         }
         Mono<String> jsonMono = obtainGencatJsonString(url); //errors captured with circuitbreaker on service
         return jsonMono
-                .switchIfEmpty(Mono.error(new IOException("Gencat it's not providing a json")))
+                .switchIfEmpty(Mono.error(new IOException(config.getErrorEmptyJson())))
                 .flatMap(json -> { //map executed only if no error has been propagated before
                     List<RaiscResponseDto> dataForService;
                     try {
@@ -46,8 +47,7 @@ public class GencatDataAdapter extends GencatJsonDecryptor implements DataSource
                         //method for mapping can throw exceptions if the structure changes
                         return Mono.just(dataForService);
                     } catch (IOException e) {
-                        String errorMessage = "Provided Gencat Json has changed data's structure";
-                        return Mono.error(new IOException(errorMessage));
+                        return Mono.error(new IOException(config.getErrorJsonChange()));
                     }
                 }) //Mono<List<RaiscResponeDto>> or mono.error
                 .flatMapMany(Flux::fromIterable);
@@ -58,6 +58,6 @@ public class GencatDataAdapter extends GencatJsonDecryptor implements DataSource
     }
 
     private URL obtainUrl() throws MalformedURLException {
-        return new URL(config.getDs_scopes());//can throw exception due malformed
+        return new URL(config.getDsRaisc());//can throw exception due malformed
     }
 }

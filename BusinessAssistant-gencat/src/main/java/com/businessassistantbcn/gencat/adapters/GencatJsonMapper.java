@@ -4,19 +4,22 @@ import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.utils.json.deserializer.JsonDeserializerUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.log4j.Log4j2;
+
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class GencatJsonDecryptor {
+@Log4j2
+public abstract class GencatJsonMapper {
 
     protected final ObjectMapper mapper;
 
     protected final JsonDeserializerUtils jsonUtils;
 
-    protected GencatJsonDecryptor(ObjectMapper mapper) {
+    protected GencatJsonMapper(ObjectMapper mapper) {
         this.mapper = mapper;
         jsonUtils = new JsonDeserializerUtils(mapper);
     }
@@ -35,7 +38,9 @@ public abstract class GencatJsonDecryptor {
         if(allDataNode.isArray()){
             return interpretGencatData(allDataNode);
         }else {
-            throw new IOException("all announcements are no longer provided as array");
+            String msg = "all announcements are no longer provided as array";
+            log.debug(msg);
+            throw new IOException(msg);
         }
     }
 
@@ -47,7 +52,9 @@ public abstract class GencatJsonDecryptor {
             if(oneAnnouncementNode.isArray()){
                 raiscResponses.add(interpretGencatAnnouncementArray(oneAnnouncementNode));
             }else {
-                throw new IOException("one announcement's values are no longer provided as array");
+                String msg = "one announcement's values are no longer provided as array";
+                log.debug(msg);
+                throw new IOException(msg);
             }
         }
         return raiscResponses;
@@ -63,7 +70,9 @@ public abstract class GencatJsonDecryptor {
 
         public OneAnnouncementGencat(String[] announcementArray) throws IOException {
             if(announcementArray.length != 70){
-                throw new IOException("expected 70 elems from source");
+                String msg= "expected 70 elems from source";
+                log.debug(msg);
+                throw new IOException(msg);
             }
             this.announcement = announcementArray;
         }

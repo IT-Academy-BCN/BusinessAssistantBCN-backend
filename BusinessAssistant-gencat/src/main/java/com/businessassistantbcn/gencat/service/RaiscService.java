@@ -1,6 +1,5 @@
 package com.businessassistantbcn.gencat.service;
 
-import com.businessassistantbcn.gencat.adapters.DataSourceAdapter;
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.output.ErrorDto;
@@ -50,7 +49,7 @@ public class RaiscService {
 
     public Mono<List<ResponseScopeDto>> getScopes(int offset, int limit) throws MalformedURLException {
         // Hacer un GET a la URL que se encuentra en el application.yml
-        Mono<String> response =  httpProxy.getRequestData(new URL(config.getDs_scopes()), String.class);
+        Mono<String> response =  httpProxy.getRequestData(new URL(config.getDsRaisc()), String.class);
         // Extraer ResponseScopeDto de toda la data de un Flux.
         // .skip para saltar la data del offset y .take para limitar los resultados
         return response
@@ -139,7 +138,7 @@ public class RaiscService {
         return expectedResponse.onErrorResume(error -> {
             ErrorDto[] errorsDto = new ErrorDto[]{new ErrorDto(error.getMessage())};
             GenericResultDto<Object> errorResult = new GenericResultDto<>();
-            errorResult.withErrors(errorsDto);
+            errorResult.setErrors(errorsDto);
             return Mono.just(errorResult);
         });
     }
