@@ -4,7 +4,6 @@ import com.businessassistantbcn.gencat.dto.output.RaiscResponseDto;
 import com.businessassistantbcn.gencat.utils.json.deserializer.JsonDeserializerUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.util.Assert;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -36,7 +35,7 @@ public abstract class GencatJsonDecryptor {
         if(allDataNode.isArray()){
             return interpretGencatData(allDataNode);
         }else {
-            return null; //all announcements is no longer provided as array
+            throw new IOException("all announcements are no longer provided as array");
         }
     }
 
@@ -48,7 +47,7 @@ public abstract class GencatJsonDecryptor {
             if(oneAnnouncementNode.isArray()){
                 raiscResponses.add(interpretGencatAnnouncementArray(oneAnnouncementNode));
             }else {
-                return null; //one announcement's values are no longer provided as array
+                throw new IOException("one announcement's values are no longer provided as array");
             }
         }
         return raiscResponses;
@@ -62,10 +61,10 @@ public abstract class GencatJsonDecryptor {
     public static class OneAnnouncementGencat {
         private final String[] announcement;
 
-        public OneAnnouncementGencat(String[] announcementArray) {
-            Assert.notNull(announcementArray, "array announcement from gencat can't be null");
-            Assert.isTrue(announcementArray.length == 70, "Expected announcement array from gencat should have 70 elements");
-
+        public OneAnnouncementGencat(String[] announcementArray) throws IOException {
+            if(announcementArray.length != 70){
+                throw new IOException("expected 70 elems from source");
+            }
             this.announcement = announcementArray;
         }
 

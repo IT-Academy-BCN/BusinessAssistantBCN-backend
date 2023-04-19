@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Builder
 @ToString
+@EqualsAndHashCode
 public class RaiscResponseDto {
 
     //ENDPOINTS
