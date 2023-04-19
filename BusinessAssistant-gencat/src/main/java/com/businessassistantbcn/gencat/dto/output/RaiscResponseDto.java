@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class RaiscResponseDto {
 
     //ENDPOINTS
