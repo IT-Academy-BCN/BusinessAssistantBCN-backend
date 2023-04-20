@@ -1,97 +1,88 @@
 package com.businessassistantbcn.usermanagement.service;
 
 import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
+import com.businessassistantbcn.usermanagement.dto.input.EmailOnly;
+import com.businessassistantbcn.usermanagement.dto.input.IdOnly;
+import com.businessassistantbcn.usermanagement.dto.input.SingUpRequest;
 import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
-import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
+import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import com.businessassistantbcn.usermanagement.document.User;
-import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.output.UserDto;
 import com.businessassistantbcn.usermanagement.helper.DtoHelper;
 import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
+
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class UserManagementService implements IUserManagementService {
 
     @Autowired
     UserManagementRepository userRepository;
     @Autowired
     PropertiesConfig propertiesConfig;
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
 
-    /**
-     * Añade un usuario a la base de datos. Funcionamiento:
-     * 1. Comprueba si el número máximo de usuarios está excedido
-     * 2. Comprueba si el usuario existe
-     * 3. Si el usuario existe, actualiza el último acceso y devuelve empty
-     * 4. Si el usuario no existe, lo crea y devuelve el usuario creado
-     *
-     * @param userEmailDto
-     * @return
-     */
+    @Autowired
+    PasswordEncoder encoder;
 
-    public Mono<?> addUser(UserEmailDto userEmailDto) {
-
-        Mono<?> response;
-
-        if (!limitUsersDbExceeded()) {
-            Optional<User> user = userRepository.findByEmail(userEmailDto.getEmail()).blockOptional();
-            if (!user.isEmpty()) {
-                setLatestAccess(user.get());
-                userRepository.save(user.get()).block();
-                response = Mono.empty();
+    @Override
+    public Mono<GenericResultDto<?>> addUser(SingUpRequest singup) {
+        Mono<GenericResultDto<?>> response;
+        if (isSaveNewUserAllowed()) {
+            Optional<User> userFound = userRepository.findByEmail(singup.getUserEmail()).blockOptional();
+            if (userFound.isEmpty()) {
+                User user = DtoHelper.convertSingupToUser(singup).encodePassword(encoder);
+                response = userRepository.save(user)
+                        .map(DtoHelper::convertUserToGenericUserResponse);
             } else {
-                userEmailDto.setPassword(encoder.encode(userEmailDto.getPassword()));
-                response = userRepository.save(DtoHelper.convertToUserFromEmailDto(userEmailDto)).map(DtoHelper::convertToDto);
+                saveLatestAccess(userFound.get());
+                String errorMsg = "already exist other user whit email: "+singup.getUserEmail();
+                response = Mono.just(new GenericResultDto<>(new ErrorDto(errorMsg)));
             }
-        } else {//número máximo de usuarios excedido
-            response = Mono.just(new ErrorDto(propertiesConfig.getError()));
+        } else {
+            response = Mono.just(new GenericResultDto<>(new ErrorDto(propertiesConfig.getErrorLimitDb())));
         }
         return response;
     }
 
-    public void setLatestAccess(User user) {
-        user.setLatestAccess(System.currentTimeMillis());
-        userRepository.save(user).block();
+    private boolean isSaveNewUserAllowed() {
+        if(propertiesConfig.getEnabled()){
+            return userRepository.count()
+                    .blockOptional()
+                    .filter(count -> propertiesConfig.getMaxusers() > count)
+                    .isPresent();
+        }else {
+            return true;
+        }
     }
 
-    public boolean limitUsersDbExceeded() {
-        return propertiesConfig.getEnabled() && (userRepository.count().block() >= propertiesConfig.getMaxusers());
+    private User saveLatestAccess(User user) {
+        user.setLatestAccess(System.currentTimeMillis());
+        return userRepository.save(user).block();
     }
 
     @Override
-    public Mono<UserDto> getUserByUuid(UserUuidDto userUuidDto) {
-
-        Mono<User> user = userRepository.findByUuid(userUuidDto.getUuid());
-
-        Mono<UserDto> response;
-
-        if (user.blockOptional().isEmpty()) {
-            response = Mono.empty();
-        } else {
-            setLatestAccess(user.block());
-            response = user.map(DtoHelper::convertToDto);
-        }
-        return response;
-
+    public Mono<GenericResultDto<UserResponse>> getUserById(IdOnly idOnly) {
+        return doIsFoundLogic(userRepository.findByUuid(idOnly.getUserId()));
     }
 
-    public Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto) {
+    @Override
+    public Mono<GenericResultDto<UserResponse>> getUserByEmail(EmailOnly emailOnly) {
+        return doIsFoundLogic(userRepository.findByEmail(emailOnly.getUserEmail()));
+    }
 
-        Mono<User> user = userRepository.findByEmail(userEmailDto.getEmail());
-
-        Mono<UserDto> response;
-
-        if (user.blockOptional().isEmpty()) {
-            response = Mono.empty();
-        } else {
-            setLatestAccess(user.block());
-            response = user.map(DtoHelper::convertToDto);
+    private Mono<GenericResultDto<UserResponse>> doIsFoundLogic(Mono<User> userMono){
+        Optional<User> userOptional = userMono.blockOptional();
+        if(userOptional.isPresent()){
+            User user = saveLatestAccess(userOptional.get());
+            return Mono.just(DtoHelper.convertUserToGenericUserResponse(user));
+        }else {
+            return Mono.empty();
         }
-        return response;
     }
 }

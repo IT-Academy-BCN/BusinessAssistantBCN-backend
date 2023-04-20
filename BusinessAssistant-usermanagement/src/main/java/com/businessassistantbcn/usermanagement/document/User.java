@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -34,4 +35,9 @@ public class User {
     private long latestAccess;
 
     public User() {}
+
+    public User encodePassword(PasswordEncoder encoder) {
+        this.password = encoder.encode(password);
+        return this;
+    }
 }

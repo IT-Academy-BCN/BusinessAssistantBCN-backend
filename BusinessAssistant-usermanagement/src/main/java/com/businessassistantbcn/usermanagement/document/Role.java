@@ -1,6 +1,17 @@
 package com.businessassistantbcn.usermanagement.document;
 
 public enum Role {
-    USER,
-    ADMIN
+    USER("USER"),
+    ADMIN("ADMIN");
+
+    private String name;
+
+    Role(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }

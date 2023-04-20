@@ -4,51 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
-import org.springframework.beans.BeanUtils;
+import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
+import com.businessassistantbcn.usermanagement.dto.input.SingUpRequest;
+import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
 
 import com.businessassistantbcn.usermanagement.document.User;
 
 
-import com.businessassistantbcn.usermanagement.dto.output.UserDto;
+import com.businessassistantbcn.usermanagement.dto.io.UserDto;
 import com.businessassistantbcn.usermanagement.document.Role;
 
 public class DtoHelper {
 
-	//No se utilizar porque no se almacenan usuarios sin password.
-	public static User convertToUser (UserDto userDto) {
-		User user = new User();
-		List<Role> roles;
-
-		BeanUtils.copyProperties(userDto, user);
-		roles = convertToUserRoles(userDto.getRoles());
-		user.setRoles(roles);
-
-		return user;
+	public static UserDto convertUserToUserDto(User user) {
+		return UserDto.builder()
+				.userId(user.getUuid())
+				.userEmail(user.getEmail())
+				.userRoles(convertToUserDtoRoles(user.getRoles()))
+				.userPassword(user.getPassword()) //WARNING: for storage. NEVER serialized
+				.build();
 	}
 
-	public static UserDto convertToDto (User user) {
-		UserDto userDto = new UserDto();
-		List<String> stringRoles;
-
-		BeanUtils.copyProperties(user, userDto);
-		stringRoles = convertToUserDtoRoles(user.getRoles());
-		userDto.setRoles(stringRoles);
-		userDto.setPassword(user.getPassword());
-
-		return userDto;
+	public static GenericResultDto<UserResponse> convertUserToGenericUserResponse(User user){
+		UserResponse userResponse = convertUserToUserDto(user);
+		return new GenericResultDto<>(userResponse);
 	}
 
-	public static User convertToUserFromEmailDto (UserEmailDto userEmailDto) {
+	public static User convertSingupToUser(SingUpRequest singup) {
 		User user = new User();
-		List<Role> roles = new ArrayList();
-
-		BeanUtils.copyProperties(userEmailDto, user);
-
+		user.setEmail(singup.getUserEmail());
+		user.setPassword(singup.getUserPassword());
 		//User role, UUID and latestAcces given to all new users.
 		user.setUuid(UUID.randomUUID().toString());
-		roles.add(Role.USER);
-		user.setRoles(roles);
+		user.setRoles(List.of(Role.USER));
 		user.setLatestAccess(System.currentTimeMillis());
 
 		return user;
@@ -83,5 +71,7 @@ public class DtoHelper {
 
 		return stringRoles;
 	}
+
+
 
 }

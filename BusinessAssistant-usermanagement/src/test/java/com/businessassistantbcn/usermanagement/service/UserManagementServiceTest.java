@@ -4,45 +4,60 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.businessassistantbcn.usermanagement.config.PropertiesConfig;
+import com.businessassistantbcn.usermanagement.dto.input.EmailOnly;
+import com.businessassistantbcn.usermanagement.dto.input.IdOnly;
+import com.businessassistantbcn.usermanagement.dto.input.SingUpRequest;
+import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
 import com.businessassistantbcn.usermanagement.dto.output.ErrorDto;
-import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
+import lombok.extern.log4j.Log4j2;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.businessassistantbcn.usermanagement.document.Role;
 import com.businessassistantbcn.usermanagement.document.User;
-import com.businessassistantbcn.usermanagement.dto.output.UserDto;
-import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
+import com.businessassistantbcn.usermanagement.dto.io.UserDto;
 import com.businessassistantbcn.usermanagement.repository.UserManagementRepository;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+//@PropertySource("classpath:mapping-test.properties")
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+@Log4j2
 public class UserManagementServiceTest {
 
+    @Autowired
+    IUserManagementService service;
 
-    @Mock
+    @MockBean
     UserManagementRepository repository;
 
-    @Mock
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12); // Strength set as 12;
-    @Mock
+    @MockBean
     PropertiesConfig propertiesConfig;
 
-    @InjectMocks
-    UserManagementService service;
+    private User user;
 
-    User user;
-    UserEmailDto userEmailDto;
-    UserUuidDto userUuidDto;
+    private UserDto userDto;
+
+    private int maxUsers;
+
+    private String errorLimitMsg;
+
 
     @BeforeEach
     void setUp() {
@@ -53,103 +68,155 @@ public class UserManagementServiceTest {
         String email = "user@user.es";
         String password = "12345";
         long latestAccess = 1111111111;
-
         user = new User(id, uuid, email, password, roles, latestAccess);
-        userEmailDto = new UserEmailDto(email, password);
-        userUuidDto = new UserUuidDto(uuid);
 
+        userDto = UserDto.builder()
+                .userId(uuid)
+                .userEmail(email)
+                .userRoles(roles.stream()
+                        .map(role -> role.toString()).toList())
+                .userPassword(password)
+                .build();
+
+        when(propertiesConfig.getEnabled()).thenReturn(true);
+        maxUsers = 10;
+        when(propertiesConfig.getMaxusers()).thenReturn(maxUsers);
+        errorLimitMsg = "Users limit on database";
+        when(propertiesConfig.getErrorLimitDb()).thenReturn(errorLimitMsg);
     }
 
     @Test
-    public void test_addExistUser(){
-        when(service.limitUsersDbExceeded()).thenReturn(false);
-        when(repository.findByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(user));
-        when(repository.save(any(User.class)/*user*/)).thenReturn(Mono.empty());
+    void addNewUserTest(){
+        mockNumUsersAllowed(1);
+        mockFindByEmailResponse(Mono.empty());
+        mockSaveResponse(Mono.just(user));
 
-        Mono<UserDto> result = (Mono<UserDto>) service.addUser(userEmailDto);
-
-        StepVerifier.create(result)
-                .verifyComplete();
-    }
-
-    @Test
-    public void test_addNewUser(){
-        when(service.limitUsersDbExceeded()).thenReturn(false);
-        when(repository.findByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
-        when(repository.save(any(User.class)/*user*/)).thenReturn(Mono.just(user));
-        //when(encoder.encode(userEmailDto.getPassword())).thenReturn("passwordEncoded");
-
-        Mono<UserDto> result = (Mono<UserDto>) service.addUser(userEmailDto);
-
-        StepVerifier.create(result)
-                .consumeNextWith(userDto->{
-                    assertEquals("cb5f0578-6574-4e9a-977d-fca06c7cb67b"/*user.getUuid()*/, userDto.getUuid());
+        Mono<GenericResultDto<?>> genericResultMono = doAddUser();
+        StepVerifier.create(genericResultMono)
+                .assertNext(result -> {
+                    assertInstanceOf(UserResponse.class,result.getResults()[0]);
+                    UserResponse userResponse = (UserResponse) result.getResults()[0];
+                    assertNotNull(userResponse.getUserId());
+                    assertEquals(userDto.getUserEmail(), userResponse.getUserEmail());
+                    assertEquals(userDto.getUserRoles(), userResponse.getUserRoles());
                 })
+                .expectNextCount(0)
                 .verifyComplete();
     }
 
     @Test
-    public void test_addUserLimitDbExceeded(){
-        when(service.limitUsersDbExceeded()).thenReturn(true);
-        when(repository.count()).thenReturn(Mono.just(201L));
-        when(propertiesConfig.getError()).thenReturn("Users limit on database");
+    void singupEmailExistTest(){
+        mockNumUsersAllowed(1);
+        mockFindByEmailResponse(Mono.just(user));
+        mockSaveResponse(Mono.just(user));
+        String errorMsg = "already exist other user whit email: "+userDto.getUserEmail();
+        assertOneError(doAddUser(), errorMsg);
+    }
 
-        Mono<ErrorDto> result = (Mono<ErrorDto>) service.addUser(userEmailDto);
+    @Test
+    void addUserLimitDbExceededTest(){
+        mockNumUsersAllowed(0);
+        mockFindByEmailResponse(Mono.empty());
+        mockSaveResponse(Mono.just(user));
+        assertOneError(doAddUser(), errorLimitMsg);
+    }
 
-        StepVerifier.create(result)
-                .consumeNextWith(errorDto->{
-                    assertEquals("Users limit on database"/*,propertiesConfig.getErr()*/, errorDto.getMessage());
+    private Mono<GenericResultDto<?>> doAddUser(){
+        SingUpRequest singup = userDto;
+        return service.addUser(singup);
+    }
+
+    private void assertOneError (Mono<GenericResultDto<?>> genericResultMono, String message){
+        StepVerifier.create(genericResultMono)
+                .assertNext(result -> {
+                    ErrorDto errorDto = (ErrorDto) result.getResults()[0];
+                    assertEquals(message, errorDto.getErrorMessage());
                 })
+                .expectNextCount(0)
                 .verifyComplete();
     }
 
+
+
     @Test
-    public void test_getUserByUuid() {
-        when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.just(user));
-        when(repository.save(user)).thenReturn(Mono.just(user));
+    void getUserByIdTest() {
+        mockFoundByIdlResponse(Mono.just(user));
+        mockSaveResponse(Mono.just(user));
 
-        Mono<UserDto> user = service.getUserByUuid(userUuidDto);
-
-        StepVerifier.create(user)
-                .consumeNextWith(userDto -> {
-                    assertEquals(userDto.getUuid(), userUuidDto.getUuid());
+        Mono<GenericResultDto<UserResponse>> genericResultMono = doFindById();
+        StepVerifier.create(genericResultMono)
+                .assertNext(result -> {
+                    UserResponse userResponse = result.getResults()[0];
+                    assertEquals(userDto.getUserId(), userResponse.getUserId());
+                    assertNotNull(userResponse.getUserEmail(), "user email is null");
+                    assertNotNull(userResponse.getUserRoles(), "user roles is null");
                 })
+                .expectNextCount(0)
                 .verifyComplete();
     }
 
     @Test
-    public void test_getUserByUuidNotExist() {
-        when(repository.findByUuid(userUuidDto.getUuid())).thenReturn(Mono.empty());
+    void getUserByUuidNotExistTest() {
+        mockFoundByIdlResponse(Mono.empty());
+        mockSaveResponse(Mono.empty());
+        assertCompletedEmpty(doFindById());
+    }
 
-        Mono<UserDto> user1 = service.getUserByUuid(userUuidDto);
-
-        StepVerifier.create(user1)
-                .verifyComplete();
+    private Mono<GenericResultDto<UserResponse>> doFindById(){
+        IdOnly idOnly = userDto;
+        return service.getUserById(idOnly);
     }
 
     @Test
-    public void test_getUserByEmail() {
-        when(repository.findByEmail(userEmailDto.getEmail())).thenReturn(Mono.just(user));
-        when(repository.save(user)).thenReturn(Mono.just(user));
+    void getUserByEmailTest() {
+        mockSaveResponse(Mono.just(user));
+        mockFindByEmailResponse(Mono.just(user));
 
-        Mono<UserDto> user1 = service.getUserByEmail(userEmailDto);
-
-        StepVerifier.create(user1)
-                .consumeNextWith(userDto -> {
-                    assertEquals(userDto.getEmail(), userEmailDto.getEmail());
+        Mono<GenericResultDto<UserResponse>> genericResultMono = doFindByEmail();
+        StepVerifier.create(genericResultMono)
+                .assertNext(result -> {
+                    UserResponse userResponse = result.getResults()[0];
+                    assertEquals(userDto.getUserEmail(), userResponse.getUserEmail());
+                    assertNotNull(userResponse.getUserId(), "user id is null");
+                    assertNotNull(userResponse.getUserRoles(), "user roles is null");
                 })
+                .expectNextCount(0)
                 .verifyComplete();
-
     }
 
     @Test
-    public void test_getUserByEmailNotExist() {
-        when(repository.findByEmail(userEmailDto.getEmail())).thenReturn(Mono.empty());
-
-        Mono<UserDto> user1 = service.getUserByEmail(userEmailDto);
-
-        StepVerifier.create(user1)
-                .verifyComplete();
-
+    void getUserByEmailNotExistTest() {
+        mockSaveResponse(Mono.empty());
+        mockFindByEmailResponse(Mono.empty());
+        assertCompletedEmpty(doFindByEmail());
     }
+
+    private Mono<GenericResultDto<UserResponse>> doFindByEmail(){
+        EmailOnly emailOnly = userDto;
+        return service.getUserByEmail(emailOnly);
+    }
+
+    private <T> void assertCompletedEmpty(Mono<T> mono){
+        StepVerifier.create(mono)
+                .expectComplete()
+                .verify();
+    }
+
+    private void mockNumUsersAllowed(int usersallowed){
+        when(repository.count()).thenReturn(Mono.just(Long.valueOf(maxUsers-usersallowed)));
+    }
+
+    private void mockSaveResponse(Mono<User> monoReturn){
+        when(repository.save(any(User.class))).thenReturn(monoReturn);
+    }
+
+    private  void mockFindByEmailResponse(Mono<User> monoReturn){
+        when(repository.findByEmail(userDto.getUserEmail())).thenReturn(monoReturn);
+    }
+
+    private void mockFoundByIdlResponse(Mono<User> monoReturn){
+        when(repository.findByUuid(userDto.getUserId())).thenReturn(monoReturn);
+    }
+
+
 }

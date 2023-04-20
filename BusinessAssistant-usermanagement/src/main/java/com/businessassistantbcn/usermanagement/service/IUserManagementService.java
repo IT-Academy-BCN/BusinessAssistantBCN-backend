@@ -1,17 +1,28 @@
 package com.businessassistantbcn.usermanagement.service;
 
-import com.businessassistantbcn.usermanagement.dto.input.UserEmailDto;
-import com.businessassistantbcn.usermanagement.dto.output.UserDto;
-
-import com.businessassistantbcn.usermanagement.dto.input.UserUuidDto;
+import com.businessassistantbcn.usermanagement.dto.input.EmailOnly;
+import com.businessassistantbcn.usermanagement.dto.input.IdOnly;
+import com.businessassistantbcn.usermanagement.dto.input.SingUpRequest;
+import com.businessassistantbcn.usermanagement.dto.output.GenericResultDto;
+import com.businessassistantbcn.usermanagement.dto.output.UserResponse;
 import reactor.core.publisher.Mono;
 
 public interface IUserManagementService {
 
-    Mono<?> addUser(UserEmailDto userEmailDto);
+    /**
+     * Añade un usuario a la base de datos. Funcionamiento:
+     * 1. Comprueba si el número máximo de usuarios está excedido
+     * 2. Comprueba si el usuario existe
+     * 3. Si el usuario existe, actualiza el último acceso y devuelve empty
+     * 4. Si el usuario no existe, lo crea y devuelve el usuario creado
+     *
+     * @param singup
+     * @return
+     */
+    Mono<GenericResultDto<?>> addUser(SingUpRequest singup);
 
-    Mono<UserDto> getUserByUuid(UserUuidDto userUuidDto);
+    Mono<GenericResultDto<UserResponse>> getUserById(IdOnly idOnly);
 
-    Mono<UserDto> getUserByEmail(UserEmailDto userEmailDto);
+    Mono<GenericResultDto<UserResponse>> getUserByEmail(EmailOnly emailOnly);
 
 }
