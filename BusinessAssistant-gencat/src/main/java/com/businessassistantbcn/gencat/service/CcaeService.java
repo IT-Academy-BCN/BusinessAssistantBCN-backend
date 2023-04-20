@@ -3,6 +3,7 @@ package com.businessassistantbcn.gencat.service;
 import com.businessassistantbcn.gencat.config.PropertiesConfig;
 import com.businessassistantbcn.gencat.dto.GenericResultDto;
 import com.businessassistantbcn.gencat.dto.io.CcaeDto;
+import com.businessassistantbcn.gencat.dto.io.CodeInfoDto;
 import com.businessassistantbcn.gencat.helper.CcaeDeserializer;
 import com.businessassistantbcn.gencat.helper.JsonHelper;
 import com.businessassistantbcn.gencat.proxy.HttpProxy;
@@ -14,8 +15,11 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 @Service
 public class CcaeService {
@@ -45,9 +49,15 @@ public class CcaeService {
     }
 
     @CircuitBreaker(name = "circuitBreaker", fallbackMethod = "logServerErrorCcaeDefaultPage")
-    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId) {
-
-        return this.getCcaeDefaultPage();
+    public Mono<GenericResultDto<CcaeDto>> getPageByCcaeId(int offset, int limit, String ccaeId) throws MalformedURLException {
+        return getData()
+                .flatMap(ccaeDtos -> {
+                    CcaeDto[] pageResult = JsonHelper.filterDto(ccaeDtos, offset, limit);
+                    CcaeDto ccaeDto = Arrays.stream(pageResult).filter(e -> e.getId().equals(ccaeId))
+                            .findAny().get();
+                    genericResultDto.setInfoSingle(offset, limit, ccaeDto);
+                    return Mono.just(genericResultDto);
+                });
     }
 
     @SuppressWarnings("unused")
@@ -73,4 +83,5 @@ public class CcaeService {
       public Mono<List<PropertiesConfig.CcaeItem>> getTypes() throws MalformedURLException {
         return Mono.just(config.getCcae());
     }
+
 }
